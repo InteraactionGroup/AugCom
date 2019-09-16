@@ -2,9 +2,9 @@
   [ngStyle]="{'grid-template-columns': 'repeat(5, 1fr)'}">
   <ng-container *ngFor="let box of boxes ">
     <li *ngIf="box.extCboardLabelKey === this.folder">
-        <div 
+      <div 
         *ngIf="box.loadBoard.path === ''"
-          class="button"
+          class="button actionButton"
           (click)="onSelect(box)"
           id="{{box.id}}"
           [ngStyle]="{'background-color': box.backgroundColor}" >
@@ -16,18 +16,19 @@
     </div> 
       <div 
       *ngIf="box.loadBoard.path !== ''"
-      class="folder"
+      class="button folder"
       (click)="onSelectFolder(box)"
       id="{{box.id}}" 
       [ngStyle]="{'background-color': box.backgroundColor}">
       <div class="icon"
       [ngStyle]="{'background-image':this.getImgUrl(box)}" 
       ></div>
-      <div class= "label">{{box.label}}</div></div> 
-    </li>
+      <div class= "label">{{box.label}}</div>
+    </div> 
+   </li>
  </ng-container>
     <ng-template [ngIf]="this.folder !== 'root' ">
-      <button class="back"
+      <button class="button back"
       (click)="onSelectBack()">back</button> 
     </ng-template>
 </div>

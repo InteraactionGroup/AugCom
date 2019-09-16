@@ -2,46 +2,31 @@
   	cursor: pointer;
   	position: relative;
   	font-size: 100%;
-  	outline: none;
-  	border: none;
-  	border-radius: 25%;
+  	outline:none;
+  	border:0 1px #999;
+  	border-radius: 50%;
   	box-shadow: 0 2px #999;
-  	width:90%;
-  	height: 50px;
+  	min-width:1.3cm;
+  	min-height: 1.3cm;
+  	width: 70px;
+  	height: 68px ;
 	background: #DADADA;
 	color: #444;
 }
 
 .button:active {
   box-shadow: 0 0px #666;
-  transform: translateY(4px);
+  transform: translateY(2px);
   }
 
  .button:hover {
 	background: #c2c2c2;
 }
 
-*, *:after, *:before {
-	box-sizing: border-box;
-}
-
 .grid {
-	width: 33%;
+	width: 210px;
+	height: 70px;
 	float: right;
 	overflow: hidden;
-}
-
-
-
-/* Content Columns */
-
-.col-1-10 {
-	width: 33%;
-}
-
-	
-[class*='col-'] {	
-	float: left;
-	margin-bottom: 10px;
 }
 
