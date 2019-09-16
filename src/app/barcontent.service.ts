@@ -30,5 +30,22 @@ export class BarcontentService {
       this.boxesInBar = this.history;
     }
   }
+
+  play() {
+     let text = '';
+     for (const b of this.history) {
+      text = text + ' ' + b.label;
+    }
+     this.say(text);
+     console.log(text);
+  }
+
+
+  say(text: string) {
+    const synth = window.speechSynthesis;
+    const x = new SpeechSynthesisUtterance(text);
+    x.lang = 'fr-FR';
+    synth.speak(x);
+  }
   constructor() { }
 }

@@ -12,7 +12,7 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 export class BoxesComponent implements OnInit {
 
-  constructor(private barService: BarcontentService, private sanitizer: DomSanitizer ) {
+  constructor(private barService: BarcontentService ) {
   }
 
   board = Board;
@@ -32,7 +32,9 @@ export class BoxesComponent implements OnInit {
    this.prevselectedBox = this.selectedBox;
    this.selectedBox = box;
    this.barService.add(this.selectedBox);
+   this.barService.say(this.selectedBox.label);
   }
+
 
   onSelectFolder(box: Bouton): void {
    this.prevselectedBox = this.selectedBox;

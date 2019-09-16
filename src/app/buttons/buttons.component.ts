@@ -11,15 +11,19 @@ export class ButtonsComponent implements OnInit {
   constructor(private barService: BarcontentService) {
 
   }
-  back(){
+  back() {
     this.barService.back();
   }
 
-  clear(){
+  clear() {
     this.barService.clear();
   }
 
+   play() {
+      this.barService.play();
+  }
+
   ngOnInit() {
-  } 
+  }
 
 }
