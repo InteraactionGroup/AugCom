@@ -1,0 +1,49 @@
+.bar {
+  	height: 55px;
+	width: 63%;
+	background: lightyellow;
+	float: left;
+	position :absolute;
+	border:2px double #999;
+}
+
+
+
+.bouton {
+  	position: relative;
+  	font-size: 80%;
+  	outline: none;
+  	border: none;
+  	border-radius: 25%;
+  	width:100%;
+  	height: 40px;
+	color: black;
+	margin-top: 7px; 
+}
+
+.icone {
+  margin-left: 10%;
+  margin-right: 10%;
+  outline: none;
+  min-height: 7px;
+  min-width: 7px;
+  height: 60%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Content Columns */
+
+.col-1-10 {
+	width: 15.5%;
+}
+
+	
+[class*='col-'] {	
+ 	list-style-type: none;
+	float: left;
+	margin-bottom: 25%;	
+	margin-left: 1%;
+}
+

@@ -1,0 +1,14 @@
+<div class="bar"> 
+        <ng-container *ngFor="let box of this.getBar()">
+            <li class="col-1-10" >
+            <div class="bouton"
+            [ngStyle]="{'background-color': box.backgroundColor}"
+            > 
+            <div class="icone" 
+            [ngStyle]="{'background-image': this.getImgUrl(box)}"  
+            ></div>
+            <div>{{box.label}}</div>
+            </div> 
+            </li>
+        </ng-container>
+</div>
