@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Bouton } from './cell';
+import { Bouton } from '../data/cell';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +36,7 @@ export class BarcontentService {
      for (const b of this.history) {
       text = text + ' ' + b.label;
     }
+     text = text;
      this.say(text);
      console.log(text);
   }
@@ -43,9 +44,10 @@ export class BarcontentService {
 
   say(text: string) {
     const synth = window.speechSynthesis;
-    const x = new SpeechSynthesisUtterance(text);
+    const x = new SpeechSynthesisUtterance(text+' ');
     x.lang = 'fr-FR';
     synth.speak(x);
+    console.log(x.text);
   }
   constructor() { }
 }

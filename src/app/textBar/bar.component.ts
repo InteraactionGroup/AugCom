@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Board } from '../mockOpenBoard';
-import { BarcontentService } from '../barcontent.service';
-import { Bouton  } from '../cell';
+import { Board } from '../data/mockOpenBoard';
+import { BarcontentService } from '../service/barcontent.service';
+import { Bouton  } from '../data/cell';
 @Component({
   selector: 'app-bar',
   templateUrl: './bar.component.html',

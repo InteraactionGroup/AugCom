@@ -1,0 +1,5 @@
+<div class="slidecontainer">
+  <input type="range" min="1" max="10" value="5" class="slider" id="myRange"
+         *ngIf="this.userBarServiceService.edit"
+  (change)="changeDisplay()">
+</div>

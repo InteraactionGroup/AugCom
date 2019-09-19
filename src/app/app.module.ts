@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppComponent } from './app.component';
+import { AppComponent } from './data/app.component';
 import { BoxesComponent } from './boxes/boxes.component';
-import { ButtonsComponent } from './buttons/buttons.component';
-import { BarComponent } from './bar/bar.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+import { ButtonsComponent } from './playBackClear/buttons.component';
+import { BarComponent } from './textBar/bar.component';
+import { ToolbarComponent } from './slider/toolbar.component';
+import { UserBarComponent } from './userBar/user-bar.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     BarComponent,
     BoxesComponent,
     ButtonsComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    UserBarComponent
   ],
   imports: [
     BrowserModule

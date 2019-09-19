@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BarcontentService } from '../barcontent.service';
+import { BarcontentService } from '../service/barcontent.service';
 
 @Component({
   selector: 'app-buttons',

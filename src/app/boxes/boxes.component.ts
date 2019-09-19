@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Bouton } from '../cell';
-import { Board } from '../mockOpenBoard';
-import { BarcontentService } from '../barcontent.service';
+import { Bouton } from '../data/cell';
+import { Board } from '../data/mockOpenBoard';
+import { BarcontentService } from '../service/barcontent.service';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import {UserBarServiceService} from "../service/user-bar-service.service";
 
 @Component({
   selector: 'app-boxes',
@@ -12,7 +13,7 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 export class BoxesComponent implements OnInit {
 
-  constructor(private barService: BarcontentService ) {
+  constructor(private barService: BarcontentService ,private userBarServiceService: UserBarServiceService) {
   }
 
   board = Board;

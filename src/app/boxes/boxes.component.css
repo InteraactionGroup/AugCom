@@ -2,17 +2,19 @@
 
 .boxes {
   list-style-type: none;
+  margin-top: -10px;
 }
 
 .wrapper {
   display: grid;
   width :100%;
   height:100%;
-  float: center;
+  padding-bottom:10px;
 }
 
 
  .button {
+  margin-top:10px;
   color: black;
   cursor: pointer;
   position: relative;
@@ -20,17 +22,17 @@
   background-color: darkseagreen;
   border: none;
   border-radius:15px;
-  width: 100%;
-  height:0px;
-  padding-top:100%;
-  box-shadow: 0 5px #999;
+  box-shadow: 0 5px #666;
+  width: 95%;
+  padding-top:95%;
+  margin-left:2.5%;
   white-space: nowrap;
-  justify-content: center;
-  align-items: center;
+  font-size:3vh;
+  overflow: hidden;
   }
-  
+
  .actionButton{
-  
+
 }
 
   .button:hover {
@@ -41,32 +43,48 @@
   box-shadow: 0 2px #666;
   transform: translateY(3px);
   }
-  
+
   .boxes  .folder {
 }
 
 .button .icon {
   position: relative;
-  margin-left: 20%;
-  margin-right: 20%;
+  margin-left: 15%;
+  margin-right: 15%;
   outline: none;
-  margin-top:-110%;
-  width: 60%;
-  max-height:20%;
-  padding-bottom: 100%;
+  margin-top:-100%;
+  min-width: 70%;
+  min-height: 70%;
+  padding-bottom:70%;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
 
- .label {
+.button .label {
   position: relative;
   outline: none;
   border: none;
-  margin-top:-10px;
-  height:50%;
+  width:100%;
+  margin-top:5%;
+  text-alignment: center;
 }
-  
-  .back {
+
+  .backlabel{
+  	margin-top: calc(-100% - 16px);
+  	padding-top: calc(50% + 2px);
+  }
+
+.back {
   background-color: darkred;
+}
+
+
+.add {
+  background-color: darkseagreen;
+  opacity: 0.5;
+}
+
+.add:hover {
+  opacity: 1;
 }

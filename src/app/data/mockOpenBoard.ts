@@ -10,11 +10,11 @@ loadBoard: {name: 'bt7', path: ''}},
 loadBoard: {name: 'bt2', path: ''}},
 {id: 'b3', extCboardLabelKey: 'root', label: 'suis', backgroundColor: 'pink', imageId: 'im1',
 loadBoard: {name: 'bt3', path: ''}},
-{id: 'b4', extCboardLabelKey: 'root', label: 'sébastien', backgroundColor: 'blue', imageId: 'im1',
+{id: 'b4', extCboardLabelKey: 'root', label: 'enchanté', backgroundColor: 'blue', imageId: 'im1',
 loadBoard: {name: 'bt4', path: ''}},
 {id: 'b5', extCboardLabelKey: 'root', label: 'bt5', backgroundColor: 'green', imageId: 'im12',
 loadBoard: {name: 'bt5', path: ''}},
-{id: 'b6', extCboardLabelKey: 'root', label: 'bt6', backgroundColor: 'yellow', imageId: 'im1',
+{id: 'b6', extCboardLabelKey: 'root', label: 'bt6', backgroundColor: 'cyan', imageId: 'im1',
 loadBoard: {name: 'bt6', path: ''}}
 ],
 images: [
