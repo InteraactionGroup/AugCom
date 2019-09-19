@@ -38,7 +38,8 @@
     </button>
   </ng-template>
   <ng-template [ngIf]="this.userBarServiceService.edit ">
-    <button class="button add">
+    <button class="button add"
+            (click)="onSelectAdd()">
       <div class= "backlabel"
       > + </div>
     </button>

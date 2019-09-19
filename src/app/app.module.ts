@@ -7,6 +7,7 @@ import { ButtonsComponent } from './playBackClear/buttons.component';
 import { BarComponent } from './textBar/bar.component';
 import { ToolbarComponent } from './slider/toolbar.component';
 import { UserBarComponent } from './userBar/user-bar.component';
+import { EditionPanelComponent } from './edition-panel/edition-panel.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { UserBarComponent } from './userBar/user-bar.component';
     BoxesComponent,
     ButtonsComponent,
     ToolbarComponent,
-    UserBarComponent
+    UserBarComponent,
+    EditionPanelComponent
   ],
   imports: [
     BrowserModule

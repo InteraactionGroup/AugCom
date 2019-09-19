@@ -4,6 +4,7 @@ import { Board } from '../data/mockOpenBoard';
 import { BarcontentService } from '../service/barcontent.service';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import {UserBarServiceService} from "../service/user-bar-service.service";
+import {EditionServiceService} from "../service/edition-service.service";
 
 @Component({
   selector: 'app-boxes',
@@ -13,7 +14,7 @@ import {UserBarServiceService} from "../service/user-bar-service.service";
 
 export class BoxesComponent implements OnInit {
 
-  constructor(private barService: BarcontentService ,private userBarServiceService: UserBarServiceService) {
+  constructor(private barService: BarcontentService ,private userBarServiceService: UserBarServiceService,private editionServiceService: EditionServiceService) {
   }
 
   board = Board;
@@ -53,4 +54,9 @@ export class BoxesComponent implements OnInit {
   onSelectBack(): void {
     this.folder = this.boxes.find(x => x.id === this.folder).extCboardLabelKey;
   }
+
+  onSelectAdd(): void{
+    this.editionServiceService.enabled=true;
+  }
+
 }
