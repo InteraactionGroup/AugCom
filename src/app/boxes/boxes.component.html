@@ -1,7 +1,7 @@
 <div class="wrapper boxes"  id="wrapper0"
   [ngStyle]="{'grid-template-columns': 'repeat(5, 1fr)'}">
-  <ng-container *ngFor="let box of boxes ">
-    <li *ngIf="box.extCboardLabelKey === this.folder">
+  <ng-container *ngFor="let box of this.boardServiceService.board.boutons ">
+    <li *ngIf="box.extCboardLabelKey === this.boardServiceService.folder">
       <ng-container *ngIf="box.loadBoard.path === ''; then first else second"></ng-container>
       <ng-template #first>
         <div
@@ -30,7 +30,7 @@
       </ng-template>
    </li>
  </ng-container>
-  <ng-template [ngIf]="this.folder !== 'root' ">
+  <ng-template [ngIf]="this.boardServiceService.folder !== 'root' ">
     <button class="button back"
             (click)="onSelectBack()">
       <div class= "backlabel"
