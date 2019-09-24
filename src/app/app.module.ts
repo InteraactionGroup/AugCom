@@ -8,6 +8,9 @@ import { BarComponent } from './textBar/bar.component';
 import { ToolbarComponent } from './slider/toolbar.component';
 import { UserBarComponent } from './userBar/user-bar.component';
 import { EditionPanelComponent } from './edition-panel/edition-panel.component';
+import {FormsModule} from "@angular/forms";
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,9 @@ import { EditionPanelComponent } from './edition-panel/edition-panel.component';
     EditionPanelComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]

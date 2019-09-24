@@ -52,9 +52,9 @@
   margin-right: 15%;
   outline: none;
   margin-top:-100%;
-  min-width: 70%;
-  min-height: 70%;
-  padding-bottom:70%;
+  width: 70%;
+  height: 70%;
+  padding-bottom:75%;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

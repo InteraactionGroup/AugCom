@@ -10,7 +10,7 @@
           id="{{box.id}}"
           [ngStyle]="{'background-color': box.backgroundColor}" >
           <div class="icon"
-               [ngStyle]="{'background-image': this.getImgUrl(box)}"
+               [style.background-image]=this.getImgUrl(box)
           ></div>
           <div class= "label"
           >{{box.label}}</div>
@@ -23,7 +23,7 @@
           id="{{box.id}}"
           [ngStyle]="{'background-color': box.backgroundColor}">
           <div class="icon"
-               [ngStyle]="{'background-image':this.getImgUrl(box)}"
+               [style.background-image]="this.getImgUrl(box)"
           ></div>
           <div class= "label">{{box.label}}</div>
         </div>

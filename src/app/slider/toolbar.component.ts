@@ -8,7 +8,7 @@ import {UserBarServiceService} from "../service/user-bar-service.service";
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor(private userBarServiceService: UserBarServiceService) {
+  constructor(public userBarServiceService: UserBarServiceService) {
   }
 
   ngOnInit() {
