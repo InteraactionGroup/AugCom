@@ -1,0 +1,112 @@
+.panel{
+  position: absolute;
+  width: calc(100% - 15px);
+  height: calc(95% - 140px);
+  bottom:calc(-100% + 140px);
+  overflow: hidden;
+  transition: bottom 0.5s;
+  background-color: #666666;
+  margin-top: 100px;
+  opacity: 1;
+}
+
+.buttonPreview{
+  background-color: black;
+  color: black;
+  border: none;
+  border-radius:15px;
+  box-shadow: 0 5px #666;
+  width: 95%;
+  height: 0px;
+  padding-bottom:95%;
+  margin-left:2.5%;
+  white-space: nowrap;
+  font-size:3vw;
+  overflow: hidden;
+}
+
+.panel.selected{
+  bottom: 5%;
+  opacity: 1;
+}
+
+.close{
+  float: left ;
+  margin-left: calc(100% - 40px);
+  position: absolute;
+  width:40px;
+  height: 20px;
+  background-color: red;
+}
+
+.leftPane{
+  float:left;
+  position: relative;
+  margin: 10px 10px 10px 10px;
+  width:calc(30% - 20px);
+  height: calc(100% - 20px);
+  background-color: darkgrey;
+}
+
+.rightPane{
+  float: left;
+  position: relative;
+  margin: 10px 10px 10px 0px;
+  width: calc(70% - 10px);
+  height: calc(100% - 20px);
+  background-color: slategray;
+}
+
+.buttonPane{
+  width: 90%;
+  margin-left: 10px;
+  margin-top:5%;
+  background-color: white;
+  padding-bottom: 10px;
+
+}
+
+.addImageButton{
+  width : 90%;
+}
+
+.colorPicker {
+  cursor: pointer;
+  float: right;
+  background-color: dimgray;
+  border: none;
+  outline: none;
+  width:3vw;
+  height:3vw;
+  margin-bottom: -3vw;
+}
+
+.colorPicker:hover {
+  background-color: lightgray;
+}
+
+
+.buttonPreview .iconPreview {
+  margin-left: 15%;
+  margin-top: 3vw;
+  width:70%;
+  height: 0px;
+  padding-bottom: 70%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.buttonPreview .label {
+  float: bottom;
+  outline: none;
+  border: none;
+  width:100%;
+  margin-top:5px;
+  text-alignment: center;
+}
+
+.pile{
+  text-align: center;
+  display: block;
+}

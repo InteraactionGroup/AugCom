@@ -1,0 +1,56 @@
+<div class="panel"
+     [class.selected]="this.editionServiceService.enabled">
+
+  <div class="leftPane">
+      <div class="buttonPane" >
+        <input id="colorID"  type="color" class="colorPicker"
+               [(ngModel)]="color"
+        >
+        <div class="buttonPreview" [ngStyle]="{'background-color': this.color }">
+          <div class="iconPreview" [style.background-image]="this._sanitizer.bypassSecurityTrustStyle('url(' +this.imgURL+')')">
+          </div>
+          <div class= "label">{{this.name}}
+          </div>
+        </div>
+      </div>
+    <input class="pile" type="text" id="nameID" value="Enter the name" [(ngModel)]="name">
+    <input class="pile" type="text" id="idID" value="Enter the id">
+    Babble status: visible
+      <input type="checkbox">
+  </div>
+
+  <div class="rightPane">
+
+    <input type="button" class="addImageButton" value="Add an image ...">
+
+    <input type=text list=actions class="combo" value="Select label type...">
+    <datalist id=actions >
+      <option> verb
+      <option> noun
+      <option> adjective
+    </datalist>
+  <div>
+    <input type="radio" class="radio" id="radioButton" name="buttonFormat" value="radiobutton" checked>
+    <label for="radioButton">Button</label>
+    <input type="radio" class="radio" id="radioFolder" name="buttonFormat" value="radiofolder">
+    <label for="radioFolder">Folder</label>
+  </div>
+    <div class="Block">
+      <label id="lbl">Code </label>
+      <input type='file' (change)="fileChanged($event)">
+
+    </div>
+    <input #file type="file" accept='image/*' (change)="preview(file.files)" />
+    <img [src]="imgSafeURL" height="200" *ngIf="imgSafeURL">
+
+    <input type="submit"
+      (click)="this.createNewButton()">
+
+  </div>
+
+  <div class="close"
+       (click)="this.editionServiceService.enabled=false">
+    X
+  </div>
+
+</div>
