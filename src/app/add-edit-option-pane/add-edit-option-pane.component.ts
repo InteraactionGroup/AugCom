@@ -1,22 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import {EditionServiceService} from "../service/edition-service.service";
+import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 import {BoardServiceService} from "../service/board-service.service";
-import { DomSanitizer, SafeResourceUrl, SafeUrl ,SafeStyle} from '@angular/platform-browser';
-
-
+import {EditionServiceService} from "../service/edition-service.service";
 
 @Component({
-  selector: 'app-edition-panel',
-  templateUrl: './edition-panel.component.html',
-  styleUrls: ['./edition-panel.component.css']
+  selector: 'app-add-edit-option-pane',
+  templateUrl: './add-edit-option-pane.component.html',
+  styleUrls: ['./add-edit-option-pane.component.css']
 })
-
-export class EditionPanelComponent implements OnInit {
+export class AddEditOptionPaneComponent implements OnInit {
 
   constructor(private _sanitizer: DomSanitizer,private boardServiceService :BoardServiceService, public editionServiceService: EditionServiceService) {
   }
 
- color = "black";
+  color = "black";
   name = "Enter the name";
   file:any;
   public imagePath;
@@ -24,9 +21,7 @@ export class EditionPanelComponent implements OnInit {
   public imgSafeURL: SafeUrl;
   public message: string;
 
-  previewWithURL(t){
-    this.imgURL = t;
-    this.imgSafeURL=this._sanitizer.bypassSecurityTrustUrl(t);
+  ngOnInit() {
   }
 
   preview(files) {
@@ -49,7 +44,7 @@ export class EditionPanelComponent implements OnInit {
   }
 
   coloPickerValue(){
-   return  (<HTMLInputElement>document.getElementById("colorPicker")).value;
+    return  (<HTMLInputElement>document.getElementById("colorPicker")).value;
   }
 
   fileChanged(e){
@@ -63,15 +58,13 @@ export class EditionPanelComponent implements OnInit {
       let t = JSON.parse(fileReader.result.toString())
       console.log("Old JS object translated to JSON format:");
       console.log(JSON.stringify(this.boardServiceService.board));
-    this.boardServiceService.board = t;
+      this.boardServiceService.board = t;
       console.log("New JSON file translated to JS object:");
       console.log(t);
     }
     fileReader.readAsText(this.file);
   }
 
-  ngOnInit() {
-  }
 
   createNewButton(){
     let path = "";
@@ -92,10 +85,10 @@ export class EditionPanelComponent implements OnInit {
 
     this.boardServiceService.board.images.push(
       {  id: "im5"+(<HTMLInputElement>document.getElementById("nameID")).value,
-    path: this.imgURL,
-    contentType: '',
-    width: 300,
-    height: 300});
+        path: this.imgURL,
+        contentType: '',
+        width: 300,
+        height: 300});
 
     this.editionServiceService.enabled=false;
   }

@@ -16,10 +16,12 @@
   border: none;
   border-radius:15px;
   box-shadow: 0 5px #666;
-  width: 95%;
+  width: 80%;
   height: 0px;
-  padding-bottom:95%;
-  margin-left:2.5%;
+  padding-bottom:80%;
+  margin-left:10%;
+  margin-top:5%;
+  margin-bottom:5%;
   white-space: nowrap;
   font-size:3vw;
   overflow: hidden;
@@ -59,10 +61,11 @@
 
 .buttonPane{
   width: 90%;
-  margin-left: 10px;
+  margin-left: 4.5%;
   margin-top:5%;
   background-color: white;
-  padding-bottom: 10px;
+  padding-bottom: 2%;
+  padding-top: 2%;
 
 }
 
@@ -97,13 +100,19 @@
   background-position: center;
 }
 
-.buttonPreview .label {
-  float: bottom;
+ .labelPreview {
   outline: none;
   border: none;
-  width:100%;
-  margin-top:5px;
+  width:90%;
+   margin-left: 5%;
+   margin-right: 5%;
+   font-size:2vw;
   text-alignment: center;
+}
+
+.pile{
+  text-align: center;
+  display: block;
 }
 
 .pile{

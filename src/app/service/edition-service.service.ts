@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class EditionServiceService {
 
   enabled =false;
+  public addImageenabled=false;
 
   constructor() { }
 }

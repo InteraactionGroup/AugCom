@@ -21,36 +21,57 @@
 
   <div class="rightPane">
 
-    <input type="button" class="addImageButton" value="Add an image ...">
+    <div class="close"
+         (click)="this.editionServiceService.enabled=false">
+      X
+    </div>
 
-    <input type=text list=actions class="combo" value="Select label type...">
+    <ng-container *ngIf="!editionServiceService.addImageenabled">
+    <input type="button" class="addImageButton" value="Add an image ..."
+    (click)="editionServiceService.addImageenabled=true">
+      <img [src]="imgSafeURL" height="200" *ngIf="imgSafeURL" class="pile">
+    <input type=text list=actions class="combo pile" value="Select label type...">
     <datalist id=actions >
       <option> verb
       <option> noun
       <option> adjective
     </datalist>
-  <div>
+  <div class="pile">
     <input type="radio" class="radio" id="radioButton" name="buttonFormat" value="radiobutton" checked>
     <label for="radioButton">Button</label>
     <input type="radio" class="radio" id="radioFolder" name="buttonFormat" value="radiofolder">
     <label for="radioFolder">Folder</label>
   </div>
-    <div class="Block">
-      <label id="lbl">Code </label>
-      <input type='file' (change)="fileChanged($event)">
-
-    </div>
-    <input #file type="file" accept='image/*' (change)="preview(file.files)" />
-    <img [src]="imgSafeURL" height="200" *ngIf="imgSafeURL">
 
     <input type="submit"
       (click)="this.createNewButton()">
+  </ng-container>
 
-  </div>
+    <ng-container *ngIf="editionServiceService.addImageenabled">
+       <input type='file' (change)="fileChanged($event)">
+       <div class="pile">
 
-  <div class="close"
-       (click)="this.editionServiceService.enabled=false">
-    X
-  </div>
+         <div class="pile">Use a web URL</div>
+          <input #text type="text" (change)="previewWithURL(text.value)" />
+       </div>
+      <div> OR </div>
+      <div class="pile">
 
-</div>
+        <div class="pile">Import an image from your computer:</div>
+        <input #file type="file" accept='image/*' (change)="preview(file.files)" />
+      </div>
+      <div> OR </div>
+      <div class="pile">
+
+        <div class="pile">Import an image from a library:</div>
+        <input #text2 type="text" (change)="previewWithURL(text2.value)" />
+
+    </div>
+       <img [src]="imgSafeURL" height="200" *ngIf="imgSafeURL">
+
+       <input type="submit"
+       (click)="editionServiceService.addImageenabled=false">
+     </ng-container>
+
+   </div>
+ </div>

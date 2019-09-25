@@ -11,6 +11,7 @@ import { EditionPanelComponent } from './edition-panel/edition-panel.component';
 import {FormsModule} from "@angular/forms";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { AddEditOptionPaneComponent } from './add-edit-option-pane/add-edit-option-pane.component';
 
 @NgModule({
   declarations: [
