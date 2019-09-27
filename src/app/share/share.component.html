@@ -1,5 +1,7 @@
 <div class="sharePanel"
-     [class.selected]="this.userBarServiceService.shareOptionEnabled"
+     [class.sharePanelSelected]="this.userBarServiceService.shareOptionEnabled"
 >
 hey
+  <input type="button" (click)="this.userBarServiceService.shareOptionEnabled=!this.userBarServiceService.shareOptionEnabled">
+  <input type='file' (change)="fileChanged($event)">
 </div>

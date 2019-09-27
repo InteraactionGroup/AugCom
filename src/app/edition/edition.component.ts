@@ -18,7 +18,6 @@ export class EditionComponent implements OnInit {
   regex;
  color = "black";
   name = "Enter the name";
-  file:any;
   public imagePath;
   public imgURL:any;
   public imgSafeURL: SafeUrl;
@@ -57,24 +56,6 @@ export class EditionComponent implements OnInit {
 
   coloPickerValue(){
    return  (<HTMLInputElement>document.getElementById("colorPicker")).value;
-  }
-
-  fileChanged(e){
-    this.file = e.target.files[0];
-    this.uploadDocument();
-  }
-
-  uploadDocument() {
-    let fileReader = new FileReader();
-    fileReader.onload = (e) => {
-      let t = JSON.parse(fileReader.result.toString())
-      console.log("Old JS object translated to JSON format:");
-      console.log(JSON.stringify(this.boardServiceService.board));
-    this.boardServiceService.board = t;
-      console.log("New JSON file translated to JS object:");
-      console.log(t);
-    }
-    fileReader.readAsText(this.file);
   }
 
   ngOnInit() {

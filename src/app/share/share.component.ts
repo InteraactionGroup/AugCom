@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserBarOptionManager} from "../services/userBarOptionManager";
+import {BoardMemory} from "../services/boardMemory";
 
 @Component({
   selector: 'app-share-component',
@@ -8,9 +9,29 @@ import {UserBarOptionManager} from "../services/userBarOptionManager";
 })
 export class ShareComponent implements OnInit {
 
-  constructor(public userBarServiceService: UserBarOptionManager) { }
+
+  file:any;
+
+  constructor( private boardServiceService :BoardMemory,public userBarServiceService: UserBarOptionManager) { }
 
   ngOnInit() {
   }
 
+  fileChanged(e){
+    this.file = e.target.files[0];
+    this.uploadDocument();
+  }
+
+  uploadDocument() {
+    let fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      let t = JSON.parse(fileReader.result.toString())
+      console.log("Old JS object translated to JSON format:");
+      console.log(JSON.stringify(this.boardServiceService.board));
+      this.boardServiceService.board = t;
+      console.log("New JSON file translated to JS object:");
+      console.log(t);
+    }
+    fileReader.readAsText(this.file);
+  }
 }

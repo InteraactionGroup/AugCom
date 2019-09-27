@@ -8,7 +8,7 @@ export class UserBarOptionManager {
   unlocked = false;
   editOptionEnabled = false;
   addEditOptionEnabled =false;
-  shareOptionEnabled =false;
+  shareOptionEnabled = false;
   public addImageenabled=false;
 
   constructor() { }
