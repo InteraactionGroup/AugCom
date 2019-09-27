@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {UserBarOptionManager} from "../services/userBarOptionManager";
 import {BoardMemory} from "../services/boardMemory";
+import {ExportSaveService} from "../services/export-save.service";
+
 
 @Component({
   selector: 'app-share-component',
@@ -12,7 +14,7 @@ export class ShareComponent implements OnInit {
 
   file:any;
 
-  constructor( private boardServiceService :BoardMemory,public userBarServiceService: UserBarOptionManager) { }
+  constructor( private exportSaveService:ExportSaveService, private boardServiceService :BoardMemory,public userBarServiceService: UserBarOptionManager) { }
 
   ngOnInit() {
   }
@@ -33,5 +35,9 @@ export class ShareComponent implements OnInit {
       console.log(t);
     }
     fileReader.readAsText(this.file);
+  }
+
+  export(){
+    this.exportSaveService.downloadFile(JSON.stringify(this.boardServiceService.board));
   }
 }
