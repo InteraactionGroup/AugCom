@@ -4,7 +4,7 @@ import { Bouton } from '../data/cell';
 @Injectable({
   providedIn: 'root'
 })
-export class BarcontentService {
+export class TextBarContentService {
   history: Bouton[] = [];
   boxesInBar: Bouton[] = [];
 

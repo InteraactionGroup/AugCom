@@ -4,7 +4,7 @@ import { Board } from '../data/mockOpenBoard';
 @Injectable({
   providedIn: 'root'
 })
-export class BoardServiceService {
+export class BoardMemory {
 
   constructor() { }
 

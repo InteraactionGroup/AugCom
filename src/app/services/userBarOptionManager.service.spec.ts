@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UserBarServiceService } from './user-bar-service.service';
+import { UserBarOptionManager } from './userBarOptionManager';
 
 describe('UserBarServiceService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: UserBarServiceService = TestBed.get(UserBarServiceService);
+    const service: UserBarOptionManager = TestBed.get(UserBarOptionManager);
     expect(service).toBeTruthy();
   });
 });

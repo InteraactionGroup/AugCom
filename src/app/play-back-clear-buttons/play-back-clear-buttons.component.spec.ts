@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ButtonsComponent } from './buttons.component';
+import { PlayBackClearButtonsComponent } from './play-back-clear-buttons.component';
 
 describe('TextbarComponent', () => {
-  let component: ButtonsComponent;
-  let fixture: ComponentFixture<ButtonsComponent>;
+  let component: PlayBackClearButtonsComponent;
+  let fixture: ComponentFixture<PlayBackClearButtonsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ButtonsComponent ]
+      declarations: [ PlayBackClearButtonsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ButtonsComponent);
+    fixture = TestBed.createComponent(PlayBackClearButtonsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

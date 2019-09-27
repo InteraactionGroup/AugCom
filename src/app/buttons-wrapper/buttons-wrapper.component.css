@@ -13,6 +13,7 @@
 
 
  .button {
+   font-size: 100%;
   margin-top:10px;
   color: black;
   cursor: pointer;
@@ -26,7 +27,6 @@
   padding-top:95%;
   margin-left:2.5%;
   white-space: nowrap;
-  font-size:3vw;
   overflow: hidden;
   }
 

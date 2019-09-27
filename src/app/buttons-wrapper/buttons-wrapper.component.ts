@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Bouton } from '../data/cell';
-import { BarcontentService } from '../service/barcontent.service';
-import {UserBarServiceService} from "../service/user-bar-service.service";
-import {EditionServiceService} from "../service/edition-service.service";
-import {BoardServiceService} from "../service/board-service.service";
+import { TextBarContentService } from '../services/textBarContent.service';
+import {UserBarOptionManager} from "../services/userBarOptionManager";
+import {BoardMemory} from "../services/boardMemory";
 import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-boxes',
-  templateUrl: './boxes.component.html',
-  styleUrls: ['./boxes.component.css']
+  templateUrl: './buttons-wrapper.component.html',
+  styleUrls: ['./buttons-wrapper.component.css']
 })
 
-export class BoxesComponent implements OnInit {
+export class ButtonsWrapperComponent implements OnInit {
 
-  constructor(private _sanitizer: DomSanitizer,public boardServiceService : BoardServiceService, private barService: BarcontentService , public userBarServiceService: UserBarServiceService, private editionServiceService: EditionServiceService) {
+  constructor(private _sanitizer: DomSanitizer,  public boardServiceService : BoardMemory, private barService: TextBarContentService , public userBarServiceService: UserBarOptionManager) {
   }
   selectedBox: Bouton = null;
   prevselectedBox: Bouton = null;
@@ -51,7 +50,7 @@ export class BoxesComponent implements OnInit {
   }
 
   onSelectAdd(): void{
-    this.editionServiceService.enabled=true;
+    this.userBarServiceService.addEditOptionEnabled=true;
   }
 
 }

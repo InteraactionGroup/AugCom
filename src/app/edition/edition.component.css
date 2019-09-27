@@ -1,10 +1,11 @@
 .panel{
   position: absolute;
   width: calc(100% - 15px);
+  bottom:5%;
   height: calc(95% - 140px);
-  bottom:calc(-100% + 140px);
+  left:-100%;
   overflow: hidden;
-  transition: bottom 0.5s;
+  transition: left 0.5s;
   background-color: #666666;
   margin-top: 100px;
   opacity: 1;
@@ -28,8 +29,8 @@
 }
 
 .panel.selected{
-  bottom: 5%;
   opacity: 1;
+  left:7.5px;
 }
 
 .close{
@@ -118,4 +119,15 @@
 .pile{
   text-align: center;
   display: block;
+}
+
+
+.wrapperPreview {
+  list-style-type: none;
+  margin-top: 10px;
+  margin-left: 10%;
+  display: grid;
+  width :80%;
+  height: 70%;
+  background-color: whitesmoke;
 }

@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BarcontentService } from './barcontent.service';
+import { TextBarContentService } from './textBarContent.service';
 
 describe('BarcontentService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: BarcontentService = TestBed.get(BarcontentService);
+    const service: TextBarContentService = TestBed.get(TextBarContentService);
     expect(service).toBeTruthy();
   });
 });

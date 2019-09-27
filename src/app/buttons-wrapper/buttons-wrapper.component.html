@@ -1,5 +1,6 @@
 <div class="wrapper boxes"  id="wrapper0"
-  [ngStyle]="{'grid-template-columns': 'repeat(5, 1fr)'}">
+  [ngStyle]="{'grid-template-columns': 'repeat(5, 1fr)', 'font-size' : '3vw'}">
+
   <ng-container *ngFor="let box of this.boardServiceService.board.boutons ">
     <li *ngIf="box.extCboardLabelKey === this.boardServiceService.folder">
       <ng-container *ngIf="box.loadBoard.path === ''; then first else second"></ng-container>
@@ -37,7 +38,7 @@
       >back</div>
     </button>
   </ng-template>
-  <ng-template [ngIf]="this.userBarServiceService.edit ">
+  <ng-template [ngIf]="this.userBarServiceService.editOptionEnabled ">
     <button class="button add"
             (click)="onSelectAdd()">
       <div class= "backlabel"

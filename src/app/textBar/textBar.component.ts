@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Board } from '../data/mockOpenBoard';
-import { BarcontentService } from '../service/barcontent.service';
+import { TextBarContentService } from '../services/textBarContent.service';
 import { Bouton  } from '../data/cell';
 @Component({
   selector: 'app-bar',
-  templateUrl: './bar.component.html',
-  styleUrls: ['./bar.component.css']
+  templateUrl: './textBar.component.html',
+  styleUrls: ['./textBar.component.css']
 })
-export class BarComponent implements OnInit {
+export class TextBarComponent implements OnInit {
 
-  constructor(private barService: BarcontentService) {}
+  constructor(private barService: TextBarContentService) {}
 
   ngOnInit() {
   }

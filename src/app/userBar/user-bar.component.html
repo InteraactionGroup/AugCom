@@ -11,7 +11,8 @@
     (click)="edit()">
   </button>
   <button class="button" *ngIf="this.userBarServiceService.unlocked"
-          [ngStyle]="{'background-image':this.getImgUrl('share')}">
+          [ngStyle]="{'background-image':this.getImgUrl('share')}"
+  (click)="share()">
   </button>
   <button class="button"
           [ngStyle]="{'background-image':this.getImgUrl('lock')}"

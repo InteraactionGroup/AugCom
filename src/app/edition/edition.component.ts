@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import {EditionServiceService} from "../service/edition-service.service";
-import {BoardServiceService} from "../service/board-service.service";
+import {BoardMemory} from "../services/boardMemory";
 import { DomSanitizer, SafeResourceUrl, SafeUrl ,SafeStyle} from '@angular/platform-browser';
+import {UserBarOptionManager} from "../services/userBarOptionManager";
 
 
 
 @Component({
   selector: 'app-edition-panel',
-  templateUrl: './edition-panel.component.html',
-  styleUrls: ['./edition-panel.component.css']
+  templateUrl: './edition.component.html',
+  styleUrls: ['./edition.component.css']
 })
 
-export class EditionPanelComponent implements OnInit {
+export class EditionComponent implements OnInit {
 
-  constructor(private _sanitizer: DomSanitizer,private boardServiceService :BoardServiceService, public editionServiceService: EditionServiceService) {
+  constructor(public _sanitizer: DomSanitizer, private boardServiceService :BoardMemory, private userBarServiceService: UserBarOptionManager) {
   }
-
+  regex;
  color = "black";
   name = "Enter the name";
   file:any;
@@ -23,10 +23,17 @@ export class EditionPanelComponent implements OnInit {
   public imgURL:any;
   public imgSafeURL: SafeUrl;
   public message: string;
+  imageList;
 
   previewWithURL(t){
     this.imgURL = t;
     this.imgSafeURL=this._sanitizer.bypassSecurityTrustUrl(t);
+  }
+
+  previewWrap(textToSearch: string) : boolean{
+    var pat = new RegExp(textToSearch+"+",'ig');
+    var res2 = pat.test("abbbabAAbbABbc");
+    return res2;
   }
 
   preview(files) {
@@ -97,7 +104,7 @@ export class EditionPanelComponent implements OnInit {
     width: 300,
     height: 300});
 
-    this.editionServiceService.enabled=false;
+    this.userBarServiceService.addEditOptionEnabled=false;
   }
   getColor(){
     console.log((<HTMLInputElement>document.getElementById("colorID")).value);

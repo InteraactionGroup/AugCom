@@ -1,5 +1,5 @@
 <div class="panel"
-     [class.selected]="this.editionServiceService.enabled">
+     [class.selected]="this.userBarServiceService.addEditOptionEnabled">
 
   <div class="leftPane">
       <div class="buttonPane" >
@@ -22,13 +22,13 @@
   <div class="rightPane">
 
     <div class="close"
-         (click)="this.editionServiceService.enabled=false">
+         (click)="this.userBarServiceService.addEditOptionEnabled=false">
       X
     </div>
 
-    <ng-container *ngIf="!editionServiceService.addImageenabled">
+    <ng-container *ngIf="!userBarServiceService.addImageenabled">
     <input type="button" class="addImageButton" value="Add an image ..."
-    (click)="editionServiceService.addImageenabled=true">
+    (click)="userBarServiceService.addImageenabled=true">
       <img [src]="imgSafeURL" height="200" *ngIf="imgSafeURL" class="pile">
     <input type=text list=actions class="combo pile" value="Select label type...">
     <datalist id=actions >
@@ -47,7 +47,7 @@
       (click)="this.createNewButton()">
   </ng-container>
 
-    <ng-container *ngIf="editionServiceService.addImageenabled">
+    <ng-container *ngIf="userBarServiceService.addImageenabled">
        <input type='file' (change)="fileChanged($event)">
        <div class="pile">
 
@@ -61,16 +61,21 @@
         <input #file type="file" accept='image/*' (change)="preview(file.files)" />
       </div>
       <div> OR </div>
-      <div class="pile">
 
         <div class="pile">Import an image from a library:</div>
-        <input #text2 type="text" (change)="previewWithURL(text2.value)" />
-
-    </div>
+        <input type="text" ng-model="regex" id="regex"/>
+        <div class="wrapperPreview"  id="wrapperPreview"
+             [ngStyle]="{'grid-template-columns': 'repeat(5, 1fr)'}">
+          <ng-container *ngFor="let b of ['a','A','dgular','AB','c'] ">
+            <li>
+              <input *ngIf="previewWrap(b)" type="button" name="{{b}}">
+            </li>
+          </ng-container>
+        </div>
        <img [src]="imgSafeURL" height="200" *ngIf="imgSafeURL">
 
        <input type="submit"
-       (click)="editionServiceService.addImageenabled=false">
+       (click)="userBarServiceService.addImageenabled=false">
      </ng-container>
 
    </div>

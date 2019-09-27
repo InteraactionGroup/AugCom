@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditionPanelComponent } from './edition-panel.component';
+import { ButtonsWrapperComponent } from './buttons-wrapper.component';
 
-describe('EditionPanelComponent', () => {
-  let component: EditionPanelComponent;
-  let fixture: ComponentFixture<EditionPanelComponent>;
+describe('ButtonsWrapperComponent', () => {
+  let component: ButtonsWrapperComponent;
+  let fixture: ComponentFixture<ButtonsWrapperComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditionPanelComponent ]
+      declarations: [ ButtonsWrapperComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditionPanelComponent);
+    fixture = TestBed.createComponent(ButtonsWrapperComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

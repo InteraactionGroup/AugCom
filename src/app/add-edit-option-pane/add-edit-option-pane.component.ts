@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
-import {BoardServiceService} from "../service/board-service.service";
-import {EditionServiceService} from "../service/edition-service.service";
+import {BoardMemory} from "../services/boardMemory";
+import {UserBarOptionManager} from "../services/userBarOptionManager";
 
 @Component({
   selector: 'app-add-edit-option-pane',
@@ -10,7 +10,7 @@ import {EditionServiceService} from "../service/edition-service.service";
 })
 export class AddEditOptionPaneComponent implements OnInit {
 
-  constructor(private _sanitizer: DomSanitizer,private boardServiceService :BoardServiceService, public editionServiceService: EditionServiceService) {
+  constructor(private _sanitizer: DomSanitizer, private boardServiceService :BoardMemory, private userBarServiceService: UserBarOptionManager) {
   }
 
   color = "black";
@@ -90,7 +90,7 @@ export class AddEditOptionPaneComponent implements OnInit {
         width: 300,
         height: 300});
 
-    this.editionServiceService.enabled=false;
+    this.userBarServiceService.addEditOptionEnabled=false;
   }
   getColor(){
     console.log((<HTMLInputElement>document.getElementById("colorID")).value);
