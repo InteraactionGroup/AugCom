@@ -56,6 +56,12 @@ export class EditionComponent implements OnInit {
         this.imgURL = reader.result;
         this.imgSafeURL=this._sanitizer.bypassSecurityTrustUrl(this.imgURL);
       }
+    },error => {
+      reader.readAsDataURL(files[0]);
+      reader.onload = (_event) => {
+        this.imgURL = reader.result;
+        this.imgSafeURL = this._sanitizer.bypassSecurityTrustUrl(this.imgURL);
+      }
     })
   }
 
