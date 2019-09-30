@@ -12,6 +12,8 @@ import {FormsModule} from "@angular/forms";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ShareComponent } from './share/share.component';
+import { Ng2ImgMaxModule } from 'ng2-img-max';
+
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { ShareComponent } from './share/share.component';
   imports: [
     BrowserModule,
     FormsModule,
+    Ng2ImgMaxModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],

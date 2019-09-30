@@ -2,19 +2,19 @@ import { OpenBoard  } from './openboard';
 
 export const Board: OpenBoard = {
 boutons: [
-{id: 'b1', extCboardLabelKey: 'root', label: 'bt1', backgroundColor: 'orange', imageId: 'im2',
-loadBoard: {name: 'bt1', path: 'bt1'}},
-	{id: 'b7', extCboardLabelKey: 'b1', label: 'bonjour', backgroundColor: 'red', imageId: 'im2',
+{id: 'b1', extCboardLabelKey: 'root', label: 'Salut', backgroundColor: 'orange', imageId: 'im2',
+loadBoard: {name: 'Salut', path: 'Salut'}},
+	{id: 'b7', extCboardLabelKey: 'b1', label: 'Bonjour', backgroundColor: 'red', imageId: 'im2',
 loadBoard: {name: 'bt7', path: ''}},
-{id: 'b2', extCboardLabelKey: 'root', label: 'je', backgroundColor: 'purple', imageId: 'im2',
+{id: 'b2', extCboardLabelKey: 'root', label: 'Comment', backgroundColor: 'purple', imageId: 'im2',
 loadBoard: {name: 'bt2', path: ''}},
-{id: 'b3', extCboardLabelKey: 'root', label: 'suis', backgroundColor: 'pink', imageId: 'im3',
+{id: 'b3', extCboardLabelKey: 'root', label: 'aller', backgroundColor: 'pink', imageId: 'im3',
 loadBoard: {name: 'bt3', path: ''}},
-{id: 'b4', extCboardLabelKey: 'root', label: 'enchanté', backgroundColor: 'blue', imageId: 'im2',
+{id: 'b4', extCboardLabelKey: 'root', label: 'tu', backgroundColor: 'blue', imageId: 'im2',
 loadBoard: {name: 'bt4', path: ''}},
-{id: 'b5', extCboardLabelKey: 'root', label: 'bt5', backgroundColor: 'green', imageId: 'im12',
+{id: 'b5', extCboardLabelKey: 'root', label: 'vous', backgroundColor: 'green', imageId: 'im12',
 loadBoard: {name: 'bt5', path: ''}},
-{id: 'b6', extCboardLabelKey: 'root', label: 'bt6', backgroundColor: 'cyan', imageId: 'im2',
+{id: 'b6', extCboardLabelKey: 'root', label: 'où', backgroundColor: 'cyan', imageId: 'im2',
 loadBoard: {name: 'bt6', path: ''}}
 ],
 images: [

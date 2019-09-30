@@ -35,9 +35,15 @@ export class ShareComponent implements OnInit {
       console.log(t);
     }
     fileReader.readAsText(this.file);
+    this.back();
   }
 
   export(){
     this.exportSaveService.downloadFile(JSON.stringify(this.boardServiceService.board));
+    this.back();
+  }
+
+  back(){
+    this.userBarServiceService.shareOptionEnabled=!this.userBarServiceService.shareOptionEnabled;
   }
 }

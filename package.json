@@ -25,6 +25,8 @@
     "@types/file-saver": "^2.0.1",
     "core-js": "^2.5.4",
     "file-saver": "^2.0.2",
+    "ng2-img-max": "^2.1.18",
+    "ngx-image-compress": "^8.0.3",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"

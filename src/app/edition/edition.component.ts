@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {BoardMemory} from "../services/boardMemory";
 import { DomSanitizer, SafeResourceUrl, SafeUrl ,SafeStyle} from '@angular/platform-browser';
 import {UserBarOptionManager} from "../services/userBarOptionManager";
+import { Ng2ImgMaxService } from 'ng2-img-max';
+
 
 
 
@@ -13,7 +15,7 @@ import {UserBarOptionManager} from "../services/userBarOptionManager";
 
 export class EditionComponent implements OnInit {
 
-  constructor(public _sanitizer: DomSanitizer, private boardServiceService :BoardMemory, private userBarServiceService: UserBarOptionManager) {
+  constructor(private ng2ImgMaxService: Ng2ImgMaxService,public _sanitizer: DomSanitizer, private boardServiceService :BoardMemory, public userBarServiceService: UserBarOptionManager) {
   }
   regex;
  color = "black";
@@ -47,11 +49,14 @@ export class EditionComponent implements OnInit {
 
     var reader = new FileReader();
     this.imagePath = files;
-    reader.readAsDataURL(files[0]);
-    reader.onload = (_event) => {
-      this.imgURL = reader.result;
-      this.imgSafeURL=this._sanitizer.bypassSecurityTrustUrl(this.imgURL);
-    }
+
+    this.ng2ImgMaxService.resize([files[0]], 2000, 1000).subscribe(result => {
+      reader.readAsDataURL(result);
+      reader.onload = (_event) => {
+        this.imgURL = reader.result;
+        this.imgSafeURL=this._sanitizer.bypassSecurityTrustUrl(this.imgURL);
+      }
+    })
   }
 
   coloPickerValue(){
