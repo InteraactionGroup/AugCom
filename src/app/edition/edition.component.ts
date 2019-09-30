@@ -49,12 +49,15 @@ export class EditionComponent implements OnInit {
     var reader = new FileReader();
     this.imagePath = files;
 
-    this.ng2ImgMaxService.resize([files[0]], 2000, 1000).subscribe(result => {
+    this.imgURL = 'assets/images/load.gif';
+    this.imgSafeURL = this._sanitizer.bypassSecurityTrustUrl(this.imgURL);
+
+    this.ng2ImgMaxService.resize([files[0]], 1000, 1000).subscribe(result => {
       reader.readAsDataURL(result);
       reader.onload = (_event) => {
         this.imgURL = reader.result;
         this.imgSafeURL = this._sanitizer.bypassSecurityTrustUrl(this.imgURL);
-      } 
+      }
     }, error => {
       reader.readAsDataURL(files[0]);
       reader.onload = (_event) => {
