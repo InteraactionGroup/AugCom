@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserBarOptionManager} from "../services/userBarOptionManager";
 
 @Component({
@@ -20,7 +20,7 @@ export class EditionSliderComponent implements OnInit {
     let res = parseInt(v.value, 10);
     let ratio = 100 / res;
     document.getElementById('wrapper0').style.gridTemplateColumns = 'repeat(' + v.value + ', ' + ratio + '%)';
-    let d : number = (3/5)*(11-res);
-    document.getElementById('wrapper0').style.fontSize = d+'vw';
+    let d: number = (3 / 5) * (11 - res);
+    document.getElementById('wrapper0').style.fontSize = d + 'vw';
   }
 }

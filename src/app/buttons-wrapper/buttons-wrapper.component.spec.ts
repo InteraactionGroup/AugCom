@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ButtonsWrapperComponent } from './buttons-wrapper.component';
+import {ButtonsWrapperComponent} from './buttons-wrapper.component';
 
 describe('ButtonsWrapperComponent', () => {
   let component: ButtonsWrapperComponent;
@@ -8,9 +8,9 @@ describe('ButtonsWrapperComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ButtonsWrapperComponent ]
+      declarations: [ButtonsWrapperComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

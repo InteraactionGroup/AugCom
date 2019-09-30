@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { UserBarOptionManager } from './userBarOptionManager';
+import {UserBarOptionManager} from './userBarOptionManager';
 
 describe('UserBarServiceService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

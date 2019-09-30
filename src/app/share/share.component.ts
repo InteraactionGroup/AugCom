@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserBarOptionManager} from "../services/userBarOptionManager";
 import {BoardMemory} from "../services/boardMemory";
 import {ExportSaveService} from "../services/export-save.service";
@@ -12,14 +12,15 @@ import {ExportSaveService} from "../services/export-save.service";
 export class ShareComponent implements OnInit {
 
 
-  file:any;
+  file: any;
 
-  constructor( private exportSaveService:ExportSaveService, private boardServiceService :BoardMemory,public userBarServiceService: UserBarOptionManager) { }
+  constructor(private exportSaveService: ExportSaveService, private boardServiceService: BoardMemory, public userBarServiceService: UserBarOptionManager) {
+  }
 
   ngOnInit() {
   }
 
-  fileChanged(e){
+  fileChanged(e) {
     this.file = e.target.files[0];
     this.uploadDocument();
   }
@@ -38,12 +39,12 @@ export class ShareComponent implements OnInit {
     this.back();
   }
 
-  export(){
+  export() {
     this.exportSaveService.downloadFile(JSON.stringify(this.boardServiceService.board));
     this.back();
   }
 
-  back(){
-    this.userBarServiceService.shareOptionEnabled=!this.userBarServiceService.shareOptionEnabled;
+  back() {
+    this.userBarServiceService.shareOptionEnabled = !this.userBarServiceService.shareOptionEnabled;
   }
 }

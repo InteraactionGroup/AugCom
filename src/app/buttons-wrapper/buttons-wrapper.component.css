@@ -7,43 +7,43 @@
 
 .wrapper {
   display: grid;
-  width :100%;
-  padding-bottom:10px;
+  width: 100%;
+  padding-bottom: 10px;
 }
 
 
- .button {
-   font-size: 100%;
-  margin-top:10px;
+.button {
+  font-size: 100%;
+  margin-top: 10px;
   color: black;
   cursor: pointer;
   position: relative;
   outline: none;
   background-color: darkseagreen;
   border: none;
-  border-radius:15px;
+  border-radius: 15px;
   box-shadow: 0 5px #666;
   width: 95%;
-  padding-top:95%;
-  margin-left:2.5%;
+  padding-top: 95%;
+  margin-left: 2.5%;
   white-space: nowrap;
   overflow: hidden;
-  }
+}
 
- .actionButton{
+.actionButton {
 
 }
 
-  .button:hover {
+.button:hover {
   filter: brightness(80%);
 }
 
- .button:active {
+.button:active {
   box-shadow: 0 2px #666;
   transform: translateY(3px);
-  }
+}
 
-  .boxes  .folder {
+.boxes .folder {
 }
 
 .button .icon {
@@ -51,10 +51,10 @@
   margin-left: 15%;
   margin-right: 15%;
   outline: none;
-  margin-top:-100%;
+  margin-top: -100%;
   width: 70%;
   height: 70%;
-  padding-bottom:75%;
+  padding-bottom: 75%;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -64,15 +64,15 @@
   position: relative;
   outline: none;
   border: none;
-  width:100%;
-  margin-top:5%;
+  width: 100%;
+  margin-top: 5%;
   text-alignment: center;
 }
 
-  .backlabel{
-  	margin-top: calc(-100% - 16px);
-  	padding-top: calc(50% + 2px);
-  }
+.backlabel {
+  margin-top: calc(-100% - 16px);
+  padding-top: calc(50% + 2px);
+}
 
 .back {
   background-color: darkred;

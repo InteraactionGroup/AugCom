@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { TextBarContentService } from './textBarContent.service';
+import {TextBarContentService} from './textBarContent.service';
 
 describe('BarcontentService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

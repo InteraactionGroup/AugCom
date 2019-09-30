@@ -1,12 +1,12 @@
 import {TestBed} from '@angular/core/testing';
 
-import {BoardMemory} from './boardMemory';
+import {ExportSaveService} from './export-save.service';
 
-describe('BoardServiceService', () => {
+describe('ExportSaveService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: BoardMemory = TestBed.get(BoardMemory);
+    const service: ExportSaveService = TestBed.get(ExportSaveService);
     expect(service).toBeTruthy();
   });
 });

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Bouton } from '../data/cell';
+import {Injectable} from '@angular/core';
+import {Bouton} from '../data/cell';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +7,9 @@ import { Bouton } from '../data/cell';
 export class TextBarContentService {
   history: Bouton[] = [];
   boxesInBar: Bouton[] = [];
+
+  constructor() {
+  }
 
   public add(selectedBox: Bouton) {
     this.history.push(selectedBox);
@@ -32,22 +35,20 @@ export class TextBarContentService {
   }
 
   play() {
-     let text = '';
-     for (const b of this.history) {
+    let text = '';
+    for (const b of this.history) {
       text = text + ' ' + b.label;
     }
-     text = text;
-     this.say(text);
-     console.log(text);
+    text = text;
+    this.say(text);
+    console.log(text);
   }
-
 
   say(text: string) {
     const synth = window.speechSynthesis;
-    const x = new SpeechSynthesisUtterance(text+' ');
+    const x = new SpeechSynthesisUtterance(text + ' ');
     x.lang = 'fr-FR';
     synth.speak(x);
     console.log(x.text);
   }
-  constructor() { }
 }

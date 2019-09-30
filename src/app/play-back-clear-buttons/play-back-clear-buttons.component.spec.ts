@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PlayBackClearButtonsComponent } from './play-back-clear-buttons.component';
+import {PlayBackClearButtonsComponent} from './play-back-clear-buttons.component';
 
 describe('TextbarComponent', () => {
   let component: PlayBackClearButtonsComponent;
@@ -8,9 +8,9 @@ describe('TextbarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlayBackClearButtonsComponent ]
+      declarations: [PlayBackClearButtonsComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

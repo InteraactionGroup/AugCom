@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { EditionSliderComponent } from './edition-slider.component';
+import {EditionSliderComponent} from './edition-slider.component';
 
 describe('EditionSliderComponent', () => {
   let component: EditionSliderComponent;
@@ -8,9 +8,9 @@ describe('EditionSliderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditionSliderComponent ]
+      declarations: [EditionSliderComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

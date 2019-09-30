@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { TextBarContentService } from '../services/textBarContent.service';
+import {Component, OnInit} from '@angular/core';
+import {TextBarContentService} from '../services/textBarContent.service';
 
 @Component({
   selector: 'app-buttons',
@@ -11,6 +11,7 @@ export class PlayBackClearButtonsComponent implements OnInit {
   constructor(private barService: TextBarContentService) {
 
   }
+
   back() {
     this.barService.back();
   }
@@ -19,8 +20,8 @@ export class PlayBackClearButtonsComponent implements OnInit {
     this.barService.clear();
   }
 
-   play() {
-      this.barService.play();
+  play() {
+    this.barService.play();
   }
 
   ngOnInit() {

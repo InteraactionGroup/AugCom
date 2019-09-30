@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserBarOptionManager} from "../services/userBarOptionManager";
 
 @Component({
@@ -8,7 +8,8 @@ import {UserBarOptionManager} from "../services/userBarOptionManager";
 })
 export class UserBarComponent implements OnInit {
 
-  constructor(public userBarServiceService: UserBarOptionManager) { }
+  constructor(public userBarServiceService: UserBarOptionManager) {
+  }
 
   ngOnInit() {
   }
@@ -25,21 +26,21 @@ export class UserBarComponent implements OnInit {
     }
   }
 
-  edit(){
+  edit() {
     this.userBarServiceService.editOptionEnabled = !this.userBarServiceService.editOptionEnabled;
   }
 
-  share(){
+  share() {
     this.userBarServiceService.shareOptionEnabled = !this.userBarServiceService.shareOptionEnabled;
   }
 
-  lock(){
+  lock() {
     this.userBarServiceService.unlocked = !this.userBarServiceService.unlocked;
     this.userBarServiceService.editOptionEnabled = this.userBarServiceService.editOptionEnabled && this.userBarServiceService.unlocked;
   }
 
-  getImgUrl(s:string) : string{
+  getImgUrl(s: string): string {
     return 'url(assets/images/' + s + '.svg)'
-}
+  }
 
 }

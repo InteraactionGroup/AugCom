@@ -1,12 +1,12 @@
 .slidecontainer {
-margin-left: -2px;
+  margin-left: -2px;
   width: 100%;
-outline:none;
+  outline: none;
   float: left;
 }
 
 .slider {
-margin-top: 5px;
+  margin-top: 5px;
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
@@ -14,8 +14,8 @@ margin-top: 5px;
   background: #999;
   outline: none;
   -webkit-transition: .2s;
-  border-radius:15px;
-outline:none;
+  border-radius: 15px;
+  outline: none;
   border: none;
 }
 
@@ -26,8 +26,8 @@ outline:none;
   height: 20px;
   background: black;
   cursor: pointer;
-  border-radius:15px;
-outline:none;
+  border-radius: 15px;
+  outline: none;
   border: none;
 }
 
@@ -36,7 +36,7 @@ outline:none;
   height: 20px;
   background: black;
   cursor: pointer;
-  border-radius:15px;
-outline:none;
+  border-radius: 15px;
+  outline: none;
   border: none;
 }

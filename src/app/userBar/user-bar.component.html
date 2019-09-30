@@ -1,25 +1,25 @@
 <div class="grid">
-  <button class="button" *ngIf="this.userBarServiceService.unlocked"
+  <button (click)="openFullscreen()" *ngIf="this.userBarServiceService.unlocked"
           [ngStyle]="{'background-image':this.getImgUrl('fullscreen')}"
-          (click)="openFullscreen()">
+          class="button">
   </button>
-  <button class="button" *ngIf="this.userBarServiceService.unlocked"
-          [ngStyle]="{'background-image':this.getImgUrl('show')}">
+  <button *ngIf="this.userBarServiceService.unlocked" [ngStyle]="{'background-image':this.getImgUrl('show')}"
+          class="button">
   </button>
-  <button class="button" *ngIf="this.userBarServiceService.unlocked"
+  <button (click)="edit()" *ngIf="this.userBarServiceService.unlocked"
           [ngStyle]="{'background-image':this.getImgUrl('edit')}"
-    (click)="edit()">
+          class="button">
   </button>
-  <button class="button" *ngIf="this.userBarServiceService.unlocked"
+  <button (click)="share()" *ngIf="this.userBarServiceService.unlocked"
           [ngStyle]="{'background-image':this.getImgUrl('share')}"
-  (click)="share()">
+          class="button">
   </button>
-  <button class="button"
+  <button (click)="lock()"
           [ngStyle]="{'background-image':this.getImgUrl('lock')}"
-    (click)="lock()">
+          class="button">
   </button>
-  <button class="button"
-          [ngStyle]="{'background-image':this.getImgUrl('user')}">
+  <button [ngStyle]="{'background-image':this.getImgUrl('user')}"
+          class="button">
   </button>
 
 </div>

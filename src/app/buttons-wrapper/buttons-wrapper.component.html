@@ -1,48 +1,50 @@
-<div class="wrapper boxes"  id="wrapper0"
-  [ngStyle]="{'grid-template-columns': 'repeat(5, 1fr)', 'font-size' : '3vw'}">
+<div [ngStyle]="{'grid-template-columns': 'repeat(5, 1fr)', 'font-size' : '3vw'}" class="wrapper boxes"
+     id="wrapper0">
 
   <ng-container *ngFor="let box of this.boardServiceService.board.boutons ">
     <li *ngIf="box.extCboardLabelKey === this.boardServiceService.folder">
       <ng-container *ngIf="box.loadBoard.path === ''; then first else second"></ng-container>
       <ng-template #first>
         <div
-          class="button actionButton"
           (click)="onSelect(box)"
-          id="{{box.id}}"
-          [ngStyle]="{'background-color': box.backgroundColor}" >
-          <div class="icon"
-               [style.background-image]=this.getImgUrl(box)
+          [ngStyle]="{'background-color': box.backgroundColor}"
+          class="button actionButton"
+          id="{{box.id}}">
+          <div [style.background-image]=this.getImgUrl(box)
+               class="icon"
           ></div>
-          <div class= "label"
+          <div class="label"
           >{{box.label}}</div>
         </div>
       </ng-template>
       <ng-template #second>
         <div
-          class="button folder"
           (click)="onSelectFolder(box)"
-          id="{{box.id}}"
-          [ngStyle]="{'background-color': box.backgroundColor}">
-          <div class="icon"
-               [style.background-image]="this.getImgUrl(box)"
+          [ngStyle]="{'background-color': box.backgroundColor}"
+          class="button folder"
+          id="{{box.id}}">
+          <div [style.background-image]="this.getImgUrl(box)"
+               class="icon"
           ></div>
-          <div class= "label">{{box.label}}</div>
+          <div class="label">{{box.label}}</div>
         </div>
       </ng-template>
-   </li>
- </ng-container>
+    </li>
+  </ng-container>
   <ng-template [ngIf]="this.boardServiceService.folder !== 'root' ">
-    <button class="button back"
-            (click)="onSelectBack()">
-      <div class= "backlabel"
-      >back</div>
+    <button (click)="onSelectBack()"
+            class="button back">
+      <div class="backlabel"
+      >back
+      </div>
     </button>
   </ng-template>
   <ng-template [ngIf]="this.userBarServiceService.editOptionEnabled ">
-    <button class="button add"
-            (click)="onSelectAdd()">
-      <div class= "backlabel"
-      > + </div>
+    <button (click)="onSelectAdd()"
+            class="button add">
+      <div class="backlabel"
+      > +
+      </div>
     </button>
   </ng-template>
 </div>
