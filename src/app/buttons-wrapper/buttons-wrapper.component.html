@@ -2,7 +2,8 @@
      id="wrapper0">
 
   <ng-container *ngFor="let box of this.boardServiceService.board.boutons ">
-    <li *ngIf="box.extCboardLabelKey === this.boardServiceService.folder">
+    <ul *ngIf="box.extCboardLabelKey === this.boardServiceService.folder">
+    <li>
       <ng-container *ngIf="box.loadBoard.path === ''; then first else second"></ng-container>
       <ng-template #first>
         <div
@@ -30,6 +31,7 @@
         </div>
       </ng-template>
     </li>
+    </ul>
   </ng-container>
   <ng-template [ngIf]="this.boardServiceService.folder !== 'root' ">
     <button (click)="onSelectBack()"

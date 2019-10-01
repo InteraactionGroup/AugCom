@@ -126,8 +126,31 @@
   list-style-type: none;
   margin-top: 10px;
   margin-left: 10%;
-  display: grid;
+  display: inline-grid;
   width: 80%;
-  height: 70%;
+  height: 50%;
   background-color: whitesmoke;
+  overflow: scroll;
+  grid-template-columns: repeat(5, 20%)
+}
+
+.pictoImg{
+  width:80%;
+  padding-top: 80%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.pictoLabel{
+  width:80%;
+  overflow: hidden;
+}
+
+.pictoOfLib{
+  width:100%;
+}
+
+.pictoList{
+  list-style-type: none;
 }

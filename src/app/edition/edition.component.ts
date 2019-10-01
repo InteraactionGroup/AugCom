@@ -3,7 +3,8 @@ import {BoardMemory} from "../services/boardMemory";
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {UserBarOptionManager} from "../services/userBarOptionManager";
 import {Ng2ImgMaxService} from 'ng2-img-max';
-
+import {MulBerryObject} from "../data/mulBerryFile";
+import  mullberryJson from "../.././assets/picto/mulberry-symbols/symbol-info.json";
 
 @Component({
   selector: 'app-edition-panel',
@@ -19,10 +20,13 @@ export class EditionComponent implements OnInit {
   public imagePath;
   public imgURL: any;
   public imgSafeURL: SafeUrl;
+  public imgSafeMulberry: SafeUrl;
   public message: string;
-  imageList;
+  imageList: any[];
+
 
   constructor(private ng2ImgMaxService: Ng2ImgMaxService, public _sanitizer: DomSanitizer, private boardServiceService: BoardMemory, public userBarServiceService: UserBarOptionManager) {
+    this.imageList = [];
   }
 
   previewWithURL(t) {
@@ -30,10 +34,30 @@ export class EditionComponent implements OnInit {
     this.imgSafeURL = this._sanitizer.bypassSecurityTrustUrl(t);
   }
 
-  previewWrap(textToSearch: string): boolean {
-    var pat = new RegExp(textToSearch + "+", 'ig');
+
+  previewLib(b:string){
+    this.imgURL= 'assets/picto/mulberry-symbols/EN-symbols/'+b+'.svg';
+  this.imgSafeURL= this._sanitizer.bypassSecurityTrustUrl(this.imgURL);
+  }
+
+  uploadDocument(text: string) {
+    this.imageList = [];
+    let tempList =[];
+    (<MulBerryObject[]> mullberryJson).forEach(function(value) {
+      if(text!=null && text!="" && value.symbol.includes(text)){
+        let url = value.symbol;
+        tempList.push(url);
+        tempList=tempList.sort((a:string,b:string)=>a.length-b.length)
+      }
+    },this);
+    this.imageList = tempList.slice(0,100)
+  }
+
+  getImgFromlib(textToSearch: string): string[] {
+    /*var pat = new RegExp(textToSearch + "+", 'ig');
     var res2 = pat.test("abbbabAAbbABbc");
-    return res2;
+    return ["a","b"];*/
+    return this.imageList;
   }
 
   preview(files) {

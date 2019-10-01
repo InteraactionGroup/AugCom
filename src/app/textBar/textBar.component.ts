@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Board} from '../data/mockOpenBoard';
 import {TextBarContentService} from '../services/textBarContent.service';
 import {Bouton} from '../data/cell';
+import {BoardMemory} from "../services/boardMemory";
 
 @Component({
   selector: 'app-bar',
@@ -10,7 +10,7 @@ import {Bouton} from '../data/cell';
 })
 export class TextBarComponent implements OnInit {
 
-  constructor(private barService: TextBarContentService) {
+  constructor(public boardServiceService: BoardMemory,private barService: TextBarContentService) {
   }
 
   ngOnInit() {
@@ -21,8 +21,13 @@ export class TextBarComponent implements OnInit {
   }
 
   getImgUrl(box: Bouton): string {
-    const s = Board.images.find(x => x.id === box.imageId).path;
+    var image = this.boardServiceService.board.images.find(x => x.id == box.imageId);
+    if(image!=null){
+    const s = image.path;
     return 'url(' + s + ')';
+    }else{
+      return "";
+    }
   }
 
 }

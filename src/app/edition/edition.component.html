@@ -63,18 +63,23 @@
       <div> OR</div>
 
       <div class="pile">Import an image from a library:</div>
-      <input id="regex" ng-model="regex" type="text"/>
-      <div [ngStyle]="{'grid-template-columns': 'repeat(5, 1fr)'}" class="wrapperPreview"
+      <input #search id="regex" type="text" (change)="uploadDocument(search.value)"/>
+      <div class="wrapperPreview"
            id="wrapperPreview">
-        <ng-container *ngFor="let b of ['a','A','dgular','AB','c'] ">
-          <li>
-            <input *ngIf="previewWrap(b)" name="{{b}}" type="button">
+        <ng-container *ngFor="let b of this.imageList ">
+          <li class="pictoList">
+            <div class="pictoOfLib" (click)="previewLib(b)">
+            <div class="pictoImg" [ngStyle]="{'background-image':'url(assets/picto/mulberry-symbols/EN-symbols/'+b+'.svg)'}"></div>
+            <div class="pictoLabel">{{b}}</div>
+              </div>
           </li>
         </ng-container>
       </div>
       <img *ngIf="imgSafeURL" [src]="imgSafeURL" height="200">
 
-      <input (click)="userBarServiceService.addImageenabled=false"
+      <img *ngIf="imgSafeMulberry" [src]="imgSafeMulberry" height="200">
+
+      <input (click)="this.userBarServiceService.addImageenabled=!this.userBarServiceService.addImageenabled"
              type="submit">
     </ng-container>
 
