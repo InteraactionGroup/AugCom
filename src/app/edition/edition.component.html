@@ -14,8 +14,6 @@
         </div>
       </div>
     </div>
-    <input [(ngModel)]="name" class="pile" id="nameID" type="text" value="Enter the name">
-    <input class="pile" id="idID" type="text" value="Enter the id">
     Babble status: visible
     <input type="checkbox">
   </div>
@@ -28,43 +26,62 @@
     </div>
 
     <ng-container *ngIf="!userBarServiceService.addImageenabled">
+
+
       <input (click)="userBarServiceService.addImageenabled=true" class="addImageButton" type="button"
              value="Add an image ...">
-      <img *ngIf="imgSafeURL" [src]="imgSafeURL" class="pile" height="200">
-      <input class="combo pile" list=actions type=text value="Select label type...">
+
+      <input [(ngModel)]="name" class="nameField"id="nameID" type="text" value="Enter the name" (change)="getWordList()">
+
+      <form id="myForm">
+        <input checked class="radio" id="radioButton"  [(ngModel)]="radioButtonValue"name="buttonFormat" type="radio" value="radiobutton">
+        <label for="radioButton">Button</label>
+        <input class="radio" id="radioFolder" [(ngModel)]="radioButtonValue" name="buttonFormat" type="radio" value="radiofolder">
+        <label for="radioFolder">Folder</label>
+      </form>
+
+      <ng-container *ngIf="radioButtonValue === 'radiobutton'">
+        <ng-container *ngFor="let b of this.typeList ">
+          <li >
+            <div *ngIf="b === 'verb'" (click)="displayVariant(b)">
+              It's a verb
+            </div>
+            <div *ngIf="b === 'noun'">
+              It's a noun
+            </div>
+          </li>
+        </ng-container>
+      </ng-container>
+
+
+      <!--<input *ngIf="true" class="combo" list=actions type=text value="Select label type...">
       <datalist id=actions>
         <option> verb
         <option> noun
         <option> adjective
-      </datalist>
-      <div class="pile">
-        <input checked class="radio" id="radioButton" name="buttonFormat" type="radio" value="radiobutton">
-        <label for="radioButton">Button</label>
-        <input class="radio" id="radioFolder" name="buttonFormat" type="radio" value="radiofolder">
-        <label for="radioFolder">Folder</label>
-      </div>
+      </datalist>-->
 
       <input (click)="this.createNewButton()"
              type="submit">
     </ng-container>
 
     <ng-container *ngIf="userBarServiceService.addImageenabled">
-      <div class="pile">
-
-        <div class="pile">Use a web URL</div>
+      <div >
+        <div >Use a web URL</div>
         <input #text (change)="previewWithURL(text.value)" type="text"/>
       </div>
       <div> OR</div>
-      <div class="pile">
+      <div >
 
-        <div class="pile">Import an image from your computer:</div>
+        <div >Import an image from your computer:</div>
         <input #file (change)="preview(file.files)" accept='image/*' type="file"/>
       </div>
       <div> OR</div>
 
-      <div class="pile">Import an image from a library:</div>
+      <div >Import an image from a library:</div>
+
       <input #search id="regex" type="text" (change)="uploadDocument(search.value)"/>
-      <div class="wrapperPreview"
+      <div class="wrapperPreview "
            id="wrapperPreview">
         <ng-container *ngFor="let b of this.imageList ">
           <li class="pictoList">
@@ -75,12 +92,11 @@
           </li>
         </ng-container>
       </div>
-      <img *ngIf="imgSafeURL" [src]="imgSafeURL" height="200">
 
-      <img *ngIf="imgSafeMulberry" [src]="imgSafeMulberry" height="200">
-
+<div  >
       <input (click)="this.userBarServiceService.addImageenabled=!this.userBarServiceService.addImageenabled"
              type="submit">
+</div>
     </ng-container>
 
   </div>

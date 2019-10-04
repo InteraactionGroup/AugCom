@@ -47,7 +47,7 @@ export class TextBarContentService {
   say(text: string) {
     const synth = window.speechSynthesis;
     const x = new SpeechSynthesisUtterance(text + ' ');
-    x.lang = 'en-EN';
+    x.lang = 'fr-FR';
     synth.speak(x);
     console.log(x.text);
   }

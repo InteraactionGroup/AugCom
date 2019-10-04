@@ -13,12 +13,15 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es5",
+    "types": ["node"],
     "typeRoots": [
-      "node_modules/@types"
+      "./node_modules/@types"
     ],
     "lib": [
-      "es2018",
-      "dom"
+      "dom",
+      "dom.iterable",
+      "es2015",
+      "scripthost"
     ]
   }
 }

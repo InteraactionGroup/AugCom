@@ -110,10 +110,8 @@
   font-size: 2vw;
   text-alignment: center;
 }
-
-.pile {
-  text-align: center;
-  display: block;
+.idField , .nameField{
+  width:60%;
 }
 
 .pile {
@@ -125,7 +123,6 @@
 .wrapperPreview {
   list-style-type: none;
   margin-top: 10px;
-  margin-left: 10%;
   display: inline-grid;
   width: 80%;
   height: 50%;

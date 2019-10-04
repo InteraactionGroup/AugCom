@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserBarOptionManager} from "../services/userBarOptionManager";
+import {DBnaryReader} from "../data/dbnaryReader";
 
 @Component({
   selector: 'app-user-bar',
@@ -14,14 +15,18 @@ export class UserBarComponent implements OnInit {
   ngOnInit() {
   }
 
+  fullScreen = "fullscreen";
+
   openFullscreen() {
     if (document.fullscreen) {
       if (document.exitFullscreen) {
         document.exitFullscreen();
+        this.fullScreen = "fullscreen";
       }
     } else {
       if (document.documentElement.requestFullscreen) {
         document.documentElement.requestFullscreen();
+        this.fullScreen = "exitfullscreen";
       }
     }
   }
@@ -41,6 +46,10 @@ export class UserBarComponent implements OnInit {
 
   getImgUrl(s: string): string {
     return 'url(assets/images/' + s + '.svg)'
+  }
+
+  turtle(){
+    let turtle = new DBnaryReader();
   }
 
 }

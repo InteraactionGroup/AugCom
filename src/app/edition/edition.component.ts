@@ -5,6 +5,7 @@ import {UserBarOptionManager} from "../services/userBarOptionManager";
 import {Ng2ImgMaxService} from 'ng2-img-max';
 import {MulBerryObject} from "../data/mulBerryFile";
 import  mullberryJson from "../.././assets/picto/mulberry-symbols/symbol-info.json";
+import {DBnaryReader} from "../data/dbnaryReader";
 
 @Component({
   selector: 'app-edition-panel',
@@ -17,18 +18,38 @@ export class EditionComponent implements OnInit {
   regex;
   color = "black";
   name = "Enter the name";
+  public wordList = [];
+  public typeList = [];
   public imagePath;
   public imgURL: any;
   public imgSafeURL: SafeUrl;
   public imgSafeMulberry: SafeUrl;
   public message: string;
   imageList: any[];
+  public radioButtonValue ="radiobutton";
 
 
   constructor(private ng2ImgMaxService: Ng2ImgMaxService, public _sanitizer: DomSanitizer, private boardServiceService: BoardMemory, public userBarServiceService: UserBarOptionManager) {
     this.imageList = [];
   }
 
+  getWordList(){
+    let dico = new DBnaryReader();
+    let tempDicoResults = dico.getWord(this.name);
+    this.wordList = tempDicoResults.wordlist;
+    this.typeList = tempDicoResults.typelist;
+
+  }
+  displayVariant(b){
+    this.wordList.forEach(function(value){
+      if(value.type === b){
+        console.log(value.writtenRep);}
+    });
+  }
+
+  gettypeof(b){
+    return  b.type;
+  }
   previewWithURL(t) {
     this.imgURL = t;
     this.imgSafeURL = this._sanitizer.bypassSecurityTrustUrl(t);
@@ -44,10 +65,20 @@ export class EditionComponent implements OnInit {
     this.imageList = [];
     let tempList =[];
     (<MulBerryObject[]> mullberryJson).forEach(function(value) {
-      if(text!=null && text!="" && value.symbol.includes(text)){
+      if(text!=null && text!="" && value.symbol.toLowerCase().includes(text.toLocaleLowerCase())){
         let url = value.symbol;
         tempList.push(url);
-        tempList=tempList.sort((a:string,b:string)=>a.length-b.length)
+        tempList=tempList.sort((a:string,b:string)=> {
+          if(a.toLowerCase().startsWith(text.toLowerCase())&&b.toLowerCase().startsWith(text.toLowerCase())) {
+           return a.length - b.length;
+          }else if(a.toLowerCase().startsWith(text.toLowerCase())){
+            return -1;
+          }else{
+            return 1;
+          }
+
+        }
+          )
       }
     },this);
     this.imageList = tempList.slice(0,100)
