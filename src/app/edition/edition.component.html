@@ -42,17 +42,24 @@
 
       <ng-container *ngIf="radioButtonValue === 'radiobutton'">
         <ng-container *ngFor="let b of this.typeList ">
-          <li >
-            <div *ngIf="b === 'verb'" (click)="displayVariant(b)">
-              It's a verb
-            </div>
-            <div *ngIf="b === 'noun'">
-              It's a noun
-            </div>
-          </li>
+            <form >
+              <div *ngIf="b === 'verb'">
+              <input checked class="radio" id="radioVerb"  [(ngModel)]="radioButtonType" name="buttonType" type="radio" value="verb">
+              <label for="radioButton">Verb</label>
+              </div>
+              <div *ngIf="b === 'noun'">
+              <input class="radio" id="radioNoun" [(ngModel)]="radioButtonType" name="buttonType" type="radio" value="noun">
+              <label for="radioFolder">Noun</label>
+              </div>
+            </form>
         </ng-container>
       </ng-container>
 
+      <ng-container *ngIf="radioButtonType">
+        <ng-container *ngFor="let b of displayVariant(radioButtonType) ">
+          {{b.writtenRep}}
+        </ng-container>
+      </ng-container>
 
       <!--<input *ngIf="true" class="combo" list=actions type=text value="Select label type...">
       <datalist id=actions>

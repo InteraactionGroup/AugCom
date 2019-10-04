@@ -15,6 +15,8 @@ export class ButtonsWrapperComponent implements OnInit {
 
   selectedBox: Bouton = null;
   prevselectedBox: Bouton = null;
+  pressTimer;
+  timerstarted=false;
 
   constructor(private _sanitizer: DomSanitizer, public boardServiceService: BoardMemory, private barService: TextBarContentService, public userBarServiceService: UserBarOptionManager) {
   }
@@ -24,6 +26,25 @@ export class ButtonsWrapperComponent implements OnInit {
 
   getBar(): Bouton[] {
     return this.barService.boxesInBar;
+  }
+  doTheUp(box){
+    if(this.timerstarted) {
+      clearTimeout(this.pressTimer);
+      console.log("press");
+      this.onSelect(box);
+    }else{
+      clearTimeout(this.pressTimer);
+      console.log("you did a longpress already");
+    }
+  }
+  doTheDown(){
+    this.timerstarted = true;
+    console.log("started");
+    var that = this;
+    this.pressTimer = setTimeout(function() {
+      that.timerstarted = false;
+      console.log("longPress");
+    },1000,this);
   }
 
   onSelect(box: Bouton): void {

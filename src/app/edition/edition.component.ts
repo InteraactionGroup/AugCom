@@ -18,6 +18,7 @@ export class EditionComponent implements OnInit {
   regex;
   color = "black";
   name = "Enter the name";
+  radioButtonType;
   public wordList = [];
   public typeList = [];
   public imagePath;
@@ -41,10 +42,13 @@ export class EditionComponent implements OnInit {
 
   }
   displayVariant(b){
+    let temp = [];
     this.wordList.forEach(function(value){
-      if(value.type === b){
-        console.log(value.writtenRep);}
+      if(value.type === b) {
+        temp.push(value);
+      }
     });
+    return temp;
   }
 
   gettypeof(b){

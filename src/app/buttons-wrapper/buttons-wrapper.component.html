@@ -7,7 +7,8 @@
       <ng-container *ngIf="box.loadBoard.path === ''; then first else second"></ng-container>
       <ng-template #first>
         <div
-          (click)="onSelect(box)"
+          (pointerup)="doTheUp(box)"
+          (pointerdown)="doTheDown()"
           [ngStyle]="{'background-color': box.backgroundColor}"
           class="button actionButton"
           id="{{box.id}}">
