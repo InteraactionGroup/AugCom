@@ -8,7 +8,7 @@
       <ng-template #first>
         <div
           (pointerup)="doTheUp(box)"
-          (pointerdown)="doTheDown()"
+          (pointerdown)="doTheDown(box)"
           [ngStyle]="{'background-color': box.backgroundColor}"
           class="button actionButton"
           id="{{box.id}}">

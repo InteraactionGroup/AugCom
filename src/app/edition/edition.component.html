@@ -68,8 +68,12 @@
         <option> adjective
       </datalist>-->
 
-      <input (click)="this.createNewButton()"
-             type="submit">
+      <ng-container>
+
+        <input (click)="this.createNewButton()" [disabled]="imgURL===undefined"
+               type="submit">
+        <div *ngIf="imgURL===undefined" [ngStyle]="{'color':'indianred'}"> You shoud add an image before submit </div>
+      </ng-container>
     </ng-container>
 
     <ng-container *ngIf="userBarServiceService.addImageenabled">

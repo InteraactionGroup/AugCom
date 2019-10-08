@@ -18,5 +18,6 @@ export class Bouton {
   label: string;
   backgroundColor: string;
   imageId: string;
-  loadBoard: { name: string; path: string };
+  loadBoard: {path: string };
+  alternativeFroms: {form: string, formInfo: string[]}[];
 }

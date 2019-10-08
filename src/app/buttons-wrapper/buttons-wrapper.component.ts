@@ -27,22 +27,27 @@ export class ButtonsWrapperComponent implements OnInit {
   getBar(): Bouton[] {
     return this.barService.boxesInBar;
   }
-  doTheUp(box){
+  doTheUp(box:Bouton){
     if(this.timerstarted) {
       clearTimeout(this.pressTimer);
       console.log("press");
       this.onSelect(box);
     }else{
       clearTimeout(this.pressTimer);
+      this.onSelect(box);
+
       console.log("you did a longpress already");
     }
   }
-  doTheDown(){
+  doTheDown(box:Bouton){
     this.timerstarted = true;
     console.log("started");
     var that = this;
     this.pressTimer = setTimeout(function() {
       that.timerstarted = false;
+      if(box.alternativeFroms!=[] && box.alternativeFroms.length>0){
+        box.label=box.alternativeFroms[0].form;
+      }
       console.log("longPress");
     },1000,this);
   }

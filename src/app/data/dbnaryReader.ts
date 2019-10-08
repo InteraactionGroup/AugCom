@@ -1,20 +1,14 @@
-import * as rdflib from 'rdflib';
+
 
 export class DBnaryDictionnaryVerbElement {
   type = "verb";
   label;
-  number;
-  person;
-  tense;
-  verbForm;
+  formInfo;
   writtenRep;
 
   constructor( label, number, person, tense, verbForm, writtenRep){
     this.label = label;
-    this.number= number;
-    this.person =person;
-    this.tense =tense;
-    this.verbForm= verbForm;
+    this.formInfo= { number, person, tense, verbForm};
     this.writtenRep= writtenRep;
   }
 }
@@ -22,14 +16,12 @@ export class DBnaryDictionnaryVerbElement {
 export class DBnaryDictionnaryNounElement {
   type = "noun";
   label;
-  number;
-  gender;
+  formInfo;
   writtenRep;
 
   constructor(label,number,gender,writtenRep){
     this.label=label;
-    this.number=number;
-    this.gender=gender;
+    this.formInfo= { number, gender};
     this.writtenRep= writtenRep;
   }
 }
@@ -38,7 +30,11 @@ export class DBnaryReader {
 
 
   constructor() {
+
+
+
   }
+
 
   etreVerb1 = new DBnaryDictionnaryVerbElement("etre","singulier","first","present","indicatif","suis");
   etreVerb2 = new DBnaryDictionnaryVerbElement("etre","singulier","second","present","indicatif","es");

@@ -18,7 +18,7 @@ export class EditionComponent implements OnInit {
   regex;
   color = "black";
   name = "Enter the name";
-  radioButtonType;
+  public radioButtonType;
   public wordList = [];
   public typeList = [];
   public imagePath;
@@ -142,6 +142,14 @@ export class EditionComponent implements OnInit {
     }
 
 
+    let temp :{form: string, formInfo: string[]}[] = [];
+    let that = this;
+    this.wordList.forEach(function(value){
+      if(value.type === that.radioButtonType) {
+        temp.push({form: value.writtenRep,formInfo:value.formInfo });
+      }
+    });
+
     this.boardServiceService.board.boutons.push(
       {
         id: "99",
@@ -149,7 +157,7 @@ export class EditionComponent implements OnInit {
         label: (<HTMLInputElement>document.getElementById("nameID")).value,
         backgroundColor: (<HTMLInputElement>document.getElementById("colorID")).value,
         imageId: "im5" + (<HTMLInputElement>document.getElementById("nameID")).value,
-        loadBoard: {name: "99", path: path}
+        loadBoard: {path: path} ,alternativeFroms: temp
       });
 
     this.boardServiceService.board.images.push(
