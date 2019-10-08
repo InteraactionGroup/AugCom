@@ -24,7 +24,6 @@ export class EditionComponent implements OnInit {
   public imagePath;
   public imgURL: any;
   public imgSafeURL: SafeUrl;
-  public imgSafeMulberry: SafeUrl;
   public message: string;
   imageList: any[];
   public radioButtonValue ="radiobutton";
@@ -88,12 +87,6 @@ export class EditionComponent implements OnInit {
     this.imageList = tempList.slice(0,100)
   }
 
-  getImgFromlib(textToSearch: string): string[] {
-    /*var pat = new RegExp(textToSearch + "+", 'ig');
-    var res2 = pat.test("abbbabAAbbABbc");
-    return ["a","b"];*/
-    return this.imageList;
-  }
 
   preview(files) {
     if (files.length === 0)

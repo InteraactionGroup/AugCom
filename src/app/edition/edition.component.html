@@ -41,6 +41,7 @@
       </form>
 
       <ng-container *ngIf="radioButtonValue === 'radiobutton'">
+        <div class="wrapperPreview">
         <ng-container *ngFor="let b of this.typeList ">
             <form >
               <div *ngIf="b === 'verb'">
@@ -53,13 +54,14 @@
               </div>
             </form>
         </ng-container>
+        </div>
       </ng-container>
 
-      <ng-container *ngIf="radioButtonType">
+      <div *ngIf="radioButtonType">
         <ng-container *ngFor="let b of displayVariant(radioButtonType) ">
           {{b.writtenRep}}
         </ng-container>
-      </ng-container>
+      </div>
 
       <!--<input *ngIf="true" class="combo" list=actions type=text value="Select label type...">
       <datalist id=actions>
