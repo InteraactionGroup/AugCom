@@ -13,6 +13,7 @@ export class Grille {
 }
 
 export class Bouton {
+  originalLabel :string;
   id: string;
   extCboardLabelKey: string;
   label: string;

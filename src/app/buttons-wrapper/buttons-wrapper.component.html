@@ -9,6 +9,7 @@
         <div
           (pointerup)="doTheUp(box)"
           (pointerdown)="doTheDown(box)"
+          (pointerleave)="doTheLeave(box)"
           [ngStyle]="{'background-color': box.backgroundColor}"
           class="button actionButton"
           id="{{box.id}}">

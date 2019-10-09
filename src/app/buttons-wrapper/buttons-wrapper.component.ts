@@ -17,7 +17,6 @@ export class ButtonsWrapperComponent implements OnInit {
   prevselectedBox: Bouton = null;
   pressTimer;
   timerstarted=false;
-  templabel="";
 
   constructor(private _sanitizer: DomSanitizer, public boardServiceService: BoardMemory, private barService: TextBarContentService, public userBarServiceService: UserBarOptionManager) {
   }
@@ -28,16 +27,24 @@ export class ButtonsWrapperComponent implements OnInit {
   getBar(): Bouton[] {
     return this.barService.boxesInBar;
   }
+  doTheLeave(box:Bouton){
+    if(this.timerstarted) {
+      clearTimeout(this.pressTimer);
+      this.timerstarted = false;
+    }
+      box.label = box.originalLabel;
+  }
+
   doTheUp(box:Bouton){
     if(this.timerstarted) {
       clearTimeout(this.pressTimer);
+      this.timerstarted = false;
       console.log("press");
       this.onSelect(box);
     }else{
       clearTimeout(this.pressTimer);
       this.onSelect(box);
-      box.label = this.templabel;
-      this.templabel = "";
+      box.label = box.originalLabel;
 
       console.log("you did a longpress already");
     }
@@ -49,7 +56,6 @@ export class ButtonsWrapperComponent implements OnInit {
     this.pressTimer = setTimeout(function() {
       that.timerstarted = false;
       if(box.alternativeFroms!=[] && box.alternativeFroms.length>0){
-        that.templabel = box.label
         box.label=box.alternativeFroms[0].form;
       }
       console.log("longPress");
@@ -59,6 +65,7 @@ export class ButtonsWrapperComponent implements OnInit {
   onSelect(box: Bouton): void {
     this.prevselectedBox = this.selectedBox;
     this.selectedBox = {
+      originalLabel: box.label,
       id: box.id,
       extCboardLabelKey: box.extCboardLabelKey,
       label: box.label,

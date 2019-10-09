@@ -145,6 +145,7 @@ export class EditionComponent implements OnInit {
 
     this.boardServiceService.board.boutons.push(
       {
+        originalLabel: (<HTMLInputElement>document.getElementById("nameID")).value,
         id: "99",
         extCboardLabelKey: this.boardServiceService.folder,
         label: (<HTMLInputElement>document.getElementById("nameID")).value,
