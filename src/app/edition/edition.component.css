@@ -24,7 +24,7 @@
   margin-top: 5%;
   margin-bottom: 5%;
   white-space: nowrap;
-  font-size: 3vw;
+  font-size: 2vw;
   overflow: hidden;
 }
 
@@ -107,7 +107,7 @@
   width: 90%;
   margin-left: 5%;
   margin-right: 5%;
-  font-size: 2vw;
+  font-size: 1.5vw;
   text-alignment: center;
 }
 .idField , .nameField{
@@ -140,7 +140,6 @@
 }
 
 .pictoLabel{
-  width:80%;
   overflow: hidden;
 }
 

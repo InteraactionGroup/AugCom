@@ -16,7 +16,7 @@ import {DBnaryReader} from "../data/dbnaryReader";
 export class EditionComponent implements OnInit {
 
   regex;
-  color = "black";
+  color = "grey";
   name = "Enter the name";
   public radioButtonType;
   public wordList = [];

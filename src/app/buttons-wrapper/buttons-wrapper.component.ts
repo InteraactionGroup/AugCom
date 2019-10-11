@@ -4,6 +4,9 @@ import {TextBarContentService} from '../services/textBarContent.service';
 import {UserBarOptionManager} from "../services/userBarOptionManager";
 import {BoardMemory} from "../services/boardMemory";
 import {DomSanitizer} from "@angular/platform-browser";
+import {SparqlRequestService} from "../data/sparql-request.service";
+import {CdkDragDrop, moveItemInArray, CdkDrag, CdkDragStart} from '@angular/cdk/drag-drop';
+
 
 @Component({
   selector: 'app-boxes',
@@ -17,48 +20,86 @@ export class ButtonsWrapperComponent implements OnInit {
   prevselectedBox: Bouton = null;
   pressTimer;
   timerstarted=false;
+  sliderValue = 5;
 
-  constructor(private _sanitizer: DomSanitizer, public boardServiceService: BoardMemory, private barService: TextBarContentService, public userBarServiceService: UserBarOptionManager) {
+  constructor(private sparqlRequestService:SparqlRequestService, private _sanitizer: DomSanitizer, public boardServiceService: BoardMemory, private barService: TextBarContentService, public userBarServiceService: UserBarOptionManager) {
   }
+
+  currentboard = this.boardServiceService.board.boutons.filter(box=>box.extCboardLabelKey === this.boardServiceService.folder);
 
   ngOnInit() {
   }
 
+
   getBar(): Bouton[] {
     return this.barService.boxesInBar;
   }
+
+
   doTheLeave(box:Bouton){
     if(this.timerstarted) {
       clearTimeout(this.pressTimer);
       this.timerstarted = false;
     }
       box.label = box.originalLabel;
+
   }
 
   doTheUp(box:Bouton){
     if(this.timerstarted) {
       clearTimeout(this.pressTimer);
       this.timerstarted = false;
-      console.log("press");
+      //console.log("press");
       this.onSelect(box);
     }else{
       clearTimeout(this.pressTimer);
       this.onSelect(box);
       box.label = box.originalLabel;
 
-      console.log("you did a longpress already");
+     // console.log("you did a longpress already");
+
     }
+    //this.changeColor(box);
+
+    }
+
+  changeColor(box){
+    let list = this.boardServiceService.board.boutons.filter(x=>x.extCboardLabelKey === this.boardServiceService.folder);
+    let index :number=list.indexOf(box);
+    let top :number= index - this.sliderValue;
+    let down :number= index + this.sliderValue;
+    let right :number= index + 1;
+    let left :number= index - 1;
+
+    let rightCheck = Math.trunc(right/this.sliderValue) === Math.trunc(index/this.sliderValue);
+    let leftCheck = Math.trunc(left/this.sliderValue) === Math.trunc(index/this.sliderValue);
+
+    if(top>=0 && top <list.length){
+      list[top].backgroundColor = 'grey';
+    }
+    if(down>=0 && down <list.length){
+      list[down].backgroundColor = 'grey';
+    }
+    if(left>=0 && left <list.length && leftCheck){
+      list[left].backgroundColor = 'grey';
+    }
+    if(right>=0 && right <list.length && rightCheck){
+      list[right].backgroundColor = 'grey';
+    }
+
+    //this.sparqlRequestService.sparkql();
+
   }
   doTheDown(box:Bouton){
     this.timerstarted = true;
-    console.log("started");
+   // console.log("started");
     var that = this;
     this.pressTimer = setTimeout(function() {
       that.timerstarted = false;
       if(box.alternativeFroms!=[] && box.alternativeFroms.length>0){
         box.label=box.alternativeFroms[0].form;
       }
-      console.log("longPress");
+     // console.log("longPress");
     },1000,this);
   }
 
@@ -83,6 +124,7 @@ export class ButtonsWrapperComponent implements OnInit {
     this.prevselectedBox = this.selectedBox;
     this.selectedBox = box;
     this.boardServiceService.folder = box.id;
+    this.currentboard = this.boardServiceService.board.boutons.filter(box=>box.extCboardLabelKey === this.boardServiceService.folder);
   }
 
   getImgUrl(box: Bouton) {
@@ -93,6 +135,8 @@ export class ButtonsWrapperComponent implements OnInit {
 
   onSelectBack(): void {
     this.boardServiceService.folder = this.boardServiceService.board.boutons.find(x => x.id === this.boardServiceService.folder).extCboardLabelKey;
+
+    this.currentboard = this.boardServiceService.board.boutons.filter(box=>box.extCboardLabelKey === this.boardServiceService.folder);
   }
 
   onSelectAdd(): void {

@@ -13,7 +13,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es5",
-    "types": ["node"],
+    "types": ["node","jquery"],
     "typeRoots": [
       "./node_modules/@types"
     ],
