@@ -6,7 +6,7 @@
 
 
 <div dragula="DRAGULA_FACTS" [ngStyle]="{'grid-template-columns': 'repeat('+this.sliderValue+', '+(100/this.sliderValue)+'%)', 'font-size' : ((3 / 5) * (11 - this.sliderValue))+'vw'}" class="wrapper boxes">
-  <ng-container *ngFor="let box of this.currentboard ">
+  <ng-container *ngFor="let box of getCurrentBoxes() ">
       <ng-container *ngIf="box.loadBoard.path === ''; then first else second"></ng-container>
       <ng-template #first>
         <div

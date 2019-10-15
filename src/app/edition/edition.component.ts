@@ -5,7 +5,8 @@ import {UserBarOptionManager} from "../services/userBarOptionManager";
 import {Ng2ImgMaxService} from 'ng2-img-max';
 import {MulBerryObject} from "../data/mulBerryFile";
 import  mullberryJson from "../.././assets/picto/mulberry-symbols/symbol-info.json";
-import {DBnaryReader} from "../data/dbnaryReader";
+import {SparqlRequestService} from "../services/sparqlRequest.service";
+
 
 @Component({
   selector: 'app-edition-panel',
@@ -29,16 +30,14 @@ export class EditionComponent implements OnInit {
   public radioButtonValue ="radiobutton";
 
 
-  constructor(private ng2ImgMaxService: Ng2ImgMaxService, public _sanitizer: DomSanitizer, private boardServiceService: BoardMemory, public userBarServiceService: UserBarOptionManager) {
+  constructor(public sparqlRequestService: SparqlRequestService, private ng2ImgMaxService: Ng2ImgMaxService, public _sanitizer: DomSanitizer, private boardServiceService: BoardMemory, public userBarServiceService: UserBarOptionManager) {
     this.imageList = [];
   }
 
-  getWordList(){
-    let dico = new DBnaryReader();
-    let tempDicoResults = dico.getWord(this.name);
-    this.wordList = tempDicoResults.wordlist;
-    this.typeList = tempDicoResults.typelist;
 
+  getWordList(){
+    this.typeList=[];
+    this.sparqlRequestService.getWordPartOfSpeech(this.name, this.typeList);
   }
   displayVariant(b){
     let temp = [];
@@ -149,7 +148,7 @@ export class EditionComponent implements OnInit {
         id: "99",
         extCboardLabelKey: this.boardServiceService.folder,
         label: (<HTMLInputElement>document.getElementById("nameID")).value,
-        backgroundColor: (<HTMLInputElement>document.getElementById("colorID")).value,
+        backgroundColor: this.color,
         imageId: "im5" + (<HTMLInputElement>document.getElementById("nameID")).value,
         loadBoard: {path: path} ,alternativeFroms: temp
       });

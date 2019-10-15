@@ -42,10 +42,8 @@
 
       <ng-container *ngIf="radioButtonValue === 'radiobutton'">
         <ng-container *ngFor="let b of this.typeList ">
-              <input *ngIf="b === 'verb'" class="radio" id="radioVerb"  [(ngModel)]="radioButtonType" name="buttonType" type="radio" value="verb">
-              <label *ngIf="b === 'verb'" for="radioVerb">Verb</label>
-              <input *ngIf="b === 'noun'" class="radio" id="radioNoun" [(ngModel)]="radioButtonType" name="buttonType" type="radio" value="noun">
-              <label *ngIf="b === 'noun'" for="radioNoun">Noun</label>
+              <input class="radio" id="{{b}}radio"  [(ngModel)]="radioButtonType" name="buttonType" type="radio" value="{{b}}}">
+              <label for="{{b}}radio">{{b}}</label>
         </ng-container>
         <input checked *ngIf="this.typeList.length===0" class="radio" id="radioNone"  [(ngModel)]="radioButtonType" name="buttonType" type="radio" value="none">
         <label *ngIf="this.typeList.length===0" for="radioNone">None</label>

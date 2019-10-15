@@ -4,7 +4,6 @@ import {TextBarContentService} from '../services/textBarContent.service';
 import {UserBarOptionManager} from "../services/userBarOptionManager";
 import {BoardMemory} from "../services/boardMemory";
 import {DomSanitizer} from "@angular/platform-browser";
-import {SparqlRequestService} from "../data/sparql-request.service";
 import {CdkDragDrop, moveItemInArray, CdkDrag, CdkDragStart} from '@angular/cdk/drag-drop';
 
 
@@ -22,10 +21,8 @@ export class ButtonsWrapperComponent implements OnInit {
   timerstarted=false;
   sliderValue = 5;
 
-  constructor(private sparqlRequestService:SparqlRequestService, private _sanitizer: DomSanitizer, public boardServiceService: BoardMemory, private barService: TextBarContentService, public userBarServiceService: UserBarOptionManager) {
+  constructor( private _sanitizer: DomSanitizer, public boardServiceService: BoardMemory, private barService: TextBarContentService, public userBarServiceService: UserBarOptionManager) {
   }
-
-  currentboard = this.boardServiceService.board.boutons.filter(box=>box.extCboardLabelKey === this.boardServiceService.folder);
 
   ngOnInit() {
   }
@@ -56,10 +53,7 @@ export class ButtonsWrapperComponent implements OnInit {
       this.onSelect(box);
       box.label = box.originalLabel;
 
-     // console.log("you did a longpress already");
-
     }
-    //this.changeColor(box);
 
     }
 
@@ -87,7 +81,6 @@ export class ButtonsWrapperComponent implements OnInit {
       list[right].backgroundColor = 'grey';
     }
 
-    //this.sparqlRequestService.sparkql();
 
   }
   doTheDown(box:Bouton){
@@ -124,7 +117,6 @@ export class ButtonsWrapperComponent implements OnInit {
     this.prevselectedBox = this.selectedBox;
     this.selectedBox = box;
     this.boardServiceService.folder = box.id;
-    this.currentboard = this.boardServiceService.board.boutons.filter(box=>box.extCboardLabelKey === this.boardServiceService.folder);
   }
 
   getImgUrl(box: Bouton) {
@@ -135,12 +127,14 @@ export class ButtonsWrapperComponent implements OnInit {
 
   onSelectBack(): void {
     this.boardServiceService.folder = this.boardServiceService.board.boutons.find(x => x.id === this.boardServiceService.folder).extCboardLabelKey;
-
-    this.currentboard = this.boardServiceService.board.boutons.filter(box=>box.extCboardLabelKey === this.boardServiceService.folder);
   }
 
   onSelectAdd(): void {
     this.userBarServiceService.addEditOptionEnabled = true;
+  }
+
+  getCurrentBoxes(){
+    return this.boardServiceService.board.boutons.filter(x=>x.extCboardLabelKey === this.boardServiceService.folder);
   }
 
 }
