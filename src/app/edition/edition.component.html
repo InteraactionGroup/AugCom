@@ -42,7 +42,7 @@
 
       <ng-container *ngIf="radioButtonValue === 'radiobutton'">
         <ng-container *ngFor="let b of this.typeList ">
-              <input class="radio" id="{{b}}radio"  [(ngModel)]="radioButtonType" name="buttonType" type="radio" value="{{b}}}">
+              <input class="radio" id="{{b}}radio"  [(ngModel)]="radioButtonType" name="buttonType" type="radio" value="{{b}}" (click)="displayVariant(b)" >
               <label for="{{b}}radio">{{b}}</label>
         </ng-container>
         <input checked *ngIf="this.typeList.length===0" class="radio" id="radioNone"  [(ngModel)]="radioButtonType" name="buttonType" type="radio" value="none">
@@ -52,12 +52,12 @@
         <input type="text" (click)="radioButtonType='other'">
       </ng-container>
 
-      <div *ngIf="radioButtonValue === 'radiobutton' && displayVariant(radioButtonType).length > 0  ">
-        <div class="wrapperPreview">
-        <ng-container *ngFor="let b of displayVariant(radioButtonType) ">
-          {{b.writtenRep}}
-        </ng-container>
-      </div>
+      <div *ngIf="radioButtonValue === 'radiobutton'" class="wrapperPreview" >
+        <div *ngFor="let b of this.wordList ">
+          <div [ngStyle]="{'color': b.selected?'black':'lightgrey'}" (click)="changeVariantColor(b)">
+          {{b.val}}
+          </div>
+        </div>
       </div>
 
       <!--<input *ngIf="true" class="combo" list=actions type=text value="Select label type...">

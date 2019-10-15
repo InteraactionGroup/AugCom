@@ -40,13 +40,8 @@ export class EditionComponent implements OnInit {
     this.sparqlRequestService.getWordPartOfSpeech(this.name, this.typeList);
   }
   displayVariant(b){
-    let temp = [];
-    this.wordList.forEach(function(value){
-      if(value.type === b) {
-        temp.push(value);
-      }
-    });
-    return temp;
+    this.wordList=[];
+    this.sparqlRequestService.getOtherFormsOfThisPartOfSpeechWord(this.name, b, this.wordList);
   }
 
   gettypeof(b){
@@ -118,6 +113,9 @@ export class EditionComponent implements OnInit {
     })
   }
 
+  changeVariantColor(b){
+    b.selected = !b.selected;
+  }
   coloPickerValue() {
     return (<HTMLInputElement>document.getElementById("colorPicker")).value;
   }
