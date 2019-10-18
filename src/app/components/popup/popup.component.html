@@ -1,0 +1,19 @@
+<div class="popup" *ngIf="this.userToolBarService.popup">
+  <div class="popupcontainer">
+    <div class="question">
+      {{this.question}}
+    </div>
+
+    <div class="buttons">
+
+      <div class="choiceButton no" (click)="this.no()">
+        non
+      </div>
+
+      <div class="choiceButton yes" (click)="this.yes()">
+        oui
+      </div>
+    </div>
+
+  </div>
+</div>

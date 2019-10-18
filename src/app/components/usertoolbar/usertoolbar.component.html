@@ -1,0 +1,45 @@
+<div class="usertoolbar">
+
+  <div class="button" id="accountButton" (click)="this.userToolBarService.account = !this.userToolBarService.account">
+    <div class="image"  [ngStyle]="{'background-image':this.getIcon('account')}">
+
+    </div>
+  </div>
+
+  <div class="button" id="lockUnlockButton" (click)="this.userToolBarService.unlock = !this.userToolBarService.unlock">
+    <div class="image"  [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.unlock?'unlock':'lock')}">
+
+    </div>
+  </div>
+
+  <div class="button" id="shareButton" *ngIf="this.userToolBarService.unlock" (click)="this.userToolBarService.share = !this.userToolBarService.share">
+    <div class="image"  [ngStyle]="{'background-image':this.getIcon('share')}">
+
+    </div>
+  </div>
+
+  <div class="button" id="editButton" *ngIf="this.userToolBarService.unlock" (click)="this.userToolBarService.editt()">
+    <div class="image"  [ngStyle]="{'background-image':this.getIcon('edit')}">
+
+    </div>
+  </div>
+
+  <div class="button" id="babbleButton" *ngIf="this.userToolBarService.unlock" (click)="this.userToolBarService.babble = !this.userToolBarService.babble">
+    <div class="image"  [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.babble?'hide':'show')}">
+
+    </div>
+  </div>
+
+  <div class="button" id="fullScreenButton" *ngIf="this.userToolBarService.unlock" (click)="this.userToolBarService.fullScreen()">
+    <div class="image"  [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.full?'exitfullscreen':'fullscreen')}">
+
+    </div>
+  </div>
+
+  <div class="button first" id="settingsButton" *ngIf="this.userToolBarService.unlock" (click)="this.userToolBarService.setting = !this.userToolBarService.setting">
+    <div class="image"  [ngStyle]="{'background-image':this.getIcon('settings')}">
+
+    </div>
+  </div>
+
+</div>

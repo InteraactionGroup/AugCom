@@ -1,5 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
-html, body {
-  background-color: lightgrey;
+html{
   height: 100%;
+  width: 100%;
+  margin-left: 0%;
+  background-color: white;
+}
+
+body{
+  margin: 0 0 0 0;
+  height: 100%;
+  width: 100%;
 }

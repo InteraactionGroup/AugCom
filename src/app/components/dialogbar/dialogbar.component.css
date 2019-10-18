@@ -1,0 +1,80 @@
+.dialogbar{
+  height: 10vh;
+  width: 100%;
+  visibility: hidden;
+}
+
+.dialogbar .button{
+  float: right;
+  height: 10vh;
+  width: 10vh;
+  visibility: hidden;
+}
+
+.dialogbar .button .image:hover{
+  background-color: darkgrey;
+}
+
+.dialogbar .button .image{
+  height: 80%;
+  width: 80%;
+  transform: translateY(10%);
+  margin-left: 10%;
+  background-color: lightgrey;
+  border-radius: 25%;
+  visibility: visible;
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.dialogbar .textBar{
+  float:left;
+  width: calc(100vw - 30vh - 0.5cm);
+  max-width: calc(100vw - 3*1.5cm - 0.5cm);;
+  height: 96%;
+  transform: translateY(2%);
+  margin-left: 0.2%;
+  background-color: lightgrey;
+  visibility: visible;
+  border-radius: 5px;
+}
+
+.dialogbar .textBar .elementContainer{
+  float:left;
+  height:100%;
+  width:10%;
+  min-width: 0.5cm;
+  visibility: hidden;
+}
+
+.dialogbar .textBar .elementContainer .element{
+  height:90%;
+  width:90%;
+  margin-left: 5%;
+  transform: translateY(5%);
+  background-color: hotpink;
+  border-radius: 10px;
+  visibility: visible;
+}
+
+.dialogbar .textBar .elementContainer  .element .image{
+  float:top;
+  height:70%;
+  width:90%;
+  margin-left: 5%;
+  transform: translateY(5%);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.dialogbar .textBar .elementContainer .element .label{
+  text-align: center;
+  float:top;
+  height:20%;
+  width:90%;
+  margin-left: 5%;
+  transform: translateY(25%);
+  overflow: hidden;
+}

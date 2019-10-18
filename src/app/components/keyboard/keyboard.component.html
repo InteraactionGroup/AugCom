@@ -1,0 +1,72 @@
+<div class="keyboard">
+
+  <div class="wrapper">
+
+    <ng-container class="test" *ngFor="let element of this.boardService.getTempList()">
+
+      <ng-container *ngIf="this.boardService.belongToActiveFolder(element)">
+        <div class="elementContainer" >
+
+          <div class="element"  (click)=" this.userToolBarService.edit?this.edit(element):this.clickTriggered(element)" [ngStyle]="{'background-color': this.boardService.elementColor(element)}">
+
+            <div class="image" [style.background-image]="this.boardService.getImgUrl(element)">
+
+            </div>
+
+            <div class="label">
+            {{element.ElementForms[0].DisplayedText}}
+            </div>
+
+          </div>
+
+          <div class="suppr" *ngIf="this.userToolBarService.edit" (click)="this.boardService.delete(element)" >
+            <div class="image" [style.background-image]="this.getIcon('delete')">
+
+            </div>
+          </div>
+
+          <div class="edit">
+          </div>
+
+        </div>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="this.boardService.currentFolder !== '.'" >
+    <div class="elementContainer" >
+
+      <div class="element"  (click)="this.boardService.backToPreviousFolder()" [ngStyle]="{'background-color': 'red'}"> <!-- need to change élément by the label-->
+
+        <div class="image"  [style.background-image]="this.getIcon('retour')">
+
+        </div>
+
+        <div class="label">
+          retour
+        </div>
+
+      </div>
+
+    </div>
+    </ng-container>
+
+    <ng-container *ngIf="this.userToolBarService.edit" >
+      <div class="elementContainer" >
+
+        <div class="element"  (click)="this.userToolBarService.add = true " [ngStyle]="{'background-color': 'green'}"> <!-- need to change élément by the label-->
+
+          <div class="image"  [style.background-image]="this.getIcon('add')">
+
+          </div>
+
+          <div class="label">
+            ajouter
+          </div>
+
+        </div>
+
+      </div>
+    </ng-container>
+
+  </div>
+
+</div>
