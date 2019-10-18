@@ -1,0 +1,57 @@
+<div class="slidecontainer">
+  <input *ngIf="this.userBarServiceService.editOptionEnabled" [(ngModel)]="sliderValue" class="slider" id="myRange" max="10" min="1"
+         type="range"
+         value="5">
+</div>
+
+
+<div dragula="DRAGULA_FACTS" [ngStyle]="{'grid-template-columns': 'repeat('+this.sliderValue+', '+(100/this.sliderValue)+'%)', 'font-size' : ((3 / 5) * (11 - this.sliderValue))+'vw'}" class="wrapper boxes">
+  <ng-container *ngFor="let box of getCurrentBoxes() ">
+      <ng-container *ngIf="box.loadBoard.path === ''; then first else second"></ng-container>
+      <ng-template #first>
+        <div
+             (pointerup)="doTheUp(box)"
+             (pointerdown)="doTheDown(box)"
+             (pointerleave)="doTheLeave(box)"
+          [ngStyle]="{'background-color': box.backgroundColor}"
+          class="button actionButton"
+          id="{{box.id}}">
+          <div [style.background-image]=this.getImgUrl(box)
+               class="icon"
+                ></div>
+          <div class="label"
+               >{{box.label}}</div>
+        </div>
+      </ng-template>
+      <ng-template #second>
+        <div
+          (click)="onSelectFolder(box)"
+          [ngStyle]="{'background-color': box.backgroundColor}"
+          class="button folder"
+          id="{{box.id}}">
+          <div [style.background-image]="this.getImgUrl(box)"
+               class="icon"
+          ></div>
+          <div class="label">{{box.label}}</div>
+        </div>
+      </ng-template>
+  </ng-container>
+  <ng-template [ngIf]="this.boardServiceService.folder !== 'root' ">
+    <button (click)="onSelectBack()"
+            class="button back">
+      <div class="backlabel"
+      >back
+      </div>
+    </button>
+  </ng-template>
+  <ng-template [ngIf]="this.userBarServiceService.editOptionEnabled ">
+    <button (click)="onSelectAdd()"
+            class="button add">
+      <div class="backlabel"
+      > +
+      </div>
+    </button>
+  </ng-template>
+</div>
+
+

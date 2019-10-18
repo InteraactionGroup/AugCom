@@ -1,0 +1,10 @@
+<div [class.sharePanelSelected]="this.userBarServiceService.shareOptionEnabled"
+     class="sharePanel"
+>
+  <input (click)="back()" class="backShare" type="button" value="back">
+  Import save file:
+  <input (change)="fileChanged($event)" class="centerBlock shareBtn" type='file'>
+  Export save file:
+  <input (click)="export()" class="centerBlock shareBtn" type="button" value="export">
+
+</div>

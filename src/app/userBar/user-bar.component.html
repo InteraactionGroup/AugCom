@@ -1,0 +1,34 @@
+<div class="grid">
+  <button *ngIf="this.userBarServiceService.unlocked"
+          [ngStyle]="{'background-image':this.getImgUrl('settings')}"
+          class="button">
+  </button>
+  <button (click)="openFullscreen()" *ngIf="this.userBarServiceService.unlocked"
+          [ngStyle]="{'background-image':this.getImgUrl(this.fullScreen)}"
+          class="button">
+  </button>
+  <button *ngIf="this.userBarServiceService.unlocked" [ngStyle]="{'background-image':this.getImgUrl('show')}"
+          class="button">
+  </button>
+  <button (click)="edit()" *ngIf="this.userBarServiceService.unlocked"
+          [ngStyle]="{'background-image':this.getImgUrl('edit')}"
+          class="button">
+  </button>
+  <button (click)="share()" *ngIf="this.userBarServiceService.unlocked"
+          [ngStyle]="{'background-image':this.getImgUrl('share')}"
+          class="button">
+  </button>
+  <button (click)="lock()"
+          [ngStyle]="{'background-image':this.getImgUrl('lock')}"
+          class="button">
+  </button>
+  <button [ngStyle]="{'background-image':this.getImgUrl('user')}"
+          class="button">
+  </button>
+  <button (click)="turtle()"
+          class="button">
+  </button>
+
+</div>
+
+

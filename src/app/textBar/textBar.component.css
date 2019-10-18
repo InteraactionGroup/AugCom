@@ -1,0 +1,50 @@
+.bar {
+  background: white;
+  float: left;
+  position: absolute;
+  height: 68px;
+  width: calc(100% - 230px);
+  border-radius: 15px;
+  border: 2px solid #999;
+}
+
+.bouton {
+  position: relative;
+  outline: none;
+  border: none;
+  border-radius: 15px;
+  width: calc(16.7% - 2px);
+  height: 65px;
+  color: black;
+  list-style-type: none;
+  float: left;
+  margin-top: 2px;
+  margin-left: 1px;
+}
+
+
+.bouton .label {
+  position: relative;
+  outline: none;
+  border: none;
+  color: black;
+  font-size: 80%;
+  margin-right: 15%;
+  margin-left: 15%;
+  width: 70%;
+  overflow: hidden;
+}
+
+.icone {
+  margin-left: 10%;
+  margin-right: 10%;
+  outline: none;
+  min-height: 7px;
+  min-width: 7px;
+  height: 70%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
