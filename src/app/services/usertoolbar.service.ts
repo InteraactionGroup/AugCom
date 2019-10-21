@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import {Element} from '../types';
+import {Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +17,9 @@ export class UsertoolbarService {
   public full = false;
   public setting = false;
 
-  public add = false;
-  public modif = false;
+  public add = true;
+  public modif = null;
+  public ElementListener = new Subject<Element>();
 
   public popup = false;
 
@@ -36,7 +39,6 @@ export class UsertoolbarService {
 
   editt() {
     this.edit = !this.edit;
-    console.log('were editing');
   }
 
 }

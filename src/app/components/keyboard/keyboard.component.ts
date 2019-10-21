@@ -31,7 +31,9 @@ export class KeyboardComponent implements OnInit {
   }
 
   edit(element: Element) {
-    this.userToolBarService.modif = true;
+    this.userToolBarService.modif = element;
+    this.userToolBarService.ElementListener.next(element)
+    this.userToolBarService.add = false;
   }
 
   getIcon(s: string) {

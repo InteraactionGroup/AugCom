@@ -1,17 +1,17 @@
 <div class="popup" *ngIf="this.userToolBarService.popup">
   <div class="popupcontainer">
     <div class="question">
-      {{this.question}}
+      {{this.questionBegin}}"{{this.boardService.elementCondamne.ElementForms[0].DisplayedText}}"{{this.questionEnd}}
     </div>
 
     <div class="buttons">
 
       <div class="choiceButton no" (click)="this.no()">
-        non
+        non, annuler
       </div>
 
       <div class="choiceButton yes" (click)="this.yes()">
-        oui
+        oui, supprimer
       </div>
     </div>
 

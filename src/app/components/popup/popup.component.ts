@@ -10,7 +10,8 @@ import {BoardService} from '../../services/board.service';
 export class PopupComponent implements OnInit {
 
 
-  question = 'Êtes-vous sûr de vouloir supprimer cet élément ? \n la suppression ne peut pas être défaite.';
+  questionBegin = 'Êtes-vous sûr de vouloir supprimer l\'élément: ';
+  questionEnd = ' ? \n la suppression ne peut pas être défaite.';
 
   constructor(private boardService: BoardService, private userToolBarService: UsertoolbarService) { }
 

@@ -1,14 +1,14 @@
 .share{
   position: absolute;
-  top:-95%;
-  height: 95%;
+  top:-200%;
+  height: 100%;
   width: 100%;
-  background-color: wheat;
+  background-color: grey;
   transition: top 0.5s;
 }
 
 .selected{
-  top:5%;
+  top:0%;
 }
 
 .share .back{
@@ -22,73 +22,46 @@
   height: 100%;
   width: 90%;
   margin-left: 5%;
-  background-color: burlywood;
+  background-color: white;
 }
 
 .share .sharePanel .shareSection{
   height: 30%;
   width: 70%;
-  background-color: rosybrown;
   margin-left: 15%;
   transform: translateY(50%);
   display: inline-grid;
 }
 
 .share .sharePanel .shareSection .listElement{
-  height: 100%;
+  height: 90%;
   width: 90%;
   margin-left: 5%;
-  background-color: saddlebrown;
+  background-color: lightgrey;
 }
 
 .share .sharePanel .shareSection .listElement .image{
   float:left;
   height: 80%;
-  width: 20%;
-  background-color: firebrick;
+  width: 15%;
   transform: translateY(10%);
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .share .sharePanel .shareSection .listElement .label{
   float: left;
   height: 80%;
-  width: 80%;
-  transform: translateY(10%);
-  background-color: sandybrown;
+  width: 20%;
+  margin-left: 5%;
+  transform: translateY(50%);
 }
 
-.share .sharePanel .shareSection .import .label .importField{
-  float: right;
-  height: 80%;
-  width: 60%;
-  margin-right: 5%;
-  transform: translateY(10%);
-  background-color: lightgoldenrodyellow;
-}
-
-.share .sharePanel .shareSection .import .label .importField{
-  float: right;
-  height: 80%;
-  width: 60%;
-  margin-right: 5%;
-  transform: translateY(10%);
-  background-color: lightgoldenrodyellow;
-}
-
-.share .sharePanel .shareSection .export .label .exportField{
-  float: right;
-  height: 80%;
-  width: 60%;
-  margin-right: 5%;
-  transform: translateY(10%);
-  background-color: lightgoldenrodyellow;
-}
-
-.share .sharePanel .shareSection .exportTo .label .exportPDFField{
-  float: right;
-  height: 80%;
-  width: 60%;
-  margin-right: 5%;
-  transform: translateY(10%);
+.share .sharePanel .shareSection .inputField{
+  float: left;
+  height: 25%;
+  width: 55%;
+  transform: translateY(150%);
   background-color: lightgoldenrodyellow;
 }

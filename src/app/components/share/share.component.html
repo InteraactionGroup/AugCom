@@ -1,6 +1,6 @@
 <div class="share" [class.selected]="this.userToolBarService.share">
 
-  <div class="back">
+  <div class="back" (click)="userToolBarService.share=false">
     ^
   </div>
 
@@ -10,37 +10,39 @@
     <div class="shareSection">
 
       <div class="import listElement">
-        <div class="image">
+        <div class="image" [style.background-image]="this.getIcon('import')">
 
         </div>
         <div class="label">
             Import Save
-            <div class="importField">
-              <input type="file">
-            </div>
+        </div>
+
+        <div class="inputField">
+          <input type="file" (change)="fileChanged($event)">
         </div>
       </div>
       <div class="export listElement">
-        <div class="image">
+        <div class="image" [style.background-image]="this.getIcon('export')">
 
         </div>
         <div class="label">
             Export Save
-          <div class="exportField">
+        </div>
 
-          </div>
+        <div class="inputField">
+          <input type="button" value="Export" (click)="export()">
         </div>
       </div>
       <div class="exportTo listElement">
-        <div class="image">
+        <div class="image" [style.background-image]="this.getIcon('pdf')">
 
         </div>
         <div class="label">
             Export to PDF
+        </div>
 
-          <div class="exportPDFField">
-
-          </div>
+        <div class="inputField">
+          <input type="button" value="Export" >
         </div>
       </div>
 

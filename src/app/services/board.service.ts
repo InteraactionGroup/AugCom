@@ -14,7 +14,7 @@ export class BoardService {
   board = Board;
   currentFolder = '.';
 
-  elementCondamne = null;
+  elementCondamne: Element = null;
 
 
   getTempList() {
