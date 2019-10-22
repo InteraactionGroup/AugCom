@@ -20,6 +20,7 @@
 }
 
 .edition .topBar .back{
+  cursor: pointer;
   float:left;
   height: 100%;
   width: 5%;
@@ -27,6 +28,7 @@
 }
 
 .edition .topBar .save{
+  cursor: pointer;
   float:right;
   height: 100%;
   width: 20%;
@@ -55,6 +57,7 @@
 }
 
 .edition .leftEdition .colorPickerContainer .colorPicker{
+  cursor: pointer;
   height: 80%;
   width: 80%;
   margin-left: 5%;
@@ -175,6 +178,43 @@ margin: 0 0 0 0;
   background-color: lightgrey;
 }
 
+.edition .optionEdition .elementVariant{
+  text-align: center;
+  height: 90%;
+  width: 90%;
+  margin-left: 5%;
+  transform: translateY(5%);
+  background-color: lightgrey;
+}
+
+.edition .optionEdition .elementVariant .waitVariant{
+  height: 100%;
+  width: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.edition .optionEdition .elementVariant .variantContainer{
+  height: 90%;
+  width: 100%;
+  transform: translateY(5%);
+}
+
+.edition .optionEdition .elementVariant .variantContainer .variantListBox{
+  transform: translateY(200%);
+  display: block;
+  width: 80%;
+  margin-left: 10%;
+}
+
+.edition .optionEdition .elementVariant .variantContainer .variantOk{
+  transform: translateY(500%);
+  display: block;
+  width: 40%;
+  margin-left: 30%;
+}
+
 
 .edition .optionEdition .element .label{
   text-align: center;
@@ -241,7 +281,7 @@ margin: 0 0 0 0;
 }
 
 
-.wrapperPreview {
+.element .wrapperPreview {
   list-style-type: none;
   transform: translateY(15%);
   margin-left: 4%;
@@ -250,22 +290,103 @@ margin: 0 0 0 0;
   height: 75%;
   background-color: whitesmoke;
   overflow: scroll;
-  grid-template-columns: repeat(10, 10%)
+  grid-template-columns: repeat(10, 10%);
 }
 
 .pictoImg{
-  cursor: progress;
+  cursor: pointer;
   width:80%;
   padding-top: 80%;
+  margin-left: 10%;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.pictoOfLib{
-  width:100%;
-}
-
 .pictoList{
   list-style-type: none;
+}
+
+
+.bottomEdition .variantSelector{
+  width: 96%;
+  height: 90%;
+  margin-left: 2%;
+  transform: translateY(5%);
+  background-color: lightgrey;
+}
+
+.bottomEdition .variantSelector .wrapperPreview{
+  text-align: center;
+  float: left;
+  transform: translateY(5%);
+  margin-left: 4%;
+  display: grid;
+  width: 30%;
+  height: 90%;
+  background-color: whitesmoke;
+  overflow: scroll;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(100,20%);
+}
+
+
+.waitVariant{
+  height: 100%;
+  width: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.bottomEdition .variantSelector .variantButtons{
+  display: inline-grid;
+  float: left;
+  width: 10%;
+  height: 100%;
+  margin-left: 4%;
+}
+
+.bottomEdition .variantSelector .variantButtons input{
+  display: block;
+  height: 30%;
+  width: 100%;
+  transform: translateY(100%);
+}
+
+.bottomEdition .variantSelector .variantOk {
+  float: left;
+  width: 10%;
+  height: 20%;
+  margin-left: 4%;
+  transform: translateY(200%);
+background-color: grey;
+}
+
+.bottomEdition .variantSelector .variantOk input{
+  width: 100%;
+  height: 100%;
+}
+
+.variantList{
+  width: 100%;
+  list-style-type: none;
+}
+
+.variantList .variant{
+  cursor: pointer;
+  width: 90%;
+  height: 90%;
+  margin-left: 5%;
+  background-color: grey;
+  border-radius: 15px;
+}
+
+.variantList .variant .selector{
+  cursor: pointer;
+  width: 20%;
+  height: 40%;
+  margin-left: 40%;
+  margin-bottom: 0%;
+  border-radius: 50%;
 }

@@ -17,7 +17,7 @@ export class UsertoolbarService {
   public full = false;
   public setting = false;
 
-  public add = true;
+  public add = false;
   public modif = null;
   public ElementListener = new Subject<Element>();
 

@@ -16,6 +16,7 @@ export class Element {
   ElementForms: ElementForm[];
   ImageID: string;
   InteractionsList: { InteractionID: string, ActionList: Action[] }[];
+  Color: string; // to delete later
 }
 
 export class Image {

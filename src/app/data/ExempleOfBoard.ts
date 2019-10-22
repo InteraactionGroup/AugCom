@@ -10,7 +10,8 @@ export const Board: Grid = {
       ElementType: 'button',
       ElementForms: [{DisplayedText: 'bonjour', VoiceText: '', LexicInfos: []}],
       ImageID: 'img1',
-      InteractionsList: []
+      InteractionsList: [],
+      Color: '#008000'
     },
     {
       ElementID: 'elt2',
@@ -18,7 +19,8 @@ export const Board: Grid = {
       ElementType: 'button',
       ElementForms: [{DisplayedText: 'aurevoir', VoiceText: '', LexicInfos: []}],
       ImageID: 'img1',
-      InteractionsList: []
+      InteractionsList: [],
+      Color: '#008000'
     },
     {
       ElementID: 'elt3',
@@ -26,7 +28,8 @@ export const Board: Grid = {
       ElementType: 'folder',
       ElementForms: [{DisplayedText: 'politesse', VoiceText: 'bonjour', LexicInfos: []}],
       ImageID: 'img1',
-      InteractionsList: []
+      InteractionsList: [],
+      Color: '#FFA500'
     },
     {
       ElementID: 'elt4',
@@ -34,7 +37,8 @@ export const Board: Grid = {
       ElementType: 'button',
       ElementForms: [{DisplayedText: 'merci', VoiceText: '', LexicInfos: []}],
       ImageID: 'img2',
-      InteractionsList: []
+      InteractionsList: [],
+      Color: '#008000'
     },
     {
       ElementID: 'elt5',
@@ -42,7 +46,8 @@ export const Board: Grid = {
       ElementType: 'button',
       ElementForms: [{DisplayedText: 'derien', VoiceText: '', LexicInfos: []}],
       ImageID: 'img2',
-      InteractionsList: []
+      InteractionsList: [],
+      Color: '#008000'
     },
     {
       ElementID: 'elt6',
@@ -50,7 +55,8 @@ export const Board: Grid = {
       ElementType: 'button',
       ElementForms: [{DisplayedText: 'pardon', VoiceText: '', LexicInfos: []}],
       ImageID: 'img2',
-      InteractionsList: []
+      InteractionsList: [],
+      Color: '#008000'
     }
   ],
   ImageList: [

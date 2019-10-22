@@ -8,6 +8,7 @@ import {MulBerryObject} from '../../libTypes';
 import mullberryJson from '../../../assets/symbol-info.json';
 import {DomSanitizer} from '@angular/platform-browser';
 import {Ng2ImgMaxService} from 'ng2-img-max';
+import {Element} from '../../types';
 
 @Component({
   selector: 'app-edition',
@@ -16,10 +17,11 @@ import {Ng2ImgMaxService} from 'ng2-img-max';
 })
 export class EditionComponent implements OnInit {
 
-  radioTypeFormat;
-  name;
+  radioTypeFormat = 'button';
+  name = '';
   color = '#d3d3d3';
   imageURL;
+  classe = '';
 
   choseImage = false;
   variantDisplayed = false;
@@ -36,9 +38,17 @@ export class EditionComponent implements OnInit {
   }
 
   close() {
+    if (this.choseImage || this.variantDisplayed) {
+    this.choseImage = false;
+    this.variantDisplayed = false;
+    } else {
     this.userToolBar.add = false;
     this.userToolBar.modif = null;
-    this.clear();
+    this.clear(); }
+  }
+
+  closeVariant() {
+    this.variantDisplayed = false ;
   }
 
   clear() {
@@ -85,6 +95,7 @@ export class EditionComponent implements OnInit {
   }
 
   previewFile(files) {
+    this.imageURL = 'assets/icons/load.gif';
     if (files.length === 0) {
       return;
     }
@@ -98,11 +109,13 @@ export class EditionComponent implements OnInit {
       reader.readAsDataURL(result);
       reader.onload = (e) => {
         this.imageURL = reader.result;
+        this.choseImage = false;
       };
     }, error => {
       reader.readAsDataURL(files[0]);
       reader.onload = (e) => {
         this.imageURL = reader.result;
+        this.choseImage = false;
       };
     });
   }
@@ -118,13 +131,14 @@ export class EditionComponent implements OnInit {
 
   modifyButton() {
     // tslint:disable-next-line:no-shadowed-variable
-    const element = this.userToolBar.modif;
+    const element: Element = this.userToolBar.modif;
     element.ElementType = this.radioTypeFormat;
     element.ElementForms = [
           {DisplayedText: this.name,
           VoiceText: this.name,
           LexicInfos: [] }
           ];
+    element.Color = this.color;
     element.ImageID = this.name;
 
     this.boardService.board.ImageList.push(
@@ -147,7 +161,8 @@ export class EditionComponent implements OnInit {
             LexicInfos: [] }
         ],
         ImageID: this.name,
-        InteractionsList: []
+        InteractionsList: [],
+        Color: this.color
       });
 
     this.boardService.board.ImageList.push(
@@ -160,8 +175,10 @@ export class EditionComponent implements OnInit {
 
   updatemodif() {
     if (this.userToolBar.modif !== null) {
-    const elementToModif = this.userToolBar.modif;
+    const elementToModif: Element = this.userToolBar.modif;
     this.name = elementToModif.ElementForms[0].DisplayedText;
+    this.color = elementToModif.Color;
+    this.radioTypeFormat = elementToModif.ElementType;
     const imageToModif = this.boardService.board.ImageList.find(x => x.ImageID === elementToModif.ImageID);
     this.imageURL = imageToModif.ImagePath;
   }
@@ -169,11 +186,13 @@ export class EditionComponent implements OnInit {
   }
 
   getWordList() {
+    this.dbnaryService.startsearch(1);
     this.variantDisplayed = !this.variantDisplayed;
     this.dbnaryService.typeList = [];
     this.dbnaryService.getWordPartOfSpeech(this.name, this.dbnaryService.typeList);
   }
-  displayVariant(b){
+  displayVariant(b) {
+    this.dbnaryService.startsearch(2);
     this.dbnaryService.wordList = [];
     this.dbnaryService.getOtherFormsOfThisPartOfSpeechWord(this.name, b, this.dbnaryService.wordList);
   }

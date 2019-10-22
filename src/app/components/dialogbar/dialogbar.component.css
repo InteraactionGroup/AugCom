@@ -5,6 +5,7 @@
 }
 
 .dialogbar .button{
+  cursor: pointer;
   float: right;
   height: 10vh;
   width: 10vh;
@@ -49,6 +50,7 @@
 }
 
 .dialogbar .textBar .elementContainer .element{
+  cursor: pointer;
   height:90%;
   width:90%;
   margin-left: 5%;

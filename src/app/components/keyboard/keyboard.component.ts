@@ -27,6 +27,8 @@ export class KeyboardComponent implements OnInit {
     } else if (element.ElementType === 'folder') {
       this.historicService.say('' + element.ElementForms[0].DisplayedText);
       this.boardService.currentFolder = element.ElementFolder + element.ElementID;
+    } else {
+      console.log(element.ElementType);
     }
   }
 

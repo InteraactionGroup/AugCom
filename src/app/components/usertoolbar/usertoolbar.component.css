@@ -6,6 +6,7 @@
 }
 
 .usertoolbar .button{
+  cursor: pointer;
   float: right;
   height: 5vh;
   width: 5vh;

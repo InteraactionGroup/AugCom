@@ -36,6 +36,7 @@
 }
 
 .keyboard .wrapper .elementContainer .suppr{
+  cursor: pointer;
   position: relative;
   float: left;
   width: 25%;
@@ -66,6 +67,7 @@
 
 
 .keyboard .wrapper .elementContainer .element{
+  cursor: pointer;
   height:90%;
   width:90%;
   transform: translateY(5%);

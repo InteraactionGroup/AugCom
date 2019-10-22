@@ -4,7 +4,7 @@
 
     <div class="elementContainer" *ngFor="let element of this.historicService.lastNHistoricElements">
 
-      <div class="element">
+      <div class="element" (click)="this.historicService.say('' + element.ElementForms[0].DisplayedText);">
 
         <div class="image"[style.background-image]="this.boardService.getImgUrl(element)" >
 

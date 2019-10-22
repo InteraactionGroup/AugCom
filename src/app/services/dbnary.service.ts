@@ -12,9 +12,16 @@ export class DbnaryService {
   public wordList = [];
   public typeList = [];
 
+  public newList = [];
+
+  searchStarted = 0;
+
   constructor(private http: HttpClient) {
   }
 
+  startsearch(i: number) {
+    this.searchStarted = i;
+  }
   getWordPartOfSpeech(word: string, list) {
 
     const query = ['SELECT DISTINCT ?po WHERE {' +
@@ -74,12 +81,43 @@ export class DbnaryService {
           } else if ( i === 2 ) {
             this.sparkqlData = data as ResultJson2;
             this.sparkqlData.results.bindings.forEach(w => {
-              list.push({val: w.ofo.value, selected: true});
+              list.push({val: w.ofo.value, selected: false});
             });
           }
+          this.searchStarted = 0;
         },
         error => {
+          this.searchStarted = 0;
           console.log(error.error.text, error); }
       );
   }
+
+  moveToRight() {
+    this.wordList.forEach(word => {
+        if (word.selected) {
+          this.newList.push(word);
+        }
+      }
+    );
+    this.wordList = this.wordList.filter(word =>  !word.selected);
+    this.unselect();
+  }
+
+  moveToLeft() {
+    this.newList.forEach(word => {
+        if (word.selected) {
+          this.wordList.push(word);
+        }
+      }
+    );
+    this.newList = this.newList.filter(word =>  !word.selected);
+    this.unselect();
+  }
+
+  unselect() {
+    this.newList.forEach(word => word.selected = false );
+    this.wordList.forEach(word => word.selected = false );
+  }
 }
+
+

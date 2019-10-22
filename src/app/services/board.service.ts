@@ -42,7 +42,8 @@ export class BoardService {
   }
 
   elementColor(element: Element) {
-    return element.ElementType === 'button' ? 'greenyellow' : ('folder' ? 'orange' : 'red');
+   // return element.ElementType === 'button' ? 'greenyellow' : ('folder' ? 'orange' : 'red');
+    return element.Color;
   }
 
   backToPreviousFolder() {
