@@ -11,6 +11,8 @@ import { PopupComponent } from './components/popup/popup.component';
 import { FormsModule } from '@angular/forms';
 import { Ng2ImgMaxModule } from 'ng2-img-max';
 import {HttpClientModule } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import {HttpClientModule } from '@angular/common/http';
     BrowserModule,
     FormsModule,
     Ng2ImgMaxModule,
-    HttpClientModule
+    HttpClientModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]

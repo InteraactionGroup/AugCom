@@ -9,7 +9,7 @@ import {UsertoolbarService} from './usertoolbar.service';
 })
 export class BoardService {
 
-  constructor( private userToolBarService: UsertoolbarService, private sanitizer: DomSanitizer) { }
+  constructor( public userToolBarService: UsertoolbarService, public sanitizer: DomSanitizer) { }
 
   board = Board;
   currentFolder = '.';

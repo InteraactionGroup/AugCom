@@ -13,7 +13,7 @@ export class PopupComponent implements OnInit {
   questionBegin = 'Êtes-vous sûr de vouloir supprimer l\'élément: ';
   questionEnd = ' ? \n la suppression ne peut pas être défaite.';
 
-  constructor(private boardService: BoardService, private userToolBarService: UsertoolbarService) { }
+  constructor(public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
 
   ngOnInit() {
   }

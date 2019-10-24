@@ -6,6 +6,7 @@ import {BoardService} from '../../services/board.service';
 import {Element} from '../../types';
 import {GeticonService} from '../../services/geticon.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
+import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 
 @Component({
   selector: 'app-keyboard',
@@ -15,9 +16,10 @@ import {UsertoolbarService} from '../../services/usertoolbar.service';
 export class KeyboardComponent implements OnInit {
 
   // tslint:disable-next-line:max-line-length
-  constructor(private userToolBarService: UsertoolbarService, private getIconService: GeticonService, private boardService: BoardService, private historicService: HistoricService, private editionService: EditionService, private otherFormsService: OtherformsService) { }
+  constructor(public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) { }
 
   ngOnInit() {
+    this.indexeddbaccessService.init();
   }
 
   clickTriggered(element: Element) {
@@ -34,7 +36,7 @@ export class KeyboardComponent implements OnInit {
 
   edit(element: Element) {
     this.userToolBarService.modif = element;
-    this.userToolBarService.ElementListener.next(element)
+    this.userToolBarService.ElementListener.next(element);
     this.userToolBarService.add = false;
   }
 

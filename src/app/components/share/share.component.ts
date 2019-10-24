@@ -11,7 +11,7 @@ import {saveAs as importedSaveAs} from 'file-saver';
 })
 export class ShareComponent implements OnInit {
 
-  constructor(private getIconService: GeticonService, private boardService: BoardService, private userToolBarService: UsertoolbarService) { }
+  constructor(public getIconService: GeticonService, public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
 
   file;
   ngOnInit() {

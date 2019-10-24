@@ -10,7 +10,7 @@ import {GeticonService} from '../../services/geticon.service';
 })
 export class UsertoolbarComponent implements OnInit {
 
-  constructor(private getIconService: GeticonService, private boardService: BoardService, private userToolBarService: UsertoolbarService) { }
+  constructor(public getIconService: GeticonService, public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
 
   ngOnInit() {
   }

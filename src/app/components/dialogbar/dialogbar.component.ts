@@ -10,7 +10,7 @@ import {BoardService} from '../../services/board.service';
 })
 export class DialogbarComponent implements OnInit {
 
-  constructor(private getIconService: GeticonService, private boardService: BoardService, private historicService: HistoricService) { }
+  constructor(public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService) { }
 
   ngOnInit() {
   }

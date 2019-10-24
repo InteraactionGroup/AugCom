@@ -7,7 +7,7 @@
   </div>
 
   <div class="button" id="lockUnlockButton" (click)="this.userToolBarService.unlock = !this.userToolBarService.unlock">
-    <div class="image"  [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.unlock?'unlock':'lock')}">
+    <div class="image" [class.imageSelected]="this.userToolBarService.unlock" [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.unlock?'unlock':'lock')}">
 
     </div>
   </div>
@@ -19,7 +19,7 @@
   </div>
 
   <div class="button" id="editButton" *ngIf="this.userToolBarService.unlock" (click)="this.userToolBarService.editt()">
-    <div class="image"  [ngStyle]="{'background-image':this.getIcon('edit')}">
+    <div class="image" [class.imageSelected]="this.userToolBarService.edit" [ngStyle]="{'background-image':this.getIcon('edit')}">
 
     </div>
   </div>

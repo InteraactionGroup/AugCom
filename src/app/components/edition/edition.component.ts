@@ -27,7 +27,7 @@ export class EditionComponent implements OnInit {
   variantDisplayed = false;
   imageList: any[];
 
-  constructor(private ng2ImgMaxService: Ng2ImgMaxService, private sanitizer: DomSanitizer, private userToolBar: UsertoolbarService, private getIconService: GeticonService, private dbnaryService: DbnaryService, private editionService: EditionService, private boardService: BoardService) {
+  constructor(public ng2ImgMaxService: Ng2ImgMaxService, public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public editionService: EditionService, public boardService: BoardService) {
 
   }
 

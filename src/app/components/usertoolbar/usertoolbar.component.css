@@ -31,3 +31,21 @@
   background-position: center;
   visibility: visible;
 }
+
+
+.usertoolbar .button .imageSelected:hover{
+  background-color: seagreen;
+}
+
+.usertoolbar .button .imageSelected{
+  height: 80%;
+  width: 80%;
+  margin-left: 10%;
+  transform: translateY(10%);
+  background-color: darkseagreen;
+  border-radius: 25%;
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+  visibility: visible;
+}
