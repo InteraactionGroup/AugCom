@@ -12,6 +12,30 @@ export class IndexeddbaccessService {
   constructor(public boardService: BoardService) {
   }
 
+  update() {
+    this.request = indexedDB.open('MyTestDatabase', 1);
+    this.request.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    this.request.onsuccess = event => {
+      const db = event.target.result;
+      const objectStore = db.transaction(['saves'], 'readwrite').objectStore('saves');
+      const requete = objectStore.get(1);
+      requete.onsuccess = e => {
+        let data = requete.result;
+        data = this.boardService.board;
+        const requestUpdate = objectStore.put(data, 1);
+        requestUpdate.onerror = e1 => {
+          // Faire quelque chose avec l’erreur
+        };
+        requestUpdate.onsuccess = e1 => {
+          // Succès - la donnée est mise à jour !
+        };
+      };
+    };
+  }
+
   init() {
     this.request = indexedDB.open('MyTestDatabase', 1);
 

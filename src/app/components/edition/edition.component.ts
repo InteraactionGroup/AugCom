@@ -9,6 +9,7 @@ import mullberryJson from '../../../assets/symbol-info.json';
 import {DomSanitizer} from '@angular/platform-browser';
 import {Ng2ImgMaxService} from 'ng2-img-max';
 import {Element} from '../../types';
+import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 
 @Component({
   selector: 'app-edition',
@@ -27,7 +28,7 @@ export class EditionComponent implements OnInit {
   variantDisplayed = false;
   imageList: any[];
 
-  constructor(public ng2ImgMaxService: Ng2ImgMaxService, public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public editionService: EditionService, public boardService: BoardService) {
+  constructor(public indexedDBacess: IndexeddbaccessService, public ng2ImgMaxService: Ng2ImgMaxService, public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public editionService: EditionService, public boardService: BoardService) {
 
   }
 
@@ -126,6 +127,7 @@ export class EditionComponent implements OnInit {
     } else if (this.userToolBar.modif !== null) {
       this.modifyButton();
     }
+    this.indexedDBacess.update();
     this.close();
   }
 

@@ -1,6 +1,11 @@
+<div class="slidecontainer">
+  <input *ngIf="this.userToolBarService.edit" [(ngModel)]="sliderValue" class="slider" max="10" min="2" type="range">
+</div>
+
+
 <div class="keyboard">
 
-  <div class="wrapper">
+  <div class="wrapper" [ngStyle]="{'grid-template-columns': 'repeat('+(12-this.sliderValue)+', '+(100/(12-this.sliderValue))+'%)'}" >
 
     <ng-container class="test" *ngFor="let element of this.boardService.getTempList()">
 

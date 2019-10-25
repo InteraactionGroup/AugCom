@@ -389,4 +389,7 @@ background-color: grey;
   margin-left: 40%;
   margin-bottom: 0%;
   border-radius: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }

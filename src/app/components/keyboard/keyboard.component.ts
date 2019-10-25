@@ -15,6 +15,8 @@ import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 })
 export class KeyboardComponent implements OnInit {
 
+  sliderValue = 1;
+
   // tslint:disable-next-line:max-line-length
   constructor(public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) { }
 

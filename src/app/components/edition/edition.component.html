@@ -155,7 +155,7 @@
              <li class="variantList">
          <div class="variant"  (click)="b.selected=!b.selected">
            {{b.val}}
-           <div class="selector" [ngStyle]="{'background-color': b.selected?'darkseagreen':'lightgrey'}" >
+           <div class="selector" [ngStyle]="{'background-image': b.selected?this.getIcon('checkmark'):this.getIcon('uncheckmark')}" >
            </div>
          </div>
              </li>
@@ -178,7 +178,7 @@
        <li class="variantList">
        <div class="variant" (click)="b.selected=!b.selected">
          {{b.val}}
-         <div class="selector" [ngStyle]="{'background-color': b.selected?'indianred':'lightgrey'}" >
+         <div class="selector" [ngStyle]="{'background-image': b.selected?this.getIcon('checkmark'):this.getIcon('uncheckmark')}" >
 
          </div>
        </div>

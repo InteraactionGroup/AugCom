@@ -3,6 +3,7 @@ import {BoardService} from '../../services/board.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {GeticonService} from '../../services/geticon.service';
 import {saveAs as importedSaveAs} from 'file-saver';
+import * as JSZip from 'jszip';
 
 @Component({
   selector: 'app-share',
@@ -19,6 +20,20 @@ export class ShareComponent implements OnInit {
 
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
+  }
+
+  exploreZip(e) {
+    const zipFile = e.target.files[0];
+    const newzip = new JSZip();
+    newzip.loadAsync(zipFile)
+      .then(zip => {
+          console.log('The zip file contain ' + zip.files + ' elements:');
+          const filesOfZip = zip.files;
+          zip.forEach( elt  => {
+            console.log(filesOfZip[elt]);
+          }
+      );
+        });
   }
 
   fileChanged(e) {

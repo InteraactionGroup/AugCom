@@ -21,6 +21,22 @@
           <input type="file" (change)="fileChanged($event)">
         </div>
       </div>
+
+
+      <div class="import listElement">
+        <div class="image" [style.background-image]="this.getIcon('import')">
+
+        </div>
+        <div class="label">
+          Import Folder
+        </div>
+
+        <div class="inputField">
+          <input type="file" (change)="exploreZip($event)">
+        </div>
+      </div>
+
+
       <div class="export listElement">
         <div class="image" [style.background-image]="this.getIcon('export')">
 
