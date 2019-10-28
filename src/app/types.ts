@@ -38,7 +38,7 @@ export class Image {
 
 export class Action {
   ActionID: string;
-  ActionType: string;
+  Action: string;
 }
 
 export class Interaction {
@@ -49,6 +49,6 @@ export class Interaction {
 export class ElementForm {
   DisplayedText: string;
   VoiceText: string;
-  LexicInfos: string[];
+  LexicInfos: any[];
 }
 

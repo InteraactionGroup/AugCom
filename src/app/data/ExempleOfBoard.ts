@@ -5,59 +5,77 @@ export const Board: Grid = {
   GridID: 'gridExample',
   ElementList: [
     {
-      ElementID: 'elt1',
+      ElementID: 'je',
       ElementFolder: '.',
       ElementType: 'button',
-      ElementForms: [{DisplayedText: 'bonjour', VoiceText: '', LexicInfos: []}],
+      ElementForms: [{DisplayedText: 'je', VoiceText: '', LexicInfos: [{person: 'firstPerson'}]}],
       ImageID: 'img1',
-      InteractionsList: [],
-      Color: '#008000'
+      InteractionsList: [{ InteractionID: 'click', ActionList: [{ActionID: 'pronomChangeInfo', Action: 'pronomChangeInfo'}] }],
+      Color: '#888000'
     },
     {
-      ElementID: 'elt2',
+      ElementID: 'tu',
       ElementFolder: '.',
       ElementType: 'button',
-      ElementForms: [{DisplayedText: 'aurevoir', VoiceText: '', LexicInfos: []}],
+      ElementForms: [{DisplayedText: 'tu', VoiceText: '', LexicInfos: [{person: 'secondPerson'}]}],
       ImageID: 'img1',
-      InteractionsList: [],
-      Color: '#008000'
+      InteractionsList: [{ InteractionID: 'click', ActionList: [{ActionID: 'pronomChangeInfo', Action: 'pronomChangeInfo'}] }],
+      Color: '#880800'
     },
     {
-      ElementID: 'elt3',
+      ElementID: 'il',
       ElementFolder: '.',
-      ElementType: 'folder',
-      ElementForms: [{DisplayedText: 'politesse', VoiceText: 'bonjour', LexicInfos: []}],
+      ElementType: 'button',
+      ElementForms: [{DisplayedText: 'il', VoiceText: '', LexicInfos: [{person: 'thirdPerson'}]}],
       ImageID: 'img1',
-      InteractionsList: [],
-      Color: '#FFA500'
+      InteractionsList: [{ InteractionID: 'click', ActionList: [{ActionID: 'pronomChangeInfo', Action: 'pronomChangeInfo'}] }],
+      Color: '#880080'
     },
     {
-      ElementID: 'elt4',
-      ElementFolder: '.elt3',
+      ElementID: 'elle',
+      ElementFolder: '.',
       ElementType: 'button',
-      ElementForms: [{DisplayedText: 'merci', VoiceText: '', LexicInfos: []}],
-      ImageID: 'img2',
-      InteractionsList: [],
-      Color: '#008000'
+      ElementForms: [{DisplayedText: 'elle', VoiceText: '', LexicInfos: [{person: 'thirdPerson'}]}],
+      ImageID: 'img1',
+      InteractionsList: [{ InteractionID: 'click', ActionList: [{ActionID: 'pronomChangeInfo', Action: 'pronomChangeInfo'}] }],
+      Color: '#880008'
     },
     {
-      ElementID: 'elt5',
-      ElementFolder: '.elt3',
+      ElementID: 'nous',
+      ElementFolder: '.',
       ElementType: 'button',
-      ElementForms: [{DisplayedText: 'derien', VoiceText: '', LexicInfos: []}],
-      ImageID: 'img2',
-      InteractionsList: [],
-      Color: '#008000'
+      ElementForms: [{DisplayedText: 'nous', VoiceText: '', LexicInfos: [{person: 'firstPerson'}]}],
+      ImageID: 'img1',
+      InteractionsList: [{ InteractionID: 'click', ActionList: [{ActionID: 'pronomChangeInfo', Action: 'pronomChangeInfo'}] }],
+      Color: '#808800'
     },
     {
-      ElementID: 'elt6',
-      ElementFolder: '.elt3',
+      ElementID: 'vous',
+      ElementFolder: '.',
       ElementType: 'button',
-      ElementForms: [{DisplayedText: 'pardon', VoiceText: '', LexicInfos: []}],
-      ImageID: 'img2',
-      InteractionsList: [],
-      Color: '#008000'
-    }
+      ElementForms: [{DisplayedText: 'vous', VoiceText: '', LexicInfos: [{person: 'secondPerson'}]}],
+      ImageID: 'img1',
+      InteractionsList: [{ InteractionID: 'click', ActionList: [{ActionID: 'pronomChangeInfo', Action: 'pronomChangeInfo'}] }],
+      Color: '#808080'
+    },
+    {
+      ElementID: 'ils',
+      ElementFolder: '.',
+      ElementType: 'button',
+      ElementForms: [{DisplayedText: 'ils', VoiceText: '', LexicInfos: [{person: 'thirdPerson'}]}],
+      ImageID: 'img1',
+      InteractionsList: [{ InteractionID: 'click', ActionList: [{ActionID: 'pronomChangeInfo', Action: 'pronomChangeInfo'}] }],
+      Color: '#808008'
+    },
+    {
+      ElementID: 'elles',
+      ElementFolder: '.',
+      ElementType: 'button',
+      ElementForms: [{DisplayedText: 'elles', VoiceText: '', LexicInfos: [{person: 'thirdPerson'}]}],
+      ImageID: 'img1',
+      InteractionsList: [{ InteractionID: 'click', ActionList: [{ActionID: 'pronomChangeInfo', Action: 'pronomChangeInfo'}] }],
+      Color: '#888800'
+    },
   ],
   ImageList: [
     {

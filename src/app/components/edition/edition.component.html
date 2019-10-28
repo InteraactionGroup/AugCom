@@ -166,26 +166,6 @@
        </ng-container>
      </div>
 
-
-
-     <div class="variantButtons">
-       <input type="button" value=">" (click)="this.dbnaryService.moveToRight()">
-       <input type="button" value="<" (click)="this.dbnaryService.moveToLeft()">
-     </div>
-
-     <div class="wrapperPreview">
-       <ng-container  *ngFor="let b of this.dbnaryService.newList">
-       <li class="variantList">
-       <div class="variant" (click)="b.selected=!b.selected">
-         {{b.val}}
-         <div class="selector" [ngStyle]="{'background-image': b.selected?this.getIcon('checkmark'):this.getIcon('uncheckmark')}" >
-
-         </div>
-       </div>
-       </li>
-       </ng-container>
-     </div>
-
      <div class="variantOk">
        <input type="button" value="Ok" (click)="closeVariant()">
      </div>

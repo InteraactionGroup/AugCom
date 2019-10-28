@@ -34,16 +34,25 @@ export class DbnaryService {
 
   getOtherFormsOfThisPartOfSpeechWord(word: string, pos: string, list) {
 
-    const query = [    'SELECT DISTINCT ?ofo WHERE {{' +
-    '?t ontolex:canonicalForm/ontolex:writtenRep "' + word + '"@fr;' +
-    'dbnary:partOfSpeech "' + pos + '";' +
-    'ontolex:otherForm/ontolex:writtenRep ?ofo.' +
-    '}' +
-    'UNION {' +
-    '?t ontolex:canonicalForm/ontolex:writtenRep "' + word + '"@fr;' +
-    'dbnary:partOfSpeech "' + pos + '";' +
-    'ontolex:canonicalForm/ontolex:writtenRep ?ofo.' +
-    '}}'].join(' ');
+    const query = [
+      'SELECT DISTINCT ?ofo ?p ?n ?g WHERE {{\n' +
+      '?mot ontolex:canonicalForm/ontolex:writtenRep "' + word + '"@fr.\n' +
+      '?mot dbnary:partOfSpeech "' + pos + '".\n' +
+      '?mot ontolex:otherForm ?of.\n' +
+      '?of ontolex:writtenRep ?ofo.\n' +
+      'OPTIONAL {?of lexinfo:person ?p.}\n' +
+      'OPTIONAL {?of lexinfo:number ?n.}\n' +
+      'OPTIONAL {?of lexinfo:gender ?g.}\n' +
+      '}UNION{\n' +
+      '?mot ontolex:canonicalForm/ontolex:writtenRep "' + word + '"@fr.\n' +
+      '?mot dbnary:partOfSpeech "' + pos + '".\n' +
+      '?mot ontolex:canonicalForm ?of.\n' +
+      '?of ontolex:writtenRep ?ofo.\n' +
+      'OPTIONAL {?of lexinfo:person ?p.}\n' +
+      'OPTIONAL {?of lexinfo:number ?n.}\n' +
+      'OPTIONAL {?of lexinfo:gender ?g.}\n' +
+      '}}'
+    ].join(' ');
     this.sparkql(query, list, 2);
 
   }
@@ -81,7 +90,18 @@ export class DbnaryService {
           } else if ( i === 2 ) {
             this.sparkqlData = data as ResultJson2;
             this.sparkqlData.results.bindings.forEach(w => {
-              list.push({val: w.ofo.value, selected: false});
+              const infoList = [];
+              if (w.p !== undefined) {
+                infoList.push({person: w.p.value});
+              }
+              if (w.n !== undefined) {
+                infoList.push({number: w.n.value});
+              }
+              if (w.g !== undefined) {
+                infoList.push({gender: w.g.value});
+
+              }
+              list.push({val: w.ofo.value, info: infoList, selected: false});
             });
           }
           this.searchStarted = 0;

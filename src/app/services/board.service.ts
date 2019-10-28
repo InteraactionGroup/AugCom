@@ -10,11 +10,17 @@ import {UsertoolbarService} from './usertoolbar.service';
 export class BoardService {
 
   constructor(public userToolBarService: UsertoolbarService, public sanitizer: DomSanitizer) {
-    this.board  = new Grid('grid', [] as Element[], [] as Image[], [] as Action[], [] as Interaction [], 'grid', [] as {ElementType: string, Link: string}[]);
+    this.board  = Board;
+    // new Grid('grid', [] as Element[], [] as Image[], [] as Action[], [] as Interaction [], 'grid', [] as {ElementType: string, Link: string}[]);
   }
 
   board;
   currentFolder = '.';
+
+
+  currentPerson = '';
+  currentGender = 'masculine';
+  currentNumber = 'singular';
 
   elementCondamne: Element = null;
 

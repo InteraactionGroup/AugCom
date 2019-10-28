@@ -7,7 +7,7 @@ import {MulBerryObject} from '../../libTypes';
 import mullberryJson from '../../../assets/symbol-info.json';
 import {DomSanitizer} from '@angular/platform-browser';
 import {Ng2ImgMaxService} from 'ng2-img-max';
-import {Element} from '../../types';
+import {Action, Element} from '../../types';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 
 @Component({
@@ -22,6 +22,8 @@ export class EditionComponent implements OnInit {
   color = '#d3d3d3';
   imageURL;
   classe = '';
+
+  variantList = [];
 
   choseImage = false;
   variantDisplayed = false;
@@ -48,6 +50,7 @@ export class EditionComponent implements OnInit {
   }
 
   closeVariant() {
+    this.variantList = this.dbnaryService.wordList.filter(b => b.selected);
     this.variantDisplayed = false ;
   }
 
@@ -134,11 +137,8 @@ export class EditionComponent implements OnInit {
     // tslint:disable-next-line:no-shadowed-variable
     const element: Element = this.userToolBar.modif;
     element.ElementType = this.radioTypeFormat;
-    element.ElementForms = [
-          {DisplayedText: this.name,
-          VoiceText: this.name,
-          LexicInfos: [] }
-          ];
+    element.ElementForms[0].DisplayedText = this.name;
+    element.ElementForms[0].VoiceText = this.name;
     element.Color = this.color;
     element.ImageID = this.boardService.currentFolder + this.name;
 
@@ -151,16 +151,24 @@ export class EditionComponent implements OnInit {
   }
 
   createNewButton() {
+    const elementForms = [];
+    elementForms.push({DisplayedText: this.name,
+      VoiceText: this.name,
+      LexicInfos: [] });
+    this.variantList.forEach( variant => {
+      elementForms.push({
+        DisplayedText: variant.val,
+        VoiceText: variant.val,
+        LexicInfos: variant.info
+      });
+    });
+
     this.boardService.board.ElementList.push(
       {
         ElementID: this.name,
         ElementFolder: this.boardService.currentFolder,
         ElementType: this.radioTypeFormat,
-        ElementForms: [
-          {DisplayedText: this.name,
-            VoiceText: this.name,
-            LexicInfos: [] }
-        ],
+        ElementForms: elementForms,
         ImageID: this.boardService.currentFolder + this.name,
         InteractionsList: [],
         Color: this.color
@@ -172,6 +180,10 @@ export class EditionComponent implements OnInit {
         ImageLabel: this.name,
         ImagePath: this.imageURL
       });
+
+    this.variantList.forEach( variant => {
+      console.log(variant.info);
+    });
   }
 
   updatemodif() {

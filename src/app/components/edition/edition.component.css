@@ -322,11 +322,11 @@ margin: 0 0 0 0;
   transform: translateY(5%);
   margin-left: 4%;
   display: grid;
-  width: 30%;
+  width: 80%;
   height: 90%;
   background-color: whitesmoke;
   overflow: scroll;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(100,20%);
 }
 
@@ -339,26 +339,12 @@ margin: 0 0 0 0;
   background-position: center;
 }
 
-.bottomEdition .variantSelector .variantButtons{
-  display: inline-grid;
-  float: left;
-  width: 10%;
-  height: 100%;
-  margin-left: 4%;
-}
-
-.bottomEdition .variantSelector .variantButtons input{
-  display: block;
-  height: 30%;
-  width: 100%;
-  transform: translateY(100%);
-}
 
 .bottomEdition .variantSelector .variantOk {
   float: left;
   width: 10%;
   height: 20%;
-  margin-left: 4%;
+  margin-left: 3%;
   transform: translateY(200%);
 background-color: grey;
 }

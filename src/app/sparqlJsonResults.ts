@@ -6,9 +6,7 @@ export class ResultJson1 {
     { distinct: false,
       ordered: true,
       bindings:
-        { po:
-            { type: string, value: string }
-        }[]
+        any[]
     };
 }
 
@@ -20,8 +18,22 @@ export class ResultJson2 {
     { distinct: false,
       ordered: true,
       bindings:
-        { ofo:
-            { type: string, 'xml:lang': string, value: string }
-        }[]
+        any[]
     };
+}
+
+export class Ofo {
+  ofo: { type: string, 'xml:lang': string, value: string };
+}
+
+export class Pers {
+  p: { type: string,  value: string };
+}
+
+export class Numb {
+  n: { type: string,  value: string };
+}
+
+export class Gend {
+  g: { type: string,  value: string };
 }
