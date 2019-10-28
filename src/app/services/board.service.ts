@@ -20,7 +20,7 @@ export class BoardService {
 
   currentPerson = '';
   currentGender = 'masculine';
-  currentNumber = 'singular';
+  currentNumber = '';
 
   elementCondamne: Element = null;
 

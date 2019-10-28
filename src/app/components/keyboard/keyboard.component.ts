@@ -27,7 +27,6 @@ export class KeyboardComponent implements OnInit {
 
   getLabel(element: Element) {
     const list = element.ElementForms.filter(elt => this.checkForms(elt) );
-    console.log(list);
     if (list[0] != null && list[0] !== undefined ) {
       return list[0].DisplayedText;
     } else {
@@ -36,20 +35,33 @@ export class KeyboardComponent implements OnInit {
   }
 
   checkForms(elt: ElementForm): boolean {
-    let b = false;
+    let person = false;
+    let n = false;
     elt.LexicInfos.forEach(info => {
       if (info.person != null && info.person !== undefined
         && info.person === 'http://www.lexinfo.net/ontology/2.0/lexinfo#' + this.boardService.currentPerson) {
-        b = b || true;
+        person = true;
+      }
+
+      if (info.number != null && info.number !== undefined
+        && info.number === 'http://www.lexinfo.net/ontology/2.0/lexinfo#' + this.boardService.currentNumber) {
+        n = true;
       }
     });
-    return b;
+
+    if (person && n) {
+      console.log(elt);
+    }
+
+    return person && n;
   }
 
 
   changePronomInfo( elementForm: ElementForm) {
     this.boardService.currentPerson = elementForm.LexicInfos[0].person;
+    this.boardService.currentNumber = elementForm.LexicInfos[1].number;
     console.log(this.boardService.currentPerson);
+    console.log(this.boardService.currentNumber);
   }
 
   clickTriggered(element: Element) {
