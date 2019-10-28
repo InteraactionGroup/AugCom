@@ -7,7 +7,7 @@
 
   <div class="wrapper" [ngStyle]="{'grid-template-columns': 'repeat('+(12-this.sliderValue)+', '+(100/(12-this.sliderValue))+'%)'}" >
 
-    <ng-container class="test" *ngFor="let element of this.boardService.getTempList()">
+    <ng-container class="test" *ngFor="let element of this.boardService.getTempList().slice(0,5*(12-this.sliderValue)-2)">
 
       <ng-container *ngIf="this.boardService.belongToActiveFolder(element)">
         <div class="elementContainer" >

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {DbnaryService} from '../../services/dbnary.service';
-import {EditionService} from '../../services/edition.service';
 import {BoardService} from '../../services/board.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {GeticonService} from '../../services/geticon.service';
@@ -28,7 +27,7 @@ export class EditionComponent implements OnInit {
   variantDisplayed = false;
   imageList: any[];
 
-  constructor(public indexedDBacess: IndexeddbaccessService, public ng2ImgMaxService: Ng2ImgMaxService, public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public editionService: EditionService, public boardService: BoardService) {
+  constructor(public indexedDBacess: IndexeddbaccessService, public ng2ImgMaxService: Ng2ImgMaxService, public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public boardService: BoardService) {
 
   }
 
@@ -141,11 +140,11 @@ export class EditionComponent implements OnInit {
           LexicInfos: [] }
           ];
     element.Color = this.color;
-    element.ImageID = this.name;
+    element.ImageID = this.boardService.currentFolder + this.name;
 
     this.boardService.board.ImageList.push(
       {
-        ImageID: this.name,
+        ImageID: this.boardService.currentFolder + this.name,
         ImageLabel: this.name,
         ImagePath: this.imageURL
       });
@@ -162,14 +161,14 @@ export class EditionComponent implements OnInit {
             VoiceText: this.name,
             LexicInfos: [] }
         ],
-        ImageID: this.name,
+        ImageID: this.boardService.currentFolder + this.name,
         InteractionsList: [],
         Color: this.color
       });
 
     this.boardService.board.ImageList.push(
       {
-        ImageID: this.name,
+        ImageID: this.boardService.currentFolder + this.name,
         ImageLabel: this.name,
         ImagePath: this.imageURL
       });

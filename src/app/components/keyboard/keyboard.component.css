@@ -7,7 +7,7 @@
 
 .keyboard .wrapper{
   display: grid;
-  grid-template-rows: repeat(10, 20%);
+  grid-template-rows: repeat(5, 20%);
   height:100%;
   width:100%;
   overflow: hidden;

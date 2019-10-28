@@ -7,7 +7,11 @@ import {Subject} from 'rxjs';
 })
 export class UsertoolbarService {
 
-  constructor() { }
+  constructor() {
+    document.onfullscreenchange = e => {
+      this.full = ! this.full;
+    };
+  }
 
   public account = false;
   public unlock = false;
@@ -27,12 +31,10 @@ export class UsertoolbarService {
     if (document.fullscreen) {
       if (document.exitFullscreen) {
         document.exitFullscreen();
-        this.full = !this.full;
       }
     } else {
       if (document.documentElement.requestFullscreen) {
         document.documentElement.requestFullscreen();
-        this.full = !this.full;
       }
     }
   }

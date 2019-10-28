@@ -7,6 +7,17 @@ export class Grid {
   InteractionList: Interaction[];
   GridType: string;
   Style: {ElementType: string, Link: string}[];
+
+  constructor(gridId, elemList, imageList, actionList, interList, gridType, style){
+    this.GridID = gridId;
+    this.ElementList = elemList;
+    this.ImageList = imageList;
+    this.ActionList = actionList;
+    this.InteractionList = interList;
+    this.GridType = gridType;
+    this.Style = style;
+  }
+
 }
 
 export class Element {

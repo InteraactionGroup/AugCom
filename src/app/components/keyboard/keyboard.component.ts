@@ -15,7 +15,7 @@ import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 })
 export class KeyboardComponent implements OnInit {
 
-  sliderValue = 1;
+  sliderValue = 2;
 
   // tslint:disable-next-line:max-line-length
   constructor(public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) { }
@@ -30,7 +30,11 @@ export class KeyboardComponent implements OnInit {
       this.historicService.say('' + element.ElementForms[0].DisplayedText);
     } else if (element.ElementType === 'folder') {
       this.historicService.say('' + element.ElementForms[0].DisplayedText);
-      this.boardService.currentFolder = element.ElementFolder + element.ElementID;
+      if (element.ElementFolder === '.') {
+        this.boardService.currentFolder = element.ElementFolder + element.ElementID;
+      } else {
+        this.boardService.currentFolder = element.ElementFolder + '.' + element.ElementID;
+      }
     } else {
       console.log(element.ElementType);
     }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {BoardService} from '../../services/board.service';
+import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 
 @Component({
   selector: 'app-popup',
@@ -13,13 +14,14 @@ export class PopupComponent implements OnInit {
   questionBegin = 'Êtes-vous sûr de vouloir supprimer l\'élément: ';
   questionEnd = ' ? \n la suppression ne peut pas être défaite.';
 
-  constructor(public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
+  constructor(public indexedDBacess: IndexeddbaccessService, public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
 
   ngOnInit() {
   }
 
   yes() {
     this.boardService.executer();
+    this.indexedDBacess.update();
     this.closePopup();
   }
 

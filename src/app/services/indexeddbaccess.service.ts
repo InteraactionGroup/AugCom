@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {BoardService} from "./board.service";
+import {BoardService} from './board.service';
 
 @Injectable({
   providedIn: 'root'

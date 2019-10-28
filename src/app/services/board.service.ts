@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Board} from '../data/ExempleOfBoard';
-import {Element} from '../types';
+import {Action, Element, Grid, Image, Interaction} from '../types';
 import {DomSanitizer} from '@angular/platform-browser';
 import {UsertoolbarService} from './usertoolbar.service';
 
@@ -9,9 +9,11 @@ import {UsertoolbarService} from './usertoolbar.service';
 })
 export class BoardService {
 
-  constructor( public userToolBarService: UsertoolbarService, public sanitizer: DomSanitizer) { }
+  constructor(public userToolBarService: UsertoolbarService, public sanitizer: DomSanitizer) {
+    this.board  = new Grid('grid', [] as Element[], [] as Image[], [] as Action[], [] as Interaction [], 'grid', [] as {ElementType: string, Link: string}[]);
+  }
 
-  board = Board;
+  board;
   currentFolder = '.';
 
   elementCondamne: Element = null;
