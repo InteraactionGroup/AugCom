@@ -92,6 +92,7 @@ export const Board: Grid = {
   ActionList: [],
   InteractionList: [],
   GridType: 'grid',
+  GridInfo: 2,
   Style: []
 
 };

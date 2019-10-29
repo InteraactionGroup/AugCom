@@ -137,10 +137,33 @@ export class EditionComponent implements OnInit {
     // tslint:disable-next-line:no-shadowed-variable
     const element: Element = this.userToolBar.modif;
     element.ElementType = this.radioTypeFormat;
-    element.ElementForms[0].DisplayedText = this.name;
-    element.ElementForms[0].VoiceText = this.name;
+    const defaultform = element.ElementForms.find(form => {
+      const newForm = form.LexicInfos.find(info => {
+        return (info.default != null && info.default);
+      });
+      return (newForm != null);
+    });
+    if (defaultform != null) {
+    defaultform.DisplayedText = this.name;
+    defaultform.VoiceText = this.name;
+    } else {
+      element.ElementForms.push({
+        DisplayedText: this.name,
+        VoiceText: this.name,
+        LexicInfos: [{default: true}]
+      });
+    }
+    this.variantList.forEach( variant => {
+      element.ElementForms.push({
+        DisplayedText: variant.val,
+        VoiceText: variant.val,
+        LexicInfos: variant.info
+      });
+    });
     element.Color = this.color;
     element.ImageID = this.boardService.currentFolder + this.name;
+
+    this.boardService.board.ImageList = this.boardService.board.ImageList.filter( img => img.ImageID !== this.boardService.currentFolder + this.name);
 
     this.boardService.board.ImageList.push(
       {
@@ -154,7 +177,7 @@ export class EditionComponent implements OnInit {
     const elementForms = [];
     elementForms.push({DisplayedText: this.name,
       VoiceText: this.name,
-      LexicInfos: [] });
+      LexicInfos: [{default: true}] });
     this.variantList.forEach( variant => {
       elementForms.push({
         DisplayedText: variant.val,

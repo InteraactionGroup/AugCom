@@ -111,6 +111,22 @@ export class ShareComponent implements OnInit {
     fileReader.onload = (e) => {
       const t = JSON.parse(fileReader.result.toString());
       this.boardService.board = t;
+      this.boardService.board.ElementList.forEach( element => {
+      const defaultform = element.ElementForms.find(form => {
+        const newForm = form.LexicInfos.find(info => {
+          return (info.default != null && info.default);
+        });
+        return (newForm != null);
+      });
+      if (defaultform == null) {
+        element.ElementForms.push({
+          DisplayedText: element.ElementForms[0].DisplayedText,
+          VoiceText: element.ElementForms[0].VoiceText,
+          LexicInfos: [{default: true}]
+        });
+      }});
+
+
     };
     fileReader.readAsText(this.file);
   }

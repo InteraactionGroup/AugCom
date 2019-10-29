@@ -3,7 +3,7 @@ import {HistoricService} from '../../services/historic.service';
 import {EditionService} from '../../services/edition.service';
 import {OtherformsService} from '../../services/otherforms.service';
 import {BoardService} from '../../services/board.service';
-import {Element, ElementForm} from '../../types';
+import {Element, ElementForm, Vignette} from '../../types';
 import {GeticonService} from '../../services/geticon.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
@@ -15,8 +15,6 @@ import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 })
 export class KeyboardComponent implements OnInit {
 
-  sliderValue = 2;
-
 
   // tslint:disable-next-line:max-line-length
   constructor(public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) { }
@@ -25,12 +23,20 @@ export class KeyboardComponent implements OnInit {
     this.indexeddbaccessService.init();
   }
 
+  updateSliderValue() {
+    this.boardService.board.GridInfo = this.boardService.sliderValue;
+  }
   getLabel(element: Element) {
-    const list = element.ElementForms.filter(elt => this.checkForms(elt) );
-    if (list[0] != null && list[0] !== undefined ) {
-      return list[0].DisplayedText;
+    const adaptedElement = element.ElementForms.find(elt => this.checkForms(elt) );
+    if (adaptedElement != null) {
+      return adaptedElement.DisplayedText;
     } else {
-     return element.ElementForms[0].DisplayedText;
+      const defaultElement = element.ElementForms.find(elt => this.checkDefault(elt) );
+      if (defaultElement != null) {
+        return defaultElement.DisplayedText;
+      } else {
+        return element.ElementForms[0].DisplayedText;
+      }
     }
   }
 
@@ -38,41 +44,59 @@ export class KeyboardComponent implements OnInit {
     let person = false;
     let n = false;
     elt.LexicInfos.forEach(info => {
-      if (info.person != null && info.person !== undefined
+      if (info.person != null
         && info.person === 'http://www.lexinfo.net/ontology/2.0/lexinfo#' + this.boardService.currentPerson) {
         person = true;
       }
 
-      if (info.number != null && info.number !== undefined
+      if (info.number != null
         && info.number === 'http://www.lexinfo.net/ontology/2.0/lexinfo#' + this.boardService.currentNumber) {
         n = true;
       }
     });
-
-    if (person && n) {
-      console.log(elt);
-    }
-
     return person && n;
+  }
+
+  checkDefault(elt: ElementForm): boolean {
+    let defaultVal = false;
+    elt.LexicInfos.forEach(info => {
+      if (info.default != null
+        && info.default === true) {
+        defaultVal = true;
+      }
+    });
+    return defaultVal;
   }
 
 
   changePronomInfo( elementForm: ElementForm) {
     this.boardService.currentPerson = elementForm.LexicInfos[0].person;
     this.boardService.currentNumber = elementForm.LexicInfos[1].number;
-    console.log(this.boardService.currentPerson);
-    console.log(this.boardService.currentNumber);
   }
 
   clickTriggered(element: Element) {
     if (element.ElementType === 'button') {
-      this.historicService.push(element);
-      this.historicService.say('' + this.getLabel(element));
+      const prononcedText = this.getLabel(element);
+      const color = element.Color;
+      const imgUrl = this.boardService.getImgUrl(element);
+      const vignette: Vignette = {
+        VignetteLabel: prononcedText,
+        VignetteImageUrl: imgUrl,
+        VignetteColor: color};
+
+      this.historicService.push(vignette);
+      this.historicService.say('' + prononcedText);
 
       if (element.InteractionsList.length > 0 ) {
-        if (element.InteractionsList[0].InteractionID === 'click' && element.InteractionsList[0].ActionList[0].ActionID === 'pronomChangeInfo') {
-          this.changePronomInfo(element.ElementForms[0]);
+        if (element.InteractionsList[0].InteractionID === 'click') {
+          if (element.InteractionsList[0].ActionList[0].ActionID === 'pronomChangeInfo') {
+            this.changePronomInfo(element.ElementForms[0]);
+          }
         }
+      } else {
+        this.boardService.currentNumber = '';
+        this.boardService.currentPerson = '';
+        this.boardService.currentGender = '';
       }
 
     } else if (element.ElementType === 'folder') {
@@ -85,6 +109,7 @@ export class KeyboardComponent implements OnInit {
     } else {
       console.log(element.ElementType);
     }
+
   }
 
   edit(element: Element) {

@@ -44,23 +44,32 @@ export class IndexeddbaccessService {
     };
 
     this.request.onsuccess = event => {
-      console.log('merci davoir accepté IndexedDB');
-      console.log('nous chargons votre dernière sauvegarde');
       const db = event.target.result;
       const requete = db.transaction(['saves']).objectStore('saves').get(1);
       requete.onsuccess = e => {
         this.boardService.board = requete.result;
+        if (this.boardService.board.GridInfo != null) {
+          this.boardService.sliderValue = this.boardService.board.GridInfo;
+        } else {
+          this.boardService.board.GridInfo = 2;
+          this.boardService.sliderValue = this.boardService.board.GridInfo;
+        }
       };
     };
 
     this.request.onupgradeneeded = event => {
-      console.log('création de votre sauvegarde');
       const db = event.target.result;
       const objectStore = db.createObjectStore('saves', { autoIncrement : true });
       objectStore.transaction.oncomplete = e => {
         console.log('save loaded');
         const gridStore = db.transaction('saves', 'readwrite').objectStore('saves');
         gridStore.add(this.boardService.board);
+        if (this.boardService.board.GridInfo != null) {
+          this.boardService.sliderValue = this.boardService.board.GridInfo;
+        } else {
+          this.boardService.board.GridInfo = 2;
+          this.boardService.sliderValue = this.boardService.board.GridInfo;
+        }
       };
 
     };

@@ -14,12 +14,13 @@ export class BoardService {
     // new Grid('grid', [] as Element[], [] as Image[], [] as Action[], [] as Interaction [], 'grid', [] as {ElementType: string, Link: string}[]);
   }
 
-  board;
+  sliderValue;
+  board: Grid;
   currentFolder = '.';
 
 
   currentPerson = '';
-  currentGender = 'masculine';
+  currentGender = '';
   currentNumber = '';
 
   elementCondamne: Element = null;

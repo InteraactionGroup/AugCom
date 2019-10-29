@@ -1,13 +1,13 @@
 <div class="slidecontainer">
-  <input *ngIf="this.userToolBarService.edit" [(ngModel)]="sliderValue" class="slider" max="10" min="2" type="range">
+  <input *ngIf="this.userToolBarService.edit" [(ngModel)]="this.boardService.sliderValue" class="slider" max="10" min="2" type="range" (change)="updateSliderValue()">
 </div>
 
 
 <div class="keyboard">
 
-  <div class="wrapper" [ngStyle]="{'grid-template-columns': 'repeat('+(12-this.sliderValue)+', '+(100/(12-this.sliderValue))+'%)'}" >
+  <div class="wrapper" [ngStyle]="{'grid-template-columns': 'repeat('+(12-this.boardService.sliderValue)+', '+(100/(12-this.boardService.sliderValue))+'%)'}" >
 
-    <ng-container class="test" *ngFor="let element of this.boardService.getTempList().slice(0,5*(12-this.sliderValue)-2)">
+    <ng-container class="test" *ngFor="let element of this.boardService.getTempList().slice(0,5*(12-this.boardService.sliderValue)-2)">
 
       <ng-container *ngIf="this.boardService.belongToActiveFolder(element)">
         <div class="elementContainer" >

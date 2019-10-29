@@ -4,14 +4,14 @@
 
     <div class="elementContainer" *ngFor="let element of this.historicService.lastNHistoricElements">
 
-      <div class="element" (click)="this.historicService.say('' + element.ElementForms[0].DisplayedText);" [style.background-color]="element.Color">
+      <div class="element" (click)="this.historicService.say('' + element.VignetteLabel);" [style.background-color]="element.VignetteColor">
 
-        <div class="image"[style.background-image]="this.boardService.getImgUrl(element)" >
+        <div class="image"[style.background-image]="element.VignetteImageUrl" >
 
         </div>
 
         <div class="label">
-          {{element.ElementForms[0].DisplayedText}}
+          {{element.VignetteLabel}}
         </div>
 
       </div>

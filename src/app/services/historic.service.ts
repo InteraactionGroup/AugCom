@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Element} from '../types';
+import {Vignette} from '../types';
 
 @Injectable({
   providedIn: 'root'
@@ -7,8 +7,8 @@ import {Element} from '../types';
 export class HistoricService {
 
 
-  public historicElements: Element[] = [];
-  public lastNHistoricElements: Element[]  = [];
+  public historicElements: Vignette[] = [];
+  public lastNHistoricElements: Vignette[]  = [];
 
   constructor() {
     this.updateLastElements(10);
@@ -42,7 +42,7 @@ export class HistoricService {
   playHistoric() {
     let text = '';
     for (const historicElement of this.historicElements) {
-      text = text + ' ' + historicElement.ElementForms[0].DisplayedText; //need to change b
+      text = text + ' ' + historicElement.VignetteLabel;
     }
     text = text;
     this.say(text);

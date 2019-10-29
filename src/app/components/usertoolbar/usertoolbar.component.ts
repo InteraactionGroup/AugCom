@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {BoardService} from '../../services/board.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {GeticonService} from '../../services/geticon.service';
+import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 
 @Component({
   selector: 'app-usertoolbar',
@@ -10,7 +10,7 @@ import {GeticonService} from '../../services/geticon.service';
 })
 export class UsertoolbarComponent implements OnInit {
 
-  constructor(public getIconService: GeticonService, public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
+  constructor(private indexedDBacess: IndexeddbaccessService, public getIconService: GeticonService, public userToolBarService: UsertoolbarService) { }
 
   ngOnInit() {
   }
@@ -19,4 +19,11 @@ export class UsertoolbarComponent implements OnInit {
     return this.getIconService.getIconUrl(s);
   }
 
+  edit() {
+    this.userToolBarService.editt();
+    if (!this.userToolBarService.edit) {
+      this.indexedDBacess.update();
+      console.log('info saved');
+    }
+  }
 }
