@@ -79,7 +79,7 @@
           Autre
         </div>
         <div class="inputField" >
-          <input *ngIf="radioTypeFormat=='button' && name!=''" type="button" value="Sélectionner les variantes" class="input" (click)="getWordList()" >
+          <input *ngIf="radioTypeFormat=='button'" type="button" value="Sélectionner les variantes" class="input" (click)="getWordList(this.name)" >
         </div>
       </div>
 
@@ -109,6 +109,11 @@
 
     <div class="elementVariant" *ngIf="variantDisplayed">
 
+      <div class="wordToSearchPanel">
+        <input #wordToSearch type="text" class="inputText" value="{{this.name}}">
+        <input type ="button" class="search" value="search" (click)="getWordList(wordToSearch.value)">
+      </div>
+
       <div class="waitVariant" *ngIf="this.dbnaryService.searchStarted == 1"  [ngStyle]="{'background-image':'url(assets/icons/load.gif'}">
       </div>
 
@@ -120,7 +125,7 @@
             <option id="{{b}}radio"  name="buttonType" type="radio" value="{{b}}">{{b}}</option>
           </ng-container>
         </select>
-        <input type="button" value="OK" (click)="displayVariant(classe)"  class="variantOk">
+        <input type="button" value="OK" (click)="displayVariant(classe,wordToSearch.value)"  class="variantOk">
       </div>
     </div>
 

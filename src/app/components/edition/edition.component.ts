@@ -221,16 +221,16 @@ export class EditionComponent implements OnInit {
     return false;
   }
 
-  getWordList() {
-    this.dbnaryService.startsearch(1);
-    this.variantDisplayed = !this.variantDisplayed;
+  getWordList(word) {
+    this.variantDisplayed = true;
     this.dbnaryService.typeList = [];
-    this.dbnaryService.getWordPartOfSpeech(this.name, this.dbnaryService.typeList);
+    this.dbnaryService.startsearch(1);
+    this.dbnaryService.getWordPartOfSpeech(word, this.dbnaryService.typeList);
   }
-  displayVariant(b) {
-    this.dbnaryService.startsearch(2);
+  displayVariant(b, word) {
     this.dbnaryService.wordList = [];
-    this.dbnaryService.getOtherFormsOfThisPartOfSpeechWord(this.name, b, this.dbnaryService.wordList);
+    this.dbnaryService.startsearch(2);
+    this.dbnaryService.getOtherFormsOfThisPartOfSpeechWord(word, b, this.dbnaryService.wordList);
   }
 
 }
