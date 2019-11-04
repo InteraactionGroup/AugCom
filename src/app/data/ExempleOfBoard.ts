@@ -89,8 +89,6 @@ export const Board: Grid = {
       ImagePath: 'assets/images/img2.svg'
     }
   ],
-  ActionList: [],
-  InteractionList: [],
   GridType: 'grid',
   GridInfo: 2,
   Style: []

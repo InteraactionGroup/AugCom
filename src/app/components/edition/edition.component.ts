@@ -193,7 +193,10 @@ export class EditionComponent implements OnInit {
         ElementType: this.radioTypeFormat,
         ElementForms: elementForms,
         ImageID: this.boardService.currentFolder + this.name,
-        InteractionsList: [],
+        InteractionsList: [{
+          InteractionID: 'click', ActionList: [{
+            ActionID: 'display', Action: 'display'}, {
+            ActionID: 'say', Action: 'say'}]}],
         Color: this.color
       });
 

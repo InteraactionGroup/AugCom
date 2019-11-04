@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Board} from '../data/ExempleOfBoard';
-import {Action, Element, Grid, Image, Interaction} from '../types';
+import {Action, Element, Grid, Image} from '../types';
 import {DomSanitizer} from '@angular/platform-browser';
 import {UsertoolbarService} from './usertoolbar.service';
 
@@ -37,13 +37,24 @@ export class BoardService {
     this.elementCondamne = element;
   }
   executer() {
-    this.board.ElementList = this.board.ElementList.filter(x => x !== this.elementCondamne);
+    const imageTemp = [];
+
+    this.board.ElementList = this.board.ElementList.filter(x => !x.ElementFolder.startsWith(this.elementCondamne.ElementFolder + this.elementCondamne.ElementID));
+    this.board.ElementList =  this.board.ElementList.filter(x => x !== this.elementCondamne );
+
+    this.board.ElementList.forEach(elt => {
+      const res = this.board.ImageList.find(img => img.ImageID === elt.ImageID);
+      if (res !== null && res !== undefined) {
+        imageTemp.push(res);
+      }
+    });
+    this.board.ImageList = imageTemp;
     this.elementCondamne = null;
   }
 
   getImgUrl(element: Element) {
     if (this.board.ImageList != null) {
-      const path = this.board.ImageList.find(x => x.ImageID === element.ImageID)
+      const path = this.board.ImageList.find(x => x.ImageID === element.ImageID);
       if (path !== null && path !== undefined) {
         const s = path.ImagePath;
         return this.sanitizer.bypassSecurityTrustStyle('url(' + s + ')');

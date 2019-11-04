@@ -3,18 +3,14 @@ export class Grid {
   GridID: string;
   ElementList: Element[];
   ImageList: Image[];
-  ActionList: Action[];
-  InteractionList: Interaction[];
   GridType: string;
   GridInfo: number;
   Style: {ElementType: string, Link: string}[];
 
-  constructor(gridId, elemList, imageList, actionList, interList, gridType, gridinfo, style) {
+  constructor(gridId, elemList, imageList, actionList, gridType, gridinfo, style) {
     this.GridID = gridId;
     this.ElementList = elemList;
     this.ImageList = imageList;
-    this.ActionList = actionList;
-    this.InteractionList = interList;
     this.GridType = gridType;
     this.GridInfo = gridinfo;
     this.Style = style;
@@ -47,11 +43,6 @@ export class Image {
 export class Action {
   ActionID: string;
   Action: string;
-}
-
-export class Interaction {
-  InteractionID: string;
-  InteractionType: string;
 }
 
 export class ElementForm {

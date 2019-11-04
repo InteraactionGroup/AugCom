@@ -112,10 +112,7 @@ export class KeyboardComponent implements OnInit {
   pointerUp(element: Element) {
     if (!this.userToolBarService.edit) {
       window.clearTimeout(this.pressTimer);
-      if ( this.clickedElement !== null &&
-        element.InteractionsList.find( inter => inter.InteractionID === 'backFromVariant') !== undefined) {
-        this.boardService.activatedElement = -1;
-      } else if (this.clickedElement !== null && this.clickedElement === element) {
+      if (this.clickedElement !== null && this.clickedElement === element) {
           this.normalClick(element);
       }
     }
@@ -131,6 +128,18 @@ export class KeyboardComponent implements OnInit {
       InteractionsList: element.InteractionsList.copyWithin(0, 0 ),
       Color: element.Color
     } as Element;
+  }
+
+  copyInteractions( interactions: { InteractionID: string, ActionList: Action[] }[]) {
+    const tempInter = [];
+    interactions.forEach(inter => {
+      const tempAction = [];
+      inter.ActionList.forEach(act => {
+        tempAction.push({ActionId: act.ActionID, Action: act.Action});
+      });
+      tempInter.push({InteractionID: inter.InteractionID, ActionList: tempAction});
+    });
+    return tempInter;
   }
 
   activatedElementTempList() {
@@ -179,10 +188,12 @@ export class KeyboardComponent implements OnInit {
               VoiceText: compElt.ElementForms[indexOfForm].VoiceText,
               LexicInfos: compElt.ElementForms[indexOfForm].LexicInfos
             });
+          elt.InteractionsList = tempOtherFOrmList[index].InteractionsList.copyWithin(0, 0);
           indexOfForm = indexOfForm + 1;
         }
       } else if (tempIndex !== index) {
         elt.ElementID = '#disable';
+        elt.InteractionsList = [];
       }
     });
 
@@ -209,15 +220,29 @@ export class KeyboardComponent implements OnInit {
         VignetteImageUrl: imgUrl,
         VignetteColor: color};
 
-      this.historicService.push(vignette);
-      this.historicService.say('' + prononcedText);
-
       if (element.InteractionsList.length > 0 ) {
-        if (element.InteractionsList[0].InteractionID === 'click') {
-          if (element.InteractionsList[0].ActionList[0].ActionID === 'pronomChangeInfo') {
-            this.changePronomInfo(element.ElementForms[0]);
+        element.InteractionsList.forEach(inter => {
+          if (inter.InteractionID === 'click') {
+            inter.ActionList.forEach( action => {
+              if (action.ActionID === 'pronomChangeInfo') {
+                this.changePronomInfo(element.ElementForms[0]);
+              }
+              if (action.ActionID === 'display') {
+                this.historicService.push(vignette);
+              }
+              if (action.ActionID === 'say') {
+                this.historicService.say('' + prononcedText);
+              }
+              if (action.ActionID === 'resetTerminaisons') {
+                this.boardService.currentNumber = '';
+                this.boardService.currentPerson = '';
+                this.boardService.currentGender = '';
+              }
+            });
+          } else if (inter.InteractionID === 'backFromVariant' ) {
+            this.boardService.activatedElement = -1;
           }
-        }
+        });
       } else {
         this.boardService.currentNumber = '';
         this.boardService.currentPerson = '';
