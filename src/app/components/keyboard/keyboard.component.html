@@ -7,12 +7,12 @@
 
   <div class="wrapper" [ngStyle]="{'grid-template-columns': 'repeat('+(12-this.boardService.sliderValue)+', '+(100/(12-this.boardService.sliderValue))+'%)'}" >
 
-    <ng-container class="test" *ngFor="let element of this.boardService.getTempList().slice(0,5*(12-this.boardService.sliderValue)-2)">
+    <ng-container class="test" *ngFor="let element of this.getTempList()">
 
       <ng-container *ngIf="this.boardService.belongToActiveFolder(element)">
         <div class="elementContainer" >
 
-          <div class="element"  (click)=" this.userToolBarService.edit?this.edit(element):this.clickTriggered(element)" [ngStyle]="{'background-color': this.boardService.elementColor(element)}">
+          <div class="element" [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)" (pointerdown)="this.pointerDown(element)" (pointerup)="this.pointerUp(element)" [ngStyle]="{'background-color': this.boardService.elementColor(element)}">
 
             <div class="image" [style.background-image]="this.boardService.getImgUrl(element)">
 

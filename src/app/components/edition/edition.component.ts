@@ -232,5 +232,5 @@ export class EditionComponent implements OnInit {
     this.dbnaryService.startsearch(2);
     this.dbnaryService.getOtherFormsOfThisPartOfSpeechWord(word, b, this.dbnaryService.wordList);
   }
-
 }
+

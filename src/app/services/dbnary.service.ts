@@ -7,6 +7,10 @@ import {ResultJson1, ResultJson2} from '../sparqlJsonResults';
 })
 export class DbnaryService {
 
+  public static PartOfSpeechQuerry = 1;
+  public static FormsOfWord = 2;
+  public static FormsOfVerb = 3;
+
   private sparkqlData = null;
   public word;
   public wordList = [];
@@ -28,14 +32,14 @@ export class DbnaryService {
     '?t ontolex:canonicalForm/ontolex:writtenRep "' + word + '"@fr;' +
     'dbnary:partOfSpeech ?po.' +
     '}'].join(' ');
-    this.sparkql(query, list, 1 );
+    this.sparkql(query, list, DbnaryService.PartOfSpeechQuerry );
 
   }
 
   getOtherFormsOfThisPartOfSpeechWord(word: string, pos: string, list) {
 
     const query = [
-      'SELECT DISTINCT ?ofo ?p ?n ?g WHERE {{\n' +
+      'SELECT DISTINCT ?ofo ?of ?p ?n ?g ?t ?vFM WHERE {{\n' +
       '?mot ontolex:canonicalForm/ontolex:writtenRep "' + word + '"@fr.\n' +
       '?mot dbnary:partOfSpeech "' + pos + '".\n' +
       '?mot ontolex:otherForm ?of.\n' +
@@ -43,6 +47,8 @@ export class DbnaryService {
       'OPTIONAL {?of lexinfo:person ?p.}\n' +
       'OPTIONAL {?of lexinfo:number ?n.}\n' +
       'OPTIONAL {?of lexinfo:gender ?g.}\n' +
+      'OPTIONAL {?of lexinfo:tense ?t.}\n' +
+      'OPTIONAL {?of lexinfo:verbFormMood ?vFM.}\n' +
       '}UNION{\n' +
       '?mot ontolex:canonicalForm/ontolex:writtenRep "' + word + '"@fr.\n' +
       '?mot dbnary:partOfSpeech "' + pos + '".\n' +
@@ -51,10 +57,15 @@ export class DbnaryService {
       'OPTIONAL {?of lexinfo:person ?p.}\n' +
       'OPTIONAL {?of lexinfo:number ?n.}\n' +
       'OPTIONAL {?of lexinfo:gender ?g.}\n' +
+      'OPTIONAL {?of lexinfo:tense ?t.}\n' +
+      'OPTIONAL {?of lexinfo:verbFormMood ?vFM.}\n' +
       '}}'
-    ].join(' ');
-    this.sparkql(query, list, 2);
-
+  ].join(' ');
+    if (pos !== '-verb-') {
+      this.sparkql(query, list, DbnaryService.FormsOfWord);
+    } else {
+      this.sparkql(query, list, DbnaryService.FormsOfVerb);
+    }
   }
 
   sparkql(query, list, i) {
@@ -82,12 +93,12 @@ export class DbnaryService {
       .get(proxy + 'http://kaiko.getalp.org/sparql' + '?query=' + encodeURIComponent(query) , httpOptions)
       .subscribe(
         data => {
-          if ( i === 1 ) {
+          if ( i === DbnaryService.PartOfSpeechQuerry ) {
             this.sparkqlData = data as ResultJson1;
             this.sparkqlData.results.bindings.forEach(w => {
               list.push(w.po.value);
             });
-          } else if ( i === 2 ) {
+          } else {
             this.sparkqlData = data as ResultJson2;
             this.sparkqlData.results.bindings.forEach(w => {
               const infoList = [];
@@ -101,7 +112,20 @@ export class DbnaryService {
                 infoList.push({gender: w.g.value});
 
               }
-              list.push({val: w.ofo.value, info: infoList, selected: false});
+              if (w.t !== undefined) {
+                infoList.push({tense: w.t.value});
+
+              }
+              if (w.vFM !== undefined) {
+                infoList.push({verbFormMood: w.vFM.value});
+
+              }
+              if (i === DbnaryService.FormsOfVerb && this.isIndicativePresent(w)) {
+                list.push({val: w.ofo.value, info: infoList, selected: false});
+              } else if (i === DbnaryService.FormsOfWord) {
+                list.push({val: w.ofo.value, info: infoList, selected: false});
+              }
+
             });
           }
           this.searchStarted = 0;
@@ -112,26 +136,11 @@ export class DbnaryService {
       );
   }
 
-  moveToRight() {
-    this.wordList.forEach(word => {
-        if (word.selected) {
-          this.newList.push(word);
-        }
-      }
-    );
-    this.wordList = this.wordList.filter(word =>  !word.selected);
-    this.unselect();
-  }
-
-  moveToLeft() {
-    this.newList.forEach(word => {
-        if (word.selected) {
-          this.wordList.push(word);
-        }
-      }
-    );
-    this.newList = this.newList.filter(word =>  !word.selected);
-    this.unselect();
+  isIndicativePresent(verb): boolean {
+      return (
+        verb.t !== undefined && verb.t.value === 'http://www.lexinfo.net/ontology/2.0/lexinfo#present' &&
+        verb.vFM !== undefined &&  verb.vFM.value === 'http://www.lexinfo.net/ontology/2.0/lexinfo#indicative'
+      );
   }
 
   unselect() {

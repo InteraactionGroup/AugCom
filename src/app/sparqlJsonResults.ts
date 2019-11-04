@@ -37,3 +37,12 @@ export class Numb {
 export class Gend {
   g: { type: string,  value: string };
 }
+
+export class Tense {
+  t: { type: string,  value: string };
+}
+
+export class FormMood {
+  vFM: { type: string,  value: string };
+}
+

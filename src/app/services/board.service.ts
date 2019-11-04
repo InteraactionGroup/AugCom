@@ -25,12 +25,8 @@ export class BoardService {
 
   elementCondamne: Element = null;
 
+  activatedElement = -1;
 
-  getTempList() {
-    return this.board.ElementList.filter(elt =>  {
-      return this.currentFolder === elt.ElementFolder;
-    });
-  }
 
   belongToActiveFolder(element) {
     return true;
@@ -46,8 +42,17 @@ export class BoardService {
   }
 
   getImgUrl(element: Element) {
-      const s = this.board.ImageList.find(x => x.ImageID === element.ImageID).ImagePath;
-      return this.sanitizer.bypassSecurityTrustStyle('url(' + s + ')');
+    if (this.board.ImageList != null) {
+      const path = this.board.ImageList.find(x => x.ImageID === element.ImageID)
+      if (path !== null && path !== undefined) {
+        const s = path.ImagePath;
+        return this.sanitizer.bypassSecurityTrustStyle('url(' + s + ')');
+      } else {
+        return '';
+      }
+    } else {
+      return '';
+    }
   }
 
   elementColor(element: Element) {

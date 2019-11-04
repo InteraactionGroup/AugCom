@@ -3,10 +3,11 @@ import {HistoricService} from '../../services/historic.service';
 import {EditionService} from '../../services/edition.service';
 import {OtherformsService} from '../../services/otherforms.service';
 import {BoardService} from '../../services/board.service';
-import {Element, ElementForm, Vignette} from '../../types';
+import {Action, Element, ElementForm, Vignette} from '../../types';
 import {GeticonService} from '../../services/geticon.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
+import {ParametersService} from '../../services/parameters.service';
 
 @Component({
   selector: 'app-keyboard',
@@ -15,12 +16,31 @@ import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 })
 export class KeyboardComponent implements OnInit {
 
+  pressTimer;
+
+  clickedElement: Element = null;
+  fakeElementTempList = [];
 
   // tslint:disable-next-line:max-line-length
-  constructor(public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) { }
+  constructor(public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) { }
 
   ngOnInit() {
     this.indexeddbaccessService.init();
+  }
+
+
+  getTempList() {
+    if (this.boardService.activatedElement === -1) {
+      return this.getNormalTempList();
+    } else {
+      return this.fakeElementTempList;
+    }
+  }
+
+  getNormalTempList() {
+    return this.boardService.board.ElementList.filter(elt =>  {
+      return this.boardService.currentFolder === elt.ElementFolder;
+    }).slice(0 , 5 * ( 12 - this.boardService.sliderValue) - 2);
   }
 
   updateSliderValue() {
@@ -35,7 +55,11 @@ export class KeyboardComponent implements OnInit {
       if (defaultElement != null) {
         return defaultElement.DisplayedText;
       } else {
-        return element.ElementForms[0].DisplayedText;
+        if ( element.ElementForms.length > 0) {
+          return element.ElementForms[0].DisplayedText;
+        } else {
+          return  '';
+        }
       }
     }
   }
@@ -74,7 +98,108 @@ export class KeyboardComponent implements OnInit {
     this.boardService.currentNumber = elementForm.LexicInfos[1].number;
   }
 
-  clickTriggered(element: Element) {
+  pointerDown(element: Element) {
+    if (!this.userToolBarService.edit) {
+      this.clickedElement = element;
+      this.pressTimer = window.setTimeout(x => {
+        this.longClick(element);
+        this.activatedElementTempList();
+        this.clickedElement = null;
+      }, this.parametersService.longpressTimeOut);
+    }
+  }
+
+  pointerUp(element: Element) {
+    if (!this.userToolBarService.edit) {
+      window.clearTimeout(this.pressTimer);
+      if ( this.clickedElement !== null &&
+        element.InteractionsList.find( inter => inter.InteractionID === 'backFromVariant') !== undefined) {
+        this.boardService.activatedElement = -1;
+      } else if (this.clickedElement !== null && this.clickedElement === element) {
+          this.normalClick(element);
+      }
+    }
+  }
+
+  copy(element: Element): Element {
+    return {
+      ElementID: element.ElementID,
+      ElementFolder: element.ElementFolder,
+      ElementType: element.ElementType,
+      ElementForms: element.ElementForms.copyWithin(0, 0 ),
+      ImageID: element.ImageID,
+      InteractionsList: element.InteractionsList.copyWithin(0, 0 ),
+      Color: element.Color
+    } as Element;
+  }
+
+  activatedElementTempList() {
+    this.fakeElementTempList = [];
+    this.boardService.board.ImageList.push({
+      ImageID: '#back',
+      ImageLabel: '#back',
+      ImagePath: 'assets/icons/retour.svg'
+    });
+    const tempOtherFOrmList: Element[] = [];
+    this.getNormalTempList().forEach( e => tempOtherFOrmList.push(this.copy(e)));
+    const index = this.boardService.activatedElement;
+    while (index + 12 - this.boardService.sliderValue + 1 > tempOtherFOrmList.length) { // fill with empy elements
+      tempOtherFOrmList.push({
+        ElementID: '',
+        ElementFolder: this.boardService.currentFolder,
+        ElementType: 'button',
+        ElementForms: [],
+        ImageID: '',
+        InteractionsList: [],
+        Color: '#ffffff' // to delete later
+      });
+    }
+    let indexOfForm = 1;
+    const compElt = tempOtherFOrmList[index];
+    tempOtherFOrmList.forEach( elt => {
+      const tempIndex = tempOtherFOrmList.indexOf(elt);
+      let places = [index - 1,
+        index + 1 ,
+        index + 12 - this.boardService.sliderValue,
+        index - 12 + this.boardService.sliderValue,
+        index + 12 - this.boardService.sliderValue + 1,
+        index - 12 + this.boardService.sliderValue + 1,
+        index + 12 - this.boardService.sliderValue - 1,
+        index - 12 + this.boardService.sliderValue - 1
+      ];
+      places = places.slice(0, compElt.ElementForms.length - 1);
+      if (places.includes(tempIndex)) {
+        if (compElt.ElementForms.length > indexOfForm ) {
+          elt.Color = '#aaaaaa';
+          elt.ImageID = '' + compElt.ImageID;
+          elt.ElementForms = [];
+          elt.ElementForms.push(
+            {
+              DisplayedText: compElt.ElementForms[indexOfForm].DisplayedText,
+              VoiceText: compElt.ElementForms[indexOfForm].VoiceText,
+              LexicInfos: compElt.ElementForms[indexOfForm].LexicInfos
+            });
+          indexOfForm = indexOfForm + 1;
+        }
+      } else if (tempIndex !== index) {
+        elt.ElementID = '#disable';
+      }
+    });
+
+    tempOtherFOrmList[index].Color = '#123548';
+    tempOtherFOrmList[index].ImageID = '#back';
+    tempOtherFOrmList[index].InteractionsList = [{ InteractionID: 'backFromVariant', ActionList: [] }];
+    tempOtherFOrmList[index].ElementForms = [{DisplayedText: 'back', VoiceText: 'back', LexicInfos: [] }];
+
+    this.fakeElementTempList = tempOtherFOrmList;
+  }
+  longClick(element: Element) {
+
+    this.boardService.activatedElement = this.getNormalTempList().indexOf(element);
+    console.log('longClick');
+  }
+
+  normalClick(element: Element) {
     if (element.ElementType === 'button') {
       const prononcedText = this.getLabel(element);
       const color = element.Color;
@@ -109,13 +234,14 @@ export class KeyboardComponent implements OnInit {
     } else {
       console.log(element.ElementType);
     }
-
   }
 
   edit(element: Element) {
-    this.userToolBarService.modif = element;
-    this.userToolBarService.ElementListener.next(element);
-    this.userToolBarService.add = false;
+    if (this.userToolBarService.edit) {
+      this.userToolBarService.modif = element;
+      this.userToolBarService.ElementListener.next(element);
+      this.userToolBarService.add = false;
+    }
   }
 
   getIcon(s: string) {
