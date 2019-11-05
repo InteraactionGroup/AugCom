@@ -27,7 +27,7 @@
 
   </div>
 
-  <div class="rightEdition" [class.blured]="choseImage || variantDisplayed">
+  <div class="rightEdition" [class.blured]="choseImage || variantDisplayed || eventDisplayed">
 
     <div class="rightContainer">
       <div class="element name">
@@ -79,7 +79,10 @@
           Autre
         </div>
         <div class="inputField" >
-          <input *ngIf="radioTypeFormat=='button'" type="button" value="Sélectionner les variantes" class="input" (click)="getWordList(this.name)" >
+          <div class="input">
+            <input class="inputHalfLeft"  *ngIf="radioTypeFormat=='button'" type="button" value="Formes"  (click)="getWordList(this.name)" >
+            <input class="inputHalfRight" *ngIf="radioTypeFormat=='button'" type="button" value="Evenements"  (click)="getEvents(this.events)" >
+          </div>
         </div>
       </div>
 
@@ -87,7 +90,7 @@
 
   </div>
 
-  <div class="optionEdition" *ngIf="choseImage || variantDisplayed">
+  <div class="optionEdition" *ngIf="choseImage || variantDisplayed || eventDisplayed">
 
     <ng-container *ngIf="choseImage">
 
@@ -129,11 +132,33 @@
       </div>
     </div>
 
+    <div class="elementEvent" *ngIf="eventDisplayed">
+      <div class="elementEventContainer">
+        <div class="elementevent" (click)="this.selectInteraction(1)" [ngStyle]="{'background-color': this.isCurrentInteraction(1)?'lightblue':'lightgrey'}">
+          <div class="label">
+            Interaction Niveau 1
+          </div>
+          <input class="goto" type="button" value=">">
+        </div>
+        <div class="elementevent" (click)="this.selectInteraction(2)" [ngStyle]="{'background-color': this.isCurrentInteraction(2)?'lightblue':'lightgrey'}">
+          <div class="label">
+            Interaction Niveau 2
+          </div>
+          <input class="goto" type="button" value=">">
+        </div>
+        <div class="elementevent" (click)="this.selectInteraction(3)" [ngStyle]="{'background-color': this.isCurrentInteraction(3)?'lightblue':'lightgrey'}">
+          <div class="label">
+            Interaction Niveau 3
+          </div>
+          <input class="goto" type="button" value=">">
+        </div>
+      </div>
+    </div>
 
 
   </div>
 
-  <div class="bottomEdition" *ngIf="choseImage || variantDisplayed">
+  <div class="bottomEdition" *ngIf="choseImage || variantDisplayed || eventDisplayed">
 
     <div class="element" *ngIf="choseImage">
       <label class="label"  for="imagefromLib">A partir des librairies</label>
@@ -177,6 +202,35 @@
 
    </div>
 
+
+    <div class="element" *ngIf="eventDisplayed">
+      <ng-container *ngIf="this.currentInterraction!=null">
+        <div class="event">
+          <div class="icon" [ngStyle]="{'background-image':this.getIcon('display')}" >
+          </div>
+          <div class="label">
+            Display
+          </div>
+          <div class="checkmark" [ngStyle]="{'background-image': this.isPartOfCurrentInteraction('display')?this.getIcon('checkmark'):this.getIcon('uncheckmark')}"></div>
+        </div>
+        <div class="event">
+          <div class="icon"[ngStyle]="{'background-image':this.getIcon('say')}">
+          </div>
+          <div class="label">
+            Pronounce
+          </div>
+          <div class="checkmark" [ngStyle]="{'background-image': this.isPartOfCurrentInteraction('say')?this.getIcon('checkmark'):this.getIcon('uncheckmark')}"></div>
+        </div>
+        <div class="event">
+          <div class="icon" [ngStyle]="{'background-image':this.getIcon('variants')}">
+          </div>
+          <div class="label">
+            Show other forms
+          </div>
+          <div class="checkmark" [ngStyle]="{'background-image': this.isPartOfCurrentInteraction('otherforms')?this.getIcon('checkmark'):this.getIcon('uncheckmark')}"></div>
+        </div>
+      </ng-container>
+    </div>
 
 
   </div>

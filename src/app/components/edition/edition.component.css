@@ -6,11 +6,13 @@
   max-height: calc(100vh - 2cm);
   width: 100%;
   background-color: grey;
-  transition: left 0.5s;
+  transition: left 0.5s , opacity 0.5s;
+  opacity: 0;
 }
 
 .selected{
   left:0vw;
+  opacity: 1;
 }
 
 .edition .topBar{
@@ -148,8 +150,18 @@
 
 
 .edition .rightEdition .rightContainer .element .inputField .input{
-margin: 0 0 0 0;
+  margin: 0 0 0 0;
   width: 100%;
+}
+
+.edition .rightEdition .rightContainer .element .inputField .input .inputHalfLeft{
+  margin: 0 0 0 0;
+  width: 45%;
+  margin-right: 10%;
+}
+.edition .rightEdition .rightContainer .element .inputField .input .inputHalfRight{
+  margin: 0 0 0 0;
+  width: 45%;
 }
 
 .edition .bottomEdition{
@@ -187,12 +199,75 @@ margin: 0 0 0 0;
   background-color: lightgrey;
 }
 
+.edition .optionEdition .elementEvent{
+  text-align: center;
+  height: 90%;
+  width: 90%;
+  margin-left: 5%;
+  transform: translateY(2%);
+  background-color: lightgrey;
+}
+
+.edition .optionEdition .elementEventContainer{
+  text-align: center;
+  height: 90%;
+  width: 70%;
+  margin-left: 15%;
+  transform: translateY(5%);
+  background-color: white;
+}
+
+.edition .optionEdition .elementEventContainer .elementadd{
+  text-align: center;
+  height: 15%;
+  width: 90%;
+  margin-left: 5%;
+  background-color: lightgrey;
+  margin-bottom: 10%;
+  transform: translateY(5%);
+}
+
+.edition .optionEdition .elementEventContainer .elementevent{
+  text-align: center;
+  height: 30%;
+  width: 90%;
+  margin-left: 5%;
+  background-color: lightgrey;
+  margin-top: 3%;
+  transform: translateY(5%);
+}
+
+.edition .optionEdition .elementEventContainer .label{
+  float: left;
+  text-align: center;
+  height: 30%;
+  width: 80%;
+  transform: translateY(15%);
+}
+
+.edition .optionEdition .elementEventContainer .goto{
+  float: left;
+  text-align: center;
+  height: 90%;
+  width: 19%;
+  transform: translateY(5%);
+}
+
+.edition .optionEdition .elementEventContainer .elementadd .addevent{
+  text-align: center;
+  height: 90%;
+  width: 90%;
+  transform: translateY(5%);
+}
+
 .edition .optionEdition .elementVariant .waitVariant{
-  height: 100%;
-  width: 100%;
+  height: 80%;
+  width: 80%;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  transform: translateY(10%);
+  margin-left: 10%;
 }
 
 .edition .optionEdition .elementVariant .variantContainer{
@@ -245,6 +320,43 @@ margin: 0 0 0 0;
   margin-left: 3%;
   transform: translateY(5%);
   background-color: lightgrey;
+}
+
+.edition .bottomEdition .element .event{
+  float: left;
+  height: 60%;
+  width: 20%;
+  margin-left: 5%;
+  transform: translateY(30%);
+  background-color: white;
+}
+
+.edition .bottomEdition .element .event .icon{
+  float: top;
+  height: 75%;
+  width: 70%;
+  margin-left: 15%;
+  transform: translateY(5%);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.edition .bottomEdition .element .event .label{
+  float: left;
+  height: 10%;
+  width: 80%;
+  transform: translateY(100%);
+}
+
+.edition .bottomEdition .element .event .checkmark{
+  float: left;
+  height: 20%;
+  width: 20%;
+  transform: translateY(20%);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 

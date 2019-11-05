@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class ParametersService {
 
   longpressTimeOut = 1000;
+  interaction = ['click', 'longPress', ''];
 
   constructor() { }
 }

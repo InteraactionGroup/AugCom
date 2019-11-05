@@ -9,6 +9,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {Ng2ImgMaxService} from 'ng2-img-max';
 import {Action, Element} from '../../types';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
+import {ParametersService} from "../../services/parameters.service";
 
 @Component({
   selector: 'app-edition',
@@ -19,6 +20,7 @@ export class EditionComponent implements OnInit {
 
   radioTypeFormat = 'button';
   name = '';
+  events: { InteractionID: string, ActionList: Action[] }[] = [];
   color = '#d3d3d3';
   imageURL;
   classe = '';
@@ -27,9 +29,11 @@ export class EditionComponent implements OnInit {
 
   choseImage = false;
   variantDisplayed = false;
+  eventDisplayed = false;
   imageList: any[];
+  currentInterraction: { InteractionID: string, ActionList: Action[] } = null;
 
-  constructor(public indexedDBacess: IndexeddbaccessService, public ng2ImgMaxService: Ng2ImgMaxService, public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public boardService: BoardService) {
+  constructor(public parametersService: ParametersService, public indexedDBacess: IndexeddbaccessService, public ng2ImgMaxService: Ng2ImgMaxService, public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public boardService: BoardService) {
 
   }
 
@@ -39,10 +43,22 @@ export class EditionComponent implements OnInit {
     });
   }
 
+  selectInteraction(i: number) {
+    this.currentInterraction = this.events.find(x => x.InteractionID === this.parametersService.interaction[i - 1]);
+  }
+
+  isCurrentInteraction(i) {
+    if (this.currentInterraction != null && this.currentInterraction !== undefined) {
+      return this.currentInterraction.InteractionID === this.parametersService.interaction[i - 1];
+    }
+    return false;
+  }
+
   close() {
-    if (this.choseImage || this.variantDisplayed) {
+    if (this.choseImage || this.variantDisplayed || this.eventDisplayed) {
     this.choseImage = false;
     this.variantDisplayed = false;
+    this.eventDisplayed = false;
     } else {
     this.userToolBar.add = false;
     this.userToolBar.modif = null;
@@ -59,10 +75,20 @@ export class EditionComponent implements OnInit {
     this.color = '#d3d3d3';
     this.imageURL = '';
     this.imageList = [];
+    this.dbnaryService.wordList = [];
+    this.dbnaryService.typeList = [];
   }
 
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
+  }
+
+  isPartOfCurrentInteraction(interactionId) {
+    if (this.currentInterraction != null) {
+      const res = this.currentInterraction.ActionList.find(x => x.ActionID === interactionId);
+      return res != null && res !== undefined;
+    }
+    return false;
   }
 
   uploadDocument(text: string) {
@@ -206,16 +232,13 @@ export class EditionComponent implements OnInit {
         ImageLabel: this.name,
         ImagePath: this.imageURL
       });
-
-    this.variantList.forEach( variant => {
-      console.log(variant.info);
-    });
   }
 
   updatemodif() {
     if (this.userToolBar.modif !== null) {
     const elementToModif: Element = this.userToolBar.modif;
     this.name = elementToModif.ElementForms[0].DisplayedText;
+    this.events = elementToModif.InteractionsList;
     this.color = elementToModif.Color;
     this.radioTypeFormat = elementToModif.ElementType;
     const imageToModif = this.boardService.board.ImageList.find(x => x.ImageID === elementToModif.ImageID);
@@ -230,6 +253,13 @@ export class EditionComponent implements OnInit {
     this.dbnaryService.startsearch(1);
     this.dbnaryService.getWordPartOfSpeech(word, this.dbnaryService.typeList);
   }
+
+  getEvents(e) {
+    this.eventDisplayed = true;
+    this.events = e;
+    return this.events;
+  }
+
   displayVariant(b, word) {
     this.dbnaryService.wordList = [];
     this.dbnaryService.startsearch(2);
