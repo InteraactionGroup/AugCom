@@ -29,11 +29,11 @@ export class KeyboardComponent implements OnInit {
   }
 
 
-  getTempList() {
+  getTempList( ) {
     if (this.boardService.activatedElement === -1) {
-      return this.getNormalTempList();
+        return this.getNormalTempList();
     } else {
-      return this.fakeElementTempList;
+        return this.fakeElementTempList;
     }
   }
 
@@ -103,8 +103,6 @@ export class KeyboardComponent implements OnInit {
       this.clickedElement = element;
       this.pressTimer = window.setTimeout(x => {
         this.longClick(element);
-        this.activatedElementTempList();
-        this.clickedElement = null;
       }, this.parametersService.longpressTimeOut);
     }
   }
@@ -152,7 +150,7 @@ export class KeyboardComponent implements OnInit {
     const tempOtherFOrmList: Element[] = [];
     this.getNormalTempList().forEach( e => tempOtherFOrmList.push(this.copy(e)));
     const index = this.boardService.activatedElement;
-    while (index + 12 - this.boardService.sliderValue + 1 > tempOtherFOrmList.length) { // fill with empy elements
+    while (index + 12 - this.boardService.sliderValue + 1 > tempOtherFOrmList.length - 1 ) { // fill with empy elements
       tempOtherFOrmList.push({
         ElementID: '',
         ElementFolder: this.boardService.currentFolder,
@@ -163,19 +161,12 @@ export class KeyboardComponent implements OnInit {
         Color: '#ffffff' // to delete later
       });
     }
+
     let indexOfForm = 1;
     const compElt = tempOtherFOrmList[index];
     tempOtherFOrmList.forEach( elt => {
       const tempIndex = tempOtherFOrmList.indexOf(elt);
-      let places = [index - 1,
-        index + 1 ,
-        index + 12 - this.boardService.sliderValue,
-        index - 12 + this.boardService.sliderValue,
-        index + 12 - this.boardService.sliderValue + 1,
-        index - 12 + this.boardService.sliderValue + 1,
-        index + 12 - this.boardService.sliderValue - 1,
-        index - 12 + this.boardService.sliderValue - 1
-      ];
+      let places = this.createPlaces(index);
       places = places.slice(0, compElt.ElementForms.length - 1);
       if (places.includes(tempIndex)) {
         if (compElt.ElementForms.length > indexOfForm ) {
@@ -204,10 +195,51 @@ export class KeyboardComponent implements OnInit {
 
     this.fakeElementTempList = tempOtherFOrmList;
   }
-  longClick(element: Element) {
 
-    this.boardService.activatedElement = this.getNormalTempList().indexOf(element);
-    console.log('longClick');
+  createPlaces(index) {
+    const places = [];
+    const slider = 12 - this.boardService.sliderValue;
+
+    if (Math.trunc(  (index - 1) / slider ) === Math.trunc( index / slider)) { // gauche
+      places.push(index - 1);
+    }
+    if (Math.trunc( (index + 1) / slider ) === Math.trunc( index / slider )) { // droite
+      places.push(index + 1);
+    }
+
+    if (Math.trunc( (index - slider) / slider )  === Math.trunc( index / slider )  - 1) { // haut
+      places.push(index - slider);
+    }
+
+    if (Math.trunc( (index - slider - 1) / slider )  === Math.trunc( index / slider )  - 1) { // haut gauche
+      places.push(index - slider - 1);
+    }
+
+    if (Math.trunc( (index - slider + 1 ) / slider )  === Math.trunc( index / slider )  - 1) { // haut droite
+      places.push(index - slider + 1);
+    }
+
+    if (Math.trunc( (index + slider) / slider )  === Math.trunc( index / slider ) + 1) { // bas
+      places.push(index + slider);
+    }
+
+    if (Math.trunc( (index + slider - 1) / slider )  === Math.trunc( index / slider ) + 1) { // bas gauche
+      places.push(index + slider - 1);
+    }
+
+    if (Math.trunc( (index + slider + 1) / slider )  === Math.trunc( index / slider ) + 1) { // bas droite
+      places.push(index + slider + 1);
+    }
+
+    return places;
+  }
+
+  longClick(element: Element) {
+    if (element.ElementForms.length > 2) {
+      this.boardService.activatedElement = this.getNormalTempList().indexOf(element);
+      this.activatedElementTempList();
+      this.clickedElement = null;
+    }
   }
 
   normalClick(element: Element) {
