@@ -1,0 +1,57 @@
+.popup{
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  height: 50%;
+  width: 50%;
+  background-color: dimgrey;
+
+}
+
+.popup .popupcontainer{
+  height: 96%;
+  width: 96%;
+  margin-left: 2%;
+  transform: translateY(2.5%);
+  background-color: grey;
+}
+
+.popup .popupcontainer .question{
+  text-align: center;
+  width: 70%;
+  height: 20%;
+  margin-left: 15%;
+  transform: translateY(100%);
+}
+
+.popup .popupcontainer .buttons{
+  width: 70%;
+  height: 30%;
+  margin-left: 15%;
+  transform: translateY(100%);
+}
+
+.popup .popupcontainer .buttons .choiceButton{
+  text-align: center;
+  float: left;
+  width: 30%;
+  margin-left: 10%;
+  margin-right: 10%;
+  height: 100%;
+}
+
+.yes{
+  background-color: darkseagreen;
+}
+
+.yes:hover{
+  background-color: darkgreen;
+}
+
+.no{
+  background-color: indianred;
+}
+
+.no:hover{
+  background-color: darkred;
+}

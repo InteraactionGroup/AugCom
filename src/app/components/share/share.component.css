@@ -1,0 +1,69 @@
+.share{
+  position: absolute;
+  top:-100%;
+  height: 100%;
+  width: 100%;
+  background-color: grey;
+  transition: top 0.5s , opacity 0.5s;
+  opacity: 0;
+}
+
+.selected{
+  opacity: 1;
+  top:0%;
+}
+
+.share .back{
+  float:right;
+  height: 5%;
+  width: 100%;
+  background-color: darkred;
+}
+
+.share .sharePanel{
+  height: 100%;
+  width: 90%;
+  margin-left: 5%;
+  background-color: white;
+}
+
+.share .sharePanel .shareSection{
+  height: 30%;
+  width: 70%;
+  margin-left: 15%;
+  transform: translateY(50%);
+  display: inline-grid;
+}
+
+.share .sharePanel .shareSection .listElement{
+  height: 90%;
+  width: 90%;
+  margin-left: 5%;
+  background-color: lightgrey;
+}
+
+.share .sharePanel .shareSection .listElement .image{
+  float:left;
+  height: 80%;
+  width: 15%;
+  transform: translateY(10%);
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.share .sharePanel .shareSection .listElement .label{
+  float: left;
+  height: 80%;
+  width: 20%;
+  margin-left: 5%;
+  transform: translateY(50%);
+}
+
+.share .sharePanel .shareSection .inputField{
+  float: left;
+  height: 25%;
+  width: 55%;
+  transform: translateY(150%);
+  background-color: lightgoldenrodyellow;
+}

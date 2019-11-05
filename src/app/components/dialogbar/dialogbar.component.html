@@ -1,0 +1,39 @@
+<div class="dialogbar">
+
+  <div class="textBar">
+
+    <div class="elementContainer" *ngFor="let element of this.historicService.lastNHistoricElements">
+
+      <div class="element" (click)="this.historicService.say('' + element.VignetteLabel);" [style.background-color]="element.VignetteColor">
+
+        <div class="image"[style.background-image]="element.VignetteImageUrl" >
+
+        </div>
+
+        <div class="label">
+          {{element.VignetteLabel}}
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="button">
+    <div class="image" [ngStyle]="{'background-image':this.getIcon('clear')}" (click)="this.historicService.clearHistoric()">
+
+    </div>
+  </div>
+  <div class="button">
+    <div class="image" [ngStyle]="{'background-image':this.getIcon('back')}" (click)="this.historicService.backHistoric()">
+
+    </div>
+  </div>
+  <div class="button">
+    <div class="image" [ngStyle]="{'background-image':this.getIcon('play')}" (click)="this.historicService.playHistoric()">
+
+    </div>
+  </div>
+
+</div>

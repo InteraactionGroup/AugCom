@@ -1,0 +1,51 @@
+.usertoolbar{
+  height: 5vh;
+  min-height: 0.5cm;
+  width: 100%;
+  background-color: grey;
+}
+
+.usertoolbar .button{
+  cursor: pointer;
+  float: right;
+  height: 5vh;
+  width: 5vh;
+  min-width: 0.5cm;
+  min-height: 0.5cm;
+  visibility: hidden;
+}
+
+.usertoolbar .button .image:hover{
+  background-color: darkgrey;
+}
+
+.usertoolbar .button .image{
+  height: 80%;
+  width: 80%;
+  margin-left: 10%;
+  transform: translateY(10%);
+  background-color: lightgrey;
+  border-radius: 25%;
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+  visibility: visible;
+}
+
+
+.usertoolbar .button .imageSelected:hover{
+  background-color: seagreen;
+}
+
+.usertoolbar .button .imageSelected{
+  height: 80%;
+  width: 80%;
+  margin-left: 10%;
+  transform: translateY(10%);
+  background-color: darkseagreen;
+  border-radius: 25%;
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+  visibility: visible;
+}

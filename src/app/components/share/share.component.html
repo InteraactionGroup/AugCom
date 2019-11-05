@@ -1,0 +1,69 @@
+<div class="share" [class.selected]="this.userToolBarService.share" >
+
+  <div class="back" (click)="userToolBarService.share=false">
+    ^
+  </div>
+
+  <div class="sharePanel">
+
+
+    <div class="shareSection">
+
+      <div class="import listElement">
+        <div class="image" [style.background-image]="this.getIcon('import')">
+
+        </div>
+        <div class="label">
+            Import Save
+        </div>
+
+        <div class="inputField">
+          <input type="file" (change)="fileChanged($event)">
+        </div>
+      </div>
+
+
+      <div class="import listElement">
+        <div class="image" [style.background-image]="this.getIcon('import')">
+
+        </div>
+        <div class="label">
+          Import Zip
+        </div>
+
+        <div class="inputField">
+          <input type="file" (change)="exploreZip($event)">
+        </div>
+      </div>
+
+
+      <div class="export listElement">
+        <div class="image" [style.background-image]="this.getIcon('export')">
+
+        </div>
+        <div class="label">
+            Export Save
+        </div>
+
+        <div class="inputField">
+          <input type="button" value="Export" (click)="export()">
+        </div>
+      </div>
+      <div class="exportTo listElement">
+        <div class="image" [style.background-image]="this.getIcon('pdf')">
+
+        </div>
+        <div class="label">
+            Export to PDF
+        </div>
+
+        <div class="inputField">
+          <input type="button" value="Export" >
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
