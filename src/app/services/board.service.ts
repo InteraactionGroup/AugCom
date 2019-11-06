@@ -18,10 +18,9 @@ export class BoardService {
   board: Grid;
   currentFolder = '.';
 
+  currentVerbTerminaison: {currentPerson: string, currentNumber: string} = {currentPerson: '', currentNumber: ''};
 
-  currentPerson = '';
-  currentGender = '';
-  currentNumber = '';
+  currentNounTerminaison: {currentGender: string, currentNumber: string} = {currentGender: '', currentNumber: ''};
 
   elementCondamne: Element = null;
 
@@ -36,6 +35,16 @@ export class BoardService {
     this.userToolBarService.popup = true;
     this.elementCondamne = element;
   }
+
+  resetTerminaisons() {
+    this.currentVerbTerminaison = {currentPerson: '', currentNumber: ''};
+    this.currentNounTerminaison = {currentGender: '', currentNumber: ''};
+  }
+
+  resetVerbTerminaisons() {
+    this.currentVerbTerminaison = {currentPerson: '', currentNumber: ''};
+  }
+
   executer() {
     const imageTemp = [];
 

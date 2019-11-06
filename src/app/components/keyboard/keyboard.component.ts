@@ -50,14 +50,12 @@ export class KeyboardComponent implements OnInit {
     if (element.ElementPartOfSpeech === '-verb-') {
       const verbElement = element.ElementForms.find(elt => this.checkVerbForms(elt));
       if (verbElement != null) {
-        console.log(this.boardService.currentNumber);
         return verbElement.DisplayedText;
       }
     }
 
     if (element.ElementPartOfSpeech === '-nom-' || element.ElementPartOfSpeech === '-adj-') {
       const nounElement = element.ElementForms.find(elt => this.checkNounForms(elt));
-      console.log(this.boardService.currentNumber);
       if (nounElement != null) {
         return nounElement.DisplayedText;
       }
@@ -78,13 +76,13 @@ export class KeyboardComponent implements OnInit {
     let person = false;
     let n = false;
     elt.LexicInfos.forEach(info => {
-      if (info.person != null
-        && info.person === this.boardService.currentPerson) {
+      if (!person && info.person != null
+        && info.person === this.boardService.currentVerbTerminaison.currentPerson) {
         person = true;
       }
 
-      if (info.number != null
-        && info.number === this.boardService.currentNumber) {
+      if (!n && info.number != null
+        && info.number === this.boardService.currentVerbTerminaison.currentNumber) {
         n = true;
       }
     });
@@ -92,17 +90,17 @@ export class KeyboardComponent implements OnInit {
   }
 
   checkNounForms(elt: ElementForm): boolean {
-    let gender = false;
+    let gender = this.boardService.currentNounTerminaison.currentGender === '' || elt.LexicInfos.find(info => info.gender != null && info.gender !== undefined) === undefined;
     let n = false;
     elt.LexicInfos.forEach(info => {
-      if (info.gender != null
-        && info.gender === this.boardService.currentGender) {
+      if (!gender && info.gender != null
+        && info.gender === this.boardService.currentNounTerminaison.currentGender) {
 
         gender = true;
       }
 
-      if (info.number != null
-        && info.number === this.boardService.currentNumber) {
+      if (!n && info.number != null
+        && info.number === this.boardService.currentNounTerminaison.currentNumber) {
         n = true;
       }
     });
@@ -120,29 +118,21 @@ export class KeyboardComponent implements OnInit {
     return defaultVal;
   }
 
-  changePerson(elementForm: ElementForm) {
-    const person = elementForm.LexicInfos.find(info => info.person != null && info.person !== undefined);
-    this.boardService.currentPerson = (person != null && person !== undefined) ? person.person : '';
-  }
-
-  changeNumber(elementForm: ElementForm) {
-    const num = elementForm.LexicInfos.find(info => info.number != null && info.number !== undefined);
-    this.boardService.currentNumber = (num != null && num !== undefined) ? num.number : '';
-  }
-
-  changeGender(elementForm: ElementForm) {
-    const gender = elementForm.LexicInfos.find(info => info.gender != null && info.gender !== undefined);
-    this.boardService.currentGender = (gender != null && gender !== undefined) ? gender.gender : '';
-  }
-
   changePronomInfo( elementForm: ElementForm) {
-    this.changePerson(elementForm);
-    this.changeNumber(elementForm);
+    const person = elementForm.LexicInfos.find(info => info.person != null && info.person !== undefined);
+    this.boardService.currentVerbTerminaison.currentPerson = (person != null && person !== undefined) ? person.person : 'thirdPerson';
+
+
+    const num = elementForm.LexicInfos.find(info => info.number != null && info.number !== undefined);
+    this.boardService.currentVerbTerminaison.currentNumber = (num != null && num !== undefined) ? num.number : '';
   }
 
   changeArticleInfo( elementForm: ElementForm) {
-    this.changeGender(elementForm);
-    this.changeNumber(elementForm);
+    const gender = elementForm.LexicInfos.find(info => info.gender != null && info.gender !== undefined);
+    this.boardService.currentNounTerminaison.currentGender = (gender != null && gender !== undefined) ? gender.gender : '';
+
+    const num = elementForm.LexicInfos.find(info => info.number != null && info.number !== undefined);
+    this.boardService.currentNounTerminaison.currentNumber = (num != null && num !== undefined) ? num.number : '';
   }
 
 
@@ -231,6 +221,7 @@ export class KeyboardComponent implements OnInit {
               LexicInfos: compElt.ElementForms[indexOfForm].LexicInfos
             });
           elt.InteractionsList = tempOtherFOrmList[index].InteractionsList.copyWithin(0, 0);
+          elt.InteractionsList.push({ InteractionID: 'backFromVariant', ActionList: [] });
           indexOfForm = indexOfForm + 1;
         }
       } else if (tempIndex !== index) {
@@ -287,10 +278,20 @@ export class KeyboardComponent implements OnInit {
   }
 
   longClick(element: Element) {
-    if (element.ElementForms.length > 2) {
-      this.boardService.activatedElement = this.getNormalTempList().indexOf(element);
-      this.activatedElementTempList();
-      this.clickedElement = null;
+    if (element.InteractionsList.length > 0 ) {
+      element.InteractionsList.forEach(inter => {
+        if (inter.InteractionID === 'longPress') {
+          inter.ActionList.forEach( action => {
+            if (action.ActionID === 'otherforms') {
+              if (element.ElementForms.length > 2) {
+                this.boardService.activatedElement = this.getNormalTempList().indexOf(element);
+                this.activatedElementTempList();
+                this.clickedElement = null;
+              }
+            }
+          });
+        }
+      });
     }
   }
 
@@ -319,9 +320,7 @@ export class KeyboardComponent implements OnInit {
                 this.historicService.say('' + prononcedText);
               }
               if (action.ActionID === 'resetTerminaisons') {
-                this.boardService.currentNumber = '';
-                this.boardService.currentPerson = '';
-                this.boardService.currentGender = '';
+               this.boardService.resetTerminaisons();
               }
             });
           } else if (inter.InteractionID === 'backFromVariant' ) {
@@ -329,13 +328,18 @@ export class KeyboardComponent implements OnInit {
           }
 
           if (element.ElementPartOfSpeech != null && element.ElementPartOfSpeech !== undefined && element.ElementPartOfSpeech === ('article défini')) {
-           this.changeArticleInfo(element.ElementForms[0]);
+            this.changeArticleInfo(element.ElementForms[0]);
           }
+
+          if (element.ElementPartOfSpeech === '-verb-') {
+            this.boardService.resetVerbTerminaisons();
+          }
+
+          if (element.ElementPartOfSpeech === '-nom-') {
+            this.changePronomInfo(element.ElementForms.find(eltF => (eltF.DisplayedText === this.getLabel(element))));
+          }
+
         });
-      } else {
-        this.boardService.currentNumber = '';
-        this.boardService.currentPerson = '';
-        this.boardService.currentGender = '';
       }
 
     } else if (element.ElementType === 'folder') {

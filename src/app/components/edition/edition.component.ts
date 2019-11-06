@@ -212,6 +212,15 @@ export class EditionComponent implements OnInit {
       });
     });
 
+    const interList = [{
+      InteractionID: 'click', ActionList: [{
+        ActionID: 'display', Action: 'display'}, {
+        ActionID: 'say', Action: 'say'}]}, {
+      InteractionID: 'longPress', ActionList: [{
+        ActionID: 'otherforms', Action: 'otherforms'}]}];
+
+
+
     this.boardService.board.ElementList.push(
       {
         ElementID: this.name,
@@ -220,10 +229,7 @@ export class EditionComponent implements OnInit {
         ElementPartOfSpeech: this.classe,
         ElementForms: elementForms,
         ImageID: this.boardService.currentFolder + this.name,
-        InteractionsList: [{
-          InteractionID: 'click', ActionList: [{
-            ActionID: 'display', Action: 'display'}, {
-            ActionID: 'say', Action: 'say'}]}],
+        InteractionsList: interList,
         Color: this.color
       });
 
