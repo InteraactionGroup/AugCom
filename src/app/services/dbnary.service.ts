@@ -103,21 +103,21 @@ export class DbnaryService {
             this.sparkqlData.results.bindings.forEach(w => {
               const infoList = [];
               if (w.p !== undefined) {
-                infoList.push({person: w.p.value});
+                infoList.push({person: w.p.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
               }
               if (w.n !== undefined) {
-                infoList.push({number: w.n.value});
+                infoList.push({number: w.n.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
               }
               if (w.g !== undefined) {
-                infoList.push({gender: w.g.value});
+                infoList.push({gender: w.g.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
 
               }
               if (w.t !== undefined) {
-                infoList.push({tense: w.t.value});
+                infoList.push({tense: w.t.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
 
               }
               if (w.vFM !== undefined) {
-                infoList.push({verbFormMood: w.vFM.value});
+                infoList.push({verbFormMood: w.vFM.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
 
               }
               if (i === DbnaryService.FormsOfVerb && this.isIndicativePresent(w)) {

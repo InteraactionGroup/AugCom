@@ -217,6 +217,7 @@ export class EditionComponent implements OnInit {
         ElementID: this.name,
         ElementFolder: this.boardService.currentFolder,
         ElementType: this.radioTypeFormat,
+        ElementPartOfSpeech: this.classe,
         ElementForms: elementForms,
         ImageID: this.boardService.currentFolder + this.name,
         InteractionsList: [{

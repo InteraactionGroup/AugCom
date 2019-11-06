@@ -22,6 +22,7 @@ export class Element {
   ElementID: string;
   ElementFolder: string;
   ElementType: string;
+  ElementPartOfSpeech: string;
   ElementForms: ElementForm[];
   ImageID: string;
   InteractionsList: { InteractionID: string, ActionList: Action[] }[];

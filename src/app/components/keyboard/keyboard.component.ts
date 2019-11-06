@@ -47,38 +47,66 @@ export class KeyboardComponent implements OnInit {
     this.boardService.board.GridInfo = this.boardService.sliderValue;
   }
   getLabel(element: Element) {
-    const adaptedElement = element.ElementForms.find(elt => this.checkForms(elt) );
-    if (adaptedElement != null) {
-      return adaptedElement.DisplayedText;
+    if (element.ElementPartOfSpeech === '-verb-') {
+      const verbElement = element.ElementForms.find(elt => this.checkVerbForms(elt));
+      if (verbElement != null) {
+        console.log(this.boardService.currentNumber);
+        return verbElement.DisplayedText;
+      }
+    }
+
+    if (element.ElementPartOfSpeech === '-nom-' || element.ElementPartOfSpeech === '-adj-') {
+      const nounElement = element.ElementForms.find(elt => this.checkNounForms(elt));
+      console.log(this.boardService.currentNumber);
+      if (nounElement != null) {
+        return nounElement.DisplayedText;
+      }
+    }
+    const defaultElement = element.ElementForms.find(elt => this.checkDefault(elt) );
+    if (defaultElement != null) {
+      return defaultElement.DisplayedText;
     } else {
-      const defaultElement = element.ElementForms.find(elt => this.checkDefault(elt) );
-      if (defaultElement != null) {
-        return defaultElement.DisplayedText;
+      if ( element.ElementForms.length > 0) {
+        return element.ElementForms[0].DisplayedText;
       } else {
-        if ( element.ElementForms.length > 0) {
-          return element.ElementForms[0].DisplayedText;
-        } else {
-          return  '';
-        }
+        return  '';
       }
     }
   }
 
-  checkForms(elt: ElementForm): boolean {
+  checkVerbForms(elt: ElementForm): boolean {
     let person = false;
     let n = false;
     elt.LexicInfos.forEach(info => {
       if (info.person != null
-        && info.person === 'http://www.lexinfo.net/ontology/2.0/lexinfo#' + this.boardService.currentPerson) {
+        && info.person === this.boardService.currentPerson) {
         person = true;
       }
 
       if (info.number != null
-        && info.number === 'http://www.lexinfo.net/ontology/2.0/lexinfo#' + this.boardService.currentNumber) {
+        && info.number === this.boardService.currentNumber) {
         n = true;
       }
     });
     return person && n;
+  }
+
+  checkNounForms(elt: ElementForm): boolean {
+    let gender = false;
+    let n = false;
+    elt.LexicInfos.forEach(info => {
+      if (info.gender != null
+        && info.gender === this.boardService.currentGender) {
+
+        gender = true;
+      }
+
+      if (info.number != null
+        && info.number === this.boardService.currentNumber) {
+        n = true;
+      }
+    });
+    return gender && n;
   }
 
   checkDefault(elt: ElementForm): boolean {
@@ -92,11 +120,31 @@ export class KeyboardComponent implements OnInit {
     return defaultVal;
   }
 
+  changePerson(elementForm: ElementForm) {
+    const person = elementForm.LexicInfos.find(info => info.person != null && info.person !== undefined);
+    this.boardService.currentPerson = (person != null && person !== undefined) ? person.person : '';
+  }
+
+  changeNumber(elementForm: ElementForm) {
+    const num = elementForm.LexicInfos.find(info => info.number != null && info.number !== undefined);
+    this.boardService.currentNumber = (num != null && num !== undefined) ? num.number : '';
+  }
+
+  changeGender(elementForm: ElementForm) {
+    const gender = elementForm.LexicInfos.find(info => info.gender != null && info.gender !== undefined);
+    this.boardService.currentGender = (gender != null && gender !== undefined) ? gender.gender : '';
+  }
 
   changePronomInfo( elementForm: ElementForm) {
-    this.boardService.currentPerson = elementForm.LexicInfos[0].person;
-    this.boardService.currentNumber = elementForm.LexicInfos[1].number;
+    this.changePerson(elementForm);
+    this.changeNumber(elementForm);
   }
+
+  changeArticleInfo( elementForm: ElementForm) {
+    this.changeGender(elementForm);
+    this.changeNumber(elementForm);
+  }
+
 
   pointerDown(element: Element) {
     if (!this.userToolBarService.edit) {
@@ -120,6 +168,7 @@ export class KeyboardComponent implements OnInit {
     return {
       ElementID: element.ElementID,
       ElementFolder: element.ElementFolder,
+      ElementPartOfSpeech: element.ElementPartOfSpeech,
       ElementType: element.ElementType,
       ElementForms: element.ElementForms.copyWithin(0, 0 ),
       ImageID: element.ImageID,
@@ -155,6 +204,7 @@ export class KeyboardComponent implements OnInit {
         ElementID: '',
         ElementFolder: this.boardService.currentFolder,
         ElementType: 'button',
+        ElementPartOfSpeech: '',
         ElementForms: [],
         ImageID: '',
         InteractionsList: [],
@@ -173,6 +223,7 @@ export class KeyboardComponent implements OnInit {
           elt.Color = '#aaaaaa';
           elt.ImageID = '' + compElt.ImageID;
           elt.ElementForms = [];
+          elt.ElementPartOfSpeech = '' + compElt.ElementPartOfSpeech;
           elt.ElementForms.push(
             {
               DisplayedText: compElt.ElementForms[indexOfForm].DisplayedText,
@@ -190,6 +241,7 @@ export class KeyboardComponent implements OnInit {
 
     tempOtherFOrmList[index].Color = '#123548';
     tempOtherFOrmList[index].ImageID = '#back';
+    tempOtherFOrmList[index].ElementPartOfSpeech = '';
     tempOtherFOrmList[index].InteractionsList = [{ InteractionID: 'backFromVariant', ActionList: [] }];
     tempOtherFOrmList[index].ElementForms = [{DisplayedText: 'back', VoiceText: 'back', LexicInfos: [] }];
 
@@ -244,6 +296,7 @@ export class KeyboardComponent implements OnInit {
 
   normalClick(element: Element) {
     if (element.ElementType === 'button') {
+
       const prononcedText = this.getLabel(element);
       const color = element.Color;
       const imgUrl = this.boardService.getImgUrl(element);
@@ -273,6 +326,10 @@ export class KeyboardComponent implements OnInit {
             });
           } else if (inter.InteractionID === 'backFromVariant' ) {
             this.boardService.activatedElement = -1;
+          }
+
+          if (element.ElementPartOfSpeech != null && element.ElementPartOfSpeech !== undefined && element.ElementPartOfSpeech === ('article défini')) {
+           this.changeArticleInfo(element.ElementForms[0]);
           }
         });
       } else {

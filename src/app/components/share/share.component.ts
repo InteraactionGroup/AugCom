@@ -82,6 +82,7 @@ export class ShareComponent implements OnInit {
         ElementID: name ,
         ElementFolder: folder,
         ElementType: type,
+        ElementPartOfSpeech: '',
         ElementForms: [
           {DisplayedText: name,
             VoiceText: name,
