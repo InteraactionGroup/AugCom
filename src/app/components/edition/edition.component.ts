@@ -9,7 +9,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {Ng2ImgMaxService} from 'ng2-img-max';
 import {Action, Element} from '../../types';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {ParametersService} from "../../services/parameters.service";
+import {ParametersService} from '../../services/parameters.service';
 
 @Component({
   selector: 'app-edition',
@@ -31,6 +31,7 @@ export class EditionComponent implements OnInit {
   variantDisplayed = false;
   eventDisplayed = false;
   imageList: any[];
+  currentInterractionNumber = -1;
   currentInterraction: { InteractionID: string, ActionList: Action[] } = null;
 
   constructor(public parametersService: ParametersService, public indexedDBacess: IndexeddbaccessService, public ng2ImgMaxService: Ng2ImgMaxService, public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public boardService: BoardService) {
@@ -44,14 +45,12 @@ export class EditionComponent implements OnInit {
   }
 
   selectInteraction(i: number) {
+    this.currentInterractionNumber = i;
     this.currentInterraction = this.events.find(x => x.InteractionID === this.parametersService.interaction[i - 1]);
   }
 
   isCurrentInteraction(i) {
-    if (this.currentInterraction != null && this.currentInterraction !== undefined) {
-      return this.currentInterraction.InteractionID === this.parametersService.interaction[i - 1];
-    }
-    return false;
+    return this.currentInterractionNumber === i;
   }
 
   close() {
@@ -59,6 +58,8 @@ export class EditionComponent implements OnInit {
     this.choseImage = false;
     this.variantDisplayed = false;
     this.eventDisplayed = false;
+    this.currentInterractionNumber = -1;
+    this.currentInterraction = null;
     } else {
     this.userToolBar.add = false;
     this.userToolBar.modif = null;
@@ -75,12 +76,28 @@ export class EditionComponent implements OnInit {
     this.color = '#d3d3d3';
     this.imageURL = '';
     this.imageList = [];
+    this.currentInterractionNumber = -1;
+    this.currentInterraction = null;
     this.dbnaryService.wordList = [];
     this.dbnaryService.typeList = [];
   }
 
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
+  }
+
+  addToInteraction(action: string) {
+    const inter = this.parametersService.interaction[this.currentInterractionNumber - 1];
+    const partOfCurrentInter = this.isPartOfCurrentInteraction(action);
+
+    if (this.currentInterraction == null && !partOfCurrentInter) {
+      this.currentInterraction = { InteractionID: inter, ActionList: [ {ActionID: action, Action: action} ] };
+    } else if (!partOfCurrentInter) {
+      this.currentInterraction.ActionList.push({ActionID: action, Action: action});
+    } else if (partOfCurrentInter) {
+      this.currentInterraction.ActionList = this.currentInterraction.ActionList.filter(x => x.ActionID !== action);
+    }
+    console.log(this.currentInterraction.ActionList);
   }
 
   isPartOfCurrentInteraction(interactionId) {
