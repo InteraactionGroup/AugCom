@@ -236,6 +236,7 @@ export class KeyboardComponent implements OnInit {
     tempOtherFOrmList[index].InteractionsList = [{ InteractionID: 'backFromVariant', ActionList: [] }];
     tempOtherFOrmList[index].ElementForms = [{DisplayedText: 'back', VoiceText: 'back', LexicInfos: [] }];
 
+
     this.fakeElementTempList = tempOtherFOrmList;
   }
 
@@ -289,6 +290,22 @@ export class KeyboardComponent implements OnInit {
                 this.clickedElement = null;
               }
             }
+
+            const prononcedText = this.getLabel(element);
+            const color = element.Color;
+            const imgUrl = this.boardService.getImgUrl(element);
+            const vignette: Vignette = {
+              VignetteLabel: prononcedText,
+              VignetteImageUrl: imgUrl,
+              VignetteColor: color};
+
+            if (action.ActionID === 'display') {
+              this.historicService.push(vignette);
+            }
+            if (action.ActionID === 'say') {
+              this.historicService.say('' + prononcedText);
+            }
+
           });
         }
       });
@@ -306,6 +323,8 @@ export class KeyboardComponent implements OnInit {
         VignetteImageUrl: imgUrl,
         VignetteColor: color};
 
+      let otherformsdisplayed = false; // todo y'a un problème ici
+
       if (element.InteractionsList.length > 0 ) {
         element.InteractionsList.forEach(inter => {
           if (inter.InteractionID === 'click') {
@@ -319,11 +338,19 @@ export class KeyboardComponent implements OnInit {
               if (action.ActionID === 'say') {
                 this.historicService.say('' + prononcedText);
               }
+              if (action.ActionID === 'otherforms') {
+                if (element.ElementForms.length > 2) {
+                  otherformsdisplayed = true;
+                  this.boardService.activatedElement = this.getNormalTempList().indexOf(element);
+                  this.activatedElementTempList();
+                  this.clickedElement = null;
+                }
+              }
               if (action.ActionID === 'resetTerminaisons') {
                this.boardService.resetTerminaisons();
               }
             });
-          } else if (inter.InteractionID === 'backFromVariant' ) {
+          } else if (!otherformsdisplayed && inter.InteractionID === 'backFromVariant' ) {
             this.boardService.activatedElement = -1;
           }
 
