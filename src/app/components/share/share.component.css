@@ -1,16 +1,11 @@
 .share{
   position: absolute;
-  top:-100%;
-  height: 100%;
+  top:0%;
+  height: 100vh;
   width: 100%;
   background-color: grey;
   transition: top 0.5s , opacity 0.5s;
-  opacity: 0;
-}
-
-.selected{
   opacity: 1;
-  top:0%;
 }
 
 .share .back{

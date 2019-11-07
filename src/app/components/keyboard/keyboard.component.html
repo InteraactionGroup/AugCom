@@ -1,3 +1,5 @@
+<app-usertoolbar></app-usertoolbar>
+<app-dialogbar></app-dialogbar>
 <div class="slidecontainer">
   <input *ngIf="this.userToolBarService.edit" [(ngModel)]="this.boardService.sliderValue" class="slider" max="10" min="2" type="range" (change)="updateSliderValue()">
 </div>
@@ -55,21 +57,27 @@
     </ng-container>
 
     <ng-container *ngIf="this.userToolBarService.edit" >
-      <div class="elementContainer" >
 
-        <div class="element"  (click)="this.userToolBarService.add = true " [ngStyle]="{'background-color': 'green'}"> <!-- need to change élément by the label-->
+      <nav>
+        <a routerLink="/edit">
 
-          <div class="image"  [style.background-image]="this.getIcon('add')">
+          <div class="elementContainer" >
+
+            <div class="element"  (click)="this.userToolBarService.add = true " [ngStyle]="{'background-color': 'green'}"> <!-- need to change élément by the label-->
+
+              <div class="image"  [style.background-image]="this.getIcon('add')">
+
+              </div>
+
+              <div class="label">
+                ajouter
+              </div>
+
+            </div>
 
           </div>
-
-          <div class="label">
-            ajouter
-          </div>
-
-        </div>
-
-      </div>
+        </a>
+      </nav>
     </ng-container>
 
   </div>

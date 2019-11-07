@@ -10,6 +10,7 @@ import {Ng2ImgMaxService} from 'ng2-img-max';
 import {Action, Element} from '../../types';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {ParametersService} from '../../services/parameters.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-edition',
@@ -46,7 +47,7 @@ export class EditionComponent implements OnInit {
   currentInterractionNumber = -1;
   currentInterraction: { InteractionID: string, ActionList: Action[] } = null;
 
-  constructor(public parametersService: ParametersService, public indexedDBacess: IndexeddbaccessService, public ng2ImgMaxService: Ng2ImgMaxService, public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public boardService: BoardService) {
+  constructor(private router: Router, public parametersService: ParametersService, public indexedDBacess: IndexeddbaccessService, public ng2ImgMaxService: Ng2ImgMaxService, public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public boardService: BoardService) {
 
   }
 
@@ -78,9 +79,11 @@ export class EditionComponent implements OnInit {
     this.currentInterraction = null;
     // fermeture du menu edition sinon
     } else {
-    this.userToolBar.add = false;
-    this.userToolBar.modif = null;
-    this.clear(); }
+      this.userToolBar.add = false;
+      this.userToolBar.modif = null;
+      this.clear();
+      this.router.navigate(['']);
+    }
   }
 
   // on enregistre les variantes et on ferme le sous menu variante

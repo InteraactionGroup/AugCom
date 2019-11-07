@@ -1,17 +1,14 @@
 .edition{
-  position: absolute;
-  top:15vh;
-  left:-100vw;
-  height: 85vh;
-  max-height: calc(100vh - 2cm);
+  height: 100vh;
   width: 100%;
   background-color: grey;
-  transition: left 0.5s , opacity 0.5s;
-  opacity: 0;
+  opacity: 1;
 }
 
 .selected{
-  left:0vw;
+  height: 100vh;
+  width: 100%;
+  background-color: grey;
   opacity: 1;
 }
 

@@ -1,8 +1,14 @@
-<div class="share" [class.selected]="this.userToolBarService.share" >
+<div class="share" >
 
-  <div class="back" (click)="userToolBarService.share=false">
-    ^
-  </div>
+
+
+  <nav>
+    <a routerLink="">
+      <div class="back" (click)="userToolBarService.share=false">
+        ^
+      </div>
+    </a>
+  </nav>
 
   <div class="sharePanel">
 
