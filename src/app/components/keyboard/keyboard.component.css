@@ -100,17 +100,17 @@
 }
 
 .slidecontainer {
-  margin-left: -2px;
   width: 100%;
   outline: none;
   float: left;
 }
 
 .slider {
+  margin-left: 1%;
   margin-top: 5px;
   -webkit-appearance: none;
   appearance: none;
-  width: 100%;
+  width: 98%;
   height: 20px;
   background: grey;
   outline: none;

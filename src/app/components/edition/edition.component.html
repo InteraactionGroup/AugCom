@@ -136,19 +136,19 @@
       <div class="elementEventContainer">
         <div class="elementevent" (click)="this.selectInteraction(1)" [ngStyle]="{'background-color': this.isCurrentInteraction(1)?'lightblue':'lightgrey'}">
           <div class="label">
-            Interaction Niveau 1
+            Interaction: {{this.parametersService.interaction[0]}}
           </div>
           <input class="goto" type="button" value=">">
         </div>
         <div class="elementevent" (click)="this.selectInteraction(2)" [ngStyle]="{'background-color': this.isCurrentInteraction(2)?'lightblue':'lightgrey'}">
           <div class="label">
-            Interaction Niveau 2
+            Interaction: {{this.parametersService.interaction[1]}}
           </div>
           <input class="goto" type="button" value=">">
         </div>
         <div class="elementevent" (click)="this.selectInteraction(3)" [ngStyle]="{'background-color': this.isCurrentInteraction(3)?'lightblue':'lightgrey'}">
           <div class="label">
-            Interaction Niveau 3
+            Interaction: {{this.parametersService.interaction[2]}}
           </div>
           <input class="goto" type="button" value=">">
         </div>
@@ -204,8 +204,8 @@
 
 
     <div class="element" *ngIf="eventDisplayed">
-      <ng-container *ngIf="this.currentInterraction!=null">
-        <div class="event">
+      <ng-container *ngIf="this.currentInterractionNumber!=-1">
+        <div class="event" (click)="this.addToInteraction('display')">
           <div class="icon" [ngStyle]="{'background-image':this.getIcon('display')}" >
           </div>
           <div class="label">
@@ -213,7 +213,7 @@
           </div>
           <div class="checkmark" [ngStyle]="{'background-image': this.isPartOfCurrentInteraction('display')?this.getIcon('checkmark'):this.getIcon('uncheckmark')}"></div>
         </div>
-        <div class="event">
+        <div class="event" (click)="this.addToInteraction('say')">
           <div class="icon"[ngStyle]="{'background-image':this.getIcon('say')}">
           </div>
           <div class="label">
@@ -221,7 +221,7 @@
           </div>
           <div class="checkmark" [ngStyle]="{'background-image': this.isPartOfCurrentInteraction('say')?this.getIcon('checkmark'):this.getIcon('uncheckmark')}"></div>
         </div>
-        <div class="event">
+        <div class="event" (click)="this.addToInteraction('otherforms')">
           <div class="icon" [ngStyle]="{'background-image':this.getIcon('variants')}">
           </div>
           <div class="label">

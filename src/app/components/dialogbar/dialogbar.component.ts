@@ -19,4 +19,8 @@ export class DialogbarComponent implements OnInit {
     return this.getIconService.getIconUrl(s);
   }
 
+  clear() {
+    this.historicService.clearHistoric();
+    this.boardService.resetTerminaisons();
+  }
 }

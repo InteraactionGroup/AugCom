@@ -47,38 +47,64 @@ export class KeyboardComponent implements OnInit {
     this.boardService.board.GridInfo = this.boardService.sliderValue;
   }
   getLabel(element: Element) {
-    const adaptedElement = element.ElementForms.find(elt => this.checkForms(elt) );
-    if (adaptedElement != null) {
-      return adaptedElement.DisplayedText;
+    if (element.ElementPartOfSpeech === '-verb-') {
+      const verbElement = element.ElementForms.find(elt => this.checkVerbForms(elt));
+      if (verbElement != null) {
+        return verbElement.DisplayedText;
+      }
+    }
+
+    if (element.ElementPartOfSpeech === '-nom-' || element.ElementPartOfSpeech === '-adj-') {
+      const nounElement = element.ElementForms.find(elt => this.checkNounForms(elt));
+      if (nounElement != null) {
+        return nounElement.DisplayedText;
+      }
+    }
+    const defaultElement = element.ElementForms.find(elt => this.checkDefault(elt) );
+    if (defaultElement != null) {
+      return defaultElement.DisplayedText;
     } else {
-      const defaultElement = element.ElementForms.find(elt => this.checkDefault(elt) );
-      if (defaultElement != null) {
-        return defaultElement.DisplayedText;
+      if ( element.ElementForms.length > 0) {
+        return element.ElementForms[0].DisplayedText;
       } else {
-        if ( element.ElementForms.length > 0) {
-          return element.ElementForms[0].DisplayedText;
-        } else {
-          return  '';
-        }
+        return  '';
       }
     }
   }
 
-  checkForms(elt: ElementForm): boolean {
+  checkVerbForms(elt: ElementForm): boolean {
     let person = false;
     let n = false;
     elt.LexicInfos.forEach(info => {
-      if (info.person != null
-        && info.person === 'http://www.lexinfo.net/ontology/2.0/lexinfo#' + this.boardService.currentPerson) {
+      if (!person && info.person != null
+        && info.person === this.boardService.currentVerbTerminaison.currentPerson) {
         person = true;
       }
 
-      if (info.number != null
-        && info.number === 'http://www.lexinfo.net/ontology/2.0/lexinfo#' + this.boardService.currentNumber) {
+      if (!n && info.number != null
+        && info.number === this.boardService.currentVerbTerminaison.currentNumber) {
         n = true;
       }
     });
     return person && n;
+  }
+
+  checkNounForms(elt: ElementForm): boolean {
+    let gender = this.boardService.currentNounTerminaison.currentGender === '' || elt.LexicInfos.find(info => info.gender != null && info.gender !== undefined) === undefined;
+    let n = false;
+    elt.LexicInfos.forEach(info => {
+      if (!gender && info.gender != null
+        && info.gender === this.boardService.currentNounTerminaison.currentGender) {
+
+        gender = true;
+      }
+
+      if (!n && info.number != null
+        && info.number === this.boardService.currentNounTerminaison.currentNumber) {
+        n = true;
+      }
+    });
+    return gender && n;
   }
 
   checkDefault(elt: ElementForm): boolean {
@@ -92,11 +118,23 @@ export class KeyboardComponent implements OnInit {
     return defaultVal;
   }
 
-
   changePronomInfo( elementForm: ElementForm) {
-    this.boardService.currentPerson = elementForm.LexicInfos[0].person;
-    this.boardService.currentNumber = elementForm.LexicInfos[1].number;
+    const person = elementForm.LexicInfos.find(info => info.person != null && info.person !== undefined);
+    this.boardService.currentVerbTerminaison.currentPerson = (person != null && person !== undefined) ? person.person : 'thirdPerson';
+
+
+    const num = elementForm.LexicInfos.find(info => info.number != null && info.number !== undefined);
+    this.boardService.currentVerbTerminaison.currentNumber = (num != null && num !== undefined) ? num.number : '';
   }
+
+  changeArticleInfo( elementForm: ElementForm) {
+    const gender = elementForm.LexicInfos.find(info => info.gender != null && info.gender !== undefined);
+    this.boardService.currentNounTerminaison.currentGender = (gender != null && gender !== undefined) ? gender.gender : '';
+
+    const num = elementForm.LexicInfos.find(info => info.number != null && info.number !== undefined);
+    this.boardService.currentNounTerminaison.currentNumber = (num != null && num !== undefined) ? num.number : '';
+  }
+
 
   pointerDown(element: Element) {
     if (!this.userToolBarService.edit) {
@@ -120,6 +158,7 @@ export class KeyboardComponent implements OnInit {
     return {
       ElementID: element.ElementID,
       ElementFolder: element.ElementFolder,
+      ElementPartOfSpeech: element.ElementPartOfSpeech,
       ElementType: element.ElementType,
       ElementForms: element.ElementForms.copyWithin(0, 0 ),
       ImageID: element.ImageID,
@@ -155,6 +194,7 @@ export class KeyboardComponent implements OnInit {
         ElementID: '',
         ElementFolder: this.boardService.currentFolder,
         ElementType: 'button',
+        ElementPartOfSpeech: '',
         ElementForms: [],
         ImageID: '',
         InteractionsList: [],
@@ -173,6 +213,7 @@ export class KeyboardComponent implements OnInit {
           elt.Color = '#aaaaaa';
           elt.ImageID = '' + compElt.ImageID;
           elt.ElementForms = [];
+          elt.ElementPartOfSpeech = '' + compElt.ElementPartOfSpeech;
           elt.ElementForms.push(
             {
               DisplayedText: compElt.ElementForms[indexOfForm].DisplayedText,
@@ -180,6 +221,7 @@ export class KeyboardComponent implements OnInit {
               LexicInfos: compElt.ElementForms[indexOfForm].LexicInfos
             });
           elt.InteractionsList = tempOtherFOrmList[index].InteractionsList.copyWithin(0, 0);
+          elt.InteractionsList.push({ InteractionID: 'backFromVariant', ActionList: [] });
           indexOfForm = indexOfForm + 1;
         }
       } else if (tempIndex !== index) {
@@ -190,8 +232,10 @@ export class KeyboardComponent implements OnInit {
 
     tempOtherFOrmList[index].Color = '#123548';
     tempOtherFOrmList[index].ImageID = '#back';
+    tempOtherFOrmList[index].ElementPartOfSpeech = '';
     tempOtherFOrmList[index].InteractionsList = [{ InteractionID: 'backFromVariant', ActionList: [] }];
     tempOtherFOrmList[index].ElementForms = [{DisplayedText: 'back', VoiceText: 'back', LexicInfos: [] }];
+
 
     this.fakeElementTempList = tempOtherFOrmList;
   }
@@ -235,15 +279,42 @@ export class KeyboardComponent implements OnInit {
   }
 
   longClick(element: Element) {
-    if (element.ElementForms.length > 2) {
-      this.boardService.activatedElement = this.getNormalTempList().indexOf(element);
-      this.activatedElementTempList();
-      this.clickedElement = null;
+    if (element.InteractionsList.length > 0 ) {
+      element.InteractionsList.forEach(inter => {
+        if (inter.InteractionID === 'longPress') {
+          inter.ActionList.forEach( action => {
+            if (action.ActionID === 'otherforms') {
+              if (element.ElementForms.length > 2) {
+                this.boardService.activatedElement = this.getNormalTempList().indexOf(element);
+                this.activatedElementTempList();
+                this.clickedElement = null;
+              }
+            }
+
+            const prononcedText = this.getLabel(element);
+            const color = element.Color;
+            const imgUrl = this.boardService.getImgUrl(element);
+            const vignette: Vignette = {
+              VignetteLabel: prononcedText,
+              VignetteImageUrl: imgUrl,
+              VignetteColor: color};
+
+            if (action.ActionID === 'display') {
+              this.historicService.push(vignette);
+            }
+            if (action.ActionID === 'say') {
+              this.historicService.say('' + prononcedText);
+            }
+
+          });
+        }
+      });
     }
   }
 
   normalClick(element: Element) {
     if (element.ElementType === 'button') {
+
       const prononcedText = this.getLabel(element);
       const color = element.Color;
       const imgUrl = this.boardService.getImgUrl(element);
@@ -251,6 +322,8 @@ export class KeyboardComponent implements OnInit {
         VignetteLabel: prononcedText,
         VignetteImageUrl: imgUrl,
         VignetteColor: color};
+
+      let otherformsdisplayed = false; // todo y'a un problème ici
 
       if (element.InteractionsList.length > 0 ) {
         element.InteractionsList.forEach(inter => {
@@ -265,20 +338,35 @@ export class KeyboardComponent implements OnInit {
               if (action.ActionID === 'say') {
                 this.historicService.say('' + prononcedText);
               }
+              if (action.ActionID === 'otherforms') {
+                if (element.ElementForms.length > 2) {
+                  otherformsdisplayed = true;
+                  this.boardService.activatedElement = this.getNormalTempList().indexOf(element);
+                  this.activatedElementTempList();
+                  this.clickedElement = null;
+                }
+              }
               if (action.ActionID === 'resetTerminaisons') {
-                this.boardService.currentNumber = '';
-                this.boardService.currentPerson = '';
-                this.boardService.currentGender = '';
+               this.boardService.resetTerminaisons();
               }
             });
-          } else if (inter.InteractionID === 'backFromVariant' ) {
+          } else if (!otherformsdisplayed && inter.InteractionID === 'backFromVariant' ) {
             this.boardService.activatedElement = -1;
           }
+
+          if (element.ElementPartOfSpeech != null && element.ElementPartOfSpeech !== undefined && element.ElementPartOfSpeech === ('article défini')) {
+            this.changeArticleInfo(element.ElementForms[0]);
+          }
+
+          if (element.ElementPartOfSpeech === '-verb-') {
+            this.boardService.resetVerbTerminaisons();
+          }
+
+          if (element.ElementPartOfSpeech === '-nom-') {
+            this.changePronomInfo(element.ElementForms.find(eltF => (eltF.DisplayedText === this.getLabel(element))));
+          }
+
         });
-      } else {
-        this.boardService.currentNumber = '';
-        this.boardService.currentPerson = '';
-        this.boardService.currentGender = '';
       }
 
     } else if (element.ElementType === 'folder') {
