@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Element} from '../types';
 import {Subject} from 'rxjs';
-import {IndexeddbaccessService} from "./indexeddbaccess.service";
 
 @Injectable({
   providedIn: 'root'
@@ -29,13 +28,21 @@ export class UsertoolbarService {
   public popup = false;
 
   fullScreen() {
-    if (document.fullscreen) {
+    if (document.fullscreen || (document as any).webkitIsFullScreen || (document as any).mozFullScreen) {
       if (document.exitFullscreen) {
         document.exitFullscreen();
+        } else if ((document as any).webkitExitFullscreen) {
+          (document as any).webkitExitFullscreen();
+        } else if ((document as any).mozCancelFullScreen) {
+          (document as any).mozCancelFullScreen();
       }
     } else {
       if (document.documentElement.requestFullscreen) {
         document.documentElement.requestFullscreen();
+        } else if ((document.documentElement as any).webkitRequestFullscreen) {
+          (document.documentElement as any).webkitRequestFullscreen();
+        } else if ((document.documentElement as any).mozRequestFullScreen) {
+          (document.documentElement as any).mozRequestFullScreen();
       }
     }
   }
