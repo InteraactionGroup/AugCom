@@ -1,0 +1,47 @@
+<div class="settings" >
+
+  <nav>
+    <a routerLink="">
+      <div class="topBar" >
+        <
+      </div>
+    </a>
+  </nav>
+
+  <div>
+    <label for="longPressTime">longPress value:</label>
+  <input id="longPressTime" type="text" [(ngModel)]="this.parametersService.longpressTimeOut" placeholder="enter a value">
+  </div>
+
+  <div class="interactionSelection">
+    <label for="interaction1" >Interaction 1 :</label>
+    <select id="interaction1" [(ngModel)]="interaction[0]" class="variantListBox">
+      <option selected value="">--choisissez une option--</option>
+      <option  type="radio" value="{{this.parametersService.interaction[0]}}">{{this.parametersService.interaction[0]}}</option>
+      <option   type="radio" value="{{this.parametersService.interaction[1]}}">{{this.parametersService.interaction[1]}}</option>
+      <option   type="radio" value="{{this.parametersService.interaction[2]}}">{{this.parametersService.interaction[2]}}</option>
+    </select>
+  </div>
+
+  <div class="interactionSelection">
+    <label for="interaction2">Interaction 2 :</label>
+    <select id="interaction2" [(ngModel)]="interaction[1]" class="variantListBox">
+      <option selected value="">--choisissez une option--</option>
+      <option  type="radio" value="{{this.parametersService.interaction[0]}}">{{this.parametersService.interaction[0]}}</option>
+      <option   type="radio" value="{{this.parametersService.interaction[1]}}">{{this.parametersService.interaction[1]}}</option>
+      <option   type="radio" value="{{this.parametersService.interaction[2]}}">{{this.parametersService.interaction[2]}}</option>
+    </select>
+  </div>
+
+  <div class="interactionSelection">
+    <label for="interaction3">Interaction 3 :</label>
+    <select id="interaction3"[(ngModel)]="interaction[2]" class="variantListBox">
+      <option selected value="">--choisissez une option--</option>
+      <option  type="radio" value="{{this.parametersService.interaction[0]}}">{{this.parametersService.interaction[0]}}</option>
+      <option   type="radio" value="{{this.parametersService.interaction[1]}}">{{this.parametersService.interaction[1]}}</option>
+      <option   type="radio" value="{{this.parametersService.interaction[2]}}">{{this.parametersService.interaction[2]}}</option>
+    </select>
+  </div>
+
+
+</div>

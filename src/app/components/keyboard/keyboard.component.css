@@ -91,11 +91,13 @@
 }
 
 .keyboard .wrapper .elementContainer .label{
+  transform: translateY(40%);
+  min-font-size: 1vh;
+  font-size: 2vh;
   text-align: center;
   height:20%;
   width:90%;
   margin-left: 5%;
-  transform: translateY(40%);
   visibility: visible;
 }
 

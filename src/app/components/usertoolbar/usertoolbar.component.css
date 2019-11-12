@@ -1,6 +1,8 @@
 .usertoolbar{
-  height: 5vh;
-  min-height: 0.5cm;
+  height: 1.5cm;
+  min-height: 1cm;
+  max-height: 14vw;
+  min-width: 7cm;
   width: 100%;
   background-color: grey;
 }
@@ -8,10 +10,12 @@
 .usertoolbar .button{
   cursor: pointer;
   float: right;
-  height: 5vh;
-  width: 5vh;
-  min-width: 0.5cm;
-  min-height: 0.5cm;
+  height: 1.5cm;
+  width: 1.5cm;
+  max-height: 14vw;
+  max-width: 14vw;
+  min-width: 1cm;
+  min-height: 1cm;
   visibility: hidden;
 }
 

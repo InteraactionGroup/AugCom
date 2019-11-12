@@ -14,6 +14,7 @@ import {HttpClientModule } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
+import { SettingsComponent } from './components/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AppRoutingModule } from './app-routing.module';
     KeyboardComponent,
     DialogbarComponent,
     ShareComponent,
-    PopupComponent
+    PopupComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
