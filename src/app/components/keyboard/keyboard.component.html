@@ -3,8 +3,10 @@
 <!--<div class="slidecontainer" *ngIf="this.userToolBarService.edit">-->
 <!--  <input  [(ngModel)]="this.boardService.sliderValueCol" class="slider" min="2" max="10" type="range" (change)="updateSliderValue()">-->
 <!--</div>-->
-<div class="gridSettings" *ngIf="this.userToolBarService.edit">
-  <input type="text" [(ngModel)]="this.boardService.sliderValueCol" >x<input type="text" [(ngModel)]="this.boardService.sliderValueRow">
+<div class="settings" *ngIf="this.userToolBarService.edit">
+  <div class="gridSettings">
+  <input class="inputSize" type="text" [(ngModel)]="this.boardService.sliderValueCol" ><div class="x">x</div><input class="inputSize" type="text" [(ngModel)]="this.boardService.sliderValueRow">
+  </div>
 </div>
 
 <div class="keyboard" [ngStyle]="{'height': this.userToolBarService.edit? 'calc(85vh - 1cm)':'85vh'}">

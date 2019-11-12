@@ -242,9 +242,11 @@ export class KeyboardComponent implements OnInit {
     this.fakeElementTempList = tempOtherFOrmList;
   }
 
-  createPlaces(index) {
+  createPlaces(ind: number) {
+    const index = Number(ind);
+    const slider: number = Number(this.boardService.sliderValueCol);
     const places = [];
-    const slider = this.boardService.sliderValueCol;
+
 
     if (Math.trunc(  (index - 1) / slider ) === Math.trunc( index / slider)) { // gauche
       places.push(index - 1);
