@@ -43,5 +43,15 @@
     </select>
   </div>
 
+  <div class="languageSelection" >
+    <label for="lang">Interaction 3 :</label>
+    <select id="lang"[(ngModel)]="this.parametersService.lang" class="variantListBox">
+      <option selected value="">--choisissez une langue--</option>
+      <ng-container *ngFor="let l of lang">
+        <option   type="radio" value="{{l.lang}}">{{l.name}}</option>
+      </ng-container>
+    </select>
+  </div>
+
 
 </div>

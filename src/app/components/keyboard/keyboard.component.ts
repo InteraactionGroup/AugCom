@@ -40,11 +40,12 @@ export class KeyboardComponent implements OnInit {
   getNormalTempList() {
     return this.boardService.board.ElementList.filter(elt =>  {
       return this.boardService.currentFolder === elt.ElementFolder;
-    }).slice(0 , 5 * ( 12 - this.boardService.sliderValue) - 2);
+    }).slice(0 , this.boardService.sliderValueRow * this.boardService.sliderValueCol - 2);
   }
 
   updateSliderValue() {
-    this.boardService.board.GridInfo = this.boardService.sliderValue;
+    this.boardService.board.gridColsNumber = this.boardService.sliderValueCol;
+    this.boardService.board.gridRowsNumber = this.boardService.sliderValueRow;
   }
   getLabel(element: Element) {
     if (element.ElementPartOfSpeech === '-verb-') {
@@ -90,7 +91,8 @@ export class KeyboardComponent implements OnInit {
   }
 
   checkNounForms(elt: ElementForm): boolean {
-    let gender = this.boardService.currentNounTerminaison.currentGender === '' || elt.LexicInfos.find(info => info.gender != null && info.gender !== undefined) === undefined;
+    let gender = this.boardService.currentNounTerminaison.currentGender === '' ||
+      elt.LexicInfos.find(info => info.gender != null && info.gender !== undefined) === undefined;
     let n = false;
     elt.LexicInfos.forEach(info => {
       if (!gender && info.gender != null
@@ -189,7 +191,7 @@ export class KeyboardComponent implements OnInit {
     const tempOtherFOrmList: Element[] = [];
     this.getNormalTempList().forEach( e => tempOtherFOrmList.push(this.copy(e)));
     const index = this.boardService.activatedElement;
-    while (index + 12 - this.boardService.sliderValue + 1 > tempOtherFOrmList.length - 1 ) { // fill with empy elements
+    while (index + this.boardService.sliderValueCol + 1 > tempOtherFOrmList.length - 1 ) { // fill with empy elements
       tempOtherFOrmList.push({
         ElementID: '',
         ElementFolder: this.boardService.currentFolder,
@@ -242,7 +244,7 @@ export class KeyboardComponent implements OnInit {
 
   createPlaces(index) {
     const places = [];
-    const slider = 12 - this.boardService.sliderValue;
+    const slider = this.boardService.sliderValueCol;
 
     if (Math.trunc(  (index - 1) / slider ) === Math.trunc( index / slider)) { // gauche
       places.push(index - 1);
@@ -354,7 +356,8 @@ export class KeyboardComponent implements OnInit {
             this.boardService.activatedElement = -1;
           }
 
-          if (element.ElementPartOfSpeech != null && element.ElementPartOfSpeech !== undefined && element.ElementPartOfSpeech === ('article défini')) {
+          if (element.ElementPartOfSpeech != null && element.ElementPartOfSpeech !== undefined &&
+            element.ElementPartOfSpeech === ('article défini')) {
             this.changeArticleInfo(element.ElementForms[0]);
           }
 

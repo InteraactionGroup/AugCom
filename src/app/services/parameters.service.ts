@@ -7,6 +7,7 @@ export class ParametersService {
 
   longpressTimeOut = 1000;
   interaction = ['click', 'longPress', 'doubleClick'];
+  lang = 'fr-FR';
 
   constructor() { }
 }

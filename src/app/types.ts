@@ -4,15 +4,17 @@ export class Grid {
   ElementList: Element[];
   ImageList: Image[];
   GridType: string;
-  GridInfo: number;
+  gridColsNumber: number;
+  gridRowsNumber: number;
   Style: {ElementType: string, Link: string}[];
 
-  constructor(gridId, elemList, imageList, actionList, gridType, gridinfo, style) {
+  constructor(gridId, elemList, imageList, actionList, gridType, gridCol, gridRow, style) {
     this.GridID = gridId;
     this.ElementList = elemList;
     this.ImageList = imageList;
     this.GridType = gridType;
-    this.GridInfo = gridinfo;
+    this.gridColsNumber = gridCol;
+    this.gridRowsNumber = gridRow;
     this.Style = style;
   }
 

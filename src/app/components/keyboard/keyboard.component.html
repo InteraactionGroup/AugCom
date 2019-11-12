@@ -1,13 +1,16 @@
 <app-usertoolbar></app-usertoolbar>
 <app-dialogbar></app-dialogbar>
-<div class="slidecontainer">
-  <input *ngIf="this.userToolBarService.edit" [(ngModel)]="this.boardService.sliderValue" class="slider" max="10" min="2" type="range" (change)="updateSliderValue()">
+<!--<div class="slidecontainer" *ngIf="this.userToolBarService.edit">-->
+<!--  <input  [(ngModel)]="this.boardService.sliderValueCol" class="slider" min="2" max="10" type="range" (change)="updateSliderValue()">-->
+<!--</div>-->
+<div class="gridSettings" *ngIf="this.userToolBarService.edit">
+  <input type="text" [(ngModel)]="this.boardService.sliderValueCol" >x<input type="text" [(ngModel)]="this.boardService.sliderValueRow">
 </div>
 
+<div class="keyboard" [ngStyle]="{'height': this.userToolBarService.edit? 'calc(85vh - 1cm)':'85vh'}">
 
-<div class="keyboard">
-
-  <div class="wrapper" [ngStyle]="{'grid-template-columns': 'repeat('+(12-this.boardService.sliderValue)+', '+(100/(12-this.boardService.sliderValue))+'%)'}" >
+  <div class="wrapper" [ngStyle]="{'grid-template-columns': 'repeat('+(this.boardService.sliderValueCol)+', '+(100/(this.boardService.sliderValueCol))+'%)',
+                                  'grid-template-rows': 'repeat('+(this.boardService.sliderValueRow)+', '+(100/(this.boardService.sliderValueRow))+'%)'}" >
 
     <ng-container class="test" *ngFor="let element of this.getTempList()">
 

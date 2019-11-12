@@ -98,7 +98,8 @@ export const Board: Grid = {
     }
   ],
   GridType: 'grid',
-  GridInfo: 2,
+  gridRowsNumber: 4,
+  gridColsNumber: 5,
   Style: []
 
 };

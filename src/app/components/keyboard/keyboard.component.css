@@ -1,13 +1,17 @@
 .keyboard{
   height: 85vh;
-  max-height: calc(100vh - 2cm);
   width: 100%;
   background-color: white;
 }
 
+.gridSettings{
+  height: 1cm ;
+  width: 100%;
+  background-color: grey;
+}
+
 .keyboard .wrapper{
   display: grid;
-  grid-template-rows: repeat(5, 20%);
   height:100%;
   width:100%;
   overflow: hidden;
