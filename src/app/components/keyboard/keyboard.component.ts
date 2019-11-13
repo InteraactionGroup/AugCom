@@ -8,6 +8,7 @@ import {GeticonService} from '../../services/geticon.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {ParametersService} from '../../services/parameters.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-keyboard',
@@ -22,7 +23,7 @@ export class KeyboardComponent implements OnInit {
   fakeElementTempList = [];
 
   // tslint:disable-next-line:max-line-length
-  constructor(public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) { }
+  constructor(private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) { }
 
   ngOnInit() {
     this.indexeddbaccessService.init();
@@ -388,6 +389,7 @@ export class KeyboardComponent implements OnInit {
 
   edit(element: Element) {
     if (this.userToolBarService.edit) {
+      this.router.navigate(['/edit']);
       this.userToolBarService.modif = element;
       this.userToolBarService.ElementListener.next(element);
       this.userToolBarService.add = false;

@@ -52,8 +52,12 @@ export class EditionComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.updatemodif();
     this.userToolBar.ElementListener.subscribe(value => {
-      this.updatemodif();
+      if (value != null) {
+        this.updatemodif();
+        console.log(value);
+      }
     });
   }
 
@@ -311,15 +315,22 @@ export class EditionComponent implements OnInit {
     this.dbnaryService.getWordPartOfSpeech(word, this.dbnaryService.typeList);
   }
 
-  // actualise l'element courant
-  getEvents(e) {
+  /**
+   * Return the current interaction event list (events) and display the html event panel by setting eventDisplayed to true
+   *
+   * @Return the current list of interaction events
+   */
+  getEvents() {
     this.eventDisplayed = true;
-    this.events = e;
     return this.events;
   }
 
-  // actuallise la liste des formes variantes du mot word  de classe grammaticale b
-  displayVariant(b, word) {
+  /**
+   * Actualize the variants forms list (wordList) of the word 'word' with the grammatical class b
+   * (ex: displayVariant('-nom-','chien') will actualise the wordList with ['chien','chiens','chienne','chiennes'])
+   * @Params string b, a grammatical class (ex: -verb-, -nom-...). string word, a word
+   */
+  displayVariant(b: string, word: string) {
     this.dbnaryService.wordList = [];
     this.dbnaryService.startsearch(2);
     this.dbnaryService.getOtherFormsOfThisPartOfSpeechWord(word, b, this.dbnaryService.wordList);
