@@ -50,17 +50,11 @@ export class IndexeddbaccessService {
       const requete = db.transaction(['saves']).objectStore('saves').get(1);
       requete.onsuccess = e => {
         this.boardService.board = requete.result;
-        if (this.boardService.board.gridColsNumber != null) {
-          this.boardService.sliderValueCol = this.boardService.board.gridColsNumber;
-        } else {
-          this.boardService.board.gridColsNumber = 5;
+        if (this.boardService.board.gridColsNumber != null && this.boardService.sliderValueCol != null) {
           this.boardService.sliderValueCol = this.boardService.board.gridColsNumber;
         }
 
-        if (this.boardService.board.gridRowsNumber != null) {
-          this.boardService.sliderValueRow = this.boardService.board.gridRowsNumber;
-        } else {
-          this.boardService.board.gridRowsNumber = 4;
+        if (this.boardService.board.gridRowsNumber != null && this.boardService.sliderValueRow != null) {
           this.boardService.sliderValueRow = this.boardService.board.gridRowsNumber;
         }
       };
@@ -73,17 +67,11 @@ export class IndexeddbaccessService {
         console.log('save loaded');
         const gridStore = db.transaction('saves', 'readwrite').objectStore('saves');
         gridStore.add(this.boardService.board);
-        if (this.boardService.board.gridColsNumber != null) {
-          this.boardService.sliderValueCol = this.boardService.board.gridColsNumber;
-        } else {
-          this.boardService.board.gridColsNumber = 5;
+        if (this.boardService.board.gridColsNumber != null && this.boardService.sliderValueCol != null ) {
           this.boardService.sliderValueCol = this.boardService.board.gridColsNumber;
         }
 
-        if (this.boardService.board.gridRowsNumber != null) {
-          this.boardService.sliderValueRow = this.boardService.board.gridRowsNumber;
-        } else {
-          this.boardService.board.gridRowsNumber = 4;
+        if (this.boardService.board.gridRowsNumber != null && this.boardService.sliderValueRow != null) {
           this.boardService.sliderValueRow = this.boardService.board.gridRowsNumber;
         }
 

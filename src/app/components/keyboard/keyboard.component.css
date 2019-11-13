@@ -67,8 +67,8 @@
   cursor: pointer;
   position: relative;
   float: left;
-  width: 25%;
-  height: 25%;
+  width: 40px;
+  height: 40px;
   margin-left: 1%;
   top: -87%;
   background-color: orangered;
@@ -105,6 +105,10 @@
   margin-left: 5%;
   visibility: visible;
   border-radius: 10px;
+
+  /*border-style: solid;*/
+  /*border-color: black;*/
+  /*border-width: 3px;*/
 }
 
 .keyboard .wrapper .elementContainer .element .image{

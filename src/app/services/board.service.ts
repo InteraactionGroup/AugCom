@@ -11,11 +11,13 @@ export class BoardService {
 
   constructor(public userToolBarService: UsertoolbarService, public sanitizer: DomSanitizer) {
     this.board  = Board;
+    this.sliderValueCol = this.board.gridColsNumber;
+    this.sliderValueRow = this.board.gridRowsNumber;
     // new Grid('grid', [] as Element[], [] as Image[], [] as Action[], [] as Interaction [], 'grid', [] as {ElementType: string, Link: string}[]);
   }
 
   sliderValueCol;
-  sliderValueRow = 5;
+  sliderValueRow;
   board: Grid;
   currentFolder = '.';
 

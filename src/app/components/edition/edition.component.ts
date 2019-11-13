@@ -413,7 +413,11 @@ export class EditionComponent implements OnInit {
     this.color = elementToModif.Color;
     this.radioTypeFormat = elementToModif.ElementType;
     const imageToModif = this.boardService.board.ImageList.find(x => x.ImageID === elementToModif.ImageID);
-    this.imageURL = imageToModif.ImagePath;
+    if (imageToModif != null && imageToModif !== undefined) {
+        this.imageURL = imageToModif.ImagePath;
+    } else {
+      this.imageURL = '';
+    }
   }
   }
 
