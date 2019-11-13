@@ -15,8 +15,8 @@ export class Grid {
     this.ElementList = elemList;
     this.ImageList = imageList;
     this.GridType = gridType;
-    this.gridColsNumber = gridCol;
-    this.gridRowsNumber = gridRow;
+    this.gridColsNumber = Number(gridCol);
+    this.gridRowsNumber = Number(gridRow);
     this.Style = style;
   }
 

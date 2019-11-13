@@ -1,9 +1,10 @@
 import {Grid} from '../types';
-import snapGrid from '../../assets/snapCore.json';
+import defaultgrid from '../../assets/defaultsave.json';
 
 
 /**
  * the initial grid displayed when accessing the app for the first time
  */
-export const Board: Grid = snapGrid;
+export const Board: Grid = defaultgrid;
+
 
