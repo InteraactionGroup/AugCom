@@ -15,13 +15,25 @@ export class ShareComponent implements OnInit {
   constructor(public getIconService: GeticonService, public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
 
   file;
+
+
   ngOnInit() {
   }
 
+  /**
+   * return the icon url corresponding to the string s
+   * @param s, the string identifying the icon
+   * @return the icon url
+   */
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
   }
 
+  /**
+   * explore the zip file e containing only images and folders and create elements and images in the board
+   * using the image and image name to respectively create imageUrl and element name and keep the same tree aspect
+   * @param e, an event containing a zip file
+   */
   exploreZip(e) {
     const zipFolder: JSZip = new JSZip();
     zipFolder.loadAsync(e.target.files[0])
@@ -76,6 +88,13 @@ export class ShareComponent implements OnInit {
         });
   }
 
+  /**
+   * create and add a new element and a new image to the bard using information contained in parameters
+   * @param name, the name of the new element
+   * @param imageUrl, the imageUrl of the nex element
+   * @param folder, the folder having to contain the new element
+   * @param type, the type of the new element (button or folder)
+   */
   createNewButton(name, imageURL, folder, type) {
     this.boardService.board.ElementList.push(
       {
@@ -101,12 +120,18 @@ export class ShareComponent implements OnInit {
       });
   }
 
-
+  /**
+   * import and set the current information contained in the file of event e into the board
+   * @param e, an event containing a file
+   */
   fileChanged(e) {
     this.file = e.target.files[0];
     this.import();
   }
 
+  /**
+   * import and set the current information contained in current 'file' into the board
+   */
   import() {
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
@@ -132,10 +157,17 @@ export class ShareComponent implements OnInit {
     fileReader.readAsText(this.file);
   }
 
+  /**
+   * download a JSON file 'save.json' containing the json version of the board
+   */
   export() {
     this.downloadFile(JSON.stringify(this.boardService.board));
   }
 
+  /**
+   * download a file save.json containing the the string 'data'
+   * @param data, the string text that have to be saved
+   */
   downloadFile(data: string) {
     const blob = new Blob([data], {type: 'text/json'});
     importedSaveAs(blob, 'save.json');

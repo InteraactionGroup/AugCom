@@ -19,17 +19,25 @@ export class PopupComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * delete the elementCondamne, update the database and close the popup panel
+   */
   yes() {
     this.boardService.executer();
     this.indexedDBacess.update();
     this.closePopup();
   }
 
+  /**
+   * cancel the deletion of the elementCondamne and close the popu panel
+   */
   no() {
     this.boardService.elementCondamne = null;
     this.closePopup();
   }
-
+  /**
+   * clsoe the popup panel by setting popup to false
+   */
   closePopup() {
     this.userToolBarService.popup = false;
   }
