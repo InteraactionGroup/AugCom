@@ -1,3 +1,7 @@
+
+/**
+ * the description of a mulberry element from the mulberry library
+ */
 export class MulBerryObject {
   id: number;
   symbol: string;

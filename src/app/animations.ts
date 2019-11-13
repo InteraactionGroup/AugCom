@@ -1,5 +1,8 @@
 import {trigger, style, transition, query, animateChild, group, animate} from '@angular/animations';
 
+/**
+ * the route animation making the new html page sliding over the previous html page
+ */
 export const slideInAnimation =
   trigger('routeAnimations', [
     transition('HomePage => x', [

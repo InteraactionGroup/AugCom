@@ -14,6 +14,9 @@ import {slideInAnimation} from './animations';
 export class AppComponent {
   title = 'AugCom1';
 
+  /**
+   * prepare a route taking into acount route data and route animation
+   */
   prepareRoute(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
   }

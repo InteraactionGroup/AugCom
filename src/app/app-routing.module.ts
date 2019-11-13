@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import {KeyboardComponent} from './components/keyboard/keyboard.component';
 import {ShareComponent} from './components/share/share.component';
 import {EditionComponent} from './components/edition/edition.component';
-import {AppComponent} from './app.component';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SettingsComponent} from './components/settings/settings.component';
@@ -22,4 +21,8 @@ const routes: Routes = [
     BrowserAnimationsModule, RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
+/**
+ * the class describing the different routes available in the project
+ */
 export class AppRoutingModule { }

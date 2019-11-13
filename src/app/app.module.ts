@@ -38,4 +38,5 @@ import { SettingsComponent } from './components/settings/settings.component';
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

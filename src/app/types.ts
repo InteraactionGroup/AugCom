@@ -1,4 +1,6 @@
-
+/**
+ * A Grid (aka Board)
+ */
 export class Grid {
   GridID: string;
   ElementList: Element[];
@@ -20,6 +22,9 @@ export class Grid {
 
 }
 
+/**
+ * an element of the Board
+ */
 export class Element {
   ElementID: string;
   ElementFolder: string;
@@ -31,23 +36,35 @@ export class Element {
   Color: string; // to delete later
 }
 
+/**
+ * a vignette for the dialog bar
+ */
 export class Vignette {
   VignetteLabel: string;
   VignetteImageUrl: any;
   VignetteColor: string;
 }
 
+/**
+ * an image of the Board
+ */
 export class Image {
   ImageID: string;
   ImageLabel: string;
   ImagePath: string;
 }
 
+/**
+ * the action of an interaction of an element of the board
+ */
 export class Action {
   ActionID: string;
   Action: string;
 }
 
+/**
+ * an element variant form of an element of the board
+ */
 export class ElementForm {
   DisplayedText: string;
   VoiceText: string;
