@@ -10,7 +10,7 @@ import {Ng2ImgMaxService} from 'ng2-img-max';
 import {Action, Element} from '../../types';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {ParametersService} from '../../services/parameters.service';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-edition',
@@ -19,32 +19,78 @@ import {Router} from "@angular/router";
 })
 export class EditionComponent implements OnInit {
 
-  // par default un element est un bouton
+
+  /**
+   * the type of the current element (button by default)
+   */
   radioTypeFormat = 'button';
-  // son nom est vide
+
+  /**
+   * the name of the current element (empty by default)
+   *
+   */
   name = '';
-  // il na pas devenement dinteraction
+
+  /**
+   * current interaction events list (empty by default)
+   */
   events: { InteractionID: string, ActionList: Action[] }[] = [];
-  // couleur grise
+
+  /**
+   * current element color (#d3d3d3 = grey by default)
+   */
   color = '#d3d3d3';
-  // pas d'image
-  imageURL;
-  // pas de classe grammaticale
+
+  /**
+   * current imageUrl of the element (empty by default), can be a string or a safe url
+   */
+  imageURL: any = '';
+
+  /**
+   * current grammatical class type of the element (empty by default)
+   */
   classe = '';
-  // pas de forme variante
+
+  /**
+   * current list of variant forms for the element (empty by default)
+   */
   variantList = [];
 
-  // on choisit une image
+  /**
+   * if set to true we are displaying the imagePanel Html sections
+   */
   choseImage = false;
-  // on choisit une variante
+
+  /**
+   * if set to true we are displaying the variantPanel Html sections
+   */
   variantDisplayed = false;
-  // on choisit les evenements
+
+  /**
+   * if set to true we are displaying the eventPanel Html sections
+   */
   eventDisplayed = false;
 
+  /**
+   * the current list of images related to the chose image library search section
+   * (the image list resulting in the research in the mullbery library)
+   */
   imageList: any[];
 
-  // interaction actuellement selectionee
+  /**
+   * the current Interaction index number
+   * (by default:
+   *      -1 = no interaction selected
+   *      0 = click selected
+   *      1 = longPress selected
+   *      2 = doubleClick selected
+   * )
+   */
   currentInterractionNumber = -1;
+
+  /**
+   * the current Interraction element selected (null by default)
+   */
   currentInterraction: { InteractionID: string, ActionList: Action[] } = null;
 
   constructor(private router: Router, public parametersService: ParametersService, public indexedDBacess: IndexeddbaccessService, public ng2ImgMaxService: Ng2ImgMaxService, public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public boardService: BoardService) {

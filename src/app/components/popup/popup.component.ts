@@ -11,6 +11,9 @@ import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 export class PopupComponent implements OnInit {
 
 
+  /**
+   * strings for the beginning and end of the popup question
+   */
   questionBegin = 'Êtes-vous sûr de vouloir supprimer l\'élément: ';
   questionEnd = ' ? \n la suppression ne peut pas être défaite.';
 

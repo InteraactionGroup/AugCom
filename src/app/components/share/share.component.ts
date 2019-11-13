@@ -14,8 +14,6 @@ export class ShareComponent implements OnInit {
 
   constructor(public getIconService: GeticonService, public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
 
-  file;
-
 
   ngOnInit() {
   }
@@ -122,17 +120,10 @@ export class ShareComponent implements OnInit {
 
   /**
    * import and set the current information contained in the file of event e into the board
-   * @param e, an event containing a file
+   * @param ev, an event containing a file
    */
-  fileChanged(e) {
-    this.file = e.target.files[0];
-    this.import();
-  }
-
-  /**
-   * import and set the current information contained in current 'file' into the board
-   */
-  import() {
+  import(ev) {
+    const file = ev.target.files[0];
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
       const t = JSON.parse(fileReader.result.toString());
@@ -154,7 +145,7 @@ export class ShareComponent implements OnInit {
 
 
     };
-    fileReader.readAsText(this.file);
+    fileReader.readAsText(file);
   }
 
   /**

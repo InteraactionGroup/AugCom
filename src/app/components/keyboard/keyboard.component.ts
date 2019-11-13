@@ -17,16 +17,26 @@ import {Router} from '@angular/router';
 })
 export class KeyboardComponent implements OnInit {
 
+  /**
+   * the current pressTimer started when pressing an element and ending on release
+   */
   pressTimer;
 
+  /**
+   * the current pressed element
+   */
   clickedElement: Element = null;
+
+  /**
+   * The current fakeElementTempList, updated when an element wants to display its variants
+   */
   fakeElementTempList = [];
 
   // tslint:disable-next-line:max-line-length
   constructor(private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) { }
 
   /**
-   * execute the indexeddbaccessService init fucntion to get the information contained in the DB or to create new entries if there is no info
+   * execute the indexeddbaccessService init fucntion to get the information of the DB or to create new entries if there is no info
    */
   ngOnInit() {
     this.indexeddbaccessService.init();
