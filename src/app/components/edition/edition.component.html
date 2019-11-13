@@ -205,7 +205,7 @@
 
     <div class="element" *ngIf="eventDisplayed">
       <ng-container *ngIf="this.currentInterractionNumber!=-1">
-        <div class="event" (click)="this.addToInteraction('display')">
+        <div class="event" (click)="this.addOrRemoveToInteraction('display')">
           <div class="icon" [ngStyle]="{'background-image':this.getIcon('display')}" >
           </div>
           <div class="label">
@@ -213,7 +213,7 @@
           </div>
           <div class="checkmark" [ngStyle]="{'background-image': this.isPartOfCurrentInteraction('display')?this.getIcon('checkmark'):this.getIcon('uncheckmark')}"></div>
         </div>
-        <div class="event" (click)="this.addToInteraction('say')">
+        <div class="event" (click)="this.addOrRemoveToInteraction('say')">
           <div class="icon"[ngStyle]="{'background-image':this.getIcon('say')}">
           </div>
           <div class="label">
@@ -221,7 +221,7 @@
           </div>
           <div class="checkmark" [ngStyle]="{'background-image': this.isPartOfCurrentInteraction('say')?this.getIcon('checkmark'):this.getIcon('uncheckmark')}"></div>
         </div>
-        <div class="event" (click)="this.addToInteraction('otherforms')">
+        <div class="event" (click)="this.addOrRemoveToInteraction('otherforms')">
           <div class="icon" [ngStyle]="{'background-image':this.getIcon('variants')}">
           </div>
           <div class="label">

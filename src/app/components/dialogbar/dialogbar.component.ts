@@ -18,8 +18,8 @@ export class DialogbarComponent implements OnInit {
   /**
    * Return the icon url corresponding to the string s
    *
-   * @Params  String s, the name of the icon
-   * @Return  Icon Url
+   * @param  s, a string corresponding to the name of the icon
+   * @return  Icon Url
    */
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);

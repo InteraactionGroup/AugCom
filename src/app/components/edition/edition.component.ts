@@ -50,38 +50,53 @@ export class EditionComponent implements OnInit {
   constructor(private router: Router, public parametersService: ParametersService, public indexedDBacess: IndexeddbaccessService, public ng2ImgMaxService: Ng2ImgMaxService, public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public boardService: BoardService) {
 
   }
-
+  /**
+   * update the informations with the elementToModify if it exist and set the elementListener for listening next element modifications
+   */
   ngOnInit() {
     this.updatemodif();
     this.userToolBar.ElementListener.subscribe(value => {
       if (value != null) {
         this.updatemodif();
-        console.log(value);
       }
     });
   }
 
-  // selection de l'interaction i, par default 0 est click, 1 est longpress, 2 est doubleclick
+  /**
+   * update the currentInterractionNumber and the currentInteraction with the interraction identified by i.
+   * by default i=0 for click, i=1 for longpress and i=2 for doubleClick
+   * return false otherwise
+   * @param i, a number
+   */
   selectInteraction(i: number) {
     this.currentInterractionNumber = i;
     this.currentInterraction = this.events.find(x => x.InteractionID === this.parametersService.interaction[i - 1]);
   }
 
-  // renvoit true si i est l'interaction courante
+  /**
+   * return true if the given number i is the same as the current interaction number 'currentInterractionNumber'
+   * return false otherwise
+   * @param i, a number
+   * @return true if i is the currentInterractionNumber, false otherwise
+   */
   isCurrentInteraction(i) {
     return this.currentInterractionNumber === i;
   }
 
-  // fermeture de la fenetre actuelle
+  /**
+   * close the current opened panel if there is one (image, variant or event panel) and go back to main edition panel
+   * otherwise close the edition menu
+   * reset the information to its initial value
+   */
   close() {
-    // retour a l'edition principale si on est dans le sous menu variante image ou evenement
+    // go back to main edition panel and close image, variant or event subpanel
     if (this.choseImage || this.variantDisplayed || this.eventDisplayed) {
     this.choseImage = false;
     this.variantDisplayed = false;
     this.eventDisplayed = false;
     this.currentInterractionNumber = -1;
     this.currentInterraction = null;
-    // fermeture du menu edition sinon
+    // close the edition panel
     } else {
       this.userToolBar.add = false;
       this.userToolBar.modif = null;
@@ -90,13 +105,18 @@ export class EditionComponent implements OnInit {
     }
   }
 
-  // on enregistre les variantes et on ferme le sous menu variante
+  /**
+   * add the selected variant forms in wordList to the current variantList
+   * and close the variant panel by setting variantDisplayed to false
+   */
   closeVariant() {
     this.variantList = this.dbnaryService.wordList.filter(b => b.selected);
     this.variantDisplayed = false ;
   }
 
-  // on nettoie le menu dedition
+  /**
+   * Clear the informtation of the edition panel, reset all the information to their initial value
+   */
   clear() {
     this.name = '';
     this.color = '#d3d3d3';
@@ -108,27 +128,40 @@ export class EditionComponent implements OnInit {
     this.dbnaryService.typeList = [];
   }
 
-  // on renvoit l'url de l'icone correspondant a s
+  /**
+   * return the icon url corresponding to the string s
+   * @param s, the string identifying the icon
+   * @return the icon url
+   */
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
   }
 
-  // on ajoute l'action a l'interaction courante si elle n'y est pas, on la retire sinon
-  addToInteraction(action: string) {
+  /**
+   * Add the action identified by the actionId to the current interaction if it doesn't contain it already,
+   * otherwise it delete it from the current interaction
+   * @param actionId, the string identifying an action
+   */
+  addOrRemoveToInteraction(actionId: string) {
     const inter = this.parametersService.interaction[this.currentInterractionNumber - 1];
-    const partOfCurrentInter = this.isPartOfCurrentInteraction(action);
+    const partOfCurrentInter = this.isPartOfCurrentInteraction(actionId);
 
     if (this.currentInterraction == null && !partOfCurrentInter) {
-      this.currentInterraction = { InteractionID: inter, ActionList: [ {ActionID: action, Action: action} ] };
+      this.currentInterraction = { InteractionID: inter, ActionList: [ {ActionID: actionId, Action: actionId} ] };
     } else if (!partOfCurrentInter) {
-      this.currentInterraction.ActionList.push({ActionID: action, Action: action});
+      this.currentInterraction.ActionList.push({ActionID: actionId, Action: actionId});
     } else if (partOfCurrentInter) {
-      this.currentInterraction.ActionList = this.currentInterraction.ActionList.filter(x => x.ActionID !== action);
+      this.currentInterraction.ActionList = this.currentInterraction.ActionList.filter(x => x.ActionID !== actionId);
     }
     console.log(this.currentInterraction.ActionList);
   }
 
-  // renvoit true si l'action identifiee par actionId existe dans l'interaction courante
+  /**
+   * Return true if the action identified by actionId exists in the current interaction
+   * return false otherwise
+   * @param actionId, the string identifying an action
+   * @return true if the action identified by actionId exists in the current interaction, false otherwise
+   */
   isPartOfCurrentInteraction(actionId) {
     if (this.currentInterraction != null) {
       const res = this.currentInterraction.ActionList.find(x => x.ActionID === actionId);
@@ -137,7 +170,12 @@ export class EditionComponent implements OnInit {
     return false;
   }
 
-  // return the list of images of mullberry library matching with text
+  /**
+   * Return the list of 100 first mullberry library images, sorted by length name, matching with string 'text'
+   *
+   * @param text, the string researched text
+   * @return list of 100 mulberry library images
+   */
   searchInLib(text: string) {
     this.imageList = [];
     let tempList = [];
@@ -161,36 +199,50 @@ export class EditionComponent implements OnInit {
     this.imageList = tempList.slice(0, 100);
   }
 
-  // set the imageUrl for the preview of the button
+  /**
+   * Set the current preview imageUrl with the image string Url 't' and close the chooseImage panel
+   *
+   * @param t, the new imageUrl
+   */
   previewWithURL(t) {
     this.imageURL = t;
     this.choseImage = false;
   }
-  // set the imageUrl with a mullberry image url
-  previewMullberry(t) {
+
+  /**
+   * Set the current preview imageUrl with a mulberry library image Url according to the given string 't' and close the chooseImage panel
+   *
+   * @param t, the string short name of the image of the mulberry library image
+   */
+  previewMullberry(t: string) {
     this.previewWithURL('assets/libs/mulberry-symbols/EN-symbols/' + t + '.svg');
   }
 
-  // set the imageUrl from an image file
-  previewFile(files) {
+  /**
+   * Set the current preview imageUrl according to the given file 'file' and close the chooseImage panel
+   * if the initial image is bigger than 1000*1000 the the image is reduced
+   *
+   * @param file, a file element
+   */
+  previewFile(file) {
     this.imageURL = 'assets/icons/load.gif';
-    if (files.length === 0) {
+    if (file.length === 0) {
       return;
     }
-    const mimeType = files[0].type;
+    const mimeType = file[0].type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
     const reader = new FileReader();
 
-    this.ng2ImgMaxService.resize([files[0]], 1000, 1000).subscribe(result => {
+    this.ng2ImgMaxService.resize([file[0]], 1000, 1000).subscribe(result => {
       reader.readAsDataURL(result);
       reader.onload = (e) => {
         this.imageURL = reader.result;
         this.choseImage = false;
       };
     }, error => {
-      reader.readAsDataURL(files[0]);
+      reader.readAsDataURL(file[0]);
       reader.onload = (e) => {
         this.previewWithURL(reader.result);
 
@@ -198,7 +250,10 @@ export class EditionComponent implements OnInit {
     });
   }
 
-  // sauvegarde le bouton modifié ou le nouveau bouton et ferme la fenetre dedition
+  /**
+   * Save the modified or new element update the indexedDB database with it and close the edition panel
+   *
+   */
   save() {
     if (this.userToolBar.add) {
       this.createNewButton();
@@ -209,7 +264,10 @@ export class EditionComponent implements OnInit {
     this.close();
   }
 
-  // modifie le bouton a partir des infos de la fenetre d'edition
+  /**
+   * Update the current modified element and load its modifications into the board,
+   * given the information of this class, updated by the edition html panel
+   */
   modifyButton() {
     // tslint:disable-next-line:no-shadowed-variable
     const element: Element = this.userToolBar.modif;
@@ -240,7 +298,8 @@ export class EditionComponent implements OnInit {
     element.Color = this.color;
     element.ImageID = this.boardService.currentFolder + this.name;
 
-    this.boardService.board.ImageList = this.boardService.board.ImageList.filter( img => img.ImageID !== this.boardService.currentFolder + this.name);
+    this.boardService.board.ImageList = this.boardService.board.ImageList.filter(
+      img => img.ImageID !== this.boardService.currentFolder + this.name);
 
     this.boardService.board.ImageList.push(
       {
@@ -250,7 +309,9 @@ export class EditionComponent implements OnInit {
       });
   }
 
-  // cree un nouveau bouton a partir des infos de la fenetre d'edition
+  /**
+   * Create a new button and add it to the board, given the information of this class, updated by the edition html panel
+   */
   createNewButton() {
     const elementForms = [];
     elementForms.push({DisplayedText: this.name,
@@ -293,7 +354,11 @@ export class EditionComponent implements OnInit {
       });
   }
 
-  // charge les informations du bouton a modifier
+  /**
+   * Load the information of the element we have to modify, given by this.userToolBar.modif into the current informations of the class:
+   * 'name' is the name of current element to modify, 'events' is the interraction event list, 'color' is its color
+   * 'radioTypeFormat' is its current type format (button or folder) and imageUrl is its current imageUrl
+   */
   updatemodif() {
     if (this.userToolBar.modif !== null) {
     const elementToModif: Element = this.userToolBar.modif;
@@ -304,10 +369,13 @@ export class EditionComponent implements OnInit {
     const imageToModif = this.boardService.board.ImageList.find(x => x.ImageID === elementToModif.ImageID);
     this.imageURL = imageToModif.ImagePath;
   }
-    return false;
   }
 
-  // actualise la liste la liste des classes grammaticales possible pour le mot word
+  /**
+   * Actualize the grammatical type list (typeList)  of the word 'word'
+   * (ex: if word = 'bleu' typeList will be ['-nom-','-adj-'] because bleu can be a noun or an adjective
+   * @param word, a string word
+   */
   getWordList(word) {
     this.variantDisplayed = true;
     this.dbnaryService.typeList = [];
@@ -318,7 +386,7 @@ export class EditionComponent implements OnInit {
   /**
    * Return the current interaction event list (events) and display the html event panel by setting eventDisplayed to true
    *
-   * @Return the current list of interaction events
+   * @return the current list of interaction events
    */
   getEvents() {
     this.eventDisplayed = true;
@@ -326,9 +394,10 @@ export class EditionComponent implements OnInit {
   }
 
   /**
-   * Actualize the variants forms list (wordList) of the word 'word' with the grammatical class b
+   * Actualize the variants forms list (wordList) of the word 'word' with the grammatical type b
    * (ex: displayVariant('-nom-','chien') will actualise the wordList with ['chien','chiens','chienne','chiennes'])
-   * @Params string b, a grammatical class (ex: -verb-, -nom-...). string word, a word
+   * @param b, a grammatical type (ex: -verb-, -nom-...).
+   * @param word, a string word
    */
   displayVariant(b: string, word: string) {
     this.dbnaryService.wordList = [];
