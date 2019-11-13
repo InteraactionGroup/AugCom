@@ -1,23 +1,30 @@
-
+/**
+ * A Grid (aka Board)
+ */
 export class Grid {
   GridID: string;
   ElementList: Element[];
   ImageList: Image[];
   GridType: string;
-  GridInfo: number;
+  gridColsNumber: number;
+  gridRowsNumber: number;
   Style: {ElementType: string, Link: string}[];
 
-  constructor(gridId, elemList, imageList, actionList, gridType, gridinfo, style) {
+  constructor(gridId, elemList, imageList, actionList, gridType, gridCol, gridRow, style) {
     this.GridID = gridId;
     this.ElementList = elemList;
     this.ImageList = imageList;
     this.GridType = gridType;
-    this.GridInfo = gridinfo;
+    this.gridColsNumber = gridCol;
+    this.gridRowsNumber = gridRow;
     this.Style = style;
   }
 
 }
 
+/**
+ * an element of the Board
+ */
 export class Element {
   ElementID: string;
   ElementFolder: string;
@@ -29,23 +36,35 @@ export class Element {
   Color: string; // to delete later
 }
 
+/**
+ * a vignette for the dialog bar
+ */
 export class Vignette {
   VignetteLabel: string;
   VignetteImageUrl: any;
   VignetteColor: string;
 }
 
+/**
+ * an image of the Board
+ */
 export class Image {
   ImageID: string;
   ImageLabel: string;
   ImagePath: string;
 }
 
+/**
+ * the action of an interaction of an element of the board
+ */
 export class Action {
   ActionID: string;
   Action: string;
 }
 
+/**
+ * an element variant form of an element of the board
+ */
 export class ElementForm {
   DisplayedText: string;
   VoiceText: string;

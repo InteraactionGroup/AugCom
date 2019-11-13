@@ -24,6 +24,8 @@ export class IndexeddbaccessService {
       const requete = objectStore.get(1);
       requete.onsuccess = e => {
         let data = requete.result;
+        this.boardService.board.gridColsNumber = this.boardService.sliderValueCol;
+        this.boardService.board.gridRowsNumber = this.boardService.sliderValueRow;
         data = this.boardService.board;
         const requestUpdate = objectStore.put(data, 1);
         requestUpdate.onerror = e1 => {
@@ -48,11 +50,18 @@ export class IndexeddbaccessService {
       const requete = db.transaction(['saves']).objectStore('saves').get(1);
       requete.onsuccess = e => {
         this.boardService.board = requete.result;
-        if (this.boardService.board.GridInfo != null) {
-          this.boardService.sliderValue = this.boardService.board.GridInfo;
+        if (this.boardService.board.gridColsNumber != null) {
+          this.boardService.sliderValueCol = this.boardService.board.gridColsNumber;
         } else {
-          this.boardService.board.GridInfo = 2;
-          this.boardService.sliderValue = this.boardService.board.GridInfo;
+          this.boardService.board.gridColsNumber = 5;
+          this.boardService.sliderValueCol = this.boardService.board.gridColsNumber;
+        }
+
+        if (this.boardService.board.gridRowsNumber != null) {
+          this.boardService.sliderValueRow = this.boardService.board.gridRowsNumber;
+        } else {
+          this.boardService.board.gridRowsNumber = 4;
+          this.boardService.sliderValueRow = this.boardService.board.gridRowsNumber;
         }
       };
     };
@@ -64,12 +73,20 @@ export class IndexeddbaccessService {
         console.log('save loaded');
         const gridStore = db.transaction('saves', 'readwrite').objectStore('saves');
         gridStore.add(this.boardService.board);
-        if (this.boardService.board.GridInfo != null) {
-          this.boardService.sliderValue = this.boardService.board.GridInfo;
+        if (this.boardService.board.gridColsNumber != null) {
+          this.boardService.sliderValueCol = this.boardService.board.gridColsNumber;
         } else {
-          this.boardService.board.GridInfo = 2;
-          this.boardService.sliderValue = this.boardService.board.GridInfo;
+          this.boardService.board.gridColsNumber = 5;
+          this.boardService.sliderValueCol = this.boardService.board.gridColsNumber;
         }
+
+        if (this.boardService.board.gridRowsNumber != null) {
+          this.boardService.sliderValueRow = this.boardService.board.gridRowsNumber;
+        } else {
+          this.boardService.board.gridRowsNumber = 4;
+          this.boardService.sliderValueRow = this.boardService.board.gridRowsNumber;
+        }
+
       };
 
     };

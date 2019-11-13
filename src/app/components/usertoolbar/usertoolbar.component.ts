@@ -15,10 +15,19 @@ export class UsertoolbarComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * return the icon url corresponding to the string s
+   * @param s, the string identifying the icon
+   * @return the icon url
+   */
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
   }
 
+  /**
+   * open the edit panel if not open,
+   * otherwise close the edit panel and save the modified information into he indexedDB
+   */
   edit() {
     this.userToolBarService.editt();
     if (!this.userToolBarService.edit) {

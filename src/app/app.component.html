@@ -1,6 +1,6 @@
-<app-usertoolbar></app-usertoolbar>
-<app-dialogbar></app-dialogbar>
-<app-keyboard></app-keyboard>
-<app-edition></app-edition>
-<app-share></app-share>
+
+<div [@routeAnimations]="prepareRoute(outlet)" >
+  <router-outlet #outlet="outlet"></router-outlet>
+</div>
+
 <app-popup></app-popup>

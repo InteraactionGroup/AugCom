@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Vignette} from '../types';
+import {ParametersService} from "./parameters.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class HistoricService {
   public historicElements: Vignette[] = [];
   public lastNHistoricElements: Vignette[]  = [];
 
-  constructor() {
+  constructor(private parametersService: ParametersService) {
     this.updateLastElements(10);
   }
 
@@ -51,7 +52,7 @@ export class HistoricService {
   say(text: string) {
     const synth = window.speechSynthesis;
     const x = new SpeechSynthesisUtterance(text + ' ');
-    x.lang = 'fr-FR';
+    x.lang = this.parametersService.lang;
     synth.speak(x);
   }
 

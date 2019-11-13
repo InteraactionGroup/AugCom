@@ -14,7 +14,8 @@ export class BoardService {
     // new Grid('grid', [] as Element[], [] as Image[], [] as Action[], [] as Interaction [], 'grid', [] as {ElementType: string, Link: string}[]);
   }
 
-  sliderValue;
+  sliderValueCol;
+  sliderValueRow = 5;
   board: Grid;
   currentFolder = '.';
 

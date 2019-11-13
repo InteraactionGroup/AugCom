@@ -15,12 +15,20 @@ export class DialogbarComponent implements OnInit {
   ngOnInit() {
   }
 
-  // renvoit l'url de l'icone de nom s
+  /**
+   * Return the icon url corresponding to the string s
+   *
+   * @param  s, a string corresponding to the name of the icon
+   * @return  Icon Url
+   */
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
   }
 
-  // supprime l'historique de la barre de dialogue et affiche les mots par defauts
+  /**
+   * delete the history of the dialogue bar and display the default words
+   *
+   */
   clear() {
     this.historicService.clearHistoric();
     this.boardService.resetTerminaisons();

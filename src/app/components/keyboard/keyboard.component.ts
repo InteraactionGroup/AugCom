@@ -8,6 +8,7 @@ import {GeticonService} from '../../services/geticon.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {ParametersService} from '../../services/parameters.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-keyboard',
@@ -16,19 +17,37 @@ import {ParametersService} from '../../services/parameters.service';
 })
 export class KeyboardComponent implements OnInit {
 
+  /**
+   * the current pressTimer started when pressing an element and ending on release
+   */
   pressTimer;
 
+  /**
+   * the current pressed element
+   */
   clickedElement: Element = null;
+
+  /**
+   * The current fakeElementTempList, updated when an element wants to display its variants
+   */
   fakeElementTempList = [];
 
   // tslint:disable-next-line:max-line-length
-  constructor(public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) { }
+  constructor(private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) { }
 
+  /**
+   * execute the indexeddbaccessService init fucntion to get the information of the DB or to create new entries if there is no info
+   */
   ngOnInit() {
     this.indexeddbaccessService.init();
   }
 
 
+  /**
+   * return the normal list of elements that have to be displayed on the board if no element displayed its variant forms
+   * otherwise return the 'fakeElementTempList' of the element that is displaying its variant forms
+   * @return a list of element
+   */
   getTempList( ) {
     if (this.boardService.activatedElement === -1) {
         return this.getNormalTempList();
@@ -37,15 +56,29 @@ export class KeyboardComponent implements OnInit {
     }
   }
 
+  /**
+   * return the part of elements that can fit in the board depending on the current rows and columns values
+   * @return a list of elements
+   */
   getNormalTempList() {
     return this.boardService.board.ElementList.filter(elt =>  {
       return this.boardService.currentFolder === elt.ElementFolder;
-    }).slice(0 , 5 * ( 12 - this.boardService.sliderValue) - 2);
+    }).slice(0 , this.boardService.sliderValueRow * this.boardService.sliderValueCol - 2);
   }
 
-  updateSliderValue() {
-    this.boardService.board.GridInfo = this.boardService.sliderValue;
-  }
+  // /**
+  //  * update the grid cols and rows number depending on the values updated by the slider html
+  //  */
+  // updateSliderValue() {
+  //   this.boardService.board.gridColsNumber = this.boardService.sliderValueCol;
+  //   this.boardService.board.gridRowsNumber = this.boardService.sliderValueRow;
+  // }
+
+  /**
+   * return the current label of the element dependind on the current noun and verb termination
+   * @param element, an Element
+   * @return return the current label of the element
+   */
   getLabel(element: Element) {
     if (element.ElementPartOfSpeech === '-verb-') {
       const verbElement = element.ElementForms.find(elt => this.checkVerbForms(elt));
@@ -72,6 +105,11 @@ export class KeyboardComponent implements OnInit {
     }
   }
 
+  /**
+   * check if 'elt' person and number information correspond to current person and number of current verb Termination
+   * @param elt, a list of element forms
+   * @return true if elt person and number information correspond to current person and number of current verb Termination
+   */
   checkVerbForms(elt: ElementForm): boolean {
     let person = false;
     let n = false;
@@ -89,8 +127,14 @@ export class KeyboardComponent implements OnInit {
     return person && n;
   }
 
+  /**
+   * check if 'elt' gender and number information correspond to current gender and number of current Noun Termination
+   * @param elt, a list of element forms
+   * @return true if elt gender and number information correspond to current gender and number of current Noun Termination
+   */
   checkNounForms(elt: ElementForm): boolean {
-    let gender = this.boardService.currentNounTerminaison.currentGender === '' || elt.LexicInfos.find(info => info.gender != null && info.gender !== undefined) === undefined;
+    let gender = this.boardService.currentNounTerminaison.currentGender === '' ||
+      elt.LexicInfos.find(info => info.gender != null && info.gender !== undefined) === undefined;
     let n = false;
     elt.LexicInfos.forEach(info => {
       if (!gender && info.gender != null
@@ -107,6 +151,11 @@ export class KeyboardComponent implements OnInit {
     return gender && n;
   }
 
+  /**
+   * check if the element form list 'elt' contains a default value
+   * @param elt, a list of element forms
+   * @return true if elt contains a default form, false otherwise
+   */
   checkDefault(elt: ElementForm): boolean {
     let defaultVal = false;
     elt.LexicInfos.forEach(info => {
@@ -118,6 +167,10 @@ export class KeyboardComponent implements OnInit {
     return defaultVal;
   }
 
+  /**
+   * update the current person and number information for verb terminations
+   * @param elementForm, an list of element forms
+   */
   changePronomInfo( elementForm: ElementForm) {
     const person = elementForm.LexicInfos.find(info => info.person != null && info.person !== undefined);
     this.boardService.currentVerbTerminaison.currentPerson = (person != null && person !== undefined) ? person.person : 'thirdPerson';
@@ -127,6 +180,10 @@ export class KeyboardComponent implements OnInit {
     this.boardService.currentVerbTerminaison.currentNumber = (num != null && num !== undefined) ? num.number : '';
   }
 
+  /**
+   * update the current gender and number information for noun (and adj) terminations
+   * @param elementForm, an list of element forms
+   */
   changeArticleInfo( elementForm: ElementForm) {
     const gender = elementForm.LexicInfos.find(info => info.gender != null && info.gender !== undefined);
     this.boardService.currentNounTerminaison.currentGender = (gender != null && gender !== undefined) ? gender.gender : '';
@@ -136,6 +193,11 @@ export class KeyboardComponent implements OnInit {
   }
 
 
+  /**
+   * if not in edit mode
+   * process the pointerDown event triggered by 'element' and starts the longpress timer
+   * @param element, the element triggering the event
+   */
   pointerDown(element: Element) {
     if (!this.userToolBarService.edit) {
       this.clickedElement = element;
@@ -145,6 +207,12 @@ export class KeyboardComponent implements OnInit {
     }
   }
 
+  /**
+   * if not in edit mode
+   * process the pointerUp event triggered by 'element' and execute its corresponding normal click function
+   * if the element has not been longpressed yet
+   * @param element, the element triggering the event
+   */
   pointerUp(element: Element) {
     if (!this.userToolBarService.edit) {
       window.clearTimeout(this.pressTimer);
@@ -154,6 +222,11 @@ export class KeyboardComponent implements OnInit {
     }
   }
 
+  /**
+   * return the copy of the given 'element'
+   * @param element, an element
+   * @return the copied element
+   */
   copy(element: Element): Element {
     return {
       ElementID: element.ElementID,
@@ -167,6 +240,11 @@ export class KeyboardComponent implements OnInit {
     } as Element;
   }
 
+  /**
+   * return the copy of the given 'intaractions' list
+   * @param interactions, an interaction list
+   * @return the copied interaction List
+   */
   copyInteractions( interactions: { InteractionID: string, ActionList: Action[] }[]) {
     const tempInter = [];
     interactions.forEach(inter => {
@@ -179,6 +257,11 @@ export class KeyboardComponent implements OnInit {
     return tempInter;
   }
 
+  /**
+   * process the different functions when the element identified by the index activatedElement want to display
+   * its variant forms.
+   * Create a tempOtherFOrmList that is displayed instead of the initial board
+   */
   activatedElementTempList() {
     this.fakeElementTempList = [];
     this.boardService.board.ImageList.push({
@@ -189,7 +272,7 @@ export class KeyboardComponent implements OnInit {
     const tempOtherFOrmList: Element[] = [];
     this.getNormalTempList().forEach( e => tempOtherFOrmList.push(this.copy(e)));
     const index = this.boardService.activatedElement;
-    while (index + 12 - this.boardService.sliderValue + 1 > tempOtherFOrmList.length - 1 ) { // fill with empy elements
+    while (index + this.boardService.sliderValueCol + 1 > tempOtherFOrmList.length - 1 ) { // fill with empy elements
       tempOtherFOrmList.push({
         ElementID: '',
         ElementFolder: this.boardService.currentFolder,
@@ -239,10 +322,15 @@ export class KeyboardComponent implements OnInit {
 
     this.fakeElementTempList = tempOtherFOrmList;
   }
-
-  createPlaces(index) {
+  /**
+   * return the available neighbor index of an element identified by index 'ind'
+   * @param ind, index of an element
+   */
+  createPlaces(ind: number) {
+    const index = Number(ind);
+    const slider: number = Number(this.boardService.sliderValueCol);
     const places = [];
-    const slider = 12 - this.boardService.sliderValue;
+
 
     if (Math.trunc(  (index - 1) / slider ) === Math.trunc( index / slider)) { // gauche
       places.push(index - 1);
@@ -277,7 +365,11 @@ export class KeyboardComponent implements OnInit {
 
     return places;
   }
-
+  /**
+   * process the different functions when the element is ' long clicked' (longPressed)
+   * depending on its grammatical class, its type (button or folder) and its interraction and action events
+   * @param element, the element we clicked on
+   */
   longClick(element: Element) {
     if (element.InteractionsList.length > 0 ) {
       element.InteractionsList.forEach(inter => {
@@ -312,6 +404,11 @@ export class KeyboardComponent implements OnInit {
     }
   }
 
+  /**
+   * process the different functions when the element is ' normal clicked' (press then release)
+   * depending on its grammatical class, its type (button or folder) and its interraction and action events
+   * @param element, the element we clicked on
+   */
   normalClick(element: Element) {
     if (element.ElementType === 'button') {
 
@@ -354,7 +451,8 @@ export class KeyboardComponent implements OnInit {
             this.boardService.activatedElement = -1;
           }
 
-          if (element.ElementPartOfSpeech != null && element.ElementPartOfSpeech !== undefined && element.ElementPartOfSpeech === ('article défini')) {
+          if (element.ElementPartOfSpeech != null && element.ElementPartOfSpeech !== undefined &&
+            element.ElementPartOfSpeech === ('article défini')) {
             this.changeArticleInfo(element.ElementForms[0]);
           }
 
@@ -381,14 +479,26 @@ export class KeyboardComponent implements OnInit {
     }
   }
 
+  /**
+   * if we are in edit mode
+   * set the information of the element we want to modify with the current 'element' informations
+   * open the edition panel to modify the information of element 'element'
+   * @param element, the Element we want to edit
+   */
   edit(element: Element) {
     if (this.userToolBarService.edit) {
+      this.router.navigate(['/edit']);
       this.userToolBarService.modif = element;
       this.userToolBarService.ElementListener.next(element);
       this.userToolBarService.add = false;
     }
   }
 
+  /**
+   * return the icon url corresponding to the string s
+   * @param s, the string identifying the icon
+   * @return the icon url
+   */
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
   }
