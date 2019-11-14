@@ -67,8 +67,8 @@
   cursor: pointer;
   position: relative;
   float: left;
-  width: 25%;
-  height: 25%;
+  width: 40px;
+  height: 40px;
   margin-left: 1%;
   top: -87%;
   background-color: orangered;
@@ -105,6 +105,10 @@
   margin-left: 5%;
   visibility: visible;
   border-radius: 10px;
+
+  /*border-style: solid;*/
+  /*border-color: black;*/
+  /*border-width: 3px;*/
 }
 
 .keyboard .wrapper .elementContainer .element .image{
@@ -171,4 +175,64 @@
   border-radius: 15px;
   outline: none;
   border: none;
+}
+
+
+
+.gu-mirror {
+  position: absolute !important;
+  z-index: 9998 !important;
+  opacity: 0.8;
+}
+
+.gu-mirror .element{
+  cursor: pointer;
+  height:90%;
+  width:90%;
+  transform: translateY(5%);
+  margin-left: 5%;
+  visibility: visible;
+  border-radius: 10px;
+}
+
+.gu-mirror  .element .image{
+  height:70%;
+  width:90%;
+  min-width: 90%;
+  margin-left: 5%;
+  transform: translateY(10%);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  visibility: visible;
+}
+
+.gu-mirror  .label{
+  transform: translateY(40%);
+  min-font-size: 1vh;
+  font-size: 2vh;
+  text-align: center;
+  height:20%;
+  width:90%;
+  margin-left: 5%;
+  visibility: visible;
+}
+
+
+
+
+
+.gu-hide {
+  display: contents;
+  background-color: darkred;
+  /*display: none !important;*/
+}
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+.gu-transit {
+  opacity: 0.4;
 }

@@ -12,7 +12,8 @@
 <div class="keyboard" [ngStyle]="{'height': this.userToolBarService.edit? 'calc(85vh - 1cm)':'85vh'}">
 
   <div class="wrapper" [ngStyle]="{'grid-template-columns': 'repeat('+(this.boardService.sliderValueCol)+', '+(100/(this.boardService.sliderValueCol))+'%)',
-                                  'grid-template-rows': 'repeat('+(this.boardService.sliderValueRow)+', '+(100/(this.boardService.sliderValueRow))+'%)'}" >
+                                  'grid-template-rows': 'repeat('+(this.boardService.sliderValueRow)+', '+(100/(this.boardService.sliderValueRow))+'%)'}"
+       [dragula]="'VAMPIRE'">
 
     <ng-container class="test" *ngFor="let element of this.getTempList()">
 
