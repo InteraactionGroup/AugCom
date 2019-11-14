@@ -8,7 +8,7 @@ import {ParametersService} from '../../services/parameters.service';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(private parametersService: ParametersService) {}
+  constructor(public parametersService: ParametersService) {}
 
   /**
    * the interactions bounded with the current html setting information

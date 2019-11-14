@@ -9,6 +9,7 @@ import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {ParametersService} from '../../services/parameters.service';
 import {Router} from '@angular/router';
+import {DragulaService} from 'ng2-dragula';
 
 @Component({
   selector: 'app-keyboard',
@@ -16,6 +17,10 @@ import {Router} from '@angular/router';
   styleUrls: ['./keyboard.component.css']
 })
 export class KeyboardComponent implements OnInit {
+
+  options: any = {
+    removeOnSpill: true
+  }
 
   /**
    * the current pressTimer started when pressing an element and ending on release
@@ -33,7 +38,13 @@ export class KeyboardComponent implements OnInit {
   fakeElementTempList = [];
 
   // tslint:disable-next-line:max-line-length
-  constructor(private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) { }
+  constructor(private dragulaService: DragulaService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) {
+
+    dragulaService.createGroup('VAMPIRE', {
+      direction: 'horizontal'
+    });
+
+  }
 
   /**
    * execute the indexeddbaccessService init fucntion to get the information of the DB or to create new entries if there is no info
