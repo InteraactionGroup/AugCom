@@ -18,7 +18,7 @@
     <ng-container class="test" *ngFor="let element of this.getTempList()">
 
       <ng-container *ngIf="this.boardService.belongToActiveFolder(element)">
-        <div  class="elementContainer" >
+        <div id="{{element.ElementID}}" class="elementContainer" >
 
           <div class="element" [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)" (pointerdown)="this.pointerDown(element)" (pointerup)="this.pointerUp(element)" [ngStyle]="{'background-color': this.boardService.elementColor(element)}">
 
@@ -45,7 +45,7 @@
       </ng-container>
     </ng-container>
     <ng-container *ngIf="this.boardService.currentFolder !== '.' && this.boardService.activatedElement==-1" >
-    <div class="elementContainer" >
+    <div class="elementContainer no-drag" >
 
       <div class="element"  (click)="this.boardService.backToPreviousFolder()" [ngStyle]="{'background-color': 'red'}"> <!-- need to change élément by the label-->
 
@@ -64,10 +64,10 @@
 
     <ng-container *ngIf="this.userToolBarService.edit" >
 
-      <nav>
-        <a routerLink="/edit">
+      <nav class=" no-drag">
+        <a routerLink="/edit" class=" no-drag">
 
-          <div class="elementContainer" >
+          <div class="elementContainer no-drag" >
 
             <div class="element"  (click)="this.userToolBarService.add = true " [ngStyle]="{'background-color': 'green'}"> <!-- need to change élément by the label-->
 

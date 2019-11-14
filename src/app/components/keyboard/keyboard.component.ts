@@ -11,6 +11,7 @@ import {ParametersService} from '../../services/parameters.service';
 import {Router} from '@angular/router';
 import {DragulaService} from 'ng2-dragula';
 import dragula from 'dragula';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-keyboard',
@@ -38,8 +39,27 @@ export class KeyboardComponent implements OnInit {
    */
   fakeElementTempList = [];
 
+  subs = new Subscription();
+
   // tslint:disable-next-line:max-line-length
   constructor(private dragulaService: DragulaService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) {
+
+    this.subs.add(this.dragulaService.drop('VAMPIRE')
+      .subscribe(({ name, el, target, source, sibling }) => {
+        console.log(el);
+        console.log(sibling);
+        const temp = this.boardService.board.ElementList;
+        const i1 = temp.findIndex(elt => elt.ElementID === el.id );
+        let i2 = temp.findIndex(elt => elt.ElementID === sibling.id );
+        i2 = (i1 < i2) ? i2 - 1 : i2; // todo: problem with last element
+        [temp[i2], temp[i1]] =
+          [temp[i1], temp[i2]];
+        console.log(i1 + ' ' + i2);
+        this.boardService.board.ElementList = temp;
+        console.log(temp);
+      })
+    );
+
   }
 
   /**
@@ -47,14 +67,29 @@ export class KeyboardComponent implements OnInit {
    */
   ngOnInit() {
     this.indexeddbaccessService.init();
+    this.initDragAndDrop();
   }
 
   initDragAndDrop() {
     if (!this.parametersService.dragNDropinit) {
       this.dragulaService.createGroup('VAMPIRE', {
-        direction: 'horizontal',
-        moves: (el, source, handle, sibling) => !this.userToolBarService.edit
-      });
+        moves: (el, container, handle) => {
+          if (el.classList.contains('no-drag')) {
+            return false;
+          }
+          return true;
+        },
+        accepts: (el, target, source, sibling) => {
+          if (el.classList.contains('no-drag')) {
+            return false;
+          }
+          if (sibling === null) {
+            return false;
+          }
+          return true;
+        }
+
+        });
       this.parametersService.dragNDropinit = true;
     }
   }
