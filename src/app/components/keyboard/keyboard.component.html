@@ -13,12 +13,12 @@
 
   <div class="wrapper" [ngStyle]="{'grid-template-columns': 'repeat('+(this.boardService.sliderValueCol)+', '+(100/(this.boardService.sliderValueCol))+'%)',
                                   'grid-template-rows': 'repeat('+(this.boardService.sliderValueRow)+', '+(100/(this.boardService.sliderValueRow))+'%)'}"
-       [dragula]="'VAMPIRE'">
+       [dragula]="this.userToolBarService.edit ? 'VAMPIRE' :null">
 
     <ng-container class="test" *ngFor="let element of this.getTempList()">
 
       <ng-container *ngIf="this.boardService.belongToActiveFolder(element)">
-        <div class="elementContainer" >
+        <div  class="elementContainer" >
 
           <div class="element" [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)" (pointerdown)="this.pointerDown(element)" (pointerup)="this.pointerUp(element)" [ngStyle]="{'background-color': this.boardService.elementColor(element)}">
 

@@ -10,6 +10,7 @@ import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {ParametersService} from '../../services/parameters.service';
 import {Router} from '@angular/router';
 import {DragulaService} from 'ng2-dragula';
+import dragula from 'dragula';
 
 @Component({
   selector: 'app-keyboard',
@@ -39,11 +40,6 @@ export class KeyboardComponent implements OnInit {
 
   // tslint:disable-next-line:max-line-length
   constructor(private dragulaService: DragulaService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) {
-
-    dragulaService.createGroup('VAMPIRE', {
-      direction: 'horizontal'
-    });
-
   }
 
   /**
@@ -53,6 +49,19 @@ export class KeyboardComponent implements OnInit {
     this.indexeddbaccessService.init();
   }
 
+  initDragAndDrop() {
+    if (!this.parametersService.dragNDropinit) {
+      this.dragulaService.createGroup('VAMPIRE', {
+        direction: 'horizontal',
+        moves: (el, source, handle, sibling) => !this.userToolBarService.edit
+      });
+      this.parametersService.dragNDropinit = true;
+    }
+  }
+
+  drop(elt: Element) {
+    console.log(elt.ElementID);
+  }
 
   /**
    * return the normal list of elements that have to be displayed on the board if no element displayed its variant forms
