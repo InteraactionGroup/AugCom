@@ -9,16 +9,16 @@
   </div>
 </div>
 
-<div class="keyboard" [ngStyle]="{'height': this.userToolBarService.edit? 'calc(85vh - 1cm)':'85vh'}">
+<div class="keyboard" [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100vh - 4.5cm)':'calc(100vh - 3.5cm)'}">
 
   <div class="wrapper" [ngStyle]="{'grid-template-columns': 'repeat('+(this.boardService.sliderValueCol)+', '+(100/(this.boardService.sliderValueCol))+'%)',
                                   'grid-template-rows': 'repeat('+(this.boardService.sliderValueRow)+', '+(100/(this.boardService.sliderValueRow))+'%)'}"
-       [dragula]="'VAMPIRE'">
+       [dragula]="this.userToolBarService.edit ? 'VAMPIRE' :null">
 
     <ng-container class="test" *ngFor="let element of this.getTempList()">
 
       <ng-container *ngIf="this.boardService.belongToActiveFolder(element)">
-        <div class="elementContainer" >
+        <div id="{{element.ElementID}}" class="elementContainer" >
 
           <div class="element" [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)" (pointerdown)="this.pointerDown(element)" (pointerup)="this.pointerUp(element)" [ngStyle]="{'background-color': this.boardService.elementColor(element)}">
 
@@ -45,7 +45,7 @@
       </ng-container>
     </ng-container>
     <ng-container *ngIf="this.boardService.currentFolder !== '.' && this.boardService.activatedElement==-1" >
-    <div class="elementContainer" >
+    <div class="elementContainer no-drag" >
 
       <div class="element"  (click)="this.boardService.backToPreviousFolder()" [ngStyle]="{'background-color': 'red'}"> <!-- need to change élément by the label-->
 
@@ -64,10 +64,10 @@
 
     <ng-container *ngIf="this.userToolBarService.edit" >
 
-      <nav>
-        <a routerLink="/edit">
+      <nav class=" no-drag">
+        <a routerLink="/edit" class=" no-drag">
 
-          <div class="elementContainer" >
+          <div class="elementContainer no-drag" >
 
             <div class="element"  (click)="this.userToolBarService.add = true " [ngStyle]="{'background-color': 'green'}"> <!-- need to change élément by the label-->
 

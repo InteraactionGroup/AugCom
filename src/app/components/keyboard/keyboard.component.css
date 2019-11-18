@@ -1,7 +1,6 @@
 .keyboard{
-  height: 85vh;
+  height: calc(100vh - 3.5cm);
   width: 100%;
-  background-color: white;
 }
 
 .settings{
@@ -67,8 +66,8 @@
   cursor: pointer;
   position: relative;
   float: left;
-  width: 40px;
-  height: 40px;
+  width: 4vw;
+  height: 4vw;
   margin-left: 1%;
   top: -87%;
   background-color: orangered;
@@ -105,6 +104,10 @@
   margin-left: 5%;
   visibility: visible;
   border-radius: 10px;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
 
   /*border-style: solid;*/
   /*border-color: black;*/
@@ -114,7 +117,6 @@
 .keyboard .wrapper .elementContainer .element .image{
   height:70%;
   width:90%;
-  min-width: 90%;
   margin-left: 5%;
   transform: translateY(10%);
   background-size: contain;

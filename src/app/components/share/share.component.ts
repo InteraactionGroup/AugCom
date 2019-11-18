@@ -4,6 +4,7 @@ import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {GeticonService} from '../../services/geticon.service';
 import {saveAs as importedSaveAs} from 'file-saver';
 import * as JSZip from 'jszip';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-share',
@@ -12,7 +13,7 @@ import * as JSZip from 'jszip';
 })
 export class ShareComponent implements OnInit {
 
-  constructor(public getIconService: GeticonService, public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
+  constructor(private router: Router, public getIconService: GeticonService, public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
 
 
   ngOnInit() {
@@ -84,6 +85,8 @@ export class ShareComponent implements OnInit {
         }
       );
         });
+
+    this.router.navigate(['']);
   }
 
   /**
@@ -146,6 +149,7 @@ export class ShareComponent implements OnInit {
 
     };
     fileReader.readAsText(file);
+    this.router.navigate(['']);
   }
 
   /**

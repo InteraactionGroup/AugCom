@@ -32,11 +32,6 @@ export class EditionComponent implements OnInit {
   name = '';
 
   /**
-   * current interaction events list (empty by default)
-   */
-  events: { InteractionID: string, ActionList: Action[] }[] = [];
-
-  /**
    * current element color (#d3d3d3 = grey by default)
    */
   color = '#d3d3d3';
@@ -89,9 +84,9 @@ export class EditionComponent implements OnInit {
   currentInterractionNumber = -1;
 
   /**
-   * the current Interraction element selected (null by default)
+   * the current Interraction element selected (empty by default)
    */
-  currentInterraction: { InteractionID: string, ActionList: Action[] } = null;
+  interractionList: { InteractionID: string, ActionList: Action[] }[] = [];
 
   constructor(private router: Router, public parametersService: ParametersService, public indexedDBacess: IndexeddbaccessService, public ng2ImgMaxService: Ng2ImgMaxService, public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public boardService: BoardService) {
 
@@ -116,7 +111,6 @@ export class EditionComponent implements OnInit {
    */
   selectInteraction(i: number) {
     this.currentInterractionNumber = i;
-    this.currentInterraction = this.events.find(x => x.InteractionID === this.parametersService.interaction[i - 1]);
   }
 
   /**
@@ -141,7 +135,6 @@ export class EditionComponent implements OnInit {
     this.variantDisplayed = false;
     this.eventDisplayed = false;
     this.currentInterractionNumber = -1;
-    this.currentInterraction = null;
     // close the edition panel
     } else {
       this.userToolBar.add = false;
@@ -169,7 +162,7 @@ export class EditionComponent implements OnInit {
     this.imageURL = '';
     this.imageList = [];
     this.currentInterractionNumber = -1;
-    this.currentInterraction = null;
+    this.interractionList = [];
     this.dbnaryService.wordList = [];
     this.dbnaryService.typeList = [];
   }
@@ -192,14 +185,17 @@ export class EditionComponent implements OnInit {
     const inter = this.parametersService.interaction[this.currentInterractionNumber - 1];
     const partOfCurrentInter = this.isPartOfCurrentInteraction(actionId);
 
-    if (this.currentInterraction == null && !partOfCurrentInter) {
-      this.currentInterraction = { InteractionID: inter, ActionList: [ {ActionID: actionId, Action: actionId} ] };
+    const currentInterraction = this.interractionList.findIndex( interaction => interaction.InteractionID === inter );
+
+    if ( currentInterraction === -1 && !partOfCurrentInter) {
+      this.interractionList.push({ InteractionID: inter, ActionList: [ {ActionID: actionId, Action: actionId} ] });
     } else if (!partOfCurrentInter) {
-      this.currentInterraction.ActionList.push({ActionID: actionId, Action: actionId});
+      this.interractionList[currentInterraction].ActionList.push({ActionID: actionId, Action: actionId});
     } else if (partOfCurrentInter) {
-      this.currentInterraction.ActionList = this.currentInterraction.ActionList.filter(x => x.ActionID !== actionId);
+      // tslint:disable-next-line:max-line-length
+      this.interractionList[currentInterraction].ActionList = this.interractionList[currentInterraction].ActionList.filter(x => x.ActionID !== actionId);
     }
-    console.log(this.currentInterraction.ActionList);
+
   }
 
   /**
@@ -209,8 +205,10 @@ export class EditionComponent implements OnInit {
    * @return true if the action identified by actionId exists in the current interaction, false otherwise
    */
   isPartOfCurrentInteraction(actionId) {
-    if (this.currentInterraction != null) {
-      const res = this.currentInterraction.ActionList.find(x => x.ActionID === actionId);
+    const inter = this.parametersService.interaction[this.currentInterractionNumber - 1];
+    const currentInterraction = this.interractionList.find( interaction => interaction.InteractionID === inter );
+    if (currentInterraction != null) {
+      const res = currentInterraction.ActionList.find(x => x.ActionID === actionId);
       return res != null && res !== undefined;
     }
     return false;
@@ -318,38 +316,44 @@ export class EditionComponent implements OnInit {
     // tslint:disable-next-line:no-shadowed-variable
     const element: Element = this.userToolBar.modif;
     element.ElementType = this.radioTypeFormat;
-    const defaultform = element.ElementForms.find(form => {
-      const newForm = form.LexicInfos.find(info => {
-        return (info.default != null && info.default);
-      });
-      return (newForm != null);
-    });
-    if (defaultform != null) {
-    defaultform.DisplayedText = this.name;
-    defaultform.VoiceText = this.name;
-    } else {
-      element.ElementForms.push({
-        DisplayedText: this.name,
-        VoiceText: this.name,
-        LexicInfos: [{default: true}]
-      });
+
+    if (this.variantList.length > 0) {
+      element.ElementForms = [];
     }
+
+    let defaultExist = false;
     this.variantList.forEach( variant => {
+      const lexicInfo = variant.info;
+      if (variant.val === this.name) {
+        lexicInfo.push({default: true});
+        defaultExist = true;
+      }
       element.ElementForms.push({
         DisplayedText: variant.val,
         VoiceText: variant.val,
-        LexicInfos: variant.info
+        LexicInfos: lexicInfo
       });
     });
+
+    if (!defaultExist) {
+      element.ElementForms.push({DisplayedText: this.name,
+        VoiceText: this.name,
+        LexicInfos: [{default: true}] });
+    }
+
+    console.log(this.interractionList);
+    element.InteractionsList = Object.assign([], this.interractionList);
+    console.log(element.InteractionsList);
+
     element.Color = this.color;
-    element.ImageID = this.boardService.currentFolder + this.name;
+    element.ImageID = this.boardService.currentFolder + element.ElementID;
 
     this.boardService.board.ImageList = this.boardService.board.ImageList.filter(
-      img => img.ImageID !== this.boardService.currentFolder + this.name);
+      img => img.ImageID !== this.boardService.currentFolder + element.ElementID);
 
     this.boardService.board.ImageList.push(
       {
-        ImageID: this.boardService.currentFolder + this.name,
+        ImageID: this.boardService.currentFolder + element.ElementID,
         ImageLabel: this.name,
         ImagePath: this.imageURL
       });
@@ -360,16 +364,25 @@ export class EditionComponent implements OnInit {
    */
   createNewButton() {
     const elementForms = [];
-    elementForms.push({DisplayedText: this.name,
-      VoiceText: this.name,
-      LexicInfos: [{default: true}] });
+    let defaultExist = false;
     this.variantList.forEach( variant => {
+      const lexicInfo = variant.info;
+      if (variant.val === this.name) {
+        lexicInfo.push({default: true});
+        defaultExist = true;
+      }
       elementForms.push({
         DisplayedText: variant.val,
         VoiceText: variant.val,
-        LexicInfos: variant.info
+        LexicInfos: lexicInfo
       });
     });
+
+    if (!defaultExist) {
+      elementForms.push({DisplayedText: this.name,
+        VoiceText: this.name,
+        LexicInfos: [{default: true}] });
+    }
 
     const interList = [{
       InteractionID: 'click', ActionList: [{
@@ -379,25 +392,40 @@ export class EditionComponent implements OnInit {
         ActionID: 'otherforms', Action: 'otherforms'}]}];
 
 
+    let i = 0
+    let tempId = this.name;
+    while (this.boardService.board.ElementList.findIndex(elt => elt.ElementID === tempId) !== -1) {
+      tempId = this.name + i;
+      i = i + 1;
+    }
 
     this.boardService.board.ElementList.push(
       {
-        ElementID: this.name,
+        ElementID: tempId,
         ElementFolder: this.boardService.currentFolder,
         ElementType: this.radioTypeFormat,
         ElementPartOfSpeech: this.classe,
         ElementForms: elementForms,
-        ImageID: this.boardService.currentFolder + this.name,
+        ImageID: this.boardService.currentFolder + tempId,
         InteractionsList: interList,
         Color: this.color
       });
 
     this.boardService.board.ImageList.push(
       {
-        ImageID: this.boardService.currentFolder + this.name,
+        ImageID: this.boardService.currentFolder + tempId,
         ImageLabel: this.name,
         ImagePath: this.imageURL
       });
+  }
+
+
+  getName(element: Element) {
+    const index = element.ElementForms.findIndex(form =>  form.LexicInfos.findIndex(info => info.default) !== -1);
+    if (index !== -1) {
+      return element.ElementForms[index].DisplayedText;
+    }
+    return element.ElementForms[0].DisplayedText;
   }
 
   /**
@@ -408,8 +436,7 @@ export class EditionComponent implements OnInit {
   updatemodif() {
     if (this.userToolBar.modif !== null) {
     const elementToModif: Element = this.userToolBar.modif;
-    this.name = elementToModif.ElementForms[0].DisplayedText;
-    this.events = elementToModif.InteractionsList;
+    this.name = this.getName(elementToModif);
     this.color = elementToModif.Color;
     this.radioTypeFormat = elementToModif.ElementType;
     const imageToModif = this.boardService.board.ImageList.find(x => x.ImageID === elementToModif.ImageID);
@@ -417,6 +444,15 @@ export class EditionComponent implements OnInit {
         this.imageURL = imageToModif.ImagePath;
     } else {
       this.imageURL = '';
+    }
+    const interactionListToModify = elementToModif.InteractionsList;
+    if (interactionListToModify != null) {
+
+      this.interractionList = [] ;
+      interactionListToModify.map(val =>
+        this.interractionList.push({InteractionID: val.InteractionID, ActionList: Object.assign([], val.ActionList) } ));
+    } else {
+      this.interractionList = [];
     }
   }
   }
@@ -440,7 +476,7 @@ export class EditionComponent implements OnInit {
    */
   getEvents() {
     this.eventDisplayed = true;
-    return this.events;
+    return this.interractionList;
   }
 
   /**
