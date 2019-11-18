@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ParametersService} from '../../services/parameters.service';
-import {PaletteService} from "../../services/palette.service";
+import {PaletteService} from '../../services/palette.service';
 
 @Component({
   selector: 'app-settings',
