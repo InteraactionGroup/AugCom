@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ParametersService} from '../../services/parameters.service';
+import {PaletteService} from "../../services/palette.service";
 
 @Component({
   selector: 'app-settings',
@@ -8,7 +9,7 @@ import {ParametersService} from '../../services/parameters.service';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(public parametersService: ParametersService) {}
+  constructor(public paletteService: PaletteService, public parametersService: ParametersService) {}
 
   /**
    * the interactions bounded with the current html setting information

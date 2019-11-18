@@ -53,5 +53,31 @@
     </select>
   </div>
 
+  <div class="palettes">
+    <div class="palette" *ngFor="let palette of this.paletteService.palettes" [ngStyle]="{'grid-template-rows': 'repeat(' + this.paletteService.rowNumber(palette.length) + ',30px)'}" >
+      <div class="color"  [class.realcolor]="color!==null" *ngFor="let color of palette" [ngStyle]="{'background-color': color}">
+
+      </div>
+    </div>
+  </div>
+
+  <div class="addPalette">
+    <div class="addButtonPalette" *ngIf="!this.paletteService.newpalette" (click)="this.paletteService.newpalette = true">
+        new palette
+    </div>
+
+    <div class="palette" *ngIf="this.paletteService.newpalette">
+      <div class="color" *ngFor="let color of this.paletteService.newTempPalette" [ngStyle]="{'background-color': color}">
+
+      </div>
+      <div class="more">
+        <label class="moreColor" for="theColorPicker">
+        </label>
+        <input id="theColorPicker" [(ngModel)]="this.paletteService.currentColor" class="colorPicker" type="color" (input)="this.paletteService.updateColor()" (click)="this.paletteService.addColor()">
+      </div>
+    </div>
+
+  </div>
+
 
 </div>

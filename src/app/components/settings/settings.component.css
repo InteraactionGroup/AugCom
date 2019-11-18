@@ -13,3 +13,85 @@
   height: 1.5cm;
   background-color: grey;
 }
+
+.addPalette{
+  margin-top: 30px;
+  width: 300px;
+  height: 40px;
+  background-color: grey;
+}
+
+.addPalette .palette{
+  width: 300px;
+  height: fit-content;
+  display: grid;
+  grid-template-columns: repeat(10,30px);
+  background-color: grey;
+  margin-bottom: 30px;
+}
+
+.addPalette .palette .color{
+  float: left;
+  margin-top: 5px;
+  margin-left: 5px;
+  height: 20px;
+  width: 20px;
+}
+
+.addPalette .palette .more .moreColor{
+  float: left;
+  margin-top: 5px;
+  margin-left: 5px;
+  height: 20px;
+  width: 20px;
+  background-color: orange;
+  border-radius: 50%;
+}
+.addPalette .palette .more .colorPicker{
+  visibility: hidden;
+}
+
+.addPalette .addButtonPalette{
+  width: 100px;
+  transform: translateY(15%);
+  margin-left: 100px;
+  height: 30px;
+  background-color: orange;
+}
+
+.palettes{
+  margin-top: 5px;
+  width: 300px;
+  height: fit-content;
+}
+
+.palettes .palette{
+  width: 300px;
+  height: fit-content;
+  display: grid;
+  grid-template-columns: repeat(10,30px);
+  background-color: grey;
+  margin-bottom: 30px;
+}
+
+.palettes .palette .color{
+  float: left;
+  margin-top: 5px;
+  margin-left: 5px;
+  height: 20px;
+  width: 20px;
+
+}
+
+.palettes .palette .realcolor:hover{
+  cursor: pointer;
+  float: left;
+  margin-top: 0px;
+  margin-left: 0px;
+  height: 30px;
+  width: 30px;
+  box-sizing: border-box;
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
+}
