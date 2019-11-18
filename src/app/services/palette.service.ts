@@ -21,7 +21,7 @@ export class PaletteService {
 
   newpalette = false;
 
-  newTempPalette = ['#4363d8'];
+  newTempPalette = [];
 
   currentColor = '#ffffff';
 
@@ -43,6 +43,23 @@ export class PaletteService {
 
   updateColor() {
     this.newTempPalette[this.newTempPalette.length - 1] = this.currentColor;
+  }
+
+  delete(thisColor) {
+    this.newTempPalette = this.newTempPalette.filter(color => color !== thisColor);
+  }
+
+  savePalette() {
+    if (this.newTempPalette.length > 0) {
+      this.palettes.push(this.newTempPalette);
+      this.newTempPalette = [];
+      this.newpalette = false;
+    }
+  }
+
+  close() {
+    this.newTempPalette = [];
+    this.newpalette = false;
   }
 
 }
