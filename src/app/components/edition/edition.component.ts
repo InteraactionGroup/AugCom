@@ -32,11 +32,6 @@ export class EditionComponent implements OnInit {
   name = '';
 
   /**
-   * current interaction events list (empty by default)
-   */
-  events: { InteractionID: string, ActionList: Action[] }[] = [];
-
-  /**
    * current element color (#d3d3d3 = grey by default)
    */
   color = '#d3d3d3';
@@ -89,9 +84,9 @@ export class EditionComponent implements OnInit {
   currentInterractionNumber = -1;
 
   /**
-   * the current Interraction element selected (null by default)
+   * the current Interraction element selected (empty by default)
    */
-  interractionList: { InteractionID: string, ActionList: Action[] }[] = null;
+  interractionList: { InteractionID: string, ActionList: Action[] }[] = [];
 
   constructor(private router: Router, public parametersService: ParametersService, public indexedDBacess: IndexeddbaccessService, public ng2ImgMaxService: Ng2ImgMaxService, public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public boardService: BoardService) {
 
@@ -140,7 +135,6 @@ export class EditionComponent implements OnInit {
     this.variantDisplayed = false;
     this.eventDisplayed = false;
     this.currentInterractionNumber = -1;
-    this.interractionList = [];
     // close the edition panel
     } else {
       this.userToolBar.add = false;
@@ -191,7 +185,6 @@ export class EditionComponent implements OnInit {
     const inter = this.parametersService.interaction[this.currentInterractionNumber - 1];
     const partOfCurrentInter = this.isPartOfCurrentInteraction(actionId);
 
-    console.log(this.interractionList);
     const currentInterraction = this.interractionList.findIndex( interaction => interaction.InteractionID === inter );
 
     if ( currentInterraction === -1 && !partOfCurrentInter) {
@@ -202,7 +195,6 @@ export class EditionComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       this.interractionList[currentInterraction].ActionList = this.interractionList[currentInterraction].ActionList.filter(x => x.ActionID !== actionId);
     }
-    console.log(this.interractionList);
 
   }
 
@@ -340,6 +332,10 @@ export class EditionComponent implements OnInit {
         LexicInfos: [{default: true}]
       });
     }
+    console.log(this.interractionList);
+    element.InteractionsList = Object.assign([], this.interractionList);
+    console.log(element.InteractionsList);
+
     this.variantList.forEach( variant => {
       element.ElementForms.push({
         DisplayedText: variant.val,
@@ -415,7 +411,6 @@ export class EditionComponent implements OnInit {
     if (this.userToolBar.modif !== null) {
     const elementToModif: Element = this.userToolBar.modif;
     this.name = elementToModif.ElementForms[0].DisplayedText;
-    this.events = elementToModif.InteractionsList;
     this.color = elementToModif.Color;
     this.radioTypeFormat = elementToModif.ElementType;
     const imageToModif = this.boardService.board.ImageList.find(x => x.ImageID === elementToModif.ImageID);
@@ -425,9 +420,11 @@ export class EditionComponent implements OnInit {
       this.imageURL = '';
     }
     const interactionListToModify = elementToModif.InteractionsList;
-    console.log(interactionListToModify);
     if (interactionListToModify != null) {
-      this.interractionList = elementToModif.InteractionsList;
+
+      this.interractionList = [] ;
+      interactionListToModify.map(val =>
+        this.interractionList.push({InteractionID: val.InteractionID, ActionList: Object.assign([], val.ActionList) } ));
     } else {
       this.interractionList = [];
     }
@@ -453,7 +450,7 @@ export class EditionComponent implements OnInit {
    */
   getEvents() {
     this.eventDisplayed = true;
-    return this.events;
+    return this.interractionList;
   }
 
   /**
