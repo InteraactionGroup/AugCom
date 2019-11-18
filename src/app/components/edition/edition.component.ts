@@ -316,42 +316,44 @@ export class EditionComponent implements OnInit {
     // tslint:disable-next-line:no-shadowed-variable
     const element: Element = this.userToolBar.modif;
     element.ElementType = this.radioTypeFormat;
-    const defaultform = element.ElementForms.find(form => {
-      const newForm = form.LexicInfos.find(info => {
-        return (info.default != null && info.default);
-      });
-      return (newForm != null);
-    });
-    if (defaultform != null) {
-    defaultform.DisplayedText = this.name;
-    defaultform.VoiceText = this.name;
-    } else {
-      element.ElementForms.push({
-        DisplayedText: this.name,
-        VoiceText: this.name,
-        LexicInfos: [{default: true}]
-      });
+
+    if (this.variantList.length > 0) {
+      element.ElementForms = [];
     }
+
+    let defaultExist = false;
+    this.variantList.forEach( variant => {
+      const lexicInfo = variant.info;
+      if (variant.val === this.name) {
+        lexicInfo.push({default: true});
+        defaultExist = true;
+      }
+      element.ElementForms.push({
+        DisplayedText: variant.val,
+        VoiceText: variant.val,
+        LexicInfos: lexicInfo
+      });
+    });
+
+    if (!defaultExist) {
+      element.ElementForms.push({DisplayedText: this.name,
+        VoiceText: this.name,
+        LexicInfos: [{default: true}] });
+    }
+
     console.log(this.interractionList);
     element.InteractionsList = Object.assign([], this.interractionList);
     console.log(element.InteractionsList);
 
-    this.variantList.forEach( variant => {
-      element.ElementForms.push({
-        DisplayedText: variant.val,
-        VoiceText: variant.val,
-        LexicInfos: variant.info
-      });
-    });
     element.Color = this.color;
-    element.ImageID = this.boardService.currentFolder + this.name;
+    element.ImageID = this.boardService.currentFolder + element.ElementID;
 
     this.boardService.board.ImageList = this.boardService.board.ImageList.filter(
-      img => img.ImageID !== this.boardService.currentFolder + this.name);
+      img => img.ImageID !== this.boardService.currentFolder + element.ElementID);
 
     this.boardService.board.ImageList.push(
       {
-        ImageID: this.boardService.currentFolder + this.name,
+        ImageID: this.boardService.currentFolder + element.ElementID,
         ImageLabel: this.name,
         ImagePath: this.imageURL
       });
@@ -362,16 +364,25 @@ export class EditionComponent implements OnInit {
    */
   createNewButton() {
     const elementForms = [];
-    elementForms.push({DisplayedText: this.name,
-      VoiceText: this.name,
-      LexicInfos: [{default: true}] });
+    let defaultExist = false;
     this.variantList.forEach( variant => {
+      const lexicInfo = variant.info;
+      if (variant.val === this.name) {
+        lexicInfo.push({default: true});
+        defaultExist = true;
+      }
       elementForms.push({
         DisplayedText: variant.val,
         VoiceText: variant.val,
-        LexicInfos: variant.info
+        LexicInfos: lexicInfo
       });
     });
+
+    if (!defaultExist) {
+      elementForms.push({DisplayedText: this.name,
+        VoiceText: this.name,
+        LexicInfos: [{default: true}] });
+    }
 
     const interList = [{
       InteractionID: 'click', ActionList: [{
@@ -381,25 +392,40 @@ export class EditionComponent implements OnInit {
         ActionID: 'otherforms', Action: 'otherforms'}]}];
 
 
+    let i = 0
+    let tempId = this.name;
+    while (this.boardService.board.ElementList.findIndex(elt => elt.ElementID === tempId) !== -1) {
+      tempId = this.name + i;
+      i = i + 1;
+    }
 
     this.boardService.board.ElementList.push(
       {
-        ElementID: this.name,
+        ElementID: tempId,
         ElementFolder: this.boardService.currentFolder,
         ElementType: this.radioTypeFormat,
         ElementPartOfSpeech: this.classe,
         ElementForms: elementForms,
-        ImageID: this.boardService.currentFolder + this.name,
+        ImageID: this.boardService.currentFolder + tempId,
         InteractionsList: interList,
         Color: this.color
       });
 
     this.boardService.board.ImageList.push(
       {
-        ImageID: this.boardService.currentFolder + this.name,
+        ImageID: this.boardService.currentFolder + tempId,
         ImageLabel: this.name,
         ImagePath: this.imageURL
       });
+  }
+
+
+  getName(element: Element) {
+    const index = element.ElementForms.findIndex(form =>  form.LexicInfos.findIndex(info => info.default) !== -1);
+    if (index !== -1) {
+      return element.ElementForms[index].DisplayedText;
+    }
+    return element.ElementForms[0].DisplayedText;
   }
 
   /**
@@ -410,7 +436,7 @@ export class EditionComponent implements OnInit {
   updatemodif() {
     if (this.userToolBar.modif !== null) {
     const elementToModif: Element = this.userToolBar.modif;
-    this.name = elementToModif.ElementForms[0].DisplayedText;
+    this.name = this.getName(elementToModif);
     this.color = elementToModif.Color;
     this.radioTypeFormat = elementToModif.ElementType;
     const imageToModif = this.boardService.board.ImageList.find(x => x.ImageID === elementToModif.ImageID);
