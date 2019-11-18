@@ -9,7 +9,7 @@
   </div>
 </div>
 
-<div class="keyboard" [ngStyle]="{'height': this.userToolBarService.edit? 'calc(85vh - 1cm)':'85vh'}">
+<div class="keyboard" [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100vh - 4.5cm)':'calc(100vh - 3.5cm)'}">
 
   <div class="wrapper" [ngStyle]="{'grid-template-columns': 'repeat('+(this.boardService.sliderValueCol)+', '+(100/(this.boardService.sliderValueCol))+'%)',
                                   'grid-template-rows': 'repeat('+(this.boardService.sliderValueRow)+', '+(100/(this.boardService.sliderValueRow))+'%)'}"

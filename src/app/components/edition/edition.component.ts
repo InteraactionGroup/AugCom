@@ -91,7 +91,7 @@ export class EditionComponent implements OnInit {
   /**
    * the current Interraction element selected (null by default)
    */
-  currentInterraction: { InteractionID: string, ActionList: Action[] } = null;
+  interractionList: { InteractionID: string, ActionList: Action[] }[] = null;
 
   constructor(private router: Router, public parametersService: ParametersService, public indexedDBacess: IndexeddbaccessService, public ng2ImgMaxService: Ng2ImgMaxService, public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public boardService: BoardService) {
 
@@ -116,7 +116,6 @@ export class EditionComponent implements OnInit {
    */
   selectInteraction(i: number) {
     this.currentInterractionNumber = i;
-    this.currentInterraction = this.events.find(x => x.InteractionID === this.parametersService.interaction[i - 1]);
   }
 
   /**
@@ -141,7 +140,7 @@ export class EditionComponent implements OnInit {
     this.variantDisplayed = false;
     this.eventDisplayed = false;
     this.currentInterractionNumber = -1;
-    this.currentInterraction = null;
+    this.interractionList = [];
     // close the edition panel
     } else {
       this.userToolBar.add = false;
@@ -169,7 +168,7 @@ export class EditionComponent implements OnInit {
     this.imageURL = '';
     this.imageList = [];
     this.currentInterractionNumber = -1;
-    this.currentInterraction = null;
+    this.interractionList = [];
     this.dbnaryService.wordList = [];
     this.dbnaryService.typeList = [];
   }
@@ -192,14 +191,19 @@ export class EditionComponent implements OnInit {
     const inter = this.parametersService.interaction[this.currentInterractionNumber - 1];
     const partOfCurrentInter = this.isPartOfCurrentInteraction(actionId);
 
-    if (this.currentInterraction == null && !partOfCurrentInter) {
-      this.currentInterraction = { InteractionID: inter, ActionList: [ {ActionID: actionId, Action: actionId} ] };
+    console.log(this.interractionList);
+    const currentInterraction = this.interractionList.findIndex( interaction => interaction.InteractionID === inter );
+
+    if ( currentInterraction === -1 && !partOfCurrentInter) {
+      this.interractionList.push({ InteractionID: inter, ActionList: [ {ActionID: actionId, Action: actionId} ] });
     } else if (!partOfCurrentInter) {
-      this.currentInterraction.ActionList.push({ActionID: actionId, Action: actionId});
+      this.interractionList[currentInterraction].ActionList.push({ActionID: actionId, Action: actionId});
     } else if (partOfCurrentInter) {
-      this.currentInterraction.ActionList = this.currentInterraction.ActionList.filter(x => x.ActionID !== actionId);
+      // tslint:disable-next-line:max-line-length
+      this.interractionList[currentInterraction].ActionList = this.interractionList[currentInterraction].ActionList.filter(x => x.ActionID !== actionId);
     }
-    console.log(this.currentInterraction.ActionList);
+    console.log(this.interractionList);
+
   }
 
   /**
@@ -209,8 +213,10 @@ export class EditionComponent implements OnInit {
    * @return true if the action identified by actionId exists in the current interaction, false otherwise
    */
   isPartOfCurrentInteraction(actionId) {
-    if (this.currentInterraction != null) {
-      const res = this.currentInterraction.ActionList.find(x => x.ActionID === actionId);
+    const inter = this.parametersService.interaction[this.currentInterractionNumber - 1];
+    const currentInterraction = this.interractionList.find( interaction => interaction.InteractionID === inter );
+    if (currentInterraction != null) {
+      const res = currentInterraction.ActionList.find(x => x.ActionID === actionId);
       return res != null && res !== undefined;
     }
     return false;
@@ -417,6 +423,13 @@ export class EditionComponent implements OnInit {
         this.imageURL = imageToModif.ImagePath;
     } else {
       this.imageURL = '';
+    }
+    const interactionListToModify = elementToModif.InteractionsList;
+    console.log(interactionListToModify);
+    if (interactionListToModify != null) {
+      this.interractionList = elementToModif.InteractionsList;
+    } else {
+      this.interractionList = [];
     }
   }
   }
