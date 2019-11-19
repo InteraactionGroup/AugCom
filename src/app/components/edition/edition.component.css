@@ -522,7 +522,7 @@ background-color: grey;
 .palettes{
   display: inline-block;
   margin-top: 65px;
-  width: 90%;
+  width: 80%;
   margin-left: 5%;
   height: fit-content;
 }
@@ -537,13 +537,41 @@ background-color: grey;
   margin-bottom: 10px;
 }
 
+
+.palettes .paletteLabel{
+  float: left;
+  width: 100%;
+  height: 20px;
+  background-color: grey;
+}
+
+.palettes .paletteLabel:hover{
+  background-color: dimgrey;
+}
+
+ .moreLess{
+  float: right;
+   margin-right: 5%;
+}
+
 .palettes .palette .color{
   float: left;
   margin-top: 10%;
   margin-left: 10%;
   height: 80%;
   width: 80%;
+}
 
+.palettes .palette .realcolor{
+  float: left;
+  margin-top: 10%;
+  margin-left: 10%;
+  height: 80%;
+  width: 80%;
+  box-sizing: border-box;
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
 }
 
 .palettes .palette .realcolor:hover{

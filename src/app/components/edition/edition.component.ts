@@ -20,6 +20,8 @@ import {PaletteService} from "../../services/palette.service";
 })
 export class EditionComponent implements OnInit {
 
+  selectedPalette = this.paletteService.defaultPalette;
+
   colorPicked = false;
 
   /**
@@ -518,6 +520,14 @@ export class EditionComponent implements OnInit {
 
   pickAColor() {
     this.colorPicked = true;
+  }
+
+  selectThePalette( name  ) {
+    if (this.selectedPalette === name) {
+      this.selectedPalette = null;
+    } else {
+      this.selectedPalette = name;
+    }
   }
 }
 

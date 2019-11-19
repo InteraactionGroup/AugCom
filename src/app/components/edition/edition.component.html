@@ -247,8 +247,14 @@
 
       <div class="palettes">
         <ng-container *ngFor="let palette of this.paletteService.palettes">
-          <div class="palette"  [ngStyle]="{'grid-template-rows': 'repeat(' + this.paletteService.rowNumber(palette.length) + ',30px)'}" >
-            <div class="color"  [class.realcolor]="color!==null" *ngFor="let color of palette" [ngStyle]="{'background-color': color}"
+          <div class="paletteLabel" (click)="selectThePalette(palette.name)">
+            {{palette.name}}
+            <div class="moreLess">
+              {{this.selectedPalette == palette.name?'^':'v'}}
+            </div>
+          </div>
+          <div class="palette" *ngIf="this.selectedPalette == palette.name" [ngStyle]="{'grid-template-rows': 'repeat(' + this.paletteService.rowNumber(palette.colors.length) + ',30px)'}" >
+            <div class="color"  [class.realcolor]="color!==null" *ngFor="let color of palette.colors" [ngStyle]="{'background-color': color}"
             (click)="this.curentColor= color">
 
             </div>

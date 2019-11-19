@@ -36,6 +36,10 @@
   margin-left: 5px;
   height: 20px;
   width: 20px;
+  box-sizing: border-box;
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
 }
 
 .addPalette .palette .deleteColor{
@@ -48,6 +52,10 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
 }
 
 .addPalette .palette .moreColor {
@@ -104,6 +112,13 @@
   height: fit-content;
 }
 
+.palettes .paletteLabel{
+  float: left;
+  width: 350px;
+  height: 20px;
+  background-color: dimgrey;
+}
+
 .palettes .palette{
   float: left;
   width: 300px;
@@ -118,10 +133,12 @@
   float: left;
   width: 50px;
   background-color: grey;
-}
+}.palettes .supprPalette:hover{
+   background-color: dimgrey;
+ }
 
 .palettes .supprPalette .icon{
-  height: 30px;
+  height: 20px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -133,9 +150,19 @@
   margin-left: 5px;
   height: 20px;
   width: 20px;
-
 }
 
+.palettes .palette .realcolor{
+  float: left;
+  margin-top: 5px;
+  margin-left: 5px;
+  height: 20px;
+  width: 20px;
+  box-sizing: border-box;
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
+}
 .palettes .palette .realcolor:hover{
   cursor: pointer;
   float: left;

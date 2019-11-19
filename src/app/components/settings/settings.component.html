@@ -55,14 +55,17 @@
 
   <div class="palettes">
     <ng-container *ngFor="let palette of this.paletteService.palettes">
-    <div class="palette"  [ngStyle]="{'grid-template-rows': 'repeat(' + this.paletteService.rowNumber(palette.length) + ',30px)'}" >
-      <div class="color"  [class.realcolor]="color!==null" *ngFor="let color of palette" [ngStyle]="{'background-color': color}">
+      <div class="paletteLabel">
+         {{palette.name}}
+      </div>
+    <div class="palette"  [ngStyle]="{'grid-template-rows': 'repeat(' + this.paletteService.rowNumber(palette.colors.length) + ',30px)'}" >
+      <div class="color"  [class.realcolor]="color!==null" *ngFor="let color of palette.colors" [ngStyle]="{'background-color': color}">
 
       </div>
     </div>
-      <div class="supprPalette" [ngStyle]="{'height': 30*this.paletteService.rowNumber(palette.length) + 'px'}">
+      <div class="supprPalette" [ngStyle]="{'height': 30*this.paletteService.rowNumber(palette.colors.length) + 'px'}">
           <div class="icon" [style.background-image]="this.getIcon('delete')"
-               [ngStyle]="{'margin-top': (30*this.paletteService.rowNumber(palette.length)-30)/2 + 'px'}"
+               [ngStyle]="{'margin-top': (30*this.paletteService.rowNumber(palette.colors.length)-20)/2 + 'px'}"
           (click)="this.paletteCodamne = palette">
 
           </div>
@@ -70,13 +73,13 @@
     </ng-container>
   </div>
 
-  <div class="addPalette" [ngStyle]="{'height': 30*this.paletteService.rowNumber(this.paletteService.newTempPalette.length+3) + 'px'}">
+  <div class="addPalette" [ngStyle]="{'height': 30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+3) + 'px'}">
     <div class="addButtonPalette" *ngIf="!this.paletteService.newpalette" (click)="this.paletteService.newpalette = true">
         new palette
     </div>
 
-    <div class="palette" *ngIf="this.paletteService.newpalette" [ngStyle]="{'height': 30*this.paletteService.rowNumber(this.paletteService.newTempPalette.length+3) + 'px'}">
-      <div class="color" *ngFor="let color of this.paletteService.newTempPalette" [ngStyle]="{'background-color': color}">
+    <div class="palette" *ngIf="this.paletteService.newpalette" [ngStyle]="{'height': 30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+3) + 'px'}">
+      <div class="color" *ngFor="let color of this.paletteService.newTempPalette.colors" [ngStyle]="{'background-color': color}">
         <div class="deleteColor" (click)="this.paletteService.delete(color)" [style.background-image]="this.getIcon('clear')">
 
         </div>
