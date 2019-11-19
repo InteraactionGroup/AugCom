@@ -11,6 +11,7 @@ import {Action, Element} from '../../types';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {ParametersService} from '../../services/parameters.service';
 import {Router} from '@angular/router';
+import {PaletteService} from "../../services/palette.service";
 
 @Component({
   selector: 'app-edition',
@@ -19,6 +20,7 @@ import {Router} from '@angular/router';
 })
 export class EditionComponent implements OnInit {
 
+  colorPicked = false;
 
   /**
    * the type of the current element (button by default)
@@ -34,7 +36,7 @@ export class EditionComponent implements OnInit {
   /**
    * current element color (#d3d3d3 = grey by default)
    */
-  color = '#d3d3d3';
+  curentColor = '#d3d3d3';
 
   /**
    * current imageUrl of the element (empty by default), can be a string or a safe url
@@ -88,7 +90,7 @@ export class EditionComponent implements OnInit {
    */
   interractionList: { InteractionID: string, ActionList: Action[] }[] = [];
 
-  constructor(private router: Router, public parametersService: ParametersService, public indexedDBacess: IndexeddbaccessService, public ng2ImgMaxService: Ng2ImgMaxService, public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public boardService: BoardService) {
+  constructor(public  paletteService: PaletteService, private router: Router, public parametersService: ParametersService, public indexedDBacess: IndexeddbaccessService, public ng2ImgMaxService: Ng2ImgMaxService, public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public boardService: BoardService) {
 
   }
   /**
@@ -158,7 +160,7 @@ export class EditionComponent implements OnInit {
    */
   clear() {
     this.name = '';
-    this.color = '#d3d3d3';
+    this.curentColor = '#d3d3d3';
     this.imageURL = '';
     this.imageList = [];
     this.currentInterractionNumber = -1;
@@ -345,7 +347,7 @@ export class EditionComponent implements OnInit {
     element.InteractionsList = Object.assign([], this.interractionList);
     console.log(element.InteractionsList);
 
-    element.Color = this.color;
+    element.Color = this.curentColor;
     element.ImageID = this.boardService.currentFolder + element.ElementID;
 
     this.boardService.board.ImageList = this.boardService.board.ImageList.filter(
@@ -408,7 +410,7 @@ export class EditionComponent implements OnInit {
         ElementForms: elementForms,
         ImageID: this.boardService.currentFolder + tempId,
         InteractionsList: interList,
-        Color: this.color
+        Color: this.curentColor
       });
 
     this.boardService.board.ImageList.push(
@@ -437,7 +439,7 @@ export class EditionComponent implements OnInit {
     if (this.userToolBar.modif !== null) {
     const elementToModif: Element = this.userToolBar.modif;
     this.name = this.getName(elementToModif);
-    this.color = elementToModif.Color;
+    this.curentColor = elementToModif.Color;
     this.radioTypeFormat = elementToModif.ElementType;
     const imageToModif = this.boardService.board.ImageList.find(x => x.ImageID === elementToModif.ImageID);
     if (imageToModif != null && imageToModif !== undefined) {

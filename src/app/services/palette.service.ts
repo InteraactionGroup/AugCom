@@ -57,6 +57,10 @@ export class PaletteService {
     }
   }
 
+  deletePalette(paletteToDelete) {
+    this.palettes = this.palettes.filter(palette  => palette !== paletteToDelete);
+  }
+
   close() {
     this.newTempPalette = [];
     this.newpalette = false;

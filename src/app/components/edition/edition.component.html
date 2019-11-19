@@ -10,13 +10,18 @@
     </div>
   </div>
 
+
+
   <div class="leftEdition">
 
     <div class="colorPickerContainer">
-      <input [(ngModel)]="color" class="colorPicker" type="color" >
+      <div class="colorPicker" (click)="this.colorPicked = true"
+      [ngStyle]="{'background-color':this.curentColor}">
+
+      </div>
     </div>
 
-    <div class="button" [ngStyle]="{'background-color': this.color}">
+    <div class="button" [ngStyle]="{'background-color': this.curentColor}">
       <div class="image" [style.background-image]="this.sanitizer.bypassSecurityTrustStyle('url(' +this.imageURL+')')">
 
       </div>
@@ -233,6 +238,26 @@
     </div>
 
 
+  </div>
+
+
+
+  <div class="popup" *ngIf="this.colorPicked">
+    <div class="popupcontainer">
+
+      <div class="palettes">
+        <ng-container *ngFor="let palette of this.paletteService.palettes">
+          <div class="palette"  [ngStyle]="{'grid-template-rows': 'repeat(' + this.paletteService.rowNumber(palette.length) + ',30px)'}" >
+            <div class="color"  [class.realcolor]="color!==null" *ngFor="let color of palette" [ngStyle]="{'background-color': color}"
+            (click)="this.curentColor= color; this.colorPicked = false">
+
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+
+    </div>
   </div>
 
 </div>
