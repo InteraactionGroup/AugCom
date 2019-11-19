@@ -31,8 +31,9 @@ export class PaletteService {
       '#e6beff', null, '#ffffff'
     ]},
 
-    // proloquo
-    {name: 'Proloquo', colors: ['#000000', '#00aeff', '#00ff6a', '#fcff00', '#ff8900', '#ff8772', '#ff00d2'] },
+    // fitzgerald
+    {name: 'Fitzgerald', colors: ['#000000', '#ffffff', '#004cff', '#009e20',
+        '#fcff00', '#ff8104', '#ff8991', '#9323ff'] },
     // Deuteranopia
     {name: 'Deuteranopia', colors: [ '#005D9E', '#5893F1', '#91B0FF', '#8188B4', '#968075', '#A17B32', '#D09B00', '#FFD28F', '#FFDBA9', '#FFF5EA'] },
     // Protanopia
