@@ -84,7 +84,7 @@ export class DbnaryService {
 
     const httpOptions = {
       headers,
-      // params: params,
+      params,
       withCreditals: false
     };
 

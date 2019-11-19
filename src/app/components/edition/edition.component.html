@@ -10,13 +10,18 @@
     </div>
   </div>
 
+
+
   <div class="leftEdition">
 
     <div class="colorPickerContainer">
-      <input [(ngModel)]="color" class="colorPicker" type="color" >
+      <div class="colorPicker" (click)="pickAColor()"
+      [ngStyle]="{'background-color':this.curentColor}">
+
+      </div>
     </div>
 
-    <div class="button" [ngStyle]="{'background-color': this.color}">
+    <div class="button" [ngStyle]="{'background-color': this.curentColor}">
       <div class="image" [style.background-image]="this.sanitizer.bypassSecurityTrustStyle('url(' +this.imageURL+')')">
 
       </div>
@@ -27,7 +32,7 @@
 
   </div>
 
-  <div class="rightEdition" [class.blured]="choseImage || variantDisplayed || eventDisplayed">
+  <div class="rightEdition" [class.blured]="choseImage || variantDisplayed || eventDisplayed || this.colorPicked">
 
     <div class="rightContainer">
       <div class="element name">
@@ -38,7 +43,7 @@
           Name
         </div>
         <div class="inputField">
-          <input [(ngModel)]="name" type="text" class="input" >
+          <input [(ngModel)]="name" type="text" class="input" placeholder="Entrez le nom de l'élément">
         </div>
       </div>
 
@@ -103,7 +108,7 @@
     <div class="element">
       <label class="label"  for="imagefromURL">A partir d'une URL</label>
       <div class="inputURL">
-        <input class="inputURLText" type="text" id="imagefromURL" #text >
+        <input class="inputURLText" type="text" id="imagefromURL" #text placeholder="Entrez l'URL de l'image">
         <input class="searchURL" type="button" value="Ok" (click)="previewWithURL(text.value)">
       </div>
     </div>
@@ -113,7 +118,7 @@
     <div class="elementVariant" *ngIf="variantDisplayed">
 
       <div class="wordToSearchPanel">
-        <input #wordToSearch type="text" class="inputText" value="{{this.name}}">
+        <input #wordToSearch type="text" class="inputText" value="{{this.name}}" >
         <input type ="button" class="search" value="search" (click)="getWordList(wordToSearch.value)">
       </div>
 
@@ -163,7 +168,7 @@
     <div class="element" *ngIf="choseImage">
       <label class="label"  for="imagefromLib">A partir des librairies</label>
       <div class="input">
-      <input #search class="inputLib" type="text"  id="imagefromLib" >
+      <input #search class="inputLib" type="text"  id="imagefromLib" placeholder="Entrez le mot à chercher (en anglais)">
       <input class="searchLib" type="button" value="search" (click)="searchInLib(search.value)">
       </div>
 
@@ -233,6 +238,35 @@
     </div>
 
 
+  </div>
+
+
+
+  <div class="popup" *ngIf="this.colorPicked">
+    <div class="popupcontainer">
+
+      <div class="palettes">
+        <ng-container *ngFor="let palette of this.paletteService.palettes">
+          <div class="paletteLabel" (click)="selectThePalette(palette.name)">
+            {{palette.name}}
+            <div class="moreLess">
+              {{this.selectedPalette == palette.name?'^':'v'}}
+            </div>
+          </div>
+          <div class="palette" *ngIf="this.selectedPalette == palette.name" [ngStyle]="{'grid-template-rows': 'repeat(' + this.paletteService.rowNumber(palette.colors.length) + ',30px)'}" >
+            <div class="color"  [class.realcolor]="color!==null" *ngFor="let color of palette.colors" [ngStyle]="{'background-color': color}"
+            (click)="this.curentColor= color">
+
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+
+    </div>
+    <div class="close" (click)="this.colorPicked = false;" [ngStyle]="{'background-image':this.getIcon('clear')}">
+
+    </div>
   </div>
 
 </div>
