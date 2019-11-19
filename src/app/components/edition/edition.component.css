@@ -311,7 +311,6 @@
 
 .blured{
   filter: blur(5px);
-  visibility: hidden;
 }
 
 .edition .bottomEdition .element{
@@ -512,11 +511,15 @@ background-color: grey;
 
 .popup .close{
   position: absolute;
+  cursor: pointer;
   top:0;
   right: 0;
-  height: 60px;
-  width: 60px;
+  height: 30px;
+  width: 30px;
   background-color: red;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .palettes{
