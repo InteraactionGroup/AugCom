@@ -15,7 +15,7 @@
   <div class="leftEdition">
 
     <div class="colorPickerContainer">
-      <div class="colorPicker" (click)="this.colorPicked = true"
+      <div class="colorPicker" (click)="pickAColor()"
       [ngStyle]="{'background-color':this.curentColor}">
 
       </div>
@@ -32,7 +32,7 @@
 
   </div>
 
-  <div class="rightEdition" [class.blured]="choseImage || variantDisplayed || eventDisplayed">
+  <div class="rightEdition" [class.blured]="choseImage || variantDisplayed || eventDisplayed || this.colorPicked">
 
     <div class="rightContainer">
       <div class="element name">
@@ -249,13 +249,16 @@
         <ng-container *ngFor="let palette of this.paletteService.palettes">
           <div class="palette"  [ngStyle]="{'grid-template-rows': 'repeat(' + this.paletteService.rowNumber(palette.length) + ',30px)'}" >
             <div class="color"  [class.realcolor]="color!==null" *ngFor="let color of palette" [ngStyle]="{'background-color': color}"
-            (click)="this.curentColor= color; this.colorPicked = false">
+            (click)="this.curentColor= color">
 
             </div>
           </div>
         </ng-container>
       </div>
 
+
+    </div>
+    <div class="close" (click)="this.colorPicked = false;">
 
     </div>
   </div>

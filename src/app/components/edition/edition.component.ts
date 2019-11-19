@@ -321,26 +321,49 @@ export class EditionComponent implements OnInit {
 
     if (this.variantList.length > 0) {
       element.ElementForms = [];
-    }
-
-    let defaultExist = false;
-    this.variantList.forEach( variant => {
-      const lexicInfo = variant.info;
-      if (variant.val === this.name) {
-        lexicInfo.push({default: true});
-        defaultExist = true;
-      }
-      element.ElementForms.push({
-        DisplayedText: variant.val,
-        VoiceText: variant.val,
-        LexicInfos: lexicInfo
+      let defaultExist = false;
+      this.variantList.forEach( variant => {
+        const lexicInfo = variant.info;
+        if (variant.val === this.name) {
+          lexicInfo.push({default: true});
+          defaultExist = true;
+        }
+        element.ElementForms.push({
+          DisplayedText: variant.val,
+          VoiceText: variant.val,
+          LexicInfos: lexicInfo
+        });
       });
-    });
 
-    if (!defaultExist) {
-      element.ElementForms.push({DisplayedText: this.name,
-        VoiceText: this.name,
-        LexicInfos: [{default: true}] });
+      if (!defaultExist) {
+        element.ElementForms.push({DisplayedText: this.name,
+          VoiceText: this.name,
+          LexicInfos: [{default: true}] });
+      }
+    } else {
+      let defaultExist = false;
+      element.ElementForms.forEach( elementForm => {
+        const lexicInfo = elementForm.LexicInfos;
+        if (elementForm.DisplayedText === this.name) {
+          const defaultinfo = lexicInfo.find(info => info.default !== undefined);
+          if ( defaultinfo != null && defaultinfo !== undefined && !defaultinfo.default) {
+            defaultinfo.default = true;
+          } else if (defaultinfo == null || defaultinfo === undefined) {
+            lexicInfo.push({default: true});
+          }
+          defaultExist = true;
+        } else {
+          const defaultinfo = lexicInfo.find(info => info.default !== undefined);
+          if (defaultinfo !== undefined) {
+            defaultinfo.default = false;
+          }
+        }
+      });
+      if (!defaultExist) {
+        element.ElementForms.push({DisplayedText: this.name,
+          VoiceText: this.name,
+          LexicInfos: [{default: true}] });
+      }
     }
 
     console.log(this.interractionList);
@@ -491,6 +514,10 @@ export class EditionComponent implements OnInit {
     this.dbnaryService.wordList = [];
     this.dbnaryService.startsearch(2);
     this.dbnaryService.getOtherFormsOfThisPartOfSpeechWord(word, b, this.dbnaryService.wordList);
+  }
+
+  pickAColor() {
+    this.colorPicked = true;
   }
 }
 
