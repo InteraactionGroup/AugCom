@@ -147,7 +147,6 @@ export class EditionComponent implements OnInit {
     // close the edition panel
     } else {
       this.editionService.add = false;
-      this.editionService.selectedElements[0] = null;
       this.clear();
       this.router.navigate(['']);
     }
@@ -174,6 +173,7 @@ export class EditionComponent implements OnInit {
     this.interractionList = [];
     this.dbnaryService.wordList = [];
     this.dbnaryService.typeList = [];
+    this.editionService.selectedElements = [];
   }
 
   /**

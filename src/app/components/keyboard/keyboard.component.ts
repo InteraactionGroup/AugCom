@@ -541,8 +541,17 @@ export class KeyboardComponent implements OnInit {
   edit(element: Element) {
     if (this.userToolBarService.edit) {
       this.router.navigate(['/edit']);
-      this.editionService.selectedElements[0] = element;
+      this.editionService.selectedElements = [];
+      this.editionService.selectedElements.push(element);
       this.editionService.ElementListener.next(element);
+      this.editionService.add = false;
+    }
+  }
+
+  editAll() {
+    if (this.userToolBarService.edit && this.editionService.selectedElements.length === 1) {
+     this.edit(this.editionService.selectedElements[0]);
+    } else if (this.userToolBarService.edit && this.editionService.selectedElements.length > 1) {
       this.editionService.add = false;
     }
   }
