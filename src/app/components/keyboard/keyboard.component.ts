@@ -40,18 +40,24 @@ export class KeyboardComponent implements OnInit {
   constructor(private dragulaService: DragulaService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) {
 
     this.subs.add(this.dragulaService.drop('VAMPIRE')
-      .subscribe(({ el, sibling }) => {
-        console.log(el);
-        console.log(sibling);
+      .subscribe(({ el, target, source, sibling }) => {
         const temp = this.boardService.board.ElementList;
+
         const i1 = temp.findIndex(elt => elt.ElementID === el.id );
         let i2 = temp.findIndex(elt => elt.ElementID === sibling.id );
-        i2 = (i1 < i2) ? i2 - 1 : i2; // todo: problem with last element
+
+        // unfortunately dagula is not really adapted to grid display:
+        // when we drag an element on an element after the draged one its ok ->
+        // but we drag it before it returns the element just after the sibling we want <-
+        i2 = (i1 < i2) ? (i2 - 1) : i2;
+
+        // also here if the element we drop on is the last element then findIndex will return -1
+        i2 = i2 >= 0 ? i2 : i2 + this.boardService.board.ElementList.length;
+
         [temp[i2], temp[i1]] =
           [temp[i1], temp[i2]];
         console.log(i1 + ' ' + i2);
         this.boardService.board.ElementList = temp;
-        console.log(temp);
       })
     );
 
