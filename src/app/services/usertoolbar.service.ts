@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import {Element} from '../types';
-import {Subject} from 'rxjs';
 import {ConnectionService} from 'ng-connection-service';
 
 @Injectable({
@@ -12,7 +10,7 @@ export class UsertoolbarService {
   isConnected = true;
 
   constructor(private connectionService: ConnectionService) {
-    document.onfullscreenchange = e => {
+    document.onfullscreenchange = () => {
       this.full = ! this.full;
     };
 
@@ -33,11 +31,6 @@ export class UsertoolbarService {
   public babble = false;
   public full = false;
   public setting = false;
-
-  public add = false;
-  public modif = null;
-  public ElementListener = new Subject<Element>();
-
   public popup = false;
 
   fullScreen() {
