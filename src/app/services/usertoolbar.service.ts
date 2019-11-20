@@ -1,16 +1,29 @@
 import { Injectable } from '@angular/core';
 import {Element} from '../types';
 import {Subject} from 'rxjs';
+import {ConnectionService} from 'ng-connection-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsertoolbarService {
 
-  constructor() {
+  status = 'ONLINE';
+  isConnected = true;
+
+  constructor(private connectionService: ConnectionService) {
     document.onfullscreenchange = e => {
       this.full = ! this.full;
     };
+
+    this.connectionService.monitor().subscribe(isConnected => {
+      this.isConnected = isConnected;
+      if (this.isConnected) {
+        this.status = 'ONLINE';
+      } else {
+        this.status = 'OFFLINE';
+      }
+    });
   }
 
   public account = false;

@@ -5,6 +5,7 @@ import {GeticonService} from '../../services/geticon.service';
 import {saveAs as importedSaveAs} from 'file-saver';
 import * as JSZip from 'jszip';
 import {Router} from '@angular/router';
+import {SnapBarService} from '../../services/snap-bar.service';
 
 @Component({
   selector: 'app-share',
@@ -13,7 +14,7 @@ import {Router} from '@angular/router';
 })
 export class ShareComponent implements OnInit {
 
-  constructor(private router: Router, public getIconService: GeticonService, public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
+  constructor(public snapBarService: SnapBarService, private router: Router, public getIconService: GeticonService, public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
 
 
   ngOnInit() {

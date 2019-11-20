@@ -29,9 +29,40 @@ export class BoardService {
 
   activatedElement = -1;
 
+  selectedElementsList = [];
+
+  selectAll = false;
+
+
+  selectAllElements() {
+    this.selectedElementsList = [];
+    if (!this.selectAll) {
+      this.board.ElementList.forEach(elt => this.add(elt));
+    }
+    this.selectAll = !this.selectAll;
+  }
 
   belongToActiveFolder(element) {
     return true;
+  }
+
+  add(element: Element) {
+    if (!this.selectedElementsList.includes(element)) {
+      this.selectedElementsList.push(element);
+    }
+  }
+
+  select(element: Element) {
+    if (this.selectedElementsList.includes(element)) {
+      this.selectedElementsList = this.selectedElementsList.filter(elt => elt !== element);
+      this.selectAll = false;
+    } else {
+      this.selectedElementsList.push(element);
+    }
+  }
+
+  isSelected(element: Element) {
+    return this.selectedElementsList.includes(element);
   }
 
   delete(element: Element) {

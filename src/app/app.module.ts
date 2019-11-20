@@ -16,6 +16,7 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { SettingsComponent } from './components/settings/settings.component';
 import { DragulaModule } from 'ng2-dragula';
+import { SnapBarComponent } from './components/snap-bar/snap-bar.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { DragulaModule } from 'ng2-dragula';
     DialogbarComponent,
     ShareComponent,
     PopupComponent,
-    SettingsComponent
+    SettingsComponent,
+    SnapBarComponent
   ],
   imports: [
     BrowserModule,
