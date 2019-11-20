@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import {Board} from '../data/ExempleOfBoard';
-import {Action, Element, Grid, Image} from '../types';
+import { Element, Grid} from '../types';
 import {DomSanitizer} from '@angular/platform-browser';
 import {UsertoolbarService} from './usertoolbar.service';
+import {EditionService} from './edition.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BoardService {
 
-  constructor(public userToolBarService: UsertoolbarService, public sanitizer: DomSanitizer) {
+  constructor(public editionService: EditionService, public userToolBarService: UsertoolbarService, public sanitizer: DomSanitizer) {
     this.board  = Board;
     this.sliderValueCol = this.board.gridColsNumber;
     this.sliderValueRow = this.board.gridRowsNumber;
-    // new Grid('grid', [] as Element[], [] as Image[], [] as Action[], [] as Interaction [], 'grid', [] as {ElementType: string, Link: string}[]);
   }
 
   sliderValueCol;
@@ -25,19 +25,9 @@ export class BoardService {
 
   currentNounTerminaison: {currentGender: string, currentNumber: string} = {currentGender: '', currentNumber: ''};
 
-  elementCondamne: Element = null;
 
   activatedElement = -1;
 
-
-  belongToActiveFolder(element) {
-    return true;
-  }
-
-  delete(element: Element) {
-    this.userToolBarService.popup = true;
-    this.elementCondamne = element;
-  }
 
   resetTerminaisons() {
     this.currentVerbTerminaison = {currentPerson: '', currentNumber: ''};
@@ -51,8 +41,9 @@ export class BoardService {
   executer() {
     const imageTemp = [];
 
-    this.board.ElementList = this.board.ElementList.filter(x => !x.ElementFolder.startsWith(this.elementCondamne.ElementFolder + this.elementCondamne.ElementID));
-    this.board.ElementList =  this.board.ElementList.filter(x => x !== this.elementCondamne );
+    this.board.ElementList = this.board.ElementList.filter(x =>
+      !x.ElementFolder.startsWith(this.editionService.elementCondamne.ElementFolder + this.editionService.elementCondamne.ElementID));
+    this.board.ElementList =  this.board.ElementList.filter(x => x !== this.editionService.elementCondamne );
 
     this.board.ElementList.forEach(elt => {
       const res = this.board.ImageList.find(img => img.ImageID === elt.ImageID);
@@ -61,7 +52,7 @@ export class BoardService {
       }
     });
     this.board.ImageList = imageTemp;
-    this.elementCondamne = null;
+    this.editionService.elementCondamne = null;
   }
 
   getImgUrl(element: Element) {

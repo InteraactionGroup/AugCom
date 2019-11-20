@@ -1,11 +1,27 @@
+<app-snap-bar></app-snap-bar>
 <app-usertoolbar></app-usertoolbar>
 <app-dialogbar></app-dialogbar>
 <!--<div class="slidecontainer" *ngIf="this.userToolBarService.edit">-->
 <!--  <input  [(ngModel)]="this.boardService.sliderValueCol" class="slider" min="2" max="10" type="range" (change)="updateSliderValue()">-->
 <!--</div>-->
 <div class="settings" *ngIf="this.userToolBarService.edit">
+  <div class="edit" (click)="this.selectAll()">
+    <div class="image" [style.background-image]="this.editionService.selectAll?this.getIcon('check'):null">
+
+    </div>
+  </div>
+  <div class="editSettings">
+    <div class="editButton" > edit selected </div>
+    <div class="editImg" id='editButton' [style.background-image]="this.getIcon('edit')">
+
+    </div>
+  </div>
   <div class="gridSettings">
-  <input class="inputSize" type="text" [(ngModel)]="this.boardService.sliderValueCol" ><div class="x">x</div><input class="inputSize" type="text" [(ngModel)]="this.boardService.sliderValueRow">
+  <input class="inputSize" type="text" [(ngModel)]="this.boardService.sliderValueCol" >
+    <div class="x">
+      x
+    </div>
+    <input class="inputSize" type="text" [(ngModel)]="this.boardService.sliderValueRow">
   </div>
 </div>
 
@@ -17,7 +33,7 @@
 
     <ng-container class="test" *ngFor="let element of this.getTempList()">
 
-      <ng-container *ngIf="this.boardService.belongToActiveFolder(element)">
+      <ng-container *ngIf="true">
         <div id="{{element.ElementID}}" class="elementContainer" >
 
           <div class="element" [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)" (pointerdown)="this.pointerDown(element)" (pointerup)="this.pointerUp(element)" [ngStyle]="{'background-color': this.boardService.elementColor(element)}">
@@ -32,13 +48,16 @@
 
           </div>
 
-          <div class="suppr" *ngIf="this.userToolBarService.edit" (click)="this.boardService.delete(element)" >
+          <div class="suppr" *ngIf="this.userToolBarService.edit" (click)="this.delete(element)" >
             <div class="image" [style.background-image]="this.getIcon('delete')">
 
             </div>
           </div>
 
-          <div class="edit">
+          <div class="edit" *ngIf="this.userToolBarService.edit" (click)="this.select(element)" >
+            <div class="image" [style.background-image]="this.editionService.isSelected(element)?this.getIcon('check'):null">
+
+            </div>
           </div>
 
         </div>
@@ -69,7 +88,7 @@
 
           <div class="elementContainer no-drag" >
 
-            <div class="element"  (click)="this.userToolBarService.add = true " [ngStyle]="{'background-color': 'green'}"> <!-- need to change élément by the label-->
+            <div class="element"  (click)="this.editionService.add = true " [ngStyle]="{'background-color': 'green'}"> <!-- need to change élément by the label-->
 
               <div class="image"  [style.background-image]="this.getIcon('add')">
 
@@ -87,5 +106,5 @@
     </ng-container>
 
   </div>
-
+  <app-snap-bar></app-snap-bar>
 </div>

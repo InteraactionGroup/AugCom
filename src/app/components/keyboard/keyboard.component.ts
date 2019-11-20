@@ -10,7 +10,6 @@ import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {ParametersService} from '../../services/parameters.service';
 import {Router} from '@angular/router';
 import {DragulaService} from 'ng2-dragula';
-import dragula from 'dragula';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -19,10 +18,6 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./keyboard.component.css']
 })
 export class KeyboardComponent implements OnInit {
-
-  options: any = {
-    removeOnSpill: true
-  }
 
   /**
    * the current pressTimer started when pressing an element and ending on release
@@ -45,7 +40,7 @@ export class KeyboardComponent implements OnInit {
   constructor(private dragulaService: DragulaService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) {
 
     this.subs.add(this.dragulaService.drop('VAMPIRE')
-      .subscribe(({ name, el, target, source, sibling }) => {
+      .subscribe(({ el, sibling }) => {
         console.log(el);
         console.log(sibling);
         const temp = this.boardService.board.ElementList;
@@ -74,19 +69,13 @@ export class KeyboardComponent implements OnInit {
     if (!this.parametersService.dragNDropinit) {
       this.dragulaService.createGroup('VAMPIRE', {
         moves: (el, container, handle) => {
-          if (el.classList.contains('no-drag')) {
-            return false;
-          }
-          return true;
+          return !el.classList.contains('no-drag');
         },
         accepts: (el, target, source, sibling) => {
           if (el.classList.contains('no-drag')) {
             return false;
           }
-          if (sibling === null) {
-            return false;
-          }
-          return true;
+          return sibling !== null;
         }
 
         });
@@ -94,8 +83,17 @@ export class KeyboardComponent implements OnInit {
     }
   }
 
-  drop(elt: Element) {
-    console.log(elt.ElementID);
+  selectAll() {
+    this.editionService.selectAllElementsOf(this.boardService.board.ElementList);
+  }
+
+  delete(element: Element) {
+    this.userToolBarService.popup = true;
+    this.editionService.delete(element);
+  }
+
+  select(element: Element) {
+    this.editionService.select(element);
   }
 
   /**
@@ -256,7 +254,7 @@ export class KeyboardComponent implements OnInit {
   pointerDown(element: Element) {
     if (!this.userToolBarService.edit) {
       this.clickedElement = element;
-      this.pressTimer = window.setTimeout(x => {
+      this.pressTimer = window.setTimeout(() => {
         this.longClick(element);
       }, this.parametersService.longpressTimeOut);
     }
@@ -543,9 +541,9 @@ export class KeyboardComponent implements OnInit {
   edit(element: Element) {
     if (this.userToolBarService.edit) {
       this.router.navigate(['/edit']);
-      this.userToolBarService.modif = element;
-      this.userToolBarService.ElementListener.next(element);
-      this.userToolBarService.add = false;
+      this.editionService.selectedElements[0] = element;
+      this.editionService.ElementListener.next(element);
+      this.editionService.add = false;
     }
   }
 

@@ -11,7 +11,8 @@ import {Action, Element} from '../../types';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {ParametersService} from '../../services/parameters.service';
 import {Router} from '@angular/router';
-import {PaletteService} from "../../services/palette.service";
+import {PaletteService} from '../../services/palette.service';
+import {EditionService} from '../../services/edition.service';
 
 @Component({
   selector: 'app-edition',
@@ -92,7 +93,11 @@ export class EditionComponent implements OnInit {
    */
   interractionList: { InteractionID: string, ActionList: Action[] }[] = [];
 
-  constructor(public  paletteService: PaletteService, private router: Router, public parametersService: ParametersService, public indexedDBacess: IndexeddbaccessService, public ng2ImgMaxService: Ng2ImgMaxService, public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public boardService: BoardService) {
+  constructor(public editionService: EditionService, public  paletteService: PaletteService,
+              private router: Router, public parametersService: ParametersService,
+              public indexedDBacess: IndexeddbaccessService, public ng2ImgMaxService: Ng2ImgMaxService,
+              public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService,
+              public dbnaryService: DbnaryService, public boardService: BoardService) {
 
   }
   /**
@@ -100,7 +105,7 @@ export class EditionComponent implements OnInit {
    */
   ngOnInit() {
     this.updatemodif();
-    this.userToolBar.ElementListener.subscribe(value => {
+    this.editionService.ElementListener.subscribe(value => {
       if (value != null) {
         this.updatemodif();
       }
@@ -141,8 +146,8 @@ export class EditionComponent implements OnInit {
     this.currentInterractionNumber = -1;
     // close the edition panel
     } else {
-      this.userToolBar.add = false;
-      this.userToolBar.modif = null;
+      this.editionService.add = false;
+      this.editionService.selectedElements[0] = null;
       this.clear();
       this.router.navigate(['']);
     }
@@ -285,13 +290,13 @@ export class EditionComponent implements OnInit {
 
     this.ng2ImgMaxService.resize([file[0]], 1000, 1000).subscribe(result => {
       reader.readAsDataURL(result);
-      reader.onload = (e) => {
+      reader.onload = () => {
         this.imageURL = reader.result;
         this.choseImage = false;
       };
-    }, error => {
+    }, () => {
       reader.readAsDataURL(file[0]);
-      reader.onload = (e) => {
+      reader.onload = () => {
         this.previewWithURL(reader.result);
 
       };
@@ -303,9 +308,9 @@ export class EditionComponent implements OnInit {
    *
    */
   save() {
-    if (this.userToolBar.add) {
+    if (this.editionService.add) {
       this.createNewButton();
-    } else if (this.userToolBar.modif !== null) {
+    } else if (this.editionService.selectedElements[0] !== null && this.editionService.selectedElements[0] !== undefined) {
       this.modifyButton();
     }
     this.indexedDBacess.update();
@@ -317,14 +322,14 @@ export class EditionComponent implements OnInit {
    * given the information of this class, updated by the edition html panel
    */
   modifyButton() {
-    // tslint:disable-next-line:no-shadowed-variable
-    const element: Element = this.userToolBar.modif;
+    if (this.editionService.selectedElements[0] != null && this.editionService.selectedElements[0] !== undefined ) {
+    const element: Element = this.editionService.selectedElements[0];
     element.ElementType = this.radioTypeFormat;
 
     if (this.variantList.length > 0) {
       element.ElementForms = [];
       let defaultExist = false;
-      this.variantList.forEach( variant => {
+      this.variantList.forEach(variant => {
         const lexicInfo = variant.info;
         if (variant.val === this.name) {
           lexicInfo.push({default: true});
@@ -338,17 +343,19 @@ export class EditionComponent implements OnInit {
       });
 
       if (!defaultExist) {
-        element.ElementForms.push({DisplayedText: this.name,
+        element.ElementForms.push({
+          DisplayedText: this.name,
           VoiceText: this.name,
-          LexicInfos: [{default: true}] });
+          LexicInfos: [{default: true}]
+        });
       }
     } else {
       let defaultExist = false;
-      element.ElementForms.forEach( elementForm => {
+      element.ElementForms.forEach(elementForm => {
         const lexicInfo = elementForm.LexicInfos;
         if (elementForm.DisplayedText === this.name) {
           const defaultinfo = lexicInfo.find(info => info.default !== undefined);
-          if ( defaultinfo != null && defaultinfo !== undefined && !defaultinfo.default) {
+          if (defaultinfo != null && defaultinfo !== undefined && !defaultinfo.default) {
             defaultinfo.default = true;
           } else if (defaultinfo == null || defaultinfo === undefined) {
             lexicInfo.push({default: true});
@@ -362,9 +369,11 @@ export class EditionComponent implements OnInit {
         }
       });
       if (!defaultExist) {
-        element.ElementForms.push({DisplayedText: this.name,
+        element.ElementForms.push({
+          DisplayedText: this.name,
           VoiceText: this.name,
-          LexicInfos: [{default: true}] });
+          LexicInfos: [{default: true}]
+        });
       }
     }
 
@@ -384,6 +393,7 @@ export class EditionComponent implements OnInit {
         ImageLabel: this.name,
         ImagePath: this.imageURL
       });
+  }
   }
 
   /**
@@ -419,7 +429,7 @@ export class EditionComponent implements OnInit {
         ActionID: 'otherforms', Action: 'otherforms'}]}];
 
 
-    let i = 0
+    let i = 0;
     let tempId = this.name;
     while (this.boardService.board.ElementList.findIndex(elt => elt.ElementID === tempId) !== -1) {
       tempId = this.name + i;
@@ -461,8 +471,8 @@ export class EditionComponent implements OnInit {
    * 'radioTypeFormat' is its current type format (button or folder) and imageUrl is its current imageUrl
    */
   updatemodif() {
-    if (this.userToolBar.modif !== null) {
-    const elementToModif: Element = this.userToolBar.modif;
+    if (this.editionService.selectedElements[0] != null && this.editionService.selectedElements[0] !== undefined ) {
+    const elementToModif: Element = this.editionService.selectedElements[0];
     this.name = this.getName(elementToModif);
     this.curentColor = elementToModif.Color;
     this.radioTypeFormat = elementToModif.ElementType;

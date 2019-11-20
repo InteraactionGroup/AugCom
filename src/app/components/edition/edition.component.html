@@ -130,7 +130,7 @@
         <select [(ngModel)]="classe" name="classe" id="classe-select"  class="variantListBox">
           <option value="">--choisissez une option--</option>
           <ng-container *ngFor="let b of this.dbnaryService.typeList ">
-            <option id="{{b}}radio"  name="buttonType" type="radio" value="{{b}}">{{b}}</option>
+            <option id="{{b}}radio"  name="buttonType" value="{{b}}">{{b}}</option>
           </ng-container>
         </select>
         <input type="button" value="OK" (click)="displayVariant(classe,wordToSearch.value)"  class="variantOk">
@@ -219,7 +219,7 @@
           <div class="checkmark" [ngStyle]="{'background-image': this.isPartOfCurrentInteraction('display')?this.getIcon('checkmark'):this.getIcon('uncheckmark')}"></div>
         </div>
         <div class="event" (click)="this.addOrRemoveToInteraction('say')">
-          <div class="icon"[ngStyle]="{'background-image':this.getIcon('say')}">
+          <div class="icon" [ngStyle]="{'background-image':this.getIcon('say')}">
           </div>
           <div class="label">
             Pronounce

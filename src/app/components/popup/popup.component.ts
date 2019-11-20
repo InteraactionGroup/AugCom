@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {BoardService} from '../../services/board.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
+import {EditionService} from '../../services/edition.service';
 
 @Component({
   selector: 'app-popup',
@@ -17,7 +18,8 @@ export class PopupComponent implements OnInit {
   questionBegin = 'Êtes-vous sûr de vouloir supprimer l\'élément: ';
   questionEnd = ' ? \n la suppression ne peut pas être défaite.';
 
-  constructor(public indexedDBacess: IndexeddbaccessService, public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
+  constructor(public editionService: EditionService, public indexedDBacess: IndexeddbaccessService,
+              public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
 
   ngOnInit() {
   }
@@ -35,7 +37,7 @@ export class PopupComponent implements OnInit {
    * cancel the deletion of the elementCondamne and close the popu panel
    */
   no() {
-    this.boardService.elementCondamne = null;
+    this.editionService.elementCondamne = null;
     this.closePopup();
   }
   /**

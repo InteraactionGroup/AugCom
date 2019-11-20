@@ -27,7 +27,7 @@
 
 
   <div class="button" id="editButton" *ngIf="this.userToolBarService.unlock" (click)="this.edit()">
-    <div class="image" [class.imageSelected]="this.userToolBarService.edit" [ngStyle]="{'background-image':this.getIcon('edit')}">
+    <div class="image" [class.noConnection]="!this.userToolBarService.isConnected" [class.imageSelected]="this.userToolBarService.edit" [ngStyle]="{'background-image':this.getIcon('edit')}">
 
     </div>
   </div>

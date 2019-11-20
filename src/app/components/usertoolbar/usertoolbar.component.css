@@ -53,3 +53,22 @@
   background-position: center;
   visibility: visible;
 }
+
+.usertoolbar .button .noConnection{
+  height: 80%;
+  width: 80%;
+  margin-left: 10%;
+  transform: translateY(10%);
+  background-color: indianred;
+  border-radius: 25%;
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+  visibility: visible;
+  opacity: 0.5;
+}
+
+.usertoolbar .button .noConnection:hover{
+  cursor: not-allowed;
+  background-color: indianred;
+}
