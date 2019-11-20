@@ -558,6 +558,8 @@ export class KeyboardComponent implements OnInit {
     if (this.userToolBarService.edit && this.editionService.selectedElements.length === 1) {
      this.edit(this.editionService.selectedElements[0]);
     } else if (this.userToolBarService.edit && this.editionService.selectedElements.length > 1) {
+      this.router.navigate(['/edit']);
+
       this.editionService.add = false;
     }
   }
