@@ -36,7 +36,7 @@
       <ng-container *ngIf="true">
         <div id="{{element.ElementID}}" class="elementContainer" >
 
-          <div class="element" [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)" (pointerdown)="this.pointerDown(element)" (pointerup)="this.pointerUp(element)" [ngStyle]="{'background-color': this.boardService.elementColor(element)}">
+          <div class="element" [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)"  (pointerdown)="this.pointerDown(element)" (pointerup)="this.pointerUp(element)" [ngStyle]="{'background-color': this.boardService.elementColor(element)}">
 
             <div class="image" [style.background-image]="this.boardService.getImgUrl(element)">
 
