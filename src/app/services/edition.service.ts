@@ -13,7 +13,9 @@ export class EditionService {
 
   public ElementListener = new Subject<Element>();
 
-  selectedElements = [];
+  selectedElements: Element[] = [];
+
+  DEFAULT_MULTPLE_NAME = '$different$';
 
   selectAll = false;
 

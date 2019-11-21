@@ -10,7 +10,7 @@
 
     </div>
   </div>
-  <div class="editSettings">
+  <div class="editSettings" (click) = this.editAll() >
     <div class="editButton" > edit selected </div>
     <div class="editImg" id='editButton' [style.background-image]="this.getIcon('edit')">
 
@@ -36,7 +36,7 @@
       <ng-container *ngIf="true">
         <div id="{{element.ElementID}}" class="elementContainer" >
 
-          <div class="element" [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)" (pointerdown)="this.pointerDown(element)" (pointerup)="this.pointerUp(element)" [ngStyle]="{'background-color': this.boardService.elementColor(element)}">
+          <div class="element" [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)"  (pointerdown)="this.pointerDown(element)" (pointerup)="this.pointerUp(element)" [ngStyle]="{'background-color': this.boardService.elementColor(element)}">
 
             <div class="image" [style.background-image]="this.boardService.getImgUrl(element)">
 

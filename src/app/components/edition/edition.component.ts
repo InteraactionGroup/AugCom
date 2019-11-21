@@ -21,6 +21,14 @@ import {EditionService} from '../../services/edition.service';
 })
 export class EditionComponent implements OnInit {
 
+  constructor(public editionService: EditionService, public  paletteService: PaletteService,
+              private router: Router, public parametersService: ParametersService,
+              public indexedDBacess: IndexeddbaccessService, public ng2ImgMaxService: Ng2ImgMaxService,
+              public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService,
+              public dbnaryService: DbnaryService, public boardService: BoardService) {
+
+  }
+
   selectedPalette = this.paletteService.defaultPalette;
 
   colorPicked = false;
@@ -92,14 +100,6 @@ export class EditionComponent implements OnInit {
    * the current Interraction element selected (empty by default)
    */
   interractionList: { InteractionID: string, ActionList: Action[] }[] = [];
-
-  constructor(public editionService: EditionService, public  paletteService: PaletteService,
-              private router: Router, public parametersService: ParametersService,
-              public indexedDBacess: IndexeddbaccessService, public ng2ImgMaxService: Ng2ImgMaxService,
-              public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService,
-              public dbnaryService: DbnaryService, public boardService: BoardService) {
-
-  }
   /**
    * update the informations with the elementToModify if it exist and set the elementListener for listening next element modifications
    */
@@ -147,7 +147,6 @@ export class EditionComponent implements OnInit {
     // close the edition panel
     } else {
       this.editionService.add = false;
-      this.editionService.selectedElements[0] = null;
       this.clear();
       this.router.navigate(['']);
     }
@@ -174,6 +173,7 @@ export class EditionComponent implements OnInit {
     this.interractionList = [];
     this.dbnaryService.wordList = [];
     this.dbnaryService.typeList = [];
+    this.editionService.selectedElements = [];
   }
 
   /**
@@ -310,11 +310,38 @@ export class EditionComponent implements OnInit {
   save() {
     if (this.editionService.add) {
       this.createNewButton();
-    } else if (this.editionService.selectedElements[0] !== null && this.editionService.selectedElements[0] !== undefined) {
+    } else if (this.editionService.selectedElements.length === 1) {
       this.modifyButton();
+    } else if (this.editionService.selectedElements.length > 1) {
+      this.modifyAllButtons();
     }
     this.indexedDBacess.update();
     this.close();
+  }
+
+  modifyAllButtons() {
+    this.editionService.selectedElements.forEach(elt => {
+
+      elt.Color = this.curentColor;
+
+      if (this.name !== this.editionService.DEFAULT_MULTPLE_NAME) { // todo there is probably a cleaner way to do it
+        elt.ElementForms.forEach( form => {
+          form.LexicInfos.forEach(info => { if (info.default) {info.default = false; }});
+        });
+        elt.ElementForms.push(
+           {
+             DisplayedText: this.name,
+            VoiceText: this.name,
+            LexicInfos: [{default: true}]
+           }
+        );
+      }
+
+
+      if (this.imageURL !== 'assets/icons/multiple-images.svg' ) {
+       // todo create the new image and remove the old ones
+      }
+    });
   }
 
   /**
@@ -471,27 +498,34 @@ export class EditionComponent implements OnInit {
    * 'radioTypeFormat' is its current type format (button or folder) and imageUrl is its current imageUrl
    */
   updatemodif() {
-    if (this.editionService.selectedElements[0] != null && this.editionService.selectedElements[0] !== undefined ) {
-    const elementToModif: Element = this.editionService.selectedElements[0];
-    this.name = this.getName(elementToModif);
-    this.curentColor = elementToModif.Color;
-    this.radioTypeFormat = elementToModif.ElementType;
-    const imageToModif = this.boardService.board.ImageList.find(x => x.ImageID === elementToModif.ImageID);
-    if (imageToModif != null && imageToModif !== undefined) {
-        this.imageURL = imageToModif.ImagePath;
-    } else {
-      this.imageURL = '';
-    }
-    const interactionListToModify = elementToModif.InteractionsList;
-    if (interactionListToModify != null) {
+    if (this.editionService.selectedElements.length === 1 ) {
+      const elementToModif: Element = this.editionService.selectedElements[0];
+      this.name = this.getName(elementToModif);
+      this.curentColor = elementToModif.Color;
+      this.radioTypeFormat = elementToModif.ElementType;
+      const imageToModif = this.boardService.board.ImageList.find(x => x.ImageID === elementToModif.ImageID);
+      if (imageToModif != null && imageToModif !== undefined) {
+          this.imageURL = imageToModif.ImagePath;
+      } else {
+        this.imageURL = '';
+      }
+      const interactionListToModify = elementToModif.InteractionsList;
+      if (interactionListToModify != null) {
 
-      this.interractionList = [] ;
-      interactionListToModify.map(val =>
-        this.interractionList.push({InteractionID: val.InteractionID, ActionList: Object.assign([], val.ActionList) } ));
-    } else {
+        this.interractionList = [] ;
+        interactionListToModify.map(val =>
+          this.interractionList.push({InteractionID: val.InteractionID, ActionList: Object.assign([], val.ActionList) } ));
+      } else {
+        this.interractionList = [];
+      }
+    } else if (this.editionService.selectedElements.length > 1 ) { // todo see what we want to modify here
+      this.name = '$different$';
+      this.curentColor = '#d3d3d3';
+      this.radioTypeFormat = '';
+      this.imageURL = 'assets/icons/multiple-images.svg';
+      console.log(this.imageURL);
       this.interractionList = [];
     }
-  }
   }
 
   /**

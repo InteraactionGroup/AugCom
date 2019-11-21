@@ -23,11 +23,13 @@ export class KeyboardComponent implements OnInit {
    * the current pressTimer started when pressing an element and ending on release
    */
   pressTimer;
+  dblClickTimer;
+  clickedElement: Element = null;
+  down = 0;
 
   /**
    * the current pressed element
    */
-  clickedElement: Element = null;
 
   /**
    * The current fakeElementTempList, updated when an element wants to display its variants
@@ -40,18 +42,24 @@ export class KeyboardComponent implements OnInit {
   constructor(private dragulaService: DragulaService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) {
 
     this.subs.add(this.dragulaService.drop('VAMPIRE')
-      .subscribe(({ el, sibling }) => {
-        console.log(el);
-        console.log(sibling);
+      .subscribe(({ el, target, source, sibling }) => {
         const temp = this.boardService.board.ElementList;
+
         const i1 = temp.findIndex(elt => elt.ElementID === el.id );
         let i2 = temp.findIndex(elt => elt.ElementID === sibling.id );
-        i2 = (i1 < i2) ? i2 - 1 : i2; // todo: problem with last element
+
+        // unfortunately dagula is not really adapted to grid display:
+        // when we drag an element on an element after the draged one its ok ->
+        // but we drag it before it returns the element just after the sibling we want <-
+        i2 = (i1 < i2) ? (i2 - 1) : i2;
+
+        // also here if the element we drop on is the last element then findIndex will return -1
+        i2 = i2 >= 0 ? i2 : i2 + this.boardService.board.ElementList.length;
+
         [temp[i2], temp[i1]] =
           [temp[i1], temp[i2]];
         console.log(i1 + ' ' + i2);
         this.boardService.board.ElementList = temp;
-        console.log(temp);
       })
     );
 
@@ -253,10 +261,22 @@ export class KeyboardComponent implements OnInit {
    */
   pointerDown(element: Element) {
     if (!this.userToolBarService.edit) {
+
+
+      console.log(this.down);
+
+      if (this.down === 0) {
       this.clickedElement = element;
-      this.pressTimer = window.setTimeout(() => {
-        this.longClick(element);
-      }, this.parametersService.longpressTimeOut);
+      } else {
+        window.clearTimeout(this.dblClickTimer);
+        if (this.clickedElement !== element && this.clickedElement != null) {
+          console.log('click3 ' + this.clickedElement.ElementID);
+          this.action(element, 'click');
+        }
+      }
+      this.down = this.down + 1;
+
+      this.setLongPressTimer(element);
     }
   }
 
@@ -268,11 +288,48 @@ export class KeyboardComponent implements OnInit {
    */
   pointerUp(element: Element) {
     if (!this.userToolBarService.edit) {
+
       window.clearTimeout(this.pressTimer);
-      if (this.clickedElement !== null && this.clickedElement === element) {
-          this.normalClick(element);
+      window.clearTimeout(this.dblClickTimer);
+      if (this.down === 1) {
+        if (this.clickedElement === element) {
+          this.setClickTimer(element);
+        } else {
+          this.down = 0;
+          this.clickedElement = null;
+        }
+
+      } else if (this.down > 1) {
+        if (this.clickedElement === element) {
+          console.log('doubleClick' + element.ElementID);
+          this.action(element, 'dblClick');
+          this.clickedElement = null;
+          this.down = 0;
+        } else if (this.clickedElement != null) {
+          this.down = 1;
+          this.clickedElement = element;
+          this.setClickTimer(element);
+        }
       }
     }
+  }
+
+  setClickTimer(element) {
+    this.dblClickTimer = window.setTimeout(() => {
+        console.log('click2 ' + element.ElementID);
+        this.action(element, 'click');
+        this.clickedElement = null;
+        this.down = 0;
+    }, 300);
+  }
+
+  setLongPressTimer(element) {
+    this.pressTimer = window.setTimeout(() => {
+      console.log('longPress ' + element.ElementID);
+      this.action(element, 'longPress');
+      this.clickedElement = null;
+      this.down = 0;
+    }, 1000);
   }
 
   /**
@@ -418,51 +475,10 @@ export class KeyboardComponent implements OnInit {
 
     return places;
   }
-  /**
-   * process the different functions when the element is ' long clicked' (longPressed)
-   * depending on its grammatical class, its type (button or folder) and its interraction and action events
-   * @param element, the element we clicked on
-   */
-  longClick(element: Element) {
-    if (element.InteractionsList.length > 0 ) {
-      element.InteractionsList.forEach(inter => {
-        if (inter.InteractionID === 'longPress') {
-          inter.ActionList.forEach( action => {
-            if (action.ActionID === 'otherforms') {
-              if (element.ElementForms.length > 2) {
-                this.boardService.activatedElement = this.getNormalTempList().indexOf(element);
-                this.activatedElementTempList();
-                this.clickedElement = null;
-              }
-            }
 
-            const prononcedText = this.getLabel(element);
-            const color = element.Color;
-            const imgUrl = this.boardService.getImgUrl(element);
-            const vignette: Vignette = {
-              VignetteLabel: prononcedText,
-              VignetteImageUrl: imgUrl,
-              VignetteColor: color};
+  action(element: Element, interaction: string) {
 
-            if (action.ActionID === 'display') {
-              this.historicService.push(vignette);
-            }
-            if (action.ActionID === 'say') {
-              this.historicService.say('' + prononcedText);
-            }
-
-          });
-        }
-      });
-    }
-  }
-
-  /**
-   * process the different functions when the element is ' normal clicked' (press then release)
-   * depending on its grammatical class, its type (button or folder) and its interraction and action events
-   * @param element, the element we clicked on
-   */
-  normalClick(element: Element) {
+    // for button
     if (element.ElementType === 'button') {
 
       const prononcedText = this.getLabel(element);
@@ -472,64 +488,54 @@ export class KeyboardComponent implements OnInit {
         VignetteLabel: prononcedText,
         VignetteImageUrl: imgUrl,
         VignetteColor: color};
+      let otherformsdisplayed = false;
 
-      let otherformsdisplayed = false; // todo y'a un problème ici
+      // Depend on the interaction
+      element.InteractionsList.forEach(inter => {
+        if (inter.InteractionID === interaction) {
+          inter.ActionList.forEach( action => {
+            if (action.ActionID === 'pronomChangeInfo') {
+              this.changePronomInfo(element.ElementForms[0]);
+            } else if (action.ActionID === 'display') {
+              this.historicService.push(vignette);
+            } else if (action.ActionID === 'say') {
+              this.historicService.say('' + prononcedText);
+            } else if (action.ActionID === 'otherforms' && element.ElementForms.length > 2) {
+              otherformsdisplayed = true;
+              this.boardService.activatedElement = this.getNormalTempList().indexOf(element);
+              this.activatedElementTempList();
+              this.clickedElement = null;
+            }
+          });
+        } else if (!otherformsdisplayed && inter.InteractionID === 'backFromVariant' ) {
+          this.boardService.activatedElement = -1;
+        }
+      });
 
-      if (element.InteractionsList.length > 0 ) {
-        element.InteractionsList.forEach(inter => {
-          if (inter.InteractionID === 'click') {
-            inter.ActionList.forEach( action => {
-              if (action.ActionID === 'pronomChangeInfo') {
-                this.changePronomInfo(element.ElementForms[0]);
-              }
-              if (action.ActionID === 'display') {
-                this.historicService.push(vignette);
-              }
-              if (action.ActionID === 'say') {
-                this.historicService.say('' + prononcedText);
-              }
-              if (action.ActionID === 'otherforms') {
-                if (element.ElementForms.length > 2) {
-                  otherformsdisplayed = true;
-                  this.boardService.activatedElement = this.getNormalTempList().indexOf(element);
-                  this.activatedElementTempList();
-                  this.clickedElement = null;
-                }
-              }
-              if (action.ActionID === 'resetTerminaisons') {
-               this.boardService.resetTerminaisons();
-              }
-            });
-          } else if (!otherformsdisplayed && inter.InteractionID === 'backFromVariant' ) {
-            this.boardService.activatedElement = -1;
-          }
-
-          if (element.ElementPartOfSpeech != null && element.ElementPartOfSpeech !== undefined &&
-            element.ElementPartOfSpeech === ('article défini')) {
-            this.changeArticleInfo(element.ElementForms[0]);
-          }
-
-          if (element.ElementPartOfSpeech === '-verb-') {
-            this.boardService.resetVerbTerminaisons();
-          }
-
-          if (element.ElementPartOfSpeech === '-nom-') {
-            this.changePronomInfo(element.ElementForms.find(eltF => (eltF.DisplayedText === this.getLabel(element))));
-          }
-
-        });
+      // Always executed
+      if (element.ElementPartOfSpeech != null) {
+        if (element.ElementPartOfSpeech === ('article défini')) {
+          this.changeArticleInfo(element.ElementForms[0]);
+        } else if (element.ElementPartOfSpeech === '-verb-') {
+          this.boardService.resetVerbTerminaisons();
+        } else if (element.ElementPartOfSpeech === '-nom-') {
+          this.changePronomInfo(element.ElementForms.find(eltF => (eltF.DisplayedText === this.getLabel(element))));
+        }
       }
 
+      // for folder
     } else if (element.ElementType === 'folder') {
-      this.historicService.say('' + element.ElementForms[0].DisplayedText);
       if (element.ElementFolder === '.') {
         this.boardService.currentFolder = element.ElementFolder + element.ElementID;
       } else {
         this.boardService.currentFolder = element.ElementFolder + '.' + element.ElementID;
       }
+
+      // for errors
     } else {
-      console.log(element.ElementType);
+      console.error('ElementType : ' + element.ElementType + ' is not supported (supported ElementTypes are "button" or "folder")');
     }
+
   }
 
   /**
@@ -541,8 +547,19 @@ export class KeyboardComponent implements OnInit {
   edit(element: Element) {
     if (this.userToolBarService.edit) {
       this.router.navigate(['/edit']);
-      this.editionService.selectedElements[0] = element;
+      this.editionService.selectedElements = [];
+      this.editionService.selectedElements.push(element);
       this.editionService.ElementListener.next(element);
+      this.editionService.add = false;
+    }
+  }
+
+  editAll() {
+    if (this.userToolBarService.edit && this.editionService.selectedElements.length === 1) {
+     this.edit(this.editionService.selectedElements[0]);
+    } else if (this.userToolBarService.edit && this.editionService.selectedElements.length > 1) {
+      this.router.navigate(['/edit']);
+
       this.editionService.add = false;
     }
   }
