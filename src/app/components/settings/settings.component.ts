@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ParametersService} from '../../services/parameters.service';
 import {PaletteService} from '../../services/palette.service';
 import {GeticonService} from '../../services/geticon.service';
+import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 
 @Component({
   selector: 'app-settings',
@@ -10,7 +11,7 @@ import {GeticonService} from '../../services/geticon.service';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(private getIconService: GeticonService, public paletteService: PaletteService, public parametersService: ParametersService) {}
+  constructor(private indexeddbaccessService: IndexeddbaccessService, private getIconService: GeticonService, public paletteService: PaletteService, public parametersService: ParametersService) {}
 
   paletteCodamne = null;
 
@@ -29,6 +30,12 @@ export class SettingsComponent implements OnInit {
    */
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
+  }
+
+  reset() {
+    indexedDB.deleteDatabase('MyTestDatabase');
+    this.indexeddbaccessService.init();
+    this.indexeddbaccessService.update();
   }
 
 }

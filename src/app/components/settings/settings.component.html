@@ -8,9 +8,16 @@
     </a>
   </nav>
 
+  <input type="button" value="reset" (click)="reset();">
+
   <div>
     <label for="longPressTime">longPress value:</label>
-  <input id="longPressTime" type="text" [(ngModel)]="this.parametersService.longpressTimeOut" placeholder="enter a value">
+    <input id="longPressTime" type="text" [(ngModel)]="this.parametersService.longpressTimeOut" placeholder="enter a value">
+  </div>
+
+  <div>
+    <label for="doubleClickTime">doubleClick value:</label>
+    <input id="doubleClickTime" type="text" [(ngModel)]="this.parametersService.doubleClickTimeOut" placeholder="enter a value">
   </div>
 
   <div class="interactionSelection">
@@ -44,7 +51,7 @@
   </div>
 
   <div class="languageSelection" >
-    <label for="lang">Interaction 3 :</label>
+    <label for="lang">Sortie vocale :</label>
     <select id="lang" [(ngModel)]="this.parametersService.lang" class="variantListBox">
       <option selected value="">--choisissez une langue--</option>
       <ng-container *ngFor="let l of this.parametersService.languagesAvailaibles">

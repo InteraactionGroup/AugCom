@@ -160,9 +160,11 @@
   visibility: visible;
 }
 
-.blurredElt{
-  filter: blur(5px);
+
+.keyboard .wrapper .elementContainer .element:hover{
+  filter: brightness(80%);
 }
+
 
 
 .keyboard .wrapper .elementContainer .element{
@@ -203,6 +205,17 @@
   width:90%;
   margin-left: 5%;
   visibility: visible;
+}
+
+
+
+.keyboard .wrapper .elementContainer .blurredElt{
+  cursor: default;
+  filter: blur(5px);
+}
+
+.keyboard .wrapper .elementContainer .blurredElt:hover{
+  filter: blur(5px);
 }
 
 .slidecontainer {

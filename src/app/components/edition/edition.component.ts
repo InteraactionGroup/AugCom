@@ -322,7 +322,9 @@ export class EditionComponent implements OnInit {
   modifyAllButtons() {
     this.editionService.selectedElements.forEach(elt => {
 
-      elt.Color = this.curentColor;
+      if (this.curentColor !== '#d3d3d3' ) {
+        elt.Color = this.curentColor;
+      }
 
       if (this.name !== this.editionService.DEFAULT_MULTPLE_NAME) { // todo there is probably a cleaner way to do it
         elt.ElementForms.forEach( form => {
@@ -339,7 +341,10 @@ export class EditionComponent implements OnInit {
 
 
       if (this.imageURL !== 'assets/icons/multiple-images.svg' ) {
-       // todo create the new image and remove the old ones
+       const img = this.boardService.board.ImageList.find(image => image.ImageID === elt.ImageID);
+       if (img != null) {
+         img.ImagePath = this.imageURL;
+       }
       }
     });
   }

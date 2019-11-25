@@ -12,6 +12,7 @@
   height: 1.5cm;
   width: 100%;
   background-color: grey;
+  box-shadow: 0px 5px 10px black;
 }
 
 .share .sharePanel{
@@ -19,6 +20,7 @@
   width: 90%;
   margin-left: 5%;
   background-color: white;
+  visibility: hidden;
 }
 
 .share .sharePanel .shareSection{
@@ -27,6 +29,7 @@
   margin-left: 15%;
   transform: translateY(50%);
   display: inline-grid;
+  visibility: visible;
 }
 
 .share .sharePanel .shareSection .listElement{
@@ -34,6 +37,7 @@
   width: 90%;
   margin-left: 5%;
   background-color: lightgrey;
+  box-shadow: 0px 2px 10px black;
 }
 
 .share .sharePanel .shareSection .listElement .image{

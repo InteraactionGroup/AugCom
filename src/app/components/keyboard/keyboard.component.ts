@@ -58,7 +58,6 @@ export class KeyboardComponent implements OnInit {
 
         [temp[i2], temp[i1]] =
           [temp[i1], temp[i2]];
-        console.log(i1 + ' ' + i2);
         this.boardService.board.ElementList = temp;
       })
     );
@@ -263,14 +262,11 @@ export class KeyboardComponent implements OnInit {
     if (!this.userToolBarService.edit) {
 
 
-      console.log(this.down);
-
       if (this.down === 0) {
       this.clickedElement = element;
       } else {
         window.clearTimeout(this.dblClickTimer);
         if (this.clickedElement !== element && this.clickedElement != null) {
-          console.log('click3 ' + this.clickedElement.ElementID);
           this.action(element, 'click');
         }
       }
@@ -301,8 +297,7 @@ export class KeyboardComponent implements OnInit {
 
       } else if (this.down > 1) {
         if (this.clickedElement === element) {
-          console.log('doubleClick' + element.ElementID);
-          this.action(element, 'dblClick');
+          this.action(element, 'doubleClick');
           this.clickedElement = null;
           this.down = 0;
         } else if (this.clickedElement != null) {
@@ -316,20 +311,18 @@ export class KeyboardComponent implements OnInit {
 
   setClickTimer(element) {
     this.dblClickTimer = window.setTimeout(() => {
-        console.log('click2 ' + element.ElementID);
         this.action(element, 'click');
         this.clickedElement = null;
         this.down = 0;
-    }, 300);
+    }, this.parametersService.doubleClickTimeOut);
   }
 
   setLongPressTimer(element) {
     this.pressTimer = window.setTimeout(() => {
-      console.log('longPress ' + element.ElementID);
       this.action(element, 'longPress');
       this.clickedElement = null;
       this.down = 0;
-    }, 1000);
+    }, this.parametersService.longpressTimeOut);
   }
 
   /**
@@ -382,8 +375,9 @@ export class KeyboardComponent implements OnInit {
     const tempOtherFOrmList: Element[] = [];
     this.getNormalTempList().forEach( e => tempOtherFOrmList.push(this.copy(e)));
     const index = this.boardService.activatedElement;
-    while (index + this.boardService.sliderValueCol + 1 > tempOtherFOrmList.length - 1 ) { // fill with empy elements
-      tempOtherFOrmList.push({
+    const max: number = Number(Number(index) + Number(this.boardService.sliderValueCol) + 1 - Number(tempOtherFOrmList.length) + 1);
+    for (let newElementIndex = 0 ; newElementIndex < max ; newElementIndex = newElementIndex + 1 ) { // fill with empy elements
+       tempOtherFOrmList.push({
         ElementID: '',
         ElementFolder: this.boardService.currentFolder,
         ElementType: 'button',
@@ -395,16 +389,17 @@ export class KeyboardComponent implements OnInit {
       });
     }
 
-    let indexOfForm = 1;
+    let indexOfForm = 0;
     const compElt = tempOtherFOrmList[index];
     tempOtherFOrmList.forEach( elt => {
       const tempIndex = tempOtherFOrmList.indexOf(elt);
       let places = this.createPlaces(index);
-      places = places.slice(0, compElt.ElementForms.length - 1);
+      places = places.slice(0, compElt.ElementForms.length );
       if (places.includes(tempIndex)) {
         if (compElt.ElementForms.length > indexOfForm ) {
           elt.Color = '#aaaaaa';
           elt.ImageID = '' + compElt.ImageID;
+          elt.ElementType =  'button';
           elt.ElementForms = [];
           elt.ElementPartOfSpeech = '' + compElt.ElementPartOfSpeech;
           elt.ElementForms.push(
@@ -413,7 +408,7 @@ export class KeyboardComponent implements OnInit {
               VoiceText: compElt.ElementForms[indexOfForm].VoiceText,
               LexicInfos: compElt.ElementForms[indexOfForm].LexicInfos
             });
-          elt.InteractionsList = tempOtherFOrmList[index].InteractionsList.copyWithin(0, 0);
+          elt.InteractionsList = tempOtherFOrmList[index].InteractionsList.slice();
           elt.InteractionsList.push({ InteractionID: 'backFromVariant', ActionList: [] });
           indexOfForm = indexOfForm + 1;
         }

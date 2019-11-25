@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class ParametersService {
 
   longpressTimeOut = 1000;
+  doubleClickTimeOut = 200;
   interaction = ['click', 'longPress', 'doubleClick'];
   lang = 'fr-FR';
   dragNDropinit = false;
