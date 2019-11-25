@@ -12,10 +12,19 @@
   </div>
   <div class="editSettings" (click) = this.editAll() >
     <div class="editButton" > edit selected </div>
-    <div class="editImg" id='editButton' [style.background-image]="this.getIcon('edit')">
-
+    <div class="editImg" [style.background-image]="this.getIcon('edit')">
     </div>
   </div>
+  <div class="editSettings" >
+    <label for="editBckButton">
+    <div class="editButton" > change background </div>
+    <div class="editImg"  [style.background-image]="this.getIcon('edit')">
+    </div>
+    </label>
+    <input #file  type="file" id='editBckButton' (change)="this.boardService.updateBackground( file.files )">
+  </div>
+
+
   <div class="gridSettings">
   <input class="inputSize" type="text" [(ngModel)]="this.boardService.sliderValueCol" >
     <div class="x">
@@ -24,17 +33,17 @@
     <input class="inputSize" type="text" [(ngModel)]="this.boardService.sliderValueRow">
   </div>
 </div>
-
-<div class="keyboard" [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100vh - 4.5cm)':'calc(100vh - 3.5cm)'}">
+<div id="keyboard" >
+<div class="keyboard" [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100vh - 4.5cm)':'calc(100vh - 3.5cm)'}" >
 
   <div class="wrapper" [ngStyle]="{'grid-template-columns': 'repeat('+(this.boardService.sliderValueCol)+', '+(100/(this.boardService.sliderValueCol))+'%)',
-                                  'grid-template-rows': 'repeat('+(this.boardService.sliderValueRow)+', '+(100/(this.boardService.sliderValueRow))+'%)'}"
+                                  'grid-template-rows': 'repeat('+(this.boardService.sliderValueRow)+', '+(100/(this.boardService.sliderValueRow))+'%)',
+'background-image' : this.boardService.background }"
        [dragula]="this.userToolBarService.edit ? 'VAMPIRE' :null">
 
     <ng-container class="test" *ngFor="let element of this.getTempList()">
 
-      <ng-container *ngIf="true">
-        <div id="{{element.ElementID}}" class="elementContainer" >
+        <div id="{{element.ElementID}}" class="elementContainer" *ngIf="element.ElementType!=='empty'" >
 
           <div class="element" [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)"  (pointerdown)="this.pointerDown(element)" (pointerup)="this.pointerUp(element)" [ngStyle]="{'background-color': this.boardService.elementColor(element)}">
 
@@ -43,7 +52,7 @@
             </div>
 
             <div class="label">
-            {{this.getLabel(element)}}
+            {{this.boardService.getLabel(element)}}
             </div>
 
           </div>
@@ -61,7 +70,6 @@
           </div>
 
         </div>
-      </ng-container>
     </ng-container>
     <ng-container *ngIf="this.boardService.currentFolder !== '.' && this.boardService.activatedElement==-1" >
     <div class="elementContainer no-drag" >
@@ -107,4 +115,5 @@
 
   </div>
   <app-snap-bar></app-snap-bar>
+</div>
 </div>

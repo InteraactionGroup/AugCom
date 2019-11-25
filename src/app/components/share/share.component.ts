@@ -6,6 +6,7 @@ import {saveAs as importedSaveAs} from 'file-saver';
 import * as JSZip from 'jszip';
 import {Router} from '@angular/router';
 import {SnapBarService} from '../../services/snap-bar.service';
+import {PrintService} from '../../services/print.service';
 
 @Component({
   selector: 'app-share',
@@ -14,10 +15,17 @@ import {SnapBarService} from '../../services/snap-bar.service';
 })
 export class ShareComponent implements OnInit {
 
-  constructor(public snapBarService: SnapBarService, private router: Router, public getIconService: GeticonService, public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
+  constructor( private printService: PrintService, public snapBarService: SnapBarService, private router: Router, public getIconService: GeticonService, public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
 
 
   ngOnInit() {
+  }
+
+  printToPDF() {
+    this.userToolBarService.edit = false;
+    window.setTimeout(() => {
+      this.printService.printDiv();
+    }, 2000);
   }
 
   /**

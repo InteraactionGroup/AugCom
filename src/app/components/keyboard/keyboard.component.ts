@@ -39,7 +39,7 @@ export class KeyboardComponent implements OnInit {
   subs = new Subscription();
 
   // tslint:disable-next-line:max-line-length
-  constructor(private dragulaService: DragulaService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) {
+  constructor( private dragulaService: DragulaService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) {
 
     this.subs.add(this.dragulaService.drop('VAMPIRE')
       .subscribe(({ el, target, source, sibling }) => {
@@ -133,99 +133,6 @@ export class KeyboardComponent implements OnInit {
   //   this.boardService.board.gridColsNumber = this.boardService.sliderValueCol;
   //   this.boardService.board.gridRowsNumber = this.boardService.sliderValueRow;
   // }
-
-  /**
-   * return the current label of the element dependind on the current noun and verb termination
-   * @param element, an Element
-   * @return return the current label of the element
-   */
-  getLabel(element: Element) {
-    if (element.ElementPartOfSpeech === '-verb-') {
-      const verbElement = element.ElementForms.find(elt => this.checkVerbForms(elt));
-      if (verbElement != null) {
-        return verbElement.DisplayedText;
-      }
-    }
-
-    if (element.ElementPartOfSpeech === '-nom-' || element.ElementPartOfSpeech === '-adj-') {
-      const nounElement = element.ElementForms.find(elt => this.checkNounForms(elt));
-      if (nounElement != null) {
-        return nounElement.DisplayedText;
-      }
-    }
-    const defaultElement = element.ElementForms.find(elt => this.checkDefault(elt) );
-    if (defaultElement != null) {
-      return defaultElement.DisplayedText;
-    } else {
-      if ( element.ElementForms.length > 0) {
-        return element.ElementForms[0].DisplayedText;
-      } else {
-        return  '';
-      }
-    }
-  }
-
-  /**
-   * check if 'elt' person and number information correspond to current person and number of current verb Termination
-   * @param elt, a list of element forms
-   * @return true if elt person and number information correspond to current person and number of current verb Termination
-   */
-  checkVerbForms(elt: ElementForm): boolean {
-    let person = false;
-    let n = false;
-    elt.LexicInfos.forEach(info => {
-      if (!person && info.person != null
-        && info.person === this.boardService.currentVerbTerminaison.currentPerson) {
-        person = true;
-      }
-
-      if (!n && info.number != null
-        && info.number === this.boardService.currentVerbTerminaison.currentNumber) {
-        n = true;
-      }
-    });
-    return person && n;
-  }
-
-  /**
-   * check if 'elt' gender and number information correspond to current gender and number of current Noun Termination
-   * @param elt, a list of element forms
-   * @return true if elt gender and number information correspond to current gender and number of current Noun Termination
-   */
-  checkNounForms(elt: ElementForm): boolean {
-    let gender = this.boardService.currentNounTerminaison.currentGender === '' ||
-      elt.LexicInfos.find(info => info.gender != null && info.gender !== undefined) === undefined;
-    let n = false;
-    elt.LexicInfos.forEach(info => {
-      if (!gender && info.gender != null
-        && info.gender === this.boardService.currentNounTerminaison.currentGender) {
-
-        gender = true;
-      }
-
-      if (!n && info.number != null
-        && info.number === this.boardService.currentNounTerminaison.currentNumber) {
-        n = true;
-      }
-    });
-    return gender && n;
-  }
-
-  /**
-   * check if the element form list 'elt' contains a default value
-   * @param elt, a list of element forms
-   * @return true if elt contains a default form, false otherwise
-   */
-  checkDefault(elt: ElementForm): boolean {
-    let defaultVal = false;
-    elt.LexicInfos.forEach(info => {
-      if (info.default != null
-        && info.default === true) {
-        defaultVal = true;
-      }
-    });
-    return defaultVal;
-  }
 
   /**
    * update the current person and number information for verb terminations
@@ -397,7 +304,7 @@ export class KeyboardComponent implements OnInit {
       places = places.slice(0, compElt.ElementForms.length );
       if (places.includes(tempIndex)) {
         if (compElt.ElementForms.length > indexOfForm ) {
-          elt.Color = '#aaaaaa';
+          elt.Color = compElt.Color;
           elt.ImageID = '' + compElt.ImageID;
           elt.ElementType =  'button';
           elt.ElementForms = [];
@@ -472,11 +379,12 @@ export class KeyboardComponent implements OnInit {
   }
 
   action(element: Element, interaction: string) {
+    if (element.ElementType !== 'empty') {
 
     // for button
     if (element.ElementType === 'button') {
 
-      const prononcedText = this.getLabel(element);
+      const prononcedText = this.boardService.getLabel(element);
       const color = element.Color;
       const imgUrl = this.boardService.getImgUrl(element);
       const vignette: Vignette = {
@@ -514,7 +422,7 @@ export class KeyboardComponent implements OnInit {
         } else if (element.ElementPartOfSpeech === '-verb-') {
           this.boardService.resetVerbTerminaisons();
         } else if (element.ElementPartOfSpeech === '-nom-') {
-          this.changePronomInfo(element.ElementForms.find(eltF => (eltF.DisplayedText === this.getLabel(element))));
+          this.changePronomInfo(element.ElementForms.find(eltF => (eltF.DisplayedText === this.boardService.getLabel(element))));
         }
       }
 
@@ -530,7 +438,7 @@ export class KeyboardComponent implements OnInit {
     } else {
       console.error('ElementType : ' + element.ElementType + ' is not supported (supported ElementTypes are "button" or "folder")');
     }
-
+    }
   }
 
   /**
@@ -556,8 +464,10 @@ export class KeyboardComponent implements OnInit {
       this.router.navigate(['/edit']);
 
       this.editionService.add = false;
+    } else {
     }
   }
+
 
   /**
    * return the icon url corresponding to the string s

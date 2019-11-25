@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
 import {Board} from '../data/ExempleOfBoard';
-import { Element, Grid} from '../types';
+import {Element, ElementForm, Grid} from '../types';
 import {DomSanitizer} from '@angular/platform-browser';
 import {UsertoolbarService} from './usertoolbar.service';
 import {EditionService} from './edition.service';
+import {Ng2ImgMaxService} from 'ng2-img-max';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BoardService {
 
-  constructor(public editionService: EditionService, public userToolBarService: UsertoolbarService, public sanitizer: DomSanitizer) {
+  constructor(public ng2ImgMaxService: Ng2ImgMaxService, public editionService: EditionService, public userToolBarService: UsertoolbarService, public sanitizer: DomSanitizer) {
     this.board  = Board;
     this.sliderValueCol = this.board.gridColsNumber;
     this.sliderValueRow = this.board.gridRowsNumber;
   }
+
+  background: any = '';
 
   sliderValueCol;
   sliderValueRow;
@@ -28,6 +31,109 @@ export class BoardService {
 
   activatedElement = -1;
 
+
+  updateBackground(file) {
+    const reader = new FileReader();
+    this.ng2ImgMaxService.resize([file[0]], 1000, 1000).subscribe(result => {
+      reader.readAsDataURL(result);
+      reader.onload = () => {
+        this.background = 'url(' + reader.result + ')';
+      };
+    });
+  }
+
+  /**
+   * return the current label of the element dependind on the current noun and verb termination
+   * @param element, an Element
+   * @return return the current label of the element
+   */
+  getLabel(element: Element) {
+    if (element.ElementPartOfSpeech === '-verb-') {
+      const verbElement = element.ElementForms.find(elt => this.checkVerbForms(elt));
+      if (verbElement != null) {
+        return verbElement.DisplayedText;
+      }
+    }
+
+    if (element.ElementPartOfSpeech === '-nom-' || element.ElementPartOfSpeech === '-adj-') {
+      const nounElement = element.ElementForms.find(elt => this.checkNounForms(elt));
+      if (nounElement != null) {
+        return nounElement.DisplayedText;
+      }
+    }
+    const defaultElement = element.ElementForms.find(elt => this.checkDefault(elt) );
+    if (defaultElement != null) {
+      return defaultElement.DisplayedText;
+    } else {
+      if ( element.ElementForms.length > 0) {
+        return element.ElementForms[0].DisplayedText;
+      } else {
+        return  '';
+      }
+    }
+  }
+
+  /**
+   * check if 'elt' person and number information correspond to current person and number of current verb Termination
+   * @param elt, a list of element forms
+   * @return true if elt person and number information correspond to current person and number of current verb Termination
+   */
+  checkVerbForms(elt: ElementForm): boolean {
+    let person = false;
+    let n = false;
+    elt.LexicInfos.forEach(info => {
+      if (!person && info.person != null
+        && info.person === this.currentVerbTerminaison.currentPerson) {
+        person = true;
+      }
+
+      if (!n && info.number != null
+        && info.number === this.currentVerbTerminaison.currentNumber) {
+        n = true;
+      }
+    });
+    return person && n;
+  }
+
+  /**
+   * check if 'elt' gender and number information correspond to current gender and number of current Noun Termination
+   * @param elt, a list of element forms
+   * @return true if elt gender and number information correspond to current gender and number of current Noun Termination
+   */
+  checkNounForms(elt: ElementForm): boolean {
+    let gender = this.currentNounTerminaison.currentGender === '' ||
+      elt.LexicInfos.find(info => info.gender != null && info.gender !== undefined) === undefined;
+    let n = false;
+    elt.LexicInfos.forEach(info => {
+      if (!gender && info.gender != null
+        && info.gender === this.currentNounTerminaison.currentGender) {
+
+        gender = true;
+      }
+
+      if (!n && info.number != null
+        && info.number === this.currentNounTerminaison.currentNumber) {
+        n = true;
+      }
+    });
+    return gender && n;
+  }
+
+  /**
+   * check if the element form list 'elt' contains a default value
+   * @param elt, a list of element forms
+   * @return true if elt contains a default form, false otherwise
+   */
+  checkDefault(elt: ElementForm): boolean {
+    let defaultVal = false;
+    elt.LexicInfos.forEach(info => {
+      if (info.default != null
+        && info.default === true) {
+        defaultVal = true;
+      }
+    });
+    return defaultVal;
+  }
 
   resetTerminaisons() {
     this.currentVerbTerminaison = {currentPerson: '', currentNumber: ''};
@@ -61,6 +167,20 @@ export class BoardService {
       if (path !== null && path !== undefined) {
         const s = path.ImagePath;
         return this.sanitizer.bypassSecurityTrustStyle('url(' + s + ')');
+      } else {
+        return '';
+      }
+    } else {
+      return '';
+    }
+  }
+
+  getSimpleImgUrl(element: Element) {
+    if (this.board.ImageList != null) {
+      const path = this.board.ImageList.find(x => x.ImageID === element.ImageID);
+      if (path !== null && path !== undefined) {
+        const s = path.ImagePath;
+        return 'url(' + s + ')';
       } else {
         return '';
       }

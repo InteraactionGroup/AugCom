@@ -47,6 +47,9 @@
   background-color: dimgrey;
 }
 
+.settings .editSettings input{
+  visibility: hidden;
+}
 
 .settings .editSettings .editButton {
   transform: translateY(45%);
@@ -94,6 +97,10 @@
   height:100%;
   width:100%;
   overflow: hidden;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  visibility: visible;
 }
 
 .keyboard .wrapper .elementContainer{
