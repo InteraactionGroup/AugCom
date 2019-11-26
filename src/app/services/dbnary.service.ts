@@ -7,12 +7,7 @@ import {ResultJson1, ResultJson2} from '../sparqlJsonResults';
 })
 export class DbnaryService {
 
-  public static PartOfSpeechQuerry = 1;
-  public static FormsOfWord = 2;
-  public static FormsOfVerb = 3;
-
   private sparkqlData = null;
-  public word;
   public wordList = [];
   public typeList = [];
 
@@ -26,22 +21,13 @@ export class DbnaryService {
   startsearch(i: number) {
     this.searchStarted = i;
   }
-  getWordPartOfSpeech(word: string, list) {
 
-    const query = ['SELECT DISTINCT ?po WHERE {' +
-    '?t ontolex:canonicalForm/ontolex:writtenRep "' + word + '"@fr;' +
-    'dbnary:partOfSpeech ?po.' +
-    '}'].join(' ');
-    this.sparkql(query, list, DbnaryService.PartOfSpeechQuerry );
-
-  }
-
-  getOtherFormsOfThisPartOfSpeechWord(word: string, pos: string, list) {
+  getTypes(word: string) {
 
     const query = [
-      'SELECT DISTINCT ?ofo ?of ?p ?n ?g ?t ?vFM WHERE {{\n' +
-      '?mot ontolex:canonicalForm/ontolex:writtenRep "' + word + '"@fr.\n' +
-      '?mot dbnary:partOfSpeech "' + pos + '".\n' +
+      'SELECT DISTINCT ?po ?ofo ?p ?g ?n ?t ?vFM WHERE {{\n' +
+      '?mot ontolex:canonicalForm/ontolex:writtenRep "' + word + '"@FR.\n' +
+      '?mot dbnary:partOfSpeech ?po.\n' +
       '?mot ontolex:otherForm ?of.\n' +
       '?of ontolex:writtenRep ?ofo.\n' +
       'OPTIONAL {?of lexinfo:person ?p.}\n' +
@@ -50,8 +36,8 @@ export class DbnaryService {
       'OPTIONAL {?of lexinfo:tense ?t.}\n' +
       'OPTIONAL {?of lexinfo:verbFormMood ?vFM.}\n' +
       '}UNION{\n' +
-      '?mot ontolex:canonicalForm/ontolex:writtenRep "' + word + '"@fr.\n' +
-      '?mot dbnary:partOfSpeech "' + pos + '".\n' +
+      '?mot ontolex:canonicalForm/ontolex:writtenRep "' + word + '"@FR.\n' +
+      '?mot dbnary:partOfSpeech ?po.\n' +
       '?mot ontolex:canonicalForm ?of.\n' +
       '?of ontolex:writtenRep ?ofo.\n' +
       'OPTIONAL {?of lexinfo:person ?p.}\n' +
@@ -59,17 +45,15 @@ export class DbnaryService {
       'OPTIONAL {?of lexinfo:gender ?g.}\n' +
       'OPTIONAL {?of lexinfo:tense ?t.}\n' +
       'OPTIONAL {?of lexinfo:verbFormMood ?vFM.}\n' +
-      '}}'
-  ].join(' ');
-    if (pos !== '-verb-') {
-      this.sparkql(query, list, DbnaryService.FormsOfWord);
-    } else {
-      this.sparkql(query, list, DbnaryService.FormsOfVerb);
-    }
+      '}\n' +
+      '}ORDER BY ?po, ?g ,?n'
+    ].join(' ');
+    this.sparkql(query);
   }
 
-  sparkql(query, list, i) {
+  sparkql(query) {
 
+    this.typeList = [];
 
     const headers = new HttpHeaders({
       'Content-type' : 'application/x-www-form-urlencoded',
@@ -93,47 +77,52 @@ export class DbnaryService {
       .get(proxy + 'http://kaiko.getalp.org/sparql' + '?query=' + encodeURIComponent(query) , httpOptions)
       .subscribe(
         data => {
-          if ( i === DbnaryService.PartOfSpeechQuerry ) {
             this.sparkqlData = data as ResultJson1;
             this.sparkqlData.results.bindings.forEach(w => {
-              list.push(w.po.value);
+              if (!this.typeList.includes(w.po.value)) {
+                this.typeList.push(w.po.value);
+              }
             });
-          } else {
-            this.sparkqlData = data as ResultJson2;
-            this.sparkqlData.results.bindings.forEach(w => {
-              const infoList = [];
-              if (w.p !== undefined) {
-                infoList.push({person: w.p.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
-              }
-              if (w.n !== undefined) {
-                infoList.push({number: w.n.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
-              }
-              if (w.g !== undefined) {
-                infoList.push({gender: w.g.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
-
-              }
-              if (w.t !== undefined) {
-                infoList.push({tense: w.t.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
-
-              }
-              if (w.vFM !== undefined) {
-                infoList.push({verbFormMood: w.vFM.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
-
-              }
-              if (i === DbnaryService.FormsOfVerb && this.isIndicativePresent(w)) {
-                list.push({val: w.ofo.value, info: infoList, selected: false});
-              } else if (i === DbnaryService.FormsOfWord) {
-                list.push({val: w.ofo.value, info: infoList, selected: false});
-              }
-
-            });
-          }
-          this.searchStarted = 0;
+            this.searchStarted = 0;
         },
         error => {
           this.searchStarted = 0;
           console.log(error.error.text, error); }
       );
+  }
+
+  getWords(classe) {
+    this.searchStarted = 1;
+    this.sparkqlData.results.bindings.forEach(w => {
+          if (w.po !== undefined && w.po.value === classe) {
+            const infoList = [];
+            if (w.p !== undefined) {
+              infoList.push({person: w.p.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
+            }
+            if (w.n !== undefined) {
+              infoList.push({number: w.n.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
+            }
+            if (w.g !== undefined) {
+              infoList.push({gender: w.g.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
+
+            }
+            if (w.t !== undefined) {
+              infoList.push({tense: w.t.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
+
+            }
+            if (w.vFM !== undefined) {
+              infoList.push({verbFormMood: w.vFM.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
+
+            }
+
+            if (classe === '-verb-' && this.isIndicativePresent(w)) {
+              this.wordList.push({val: w.ofo.value, info: infoList, selected: false});
+            } else if (classe !== '-verb-') {
+              this.wordList.push({val: w.ofo.value, info: infoList, selected: false});
+            }
+        }
+      });
+    this.searchStarted = 0;
   }
 
   isIndicativePresent(verb): boolean {

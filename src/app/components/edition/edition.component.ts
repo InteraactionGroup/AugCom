@@ -550,7 +550,7 @@ export class EditionComponent implements OnInit {
     this.variantDisplayed = true;
     this.dbnaryService.typeList = [];
     this.dbnaryService.startsearch(1);
-    this.dbnaryService.getWordPartOfSpeech(word, this.dbnaryService.typeList);
+    this.dbnaryService.getTypes(word);
   }
 
   /**
@@ -566,13 +566,13 @@ export class EditionComponent implements OnInit {
   /**
    * Actualize the variants forms list (wordList) of the word 'word' with the grammatical type b
    * (ex: displayVariant('-nom-','chien') will actualise the wordList with ['chien','chiens','chienne','chiennes'])
-   * @param b, a grammatical type (ex: -verb-, -nom-...).
+   * @param classe, a grammatical type (ex: -verb-, -nom-...).
    * @param word, a string word
    */
-  displayVariant(b: string, word: string) {
+  displayVariant(classe: string, word: string) {
     this.dbnaryService.wordList = [];
     this.dbnaryService.startsearch(2);
-    this.dbnaryService.getOtherFormsOfThisPartOfSpeechWord(word, b, this.dbnaryService.wordList);
+    this.dbnaryService.getWords(classe);
   }
 
   pickAColor(s: string) {
