@@ -15,6 +15,13 @@
     <div class="editImg" [style.background-image]="this.getIcon('edit')">
     </div>
   </div>
+
+  <div class="editSettings" (click) = this.deleteAll() >
+    <div class="editButton" > delete selected </div>
+    <div class="editImg" [style.background-image]="this.getIcon('delete')">
+    </div>
+  </div>
+
   <div class="editSettings" >
     <label for="editBckButton">
     <div class="editButton" > change background </div>
@@ -45,8 +52,10 @@
 
         <div id="{{element.ElementID}}" class="elementContainer" *ngIf="element.ElementType!=='empty'" >
 
+
           <div class="element" [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)"  (pointerdown)="this.pointerDown(element)" (pointerup)="this.pointerUp(element)" [ngStyle]="{'background-color': element.Color !== null ? element.Color : 'grey' ,
-          'border-color': element.BorderColor === null || element.BorderColor == undefined ? 'black' : element.BorderColor}">
+          'border-color': element.BorderColor === null || element.BorderColor === undefined ? 'black' : element.BorderColor,
+          'box-shadow': this.getShadow(element) }">
 
             <div class="image" [style.background-image]="this.boardService.getImgUrl(element)">
 

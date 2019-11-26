@@ -19,7 +19,7 @@ export class EditionService {
 
   selectAll = false;
 
-  elementCondamne: Element = null;
+  elementCondamne: Element[] = [];
 
   constructor() { }
 
@@ -51,6 +51,6 @@ export class EditionService {
   }
 
   delete(element: Element) {
-    this.elementCondamne = element;
+    this.elementCondamne.push(element);
   }
 }
