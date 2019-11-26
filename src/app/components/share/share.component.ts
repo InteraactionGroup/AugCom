@@ -7,6 +7,7 @@ import * as JSZip from 'jszip';
 import {Router} from '@angular/router';
 import {SnapBarService} from '../../services/snap-bar.service';
 import {PrintService} from '../../services/print.service';
+import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 
 @Component({
   selector: 'app-share',
@@ -15,7 +16,7 @@ import {PrintService} from '../../services/print.service';
 })
 export class ShareComponent implements OnInit {
 
-  constructor( private printService: PrintService, public snapBarService: SnapBarService, private router: Router, public getIconService: GeticonService, public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
+  constructor(private indexedDBacess: IndexeddbaccessService, private printService: PrintService, public snapBarService: SnapBarService, private router: Router, public getIconService: GeticonService, public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
 
 
   ngOnInit() {
@@ -51,31 +52,37 @@ export class ShareComponent implements OnInit {
               zipFolder.file(fileName).async('base64').then(content => {
                 const split = fileName.split('.');
                 let fileType = split[split.length - 1];
-                if (fileType === 'svg') {
-                  fileType = 'svg+xml';
+
+                if (fileType !== null && fileType !== undefined) {
+
+                  if (fileType === 'svg') {
+                    fileType = 'svg+xml';
+                  }
+                  const imageURL = 'data:image/' + fileType + ';base64,' + content;
+
+                  const folder = split[split.length - 2];
+                  if (folder !== null && folder !== undefined) {
+                    let folderPath = folder.split('/');
+
+                    const name = folderPath[folderPath.length - 1];
+
+                    let path = '';
+                    folderPath = folderPath.slice(0, folderPath.length - 1);
+                    folderPath.forEach(s => {
+                      path = path + '.' + s;
+                    });
+
+
+                    let type;
+                    if (folderPath.length === 0) {
+                      type = 'folder';
+                    } else {
+                      type = 'button';
+                    }
+                    this.createNewButton(name, imageURL, path, type);
+
+                  }
                 }
-                const imageURL = 'data:image/' + fileType + ';base64,' + content;
-
-                const folder = split[split.length - 2];
-                let folderPath = folder.split('/');
-
-                const name = folderPath[folderPath.length - 1];
-
-                let path = '';
-                folderPath = folderPath.slice(0, folderPath.length - 1);
-                folderPath.forEach( s => {
-                  path = path + '.' +  s;
-                });
-
-
-                let type;
-                if (folderPath.length === 0) {
-                  type = 'folder';
-                } else {
-                  type = 'button';
-                }
-                this.createNewButton(name, imageURL, path, type);
-
               });
             } else {
               const imageURL = 'assets/libs/mulberry-symbols/EN-symbols/computer_folder_open_,_to.svg';
@@ -93,15 +100,16 @@ export class ShareComponent implements OnInit {
             }
         }
       );
-        });
+ });
 
     this.router.navigate(['']);
+
   }
 
   /**
    * create and add a new element and a new image to the bard using information contained in parameters
    * @param name, the name of the new element
-   * @param imageUrl, the imageUrl of the nex element
+   * @param imageURL, the imageUrl of the nex element
    * @param folder, the folder having to contain the new element
    * @param type, the type of the new element (button or folder)
    */
@@ -119,7 +127,8 @@ export class ShareComponent implements OnInit {
         ],
         ImageID: folder + name,
         InteractionsList: [],
-        Color: 'lightgrey'
+        Color: 'lightgrey',
+        BorderColor: 'black'
       });
 
     this.boardService.board.ImageList.push(
@@ -128,6 +137,8 @@ export class ShareComponent implements OnInit {
         ImageLabel: name,
         ImagePath: imageURL
       });
+
+    this.indexedDBacess.update(); // TODO alléger un peu l'appel
   }
 
   /**

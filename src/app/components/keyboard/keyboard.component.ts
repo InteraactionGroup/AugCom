@@ -292,7 +292,8 @@ export class KeyboardComponent implements OnInit {
         ElementForms: [],
         ImageID: '',
         InteractionsList: [],
-        Color: '#ffffff' // to delete later
+         Color: '#ffffff', // to delete later
+         BorderColor: '#ffffff' // to delete later
       });
     }
 

@@ -15,13 +15,24 @@
   <div class="leftEdition">
 
     <div class="colorPickerContainer">
-      <div class="colorPicker" (click)="pickAColor()"
-      [ngStyle]="{'background-color':this.curentColor}">
+      <div class="colorPicker" (click)="pickAColor('inside')"
+           [ngStyle]="{'background-color':this.curentColor}">
 
       </div>
     </div>
 
-    <div class="button" [ngStyle]="{'background-color': this.curentColor}">
+    <div class="colorPickerContainerDown">
+      <div class="colorPicker" (click)="pickAColor('border')"
+           [ngStyle]="{'background-color':this.curentBorderColor}">
+
+      </div>
+    </div>
+
+    <div class="button" [ngStyle]="{'background-color': this.curentColor,
+    'box-sizing': 'border-box',
+     'border-width': '3px',
+     'border-style': 'solid',
+     'border-color': this.curentBorderColor}">
       <div class="image" [style.background-image]="this.sanitizer.bypassSecurityTrustStyle('url(' +this.imageURL+')')">
 
       </div>
@@ -32,7 +43,7 @@
 
   </div>
 
-  <div class="rightEdition" [class.blured]="choseImage || variantDisplayed || eventDisplayed || this.colorPicked">
+  <div class="rightEdition" [class.blured]="choseImage || variantDisplayed || eventDisplayed || this.colorPicked !== null">
 
     <div class="rightContainer">
       <div class="element name">
@@ -242,7 +253,7 @@
 
 
 
-  <div class="popup" *ngIf="this.colorPicked">
+  <div class="popup" *ngIf="this.colorPicked !== null">
     <div class="popupcontainer">
 
       <div class="palettes">
@@ -255,7 +266,7 @@
           </div>
           <div class="palette" *ngIf="this.selectedPalette == palette.name" [ngStyle]="{'grid-template-rows': 'repeat(' + this.paletteService.rowNumber(palette.colors.length) + ',30px)'}" >
             <div class="color"  [class.realcolor]="color!==null" *ngFor="let color of palette.colors" [ngStyle]="{'background-color': color}"
-            (click)="this.curentColor= color">
+            (click)="this.selectColor(color);">
 
             </div>
           </div>
@@ -264,7 +275,7 @@
 
 
     </div>
-    <div class="close" (click)="this.colorPicked = false;" [ngStyle]="{'background-image':this.getIcon('clear')}">
+    <div class="close" (click)="this.colorPicked = null;" [ngStyle]="{'background-image':this.getIcon('clear')}">
 
     </div>
   </div>
