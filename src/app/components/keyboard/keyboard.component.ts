@@ -117,10 +117,24 @@ export class KeyboardComponent implements OnInit {
   }
 
 
-  getShadow(element) {
-    return (element.ElementType === 'folder' ? '3px ' : '0px ') +
-    (element.ElementType === 'folder' ? '-3px ' : '0px ') +
-    (element.BorderColor === null || element.BorderColor === undefined ? 'black' : element.BorderColor);
+  getShadow(element: Element) {
+
+    let s = (element.ElementType === 'folder' ? '3px ' : '0px ') +
+      (element.ElementType === 'folder' ? '-3px ' : '0px ') +
+      '0px ' +
+      (element.ElementType === 'folder' ? '3px ' : '0px ')
+      + element.Color ;
+
+    s = s + ' , ' +
+      (element.ElementType === 'folder' ? '3px ' : '0px ') +
+      (element.ElementType === 'folder' ? '-3px ' : '0px ') +
+      element.BorderColor ;
+    console.log(s);
+    return  s;
+
+    // return (element.ElementType === 'folder' ? '3px ' : '0px ') +
+    // (element.ElementType === 'folder' ? '-3px ' : '0px ') +
+    // (element.BorderColor === null || element.BorderColor === undefined ? 'black' : element.BorderColor);
   }
 
   /**
