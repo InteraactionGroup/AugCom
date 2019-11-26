@@ -15,8 +15,8 @@ export class PopupComponent implements OnInit {
   /**
    * strings for the beginning and end of the popup question
    */
-  questionBegin = 'Êtes-vous sûr de vouloir supprimer l\'élément: ';
-  questionEnd = ' ? \n la suppression ne peut pas être défaite.';
+  questionBegin = 'Vous êtes sur le point de supprimer ';
+  questionEnd = 'la suppression ne peut pas être défaite.\n Continuer ?';
 
   constructor(public editionService: EditionService, public indexedDBacess: IndexeddbaccessService,
               public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
@@ -29,6 +29,8 @@ export class PopupComponent implements OnInit {
    */
   yes() {
     this.boardService.executer();
+    this.editionService.selectedElements = [];
+    this.editionService.elementCondamne = [];
     this.indexedDBacess.update();
     this.closePopup();
   }
@@ -37,7 +39,8 @@ export class PopupComponent implements OnInit {
    * cancel the deletion of the elementCondamne and close the popu panel
    */
   no() {
-    this.editionService.elementCondamne = null;
+    this.editionService.selectedElements = [];
+    this.editionService.elementCondamne = [];
     this.closePopup();
   }
   /**
@@ -45,5 +48,13 @@ export class PopupComponent implements OnInit {
    */
   closePopup() {
     this.userToolBarService.popup = false;
+  }
+
+  getText() {
+    if (this.editionService.elementCondamne.length === 1) {
+      return 'l\'élément: "' + this.editionService.elementCondamne[0].ElementForms[0].DisplayedText + '".\n';
+    } else if (this.editionService.elementCondamne.length >= 1) {
+      return 'plusieurs éléments. \n';
+    }
   }
 }

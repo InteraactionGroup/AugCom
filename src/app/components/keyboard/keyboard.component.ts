@@ -463,12 +463,18 @@ export class KeyboardComponent implements OnInit {
      this.edit(this.editionService.selectedElements[0]);
     } else if (this.userToolBarService.edit && this.editionService.selectedElements.length > 1) {
       this.router.navigate(['/edit']);
-
       this.editionService.add = false;
     } else {
     }
   }
 
+  deleteAll() {
+    if (this.userToolBarService.edit) {
+      this.editionService.selectedElements.forEach( elt => {
+        this.delete(elt);
+      });
+    }
+  }
 
   /**
    * return the icon url corresponding to the string s

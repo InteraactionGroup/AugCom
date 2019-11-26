@@ -147,9 +147,23 @@ export class BoardService {
   executer() {
     const imageTemp = [];
 
-    this.board.ElementList = this.board.ElementList.filter(x =>
-      !x.ElementFolder.startsWith(this.editionService.elementCondamne.ElementFolder + this.editionService.elementCondamne.ElementID));
-    this.board.ElementList =  this.board.ElementList.filter(x => x !== this.editionService.elementCondamne );
+    this.board.ElementList = this.board.ElementList.filter(x => {
+      let isChildrenOfCondamnedElt = false;
+      this.editionService.elementCondamne.forEach( condamnedElt => {
+        isChildrenOfCondamnedElt = isChildrenOfCondamnedElt ||
+          x.ElementFolder.startsWith(condamnedElt.ElementFolder + condamnedElt.ElementID);
+      });
+      return !isChildrenOfCondamnedElt;
+      }
+    );
+
+    this.board.ElementList =  this.board.ElementList.filter(x => {
+      let isCondamned = false;
+      this.editionService.elementCondamne.forEach(condamnedElt => {
+        isCondamned = isCondamned || x === condamnedElt;
+      });
+      return !isCondamned;
+    });
 
     this.board.ElementList.forEach(elt => {
       const res = this.board.ImageList.find(img => img.ImageID === elt.ImageID);
@@ -158,7 +172,8 @@ export class BoardService {
       }
     });
     this.board.ImageList = imageTemp;
-    this.editionService.elementCondamne = null;
+    this.editionService.elementCondamne = [];
+
   }
 
   getImgUrl(element: Element) {

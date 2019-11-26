@@ -144,11 +144,16 @@
   float: left;
   width: 30px;
   height: 30px;
-  margin-left: 1%;
-  top: -87%;
-  background-color: orangered;
+  margin-left: 7%;
+  top: -83%;
+  background-color: indianred;
   border-radius: 50%;
   visibility: visible;
+
+  border-style: solid;
+  border-color: darkred;
+  border-width: 2px;
+  box-sizing: border-box;
 }
 
 
@@ -157,10 +162,10 @@
 }
 
 .keyboard .wrapper .elementContainer .suppr .image{
-  width: 80%;
-  height: 80%;
-  margin-left: 10%;
-  transform: translateY(10%);
+  width: 70%;
+  height: 70%;
+  margin-left: 15%;
+  transform: translateY(20%);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
