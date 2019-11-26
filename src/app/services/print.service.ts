@@ -19,6 +19,7 @@ export class PrintService {
     x.document.body.innerHTML = this.getAllHTML();
     window.setTimeout(() => {
         x.window.print();
+        x.window.close();
       }, 2000);
     }, 2000);
   }
@@ -29,7 +30,8 @@ export class PrintService {
     this.boardService.board.ElementList.forEach( elt => {
       if (elt.ElementType === 'folder') {
         other = other +
-          this.getHTML(elt.ElementFolder !== '.' ? elt.ElementFolder + '.' + elt.ElementID : '.' + elt.ElementID , this.boardService.board.ElementList.filter(e => {
+          this.getHTML(elt.ElementFolder !== '.' ? elt.ElementFolder + '.' +
+            elt.ElementID : '.' + elt.ElementID , this.boardService.board.ElementList.filter(e => {
             if (elt.ElementFolder !== '.') {
               return e.ElementFolder === (elt.ElementFolder + '.' + elt.ElementID);
             } else {
@@ -38,7 +40,7 @@ export class PrintService {
           })
       );
       }
-    })
+    });
     return root + other;
   }
 
@@ -61,7 +63,7 @@ export class PrintService {
       if (element.ElementType !== 'empty') {
         innerValue = innerValue +
           '<div class="elementContainer">' +
-          '<div class="element" style="background-color:' + this.boardService.elementColor(element) + '">\n' +
+          '<div class="element" style="background-color:' + element.Color + '; border-color:' + element.BorderColor + '">\n' +
           '<div class="image" style="background-image: ' + this.boardService.getSimpleImgUrl(element) + '"></div>\n' +
           '<div class="label">\n' +
           this.boardService.getLabel(element) +
@@ -127,6 +129,10 @@ export class PrintService {
       '  /*border-style: solid;*/\n' +
       '  /*border-color: black;*/\n' +
       '  /*border-width: 3px;*/\n' +
+      '\n' +
+      '  border-style: solid;\n' +
+      '  border-width: 2px;\n' +
+      '  box-sizing: border-box;' +
       '}\n' +
       '\n' +
       '.keyboard .wrapper .elementContainer .element .image{\n' +
