@@ -197,9 +197,18 @@ export class BoardService {
   backToPreviousFolder() {
     const path = this.currentFolder.split('.');
     let temp = '';
-    path.slice(0, path.length - 1).forEach( value =>
-      temp = '.' + value
+    const newPath = path.slice(0, path.length - 1);
+    console.log(newPath);
+    let index = 0;
+    newPath.forEach( value => {
+        if (index !== 0) {
+          temp = temp + '.' + value;
+        }
+        index++;
+      }
     ) ;
+    if (temp === '') {temp = '.'; }
     this.currentFolder = temp;
+    console.log(this.currentFolder);
   }
 }
