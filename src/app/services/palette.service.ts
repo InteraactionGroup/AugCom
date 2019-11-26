@@ -12,7 +12,7 @@ export class PaletteService {
     // shades of gray
     {name: 'Greys', colors: ['#ffffff', '#eeeeee', '#dddddd', '#cccccc', '#bbbbbb', '#aaaaaa',
       '#999999', '#888888', '#777777', '#666666', '#555555', '#444444',
-      '#333333', '#222222', '#111111', '#000000'
+      '#333333', '#222222', '#111111', '#000000' , 'rgb(255,255,255,0)'
     ]},
 
     // regular rainbow

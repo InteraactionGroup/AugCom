@@ -39,7 +39,7 @@ export class KeyboardComponent implements OnInit {
   subs = new Subscription();
 
   // tslint:disable-next-line:max-line-length
-  constructor(private dragulaService: DragulaService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) {
+  constructor( private dragulaService: DragulaService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) {
 
     this.subs.add(this.dragulaService.drop('VAMPIRE')
       .subscribe(({ el, target, source, sibling }) => {
@@ -58,7 +58,6 @@ export class KeyboardComponent implements OnInit {
 
         [temp[i2], temp[i1]] =
           [temp[i1], temp[i2]];
-        console.log(i1 + ' ' + i2);
         this.boardService.board.ElementList = temp;
       })
     );
@@ -136,99 +135,6 @@ export class KeyboardComponent implements OnInit {
   // }
 
   /**
-   * return the current label of the element dependind on the current noun and verb termination
-   * @param element, an Element
-   * @return return the current label of the element
-   */
-  getLabel(element: Element) {
-    if (element.ElementPartOfSpeech === '-verb-') {
-      const verbElement = element.ElementForms.find(elt => this.checkVerbForms(elt));
-      if (verbElement != null) {
-        return verbElement.DisplayedText;
-      }
-    }
-
-    if (element.ElementPartOfSpeech === '-nom-' || element.ElementPartOfSpeech === '-adj-') {
-      const nounElement = element.ElementForms.find(elt => this.checkNounForms(elt));
-      if (nounElement != null) {
-        return nounElement.DisplayedText;
-      }
-    }
-    const defaultElement = element.ElementForms.find(elt => this.checkDefault(elt) );
-    if (defaultElement != null) {
-      return defaultElement.DisplayedText;
-    } else {
-      if ( element.ElementForms.length > 0) {
-        return element.ElementForms[0].DisplayedText;
-      } else {
-        return  '';
-      }
-    }
-  }
-
-  /**
-   * check if 'elt' person and number information correspond to current person and number of current verb Termination
-   * @param elt, a list of element forms
-   * @return true if elt person and number information correspond to current person and number of current verb Termination
-   */
-  checkVerbForms(elt: ElementForm): boolean {
-    let person = false;
-    let n = false;
-    elt.LexicInfos.forEach(info => {
-      if (!person && info.person != null
-        && info.person === this.boardService.currentVerbTerminaison.currentPerson) {
-        person = true;
-      }
-
-      if (!n && info.number != null
-        && info.number === this.boardService.currentVerbTerminaison.currentNumber) {
-        n = true;
-      }
-    });
-    return person && n;
-  }
-
-  /**
-   * check if 'elt' gender and number information correspond to current gender and number of current Noun Termination
-   * @param elt, a list of element forms
-   * @return true if elt gender and number information correspond to current gender and number of current Noun Termination
-   */
-  checkNounForms(elt: ElementForm): boolean {
-    let gender = this.boardService.currentNounTerminaison.currentGender === '' ||
-      elt.LexicInfos.find(info => info.gender != null && info.gender !== undefined) === undefined;
-    let n = false;
-    elt.LexicInfos.forEach(info => {
-      if (!gender && info.gender != null
-        && info.gender === this.boardService.currentNounTerminaison.currentGender) {
-
-        gender = true;
-      }
-
-      if (!n && info.number != null
-        && info.number === this.boardService.currentNounTerminaison.currentNumber) {
-        n = true;
-      }
-    });
-    return gender && n;
-  }
-
-  /**
-   * check if the element form list 'elt' contains a default value
-   * @param elt, a list of element forms
-   * @return true if elt contains a default form, false otherwise
-   */
-  checkDefault(elt: ElementForm): boolean {
-    let defaultVal = false;
-    elt.LexicInfos.forEach(info => {
-      if (info.default != null
-        && info.default === true) {
-        defaultVal = true;
-      }
-    });
-    return defaultVal;
-  }
-
-  /**
    * update the current person and number information for verb terminations
    * @param elementForm, an list of element forms
    */
@@ -263,14 +169,11 @@ export class KeyboardComponent implements OnInit {
     if (!this.userToolBarService.edit) {
 
 
-      console.log(this.down);
-
       if (this.down === 0) {
       this.clickedElement = element;
       } else {
         window.clearTimeout(this.dblClickTimer);
         if (this.clickedElement !== element && this.clickedElement != null) {
-          console.log('click3 ' + this.clickedElement.ElementID);
           this.action(element, 'click');
         }
       }
@@ -301,8 +204,7 @@ export class KeyboardComponent implements OnInit {
 
       } else if (this.down > 1) {
         if (this.clickedElement === element) {
-          console.log('doubleClick' + element.ElementID);
-          this.action(element, 'dblClick');
+          this.action(element, 'doubleClick');
           this.clickedElement = null;
           this.down = 0;
         } else if (this.clickedElement != null) {
@@ -316,20 +218,18 @@ export class KeyboardComponent implements OnInit {
 
   setClickTimer(element) {
     this.dblClickTimer = window.setTimeout(() => {
-        console.log('click2 ' + element.ElementID);
         this.action(element, 'click');
         this.clickedElement = null;
         this.down = 0;
-    }, 300);
+    }, this.parametersService.doubleClickTimeOut);
   }
 
   setLongPressTimer(element) {
     this.pressTimer = window.setTimeout(() => {
-      console.log('longPress ' + element.ElementID);
       this.action(element, 'longPress');
       this.clickedElement = null;
       this.down = 0;
-    }, 1000);
+    }, this.parametersService.longpressTimeOut);
   }
 
   /**
@@ -382,8 +282,9 @@ export class KeyboardComponent implements OnInit {
     const tempOtherFOrmList: Element[] = [];
     this.getNormalTempList().forEach( e => tempOtherFOrmList.push(this.copy(e)));
     const index = this.boardService.activatedElement;
-    while (index + this.boardService.sliderValueCol + 1 > tempOtherFOrmList.length - 1 ) { // fill with empy elements
-      tempOtherFOrmList.push({
+    const max: number = Number(Number(index) + Number(this.boardService.sliderValueCol) + 1 - Number(tempOtherFOrmList.length) + 1);
+    for (let newElementIndex = 0 ; newElementIndex < max ; newElementIndex = newElementIndex + 1 ) { // fill with empy elements
+       tempOtherFOrmList.push({
         ElementID: '',
         ElementFolder: this.boardService.currentFolder,
         ElementType: 'button',
@@ -391,20 +292,22 @@ export class KeyboardComponent implements OnInit {
         ElementForms: [],
         ImageID: '',
         InteractionsList: [],
-        Color: '#ffffff' // to delete later
+         Color: '#ffffff', // to delete later
+         BorderColor: '#ffffff' // to delete later
       });
     }
 
-    let indexOfForm = 1;
+    let indexOfForm = 0;
     const compElt = tempOtherFOrmList[index];
     tempOtherFOrmList.forEach( elt => {
       const tempIndex = tempOtherFOrmList.indexOf(elt);
       let places = this.createPlaces(index);
-      places = places.slice(0, compElt.ElementForms.length - 1);
+      places = places.slice(0, compElt.ElementForms.length );
       if (places.includes(tempIndex)) {
         if (compElt.ElementForms.length > indexOfForm ) {
-          elt.Color = '#aaaaaa';
+          elt.Color = compElt.Color;
           elt.ImageID = '' + compElt.ImageID;
+          elt.ElementType =  'button';
           elt.ElementForms = [];
           elt.ElementPartOfSpeech = '' + compElt.ElementPartOfSpeech;
           elt.ElementForms.push(
@@ -413,7 +316,7 @@ export class KeyboardComponent implements OnInit {
               VoiceText: compElt.ElementForms[indexOfForm].VoiceText,
               LexicInfos: compElt.ElementForms[indexOfForm].LexicInfos
             });
-          elt.InteractionsList = tempOtherFOrmList[index].InteractionsList.copyWithin(0, 0);
+          elt.InteractionsList = tempOtherFOrmList[index].InteractionsList.slice();
           elt.InteractionsList.push({ InteractionID: 'backFromVariant', ActionList: [] });
           indexOfForm = indexOfForm + 1;
         }
@@ -477,11 +380,12 @@ export class KeyboardComponent implements OnInit {
   }
 
   action(element: Element, interaction: string) {
+    if (element.ElementType !== 'empty') {
 
     // for button
     if (element.ElementType === 'button') {
 
-      const prononcedText = this.getLabel(element);
+      const prononcedText = this.boardService.getLabel(element);
       const color = element.Color;
       const imgUrl = this.boardService.getImgUrl(element);
       const vignette: Vignette = {
@@ -519,7 +423,7 @@ export class KeyboardComponent implements OnInit {
         } else if (element.ElementPartOfSpeech === '-verb-') {
           this.boardService.resetVerbTerminaisons();
         } else if (element.ElementPartOfSpeech === '-nom-') {
-          this.changePronomInfo(element.ElementForms.find(eltF => (eltF.DisplayedText === this.getLabel(element))));
+          this.changePronomInfo(element.ElementForms.find(eltF => (eltF.DisplayedText === this.boardService.getLabel(element))));
         }
       }
 
@@ -535,7 +439,7 @@ export class KeyboardComponent implements OnInit {
     } else {
       console.error('ElementType : ' + element.ElementType + ' is not supported (supported ElementTypes are "button" or "folder")');
     }
-
+    }
   }
 
   /**
@@ -561,8 +465,10 @@ export class KeyboardComponent implements OnInit {
       this.router.navigate(['/edit']);
 
       this.editionService.add = false;
+    } else {
     }
   }
+
 
   /**
    * return the icon url corresponding to the string s

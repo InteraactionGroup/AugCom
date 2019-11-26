@@ -34,6 +34,7 @@ export class Element {
   ImageID: string;
   InteractionsList: { InteractionID: string, ActionList: Action[] }[];
   Color: string; // to delete later
+  BorderColor: string; // to delete later
 }
 
 /**

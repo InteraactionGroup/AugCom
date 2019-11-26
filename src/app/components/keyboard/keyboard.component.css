@@ -47,6 +47,9 @@
   background-color: dimgrey;
 }
 
+.settings .editSettings input{
+  visibility: hidden;
+}
 
 .settings .editSettings .editButton {
   transform: translateY(45%);
@@ -94,6 +97,10 @@
   height:100%;
   width:100%;
   overflow: hidden;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  visibility: visible;
 }
 
 .keyboard .wrapper .elementContainer{
@@ -160,9 +167,11 @@
   visibility: visible;
 }
 
-.blurredElt{
-  filter: blur(5px);
+
+.keyboard .wrapper .elementContainer .element:hover{
+  filter: brightness(80%);
 }
+
 
 
 .keyboard .wrapper .elementContainer .element{
@@ -177,10 +186,11 @@
   -moz-user-select: none !important;
   -ms-user-select: none !important;
   user-select: none !important;
+  border-style: solid;
+  border-width: 3px;
+  box-sizing: border-box;
 
-  /*border-style: solid;*/
-  /*border-color: black;*/
-  /*border-width: 3px;*/
+  overflow: hidden;
 }
 
 .keyboard .wrapper .elementContainer .element .image{
@@ -203,6 +213,17 @@
   width:90%;
   margin-left: 5%;
   visibility: visible;
+}
+
+
+
+.keyboard .wrapper .elementContainer .blurredElt{
+  cursor: default;
+  filter: blur(5px);
+}
+
+.keyboard .wrapper .elementContainer .blurredElt:hover{
+  filter: blur(5px);
 }
 
 .slidecontainer {

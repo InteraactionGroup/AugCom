@@ -31,7 +31,7 @@ export class EditionComponent implements OnInit {
 
   selectedPalette = this.paletteService.defaultPalette;
 
-  colorPicked = false;
+  colorPicked = null;
 
   /**
    * the type of the current element (button by default)
@@ -48,6 +48,8 @@ export class EditionComponent implements OnInit {
    * current element color (#d3d3d3 = grey by default)
    */
   curentColor = '#d3d3d3';
+
+  curentBorderColor = 'rgb(0,0,0,0)';
 
   /**
    * current imageUrl of the element (empty by default), can be a string or a safe url
@@ -322,7 +324,12 @@ export class EditionComponent implements OnInit {
   modifyAllButtons() {
     this.editionService.selectedElements.forEach(elt => {
 
-      elt.Color = this.curentColor;
+      if (this.curentColor !== '#d3d3d3' ) {
+        elt.Color = this.curentColor;
+      }
+      if (this.curentBorderColor !== '#d3d3d3' ) {
+        elt.BorderColor = this.curentBorderColor;
+      }
 
       if (this.name !== this.editionService.DEFAULT_MULTPLE_NAME) { // todo there is probably a cleaner way to do it
         elt.ElementForms.forEach( form => {
@@ -339,7 +346,10 @@ export class EditionComponent implements OnInit {
 
 
       if (this.imageURL !== 'assets/icons/multiple-images.svg' ) {
-       // todo create the new image and remove the old ones
+       const img = this.boardService.board.ImageList.find(image => image.ImageID === elt.ImageID);
+       if (img != null) {
+         img.ImagePath = this.imageURL;
+       }
       }
     });
   }
@@ -409,6 +419,7 @@ export class EditionComponent implements OnInit {
     console.log(element.InteractionsList);
 
     element.Color = this.curentColor;
+    element.BorderColor = this.curentBorderColor;
     element.ImageID = this.boardService.currentFolder + element.ElementID;
 
     this.boardService.board.ImageList = this.boardService.board.ImageList.filter(
@@ -472,7 +483,8 @@ export class EditionComponent implements OnInit {
         ElementForms: elementForms,
         ImageID: this.boardService.currentFolder + tempId,
         InteractionsList: interList,
-        Color: this.curentColor
+        Color: this.curentColor,
+        BorderColor: this.curentBorderColor
       });
 
     this.boardService.board.ImageList.push(
@@ -502,6 +514,7 @@ export class EditionComponent implements OnInit {
       const elementToModif: Element = this.editionService.selectedElements[0];
       this.name = this.getName(elementToModif);
       this.curentColor = elementToModif.Color;
+      this.curentBorderColor = elementToModif.BorderColor;
       this.radioTypeFormat = elementToModif.ElementType;
       const imageToModif = this.boardService.board.ImageList.find(x => x.ImageID === elementToModif.ImageID);
       if (imageToModif != null && imageToModif !== undefined) {
@@ -562,8 +575,16 @@ export class EditionComponent implements OnInit {
     this.dbnaryService.getOtherFormsOfThisPartOfSpeechWord(word, b, this.dbnaryService.wordList);
   }
 
-  pickAColor() {
-    this.colorPicked = true;
+  pickAColor(s: string) {
+    this.colorPicked = s;
+  }
+
+  selectColor(color) {
+    if (this.colorPicked === 'inside') {
+      this.curentColor = color;
+    } else if (this.colorPicked === 'border') {
+      this.curentBorderColor = color;
+    }
   }
 
   selectThePalette( name  ) {
