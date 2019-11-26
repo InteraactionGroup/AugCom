@@ -116,6 +116,13 @@ export class KeyboardComponent implements OnInit {
     }
   }
 
+
+  getShadow(element) {
+    return (element.ElementType === 'folder' ? '3px ' : '0px ') +
+    (element.ElementType === 'folder' ? '-3px ' : '0px ') +
+    (element.BorderColor === null || element.BorderColor === undefined ? 'black' : element.BorderColor);
+  }
+
   /**
    * return the part of elements that can fit in the board depending on the current rows and columns values
    * @return a list of elements
