@@ -6,8 +6,8 @@ import { Injectable } from '@angular/core';
 export class PaletteService {
 
   defaultPalette = '22 magic colors';
-
-  palettes = [
+  palettes: {name: string, colors: string[]}[];
+  DEFAULTPALETTELIST = [
 
     // shades of gray
     {name: 'Greys', colors: ['#ffffff', '#eeeeee', '#dddddd', '#cccccc', '#bbbbbb', '#aaaaaa',
@@ -48,7 +48,9 @@ export class PaletteService {
 
   currentColor = '#ffffff';
 
-  constructor() { }
+  constructor() {
+    this.palettes = this.DEFAULTPALETTELIST;
+  }
 
 
   rowNumber( i ) {
@@ -74,6 +76,11 @@ export class PaletteService {
 
   savePalette() {
     if (this.newTempPalette.colors.length > 0) {
+      let index = 1;
+      while (this.palettes.findIndex( palette => palette.name === 'Ma Palette #' + index) !== -1 ) {
+        index++;
+      }
+      this.newTempPalette.name = 'Ma Palette #' + index;
       this.palettes.push(this.newTempPalette);
       this.newTempPalette = {name: '', colors: []};
       this.newpalette = false;

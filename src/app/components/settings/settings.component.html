@@ -97,7 +97,7 @@
         </label>
         <input id="theColorPicker" [(ngModel)]="this.paletteService.currentColor" class="colorPicker" type="color" (input)="this.paletteService.updateColor()" (click)="this.paletteService.addColor()">
       </div>
-      <div class="ok" (click)="paletteService.savePalette()">
+      <div class="ok" (click)="this.saveNewPalette();">
         ok
       </div>
       <div class="cancel" (click)="paletteService.close()">
@@ -122,7 +122,7 @@
           non, annuler
         </div>
 
-        <div class="choiceButton yes" (click)="this.paletteService.deletePalette(this.paletteCodamne); this.paletteCodamne = null">
+        <div class="choiceButton yes" (click)="this.deletePalette()">
           oui, supprimer
         </div>
       </div>

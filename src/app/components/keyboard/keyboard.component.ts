@@ -11,6 +11,7 @@ import {ParametersService} from '../../services/parameters.service';
 import {Router} from '@angular/router';
 import {DragulaService} from 'ng2-dragula';
 import {Subscription} from 'rxjs';
+import {PaletteService} from '../../services/palette.service';
 
 @Component({
   selector: 'app-keyboard',
@@ -39,7 +40,7 @@ export class KeyboardComponent implements OnInit {
   subs = new Subscription();
 
   // tslint:disable-next-line:max-line-length
-  constructor( private dragulaService: DragulaService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) {
+  constructor(private paletteService: PaletteService, private dragulaService: DragulaService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) {
 
     this.subs.add(this.dragulaService.drop('VAMPIRE')
       .subscribe(({ el, target, source, sibling }) => {
