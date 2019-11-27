@@ -112,6 +112,14 @@
   visibility: hidden;
 }
 
+.add {
+  opacity: 0.5;
+}
+
+.add:hover {
+  opacity: 1;
+}
+
 .keyboard .wrapper .elementContainer .edit{
   position: relative;
   float: right;

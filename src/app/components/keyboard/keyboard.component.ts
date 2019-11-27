@@ -122,19 +122,15 @@ export class KeyboardComponent implements OnInit {
     let s = (element.ElementType === 'folder' ? '3px ' : '0px ') +
       (element.ElementType === 'folder' ? '-3px ' : '0px ') +
       '0px ' +
-      (element.ElementType === 'folder' ? '3px ' : '0px ')
-      + element.Color ;
+      (element.ElementType === 'folder' ? '-2px ' : '0px ')
+      + (element.Color === undefined || element.Color == null ? '#d3d3d3' : element.Color ) ;
 
     s = s + ' , ' +
-      (element.ElementType === 'folder' ? '3px ' : '0px ') +
-      (element.ElementType === 'folder' ? '-3px ' : '0px ') +
-      element.BorderColor ;
+      (element.ElementType === 'folder' ? '4px ' : '0px ') +
+      (element.ElementType === 'folder' ? '-4px ' : '0px ') +
+      (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor ) ;
     console.log(s);
     return  s;
-
-    // return (element.ElementType === 'folder' ? '3px ' : '0px ') +
-    // (element.ElementType === 'folder' ? '-3px ' : '0px ') +
-    // (element.BorderColor === null || element.BorderColor === undefined ? 'black' : element.BorderColor);
   }
 
   /**

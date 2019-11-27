@@ -57,13 +57,23 @@ export class PrintService {
               '<div class="wrapper">\n';
   }
 
+  getShadow(element: Element) {
+    if (element.ElementType === 'folder') {
+      let s = '; box-shadow: 3px -3px 0px -2px ' + (element.Color === undefined || element.Color == null ? '#d3d3d3' : element.Color ) ;
+      s = s + ' , 4px -4px '  + (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor ) ;
+      return s;
+    } else {
+      return '';
+    }
+  }
+
   innerHTML( elementList: Element[]) {
     let innerValue = '';
     elementList.forEach( element => {
       if (element.ElementType !== 'empty') {
         innerValue = innerValue +
           '<div class="elementContainer">' +
-          '<div class="element" style="background-color:' + element.Color + '; border-color:' + element.BorderColor + '">\n' +
+          '<div class="element" style="background-color:' + element.Color + '; border-color:' + element.BorderColor + this.getShadow(element) + '">\n' +
           '<div class="image" style="background-image: ' + this.boardService.getSimpleImgUrl(element) + '"></div>\n' +
           '<div class="label">\n' +
           this.boardService.getLabel(element) +

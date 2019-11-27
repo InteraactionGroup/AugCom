@@ -101,12 +101,12 @@
 
     <ng-container *ngIf="this.userToolBarService.edit" >
 
-      <nav class=" no-drag">
-        <a routerLink="/edit" class=" no-drag">
+      <nav class="no-drag">
+        <a routerLink="/edit" class="no-drag">
 
-          <div class="elementContainer no-drag" >
+          <div class="elementContainer no-drag add">
 
-            <div class="element"  (click)="this.editionService.add = true " [ngStyle]="{'background-color': 'green'}"> <!-- need to change élément by the label-->
+            <div class="element"  (click)="this.editionService.add = true " [ngStyle]="{'background-color': 'rgb(125,125,125)'}"> <!-- need to change élément by the label-->
 
               <div class="image"  [style.background-image]="this.getIcon('add')">
 
