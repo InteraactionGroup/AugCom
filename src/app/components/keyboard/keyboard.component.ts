@@ -129,7 +129,6 @@ export class KeyboardComponent implements OnInit {
       (element.ElementType === 'folder' ? '4px ' : '0px ') +
       (element.ElementType === 'folder' ? '-4px ' : '0px ') +
       (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor ) ;
-    console.log(s);
     return  s;
   }
 
