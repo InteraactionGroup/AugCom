@@ -3,6 +3,8 @@ html{
   width: 100%;
   margin-left: 0%;
   background-color: white;
+  overflow: hidden;
+  touch-action: none;
 }
 
 body{
@@ -10,4 +12,5 @@ body{
   height: 100%;
   width: 100%;
   overflow: hidden;
+  touch-action: none;
 }

@@ -53,7 +53,7 @@
         <div id="{{element.ElementID}}" class="elementContainer" *ngIf="element.ElementType!=='empty'" >
 
 
-          <div class="element" [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)"  (pointerdown)="this.pointerDown(element)" (pointerup)="this.pointerUp(element)" [ngStyle]="{'background-color': element.Color !== null ? element.Color : 'grey' ,
+          <div class="element" [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)"  (mousedown)="this.pointerDown(element)" (mouseup)="this.pointerUp(element)" [ngStyle]="{'background-color': element.Color !== null ? element.Color : 'grey' ,
           'border-color': element.BorderColor === null || element.BorderColor === undefined ? 'black' : element.BorderColor,
           'box-shadow': this.getShadow(element) }">
 

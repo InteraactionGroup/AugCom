@@ -117,13 +117,7 @@
   visibility: hidden;
 }
 
-.add {
-  opacity: 0.5;
-}
 
-.add:hover {
-  opacity: 1;
-}
 
 .keyboard .wrapper .elementContainer .edit{
   position: relative;
@@ -238,6 +232,15 @@
 
 .keyboard .wrapper .elementContainer .blurredElt:hover{
   filter: blur(5px);
+}
+
+.add {
+  opacity: 0.5;
+}
+
+.add:hover {
+  opacity: 1;
+  filter: brightness(150%);
 }
 
 .slidecontainer {
