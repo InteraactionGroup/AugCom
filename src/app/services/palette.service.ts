@@ -57,18 +57,11 @@ export class PaletteService {
     return Math.ceil(i / 10) ;
   }
 
-  islast(color) {
-    return this.newTempPalette[this.newTempPalette.colors.length - 1] === color;
-  }
-
   addColor() {
     this.currentColor = '#ffffff';
-    this.newTempPalette.colors.push(this.currentColor);
+    this.newTempPalette.colors.push({color: this.currentColor});
   }
 
-  updateColor() {
-    this.newTempPalette.colors[this.newTempPalette.colors.length - 1] = this.currentColor;
-  }
 
   delete(thisColor) {
     this.newTempPalette.colors = this.newTempPalette.colors.filter(color => color !== thisColor);
@@ -81,7 +74,9 @@ export class PaletteService {
         index++;
       }
       this.newTempPalette.name = 'Ma Palette #' + index;
-      this.palettes.push(this.newTempPalette);
+      const newColors = [];
+      this.newTempPalette.colors.forEach( color => {newColors.push(color.color); });
+      this.palettes.push({name: this.newTempPalette.name, colors: newColors});
       this.newTempPalette = {name: '', colors: []};
       this.newpalette = false;
     }

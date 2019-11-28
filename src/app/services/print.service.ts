@@ -13,15 +13,16 @@ export class PrintService {
 
   }
 
-  printDiv() {
-    const x = window.open('http://localhost:4200/keyboard');  window.setTimeout(() => {
-    x.document.head.innerHTML = '<style>' + this.getCSSKeyboard() + '</style>' + '<style>' + this.getCSSIndex() + '</style>';
-    x.document.body.innerHTML = this.getAllHTML();
+  printDiv() { // todo change this (we could use th eprevious idead instead)
+    const tempHead = window.document.head.innerHTML;
+    const tempBody = window.document.body.innerHTML;
+    window.document.head.innerHTML = '<style>' + this.getCSSKeyboard() + '</style>' + '<style>' + this.getCSSIndex() + '</style>';
+    window.document.body.innerHTML = this.getAllHTML();
+    window.print();
     window.setTimeout(() => {
-        x.window.print();
-        x.window.close();
-      }, 2000);
-    }, 2000);
+          window.document.head.innerHTML = tempHead;
+          window.document.body.innerHTML = tempBody;
+        }, 2000);
   }
 
   getAllHTML() {

@@ -3,6 +3,7 @@ import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {GeticonService} from '../../services/geticon.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {SnapBarService} from '../../services/snap-bar.service';
+import {ParametersService} from '../../services/parameters.service';
 @Component({
   selector: 'app-usertoolbar',
   templateUrl: './usertoolbar.component.html',
@@ -11,7 +12,7 @@ import {SnapBarService} from '../../services/snap-bar.service';
 export class UsertoolbarComponent implements OnInit {
 
 
-  constructor(private snapBarService: SnapBarService, private indexedDBacess: IndexeddbaccessService, public getIconService: GeticonService, public userToolBarService: UsertoolbarService) {
+  constructor(private parametersService: ParametersService, private snapBarService: SnapBarService, private indexedDBacess: IndexeddbaccessService, public getIconService: GeticonService, public userToolBarService: UsertoolbarService) {
 
   }
 
@@ -41,5 +42,9 @@ export class UsertoolbarComponent implements OnInit {
     } else {
       this.snapBarService.snap();
     }
+  }
+
+  openSettings() {
+    this.userToolBarService.setting = !this.userToolBarService.setting;
   }
 }

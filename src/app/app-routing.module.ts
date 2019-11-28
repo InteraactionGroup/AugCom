@@ -13,12 +13,12 @@ const routes: Routes = [
   { path: 'share', component: ShareComponent, data: {animation: 'x'} },
   { path: 'edit', component: EditionComponent , data: {animation: 'x'} },
   { path: 'settings', component: SettingsComponent , data: {animation: 'x'} },
-  { path: '', redirectTo: '/keyboard', pathMatch: 'full', data: {animation: 'empty'}  },
+  { path: '', redirectTo: '/keyboard', pathMatch: 'full', data: {animation: 'empty'}  }
 ];
 
 @NgModule({
   imports: [BrowserModule,
-    BrowserAnimationsModule, RouterModule.forRoot(routes)],
+    BrowserAnimationsModule, RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 

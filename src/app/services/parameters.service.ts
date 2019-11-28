@@ -15,17 +15,30 @@ export class ParametersService {
 
   constructor() {
     this.languagesAvailaibles = [];
-    this.synthVoice();
+   // this.synthVoice();
+    this.printVoicesList();
   }
 
-  synthVoice() {
-    const awaitVoices = new Promise(resolve =>
-      window.speechSynthesis.onvoiceschanged = resolve)
-      .then(() => {
-        const synth = window.speechSynthesis;
-        const voices = synth.getVoices();
-        this.languagesAvailaibles = speechSynthesis.getVoices();
-      });
+  getVoices(): Promise<unknown> {
+    return  new Promise( resolve => {
+      let voices = speechSynthesis.getVoices();
+      if (voices.length) {
+        resolve(voices);
+        return;
+      }
+      speechSynthesis.onvoiceschanged = () => {
+        voices = speechSynthesis.getVoices();
+        resolve(voices);
+      };
+    });
+  }
+
+  printVoicesList = async () => {
+    // @ts-ignore
+    (await this.getVoices()).forEach(voice => {
+      console.log(voice.name, voice.lang);
+      this.languagesAvailaibles.push(voice);
+    });
   }
 
 }
