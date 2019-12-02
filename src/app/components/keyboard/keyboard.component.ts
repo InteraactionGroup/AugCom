@@ -11,6 +11,7 @@ import {ParametersService} from '../../services/parameters.service';
 import {Router} from '@angular/router';
 import {DragulaService} from 'ng2-dragula';
 import {Subscription} from 'rxjs';
+import {PaletteService} from '../../services/palette.service';
 
 @Component({
   selector: 'app-keyboard',
@@ -39,7 +40,7 @@ export class KeyboardComponent implements OnInit {
   subs = new Subscription();
 
   // tslint:disable-next-line:max-line-length
-  constructor( private dragulaService: DragulaService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) {
+  constructor(private paletteService: PaletteService, private dragulaService: DragulaService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) {
 
     this.subs.add(this.dragulaService.drop('VAMPIRE')
       .subscribe(({ el, target, source, sibling }) => {
@@ -117,10 +118,19 @@ export class KeyboardComponent implements OnInit {
   }
 
 
-  getShadow(element) {
-    return (element.ElementType === 'folder' ? '3px ' : '0px ') +
-    (element.ElementType === 'folder' ? '-3px ' : '0px ') +
-    (element.BorderColor === null || element.BorderColor === undefined ? 'black' : element.BorderColor);
+  getShadow(element: Element) {
+
+    let s = (element.ElementType === 'folder' ? '3px ' : '0px ') +
+      (element.ElementType === 'folder' ? '-3px ' : '0px ') +
+      '0px ' +
+      (element.ElementType === 'folder' ? '-2px ' : '0px ')
+      + (element.Color === undefined || element.Color == null ? '#d3d3d3' : element.Color ) ;
+
+    s = s + ' , ' +
+      (element.ElementType === 'folder' ? '4px ' : '0px ') +
+      (element.ElementType === 'folder' ? '-4px ' : '0px ') +
+      (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor ) ;
+    return  s;
   }
 
   /**

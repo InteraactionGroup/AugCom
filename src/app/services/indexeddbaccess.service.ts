@@ -1,82 +1,117 @@
 import { Injectable } from '@angular/core';
 import {BoardService} from './board.service';
+import {PaletteService} from './palette.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IndexeddbaccessService {
 
-  request;
+  openRequest;
 
 
-  constructor(public boardService: BoardService) {
+  constructor(public paletteService: PaletteService, public boardService: BoardService) {
   }
 
+
+  // UPDATE THE DATABASE
   update() {
-    this.request = indexedDB.open('MyTestDatabase', 1);
-    this.request.onerror = event => {
+
+    this.openRequest = indexedDB.open('Saves', 1);
+
+    // ERROR
+    this.openRequest.onerror = event => {
       alert('Database error: ' + event.target.errorCode);
     };
 
-    this.request.onsuccess = event => {
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
       const db = event.target.result;
-      const objectStore = db.transaction(['saves'], 'readwrite').objectStore('saves');
-      const requete = objectStore.get(1);
-      requete.onsuccess = e => {
-        let data = requete.result;
-        this.boardService.board.gridColsNumber = this.boardService.sliderValueCol;
-        this.boardService.board.gridRowsNumber = this.boardService.sliderValueRow;
-        data = this.boardService.board;
-        const requestUpdate = objectStore.put(data, 1);
-        requestUpdate.onerror = e1 => {
-          // Faire quelque chose avec l’erreur
-        };
-        requestUpdate.onsuccess = e1 => {
-          // Succès - la donnée est mise à jour !
-        };
+
+      // UPDATE THE GRID
+      const gridStore = db.transaction(['Grid'], 'readwrite').objectStore('Grid');
+      const storeGridRequest = gridStore.get(1);
+      storeGridRequest.onsuccess = () => {
+        this.updateBoardColsAndRows();
+        gridStore.put(this.boardService.board, 1);
+      };
+
+      // UPDATE THE PALETTES
+      const paletteStore = db.transaction(['Palette'], 'readwrite').objectStore('Palette');
+      const storePaletteRequest = paletteStore.get(1);
+      storePaletteRequest.onsuccess = () => {
+        paletteStore.put(this.paletteService.palettes, 1);
       };
     };
   }
 
+
+
+  // INITIALISATION
   init() {
-    this.request = indexedDB.open('MyTestDatabase', 1);
 
-    this.request.onerror = event => {
+    this.openRequest = indexedDB.open('Saves', 1);
+
+    // ERROR
+    this.openRequest.onerror = event => {
       alert('Database error: ' + event.target.errorCode);
     };
 
-    this.request.onsuccess = event => {
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
       const db = event.target.result;
-      const requete = db.transaction(['saves']).objectStore('saves').get(1);
-      requete.onsuccess = e => {
-        this.boardService.board = requete.result;
-        if (this.boardService.board.gridColsNumber != null && this.boardService.sliderValueCol != null) {
-          this.boardService.sliderValueCol = this.boardService.board.gridColsNumber;
-        }
 
-        if (this.boardService.board.gridRowsNumber != null && this.boardService.sliderValueRow != null) {
-          this.boardService.sliderValueRow = this.boardService.board.gridRowsNumber;
-        }
+      const gridStore = db.transaction(['Grid']).objectStore('Grid').get(1);
+      gridStore.onsuccess = e => {
+        this.boardService.board = gridStore.result;
+        this.updateColsAndRowsFromBoard();
+      };
+
+      const paletteStore = db.transaction(['Palette']).objectStore('Palette').get(1);
+      paletteStore.onsuccess = e => {
+        this.paletteService.palettes = paletteStore.result;
       };
     };
 
-    this.request.onupgradeneeded = event => {
+    this.openRequest.onupgradeneeded = event => {
+
+      // Creaction of Store
       const db = event.target.result;
-      const objectStore = db.createObjectStore('saves', { autoIncrement : true });
-      objectStore.transaction.oncomplete = e => {
-        console.log('save loaded');
-        const gridStore = db.transaction('saves', 'readwrite').objectStore('saves');
-        gridStore.add(this.boardService.board);
-        if (this.boardService.board.gridColsNumber != null && this.boardService.sliderValueCol != null ) {
-          this.boardService.sliderValueCol = this.boardService.board.gridColsNumber;
-        }
+      db.createObjectStore('Grid', { autoIncrement : true });
+      db.createObjectStore('Palette', { autoIncrement : true });
 
-        if (this.boardService.board.gridRowsNumber != null && this.boardService.sliderValueRow != null) {
-          this.boardService.sliderValueRow = this.boardService.board.gridRowsNumber;
-        }
 
-      };
+      // Transaction in Store
+      const transaction = event.target.transaction;
+      console.log('palette loaded');
+      const paletteStore = transaction.objectStore('Palette');
+      paletteStore.add(this.paletteService.palettes);
+
+
+      console.log('save loaded');
+      const gridStore = transaction.objectStore('Grid');
+      gridStore.add(this.boardService.board);
+      this.updateColsAndRowsFromBoard();
+
+
 
     };
   }
+
+  updateColsAndRowsFromBoard() {
+    if (this.boardService.board.gridColsNumber !== undefined && this.boardService.board.gridColsNumber != null
+      && this.boardService.sliderValueCol !== undefined && this.boardService.sliderValueCol != null) {
+      this.boardService.sliderValueCol = this.boardService.board.gridColsNumber;
+    }
+    if (this.boardService.board.gridRowsNumber !== undefined && this.boardService.board.gridRowsNumber != null
+      && this.boardService.sliderValueRow !== undefined && this.boardService.sliderValueRow != null) {
+      this.boardService.sliderValueRow = this.boardService.board.gridRowsNumber;
+    }
+  }
+
+  updateBoardColsAndRows() {
+    this.boardService.board.gridColsNumber = this.boardService.sliderValueCol;
+    this.boardService.board.gridRowsNumber = this.boardService.sliderValueRow;
+  }
+
 }

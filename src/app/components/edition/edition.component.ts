@@ -49,7 +49,7 @@ export class EditionComponent implements OnInit {
    */
   curentColor = '#d3d3d3';
 
-  curentBorderColor = 'rgb(0,0,0,0)';
+  curentBorderColor = 'black';
 
   /**
    * current imageUrl of the element (empty by default), can be a string or a safe url

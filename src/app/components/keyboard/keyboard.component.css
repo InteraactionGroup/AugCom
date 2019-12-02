@@ -1,6 +1,11 @@
 .keyboard{
   height: calc(100vh - 3.5cm);
   width: 100%;
+
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
 }
 
 .settings{
@@ -112,6 +117,8 @@
   visibility: hidden;
 }
 
+
+
 .keyboard .wrapper .elementContainer .edit{
   position: relative;
   float: right;
@@ -187,10 +194,6 @@
   margin-left: 5%;
   visibility: visible;
   border-radius: 10px;
-  -webkit-user-select: none !important;
-  -moz-user-select: none !important;
-  -ms-user-select: none !important;
-  user-select: none !important;
   border-style: solid;
   border-width: 3px;
   box-sizing: border-box;
@@ -229,6 +232,15 @@
 
 .keyboard .wrapper .elementContainer .blurredElt:hover{
   filter: blur(5px);
+}
+
+.add {
+  opacity: 0.5;
+}
+
+.add:hover {
+  opacity: 1;
+  filter: brightness(150%);
 }
 
 .slidecontainer {

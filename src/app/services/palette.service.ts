@@ -6,8 +6,8 @@ import { Injectable } from '@angular/core';
 export class PaletteService {
 
   defaultPalette = '22 magic colors';
-
-  palettes = [
+  palettes: {name: string, colors: string[]}[];
+  DEFAULTPALETTELIST = [
 
     // shades of gray
     {name: 'Greys', colors: ['#ffffff', '#eeeeee', '#dddddd', '#cccccc', '#bbbbbb', '#aaaaaa',
@@ -48,25 +48,20 @@ export class PaletteService {
 
   currentColor = '#ffffff';
 
-  constructor() { }
+  constructor() {
+    this.palettes = this.DEFAULTPALETTELIST;
+  }
 
 
   rowNumber( i ) {
     return Math.ceil(i / 10) ;
   }
 
-  islast(color) {
-    return this.newTempPalette[this.newTempPalette.colors.length - 1] === color;
-  }
-
   addColor() {
     this.currentColor = '#ffffff';
-    this.newTempPalette.colors.push(this.currentColor);
+    this.newTempPalette.colors.push({color: this.currentColor});
   }
 
-  updateColor() {
-    this.newTempPalette.colors[this.newTempPalette.colors.length - 1] = this.currentColor;
-  }
 
   delete(thisColor) {
     this.newTempPalette.colors = this.newTempPalette.colors.filter(color => color !== thisColor);
@@ -74,7 +69,14 @@ export class PaletteService {
 
   savePalette() {
     if (this.newTempPalette.colors.length > 0) {
-      this.palettes.push(this.newTempPalette);
+      let index = 1;
+      while (this.palettes.findIndex( palette => palette.name === 'Ma Palette #' + index) !== -1 ) {
+        index++;
+      }
+      this.newTempPalette.name = 'Ma Palette #' + index;
+      const newColors = [];
+      this.newTempPalette.colors.forEach( color => {newColors.push(color.color); });
+      this.palettes.push({name: this.newTempPalette.name, colors: newColors});
       this.newTempPalette = {name: '', colors: []};
       this.newpalette = false;
     }

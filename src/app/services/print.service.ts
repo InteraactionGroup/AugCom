@@ -1,28 +1,55 @@
 import {Injectable} from '@angular/core';
 import {BoardService} from './board.service';
 import {Element} from '../types';
+import jsPDF from 'jspdf';
+import html2canvas, {Options} from 'html2canvas';
+import htmlToImage from 'html-to-image';
+import saveAs from 'file-saver';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PrintService {
 
+
   constructor(public boardService: BoardService) { }
+
+  urlList: any[] = [];
 
   print() {
 
   }
 
-  printDiv() {
-    const x = window.open('http://localhost:4200/keyboard');  window.setTimeout(() => {
-    x.document.head.innerHTML = '<style>' + this.getCSSKeyboard() + '</style>' + '<style>' + this.getCSSIndex() + '</style>';
-    x.document.body.innerHTML = this.getAllHTML();
-    window.setTimeout(() => {
-        x.window.print();
-        x.window.close();
-      }, 2000);
-    }, 2000);
+  onImagesLoaded(event) {
+    let loaded = this.urlList.length;
+    for ( const image of this.urlList ) {
+      const img = new Image();
+      img.onload = () => {
+        loaded--;
+        if (loaded === 0) {
+          event();
+        }
+        console.log('done ' + loaded);
+      }
+      img.src = image.match(/\((.*?)\)/)[1].replace(/('|")/g, '');
+
+    }
   }
+
+
+  printDiv() { // todo change this (we could use th eprevious idead instead)
+    const wind = window.open();
+    wind.document.body.innerHTML = wind.document.body.innerHTML + '<style>' + this.getCSSKeyboard() + '</style>'
+      + '<style>' + this.getCSSIndex() + '</style>'
+      + this.getAllHTML();
+
+    const container = wind.document.body;
+    this.onImagesLoaded(() => {
+      wind.print();
+    });
+  }
+
+
 
   getAllHTML() {
     const root = this.getHTML('.', this.boardService.board.ElementList.filter(elt => elt.ElementFolder === '.'));
@@ -57,14 +84,26 @@ export class PrintService {
               '<div class="wrapper">\n';
   }
 
+  getShadow(element: Element) {
+    if (element.ElementType === 'folder') {
+      let s = '; box-shadow: 3px -3px 0px -2px ' + (element.Color === undefined || element.Color == null ? '#d3d3d3' : element.Color ) ;
+      s = s + ' , 4px -4px '  + (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor ) ;
+      return s;
+    } else {
+      return '';
+    }
+  }
+
   innerHTML( elementList: Element[]) {
     let innerValue = '';
     elementList.forEach( element => {
       if (element.ElementType !== 'empty') {
+        const url = this.boardService.getSimpleImgUrl(element);
+        this.urlList.push(url);
         innerValue = innerValue +
           '<div class="elementContainer">' +
-          '<div class="element" style="background-color:' + element.Color + '; border-color:' + element.BorderColor + '">\n' +
-          '<div class="image" style="background-image: ' + this.boardService.getSimpleImgUrl(element) + '"></div>\n' +
+          '<div class="element" style="background-color:' + element.Color + '; border-color:' + element.BorderColor + this.getShadow(element) + '">\n' +
+          '<div class="image" style="background-image: ' + url + '"></div>\n' +
           '<div class="label">\n' +
           this.boardService.getLabel(element) +
           '</div>\n' +
@@ -88,6 +127,12 @@ export class PrintService {
       '}\n' + '.keyboard{\n' +
       '  height: 95%;\n' +
       '  width: 100%;\n' +
+      'box-sizing: border-box;\n' +
+      'border-color: black;\n' +
+      'border-width: 1px;\n' +
+      'border-style: solid;\n' +
+      '-webkit-print-color-adjust: exact;\n' +
+      'color-adjust: exact;\n' +
       '}\n' +
       '\n' +
       '.keyboard .wrapper{\n' +
@@ -170,7 +215,6 @@ export class PrintService {
       '  margin: 0 0 0 0;\n' +
       '  height: 100%;\n' +
       '  width: 100%;\n' +
-      '  overflow: hidden;\n' +
       '}\n';
   }
 }

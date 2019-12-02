@@ -20,42 +20,42 @@
     <input id="doubleClickTime" type="text" [(ngModel)]="this.parametersService.doubleClickTimeOut" placeholder="enter a value">
   </div>
 
-  <div class="interactionSelection">
-    <label for="interaction1" >Interaction 1 :</label>
-    <select id="interaction1" [(ngModel)]="interaction[0]" class="variantListBox">
-      <option selected value="">--choisissez une option--</option>
-      <option value="{{this.parametersService.interaction[0]}}">{{this.parametersService.interaction[0]}}</option>
-      <option value="{{this.parametersService.interaction[1]}}">{{this.parametersService.interaction[1]}}</option>
-      <option value="{{this.parametersService.interaction[2]}}">{{this.parametersService.interaction[2]}}</option>
-    </select>
-  </div>
+<!--  <div class="interactionSelection">-->
+<!--    <label for="interaction1" >Interaction 1 :</label>-->
+<!--    <select id="interaction1" [(ngModel)]="interaction[0]" class="variantListBox">-->
+<!--      <option selected value="">&#45;&#45;choisissez une option&#45;&#45;</option>-->
+<!--      <option value="{{this.parametersService.interaction[0]}}">{{this.parametersService.interaction[0]}}</option>-->
+<!--      <option value="{{this.parametersService.interaction[1]}}">{{this.parametersService.interaction[1]}}</option>-->
+<!--      <option value="{{this.parametersService.interaction[2]}}">{{this.parametersService.interaction[2]}}</option>-->
+<!--    </select>-->
+<!--  </div>-->
 
-  <div class="interactionSelection">
-    <label for="interaction2">Interaction 2 :</label>
-    <select id="interaction2" [(ngModel)]="interaction[1]" class="variantListBox">
-      <option selected value="">--choisissez une option--</option>
-      <option value="{{this.parametersService.interaction[0]}}">{{this.parametersService.interaction[0]}}</option>
-      <option value="{{this.parametersService.interaction[1]}}">{{this.parametersService.interaction[1]}}</option>
-      <option value="{{this.parametersService.interaction[2]}}">{{this.parametersService.interaction[2]}}</option>
-    </select>
-  </div>
+<!--  <div class="interactionSelection">-->
+<!--    <label for="interaction2">Interaction 2 :</label>-->
+<!--    <select id="interaction2" [(ngModel)]="interaction[1]" class="variantListBox">-->
+<!--      <option selected value="">&#45;&#45;choisissez une option&#45;&#45;</option>-->
+<!--      <option value="{{this.parametersService.interaction[0]}}">{{this.parametersService.interaction[0]}}</option>-->
+<!--      <option value="{{this.parametersService.interaction[1]}}">{{this.parametersService.interaction[1]}}</option>-->
+<!--      <option value="{{this.parametersService.interaction[2]}}">{{this.parametersService.interaction[2]}}</option>-->
+<!--    </select>-->
+<!--  </div>-->
 
-  <div class="interactionSelection">
-    <label for="interaction3">Interaction 3 :</label>
-    <select id="interaction3" [(ngModel)]="interaction[2]" class="variantListBox">
-      <option selected value="">--choisissez une option--</option>
-      <option value="{{this.parametersService.interaction[0]}}">{{this.parametersService.interaction[0]}}</option>
-      <option value="{{this.parametersService.interaction[1]}}">{{this.parametersService.interaction[1]}}</option>
-      <option value="{{this.parametersService.interaction[2]}}">{{this.parametersService.interaction[2]}}</option>
-    </select>
-  </div>
+<!--  <div class="interactionSelection">-->
+<!--    <label for="interaction3">Interaction 3 :</label>-->
+<!--    <select id="interaction3" [(ngModel)]="interaction[2]" class="variantListBox">-->
+<!--      <option selected value="">&#45;&#45;choisissez une option&#45;&#45;</option>-->
+<!--      <option value="{{this.parametersService.interaction[0]}}">{{this.parametersService.interaction[0]}}</option>-->
+<!--      <option value="{{this.parametersService.interaction[1]}}">{{this.parametersService.interaction[1]}}</option>-->
+<!--      <option value="{{this.parametersService.interaction[2]}}">{{this.parametersService.interaction[2]}}</option>-->
+<!--    </select>-->
+<!--  </div>-->
 
   <div class="languageSelection" >
     <label for="lang">Sortie vocale :</label>
     <select id="lang" [(ngModel)]="this.parametersService.lang" class="variantListBox">
       <option selected value="">--choisissez une langue--</option>
       <ng-container *ngFor="let l of this.parametersService.languagesAvailaibles">
-        <option   value="{{l.lang}}">{{l.name}}</option>
+        <option   value ="{{l.lang}}">{{l.name}}</option>
       </ng-container>
     </select>
   </div>
@@ -86,18 +86,19 @@
     </div>
 
     <div class="palette" *ngIf="this.paletteService.newpalette" [ngStyle]="{'height': 30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+3) + 'px'}">
-      <div class="color" *ngFor="let color of this.paletteService.newTempPalette.colors" [ngStyle]="{'background-color': color}">
-        <div class="deleteColor" (click)="this.paletteService.delete(color)" [style.background-image]="this.getIcon('clear')">
-
+      <ng-container *ngFor="let color of this.paletteService.newTempPalette.colors">
+        <div class="color" >
+          <div class="colorbox" [ngStyle]="{'background-color': color.color}" >
+            <div class="deleteColor" (click)="this.paletteService.delete(color)" [style.background-image]="this.getIcon('clear')">
+            </div>
+          </div >
+          <input [(ngModel)]="color.color" class="colorPicker" type="color">
         </div>
+      </ng-container>
+      <div class="moreColor" (click)="this.paletteService.addColor()">
+        +
       </div>
-      <div class="more">
-        <label class="moreColor" for="theColorPicker">
-          +
-        </label>
-        <input id="theColorPicker" [(ngModel)]="this.paletteService.currentColor" class="colorPicker" type="color" (input)="this.paletteService.updateColor()" (click)="this.paletteService.addColor()">
-      </div>
-      <div class="ok" (click)="paletteService.savePalette()">
+      <div class="ok" (click)="this.saveNewPalette();">
         ok
       </div>
       <div class="cancel" (click)="paletteService.close()">
@@ -122,7 +123,7 @@
           non, annuler
         </div>
 
-        <div class="choiceButton yes" (click)="this.paletteService.deletePalette(this.paletteCodamne); this.paletteCodamne = null">
+        <div class="choiceButton yes" (click)="this.deletePalette()">
           oui, supprimer
         </div>
       </div>

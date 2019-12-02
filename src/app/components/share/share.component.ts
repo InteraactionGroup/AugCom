@@ -24,9 +24,7 @@ export class ShareComponent implements OnInit {
 
   printToPDF() {
     this.userToolBarService.edit = false;
-    window.setTimeout(() => {
-      this.printService.printDiv();
-    }, 2000);
+    this.printService.printDiv();
   }
 
   /**

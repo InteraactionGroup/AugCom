@@ -37,7 +37,6 @@
 }
 
 .edition .leftEdition{
-  float: left;
   height: 33%;
   width: 20%;
   margin-left: 2%;
@@ -59,7 +58,6 @@
 
 .edition .leftEdition .colorPickerContainerDown{
   position: relative;
-  float: left;
   height: 10%;
   width: 10%;
   margin-left: 5%;
@@ -93,9 +91,6 @@
   width:90%;
   margin-left: 5%;
   transform: translateY(10%);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 .edition .leftEdition .button .label{
@@ -109,7 +104,6 @@
 
 
 .edition .rightEdition{
-  float: left;
   height: 33%;
   width: 40%;
   margin-top: 5%;
@@ -119,14 +113,12 @@
 
 .edition .rightEdition .rightContainer{
   display: inline-grid;
-  height: 90%;
   width: 90%;
   margin-left: 5%;
   transform: translateY(6%);
 }
 
 .edition .rightEdition .rightContainer .element{
-  height: 90%;
   width: 94%;
   margin-left: 3%;
   transform: translateY(5%);
@@ -134,7 +126,6 @@
 }
 
 .edition .rightEdition .rightContainer .element .icon{
-  float: left;
   height: 100%;
   width: 15%;
   background-color: lightgrey;
@@ -145,7 +136,6 @@
 }
 
 .edition .rightEdition .rightContainer .element .label{
-  float: left;
   height: 40%;
   width: 10%;
   margin-left: 5%;
@@ -153,7 +143,6 @@
 }
 
 .edition .rightEdition .rightContainer .element .inputField{
-  float: left;
   height: 60%;
   width: 60%;
   margin-left: 5%;
@@ -167,9 +156,8 @@
 }
 
 .edition .rightEdition .rightContainer .element .inputField .input .inputHalfLeft{
-  margin: 0 0 0 0;
   width: 45%;
-  margin-right: 10%;
+  margin: 0 10% 0 0;
 }
 .edition .rightEdition .rightContainer .element .inputField .input .inputHalfRight{
   margin: 0 0 0 0;
@@ -177,7 +165,6 @@
 }
 
 .edition .bottomEdition{
-  float: left;
   height: 45%;
   width: 96%;
   margin-left: 2vw;
@@ -186,7 +173,6 @@
 }
 
 .edition .optionEdition{
-  float: left;
   height: 33%;
   width: 32%;
   margin-top: 5%;
@@ -204,7 +190,6 @@
 
 .edition .optionEdition .elementVariant{
   text-align: center;
-  height: 90%;
   width: 90%;
   margin-left: 5%;
   transform: translateY(5%);
@@ -213,7 +198,6 @@
 
 .edition .optionEdition .elementEvent{
   text-align: center;
-  height: 90%;
   width: 90%;
   margin-left: 5%;
   transform: translateY(2%);
@@ -222,21 +206,10 @@
 
 .edition .optionEdition .elementEventContainer{
   text-align: center;
-  height: 90%;
   width: 70%;
   margin-left: 15%;
   transform: translateY(5%);
   background-color: white;
-}
-
-.edition .optionEdition .elementEventContainer .elementadd{
-  text-align: center;
-  height: 15%;
-  width: 90%;
-  margin-left: 5%;
-  background-color: lightgrey;
-  margin-bottom: 10%;
-  transform: translateY(5%);
 }
 
 .edition .optionEdition .elementEventContainer .elementevent{
@@ -250,7 +223,6 @@
 }
 
 .edition .optionEdition .elementEventContainer .label{
-  float: left;
   text-align: center;
   height: 30%;
   width: 80%;
@@ -258,32 +230,19 @@
 }
 
 .edition .optionEdition .elementEventContainer .goto{
-  float: left;
   text-align: center;
-  height: 90%;
   width: 19%;
-  transform: translateY(5%);
-}
-
-.edition .optionEdition .elementEventContainer .elementadd .addevent{
-  text-align: center;
-  height: 90%;
-  width: 90%;
   transform: translateY(5%);
 }
 
 .edition .optionEdition .elementVariant .waitVariant{
   height: 80%;
   width: 80%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
   transform: translateY(10%);
   margin-left: 10%;
 }
 
 .edition .optionEdition .elementVariant .variantContainer{
-  height: 90%;
   width: 100%;
   transform: translateY(5%);
 }
@@ -327,7 +286,6 @@
 }
 
 .edition .bottomEdition .element{
-  height: 90%;
   width: 94%;
   margin-left: 3%;
   transform: translateY(5%);
@@ -335,7 +293,6 @@
 }
 
 .edition .bottomEdition .element .event{
-  float: left;
   height: 60%;
   width: 20%;
   margin-left: 5%;
@@ -349,26 +306,18 @@
   width: 70%;
   margin-left: 15%;
   transform: translateY(5%);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 .edition .bottomEdition .element .event .label{
-  float: left;
   height: 10%;
   width: 80%;
   transform: translateY(100%);
 }
 
 .edition .bottomEdition .element .event .checkmark{
-  float: left;
   height: 20%;
   width: 20%;
   transform: translateY(20%);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 
@@ -422,9 +371,6 @@
   width:80%;
   padding-top: 80%;
   margin-left: 10%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 .pictoList{
@@ -434,7 +380,6 @@
 
 .bottomEdition .variantSelector{
   width: 96%;
-  height: 90%;
   margin-left: 2%;
   transform: translateY(5%);
   background-color: lightgrey;
@@ -442,12 +387,10 @@
 
 .bottomEdition .variantSelector .wrapperPreview{
   text-align: center;
-  float: left;
   transform: translateY(5%);
   margin-left: 4%;
   display: grid;
   width: 80%;
-  height: 90%;
   background-color: whitesmoke;
   overflow: scroll;
   grid-template-columns: repeat(7, 1fr);
@@ -458,14 +401,10 @@
 .waitVariant{
   height: 100%;
   width: 100%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 
 .bottomEdition .variantSelector .variantOk {
-  float: left;
   width: 10%;
   height: 20%;
   margin-left: 3%;
@@ -486,7 +425,6 @@ background-color: grey;
 .variantList .variant{
   cursor: pointer;
   width: 90%;
-  height: 90%;
   margin-left: 5%;
   background-color: grey;
   border-radius: 15px;
@@ -499,9 +437,6 @@ background-color: grey;
   margin-left: 40%;
   margin-bottom: 0%;
   border-radius: 50%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 .popup{
@@ -530,9 +465,6 @@ background-color: grey;
   height: 30px;
   width: 30px;
   background-color: red;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 .palettes{
@@ -544,7 +476,6 @@ background-color: grey;
 }
 
 .palettes .palette{
-  float: left;
   width: 100%;
   height: fit-content;
   display: grid;
@@ -555,7 +486,6 @@ background-color: grey;
 
 
 .palettes .paletteLabel{
-  float: left;
   width: 100%;
   height: 20px;
   background-color: grey;
@@ -571,7 +501,6 @@ background-color: grey;
 }
 
 .palettes .palette .color{
-  float: left;
   margin-top: 10%;
   margin-left: 10%;
   height: 80%;
@@ -579,7 +508,6 @@ background-color: grey;
 }
 
 .palettes .palette .realcolor{
-  float: left;
   margin-top: 10%;
   margin-left: 10%;
   height: 80%;
@@ -592,13 +520,22 @@ background-color: grey;
 
 .palettes .palette .realcolor:hover{
   cursor: pointer;
-  float: left;
-  margin-top: 0px;
-  margin-left: 0px;
+  margin-top: 0;
+  margin-left: 0;
   height: 100%;
   width: 100%;
-  box-sizing: border-box;
-  border-width: 2px;
-  border-style: solid;
-  border-color: black;
+}
+
+.imageContainer {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.floatLeft {
+  float: left;
+}
+
+.height90 {
+  height: 90%;
 }
