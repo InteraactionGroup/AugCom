@@ -48,7 +48,7 @@
   cursor: pointer;
   float: left;
   height: 1.5cm;
-  width: 20cm;
+  width: calc(100% - 12.5cm);
   min-width: 1cm;
   min-height: 1cm;
   transition: width 1s;

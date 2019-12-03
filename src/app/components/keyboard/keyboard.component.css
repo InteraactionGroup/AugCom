@@ -258,6 +258,12 @@
   filter: blur(5px);
 }
 
+.keyboard .wrapper .elementContainer .searched:hover{
+  filter:drop-shadow(0 0 10px yellow) saturate(300%)
+}.keyboard .wrapper .elementContainer .searched{
+   filter:drop-shadow(0 0 10px yellow) saturate(300%)
+ }
+
 .keyboard .wrapper .elementContainer .visible{
   opacity: 0;
 }
