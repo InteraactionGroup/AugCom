@@ -400,65 +400,65 @@ export class KeyboardComponent implements OnInit {
   }
 
   action(element: Element, interaction: string) {
-    if (element.ElementType !== 'empty') {
+    if (element.ElementType !== 'empty' && !(!this.userToolBarService.edit && !element.Visible &&  this.userToolBarService.babble)) {
 
-    // for button
-    if (element.ElementType === 'button') {
+      // for button
+      if (element.ElementType === 'button') {
 
-      const prononcedText = this.boardService.getLabel(element);
-      const color = element.Color;
-      const imgUrl = this.boardService.getImgUrl(element);
-      const vignette: Vignette = {
-        VignetteLabel: prononcedText,
-        VignetteImageUrl: imgUrl,
-        VignetteColor: color};
-      let otherformsdisplayed = false;
+        const prononcedText = this.boardService.getLabel(element);
+        const color = element.Color;
+        const imgUrl = this.boardService.getImgUrl(element);
+        const vignette: Vignette = {
+          VignetteLabel: prononcedText,
+          VignetteImageUrl: imgUrl,
+          VignetteColor: color};
+        let otherformsdisplayed = false;
 
-      // Depend on the interaction
-      element.InteractionsList.forEach(inter => {
-        if (inter.InteractionID === interaction) {
-          inter.ActionList.forEach( action => {
-            if (action.ActionID === 'pronomChangeInfo') {
-              this.changePronomInfo(element.ElementForms[0]);
-            } else if (action.ActionID === 'display') {
-              this.historicService.push(vignette);
-            } else if (action.ActionID === 'say') {
-              this.historicService.say('' + prononcedText);
-            } else if (action.ActionID === 'otherforms' && element.ElementForms.length > 2) {
-              otherformsdisplayed = true;
-              this.boardService.activatedElement = this.getNormalTempList().indexOf(element);
-              this.activatedElementTempList();
-              this.clickedElement = null;
-            }
-          });
-        } else if (!otherformsdisplayed && inter.InteractionID === 'backFromVariant' ) {
-          this.boardService.activatedElement = -1;
+        // Depend on the interaction
+        element.InteractionsList.forEach(inter => {
+          if (inter.InteractionID === interaction) {
+            inter.ActionList.forEach( action => {
+              if (action.ActionID === 'pronomChangeInfo') {
+                this.changePronomInfo(element.ElementForms[0]);
+              } else if (action.ActionID === 'display') {
+                this.historicService.push(vignette);
+              } else if (action.ActionID === 'say') {
+                this.historicService.say('' + prononcedText);
+              } else if (action.ActionID === 'otherforms' && element.ElementForms.length > 2) {
+                otherformsdisplayed = true;
+                this.boardService.activatedElement = this.getNormalTempList().indexOf(element);
+                this.activatedElementTempList();
+                this.clickedElement = null;
+              }
+            });
+          } else if (!otherformsdisplayed && inter.InteractionID === 'backFromVariant' ) {
+            this.boardService.activatedElement = -1;
+          }
+        });
+
+        // Always executed
+        if (element.ElementPartOfSpeech != null) {
+          if (element.ElementPartOfSpeech === ('article défini')) {
+            this.changeArticleInfo(element.ElementForms[0]);
+          } else if (element.ElementPartOfSpeech === '-verb-') {
+            this.boardService.resetVerbTerminaisons();
+          } else if (element.ElementPartOfSpeech === '-nom-') {
+            this.changePronomInfo(element.ElementForms.find(eltF => (eltF.DisplayedText === this.boardService.getLabel(element))));
+          }
         }
-      });
 
-      // Always executed
-      if (element.ElementPartOfSpeech != null) {
-        if (element.ElementPartOfSpeech === ('article défini')) {
-          this.changeArticleInfo(element.ElementForms[0]);
-        } else if (element.ElementPartOfSpeech === '-verb-') {
-          this.boardService.resetVerbTerminaisons();
-        } else if (element.ElementPartOfSpeech === '-nom-') {
-          this.changePronomInfo(element.ElementForms.find(eltF => (eltF.DisplayedText === this.boardService.getLabel(element))));
+        // for folder
+      } else if (element.ElementType === 'folder') {
+        if (element.ElementFolder === '.') {
+          this.boardService.currentFolder = element.ElementFolder + element.ElementID;
+        } else {
+          this.boardService.currentFolder = element.ElementFolder + '.' + element.ElementID;
         }
-      }
 
-      // for folder
-    } else if (element.ElementType === 'folder') {
-      if (element.ElementFolder === '.') {
-        this.boardService.currentFolder = element.ElementFolder + element.ElementID;
+        // for errors
       } else {
-        this.boardService.currentFolder = element.ElementFolder + '.' + element.ElementID;
+        console.error('ElementType : ' + element.ElementType + ' is not supported (supported ElementTypes are "button" or "folder")');
       }
-
-      // for errors
-    } else {
-      console.error('ElementType : ' + element.ElementType + ' is not supported (supported ElementTypes are "button" or "folder")');
-    }
     }
   }
 
@@ -498,6 +498,13 @@ export class KeyboardComponent implements OnInit {
     return !this.userToolBarService.babble ?
       (this.userToolBarService.edit && !visible ? '0.5' : '1') :
       (visible ? '1' : this.userToolBarService.edit ? '0.3' : '0');
+  }
+
+  getCursor(element: Element) {
+    const visible = this.isVisible(element);
+    return !this.userToolBarService.babble ?
+      'pointer' :
+      (visible ? 'pointer' : this.userToolBarService.edit ? 'pointer' : 'default');
   }
 
   editAll() {

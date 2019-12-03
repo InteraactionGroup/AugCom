@@ -56,7 +56,8 @@
           <div class="element" [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)"  (mousedown)="this.pointerDown(element)" (mouseup)="this.pointerUp(element)" [ngStyle]="{'background-color': element.Color !== null ? element.Color : 'grey' ,
           'border-color': element.BorderColor === null || element.BorderColor === undefined ? 'black' : element.BorderColor,
           'box-shadow': this.getShadow(element) ,
-          'opacity': this.getOpacity(element)}">
+          'opacity': this.getOpacity(element),
+          'cursor': this.getCursor(element)}">
 
             <div class="image" [style.background-image]="this.boardService.getImgUrl(element)">
 
