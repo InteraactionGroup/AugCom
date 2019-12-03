@@ -53,4 +53,15 @@
     </a>
   </nav>
 
+  <div class="buttonLeftLeft" [class.buttonLeftLeftBig]="this.userToolBarService.search" *ngIf="this.userToolBarService.unlock" >
+    <div class="image"  [ngStyle]="{'background-image': this.userToolBarService.search? '' : this.getIcon('search') }">
+      <input type="text" [(ngModel)]="this.searchText" style="width: 98%; height: 70%; margin-left: 1%; transform: translateY(8%)" *ngIf="this.userToolBarService.search">
+    </div>
+  </div>
+  <div class="buttonLeftRight" [class.buttonLeftRightBig]="this.userToolBarService.search" *ngIf="this.userToolBarService.unlock" (click)="this.openSearch()">
+    <div class="image"  [ngStyle]="{'background-image':this.userToolBarService.search? this.getIcon('search') : this.getIcon('play') }">
+
+    </div>
+  </div>
+
 </div>

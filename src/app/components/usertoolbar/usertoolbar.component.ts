@@ -16,6 +16,8 @@ export class UsertoolbarComponent implements OnInit {
 
   }
 
+  searchText = 'test';
+
   ngOnInit() {
   }
 
@@ -47,6 +49,10 @@ export class UsertoolbarComponent implements OnInit {
   openSettings() {
     this.userToolBarService.setting = !this.userToolBarService.setting;
     this.setLock();
+  }
+
+  openSearch() {
+    this.userToolBarService.search = !this.userToolBarService.search;
   }
 
   setLock() {

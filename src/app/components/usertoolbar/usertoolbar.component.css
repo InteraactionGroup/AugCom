@@ -19,7 +19,42 @@
   visibility: hidden;
 }
 
-.usertoolbar .button .image:hover{
+.usertoolbar .buttonLeftLeft{
+  cursor: pointer;
+  float: left;
+  height: 1.5cm;
+  width: 1.5cm;
+  min-width: 1cm;
+  min-height: 1cm;
+  transition: width 1s;
+}
+
+.usertoolbar .buttonLeftRight{
+  cursor: pointer;
+  float: left;
+  height: 1.5cm;
+  width: 0.5cm;
+  min-width: 1cm;
+  min-height: 1cm;
+  transition: width 1s;
+}
+
+.usertoolbar .buttonLeftRightBig {
+  width: 1.5cm;
+  transition: width 1s;
+}
+
+.usertoolbar .buttonLeftLeftBig{
+  cursor: pointer;
+  float: left;
+  height: 1.5cm;
+  width: 20cm;
+  min-width: 1cm;
+  min-height: 1cm;
+  transition: width 1s;
+}
+
+.usertoolbar .button .image:hover, .usertoolbar .buttonLeftLeft .image:hover, .usertoolbar .buttonLeftRight .image:hover{
   background-color: darkgrey;
 }
 
@@ -29,8 +64,36 @@
   margin-left: 10%;
   transform: translateY(10%);
   background-color: lightgrey;
-  border-radius: 25%;
+  border-radius: 10px;
   background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+  visibility: visible;
+}
+
+.usertoolbar .buttonLeftLeft .image{
+  height: 80%;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  transform: translateY(10%);
+  background-color: lightgrey;
+  border-radius: 10px 0 0 10px;
+  background-size: 60% 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+  visibility: visible;
+}
+
+.usertoolbar .buttonLeftRight .image{
+  height: 80%;
+  width: 80%;
+  margin-left: 0;
+  margin-right: 0;
+  transform: translateY(10%);
+  background-color: lightgrey;
+  border-radius: 0 10px 10px 0;
+  background-size: 60% 60%;
   background-repeat: no-repeat;
   background-position: center;
   visibility: visible;

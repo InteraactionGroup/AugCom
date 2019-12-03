@@ -94,7 +94,6 @@ export class IndexeddbaccessService {
       this.updateColsAndRowsFromBoard();
 
 
-
     };
   }
 
