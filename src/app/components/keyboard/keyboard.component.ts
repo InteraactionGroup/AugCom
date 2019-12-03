@@ -310,7 +310,8 @@ export class KeyboardComponent implements OnInit {
         ImageID: '',
         InteractionsList: [],
          Color: '#ffffff', // to delete later
-         BorderColor: '#ffffff' // to delete later
+         BorderColor: '#ffffff', // to delete later
+         Visible: false
       });
     }
 
@@ -327,6 +328,7 @@ export class KeyboardComponent implements OnInit {
           elt.ImageID = '' + compElt.ImageID;
           elt.ElementType =  'button';
           elt.ElementForms = [];
+          elt.Visible = true;
           elt.ElementPartOfSpeech = '' + compElt.ElementPartOfSpeech;
           elt.ElementForms.push(
             {
@@ -474,6 +476,28 @@ export class KeyboardComponent implements OnInit {
       this.editionService.ElementListener.next(element);
       this.editionService.add = false;
     }
+  }
+
+  isVisible(element: Element) {
+    if (element.Visible === undefined) {
+      element.Visible = true;
+    }
+    return element.Visible;
+  }
+
+  changeOpacity(element: Element) {
+    if (element.Visible === undefined) {
+      element.Visible = true;
+    }
+
+    element.Visible = !element.Visible;
+  }
+
+  getOpacity(element: Element) {
+    const visible = this.isVisible(element);
+    return !this.userToolBarService.babble ?
+      (this.userToolBarService.edit && !visible ? '0.5' : '1') :
+      (visible ? '1' : this.userToolBarService.edit ? '0.3' : '0');
   }
 
   editAll() {

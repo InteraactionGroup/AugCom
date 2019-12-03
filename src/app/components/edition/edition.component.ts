@@ -484,7 +484,8 @@ export class EditionComponent implements OnInit {
         ImageID: this.boardService.currentFolder + tempId,
         InteractionsList: interList,
         Color: this.curentColor,
-        BorderColor: this.curentBorderColor
+        BorderColor: this.curentBorderColor,
+        Visible: true
       });
 
     this.boardService.board.ImageList.push(

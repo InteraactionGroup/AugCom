@@ -8,8 +8,6 @@
     </a>
   </nav>
 
-  <input type="button" value="reset" (click)="reset();">
-
   <div>
     <label for="longPressTime">longPress value:</label>
     <input id="longPressTime" type="text" [(ngModel)]="this.parametersService.longpressTimeOut" placeholder="enter a value">
@@ -109,7 +107,7 @@
   </div>
 
 
-
+  <input type="button" value="reset" (click)="reset();">
 
   <div class="popup" *ngIf="this.paletteCodamne != null">
     <div class="popupcontainer">
