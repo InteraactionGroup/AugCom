@@ -5,6 +5,7 @@ import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {SnapBarService} from '../../services/snap-bar.service';
 import {ParametersService} from '../../services/parameters.service';
 import {SearchService} from '../../services/search.service';
+import {BoardService} from '../../services/board.service';
 @Component({
   selector: 'app-usertoolbar',
   templateUrl: './usertoolbar.component.html',
@@ -13,7 +14,7 @@ import {SearchService} from '../../services/search.service';
 export class UsertoolbarComponent implements OnInit {
 
 
-  constructor( private searchService: SearchService, private parametersService: ParametersService, private snapBarService: SnapBarService, private indexedDBacess: IndexeddbaccessService, public getIconService: GeticonService, public userToolBarService: UsertoolbarService) {
+  constructor( public boardService: BoardService, public searchService: SearchService, private parametersService: ParametersService, private snapBarService: SnapBarService, private indexedDBacess: IndexeddbaccessService, public getIconService: GeticonService, public userToolBarService: UsertoolbarService) {
 
   }
 
@@ -21,6 +22,7 @@ export class UsertoolbarComponent implements OnInit {
 
   ngOnInit() {
   }
+
 
   /**
    * return the icon url corresponding to the string s

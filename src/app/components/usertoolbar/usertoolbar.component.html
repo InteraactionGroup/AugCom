@@ -55,7 +55,13 @@
 
   <div class="buttonLeftLeft" [class.buttonLeftLeftBig]="this.userToolBarService.search" *ngIf="this.userToolBarService.unlock" >
     <div class="image"  [ngStyle]="{'background-image': this.userToolBarService.search? '' : this.getIcon('search') }">
-      <input #searchedText type="text" [(ngModel)]="this.searchText" (input)="this.searchService.searchFor(searchedText.value)"  style="width: 98%; height: 70%; margin-left: 1%; transform: translateY(8%)" *ngIf="this.userToolBarService.search">
+      <input #searchedText type="text" [(ngModel)]="this.searchText" (input)="this.searchService.searchFor(searchedText.value)"  class="searchBar" *ngIf="this.userToolBarService.search">
+      <div class="searchempty" [class.searchResults]="this.userToolBarService.search">
+        <div class="searchResult" *ngFor="let res of this.searchService.searchedWords">
+          <div class="searchImage" [style.background-image]="this.boardService.getImgUrl(res)"> </div>
+          <div class="searchLabel"> {{res.ElementID}} </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="buttonLeftRight" [class.buttonLeftRightBig]="this.userToolBarService.search" *ngIf="this.userToolBarService.unlock" (click)="this.openSearch()">
