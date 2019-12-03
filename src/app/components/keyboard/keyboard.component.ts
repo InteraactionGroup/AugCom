@@ -323,6 +323,7 @@ export class KeyboardComponent implements OnInit {
       if (places.includes(tempIndex)) {
         if (compElt.ElementForms.length > indexOfForm ) {
           elt.Color = compElt.Color;
+          elt.BorderColor = compElt.BorderColor;
           elt.ImageID = '' + compElt.ImageID;
           elt.ElementType =  'button';
           elt.ElementForms = [];

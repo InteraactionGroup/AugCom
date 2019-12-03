@@ -298,6 +298,7 @@
   margin-left: 5%;
   transform: translateY(30%);
   background-color: white;
+  float: left;
 }
 
 .edition .bottomEdition .element .event .icon{
@@ -309,12 +310,14 @@
 }
 
 .edition .bottomEdition .element .event .label{
+  float: left;
   height: 10%;
   width: 80%;
   transform: translateY(100%);
 }
 
 .edition .bottomEdition .element .event .checkmark{
+  float: left;
   height: 20%;
   width: 20%;
   transform: translateY(20%);

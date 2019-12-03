@@ -52,7 +52,7 @@ export class HistoricService {
   say(text: string) {
     const synth = window.speechSynthesis;
     const x = new SpeechSynthesisUtterance(text + ' ');
-    x.lang = this.parametersService.lang;
+    x.lang = this.parametersService.currentVoice;
     synth.speak(x);
   }
 
