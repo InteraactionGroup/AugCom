@@ -35,6 +35,7 @@ export class Element {
   InteractionsList: { InteractionID: string, ActionList: Action[] }[];
   Color: string; // to delete later
   BorderColor: string; // to delete later
+  Visible: boolean;
 }
 
 /**

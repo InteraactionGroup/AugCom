@@ -168,7 +168,31 @@
   background-color: darkred;
 }
 
-.keyboard .wrapper .elementContainer .suppr .image{
+
+.keyboard .wrapper .elementContainer .opacity{
+  cursor: pointer;
+  position: relative;
+  float: bottom;
+  width: 30px;
+  height: 30px;
+  margin-left: 7%;
+  top: -30px;
+  background-color: lightgrey;
+  border-radius: 50%;
+  visibility: visible;
+
+  border-style: solid;
+  border-color: dimgrey;
+  border-width: 2px;
+  box-sizing: border-box;
+}
+
+
+.keyboard .wrapper .elementContainer .opacity:hover{
+  background-color: grey;
+}
+
+.keyboard .wrapper .elementContainer .suppr .image, .keyboard .wrapper .elementContainer .opacity .image{
   width: 70%;
   height: 70%;
   margin-left: 15%;
@@ -232,6 +256,10 @@
 
 .keyboard .wrapper .elementContainer .blurredElt:hover{
   filter: blur(5px);
+}
+
+.keyboard .wrapper .elementContainer .visible{
+  opacity: 0;
 }
 
 .add {

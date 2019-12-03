@@ -6,7 +6,7 @@
     </div>
   </div>
 
-  <div class="button" id="lockUnlockButton" (click)="this.userToolBarService.unlock = !this.userToolBarService.unlock">
+  <div class="button" id="lockUnlockButton" (click)="this.setLock()">
     <div class="image" [class.imageSelected]="this.userToolBarService.unlock" [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.unlock?'unlock':'lock')}">
 
     </div>
@@ -15,7 +15,7 @@
 
   <nav>
     <a routerLink="/share">
-      <div class="button" id="shareButton" *ngIf="this.userToolBarService.unlock" (click)="this.userToolBarService.share = !this.userToolBarService.share">
+      <div class="button" id="shareButton" *ngIf="this.userToolBarService.unlock" (click)="this.openShare()">
         <div class="image"  [ngStyle]="{'background-image':this.getIcon('share')}">
 
         </div>

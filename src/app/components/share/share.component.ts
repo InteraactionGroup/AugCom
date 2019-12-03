@@ -126,7 +126,8 @@ export class ShareComponent implements OnInit {
         ImageID: folder + name,
         InteractionsList: [],
         Color: 'lightgrey',
-        BorderColor: 'black'
+        BorderColor: 'black',
+        Visible: true
       });
 
     this.boardService.board.ImageList.push(

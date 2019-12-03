@@ -46,5 +46,16 @@ export class UsertoolbarComponent implements OnInit {
 
   openSettings() {
     this.userToolBarService.setting = !this.userToolBarService.setting;
+    this.setLock();
+  }
+
+  setLock() {
+    this.userToolBarService.unlock = !this.userToolBarService.unlock;
+    this.userToolBarService.edit = this.userToolBarService.edit && this.userToolBarService.unlock;
+  }
+
+  openShare() {
+    this.userToolBarService.share = !this.userToolBarService.share;
+    this.setLock();
   }
 }

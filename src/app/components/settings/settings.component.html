@@ -8,8 +8,6 @@
     </a>
   </nav>
 
-  <input type="button" value="reset" (click)="reset();">
-
   <div>
     <label for="longPressTime">longPress value:</label>
     <input id="longPressTime" type="text" [(ngModel)]="this.parametersService.longpressTimeOut" placeholder="enter a value">
@@ -52,10 +50,10 @@
 
   <div class="languageSelection" >
     <label for="lang">Sortie vocale :</label>
-    <select id="lang" [(ngModel)]="this.parametersService.lang" class="variantListBox">
-      <option selected value="">--choisissez une langue--</option>
+    <select id="lang" [(ngModel)]="this.parametersService.currentVoice" class="variantListBox">
+      <option value="null@null">--choisissez une langue--</option>
       <ng-container *ngFor="let l of this.parametersService.languagesAvailaibles">
-        <option   value ="{{l.lang}}">{{l.name}}</option>
+        <option   value ="{{l.lang + '@' + l.name}}">{{l.name + ' (' + l.lang + ')'}}</option>
       </ng-container>
     </select>
   </div>
@@ -109,7 +107,7 @@
   </div>
 
 
-
+  <input type="button" value="reset" (click)="reset();">
 
   <div class="popup" *ngIf="this.paletteCodamne != null">
     <div class="popupcontainer">

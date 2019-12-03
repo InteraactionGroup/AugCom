@@ -34,11 +34,6 @@ export class SettingsComponent implements OnInit {
     this.indexeddbaccessService.update();
   }
 
-  addPalette() {
-
-    this.indexeddbaccessService.update();
-  }
-
   /**
    * return the icon url corresponding to the string s
    * @param s, the string identifying the icon
