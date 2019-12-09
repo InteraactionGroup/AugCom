@@ -40,8 +40,8 @@ export class KeyboardComponent implements OnInit {
 
   subs = new Subscription();
 
-  press = [false, false , false];
-  release = [false, false , false];
+  press = [false, false ];
+  release = [false, false ];
 
   // tslint:disable-next-line:max-line-length
   constructor(public searchService: SearchService, private paletteService: PaletteService, private dragulaService: DragulaService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) {
@@ -187,11 +187,10 @@ export class KeyboardComponent implements OnInit {
    */
   pointerDown(element: Element, num) {
     console.log('down' + num);
-    this.press[num - 1 ] = false;
-    this.press[num % 3 ] = false;
-    this.press[(num + 1) % 3 ] = false;
-    this.release[num - 1 ] = true;
-    if (!this.userToolBarService.edit && this.release[num - 1 ] && !this.release[num % 3] && !this.release[(num + 1) % 3]) {
+    this.press[num] = false;
+    this.press[(num + 1) % 2 ] = false;
+    this.release[num ] = true;
+    if (!this.userToolBarService.edit && this.release[num] && !this.release[(num + 1) % 2]) {
       console.log('down');
       if (this.down === 0) {
       this.clickedElement = element;
@@ -214,11 +213,10 @@ export class KeyboardComponent implements OnInit {
    */
  pointerUp(element: Element, num) {
     console.log('up' + num);
-    this.release[num - 1 ] = false;
-    this.release[num % 3 ] = false;
-    this.release[(num + 1) % 3 ] = false;
-    this.press[num - 1] = true;
-    if (!this.userToolBarService.edit && this.press[num - 1] && !this.press[num % 3] && !this.press[(num  + 1) % 3]) {
+    this.release[num] = false;
+    this.release[(num + 1) % 2 ] = false;
+    this.press[num] = true;
+    if (!this.userToolBarService.edit && this.press[num] && !this.press[(num + 1) % 2] ) {
       console.log('up');
       window.clearTimeout(this.pressTimer);
       window.clearTimeout(this.dblClickTimer);
