@@ -3,6 +3,7 @@ import {ParametersService} from '../../services/parameters.service';
 import {PaletteService} from '../../services/palette.service';
 import {GeticonService} from '../../services/geticon.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
+import {BoardService} from '../../services/board.service';
 
 @Component({
   selector: 'app-settings',
@@ -11,7 +12,7 @@ import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(private indexeddbaccessService: IndexeddbaccessService, private getIconService: GeticonService, public paletteService: PaletteService, public parametersService: ParametersService) {}
+  constructor(private boardService: BoardService, private indexeddbaccessService: IndexeddbaccessService, private getIconService: GeticonService, public paletteService: PaletteService, public parametersService: ParametersService) {}
 
   paletteCodamne = null;
 
@@ -44,7 +45,8 @@ export class SettingsComponent implements OnInit {
   }
 
   reset() {
-    indexedDB.deleteDatabase('MyTestDatabase');
+    indexedDB.deleteDatabase('Saves');
+    this.boardService.resetBoard();
     this.indexeddbaccessService.init();
     this.indexeddbaccessService.update();
   }

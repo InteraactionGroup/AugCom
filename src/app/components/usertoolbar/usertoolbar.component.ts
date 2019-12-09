@@ -4,6 +4,8 @@ import {GeticonService} from '../../services/geticon.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {SnapBarService} from '../../services/snap-bar.service';
 import {ParametersService} from '../../services/parameters.service';
+import {SearchService} from '../../services/search.service';
+import {BoardService} from '../../services/board.service';
 @Component({
   selector: 'app-usertoolbar',
   templateUrl: './usertoolbar.component.html',
@@ -12,11 +14,31 @@ import {ParametersService} from '../../services/parameters.service';
 export class UsertoolbarComponent implements OnInit {
 
 
-  constructor(private parametersService: ParametersService, private snapBarService: SnapBarService, private indexedDBacess: IndexeddbaccessService, public getIconService: GeticonService, public userToolBarService: UsertoolbarService) {
+  constructor( public boardService: BoardService, public searchService: SearchService, private parametersService: ParametersService, private snapBarService: SnapBarService, private indexedDBacess: IndexeddbaccessService, public getIconService: GeticonService, public userToolBarService: UsertoolbarService) {
 
   }
 
+  searchText = 'test';
+
   ngOnInit() {
+  }
+
+  getResultsHeight(size) {
+    if (size >= 5) {
+      return '500%';
+    } else {
+      return ( size * 100 ) + '%';
+    }
+  }
+
+  getResultHeight(size) {
+    if (size >= 5) {
+      return '20%';
+    } else if (size === 0) {
+      return '0';
+    } else {
+      return ( 100 / size) + '%';
+    }
   }
 
   /**
@@ -47,6 +69,15 @@ export class UsertoolbarComponent implements OnInit {
   openSettings() {
     this.userToolBarService.setting = !this.userToolBarService.setting;
     this.setLock();
+  }
+
+  openSearch() {
+    this.userToolBarService.search = !this.userToolBarService.search;
+    if (!this.userToolBarService.search) {
+      this.searchService.searchedPath = [];
+      this.searchService.searchedWords = [];
+      this.searchText = '';
+    }
   }
 
   setLock() {

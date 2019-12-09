@@ -6,6 +6,7 @@
   -moz-user-select: none !important;
   -ms-user-select: none !important;
   user-select: none !important;
+
 }
 
 .settings{
@@ -106,6 +107,8 @@
   background-repeat: no-repeat;
   background-position: center;
   visibility: visible;
+
+
 }
 
 .keyboard .wrapper .elementContainer{
@@ -115,6 +118,8 @@
   min-height: 1cm;
   min-width: 1cm;
   visibility: hidden;
+
+
 }
 
 
@@ -161,6 +166,7 @@
   border-color: darkred;
   border-width: 2px;
   box-sizing: border-box;
+
 }
 
 
@@ -257,6 +263,12 @@
 .keyboard .wrapper .elementContainer .blurredElt:hover{
   filter: blur(5px);
 }
+
+.keyboard .wrapper .elementContainer .searched:hover{
+  filter:drop-shadow(0 0 10px yellow) saturate(300%)
+}.keyboard .wrapper .elementContainer .searched{
+   filter:drop-shadow(0 0 10px yellow) saturate(300%)
+ }
 
 .keyboard .wrapper .elementContainer .visible{
   opacity: 0;

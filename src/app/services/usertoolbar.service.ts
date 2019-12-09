@@ -31,6 +31,7 @@ export class UsertoolbarService {
   public babble = false;
   public full = false;
   public setting = false;
+  public search = false;
   public popup = false;
 
   fullScreen() {

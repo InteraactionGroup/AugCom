@@ -32,6 +32,10 @@ export class BoardService {
   activatedElement = -1;
 
 
+  resetBoard() {
+    this.board  = Board;
+  }
+
   updateBackground(file) {
     const reader = new FileReader();
     this.ng2ImgMaxService.resize([file[0]], 1000, 1000).subscribe(result => {
@@ -48,6 +52,7 @@ export class BoardService {
    * @return return the current label of the element
    */
   getLabel(element: Element) {
+
     if (element.ElementPartOfSpeech === '-verb-') {
       const verbElement = element.ElementForms.find(elt => this.checkVerbForms(elt));
       if (verbElement != null) {

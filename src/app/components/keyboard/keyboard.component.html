@@ -40,7 +40,6 @@
     <input class="inputSize" type="text" [(ngModel)]="this.boardService.sliderValueRow">
   </div>
 </div>
-<div id="keyboard" >
 <div class="keyboard" [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100vh - 4.5cm)':'calc(100vh - 3.5cm)'}" >
 
   <div class="wrapper" [ngStyle]="{'grid-template-columns': 'repeat('+(this.boardService.sliderValueCol)+', '+(100/(this.boardService.sliderValueCol))+'%)',
@@ -53,11 +52,12 @@
         <div id="{{element.ElementID}}" class="elementContainer" *ngIf="element.ElementType!=='empty'" >
 
 
-          <div class="element" [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)"  (mousedown)="this.pointerDown(element)" (mouseup)="this.pointerUp(element)" [ngStyle]="{'background-color': element.Color !== null ? element.Color : 'grey' ,
+          <div class="element"  [class.searched]="this.searchService.searchedPath.includes(element)"  [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)" (touchstart)="this.pointerDown(element,0)" (touchend)="this.pointerUp(element,0)" (pointerdown)="this.pointerDown(element,1)" (pointerup)="this.pointerUp(element,1)"  [ngStyle]="{'background-color': element.Color !== null ? element.Color : 'grey' ,
           'border-color': element.BorderColor === null || element.BorderColor === undefined ? 'black' : element.BorderColor,
           'box-shadow': this.getShadow(element) ,
           'opacity': this.getOpacity(element),
           'cursor': this.getCursor(element)}">
+
 
             <div class="image" [style.background-image]="this.boardService.getImgUrl(element)">
 
@@ -133,5 +133,4 @@
 
   </div>
   <app-snap-bar></app-snap-bar>
-</div>
 </div>
