@@ -184,6 +184,7 @@ export class KeyboardComponent implements OnInit {
    * if not in edit mode
    * process the pointerDown event triggered by 'element' and starts the longpress timer
    * @param element, the element triggering the event
+   * @param num, number of the event triggering the action
    */
   pointerDown(element: Element, num) {
     console.log('down' + num);
@@ -210,6 +211,7 @@ export class KeyboardComponent implements OnInit {
    * process the pointerUp event triggered by 'element' and execute its corresponding normal click function
    * if the element has not been longpressed yet
    * @param element, the element triggering the event
+   * @param num, number of the event triggering the action
    */
  pointerUp(element: Element, num) {
     console.log('up' + num);
