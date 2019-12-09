@@ -23,6 +23,23 @@ export class UsertoolbarComponent implements OnInit {
   ngOnInit() {
   }
 
+  getResultsHeight(size) {
+    if (size >= 5) {
+      return '500%';
+    } else {
+      return ( size * 100 ) + '%';
+    }
+  }
+
+  getResultHeight(size) {
+    if (size >= 5) {
+      return '20%';
+    } else if (size === 0) {
+      return '0';
+    } else {
+      return ( 100 / size) + '%';
+    }
+  }
 
   /**
    * return the icon url corresponding to the string s
@@ -56,6 +73,11 @@ export class UsertoolbarComponent implements OnInit {
 
   openSearch() {
     this.userToolBarService.search = !this.userToolBarService.search;
+    if (!this.userToolBarService.search) {
+      this.searchService.searchedPath = [];
+      this.searchService.searchedWords = [];
+      this.searchText = '';
+    }
   }
 
   setLock() {

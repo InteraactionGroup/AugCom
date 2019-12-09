@@ -107,6 +107,8 @@
   background-repeat: no-repeat;
   background-position: center;
   visibility: visible;
+
+
 }
 
 .keyboard .wrapper .elementContainer{
@@ -116,6 +118,8 @@
   min-height: 1cm;
   min-width: 1cm;
   visibility: hidden;
+
+
 }
 
 
@@ -162,6 +166,7 @@
   border-color: darkred;
   border-width: 2px;
   box-sizing: border-box;
+
 }
 
 
