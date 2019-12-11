@@ -32,8 +32,8 @@ export class IndexeddbaccessService {
       const gridStore = db.transaction(['Grid'], 'readwrite').objectStore('Grid');
       const storeGridRequest = gridStore.get(1);
       storeGridRequest.onsuccess = () => {
-        this.updateBoardColsAndRows();
         gridStore.put(this.boardService.board, 1);
+        this.updateBoardColsAndRows();
       };
 
       // UPDATE THE PALETTES

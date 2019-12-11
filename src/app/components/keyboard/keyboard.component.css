@@ -265,9 +265,15 @@
 }
 
 .keyboard .wrapper .elementContainer .searched:hover{
-  filter:drop-shadow(0 0 10px yellow) saturate(300%)
+  filter:drop-shadow(0 0 20px yellow) saturate(300%)
 }.keyboard .wrapper .elementContainer .searched{
-   filter:drop-shadow(0 0 10px yellow) saturate(300%)
+   filter:drop-shadow(0 0 20px yellow) saturate(300%)
+ }
+
+.keyboard .wrapper .elementContainer .notsearched:hover{
+  filter: brightness(50%);
+}.keyboard .wrapper .elementContainer .notsearched{
+   filter: brightness(50%);
  }
 
 .keyboard .wrapper .elementContainer .visible{

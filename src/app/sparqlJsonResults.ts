@@ -1,3 +1,22 @@
+export class Traduction {
+ head:
+   { link: any[],
+     vars: any[] };
+  results:
+    { distinct: false,
+      ordered: true,
+      bindings: [
+      { tradword:
+          { type: string,
+            xml: any,
+            value: string
+          }
+      }]
+    };
+}
+
+
+
 /**
  * the description of a dbnary json result returning the list of grammatical classes of a word
  */

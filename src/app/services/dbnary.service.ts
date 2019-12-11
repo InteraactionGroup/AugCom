@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { HttpClient , HttpHeaders, HttpParams} from '@angular/common/http';
-import {ResultJson1, ResultJson2} from '../sparqlJsonResults';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {ResultJson1, Traduction} from '../sparqlJsonResults';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,23 @@ export class DbnaryService {
 
   startsearch(i: number) {
     this.searchStarted = i;
+  }
+
+  async getTrad(word: string, langFrom: string, langTo) {
+    const query = [
+      'select distinct ?tradword where {{\n' +
+      '?mot ontolex:canonicalForm/ontolex:writtenRep "' + word.toLowerCase() + '"@' + langFrom + '.\n' +
+      '?trad dbnary:isTranslationOf ?mot.\n' +
+      '?trad dbnary:targetLanguage lexvo:' + langTo + '.\n' +
+      '?trad dbnary:writtenForm ?tradword\n' +
+      '}UNION {\n' +
+      '?mot ontolex:canonicalForm/ontolex:writtenRep "' + word.toUpperCase() + '"@' + langFrom + '.\n' +
+      '?trad dbnary:isTranslationOf ?mot.\n' +
+      '?trad dbnary:targetLanguage lexvo:' + langTo + '.\n' +
+      '?trad dbnary:writtenForm ?tradword\n' +
+      '}\n' +
+      '} LIMIT 1' ].join(' ');
+    return this.getTradFromSparkql(query);
   }
 
   getTypes(word: string) {
@@ -49,6 +66,25 @@ export class DbnaryService {
       '}ORDER BY ?po, ?g ,?n'
     ].join(' ');
     this.sparkql(query);
+  }
+
+  async getTradFromSparkql(query) {
+    const headers = new HttpHeaders({
+      'Content-type' : 'application/x-www-form-urlencoded',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': 'true',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT',
+      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+    });
+    const params = new HttpParams();
+    params.append('format', 'json');
+    const httpOptions = {
+      headers,
+      params,
+      withCreditals: false
+    };
+    const proxy = 'https://cors-anywhere.herokuapp.com/';
+    return this.http.get(proxy + 'http://kaiko.getalp.org/sparql' + '?query=' + encodeURIComponent(query), httpOptions);
   }
 
   sparkql(query) {

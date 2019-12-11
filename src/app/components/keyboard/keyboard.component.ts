@@ -77,6 +77,9 @@ export class KeyboardComponent implements OnInit {
     this.initDragAndDrop();
   }
 
+  isNotSearched(element: Element) {
+    return (this.searchService.searchedPath.length > 0) && (!this.searchService.searchedPath.includes(element));
+  }
   initDragAndDrop() {
     if (!this.parametersService.dragNDropinit) {
       this.dragulaService.createGroup('VAMPIRE', {
@@ -143,7 +146,7 @@ export class KeyboardComponent implements OnInit {
   getNormalTempList() {
     return this.boardService.board.ElementList.filter(elt =>  {
       return this.boardService.currentFolder === elt.ElementFolder;
-    }).slice(0 , this.boardService.sliderValueRow * this.boardService.sliderValueCol - 2);
+    }).slice(0 , this.boardService.sliderValueRow * this.boardService.sliderValueCol + (this.boardService.currentFolder !== '.' ? - 1 : 0 ));
   }
 
   // /**

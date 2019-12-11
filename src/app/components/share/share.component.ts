@@ -8,6 +8,9 @@ import {Router} from '@angular/router';
 import {SnapBarService} from '../../services/snap-bar.service';
 import {PrintService} from '../../services/print.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
+import {CsvReaderService} from '../../services/csv-reader.service';
+import {Traduction} from '../../sparqlJsonResults';
+import {DbnaryService} from '../../services/dbnary.service';
 
 @Component({
   selector: 'app-share',
@@ -16,7 +19,7 @@ import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 })
 export class ShareComponent implements OnInit {
 
-  constructor(private indexedDBacess: IndexeddbaccessService, private printService: PrintService, public snapBarService: SnapBarService, private router: Router, public getIconService: GeticonService, public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
+  constructor(private dbNaryService: DbnaryService, private csvReader: CsvReaderService, private indexedDBacess: IndexeddbaccessService, private printService: PrintService, public snapBarService: SnapBarService, private router: Router, public getIconService: GeticonService, public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
 
 
   ngOnInit() {
@@ -34,6 +37,34 @@ export class ShareComponent implements OnInit {
    */
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
+  }
+
+  readCSV() {
+    this.boardService.board = this.csvReader.generateBoard();
+    this.indexedDBacess.update();
+   // this.trad(0);
+  }
+
+  async trad(index: number) {
+    const val = await this.dbNaryService.getTrad(this.boardService.board.ElementList[index].ElementForms[0].DisplayedText, 'EN', 'fra');
+    val.subscribe(
+      data => {
+        console.log(this.boardService.board.ElementList[index].ElementForms[0].DisplayedText);
+        if ((data as Traduction).results.bindings[0] !== undefined) {
+        this.boardService.board.ElementList[index].ElementForms[0].DisplayedText = (data as Traduction).results.bindings[0].tradword.value;
+        console.log(this.boardService.board.ElementList[index].ElementForms[0].DisplayedText);
+        this.indexedDBacess.update();
+        }
+        if (this.boardService.board.ElementList.length > index + 1) {
+          this.trad(index + 1);
+        }
+      },
+      error => {
+        console.log(error.error.text, error);
+        return '';
+      }
+    );
+
   }
 
   /**
