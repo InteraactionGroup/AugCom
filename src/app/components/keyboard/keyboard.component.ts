@@ -190,12 +190,10 @@ export class KeyboardComponent implements OnInit {
    * @param num, number of the event triggering the action
    */
   pointerDown(element: Element, num) {
-    console.log('down' + num);
     this.press[num] = false;
     this.press[(num + 1) % 2 ] = false;
     this.release[num ] = true;
     if (!this.userToolBarService.edit && this.release[num] && !this.release[(num + 1) % 2]) {
-      console.log('down');
       if (this.down === 0) {
       this.clickedElement = element;
       } else {
@@ -217,12 +215,10 @@ export class KeyboardComponent implements OnInit {
    * @param num, number of the event triggering the action
    */
  pointerUp(element: Element, num) {
-    console.log('up' + num);
     this.release[num] = false;
     this.release[(num + 1) % 2 ] = false;
     this.press[num] = true;
     if (!this.userToolBarService.edit && this.press[num] && !this.press[(num + 1) % 2] ) {
-      console.log('up');
       window.clearTimeout(this.pressTimer);
       window.clearTimeout(this.dblClickTimer);
       if (this.down === 1) {

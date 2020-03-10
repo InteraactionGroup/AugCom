@@ -31,7 +31,11 @@ export class PrintService {
         }
         console.log('done ' + loaded);
       }
-      img.src = image.match(/\((.*?)\)/)[1].replace(/('|")/g, '');
+      const imgmatch = image.match(/\((.*?)\)/);
+      if (imgmatch != null) {
+        // console.log(imgmatch[0] + ' ET ' + imgmatch[1])
+        img.src = imgmatch[1].replace(/('|")/g, '');
+      }
 
     }
   }

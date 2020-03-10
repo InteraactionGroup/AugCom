@@ -3,6 +3,7 @@
  */
 export class Grid {
   GridID: string;
+  // ElementList: {ElementListId: string, ElementSubList: Element[]};
   ElementList: Element[];
   ImageList: Image[];
   GridType: string;

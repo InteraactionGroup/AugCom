@@ -42,6 +42,7 @@ export class ShareComponent implements OnInit {
   readCSV() {
     this.boardService.board = this.csvReader.generateBoard();
     this.indexedDBacess.update();
+    this.router.navigate(['']);
    // this.trad(0);
   }
 
