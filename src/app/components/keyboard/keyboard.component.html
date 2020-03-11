@@ -44,7 +44,7 @@
 <div class="keyboard" [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100vh - 4.5cm)':'calc(100vh - 3.5cm)'}">
 
   <div class="wrapper" [ngStyle]="{'grid-template-columns': 'repeat('+(this.boardService.sliderValueCol)+', '+(100/(this.boardService.sliderValueCol))+'%)',
-  'grid-template-rows': 'repeat('+(this.getMaxRepeat())+', '+(100/(this.boardService.sliderValueRow))+'%)',
+  'grid-template-rows': 'repeat(100, '+(100/(this.boardService.sliderValueRow))+'%)',
   'background-image' : this.boardService.background }"
        [dragula]="this.userToolBarService.edit ? 'VAMPIRE' :null">
 
