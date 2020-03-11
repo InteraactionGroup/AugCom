@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BoardService} from './board.service';
 import {Element} from "../types";
 
@@ -7,7 +7,8 @@ import {Element} from "../types";
 })
 export class SearchService {
 
-  constructor(private boardService: BoardService) { }
+  constructor(private boardService: BoardService) {
+  }
 
   searchedWords: Element[] = [];
   searchedPath: Element[] = [];

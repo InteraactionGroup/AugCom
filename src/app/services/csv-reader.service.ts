@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import jsonSpeak4Yourself from '../../assets/csvjson.json';
 import {CSVRecord} from '../csvType';
-import {Action, ElementForm, Grid} from '../types';
+import {Grid} from '../types';
 import {DbnaryService} from './dbnary.service';
-import {Traduction} from '../sparqlJsonResults';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +23,7 @@ export class CsvReaderService {
       if (parentPage != null) {
         return this.getFolder(parentPage) + '.' + parentPage.id;
       } else {
-        return  '.' + element.id;
+        return '.' + element.id;
       }
     }
   }
@@ -48,20 +47,22 @@ export class CsvReaderService {
       const isFolder = this.elementIsFolder(element);
       grille.ElementList.push({
         ElementID: '' + element.id,
-      ElementFolder: folder,
-      ElementType: isFolder ? 'folder' : 'button',
-      ElementPartOfSpeech: '',
-      ElementForms: [{
+        ElementFolder: folder,
+        ElementType: isFolder ? 'folder' : 'button',
+        ElementPartOfSpeech: '',
+        ElementForms: [{
           DisplayedText: element.mot,
           VoiceText: element.mot,
           LexicInfos: [{default: true}]
         }],
-      ImageID: '',
-      InteractionsList: [{ InteractionID: 'click',
-        ActionList: [ {ActionID: 'say', Action: 'say'}, {ActionID: 'display', Action: 'display'}] }],
-      Color: isFolder ? '#fda728' : '#fde498',
-      BorderColor: 'black',
-      Visible: true
+        ImageID: '',
+        InteractionsList: [{
+          InteractionID: 'click',
+          ActionList: [{ActionID: 'say', Action: 'say'}, {ActionID: 'display', Action: 'display'}]
+        }],
+        Color: isFolder ? '#fda728' : '#fde498',
+        BorderColor: 'black',
+        Visible: true
       });
     });
 
@@ -72,14 +73,14 @@ export class CsvReaderService {
     let maxCol = 0;
     let maxRow = 0;
 
-    this.speak4Yourself.forEach( elt => {
+    this.speak4Yourself.forEach(elt => {
       maxCol = elt.colonne > maxCol ? elt.colonne : maxCol;
       maxRow = elt.ligne > maxRow ? elt.ligne : maxRow;
     });
 
     console.log(maxCol + ' ; ' + maxRow);
 
-    grille.gridRowsNumber = maxRow + 1 ;
+    grille.gridRowsNumber = maxRow + 1;
     grille.gridColsNumber = maxCol;
 
     return grille;

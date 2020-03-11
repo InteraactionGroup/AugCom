@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DbnaryService} from '../../services/dbnary.service';
 import {BoardService} from '../../services/board.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
@@ -102,6 +102,7 @@ export class EditionComponent implements OnInit {
    * the current Interraction element selected (empty by default)
    */
   interractionList: { InteractionID: string, ActionList: Action[] }[] = [];
+
   /**
    * update the informations with the elementToModify if it exist and set the elementListener for listening next element modifications
    */
@@ -142,11 +143,11 @@ export class EditionComponent implements OnInit {
   close() {
     // go back to main edition panel and close image, variant or event subpanel
     if (this.choseImage || this.variantDisplayed || this.eventDisplayed) {
-    this.choseImage = false;
-    this.variantDisplayed = false;
-    this.eventDisplayed = false;
-    this.currentInterractionNumber = -1;
-    // close the edition panel
+      this.choseImage = false;
+      this.variantDisplayed = false;
+      this.eventDisplayed = false;
+      this.currentInterractionNumber = -1;
+      // close the edition panel
     } else {
       this.editionService.add = false;
       this.clear();
@@ -160,7 +161,7 @@ export class EditionComponent implements OnInit {
    */
   closeVariant() {
     this.variantList = this.dbnaryService.wordList.filter(b => b.selected);
-    this.variantDisplayed = false ;
+    this.variantDisplayed = false;
   }
 
   /**
@@ -196,10 +197,10 @@ export class EditionComponent implements OnInit {
     const inter = this.parametersService.interaction[this.currentInterractionNumber - 1];
     const partOfCurrentInter = this.isPartOfCurrentInteraction(actionId);
 
-    const currentInterraction = this.interractionList.findIndex( interaction => interaction.InteractionID === inter );
+    const currentInterraction = this.interractionList.findIndex(interaction => interaction.InteractionID === inter);
 
-    if ( currentInterraction === -1 && !partOfCurrentInter) {
-      this.interractionList.push({ InteractionID: inter, ActionList: [ {ActionID: actionId, Action: actionId} ] });
+    if (currentInterraction === -1 && !partOfCurrentInter) {
+      this.interractionList.push({InteractionID: inter, ActionList: [{ActionID: actionId, Action: actionId}]});
     } else if (!partOfCurrentInter) {
       this.interractionList[currentInterraction].ActionList.push({ActionID: actionId, Action: actionId});
     } else if (partOfCurrentInter) {
@@ -217,7 +218,7 @@ export class EditionComponent implements OnInit {
    */
   isPartOfCurrentInteraction(actionId) {
     const inter = this.parametersService.interaction[this.currentInterractionNumber - 1];
-    const currentInterraction = this.interractionList.find( interaction => interaction.InteractionID === inter );
+    const currentInterraction = this.interractionList.find(interaction => interaction.InteractionID === inter);
     if (currentInterraction != null) {
       const res = currentInterraction.ActionList.find(x => x.ActionID === actionId);
       return res != null && res !== undefined;
@@ -241,7 +242,7 @@ export class EditionComponent implements OnInit {
         tempList = tempList.sort((a: string, b: string) => {
             if (a.toLowerCase().startsWith(text.toLowerCase()) && b.toLowerCase().startsWith(text.toLowerCase())) {
               return a.length - b.length;
-            } else if ( a.toLowerCase().startsWith(text.toLowerCase())) {
+            } else if (a.toLowerCase().startsWith(text.toLowerCase())) {
               return -1;
             } else {
               return 1;
@@ -324,32 +325,36 @@ export class EditionComponent implements OnInit {
   modifyAllButtons() {
     this.editionService.selectedElements.forEach(elt => {
 
-      if (this.curentColor !== '#d3d3d3' ) {
+      if (this.curentColor !== '#d3d3d3') {
         elt.Color = this.curentColor;
       }
-      if (this.curentBorderColor !== '#d3d3d3' ) {
+      if (this.curentBorderColor !== '#d3d3d3') {
         elt.BorderColor = this.curentBorderColor;
       }
 
       if (this.name !== this.editionService.DEFAULT_MULTPLE_NAME) { // todo there is probably a cleaner way to do it
-        elt.ElementForms.forEach( form => {
-          form.LexicInfos.forEach(info => { if (info.default) {info.default = false; }});
+        elt.ElementForms.forEach(form => {
+          form.LexicInfos.forEach(info => {
+            if (info.default) {
+              info.default = false;
+            }
+          });
         });
         elt.ElementForms.push(
-           {
-             DisplayedText: this.name,
+          {
+            DisplayedText: this.name,
             VoiceText: this.name,
             LexicInfos: [{default: true}]
-           }
+          }
         );
       }
 
 
-      if (this.imageURL !== 'assets/icons/multiple-images.svg' ) {
-       const img = this.boardService.board.ImageList.find(image => image.ImageID === elt.ImageID);
-       if (img != null) {
-         img.ImagePath = this.imageURL;
-       }
+      if (this.imageURL !== 'assets/icons/multiple-images.svg') {
+        const img = this.boardService.board.ImageList.find(image => image.ImageID === elt.ImageID);
+        if (img != null) {
+          img.ImagePath = this.imageURL;
+        }
       }
     });
   }
@@ -359,79 +364,79 @@ export class EditionComponent implements OnInit {
    * given the information of this class, updated by the edition html panel
    */
   modifyButton() {
-    if (this.editionService.selectedElements[0] != null && this.editionService.selectedElements[0] !== undefined ) {
-    const element: Element = this.editionService.selectedElements[0];
-    element.ElementType = this.radioTypeFormat;
+    if (this.editionService.selectedElements[0] != null && this.editionService.selectedElements[0] !== undefined) {
+      const element: Element = this.editionService.selectedElements[0];
+      element.ElementType = this.radioTypeFormat;
 
-    if (this.variantList.length > 0) {
-      element.ElementForms = [];
-      let defaultExist = false;
-      this.variantList.forEach(variant => {
-        const lexicInfo = variant.info;
-        if (variant.val === this.name) {
-          lexicInfo.push({default: true});
-          defaultExist = true;
-        }
-        element.ElementForms.push({
-          DisplayedText: variant.val,
-          VoiceText: variant.val,
-          LexicInfos: lexicInfo
-        });
-      });
-
-      if (!defaultExist) {
-        element.ElementForms.push({
-          DisplayedText: this.name,
-          VoiceText: this.name,
-          LexicInfos: [{default: true}]
-        });
-      }
-    } else {
-      let defaultExist = false;
-      element.ElementForms.forEach(elementForm => {
-        const lexicInfo = elementForm.LexicInfos;
-        if (elementForm.DisplayedText === this.name) {
-          const defaultinfo = lexicInfo.find(info => info.default !== undefined);
-          if (defaultinfo != null && defaultinfo !== undefined && !defaultinfo.default) {
-            defaultinfo.default = true;
-          } else if (defaultinfo == null || defaultinfo === undefined) {
+      if (this.variantList.length > 0) {
+        element.ElementForms = [];
+        let defaultExist = false;
+        this.variantList.forEach(variant => {
+          const lexicInfo = variant.info;
+          if (variant.val === this.name) {
             lexicInfo.push({default: true});
+            defaultExist = true;
           }
-          defaultExist = true;
-        } else {
-          const defaultinfo = lexicInfo.find(info => info.default !== undefined);
-          if (defaultinfo !== undefined) {
-            defaultinfo.default = false;
-          }
-        }
-      });
-      if (!defaultExist) {
-        element.ElementForms.push({
-          DisplayedText: this.name,
-          VoiceText: this.name,
-          LexicInfos: [{default: true}]
+          element.ElementForms.push({
+            DisplayedText: variant.val,
+            VoiceText: variant.val,
+            LexicInfos: lexicInfo
+          });
         });
+
+        if (!defaultExist) {
+          element.ElementForms.push({
+            DisplayedText: this.name,
+            VoiceText: this.name,
+            LexicInfos: [{default: true}]
+          });
+        }
+      } else {
+        let defaultExist = false;
+        element.ElementForms.forEach(elementForm => {
+          const lexicInfo = elementForm.LexicInfos;
+          if (elementForm.DisplayedText === this.name) {
+            const defaultinfo = lexicInfo.find(info => info.default !== undefined);
+            if (defaultinfo != null && defaultinfo !== undefined && !defaultinfo.default) {
+              defaultinfo.default = true;
+            } else if (defaultinfo == null || defaultinfo === undefined) {
+              lexicInfo.push({default: true});
+            }
+            defaultExist = true;
+          } else {
+            const defaultinfo = lexicInfo.find(info => info.default !== undefined);
+            if (defaultinfo !== undefined) {
+              defaultinfo.default = false;
+            }
+          }
+        });
+        if (!defaultExist) {
+          element.ElementForms.push({
+            DisplayedText: this.name,
+            VoiceText: this.name,
+            LexicInfos: [{default: true}]
+          });
+        }
       }
+
+      console.log(this.interractionList);
+      element.InteractionsList = Object.assign([], this.interractionList);
+      console.log(element.InteractionsList);
+
+      element.Color = this.curentColor;
+      element.BorderColor = this.curentBorderColor;
+      element.ImageID = this.boardService.currentFolder + element.ElementID;
+
+      this.boardService.board.ImageList = this.boardService.board.ImageList.filter(
+        img => img.ImageID !== this.boardService.currentFolder + element.ElementID);
+
+      this.boardService.board.ImageList.push(
+        {
+          ImageID: this.boardService.currentFolder + element.ElementID,
+          ImageLabel: this.name,
+          ImagePath: this.imageURL
+        });
     }
-
-    console.log(this.interractionList);
-    element.InteractionsList = Object.assign([], this.interractionList);
-    console.log(element.InteractionsList);
-
-    element.Color = this.curentColor;
-    element.BorderColor = this.curentBorderColor;
-    element.ImageID = this.boardService.currentFolder + element.ElementID;
-
-    this.boardService.board.ImageList = this.boardService.board.ImageList.filter(
-      img => img.ImageID !== this.boardService.currentFolder + element.ElementID);
-
-    this.boardService.board.ImageList.push(
-      {
-        ImageID: this.boardService.currentFolder + element.ElementID,
-        ImageLabel: this.name,
-        ImagePath: this.imageURL
-      });
-  }
   }
 
   /**
@@ -440,7 +445,7 @@ export class EditionComponent implements OnInit {
   createNewButton() {
     const elementForms = [];
     let defaultExist = false;
-    this.variantList.forEach( variant => {
+    this.variantList.forEach(variant => {
       const lexicInfo = variant.info;
       if (variant.val === this.name) {
         lexicInfo.push({default: true});
@@ -454,17 +459,24 @@ export class EditionComponent implements OnInit {
     });
 
     if (!defaultExist) {
-      elementForms.push({DisplayedText: this.name,
+      elementForms.push({
+        DisplayedText: this.name,
         VoiceText: this.name,
-        LexicInfos: [{default: true}] });
+        LexicInfos: [{default: true}]
+      });
     }
 
     const interList = [{
       InteractionID: 'click', ActionList: [{
-        ActionID: 'display', Action: 'display'}, {
-        ActionID: 'say', Action: 'say'}]}, {
+        ActionID: 'display', Action: 'display'
+      }, {
+        ActionID: 'say', Action: 'say'
+      }]
+    }, {
       InteractionID: 'longPress', ActionList: [{
-        ActionID: 'otherforms', Action: 'otherforms'}]}];
+        ActionID: 'otherforms', Action: 'otherforms'
+      }]
+    }];
 
 
     let i = 0;
@@ -498,7 +510,7 @@ export class EditionComponent implements OnInit {
 
 
   getName(element: Element) {
-    const index = element.ElementForms.findIndex(form =>  form.LexicInfos.findIndex(info => info.default) !== -1);
+    const index = element.ElementForms.findIndex(form => form.LexicInfos.findIndex(info => info.default) !== -1);
     if (index !== -1) {
       return element.ElementForms[index].DisplayedText;
     }
@@ -511,7 +523,7 @@ export class EditionComponent implements OnInit {
    * 'radioTypeFormat' is its current type format (button or folder) and imageUrl is its current imageUrl
    */
   updatemodif() {
-    if (this.editionService.selectedElements.length === 1 ) {
+    if (this.editionService.selectedElements.length === 1) {
       const elementToModif: Element = this.editionService.selectedElements[0];
       this.name = this.getName(elementToModif);
       this.curentColor = elementToModif.Color;
@@ -519,20 +531,23 @@ export class EditionComponent implements OnInit {
       this.radioTypeFormat = elementToModif.ElementType;
       const imageToModif = this.boardService.board.ImageList.find(x => x.ImageID === elementToModif.ImageID);
       if (imageToModif != null && imageToModif !== undefined) {
-          this.imageURL = imageToModif.ImagePath;
+        this.imageURL = imageToModif.ImagePath;
       } else {
         this.imageURL = '';
       }
       const interactionListToModify = elementToModif.InteractionsList;
       if (interactionListToModify != null) {
 
-        this.interractionList = [] ;
+        this.interractionList = [];
         interactionListToModify.map(val =>
-          this.interractionList.push({InteractionID: val.InteractionID, ActionList: Object.assign([], val.ActionList) } ));
+          this.interractionList.push({
+            InteractionID: val.InteractionID,
+            ActionList: Object.assign([], val.ActionList)
+          }));
       } else {
         this.interractionList = [];
       }
-    } else if (this.editionService.selectedElements.length > 1 ) { // todo see what we want to modify here
+    } else if (this.editionService.selectedElements.length > 1) { // todo see what we want to modify here
       this.name = '$different$';
       this.curentColor = '#d3d3d3';
       this.radioTypeFormat = '';
@@ -588,7 +603,7 @@ export class EditionComponent implements OnInit {
     }
   }
 
-  selectThePalette( name  ) {
+  selectThePalette(name) {
     if (this.selectedPalette === name) {
       this.selectedPalette = null;
     } else {

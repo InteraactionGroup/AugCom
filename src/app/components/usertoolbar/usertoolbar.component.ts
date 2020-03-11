@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {GeticonService} from '../../services/geticon.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
@@ -6,6 +6,7 @@ import {SnapBarService} from '../../services/snap-bar.service';
 import {ParametersService} from '../../services/parameters.service';
 import {SearchService} from '../../services/search.service';
 import {BoardService} from '../../services/board.service';
+
 @Component({
   selector: 'app-usertoolbar',
   templateUrl: './usertoolbar.component.html',
@@ -14,7 +15,7 @@ import {BoardService} from '../../services/board.service';
 export class UsertoolbarComponent implements OnInit {
 
 
-  constructor( public boardService: BoardService, public searchService: SearchService, private parametersService: ParametersService, private snapBarService: SnapBarService, private indexedDBacess: IndexeddbaccessService, public getIconService: GeticonService, public userToolBarService: UsertoolbarService) {
+  constructor(public boardService: BoardService, public searchService: SearchService, private parametersService: ParametersService, private snapBarService: SnapBarService, private indexedDBacess: IndexeddbaccessService, public getIconService: GeticonService, public userToolBarService: UsertoolbarService) {
 
   }
 
@@ -27,7 +28,7 @@ export class UsertoolbarComponent implements OnInit {
     if (size >= 5) {
       return '500%';
     } else {
-      return ( size * 100 ) + '%';
+      return (size * 100) + '%';
     }
   }
 
@@ -37,7 +38,7 @@ export class UsertoolbarComponent implements OnInit {
     } else if (size === 0) {
       return '0';
     } else {
-      return ( 100 / size) + '%';
+      return (100 / size) + '%';
     }
   }
 

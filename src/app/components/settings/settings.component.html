@@ -1,8 +1,8 @@
-<div class="settings" >
+<div class="settings">
 
   <nav>
     <a routerLink="">
-      <div class="topBar" >
+      <div class="topBar">
         <
       </div>
     </a>
@@ -10,50 +10,52 @@
 
   <div>
     <label for="longPressTime">longPress value:</label>
-    <input id="longPressTime" type="text" [(ngModel)]="this.parametersService.longpressTimeOut" placeholder="enter a value">
+    <input id="longPressTime" type="text" [(ngModel)]="this.parametersService.longpressTimeOut"
+           placeholder="enter a value">
   </div>
 
   <div>
     <label for="doubleClickTime">doubleClick value:</label>
-    <input id="doubleClickTime" type="text" [(ngModel)]="this.parametersService.doubleClickTimeOut" placeholder="enter a value">
+    <input id="doubleClickTime" type="text" [(ngModel)]="this.parametersService.doubleClickTimeOut"
+           placeholder="enter a value">
   </div>
 
-<!--  <div class="interactionSelection">-->
-<!--    <label for="interaction1" >Interaction 1 :</label>-->
-<!--    <select id="interaction1" [(ngModel)]="interaction[0]" class="variantListBox">-->
-<!--      <option selected value="">&#45;&#45;choisissez une option&#45;&#45;</option>-->
-<!--      <option value="{{this.parametersService.interaction[0]}}">{{this.parametersService.interaction[0]}}</option>-->
-<!--      <option value="{{this.parametersService.interaction[1]}}">{{this.parametersService.interaction[1]}}</option>-->
-<!--      <option value="{{this.parametersService.interaction[2]}}">{{this.parametersService.interaction[2]}}</option>-->
-<!--    </select>-->
-<!--  </div>-->
+  <!--  <div class="interactionSelection">-->
+  <!--    <label for="interaction1" >Interaction 1 :</label>-->
+  <!--    <select id="interaction1" [(ngModel)]="interaction[0]" class="variantListBox">-->
+  <!--      <option selected value="">&#45;&#45;choisissez une option&#45;&#45;</option>-->
+  <!--      <option value="{{this.parametersService.interaction[0]}}">{{this.parametersService.interaction[0]}}</option>-->
+  <!--      <option value="{{this.parametersService.interaction[1]}}">{{this.parametersService.interaction[1]}}</option>-->
+  <!--      <option value="{{this.parametersService.interaction[2]}}">{{this.parametersService.interaction[2]}}</option>-->
+  <!--    </select>-->
+  <!--  </div>-->
 
-<!--  <div class="interactionSelection">-->
-<!--    <label for="interaction2">Interaction 2 :</label>-->
-<!--    <select id="interaction2" [(ngModel)]="interaction[1]" class="variantListBox">-->
-<!--      <option selected value="">&#45;&#45;choisissez une option&#45;&#45;</option>-->
-<!--      <option value="{{this.parametersService.interaction[0]}}">{{this.parametersService.interaction[0]}}</option>-->
-<!--      <option value="{{this.parametersService.interaction[1]}}">{{this.parametersService.interaction[1]}}</option>-->
-<!--      <option value="{{this.parametersService.interaction[2]}}">{{this.parametersService.interaction[2]}}</option>-->
-<!--    </select>-->
-<!--  </div>-->
+  <!--  <div class="interactionSelection">-->
+  <!--    <label for="interaction2">Interaction 2 :</label>-->
+  <!--    <select id="interaction2" [(ngModel)]="interaction[1]" class="variantListBox">-->
+  <!--      <option selected value="">&#45;&#45;choisissez une option&#45;&#45;</option>-->
+  <!--      <option value="{{this.parametersService.interaction[0]}}">{{this.parametersService.interaction[0]}}</option>-->
+  <!--      <option value="{{this.parametersService.interaction[1]}}">{{this.parametersService.interaction[1]}}</option>-->
+  <!--      <option value="{{this.parametersService.interaction[2]}}">{{this.parametersService.interaction[2]}}</option>-->
+  <!--    </select>-->
+  <!--  </div>-->
 
-<!--  <div class="interactionSelection">-->
-<!--    <label for="interaction3">Interaction 3 :</label>-->
-<!--    <select id="interaction3" [(ngModel)]="interaction[2]" class="variantListBox">-->
-<!--      <option selected value="">&#45;&#45;choisissez une option&#45;&#45;</option>-->
-<!--      <option value="{{this.parametersService.interaction[0]}}">{{this.parametersService.interaction[0]}}</option>-->
-<!--      <option value="{{this.parametersService.interaction[1]}}">{{this.parametersService.interaction[1]}}</option>-->
-<!--      <option value="{{this.parametersService.interaction[2]}}">{{this.parametersService.interaction[2]}}</option>-->
-<!--    </select>-->
-<!--  </div>-->
+  <!--  <div class="interactionSelection">-->
+  <!--    <label for="interaction3">Interaction 3 :</label>-->
+  <!--    <select id="interaction3" [(ngModel)]="interaction[2]" class="variantListBox">-->
+  <!--      <option selected value="">&#45;&#45;choisissez une option&#45;&#45;</option>-->
+  <!--      <option value="{{this.parametersService.interaction[0]}}">{{this.parametersService.interaction[0]}}</option>-->
+  <!--      <option value="{{this.parametersService.interaction[1]}}">{{this.parametersService.interaction[1]}}</option>-->
+  <!--      <option value="{{this.parametersService.interaction[2]}}">{{this.parametersService.interaction[2]}}</option>-->
+  <!--    </select>-->
+  <!--  </div>-->
 
-  <div class="languageSelection" >
+  <div class="languageSelection">
     <label for="lang">Sortie vocale :</label>
     <select id="lang" [(ngModel)]="this.parametersService.currentVoice" class="variantListBox">
       <option value="null@null">--choisissez une langue--</option>
       <ng-container *ngFor="let l of this.parametersService.languagesAvailaibles">
-        <option   value ="{{l.lang + '@' + l.name}}">{{l.name + ' (' + l.lang + ')'}}</option>
+        <option value="{{l.lang + '@' + l.name}}">{{l.name + ' (' + l.lang + ')'}}</option>
       </ng-container>
     </select>
   </div>
@@ -61,35 +63,41 @@
   <div class="palettes">
     <ng-container *ngFor="let palette of this.paletteService.palettes">
       <div class="paletteLabel">
-         {{palette.name}}
+        {{palette.name}}
       </div>
-    <div class="palette"  [ngStyle]="{'grid-template-rows': 'repeat(' + this.paletteService.rowNumber(palette.colors.length) + ',30px)'}" >
-      <div class="color"  [class.realcolor]="color!==null" *ngFor="let color of palette.colors" [ngStyle]="{'background-color': color}">
+      <div class="palette"
+           [ngStyle]="{'grid-template-rows': 'repeat(' + this.paletteService.rowNumber(palette.colors.length) + ',30px)'}">
+        <div class="color" [class.realcolor]="color!==null" *ngFor="let color of palette.colors"
+             [ngStyle]="{'background-color': color}">
 
+        </div>
       </div>
-    </div>
       <div class="supprPalette" [ngStyle]="{'height': 30*this.paletteService.rowNumber(palette.colors.length) + 'px'}">
-          <div class="icon" [style.background-image]="this.getIcon('delete')"
-               [ngStyle]="{'margin-top': (30*this.paletteService.rowNumber(palette.colors.length)-20)/2 + 'px'}"
-          (click)="this.paletteCodamne = palette">
+        <div class="icon" [style.background-image]="this.getIcon('delete')"
+             [ngStyle]="{'margin-top': (30*this.paletteService.rowNumber(palette.colors.length)-20)/2 + 'px'}"
+             (click)="this.paletteCodamne = palette">
 
-          </div>
+        </div>
       </div>
     </ng-container>
   </div>
 
-  <div class="addPalette" [ngStyle]="{'height': 30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+3) + 'px'}">
-    <div class="addButtonPalette" *ngIf="!this.paletteService.newpalette" (click)="this.paletteService.newpalette = true">
-        new palette
+  <div class="addPalette"
+       [ngStyle]="{'height': 30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+3) + 'px'}">
+    <div class="addButtonPalette" *ngIf="!this.paletteService.newpalette"
+         (click)="this.paletteService.newpalette = true">
+      new palette
     </div>
 
-    <div class="palette" *ngIf="this.paletteService.newpalette" [ngStyle]="{'height': 30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+3) + 'px'}">
+    <div class="palette" *ngIf="this.paletteService.newpalette"
+         [ngStyle]="{'height': 30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+3) + 'px'}">
       <ng-container *ngFor="let color of this.paletteService.newTempPalette.colors">
-        <div class="color" >
-          <div class="colorbox" [ngStyle]="{'background-color': color.color}" >
-            <div class="deleteColor" (click)="this.paletteService.delete(color)" [style.background-image]="this.getIcon('clear')">
+        <div class="color">
+          <div class="colorbox" [ngStyle]="{'background-color': color.color}">
+            <div class="deleteColor" (click)="this.paletteService.delete(color)"
+                 [style.background-image]="this.getIcon('clear')">
             </div>
-          </div >
+          </div>
           <input [(ngModel)]="color.color" class="colorPicker" type="color">
         </div>
       </ng-container>

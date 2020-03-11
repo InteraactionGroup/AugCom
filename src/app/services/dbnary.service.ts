@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {ResultJson1, Traduction} from '../sparqlJsonResults';
+import {ResultJson1} from '../sparqlJsonResults';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +35,7 @@ export class DbnaryService {
       '?trad dbnary:targetLanguage lexvo:' + langTo + '.\n' +
       '?trad dbnary:writtenForm ?tradword\n' +
       '}\n' +
-      '} LIMIT 1' ].join(' ');
+      '} LIMIT 1'].join(' ');
     return this.getTradFromSparkql(query);
   }
 
@@ -70,7 +70,7 @@ export class DbnaryService {
 
   async getTradFromSparkql(query) {
     const headers = new HttpHeaders({
-      'Content-type' : 'application/x-www-form-urlencoded',
+      'Content-type': 'application/x-www-form-urlencoded',
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Credentials': 'true',
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT',
@@ -92,7 +92,7 @@ export class DbnaryService {
     this.typeList = [];
 
     const headers = new HttpHeaders({
-      'Content-type' : 'application/x-www-form-urlencoded',
+      'Content-type': 'application/x-www-form-urlencoded',
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Credentials': 'true',
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT',
@@ -110,67 +110,68 @@ export class DbnaryService {
 
     const proxy = 'https://cors-anywhere.herokuapp.com/';
     this.http
-      .get(proxy + 'http://kaiko.getalp.org/sparql' + '?query=' + encodeURIComponent(query) , httpOptions)
+      .get(proxy + 'http://kaiko.getalp.org/sparql' + '?query=' + encodeURIComponent(query), httpOptions)
       .subscribe(
         data => {
-            this.sparkqlData = data as ResultJson1;
-            this.sparkqlData.results.bindings.forEach(w => {
-              if (!this.typeList.includes(w.po.value)) {
-                this.typeList.push(w.po.value);
-              }
-            });
-            this.searchStarted = 0;
+          this.sparkqlData = data as ResultJson1;
+          this.sparkqlData.results.bindings.forEach(w => {
+            if (!this.typeList.includes(w.po.value)) {
+              this.typeList.push(w.po.value);
+            }
+          });
+          this.searchStarted = 0;
         },
         error => {
           this.searchStarted = 0;
-          console.log(error.error.text, error); }
+          console.log(error.error.text, error);
+        }
       );
   }
 
   getWords(classe) {
     this.searchStarted = 1;
     this.sparkqlData.results.bindings.forEach(w => {
-          if (w.po !== undefined && w.po.value === classe) {
-            const infoList = [];
-            if (w.p !== undefined) {
-              infoList.push({person: w.p.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
-            }
-            if (w.n !== undefined) {
-              infoList.push({number: w.n.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
-            }
-            if (w.g !== undefined) {
-              infoList.push({gender: w.g.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
-
-            }
-            if (w.t !== undefined) {
-              infoList.push({tense: w.t.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
-
-            }
-            if (w.vFM !== undefined) {
-              infoList.push({verbFormMood: w.vFM.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
-
-            }
-
-            if (classe === '-verb-' && this.isIndicativePresent(w)) {
-              this.wordList.push({val: w.ofo.value, info: infoList, selected: false});
-            } else if (classe !== '-verb-') {
-              this.wordList.push({val: w.ofo.value, info: infoList, selected: false});
-            }
+      if (w.po !== undefined && w.po.value === classe) {
+        const infoList = [];
+        if (w.p !== undefined) {
+          infoList.push({person: w.p.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
         }
-      });
+        if (w.n !== undefined) {
+          infoList.push({number: w.n.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
+        }
+        if (w.g !== undefined) {
+          infoList.push({gender: w.g.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
+
+        }
+        if (w.t !== undefined) {
+          infoList.push({tense: w.t.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
+
+        }
+        if (w.vFM !== undefined) {
+          infoList.push({verbFormMood: w.vFM.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
+
+        }
+
+        if (classe === '-verb-' && this.isIndicativePresent(w)) {
+          this.wordList.push({val: w.ofo.value, info: infoList, selected: false});
+        } else if (classe !== '-verb-') {
+          this.wordList.push({val: w.ofo.value, info: infoList, selected: false});
+        }
+      }
+    });
     this.searchStarted = 0;
   }
 
   isIndicativePresent(verb): boolean {
-      return (
-        verb.t !== undefined && verb.t.value === 'http://www.lexinfo.net/ontology/2.0/lexinfo#present' &&
-        verb.vFM !== undefined &&  verb.vFM.value === 'http://www.lexinfo.net/ontology/2.0/lexinfo#indicative'
-      );
+    return (
+      verb.t !== undefined && verb.t.value === 'http://www.lexinfo.net/ontology/2.0/lexinfo#present' &&
+      verb.vFM !== undefined && verb.vFM.value === 'http://www.lexinfo.net/ontology/2.0/lexinfo#indicative'
+    );
   }
 
   unselect() {
-    this.newList.forEach(word => word.selected = false );
-    this.wordList.forEach(word => word.selected = false );
+    this.newList.forEach(word => word.selected = false);
+    this.wordList.forEach(word => word.selected = false);
   }
 }
 

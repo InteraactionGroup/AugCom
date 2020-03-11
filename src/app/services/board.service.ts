@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Board} from '../data/ExempleOfBoard';
 import {Element, ElementForm, Grid} from '../types';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -12,7 +12,7 @@ import {Ng2ImgMaxService} from 'ng2-img-max';
 export class BoardService {
 
   constructor(public ng2ImgMaxService: Ng2ImgMaxService, public editionService: EditionService, public userToolBarService: UsertoolbarService, public sanitizer: DomSanitizer) {
-    this.board  = Board;
+    this.board = Board;
     this.sliderValueCol = this.board.gridColsNumber;
     this.sliderValueRow = this.board.gridRowsNumber;
   }
@@ -24,16 +24,16 @@ export class BoardService {
   board: Grid;
   currentFolder = '.';
 
-  currentVerbTerminaison: {currentPerson: string, currentNumber: string} = {currentPerson: '', currentNumber: ''};
+  currentVerbTerminaison: { currentPerson: string, currentNumber: string } = {currentPerson: '', currentNumber: ''};
 
-  currentNounTerminaison: {currentGender: string, currentNumber: string} = {currentGender: '', currentNumber: ''};
+  currentNounTerminaison: { currentGender: string, currentNumber: string } = {currentGender: '', currentNumber: ''};
 
 
   activatedElement = -1;
 
 
   resetBoard() {
-    this.board  = Board;
+    this.board = Board;
   }
 
   updateBackground(file) {
@@ -66,14 +66,14 @@ export class BoardService {
         return nounElement.DisplayedText;
       }
     }
-    const defaultElement = element.ElementForms.find(elt => this.checkDefault(elt) );
+    const defaultElement = element.ElementForms.find(elt => this.checkDefault(elt));
     if (defaultElement != null) {
       return defaultElement.DisplayedText;
     } else {
-      if ( element.ElementForms.length > 0) {
+      if (element.ElementForms.length > 0) {
         return element.ElementForms[0].DisplayedText;
       } else {
-        return  '';
+        return '';
       }
     }
   }
@@ -153,16 +153,16 @@ export class BoardService {
     const imageTemp = [];
 
     this.board.ElementList = this.board.ElementList.filter(x => {
-      let isChildrenOfCondamnedElt = false;
-      this.editionService.elementCondamne.forEach( condamnedElt => {
-        isChildrenOfCondamnedElt = isChildrenOfCondamnedElt ||
-          x.ElementFolder.startsWith(condamnedElt.ElementFolder + condamnedElt.ElementID);
-      });
-      return !isChildrenOfCondamnedElt;
+        let isChildrenOfCondamnedElt = false;
+        this.editionService.elementCondamne.forEach(condamnedElt => {
+          isChildrenOfCondamnedElt = isChildrenOfCondamnedElt ||
+            x.ElementFolder.startsWith(condamnedElt.ElementFolder + condamnedElt.ElementID);
+        });
+        return !isChildrenOfCondamnedElt;
       }
     );
 
-    this.board.ElementList =  this.board.ElementList.filter(x => {
+    this.board.ElementList = this.board.ElementList.filter(x => {
       let isCondamned = false;
       this.editionService.elementCondamne.forEach(condamnedElt => {
         isCondamned = isCondamned || x === condamnedElt;
@@ -210,7 +210,7 @@ export class BoardService {
   }
 
   elementColor(element: Element) {
-   // return element.ElementType === 'button' ? 'greenyellow' : ('folder' ? 'orange' : 'red');
+    // return element.ElementType === 'button' ? 'greenyellow' : ('folder' ? 'orange' : 'red');
     return element.Color;
   }
 
@@ -220,14 +220,16 @@ export class BoardService {
     const newPath = path.slice(0, path.length - 1);
     console.log(newPath);
     let index = 0;
-    newPath.forEach( value => {
+    newPath.forEach(value => {
         if (index !== 0) {
           temp = temp + '.' + value;
         }
         index++;
       }
-    ) ;
-    if (temp === '') {temp = '.'; }
+    );
+    if (temp === '') {
+      temp = '.';
+    }
     this.currentFolder = temp;
     console.log(this.currentFolder);
   }

@@ -4,9 +4,10 @@
 
     <div class="elementContainer" *ngFor="let element of this.historicService.lastNHistoricElements">
 
-      <div class="element" (click)="this.historicService.say('' + element.VignetteLabel);" [style.background-color]="element.VignetteColor">
+      <div class="element" (click)="this.historicService.say('' + element.VignetteLabel);"
+           [style.background-color]="element.VignetteColor">
 
-        <div class="image"[style.background-image]="element.VignetteImageUrl" >
+        <div class="image" [style.background-image]="element.VignetteImageUrl">
 
         </div>
 
@@ -26,12 +27,14 @@
     </div>
   </div>
   <div class="button">
-    <div class="image" [ngStyle]="{'background-image':this.getIcon('back')}" (click)="this.historicService.backHistoric()">
+    <div class="image" [ngStyle]="{'background-image':this.getIcon('back')}"
+         (click)="this.historicService.backHistoric()">
 
     </div>
   </div>
   <div class="button">
-    <div class="image" [ngStyle]="{'background-image':this.getIcon('play')}" (click)="this.historicService.playHistoric()">
+    <div class="image" [ngStyle]="{'background-image':this.getIcon('play')}"
+         (click)="this.historicService.playHistoric()">
 
     </div>
   </div>

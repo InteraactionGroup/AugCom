@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import {Element} from '../types';
 
@@ -21,9 +21,10 @@ export class EditionService {
 
   elementCondamne: Element[] = [];
 
-  constructor() { }
+  constructor() {
+  }
 
-  selectAllElementsOf( elementList ) {
+  selectAllElementsOf(elementList) {
     this.selectedElements = [];
     if (!this.selectAll) {
       elementList.forEach(elt => this.addToSelected(elt));

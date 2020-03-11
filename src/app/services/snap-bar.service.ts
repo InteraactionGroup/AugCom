@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import {timeout} from 'rxjs/operators';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +8,8 @@ export class SnapBarService {
   message = 'vérifiez la connection.';
   displayed = false;
 
-  constructor() { }
+  constructor() {
+  }
 
   snap() {
     this.displayed = !this.displayed;

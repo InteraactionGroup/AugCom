@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Vignette} from '../types';
 import {ParametersService} from "./parameters.service";
 
@@ -9,7 +9,7 @@ export class HistoricService {
 
 
   public historicElements: Vignette[] = [];
-  public lastNHistoricElements: Vignette[]  = [];
+  public lastNHistoricElements: Vignette[] = [];
 
   constructor(private parametersService: ParametersService) {
     this.updateLastElements(10);
@@ -25,10 +25,11 @@ export class HistoricService {
     }
   }
 
-  push(element ) {
+  push(element) {
     this.historicElements.push(element);
     this.updateLastElements(10);
   }
+
   clearHistoric() {
     this.historicElements = [];
     this.updateLastElements(10);

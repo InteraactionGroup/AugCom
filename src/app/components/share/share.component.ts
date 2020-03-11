@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BoardService} from '../../services/board.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {GeticonService} from '../../services/geticon.service';
@@ -19,7 +19,8 @@ import {DbnaryService} from '../../services/dbnary.service';
 })
 export class ShareComponent implements OnInit {
 
-  constructor(private dbNaryService: DbnaryService, private csvReader: CsvReaderService, private indexedDBacess: IndexeddbaccessService, private printService: PrintService, public snapBarService: SnapBarService, private router: Router, public getIconService: GeticonService, public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
+  constructor(private dbNaryService: DbnaryService, private csvReader: CsvReaderService, private indexedDBacess: IndexeddbaccessService, private printService: PrintService, public snapBarService: SnapBarService, private router: Router, public getIconService: GeticonService, public boardService: BoardService, public userToolBarService: UsertoolbarService) {
+  }
 
 
   ngOnInit() {
@@ -43,7 +44,7 @@ export class ShareComponent implements OnInit {
     this.boardService.board = this.csvReader.generateBoard();
     this.indexedDBacess.update();
     this.router.navigate(['']);
-   // this.trad(0);
+    // this.trad(0);
   }
 
   async trad(index: number) {
@@ -52,9 +53,9 @@ export class ShareComponent implements OnInit {
       data => {
         console.log(this.boardService.board.ElementList[index].ElementForms[0].DisplayedText);
         if ((data as Traduction).results.bindings[0] !== undefined) {
-        this.boardService.board.ElementList[index].ElementForms[0].DisplayedText = (data as Traduction).results.bindings[0].tradword.value;
-        console.log(this.boardService.board.ElementList[index].ElementForms[0].DisplayedText);
-        this.indexedDBacess.update();
+          this.boardService.board.ElementList[index].ElementForms[0].DisplayedText = (data as Traduction).results.bindings[0].tradword.value;
+          console.log(this.boardService.board.ElementList[index].ElementForms[0].DisplayedText);
+          this.indexedDBacess.update();
         }
         if (this.boardService.board.ElementList.length > index + 1) {
           this.trad(index + 1);
@@ -77,7 +78,7 @@ export class ShareComponent implements OnInit {
     const zipFolder: JSZip = new JSZip();
     zipFolder.loadAsync(e.target.files[0])
       .then(zipFiles => {
-        zipFiles.forEach( fileName  => {
+        zipFiles.forEach(fileName => {
             if (fileName[fileName.length - 1] !== '/') {
               zipFolder.file(fileName).async('base64').then(content => {
                 const split = fileName.split('.');
@@ -123,14 +124,14 @@ export class ShareComponent implements OnInit {
               if (splitName.length === 0) {
                 path = '.';
               }
-              splitName.forEach( s => {
-                path = path + '.' +  s;
+              splitName.forEach(s => {
+                path = path + '.' + s;
               });
               this.createNewButton(name, imageURL, path, 'folder');
             }
-        }
-      );
- });
+          }
+        );
+      });
 
     this.router.navigate(['']);
 
@@ -146,14 +147,16 @@ export class ShareComponent implements OnInit {
   createNewButton(name, imageURL, folder, type) {
     this.boardService.board.ElementList.push(
       {
-        ElementID: name ,
+        ElementID: name,
         ElementFolder: folder,
         ElementType: type,
         ElementPartOfSpeech: '',
         ElementForms: [
-          {DisplayedText: name,
+          {
+            DisplayedText: name,
             VoiceText: name,
-            LexicInfos: [] }
+            LexicInfos: []
+          }
         ],
         ImageID: folder + name,
         InteractionsList: [],
@@ -182,20 +185,21 @@ export class ShareComponent implements OnInit {
     fileReader.onload = (e) => {
       const t = JSON.parse(fileReader.result.toString());
       this.boardService.board = t;
-      this.boardService.board.ElementList.forEach( element => {
-      const defaultform = element.ElementForms.find(form => {
-        const newForm = form.LexicInfos.find(info => {
-          return (info.default != null && info.default);
+      this.boardService.board.ElementList.forEach(element => {
+        const defaultform = element.ElementForms.find(form => {
+          const newForm = form.LexicInfos.find(info => {
+            return (info.default != null && info.default);
+          });
+          return (newForm != null);
         });
-        return (newForm != null);
+        if (defaultform == null) {
+          element.ElementForms.push({
+            DisplayedText: element.ElementForms[0].DisplayedText,
+            VoiceText: element.ElementForms[0].VoiceText,
+            LexicInfos: [{default: true}]
+          });
+        }
       });
-      if (defaultform == null) {
-        element.ElementForms.push({
-          DisplayedText: element.ElementForms[0].DisplayedText,
-          VoiceText: element.ElementForms[0].VoiceText,
-          LexicInfos: [{default: true}]
-        });
-      }});
 
 
     };

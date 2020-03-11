@@ -9,7 +9,7 @@ export class Grid {
   GridType: string;
   gridColsNumber: number;
   gridRowsNumber: number;
-  Style: {ElementType: string, Link: string}[];
+  Style: { ElementType: string, Link: string }[];
 
   constructor(gridId, elemList, imageList, actionList, gridType, gridCol, gridRow, style) {
     this.GridID = gridId;

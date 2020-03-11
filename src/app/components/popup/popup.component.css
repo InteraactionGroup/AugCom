@@ -1,4 +1,4 @@
-.popup{
+.popup {
   position: absolute;
   top: 25%;
   left: 25%;
@@ -8,7 +8,7 @@
 
 }
 
-.popup .popupcontainer{
+.popup .popupcontainer {
   height: 96%;
   width: 96%;
   margin-left: 2%;
@@ -16,7 +16,7 @@
   background-color: grey;
 }
 
-.popup .popupcontainer .question{
+.popup .popupcontainer .question {
   text-align: center;
   width: 70%;
   height: 20%;
@@ -24,14 +24,14 @@
   transform: translateY(100%);
 }
 
-.popup .popupcontainer .buttons{
+.popup .popupcontainer .buttons {
   width: 70%;
   height: 30%;
   margin-left: 15%;
   transform: translateY(100%);
 }
 
-.popup .popupcontainer .buttons .choiceButton{
+.popup .popupcontainer .buttons .choiceButton {
   text-align: center;
   float: left;
   width: 30%;
@@ -40,18 +40,18 @@
   height: 100%;
 }
 
-.yes{
+.yes {
   background-color: darkseagreen;
 }
 
-.yes:hover{
+.yes:hover {
   background-color: darkgreen;
 }
 
-.no{
+.no {
   background-color: indianred;
 }
 
-.no:hover{
+.no:hover {
   background-color: darkred;
 }

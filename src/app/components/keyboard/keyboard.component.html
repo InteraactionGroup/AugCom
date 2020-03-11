@@ -10,37 +10,38 @@
 
     </div>
   </div>
-  <div class="editSettings" (click) = this.editAll() >
-    <div class="editButton" > edit selected </div>
+  <div class="editSettings" (click)=this.editAll()>
+    <div class="editButton"> edit selected</div>
     <div class="editImg" [style.background-image]="this.getIcon('edit')">
     </div>
   </div>
 
-  <div class="editSettings" (click) = this.deleteAll() >
-    <div class="editButton" > delete selected </div>
+  <div class="editSettings" (click)=this.deleteAll()>
+    <div class="editButton"> delete selected</div>
     <div class="editImg" [style.background-image]="this.getIcon('delete')">
     </div>
   </div>
 
-  <div class="editSettings" >
+  <div class="editSettings">
     <label for="editBckButton">
-    <div class="editButton" > change background </div>
-    <div class="editImg"  [style.background-image]="this.getIcon('edit')">
-    </div>
+      <div class="editButton"> change background</div>
+      <div class="editImg" [style.background-image]="this.getIcon('edit')">
+      </div>
     </label>
-    <input #file  type="file" accept='image/*' id='editBckButton' (change)="this.boardService.updateBackground( file.files )">
+    <input #file type="file" accept='image/*' id='editBckButton'
+           (change)="this.boardService.updateBackground( file.files )">
   </div>
 
 
   <div class="gridSettings">
-  <input class="inputSize" type="text" [(ngModel)]="this.boardService.sliderValueCol" >
+    <input class="inputSize" type="text" [(ngModel)]="this.boardService.sliderValueCol">
     <div class="x">
       x
     </div>
     <input class="inputSize" type="text" [(ngModel)]="this.boardService.sliderValueRow">
   </div>
 </div>
-<div class="keyboard" [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100vh - 4.5cm)':'calc(100vh - 3.5cm)'}" >
+<div class="keyboard" [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100vh - 4.5cm)':'calc(100vh - 3.5cm)'}">
 
   <div class="wrapper" [ngStyle]="{'grid-template-columns': 'repeat('+(this.boardService.sliderValueCol)+', '+(100/(this.boardService.sliderValueCol))+'%)',
                                   'grid-template-rows': 'repeat('+(this.boardService.sliderValueRow)+', '+(100/(this.boardService.sliderValueRow))+'%)',
@@ -49,74 +50,83 @@
 
     <ng-container class="test" *ngFor="let element of this.getTempList()">
 
-        <div id="{{element.ElementID}}" class="elementContainer" *ngIf="element.ElementType!=='empty'" >
+      <div id="{{element.ElementID}}" class="elementContainer" *ngIf="element.ElementType!=='empty'">
 
 
-          <div class="element" [class.notsearched]="isNotSearched(element)" [class.searched]="this.searchService.searchedPath.includes(element)"  [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)" (touchstart)="this.pointerDown(element,0)" (touchend)="this.pointerUp(element,0)" (pointerdown)="this.pointerDown(element,1)" (pointerup)="this.pointerUp(element,1)"  [ngStyle]="{'background-color': element.Color !== null ? element.Color : 'grey' ,
+        <div class="element" [class.notsearched]="isNotSearched(element)"
+             [class.searched]="this.searchService.searchedPath.includes(element)"
+             [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)"
+             (touchstart)="this.pointerDown(element,0)" (touchend)="this.pointerUp(element,0)"
+             (pointerdown)="this.pointerDown(element,1)" (pointerup)="this.pointerUp(element,1)" [ngStyle]="{'background-color': element.Color !== null ? element.Color : 'grey' ,
           'border-color': element.BorderColor === null || element.BorderColor === undefined ? 'black' : element.BorderColor,
           'box-shadow': this.getShadow(element) ,
           'opacity': this.getOpacity(element),
           'cursor': this.getCursor(element)}">
 
 
-            <div class="image" [style.background-image]="this.boardService.getImgUrl(element)">
-
-            </div>
-
-              <svg viewBox="0 0 30 20">
-                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" >{{this.boardService.getLabel(element)}}</text>
-              </svg>
+          <div class="image" [style.background-image]="this.boardService.getImgUrl(element)">
 
           </div>
 
-          <div class="suppr" *ngIf="this.userToolBarService.edit" (click)="this.delete(element)" >
-            <div class="image" [style.background-image]="this.getIcon('delete')">
-
-            </div>
-          </div>
-
-          <div class="edit" *ngIf="this.userToolBarService.edit" (click)="this.select(element)" >
-            <div class="image" [style.background-image]="this.editionService.isSelected(element)?this.getIcon('check'):null">
-
-            </div>
-          </div>
-
-          <div class="opacity" *ngIf="this.userToolBarService.edit" (click)="this.changeOpacity(element)" >
-            <div class="image" [style.background-image]="this.isVisible(element) ? this.getIcon('hide') : this.getIcon('show')">
-
-            </div>
-          </div>
-
-        </div>
-    </ng-container>
-    <ng-container *ngIf="this.boardService.currentFolder !== '.' && this.boardService.activatedElement==-1" >
-    <div class="elementContainer no-drag" >
-
-      <div class="element"  (click)="this.boardService.backToPreviousFolder()" [ngStyle]="{'background-color': 'red'}"> <!-- need to change élément by the label-->
-
-        <div class="image"  [style.background-image]="this.getIcon('retour')">
+          <svg viewBox="0 0 30 20">
+            <text x="50%" y="50%" dominant-baseline="middle"
+                  text-anchor="middle">{{this.boardService.getLabel(element)}}</text>
+          </svg>
 
         </div>
 
-        <div class="label">
-          retour
+        <div class="suppr" *ngIf="this.userToolBarService.edit" (click)="this.delete(element)">
+          <div class="image" [style.background-image]="this.getIcon('delete')">
+
+          </div>
+        </div>
+
+        <div class="edit" *ngIf="this.userToolBarService.edit" (click)="this.select(element)">
+          <div class="image"
+               [style.background-image]="this.editionService.isSelected(element)?this.getIcon('check'):null">
+
+          </div>
+        </div>
+
+        <div class="opacity" *ngIf="this.userToolBarService.edit" (click)="this.changeOpacity(element)">
+          <div class="image"
+               [style.background-image]="this.isVisible(element) ? this.getIcon('hide') : this.getIcon('show')">
+
+          </div>
         </div>
 
       </div>
+    </ng-container>
+    <ng-container *ngIf="this.boardService.currentFolder !== '.' && this.boardService.activatedElement==-1">
+      <div class="elementContainer no-drag">
 
-    </div>
+        <div class="element" (click)="this.boardService.backToPreviousFolder()" [ngStyle]="{'background-color': 'red'}">
+          <!-- need to change élément by the label-->
+
+          <div class="image" [style.background-image]="this.getIcon('retour')">
+
+          </div>
+
+          <div class="label">
+            retour
+          </div>
+
+        </div>
+
+      </div>
     </ng-container>
 
-    <ng-container *ngIf="this.userToolBarService.edit" >
+    <ng-container *ngIf="this.userToolBarService.edit">
 
       <nav class="no-drag">
         <a routerLink="/edit" class="no-drag">
 
           <div class="elementContainer no-drag add">
 
-            <div class="element"  (click)="this.editionService.add = true " [ngStyle]="{'background-color': 'rgb(125,125,125)'}"> <!-- need to change élément by the label-->
+            <div class="element" (click)="this.editionService.add = true "
+                 [ngStyle]="{'background-color': 'rgb(125,125,125)'}"> <!-- need to change élément by the label-->
 
-              <div class="image"  [style.background-image]="this.getIcon('add')">
+              <div class="image" [style.background-image]="this.getIcon('add')">
 
               </div>
 

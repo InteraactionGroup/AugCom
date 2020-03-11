@@ -1,25 +1,25 @@
-.snapBar{
+.snapBar {
   position: absolute;
   width: 6cm;
   height: 1.5cm;
-  transition: top 0.5s,  background-color 0.5s, opacity 0.5s;
+  transition: top 0.5s, background-color 0.5s, opacity 0.5s;
   background-color: indianred;
 }
 
 
-.snapBarHidden{
-  top:-100%;
+.snapBarHidden {
+  top: -100%;
   right: 0;
   opacity: 0;
 }
 
-.snapBarDisplayed{
+.snapBarDisplayed {
   top: 0;
   right: 0;
   opacity: 1;
 }
 
-.snap{
+.snap {
   transform: translateY(50%);
   height: 50%;
   width: 90%;

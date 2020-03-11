@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {BoardService} from '../../services/board.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
@@ -19,7 +19,8 @@ export class PopupComponent implements OnInit {
   questionEnd = 'la suppression ne peut pas être défaite.\n Continuer ?';
 
   constructor(public editionService: EditionService, public indexedDBacess: IndexeddbaccessService,
-              public boardService: BoardService, public userToolBarService: UsertoolbarService) { }
+              public boardService: BoardService, public userToolBarService: UsertoolbarService) {
+  }
 
   ngOnInit() {
   }
@@ -43,6 +44,7 @@ export class PopupComponent implements OnInit {
     this.editionService.elementCondamne = [];
     this.closePopup();
   }
+
   /**
    * clsoe the popup panel by setting popup to false
    */

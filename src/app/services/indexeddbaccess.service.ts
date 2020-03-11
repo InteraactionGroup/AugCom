@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BoardService} from './board.service';
 import {PaletteService} from './palette.service';
 
@@ -46,7 +46,6 @@ export class IndexeddbaccessService {
   }
 
 
-
   // INITIALISATION
   init() {
 
@@ -77,8 +76,8 @@ export class IndexeddbaccessService {
 
       // Creaction of Store
       const db = event.target.result;
-      db.createObjectStore('Grid', { autoIncrement : true });
-      db.createObjectStore('Palette', { autoIncrement : true });
+      db.createObjectStore('Grid', {autoIncrement: true});
+      db.createObjectStore('Palette', {autoIncrement: true});
 
 
       // Transaction in Store

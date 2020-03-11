@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HistoricService} from '../../services/historic.service';
 import {EditionService} from '../../services/edition.service';
 import {OtherformsService} from '../../services/otherforms.service';
@@ -40,18 +40,18 @@ export class KeyboardComponent implements OnInit {
 
   subs = new Subscription();
 
-  press = [false, false ];
-  release = [false, false ];
+  press = [false, false];
+  release = [false, false];
 
   // tslint:disable-next-line:max-line-length
   constructor(public searchService: SearchService, private paletteService: PaletteService, private dragulaService: DragulaService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) {
 
     this.subs.add(this.dragulaService.drop('VAMPIRE')
-      .subscribe(({ el, target, source, sibling }) => {
+      .subscribe(({el, target, source, sibling}) => {
         const temp = this.boardService.board.ElementList;
 
-        const i1 = temp.findIndex(elt => elt.ElementID === el.id );
-        let i2 = temp.findIndex(elt => elt.ElementID === sibling.id );
+        const i1 = temp.findIndex(elt => elt.ElementID === el.id);
+        let i2 = temp.findIndex(elt => elt.ElementID === sibling.id);
 
         // unfortunately dagula is not really adapted to grid display:
         // when we drag an element on an element after the draged one its ok ->
@@ -80,6 +80,7 @@ export class KeyboardComponent implements OnInit {
   isNotSearched(element: Element) {
     return (this.searchService.searchedPath.length > 0) && (!this.searchService.searchedPath.includes(element));
   }
+
   initDragAndDrop() {
     if (!this.parametersService.dragNDropinit) {
       this.dragulaService.createGroup('VAMPIRE', {
@@ -93,7 +94,7 @@ export class KeyboardComponent implements OnInit {
           return sibling !== null;
         }
 
-        });
+      });
       this.parametersService.dragNDropinit = true;
     }
   }
@@ -116,11 +117,11 @@ export class KeyboardComponent implements OnInit {
    * otherwise return the 'fakeElementTempList' of the element that is displaying its variant forms
    * @return a list of element
    */
-  getTempList( ) {
+  getTempList() {
     if (this.boardService.activatedElement === -1) {
-        return this.getNormalTempList();
+      return this.getNormalTempList();
     } else {
-        return this.fakeElementTempList;
+      return this.fakeElementTempList;
     }
   }
 
@@ -130,13 +131,13 @@ export class KeyboardComponent implements OnInit {
       (element.ElementType === 'folder' ? '-3px ' : '0px ') +
       '0px ' +
       (element.ElementType === 'folder' ? '-2px ' : '0px ')
-      + (element.Color === undefined || element.Color == null ? '#d3d3d3' : element.Color ) ;
+      + (element.Color === undefined || element.Color == null ? '#d3d3d3' : element.Color);
 
     s = s + ' , ' +
       (element.ElementType === 'folder' ? '4px ' : '0px ') +
       (element.ElementType === 'folder' ? '-4px ' : '0px ') +
-      (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor ) ;
-    return  s;
+      (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor);
+    return s;
   }
 
   /**
@@ -144,9 +145,9 @@ export class KeyboardComponent implements OnInit {
    * @return a list of elements
    */
   getNormalTempList() {
-    return this.boardService.board.ElementList.filter(elt =>  {
+    return this.boardService.board.ElementList.filter(elt => {
       return this.boardService.currentFolder === elt.ElementFolder;
-    }).slice(0 , this.boardService.sliderValueRow * this.boardService.sliderValueCol + (this.boardService.currentFolder !== '.' ? - 1 : 0 ));
+    }).slice(0, this.boardService.sliderValueRow * this.boardService.sliderValueCol + (this.boardService.currentFolder !== '.' ? -1 : 0));
   }
 
   // /**
@@ -161,7 +162,7 @@ export class KeyboardComponent implements OnInit {
    * update the current person and number information for verb terminations
    * @param elementForm, an list of element forms
    */
-  changePronomInfo( elementForm: ElementForm) {
+  changePronomInfo(elementForm: ElementForm) {
     const person = elementForm.LexicInfos.find(info => info.person != null && info.person !== undefined);
     this.boardService.currentVerbTerminaison.currentPerson = (person != null && person !== undefined) ? person.person : 'thirdPerson';
 
@@ -174,7 +175,7 @@ export class KeyboardComponent implements OnInit {
    * update the current gender and number information for noun (and adj) terminations
    * @param elementForm, an list of element forms
    */
-  changeArticleInfo( elementForm: ElementForm) {
+  changeArticleInfo(elementForm: ElementForm) {
     const gender = elementForm.LexicInfos.find(info => info.gender != null && info.gender !== undefined);
     this.boardService.currentNounTerminaison.currentGender = (gender != null && gender !== undefined) ? gender.gender : '';
 
@@ -191,11 +192,11 @@ export class KeyboardComponent implements OnInit {
    */
   pointerDown(element: Element, num) {
     this.press[num] = false;
-    this.press[(num + 1) % 2 ] = false;
-    this.release[num ] = true;
+    this.press[(num + 1) % 2] = false;
+    this.release[num] = true;
     if (!this.userToolBarService.edit && this.release[num] && !this.release[(num + 1) % 2]) {
       if (this.down === 0) {
-      this.clickedElement = element;
+        this.clickedElement = element;
       } else {
         window.clearTimeout(this.dblClickTimer);
         if (this.clickedElement !== element && this.clickedElement != null) {
@@ -214,11 +215,11 @@ export class KeyboardComponent implements OnInit {
    * @param element, the element triggering the event
    * @param num, number of the event triggering the action
    */
- pointerUp(element: Element, num) {
+  pointerUp(element: Element, num) {
     this.release[num] = false;
-    this.release[(num + 1) % 2 ] = false;
+    this.release[(num + 1) % 2] = false;
     this.press[num] = true;
-    if (!this.userToolBarService.edit && this.press[num] && !this.press[(num + 1) % 2] ) {
+    if (!this.userToolBarService.edit && this.press[num] && !this.press[(num + 1) % 2]) {
       window.clearTimeout(this.pressTimer);
       window.clearTimeout(this.dblClickTimer);
       if (this.down === 1) {
@@ -245,9 +246,9 @@ export class KeyboardComponent implements OnInit {
 
   setClickTimer(element) {
     this.dblClickTimer = window.setTimeout(() => {
-        this.action(element, 'click');
-        this.clickedElement = null;
-        this.down = 0;
+      this.action(element, 'click');
+      this.clickedElement = null;
+      this.down = 0;
     }, this.parametersService.doubleClickTimeOut);
   }
 
@@ -270,9 +271,9 @@ export class KeyboardComponent implements OnInit {
       ElementFolder: element.ElementFolder,
       ElementPartOfSpeech: element.ElementPartOfSpeech,
       ElementType: element.ElementType,
-      ElementForms: element.ElementForms.copyWithin(0, 0 ),
+      ElementForms: element.ElementForms.copyWithin(0, 0),
       ImageID: element.ImageID,
-      InteractionsList: element.InteractionsList.copyWithin(0, 0 ),
+      InteractionsList: element.InteractionsList.copyWithin(0, 0),
       Color: element.Color
     } as Element;
   }
@@ -282,7 +283,7 @@ export class KeyboardComponent implements OnInit {
    * @param interactions, an interaction list
    * @return the copied interaction List
    */
-  copyInteractions( interactions: { InteractionID: string, ActionList: Action[] }[]) {
+  copyInteractions(interactions: { InteractionID: string, ActionList: Action[] }[]) {
     const tempInter = [];
     interactions.forEach(inter => {
       const tempAction = [];
@@ -307,11 +308,11 @@ export class KeyboardComponent implements OnInit {
       ImagePath: 'assets/icons/retour.svg'
     });
     const tempOtherFOrmList: Element[] = [];
-    this.getNormalTempList().forEach( e => tempOtherFOrmList.push(this.copy(e)));
+    this.getNormalTempList().forEach(e => tempOtherFOrmList.push(this.copy(e)));
     const index = this.boardService.activatedElement;
     const max: number = Number(Number(index) + Number(this.boardService.sliderValueCol) + 1 - Number(tempOtherFOrmList.length) + 1);
-    for (let newElementIndex = 0 ; newElementIndex < max ; newElementIndex = newElementIndex + 1 ) { // fill with empy elements
-       tempOtherFOrmList.push({
+    for (let newElementIndex = 0; newElementIndex < max; newElementIndex = newElementIndex + 1) { // fill with empy elements
+      tempOtherFOrmList.push({
         ElementID: '',
         ElementFolder: this.boardService.currentFolder,
         ElementType: 'button',
@@ -319,24 +320,24 @@ export class KeyboardComponent implements OnInit {
         ElementForms: [],
         ImageID: '',
         InteractionsList: [],
-         Color: '#ffffff', // to delete later
-         BorderColor: '#ffffff', // to delete later
-         Visible: false
+        Color: '#ffffff', // to delete later
+        BorderColor: '#ffffff', // to delete later
+        Visible: false
       });
     }
 
     let indexOfForm = 0;
     const compElt = tempOtherFOrmList[index];
-    tempOtherFOrmList.forEach( elt => {
+    tempOtherFOrmList.forEach(elt => {
       const tempIndex = tempOtherFOrmList.indexOf(elt);
       let places = this.createPlaces(index);
-      places = places.slice(0, compElt.ElementForms.length );
+      places = places.slice(0, compElt.ElementForms.length);
       if (places.includes(tempIndex)) {
-        if (compElt.ElementForms.length > indexOfForm ) {
+        if (compElt.ElementForms.length > indexOfForm) {
           elt.Color = compElt.Color;
           elt.BorderColor = compElt.BorderColor;
           elt.ImageID = '' + compElt.ImageID;
-          elt.ElementType =  'button';
+          elt.ElementType = 'button';
           elt.ElementForms = [];
           elt.Visible = true;
           elt.ElementPartOfSpeech = '' + compElt.ElementPartOfSpeech;
@@ -347,7 +348,7 @@ export class KeyboardComponent implements OnInit {
               LexicInfos: compElt.ElementForms[indexOfForm].LexicInfos
             });
           elt.InteractionsList = tempOtherFOrmList[index].InteractionsList.slice();
-          elt.InteractionsList.push({ InteractionID: 'backFromVariant', ActionList: [] });
+          elt.InteractionsList.push({InteractionID: 'backFromVariant', ActionList: []});
           indexOfForm = indexOfForm + 1;
         }
       } else if (tempIndex !== index) {
@@ -359,12 +360,13 @@ export class KeyboardComponent implements OnInit {
     tempOtherFOrmList[index].Color = '#123548';
     tempOtherFOrmList[index].ImageID = '#back';
     tempOtherFOrmList[index].ElementPartOfSpeech = '';
-    tempOtherFOrmList[index].InteractionsList = [{ InteractionID: 'backFromVariant', ActionList: [] }];
-    tempOtherFOrmList[index].ElementForms = [{DisplayedText: 'back', VoiceText: 'back', LexicInfos: [] }];
+    tempOtherFOrmList[index].InteractionsList = [{InteractionID: 'backFromVariant', ActionList: []}];
+    tempOtherFOrmList[index].ElementForms = [{DisplayedText: 'back', VoiceText: 'back', LexicInfos: []}];
 
 
     this.fakeElementTempList = tempOtherFOrmList;
   }
+
   /**
    * return the available neighbor index of an element identified by index 'ind'
    * @param ind, index of an element
@@ -375,34 +377,34 @@ export class KeyboardComponent implements OnInit {
     const places = [];
 
 
-    if (Math.trunc(  (index - 1) / slider ) === Math.trunc( index / slider)) { // gauche
+    if (Math.trunc((index - 1) / slider) === Math.trunc(index / slider)) { // gauche
       places.push(index - 1);
     }
-    if (Math.trunc( (index + 1) / slider ) === Math.trunc( index / slider )) { // droite
+    if (Math.trunc((index + 1) / slider) === Math.trunc(index / slider)) { // droite
       places.push(index + 1);
     }
 
-    if (Math.trunc( (index - slider) / slider )  === Math.trunc( index / slider )  - 1) { // haut
+    if (Math.trunc((index - slider) / slider) === Math.trunc(index / slider) - 1) { // haut
       places.push(index - slider);
     }
 
-    if (Math.trunc( (index - slider - 1) / slider )  === Math.trunc( index / slider )  - 1) { // haut gauche
+    if (Math.trunc((index - slider - 1) / slider) === Math.trunc(index / slider) - 1) { // haut gauche
       places.push(index - slider - 1);
     }
 
-    if (Math.trunc( (index - slider + 1 ) / slider )  === Math.trunc( index / slider )  - 1) { // haut droite
+    if (Math.trunc((index - slider + 1) / slider) === Math.trunc(index / slider) - 1) { // haut droite
       places.push(index - slider + 1);
     }
 
-    if (Math.trunc( (index + slider) / slider )  === Math.trunc( index / slider ) + 1) { // bas
+    if (Math.trunc((index + slider) / slider) === Math.trunc(index / slider) + 1) { // bas
       places.push(index + slider);
     }
 
-    if (Math.trunc( (index + slider - 1) / slider )  === Math.trunc( index / slider ) + 1) { // bas gauche
+    if (Math.trunc((index + slider - 1) / slider) === Math.trunc(index / slider) + 1) { // bas gauche
       places.push(index + slider - 1);
     }
 
-    if (Math.trunc( (index + slider + 1) / slider )  === Math.trunc( index / slider ) + 1) { // bas droite
+    if (Math.trunc((index + slider + 1) / slider) === Math.trunc(index / slider) + 1) { // bas droite
       places.push(index + slider + 1);
     }
 
@@ -410,7 +412,7 @@ export class KeyboardComponent implements OnInit {
   }
 
   action(element: Element, interaction: string) {
-    if (element.ElementType !== 'empty' && !(!this.userToolBarService.edit && !element.Visible &&  this.userToolBarService.babble)) {
+    if (element.ElementType !== 'empty' && !(!this.userToolBarService.edit && !element.Visible && this.userToolBarService.babble)) {
 
       // for button
       if (element.ElementType === 'button') {
@@ -421,13 +423,14 @@ export class KeyboardComponent implements OnInit {
         const vignette: Vignette = {
           VignetteLabel: prononcedText,
           VignetteImageUrl: imgUrl,
-          VignetteColor: color};
+          VignetteColor: color
+        };
         let otherformsdisplayed = false;
 
         // Depend on the interaction
         element.InteractionsList.forEach(inter => {
           if (inter.InteractionID === interaction) {
-            inter.ActionList.forEach( action => {
+            inter.ActionList.forEach(action => {
               if (action.ActionID === 'pronomChangeInfo') {
                 this.changePronomInfo(element.ElementForms[0]);
               } else if (action.ActionID === 'display') {
@@ -441,7 +444,7 @@ export class KeyboardComponent implements OnInit {
                 this.clickedElement = null;
               }
             });
-          } else if (!otherformsdisplayed && inter.InteractionID === 'backFromVariant' ) {
+          } else if (!otherformsdisplayed && inter.InteractionID === 'backFromVariant') {
             this.boardService.activatedElement = -1;
           }
         });
@@ -519,7 +522,7 @@ export class KeyboardComponent implements OnInit {
 
   editAll() {
     if (this.userToolBarService.edit && this.editionService.selectedElements.length === 1) {
-     this.edit(this.editionService.selectedElements[0]);
+      this.edit(this.editionService.selectedElements[0]);
     } else if (this.userToolBarService.edit && this.editionService.selectedElements.length > 1) {
       this.router.navigate(['/edit']);
       this.editionService.add = false;
@@ -529,7 +532,7 @@ export class KeyboardComponent implements OnInit {
 
   deleteAll() {
     if (this.userToolBarService.edit) {
-      this.editionService.selectedElements.forEach( elt => {
+      this.editionService.selectedElements.forEach(elt => {
         this.delete(elt);
       });
     }
