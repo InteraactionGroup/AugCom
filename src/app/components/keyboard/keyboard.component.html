@@ -44,8 +44,8 @@
 <div class="keyboard" [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100vh - 4.5cm)':'calc(100vh - 3.5cm)'}">
 
   <div class="wrapper" [ngStyle]="{'grid-template-columns': 'repeat('+(this.boardService.sliderValueCol)+', '+(100/(this.boardService.sliderValueCol))+'%)',
-                                  'grid-template-rows': 'repeat('+(this.boardService.sliderValueRow)+', '+(100/(this.boardService.sliderValueRow))+'%)',
-'background-image' : this.boardService.background }"
+  'grid-template-rows': 'repeat('+(this.getMaxRepeat())+', '+(100/(this.boardService.sliderValueRow))+'%)',
+  'background-image' : this.boardService.background }"
        [dragula]="this.userToolBarService.edit ? 'VAMPIRE' :null">
 
     <ng-container class="test" *ngFor="let element of this.getTempList()">
@@ -107,9 +107,10 @@
 
           </div>
 
-          <div class="label">
-            retour
-          </div>
+          <svg viewBox="0 0 30 20">
+            <text x="50%" y="50%" dominant-baseline="middle"
+                  text-anchor="middle">retour</text>
+          </svg>
 
         </div>
 
@@ -130,9 +131,10 @@
 
               </div>
 
-              <div class="label">
-                ajouter
-              </div>
+              <svg viewBox="0 0 30 20">
+                <text x="50%" y="50%" dominant-baseline="middle"
+                      text-anchor="middle">ajouter</text>
+              </svg>
 
             </div>
 

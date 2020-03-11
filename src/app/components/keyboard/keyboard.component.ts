@@ -112,6 +112,10 @@ export class KeyboardComponent implements OnInit {
     this.editionService.select(element);
   }
 
+  getMaxRepeat(): number {
+    return  this.boardService.board.ElementList.length / this.boardService.sliderValueCol + 1;
+  }
+
   /**
    * return the normal list of elements that have to be displayed on the board if no element displayed its variant forms
    * otherwise return the 'fakeElementTempList' of the element that is displaying its variant forms
