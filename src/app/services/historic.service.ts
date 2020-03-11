@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Vignette} from '../types';
-import {ParametersService} from "./parameters.service";
+import {ParametersService} from './parameters.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,53 +8,53 @@ import {ParametersService} from "./parameters.service";
 export class HistoricService {
 
 
-  public historicElements: Vignette[] = [];
-  public lastNHistoricElements: Vignette[] = [];
+  public historic: Vignette[] = [];
+  public speechSynthesis: SpeechSynthesis;
 
   constructor(private parametersService: ParametersService) {
-    this.updateLastElements(10);
   }
 
+  isHistoricLengthMoreThan10(): boolean {
+    return this.historic.length > 10;
+  }
 
-  updateLastElements(n: number) {
-    const historicSize = this.historicElements.length;
-    if (historicSize > n) {
-      this.lastNHistoricElements = this.historicElements.slice(historicSize - n, historicSize);
-    } else {
-      this.lastNHistoricElements = this.historicElements;
-    }
+  getHistoricToDisplay(): Vignette[] {
+    return this.isHistoricLengthMoreThan10() ? this.historic.reverse() : this.historic;
   }
 
   push(element) {
-    this.historicElements.push(element);
-    this.updateLastElements(10);
+    this.historic.push(element);
   }
 
   clearHistoric() {
-    this.historicElements = [];
-    this.updateLastElements(10);
+    this.historic = [];
+    if (this.speechSynthesis !== null) {
+      this.speechSynthesis.cancel();
+    }
   }
 
   backHistoric() {
-    this.historicElements.pop();
-    this.updateLastElements(10);
+    this.historic.pop();
+    if (this.speechSynthesis !== null) {
+      this.speechSynthesis.cancel();
+    }
   }
 
 
   playHistoric() {
     let text = '';
-    for (const historicElement of this.historicElements) {
+    for (const historicElement of this.historic) {
       text = text + ' ' + historicElement.VignetteLabel;
     }
-    text = text;
     this.say(text);
   }
 
   say(text: string) {
-    const synth = window.speechSynthesis;
+    this.speechSynthesis = window.speechSynthesis;
     const x = new SpeechSynthesisUtterance(text + ' ');
     x.lang = this.parametersService.currentVoice;
-    synth.speak(x);
+    this.speechSynthesis.resume();
+    this.speechSynthesis.speak(x);
   }
 
 }

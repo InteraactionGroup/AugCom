@@ -1,7 +1,6 @@
 .keyboard {
   height: calc(100vh - 3.5cm);
   width: 100%;
-
   -webkit-user-select: none !important;
   -moz-user-select: none !important;
   -ms-user-select: none !important;
@@ -103,13 +102,12 @@
   display: grid;
   height: 100%;
   width: 100%;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   visibility: visible;
-
-
 }
 
 .keyboard .wrapper .elementContainer {
@@ -119,8 +117,6 @@
   min-height: 1cm;
   min-width: 1cm;
   visibility: hidden;
-
-
 }
 
 
@@ -161,12 +157,10 @@
   background-color: indianred;
   border-radius: 50%;
   visibility: visible;
-
   border-style: solid;
   border-color: darkred;
   border-width: 2px;
   box-sizing: border-box;
-
 }
 
 
@@ -186,7 +180,6 @@
   background-color: lightgrey;
   border-radius: 50%;
   visibility: visible;
-
   border-style: solid;
   border-color: dimgrey;
   border-width: 2px;
@@ -227,7 +220,6 @@
   border-width: 3px;
   box-sizing: border-box;
   overflow: hidden;
-
 }
 
 .keyboard .wrapper .elementContainer .element .image {

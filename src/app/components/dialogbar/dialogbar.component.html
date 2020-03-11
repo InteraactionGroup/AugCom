@@ -1,8 +1,9 @@
 <div class="dialogbar">
 
-  <div class="textBar">
+  <div class="textBar" [ngStyle]=" {'flex-flow': this.historicService.isHistoricLengthMoreThan10() ?'row-reverse nowrap':'nowrap'}">
 
-    <div class="elementContainer" *ngFor="let element of this.historicService.lastNHistoricElements">
+    <div class="elementContainer"
+         *ngFor="let element of this.historicService.getHistoricToDisplay()">
 
       <div class="element" (click)="this.historicService.say('' + element.VignetteLabel);"
            [style.background-color]="element.VignetteColor">
@@ -11,9 +12,10 @@
 
         </div>
 
-        <div class="label">
-          {{element.VignetteLabel}}
-        </div>
+        <svg viewBox="0 0 30 20">
+          <text x="50%" y="50%" dominant-baseline="middle"
+                text-anchor="middle">{{element.VignetteLabel}}</text>
+        </svg>
 
       </div>
 

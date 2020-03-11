@@ -147,7 +147,8 @@ export class KeyboardComponent implements OnInit {
   getNormalTempList() {
     return this.boardService.board.ElementList.filter(elt => {
       return this.boardService.currentFolder === elt.ElementFolder;
-    }).slice(0, this.boardService.sliderValueRow * this.boardService.sliderValueCol + (this.boardService.currentFolder !== '.' ? -1 : 0));
+    });
+    // .slice(0, this.boardService.sliderValueRow * this.boardService.sliderValueCol + (this.boardService.currentFolder !== '.' ? -1 : 0));
   }
 
   // /**
