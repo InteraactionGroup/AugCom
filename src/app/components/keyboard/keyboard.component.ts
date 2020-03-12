@@ -26,7 +26,11 @@ export class KeyboardComponent implements OnInit {
    */
   pressTimer;
   dblClickTimer;
-  clickedElement: Element = null;
+
+  /**
+   * element currently pressed
+   */
+  pressedElement: Element = null;
   down = 0;
 
   /**
@@ -219,10 +223,10 @@ export class KeyboardComponent implements OnInit {
     this.release[num] = true;
     if (!this.userToolBarService.edit && this.release[num] && !this.release[(num + 1) % 2]) {
       if (this.down === 0) {
-        this.clickedElement = element;
+        this.pressedElement = element;
       } else {
         window.clearTimeout(this.dblClickTimer);
-        if (this.clickedElement !== element && this.clickedElement != null) {
+        if (this.pressedElement !== element && this.pressedElement != null) {
           this.action(element, 'click');
         }
       }
@@ -246,21 +250,21 @@ export class KeyboardComponent implements OnInit {
       window.clearTimeout(this.pressTimer);
       window.clearTimeout(this.dblClickTimer);
       if (this.down === 1) {
-        if (this.clickedElement === element) {
+        if (this.pressedElement === element) {
           this.setClickTimer(element);
         } else {
           this.down = 0;
-          this.clickedElement = null;
+          this.pressedElement = null;
         }
 
       } else if (this.down > 1) {
-        if (this.clickedElement === element) {
+        if (this.pressedElement === element) {
           this.action(element, 'doubleClick');
-          this.clickedElement = null;
+          this.pressedElement = null;
           this.down = 0;
-        } else if (this.clickedElement != null) {
+        } else if (this.pressedElement != null) {
           this.down = 1;
-          this.clickedElement = element;
+          this.pressedElement = element;
           this.setClickTimer(element);
         }
       }
@@ -270,7 +274,7 @@ export class KeyboardComponent implements OnInit {
   setClickTimer(element) {
     this.dblClickTimer = window.setTimeout(() => {
       this.action(element, 'click');
-      this.clickedElement = null;
+      this.pressedElement = null;
       this.down = 0;
     }, this.parametersService.doubleClickTimeOut);
   }
@@ -278,7 +282,7 @@ export class KeyboardComponent implements OnInit {
   setLongPressTimer(element) {
     this.pressTimer = window.setTimeout(() => {
       this.action(element, 'longPress');
-      this.clickedElement = null;
+      this.pressedElement = null;
       this.down = 0;
     }, this.parametersService.longpressTimeOut);
   }
@@ -447,7 +451,7 @@ export class KeyboardComponent implements OnInit {
           VignetteImageUrl: imgUrl,
           VignetteColor: color
         };
-        let otherformsdisplayed = false;
+        let otherFormsDisplayed = false;
 
         // Depend on the interaction
         element.InteractionsList.forEach(inter => {
@@ -460,13 +464,13 @@ export class KeyboardComponent implements OnInit {
               } else if (action.ActionID === 'say') {
                 this.historicService.say('' + prononcedText);
               } else if (action.ActionID === 'otherforms' && element.ElementForms.length > 2) {
-                otherformsdisplayed = true;
+                otherFormsDisplayed = true;
                 this.boardService.activatedElement = this.getNormalTempList().indexOf(element);
                 this.activatedElementTempList();
-                this.clickedElement = null;
+                this.pressedElement = null;
               }
             });
-          } else if (!otherformsdisplayed && inter.InteractionID === 'backFromVariant') {
+          } else if (!otherFormsDisplayed && inter.InteractionID === 'backFromVariant') {
             this.boardService.activatedElement = -1;
           }
         });
@@ -505,11 +509,13 @@ export class KeyboardComponent implements OnInit {
    */
   edit(element: Element) {
     if (this.userToolBarService.edit) {
-      this.router.navigate(['/edit']);
-      this.editionService.selectedElements = [];
-      this.editionService.selectedElements.push(element);
-      this.editionService.ElementListener.next(element);
-      this.editionService.add = false;
+      this.router.navigate(['/edit']).then(() => {
+          this.editionService.selectedElements = [];
+          this.editionService.selectedElements.push(element);
+          this.editionService.ElementListener.next(element);
+          this.editionService.add = false;
+        }
+      );
     }
   }
 
@@ -536,6 +542,11 @@ export class KeyboardComponent implements OnInit {
     }
   }
 
+  /**
+   * compute the right opacity value for a given element
+   * @return a string corresponding to the opacity value of the element
+   * @param element, the element we compute the opacity
+   */
   getOpacity(element: Element) {
     const visible: boolean = this.isVisible(element);
     return !this.userToolBarService.babble ?
@@ -543,23 +554,36 @@ export class KeyboardComponent implements OnInit {
       (visible ? '1' : this.userToolBarService.edit ? '0.3' : '0');
   }
 
+  /**
+   * compute the right cursor value for a given element
+   * @return a string corresponding to the cursor value for the element
+   * @param element, the element we compute the cursor used when hover it
+   */
   getCursor(element: Element) {
     const visible: boolean = this.isVisible(element);
-    return !this.userToolBarService.babble ?
-      'pointer' :
+    return !this.userToolBarService.babble ? 'pointer' :
       (visible ? 'pointer' : this.userToolBarService.edit ? 'pointer' : 'default');
   }
 
+  /**
+   * if we are in edit mode
+   * open th edition panel in order to edit the selected elements
+   */
   editAll() {
     if (this.userToolBarService.edit && this.editionService.selectedElements.length === 1) {
       this.edit(this.editionService.selectedElements[0]);
     } else if (this.userToolBarService.edit && this.editionService.selectedElements.length > 1) {
-      this.router.navigate(['/edit']);
-      this.editionService.add = false;
+      this.router.navigate(['/edit']).then(() => this.editionService.add = false );
     } else {
+      // do nothing
     }
   }
 
+  /**
+   * if we are in edit mode
+   * set the information of the element we want to modify with the current 'element' informations
+   * open the edition panel to modify the information of element 'element'
+   */
   deleteAll() {
     if (this.userToolBarService.edit) {
       this.editionService.selectedElements.forEach(elt => {

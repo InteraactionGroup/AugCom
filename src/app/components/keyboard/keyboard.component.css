@@ -8,7 +8,7 @@
 
 }
 
-.settings {
+.editionSettings {
   height: 1cm;
   width: 100%;
   background-color: grey;
@@ -17,7 +17,7 @@
 }
 
 
-.settings .edit {
+.editionSettings .selectCheckBox {
   float: left;
   height: 0.8cm;
   width: 0.8cm;
@@ -29,7 +29,7 @@
   border-radius: 25%;
 }
 
-.settings .edit .image {
+.editionSettings .selectCheckBox .image {
   width: 80%;
   height: 80%;
   margin-left: 10%;
@@ -39,7 +39,7 @@
   background-position: center;
 }
 
-.settings .editSettings {
+.editionSettings .editSettingsButton {
   float: left;
   width: 20%;
   margin-left: 10px;
@@ -48,15 +48,15 @@
   background-color: lightgrey;
 }
 
-.settings .editSettings:hover {
+.editionSettings .editSettingsButton:hover {
   background-color: dimgrey;
 }
 
-.settings .editSettings input {
+.editionSettings .editSettingsButton input {
   visibility: hidden;
 }
 
-.settings .editSettings .editButton {
+.editionSettings .editSettingsButton .editButtonLabel {
   transform: translateY(45%);
   text-align: center;
   float: left;
@@ -64,7 +64,7 @@
   height: 50%;
 }
 
-.settings .editSettings .editImg {
+.editionSettings .editSettingsButton .editButtonImg {
   transform: translateY(50%);
   float: left;
   width: 20%;
@@ -74,7 +74,7 @@
   background-position: center;
 }
 
-.settings .gridSettings {
+.editionSettings .gridSettings {
   float: right;
   width: 20%;
   height: 100%;
@@ -82,7 +82,7 @@
   padding: 0 0 0 0;
 }
 
-.settings .gridSettings .inputSize {
+.editionSettings .gridSettings .inputSize {
   text-align: center;
   float: left;
   width: 40%;
@@ -91,7 +91,7 @@
   padding: 0 0 0 0;
 }
 
-.settings .gridSettings .x {
+.editionSettings .gridSettings .x {
   float: left;
   margin: 0 0 0 0;
   margin-top: 5px;
@@ -118,7 +118,7 @@
 }
 
 
-.keyboard .wrapper .elementContainer .edit {
+.keyboard .wrapper .elementContainer .selectCheckBox {
   position: relative;
   float: right;
   height: 30px;
@@ -133,7 +133,7 @@
   visibility: visible;
 }
 
-.keyboard .wrapper .elementContainer .edit .image {
+.keyboard .wrapper .elementContainer .selectCheckBox .image {
   width: 80%;
   height: 80%;
   margin-left: 10%;
@@ -144,7 +144,7 @@
   visibility: visible;
 }
 
-.keyboard .wrapper .elementContainer .suppr {
+.keyboard .wrapper .elementContainer .deleteElement {
   cursor: pointer;
   position: relative;
   float: left;
@@ -162,12 +162,12 @@
 }
 
 
-.keyboard .wrapper .elementContainer .suppr:hover {
+.keyboard .wrapper .elementContainer .deleteElement:hover {
   background-color: darkred;
 }
 
 
-.keyboard .wrapper .elementContainer .opacity {
+.keyboard .wrapper .elementContainer .elementVisibility {
   cursor: pointer;
   position: relative;
   float: bottom;
@@ -185,11 +185,11 @@
 }
 
 
-.keyboard .wrapper .elementContainer .opacity:hover {
+.keyboard .wrapper .elementContainer .elementVisibility:hover {
   background-color: grey;
 }
 
-.keyboard .wrapper .elementContainer .suppr .image, .keyboard .wrapper .elementContainer .opacity .image {
+.keyboard .wrapper .elementContainer .deleteElement .image, .keyboard .wrapper .elementContainer .elementVisibility .image {
   width: 70%;
   height: 70%;
   margin-left: 15%;

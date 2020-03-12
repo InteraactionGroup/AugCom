@@ -1,38 +1,45 @@
 <app-snap-bar></app-snap-bar>
 <app-usertoolbar></app-usertoolbar>
 <app-dialogbar></app-dialogbar>
-<!--<div class="slidecontainer" *ngIf="this.userToolBarService.edit">-->
-<!--  <input  [(ngModel)]="this.boardService.sliderValueCol" class="slider" min="2" max="10" type="range" (change)="updateSliderValue()">-->
-<!--</div>-->
-<div class="settings" *ngIf="this.userToolBarService.edit">
-  <div class="edit" (click)="this.selectAll()">
+
+<!-- edit settings toolbar displayed on top on keyboard when on edition mode -->
+<div class="editionSettings" *ngIf="this.userToolBarService.edit">
+
+  <!-- checkbox used to select all the elements in edition mode -->
+  <div class="selectCheckBox" (click)="this.selectAll()">
     <div class="image" [style.background-image]="this.editionService.selectAll?this.getIcon('check'):null">
 
     </div>
   </div>
-  <div class="editSettings" (click)=this.editAll()>
-    <div class="editButton"> edit selected</div>
-    <div class="editImg" [style.background-image]="this.getIcon('edit')">
+
+  <!-- button used to edit all the selected elements-->
+  <div class="editSettingsButton" (click)=this.editAll()>
+    <div class="editButtonLabel"> edit selected</div>
+    <div class="editButtonImg" [style.background-image]="this.getIcon('edit')">
     </div>
   </div>
 
-  <div class="editSettings" (click)=this.deleteAll()>
-    <div class="editButton"> delete selected</div>
-    <div class="editImg" [style.background-image]="this.getIcon('delete')">
+  <!-- button used to delete all the selected elements -->
+  <div class="editSettingsButton" (click)=this.deleteAll()>
+    <div class="editButtonLabel"> delete selected</div>
+    <div class="editButtonImg" [style.background-image]="this.getIcon('delete')">
     </div>
   </div>
 
-  <div class="editSettings">
+  <!-- button used in order to change the background of the keyboard-->
+  <!-- note: if we does not use this function for visual scene display we will have to move
+        this function have to be moved in the setting of augCom -->
+  <div class="editSettingsButton">
     <label for="editBckButton">
-      <div class="editButton"> change background</div>
-      <div class="editImg" [style.background-image]="this.getIcon('edit')">
+      <div class="editButtonLabel"> change background</div>
+      <div class="editButtonImg" [style.background-image]="this.getIcon('edit')">
       </div>
     </label>
     <input #file type="file" accept='image/*' id='editBckButton'
            (change)="this.boardService.updateBackground( file.files )">
   </div>
 
-
+  <!-- input fields for column and row size, have to be changed with a button number incrementer -->
   <div class="gridSettings">
     <input class="inputSize" type="text" [(ngModel)]="this.boardService.sliderValueCol">
     <div class="x">
@@ -41,18 +48,26 @@
     <input class="inputSize" type="text" [(ngModel)]="this.boardService.sliderValueRow">
   </div>
 </div>
+
+<!-- the keyboard containing the element wrapper -->
 <div class="keyboard" [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100vh - 4.5cm)':'calc(100vh - 3.5cm)'}">
 
-  <div class="wrapper" [ngStyle]="{'grid-template-columns': 'repeat('+(this.boardService.sliderValueCol)+', '+(100/(this.boardService.sliderValueCol))+'%)',
-  'grid-template-rows': 'repeat(100, '+(100/(this.boardService.sliderValueRow))+'%)',
-  'background-image' : this.boardService.background }"
+  <!-- the wrapper displayed with elements containing pictogram and corresponding text -->
+  <div class="wrapper"
+       [ngStyle]="{
+          'grid-template-columns': 'repeat('+(this.boardService.sliderValueCol)+', '+(100/(this.boardService.sliderValueCol))+'%)',
+          'grid-template-rows': 'repeat(100, '+(100/(this.boardService.sliderValueRow))+'%)',
+          'background-image' : this.boardService.background
+        }"
        [dragula]="this.userToolBarService.edit ? 'VAMPIRE' :null">
 
-    <ng-container class="test" *ngFor="let element of this.getTempList()">
+    <!-- iterate among the list of element of the currentFolder -->
+    <ng-container *ngFor="let element of this.getTempList()">
 
+      <!-- display elementContainers with element having non empty type-->
       <div id="{{element.ElementID}}" class="elementContainer" *ngIf="element.ElementType!=='empty'">
 
-
+        <!-- an element composed of a pictogram and a corresponding text-->
         <div class="element" [class.notsearched]="!isSearched(element)"
              [class.searched]="this.searchService.searchedPath.includes(element)"
              [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)"
@@ -63,10 +78,7 @@
           'opacity': this.getOpacity(element),
           'cursor': this.getCursor(element)}">
 
-
-          <div class="image" [style.background-image]="this.boardService.getImgUrl(element)">
-
-          </div>
+          <div class="image" [style.background-image]="this.boardService.getImgUrl(element)"></div>
 
           <svg viewBox="0 0 30 20">
             <text x="50%" y="50%" dominant-baseline="middle"
@@ -75,20 +87,23 @@
 
         </div>
 
-        <div class="suppr" *ngIf="this.userToolBarService.edit" (click)="this.delete(element)">
+        <!-- in edit mode this button is used to delete the associated element -->
+        <div class="deleteElement" *ngIf="this.userToolBarService.edit" (click)="this.delete(element)">
           <div class="image" [style.background-image]="this.getIcon('delete')">
 
           </div>
         </div>
 
-        <div class="edit" *ngIf="this.userToolBarService.edit" (click)="this.select(element)">
+        <!-- in edit mode this button is used to select the associated element -->
+        <div class="selectCheckBox" *ngIf="this.userToolBarService.edit" (click)="this.select(element)">
           <div class="image"
                [style.background-image]="this.editionService.isSelected(element)?this.getIcon('check'):null">
 
           </div>
         </div>
 
-        <div class="opacity" *ngIf="this.userToolBarService.edit" (click)="this.changeVisibility(element)">
+        <!-- in edit mode this button is used to change the visibility of the associated element for 'babble' function-->
+        <div class="elementVisibility" *ngIf="this.userToolBarService.edit" (click)="this.changeVisibility(element)">
           <div class="image"
                [style.background-image]="this.isVisible(element) ? this.getIcon('hide') : this.getIcon('show')">
 
@@ -96,36 +111,46 @@
         </div>
 
       </div>
+
     </ng-container>
+
+    <!-- ng container checking if back button have to be displayed -->
     <ng-container *ngIf="this.boardService.currentFolder !== '.' && this.boardService.activatedElement==-1">
+
+      <!-- container for the back button element -->
       <div class="elementContainer no-drag">
 
+        <!-- back button element-->
         <div class="element" (click)="this.boardService.backToPreviousFolder()" [ngStyle]="{'background-color': 'red'}">
-          <!-- need to change élément by the label-->
 
-          <div class="image" [style.background-image]="this.getIcon('retour')">
-
-          </div>
+          <div class="image" [style.background-image]="this.getIcon('retour')"></div>
 
           <svg viewBox="0 0 30 20">
             <text x="50%" y="50%" dominant-baseline="middle"
-                  text-anchor="middle">retour</text>
+                  text-anchor="middle">retour
+            </text>
           </svg>
 
         </div>
 
       </div>
+
     </ng-container>
 
+
+    <!-- ng container checking if the add button have to be displayed -->
     <ng-container *ngIf="this.userToolBarService.edit">
 
+      <!-- nav link to the edit route-->
       <nav class="no-drag">
         <a routerLink="/edit" class="no-drag">
 
+          <!-- elementCountainer for the add button element-->
           <div class="elementContainer no-drag add">
 
+            <!-- add button element -->
             <div class="element" (click)="this.editionService.add = true "
-                 [ngStyle]="{'background-color': 'rgb(125,125,125)'}"> <!-- need to change élément by the label-->
+                 [ngStyle]="{'background-color': 'rgb(125,125,125)'}">
 
               <div class="image" [style.background-image]="this.getIcon('add')">
 
@@ -133,14 +158,18 @@
 
               <svg viewBox="0 0 30 20">
                 <text x="50%" y="50%" dominant-baseline="middle"
-                      text-anchor="middle">ajouter</text>
+                      text-anchor="middle">ajouter
+                </text>
               </svg>
 
             </div>
 
           </div>
+
         </a>
+
       </nav>
+
     </ng-container>
 
   </div>
