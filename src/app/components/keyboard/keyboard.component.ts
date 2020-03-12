@@ -38,7 +38,7 @@ export class KeyboardComponent implements OnInit {
    */
   fakeElementTempList = [];
 
-  subs = new Subscription();
+  dragulaSubscription = new Subscription();
 
   press = [false, false];
   release = [false, false];
@@ -46,7 +46,7 @@ export class KeyboardComponent implements OnInit {
   // tslint:disable-next-line:max-line-length
   constructor(public searchService: SearchService, private paletteService: PaletteService, private dragulaService: DragulaService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) {
 
-    this.subs.add(this.dragulaService.drop('VAMPIRE')
+    this.dragulaSubscription.add(this.dragulaService.drop('VAMPIRE')
       .subscribe(({el, target, source, sibling}) => {
         const temp = this.boardService.board.ElementList;
 
@@ -77,10 +77,20 @@ export class KeyboardComponent implements OnInit {
     this.initDragAndDrop();
   }
 
-  isNotSearched(element: Element) {
-    return (this.searchService.searchedPath.length > 0) && (!this.searchService.searchedPath.includes(element));
+  /**
+   * Return true if the element is part of the search result
+   *
+   * @param  element, the element to test
+   * @return  true or false, depending if the element corresponds to the search result
+   */
+  isSearched(element: Element) {
+    return ! ((this.searchService.searchedPath.length > 0) && (!this.searchService.searchedPath.includes(element)));
   }
 
+  /**
+   * Init the dragula Drag n Drop part
+   *
+   */
   initDragAndDrop() {
     if (!this.parametersService.dragNDropinit) {
       this.dragulaService.createGroup('VAMPIRE', {
@@ -99,25 +109,35 @@ export class KeyboardComponent implements OnInit {
     }
   }
 
+  /**
+   * used in edition mode in order to select all elements to edit
+   *
+   */
   selectAll() {
     this.editionService.selectAllElementsOf(this.boardService.board.ElementList);
   }
 
+  /**
+   * open the popup for the future element deletion
+   *
+   * @param  element, the element to delete
+   */
   delete(element: Element) {
     this.userToolBarService.popup = true;
     this.editionService.delete(element);
   }
-
+  /**
+   * used in edition mode in order to select a specific element
+   *
+   * @param  element, the element to select
+   */
   select(element: Element) {
     this.editionService.select(element);
   }
 
-  getMaxRepeat(): number {
-    return  this.boardService.board.ElementList.length / this.boardService.sliderValueCol + 1;
-  }
-
   /**
-   * return the normal list of elements that have to be displayed on the board if no element displayed its variant forms
+   * Tricks implementation:
+   * return the normal list of elements that have to be displayed on the board if no element is currently displaying its variant forms
    * otherwise return the 'fakeElementTempList' of the element that is displaying its variant forms
    * @return a list of element
    */
@@ -129,6 +149,12 @@ export class KeyboardComponent implements OnInit {
     }
   }
 
+  /**
+   * Return the string corresponding to the value of a box-shadow css effect, used for create folder design effect
+   *
+   * @param  element, the element for which the shadow is beeing returned
+   * @return  the string corresponding to the box-shadow effect
+   */
   getShadow(element: Element) {
 
     let s = (element.ElementType === 'folder' ? '3px ' : '0px ') +
@@ -145,8 +171,9 @@ export class KeyboardComponent implements OnInit {
   }
 
   /**
-   * return the part of elements that can fit in the board depending on the current rows and columns values
-   * @return a list of elements
+   * return the element of the currentFolder, the commented part is returning the part of elements that can fit in the board
+   * depending on the current rows and columns values
+   * @return a list of elements to display in the keyboard
    */
   getNormalTempList() {
     return this.boardService.board.ElementList.filter(elt => {
@@ -155,14 +182,6 @@ export class KeyboardComponent implements OnInit {
     // .slice(0, this.boardService.sliderValueRow * this.boardService.sliderValueCol + (this.boardService.currentFolder !== '.' ? -1 : 0));
   }
 
-  // /**
-  //  * update the grid cols and rows number depending on the values updated by the slider html
-  //  */
-  // updateSliderValue() {
-  //   this.boardService.board.gridColsNumber = this.boardService.sliderValueCol;
-  //   this.boardService.board.gridRowsNumber = this.boardService.sliderValueRow;
-  // }
-
   /**
    * update the current person and number information for verb terminations
    * @param elementForm, an list of element forms
@@ -170,7 +189,6 @@ export class KeyboardComponent implements OnInit {
   changePronomInfo(elementForm: ElementForm) {
     const person = elementForm.LexicInfos.find(info => info.person != null && info.person !== undefined);
     this.boardService.currentVerbTerminaison.currentPerson = (person != null && person !== undefined) ? person.person : 'thirdPerson';
-
 
     const num = elementForm.LexicInfos.find(info => info.number != null && info.number !== undefined);
     this.boardService.currentVerbTerminaison.currentNumber = (num != null && num !== undefined) ? num.number : '';
@@ -316,7 +334,7 @@ export class KeyboardComponent implements OnInit {
     this.getNormalTempList().forEach(e => tempOtherFOrmList.push(this.copy(e)));
     const index = this.boardService.activatedElement;
     const max: number = Number(Number(index) + Number(this.boardService.sliderValueCol) + 1 - Number(tempOtherFOrmList.length) + 1);
-    for (let newElementIndex = 0; newElementIndex < max; newElementIndex = newElementIndex + 1) { // fill with empy elements
+    for (let newElementIndex = 0; newElementIndex < max; newElementIndex = newElementIndex + 1) { // fill with empty elements
       tempOtherFOrmList.push({
         ElementID: '',
         ElementFolder: this.boardService.currentFolder,
@@ -380,7 +398,6 @@ export class KeyboardComponent implements OnInit {
     const index = Number(ind);
     const slider: number = Number(this.boardService.sliderValueCol);
     const places = [];
-
 
     if (Math.trunc((index - 1) / slider) === Math.trunc(index / slider)) { // gauche
       places.push(index - 1);
@@ -496,6 +513,10 @@ export class KeyboardComponent implements OnInit {
     }
   }
 
+  /**
+   * check if the current element is visible on the board
+   * @param element, the element to check
+   */
   isVisible(element: Element) {
     if (element.Visible === undefined) {
       element.Visible = true;
@@ -503,23 +524,27 @@ export class KeyboardComponent implements OnInit {
     return element.Visible;
   }
 
-  changeOpacity(element: Element) {
+  /**
+   * change the current element visibility
+   * @param element, the element to change the visibility
+   */
+  changeVisibility(element: Element) {
     if (element.Visible === undefined) {
-      element.Visible = true;
+      element.Visible = false;
+    } else {
+      element.Visible = !element.Visible;
     }
-
-    element.Visible = !element.Visible;
   }
 
   getOpacity(element: Element) {
-    const visible = this.isVisible(element);
+    const visible: boolean = this.isVisible(element);
     return !this.userToolBarService.babble ?
       (this.userToolBarService.edit && !visible ? '0.5' : '1') :
       (visible ? '1' : this.userToolBarService.edit ? '0.3' : '0');
   }
 
   getCursor(element: Element) {
-    const visible = this.isVisible(element);
+    const visible: boolean = this.isVisible(element);
     return !this.userToolBarService.babble ?
       'pointer' :
       (visible ? 'pointer' : this.userToolBarService.edit ? 'pointer' : 'default');

@@ -53,7 +53,7 @@
       <div id="{{element.ElementID}}" class="elementContainer" *ngIf="element.ElementType!=='empty'">
 
 
-        <div class="element" [class.notsearched]="isNotSearched(element)"
+        <div class="element" [class.notsearched]="!isSearched(element)"
              [class.searched]="this.searchService.searchedPath.includes(element)"
              [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)"
              (touchstart)="this.pointerDown(element,0)" (touchend)="this.pointerUp(element,0)"
@@ -88,7 +88,7 @@
           </div>
         </div>
 
-        <div class="opacity" *ngIf="this.userToolBarService.edit" (click)="this.changeOpacity(element)">
+        <div class="opacity" *ngIf="this.userToolBarService.edit" (click)="this.changeVisibility(element)">
           <div class="image"
                [style.background-image]="this.isVisible(element) ? this.getIcon('hide') : this.getIcon('show')">
 

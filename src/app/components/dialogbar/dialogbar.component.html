@@ -1,10 +1,15 @@
-<div class="dialogbar">
+<!-- the bar containing the sentence entered by the user and the play back and clear buttons -->
+<div class="dialogBar">
 
+  <!-- the textBar containing the sentence entered by the user -->
+    <!-- *** note: the row-reverse trick is used in order to display last elements of the textBar on the right *** -->
   <div class="textBar" [ngStyle]=" {'flex-flow': this.historicService.isHistoricLengthMoreThan10() ?'row-reverse nowrap':'nowrap'}">
 
+    <!-- each elementContainer contains an element composed with one pictogram and the corresponding text -->
     <div class="elementContainer"
          *ngFor="let element of this.historicService.getHistoricToDisplay()">
 
+      <!-- the element containing a pictogram and its text -->
       <div class="element" (click)="this.historicService.say('' + element.VignetteLabel);"
            [style.background-color]="element.VignetteColor">
 
@@ -23,20 +28,25 @@
 
   </div>
 
+<!-- the button used to play the sound of the sentence entered by the user -->
   <div class="button">
-    <div class="image" [ngStyle]="{'background-image':this.getIcon('clear')}" (click)="this.clear()">
+    <div class="image" [ngStyle]="{'background-image':this.getIcon('play')}"
+         (click)="this.historicService.playHistoric()">
 
     </div>
   </div>
+
+<!-- the button used in order to remove the last element entered by the user -->
   <div class="button">
     <div class="image" [ngStyle]="{'background-image':this.getIcon('back')}"
          (click)="this.historicService.backHistoric()">
 
     </div>
   </div>
+
+<!-- the button used to clear the whole sentence entered by the user -->
   <div class="button">
-    <div class="image" [ngStyle]="{'background-image':this.getIcon('play')}"
-         (click)="this.historicService.playHistoric()">
+    <div class="image" [ngStyle]="{'background-image':this.getIcon('clear')}" (click)="this.clear()">
 
     </div>
   </div>
