@@ -37,6 +37,20 @@ export class Element {
   Color: string; // to delete later
   BorderColor: string; // to delete later
   Visible: boolean;
+
+  constructor(elementId, elementFolder, elementType, elementPartOfSpeech, elementsForms,
+              imageID, interactionList, color, borderColor, visible) {
+    this.ElementID = elementId;
+    this.ElementFolder = elementFolder;
+    this.ElementType = elementType;
+    this.ElementPartOfSpeech = elementPartOfSpeech;
+    this.ElementForms = elementsForms;
+    this.ImageID = imageID;
+    this.InteractionsList = interactionList;
+    this.Color = color;
+    this.BorderColor = borderColor;
+    this.Visible = visible;
+  }
 }
 
 /**

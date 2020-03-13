@@ -26,36 +26,39 @@ export class PopupComponent implements OnInit {
   }
 
   /**
-   * delete the elementCondamne, update the database and close the popup panel
+   * delete the sentencedTodDeleteElement, update the database and close the popup panel
    */
   yes() {
     this.boardService.executer();
     this.editionService.selectedElements = [];
-    this.editionService.elementCondamne = [];
+    this.editionService.sentencedTodDeleteElement = [];
     this.indexedDBacess.update();
     this.closePopup();
   }
 
   /**
-   * cancel the deletion of the elementCondamne and close the popu panel
+   * cancel the deletion of the sentencedTodDeleteElement and close the popup panel
    */
   no() {
     this.editionService.selectedElements = [];
-    this.editionService.elementCondamne = [];
+    this.editionService.sentencedTodDeleteElement = [];
     this.closePopup();
   }
 
   /**
-   * clsoe the popup panel by setting popup to false
+   * close the popup panel by setting popup to false
    */
   closePopup() {
     this.userToolBarService.popup = false;
   }
 
-  getText() {
-    if (this.editionService.elementCondamne.length === 1) {
-      return 'l\'élément: "' + this.editionService.elementCondamne[0].ElementForms[0].DisplayedText + '".\n';
-    } else if (this.editionService.elementCondamne.length >= 1) {
+  /**
+   * @return the string value to display for the sentencedToDeleteElements
+   */
+  getSentencedToDeleteElementStringValue() {
+    if (this.editionService.sentencedTodDeleteElement.length === 1) {
+      return 'l\'élément: "' + this.boardService.getDefaultLabel(this.editionService.sentencedTodDeleteElement[0]) + '".\n';
+    } else if (this.editionService.sentencedTodDeleteElement.length >= 1) {
       return 'plusieurs éléments. \n';
     }
   }

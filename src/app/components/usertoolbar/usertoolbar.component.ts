@@ -19,7 +19,7 @@ export class UsertoolbarComponent implements OnInit {
 
   }
 
-  searchText = 'test';
+  searchText = '';
 
   ngOnInit() {
   }

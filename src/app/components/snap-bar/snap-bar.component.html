@@ -1,6 +1,10 @@
+<!-- a snapBar used to display some quick messages -->
 <div [class.snapBar]="true" [class.snapBarDisplayed]="this.snapBarService.displayed"
      [class.snapBarHidden]="!this.snapBarService.displayed">
+
+  <!-- the snap message to display-->
   <div class='snap'>
     {{this.snapBarService.message}}
   </div>
+
 </div>

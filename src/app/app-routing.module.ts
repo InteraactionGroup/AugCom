@@ -6,6 +6,7 @@ import {EditionComponent} from './components/edition/edition.component';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SettingsComponent} from './components/settings/settings.component';
+import {AccountComponent} from './components/account/account.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'share', component: ShareComponent, data: {animation: 'x'}},
   {path: 'edit', component: EditionComponent, data: {animation: 'x'}},
   {path: 'settings', component: SettingsComponent, data: {animation: 'x'}},
+  {path: 'account', component: AccountComponent, data: {animation: 'x'}},
   {path: '', redirectTo: '/keyboard', pathMatch: 'full', data: {animation: 'empty'}}
 ];
 

@@ -19,7 +19,7 @@ export class EditionService {
 
   selectAll = false;
 
-  elementCondamne: Element[] = [];
+  sentencedTodDeleteElement: Element[] = [];
 
   constructor() {
   }
@@ -52,6 +52,6 @@ export class EditionService {
   }
 
   delete(element: Element) {
-    this.elementCondamne.push(element);
+    this.sentencedTodDeleteElement.push(element);
   }
 }

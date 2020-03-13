@@ -8,7 +8,7 @@
 
 }
 
-.popup .popupcontainer {
+.popup .popupContainer {
   height: 96%;
   width: 96%;
   margin-left: 2%;
@@ -16,7 +16,7 @@
   background-color: grey;
 }
 
-.popup .popupcontainer .question {
+.popup .popupContainer .popupQuestion {
   text-align: center;
   width: 70%;
   height: 20%;
@@ -24,14 +24,14 @@
   transform: translateY(100%);
 }
 
-.popup .popupcontainer .buttons {
+.popup .popupContainer .popupButtons {
   width: 70%;
   height: 30%;
   margin-left: 15%;
   transform: translateY(100%);
 }
 
-.popup .popupcontainer .buttons .choiceButton {
+.popup .popupContainer .popupButtons .popupChoiceButton {
   text-align: center;
   float: left;
   width: 30%;

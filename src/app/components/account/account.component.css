@@ -1,0 +1,95 @@
+.menu {
+  margin-bottom: 15px;
+  width: 20%;
+  list-style: none;
+  background-color: #fff;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
+}
+
+.menu-heading {
+  display: block;
+  padding: 8px 10px;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 20px;
+  color: lightgrey;
+  background-color: black;
+  border-bottom: 1px solid #e1e4e8;
+}
+
+.menu-item {
+  position: relative;
+  display: block;
+  padding: 8px 10px;
+  border-bottom: 1px solid #e1e4e8;
+  color: dimgrey;
+  background-color: lightgrey;
+}
+
+.menu-item.selected {
+  font-weight: 600;
+  color: black;
+  cursor: default;
+  background-color: dimgrey;
+}
+
+.menu-item.selected:before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  content: "";
+  background-color: black;
+}
+
+.sub-menu-item{
+  position: relative;
+  display: block;
+  padding: 8px 10px;
+  border-bottom: 1px solid #e1e4e8;
+  margin-left: 8px;
+  font-weight: 600;
+  color: lightgrey;
+  cursor: default;
+  background-color: darkgrey;
+  height: 25px;
+  transition-property: padding, height, border-bottom-width , font-weight , color;
+  transition: 0.2s ease-in-out, 0.1s step-end font-size;
+}
+
+.closed {
+  height: 0;
+  padding: 0 0;
+  border-bottom: 0;
+  font-weight: 100;
+  font-size: 0;
+  color: rgba(0,0,0,0);
+}
+
+.sub-menu-item.selected{
+  color: dimgrey;
+}
+
+.sub-menu-item:before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -8px;
+  width: 8px;
+  content: "";
+  background-color: lightgrey;
+}
+
+.sub-menu-item.selected:before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -8px;
+  width: 8px;
+  content: "";
+  background-color: dimgrey;
+}

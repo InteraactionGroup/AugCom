@@ -1,0 +1,13 @@
+<div class="menu">
+  <h3 class="menu-heading">
+    Paramètres du compte
+  </h3>
+
+  <ng-container *ngFor="let menus of menu">
+    <div class="menu-item" [class.selected]="selectedMenu===menus[0]" (click)="this.selectMenu(menus[0])" > {{menus[0]}}</div>
+      <ng-container *ngFor="let submenu of menus[1]">
+      <div class="sub-menu-item" [class.closed]="!(selectedMenu===menus[0])" [class.selected]="selectedSubMenu===submenu && selectedMenu===menus[0]" (click)="this.selectSubMenu(menus[0],submenu)"> {{submenu}} </div>
+      </ng-container>
+  </ng-container>
+
+</div>

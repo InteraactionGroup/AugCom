@@ -66,6 +66,15 @@ export class BoardService {
         return nounElement.DisplayedText;
       }
     }
+    return this.getDefaultLabel(element);
+  }
+
+  /**
+   * return the default label of an element
+   * @param element, an Element
+   * @return return the default label of the element
+   */
+  getDefaultLabel(element: Element) {
     const defaultElement = element.ElementForms.find(elt => this.checkDefault(elt));
     if (defaultElement != null) {
       return defaultElement.DisplayedText;
@@ -154,7 +163,7 @@ export class BoardService {
 
     this.board.ElementList = this.board.ElementList.filter(x => {
         let isChildrenOfCondamnedElt = false;
-        this.editionService.elementCondamne.forEach(condamnedElt => {
+        this.editionService.sentencedTodDeleteElement.forEach(condamnedElt => {
           isChildrenOfCondamnedElt = isChildrenOfCondamnedElt ||
             x.ElementFolder.startsWith(condamnedElt.ElementFolder + condamnedElt.ElementID);
         });
@@ -164,7 +173,7 @@ export class BoardService {
 
     this.board.ElementList = this.board.ElementList.filter(x => {
       let isCondamned = false;
-      this.editionService.elementCondamne.forEach(condamnedElt => {
+      this.editionService.sentencedTodDeleteElement.forEach(condamnedElt => {
         isCondamned = isCondamned || x === condamnedElt;
       });
       return !isCondamned;
@@ -177,7 +186,7 @@ export class BoardService {
       }
     });
     this.board.ImageList = imageTemp;
-    this.editionService.elementCondamne = [];
+    this.editionService.sentencedTodDeleteElement = [];
 
   }
 

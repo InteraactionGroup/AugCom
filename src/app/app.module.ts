@@ -17,6 +17,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {SettingsComponent} from './components/settings/settings.component';
 import {DragulaModule} from 'ng2-dragula';
 import {SnapBarComponent} from './components/snap-bar/snap-bar.component';
+import { AccountComponent } from './components/account/account.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {SnapBarComponent} from './components/snap-bar/snap-bar.component';
     ShareComponent,
     PopupComponent,
     SettingsComponent,
-    SnapBarComponent
+    SnapBarComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,

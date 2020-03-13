@@ -339,18 +339,17 @@ export class KeyboardComponent implements OnInit {
     const index = this.boardService.activatedElement;
     const max: number = Number(Number(index) + Number(this.boardService.sliderValueCol) + 1 - Number(tempOtherFOrmList.length) + 1);
     for (let newElementIndex = 0; newElementIndex < max; newElementIndex = newElementIndex + 1) { // fill with empty elements
-      tempOtherFOrmList.push({
-        ElementID: '',
-        ElementFolder: this.boardService.currentFolder,
-        ElementType: 'button',
-        ElementPartOfSpeech: '',
-        ElementForms: [],
-        ImageID: '',
-        InteractionsList: [],
-        Color: '#ffffff', // to delete later
-        BorderColor: '#ffffff', // to delete later
-        Visible: false
-      });
+      tempOtherFOrmList.push( new Element(
+        '',
+        this.boardService.currentFolder,
+        'button',
+        '',
+        [],
+        '',
+        [],
+        '#ffffff', // to delete later
+        '#ffffff', // to delete later
+        false));
     }
 
     let indexOfForm = 0;
