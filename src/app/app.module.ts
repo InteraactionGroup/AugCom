@@ -18,6 +18,7 @@ import {SettingsComponent} from './components/settings/settings.component';
 import {DragulaModule} from 'ng2-dragula';
 import {SnapBarComponent} from './components/snap-bar/snap-bar.component';
 import { AccountComponent } from './components/account/account.component';
+import { TestComponentComponent } from './components/test-component/test-component.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AccountComponent } from './components/account/account.component';
     PopupComponent,
     SettingsComponent,
     SnapBarComponent,
-    AccountComponent
+    AccountComponent,
+    TestComponentComponent
   ],
   imports: [
     BrowserModule,
