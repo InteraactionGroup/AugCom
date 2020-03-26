@@ -18,7 +18,7 @@ export class AccountComponent implements OnInit {
     ['Informations', ['Informationse1', 'Informationse2', 'Informationse3']]
   ];
 
-  selectedMenu = '';
+  selectedMenu = 'Compte';
   selectedSubMenu = '';
 
   ngOnInit() {
