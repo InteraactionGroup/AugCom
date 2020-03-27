@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GeticonService} from "../../services/geticon.service";
 
 @Component({
@@ -21,7 +21,8 @@ export class AccountComponent implements OnInit {
   selectedMenu = 'Compte';
   selectedSubMenu = '';
 
-  constructor(public getIconService: GeticonService) { }
+  constructor(public getIconService: GeticonService) {
+  }
 
   ngOnInit() {
   }
@@ -35,7 +36,7 @@ export class AccountComponent implements OnInit {
   }
 
   selectMenu(menu: string) {
-    if ( this.selectedMenu === menu ) {
+    if (this.selectedMenu === menu) {
       this.selectedMenu = '';
     } else {
       this.selectedMenu = menu;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ParametersService} from "../../services/parameters.service";
 
 @Component({
@@ -8,7 +8,8 @@ import {ParametersService} from "../../services/parameters.service";
 })
 export class LanguageSoundComponent implements OnInit {
 
-  constructor( public parametersService: ParametersService) { }
+  constructor(public parametersService: ParametersService) {
+  }
 
   ngOnInit() {
   }

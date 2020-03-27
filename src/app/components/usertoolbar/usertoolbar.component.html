@@ -2,11 +2,12 @@
 
   <nav>
     <a routerLink="/account">
-  <div class="button" id="accountButton" (click)="this.userToolBarService.account = !this.userToolBarService.account">
-    <div class="image" [ngStyle]="{'background-image':this.getIcon('account')}">
+      <div class="button" id="accountButton"
+           (click)="this.userToolBarService.account = !this.userToolBarService.account">
+        <div class="image" [ngStyle]="{'background-image':this.getIcon('account')}">
 
-    </div>
-  </div>
+        </div>
+      </div>
     </a>
   </nav>
 

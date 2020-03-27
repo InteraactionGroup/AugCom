@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {BoardService} from "../../services/board.service";
+import {Component, OnInit} from '@angular/core';
 import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 import {GeticonService} from "../../services/geticon.service";
 import {PaletteService} from "../../services/palette.service";
-import {ParametersService} from "../../services/parameters.service";
 
 @Component({
   selector: 'app-palettes',
@@ -16,6 +14,7 @@ export class PalettesComponent implements OnInit {
   }
 
   paletteCodamne = null;
+
   ngOnInit() {
   }
 

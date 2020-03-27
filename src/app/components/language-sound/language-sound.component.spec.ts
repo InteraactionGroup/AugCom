@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LanguageSoundComponent } from './language-sound.component';
+import {LanguageSoundComponent} from './language-sound.component';
 
 describe('LanguageSoundComponent', () => {
   let component: LanguageSoundComponent;
@@ -8,9 +8,9 @@ describe('LanguageSoundComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LanguageSoundComponent ]
+      declarations: [LanguageSoundComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

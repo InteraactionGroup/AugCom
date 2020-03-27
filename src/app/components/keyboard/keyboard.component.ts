@@ -88,7 +88,7 @@ export class KeyboardComponent implements OnInit {
    * @return  true or false, depending if the element corresponds to the search result
    */
   isSearched(element: Element) {
-    return ! ((this.searchService.searchedPath.length > 0) && (!this.searchService.searchedPath.includes(element)));
+    return !((this.searchService.searchedPath.length > 0) && (!this.searchService.searchedPath.includes(element)));
   }
 
   /**
@@ -130,6 +130,7 @@ export class KeyboardComponent implements OnInit {
     this.userToolBarService.popup = true;
     this.editionService.delete(element);
   }
+
   /**
    * used in edition mode in order to select a specific element
    *
@@ -339,7 +340,7 @@ export class KeyboardComponent implements OnInit {
     const index = this.boardService.activatedElement;
     const max: number = Number(Number(index) + Number(this.boardService.sliderValueCol) + 1 - Number(tempOtherFOrmList.length) + 1);
     for (let newElementIndex = 0; newElementIndex < max; newElementIndex = newElementIndex + 1) { // fill with empty elements
-      tempOtherFOrmList.push( new Element(
+      tempOtherFOrmList.push(new Element(
         '',
         this.boardService.currentFolder,
         'button',
@@ -572,7 +573,7 @@ export class KeyboardComponent implements OnInit {
     if (this.userToolBarService.edit && this.editionService.selectedElements.length === 1) {
       this.edit(this.editionService.selectedElements[0]);
     } else if (this.userToolBarService.edit && this.editionService.selectedElements.length > 1) {
-      this.router.navigate(['/edit']).then(() => this.editionService.add = false );
+      this.router.navigate(['/edit']).then(() => this.editionService.add = false);
     } else {
       // do nothing
     }

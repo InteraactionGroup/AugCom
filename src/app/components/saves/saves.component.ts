@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BoardService} from "../../services/board.service";
 import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 
@@ -9,7 +9,8 @@ import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 })
 export class SavesComponent implements OnInit {
 
-  constructor(private boardService: BoardService, private indexeddbaccessService: IndexeddbaccessService) { }
+  constructor(private boardService: BoardService, private indexeddbaccessService: IndexeddbaccessService) {
+  }
 
   ngOnInit() {
   }
