@@ -25,31 +25,4 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
   }
 
-  deletePalette() {
-    this.paletteService.deletePalette(this.paletteCodamne);
-    this.paletteCodamne = null;
-    this.indexeddbaccessService.update();
-  }
-
-  saveNewPalette() {
-    this.paletteService.savePalette();
-    this.indexeddbaccessService.update();
-  }
-
-  /**
-   * return the icon url corresponding to the string s
-   * @param s, the string identifying the icon
-   * @return the icon url
-   */
-  getIcon(s: string) {
-    return this.getIconService.getIconUrl(s);
-  }
-
-  reset() {
-    indexedDB.deleteDatabase('Saves');
-    this.boardService.resetBoard();
-    this.indexeddbaccessService.init();
-    this.indexeddbaccessService.update();
-  }
-
 }

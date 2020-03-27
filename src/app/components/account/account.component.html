@@ -1,24 +1,94 @@
-<div>
-  <div class="container">
-    <div class="menu">
-      <div class="menu-heading">
-        Paramètres du compte
-      </div>
+<div class="page-container">
+  <div class="page">
 
-      <ng-container *ngFor="let menus of menu">
-        <div class="menu-item" [class.selected]="selectedMenu===menus[0]"
-             (click)="this.selectMenu(menus[0])"> {{menus[0]}}</div>
-        <ng-container *ngFor="let submenu of menus[1]">
-          <div class="sub-menu-item" [class.closed]="!(selectedMenu===menus[0])"
-               [class.selected]="selectedSubMenu===submenu && selectedMenu===menus[0]"
-               (click)="this.selectSubMenu(menus[0],submenu)"> {{submenu}} </div>
+    <div class="menu-container">
+      <div class="menu">
+
+        <div class="menu-title-container">
+          <div class="menu-title">
+            Paramètres
+          </div>
+        </div>
+
+        <ng-container *ngFor="let menus of menu">
+          <div class="menu-item-container">
+            <div class="menu-item">
+              <div class="menu-item-title-container"
+                   [class.selected]="selectedMenu===menus[0]"
+                   (click)="this.selectMenu(menus[0])">
+                <div class="menu-item-title">
+                  {{menus[0]}}
+                </div>
+              </div>
+              <ng-container *ngFor="let submenu of menus[1]">
+                <div class="sub-menu-item-container">
+                  <div class="sub-menu-item">
+                    <div class="sub-menu-item-title-container"
+                         [class.closed]="!(selectedMenu===menus[0])"
+                         [class.selected]="selectedSubMenu===submenu && selectedMenu===menus[0]"
+                         (click)="this.selectSubMenu(menus[0],submenu)">
+                      <div class="sub-menu-item-title">
+                        {{submenu}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+
+            </div>
+          </div>
         </ng-container>
-      </ng-container>
 
+      </div>
     </div>
 
-    <div class="infoPage" *ngIf="selectedSubMenu===menu[0][1][0]">
-      hey
+    <div class="menu-page-container">
+      <div class="menu-page">
+        <div class="menu-page-title-container">
+          <div class="menu-page-title">
+            {{getMenuPageTitle()}}
+          </div>
+        </div>
+        <div class="menu-page-content-container">
+          <div class="menu-page-content">
+
+            <ng-container *ngIf="selectedSubMenu==='Informations du compte'">
+              <app-account-information></app-account-information>
+            </ng-container>
+            <ng-container *ngIf="selectedSubMenu==='Gestion des sauvegardes'">
+              <app-saves></app-saves>
+            </ng-container>
+            <ng-container *ngIf="selectedSubMenu==='Son'">
+              <app-language-sound></app-language-sound>
+            </ng-container>
+            <ng-container *ngIf="selectedSubMenu==='Gestion des palettes'">
+              <app-palettes></app-palettes>
+            </ng-container>
+
+            <ng-container *ngIf="selectedMenu==='Partager'" >
+              <nav>
+                <a routerLink="/share">
+                  <div class="button" id="shareButton">
+                    <div class="image" [ngStyle]="{'background-image':this.getIcon('share')}">
+
+                    </div>
+                  </div>
+                </a>
+              </nav>
+            </ng-container>
+            <ng-container *ngIf="selectedMenu==='Paramètres'">
+              <nav>
+                <a routerLink="/settings">
+                  <div class="button first" id="settingsButton">
+                    <div class="image" [ngStyle]="{'background-image':this.getIcon('settings')}">
+                    </div>
+                  </div>
+                </a>
+              </nav>
+            </ng-container>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

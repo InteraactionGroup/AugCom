@@ -18,17 +18,6 @@
   </div>
 
 
-  <nav>
-    <a routerLink="/share">
-      <div class="button" id="shareButton" *ngIf="this.userToolBarService.unlock" (click)="this.openShare()">
-        <div class="image" [ngStyle]="{'background-image':this.getIcon('share')}">
-
-        </div>
-      </div>
-    </a>
-  </nav>
-
-
   <div class="button" id="editButton" *ngIf="this.userToolBarService.unlock" (click)="this.edit()">
     <div class="image" [class.noConnection]="!this.userToolBarService.isConnected"
          [class.imageSelected]="this.userToolBarService.edit" [ngStyle]="{'background-image':this.getIcon('edit')}">
@@ -50,16 +39,6 @@
 
     </div>
   </div>
-
-  <nav>
-    <a routerLink="/settings">
-      <div class="button first" id="settingsButton" *ngIf="this.userToolBarService.unlock"
-           (click)="this.openSettings()">
-        <div class="image" [ngStyle]="{'background-image':this.getIcon('settings')}">
-        </div>
-      </div>
-    </a>
-  </nav>
 
   <div class="buttonLeftLeft" [class.buttonLeftLeftBig]="this.userToolBarService.search"
        *ngIf="this.userToolBarService.unlock">

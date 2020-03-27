@@ -18,7 +18,10 @@ import {SettingsComponent} from './components/settings/settings.component';
 import {DragulaModule} from 'ng2-dragula';
 import {SnapBarComponent} from './components/snap-bar/snap-bar.component';
 import { AccountComponent } from './components/account/account.component';
-import { TestComponentComponent } from './components/test-component/test-component.component';
+import { AccountInformationComponent } from './components/account-information/account-information.component';
+import { PalettesComponent } from './components/palettes/palettes.component';
+import { LanguageSoundComponent } from './components/language-sound/language-sound.component';
+import { SavesComponent } from './components/saves/saves.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { TestComponentComponent } from './components/test-component/test-compone
     SettingsComponent,
     SnapBarComponent,
     AccountComponent,
-    TestComponentComponent
+    AccountInformationComponent,
+    PalettesComponent,
+    LanguageSoundComponent,
+    SavesComponent
   ],
   imports: [
     BrowserModule,

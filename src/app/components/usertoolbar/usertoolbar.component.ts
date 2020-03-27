@@ -86,8 +86,4 @@ export class UsertoolbarComponent implements OnInit {
     this.userToolBarService.edit = this.userToolBarService.edit && this.userToolBarService.unlock;
   }
 
-  openShare() {
-    this.userToolBarService.share = !this.userToolBarService.share;
-    this.setLock();
-  }
 }
