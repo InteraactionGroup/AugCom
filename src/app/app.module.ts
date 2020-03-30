@@ -24,6 +24,7 @@ import { LanguageComponent } from './components/langue/language.component';
 import { SavesComponent } from './components/saves/saves.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ActualitesComponent } from './components/actualites/actualites.component';
+import { BackHomeBarComponent } from './components/back-home-bar/back-home-bar.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ActualitesComponent } from './components/actualites/actualites.componen
     LanguageComponent,
     SavesComponent,
     ContactComponent,
-    ActualitesComponent
+    ActualitesComponent,
+    BackHomeBarComponent
   ],
   imports: [
     BrowserModule,

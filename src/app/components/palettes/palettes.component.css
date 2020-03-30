@@ -6,6 +6,7 @@
 .palette-item {
   display: inline-block;
   width: 100%;
+  margin-top: 5px;
 }
 
 .addPalette {
@@ -116,34 +117,43 @@
 .palettes {
   width: 100%;
   height: 100%;
-  margin: auto;
 }
 
 .palettes .paletteLabel {
   float: left;
   width: 100%;
   height: 20px;
-  background-color: dimgrey;
+  background-color: #d1d5da;
+  margin-bottom: 2px;
+  line-height: 20px;
+  color: #586069;
+  list-style: none;
+  border: 1px solid #d1d5da;
+  font-size: 18px;
+  font-weight: 600;
+  padding-left: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-radius: 3px 3px 0 0 ;
 }
 
 .palettes .palette {
   float: left;
-  width: fit-content;
+  width: calc(100% - 50px);
   height: fit-content;
   display: grid;
-  grid-template-columns: repeat(10, 30px);
-  background-color: grey;
+  grid-template-columns: repeat(10, 10%);
 }
 
 .palettes .supprPalette {
   float: left;
   width: 50px;
-  background-color: grey;
+  background-color: #f4f4f4;
   cursor: pointer;
 }
 
 .palettes .supprPalette:hover {
-  background-color: dimgrey;
+  background-color: #eef4f9;
 }
 
 .palettes .supprPalette .icon {
@@ -155,35 +165,29 @@
 
 .palettes .palette .color {
   float: left;
-  margin-top: 5px;
-  margin-left: 5px;
-  height: 20px;
-  width: 20px;
+  height: 95%;
+  width: 95%;
+  margin: auto;
 }
 
 .palettes .palette .realcolor {
   float: left;
-  margin-top: 5px;
-  margin-left: 5px;
-  height: 20px;
-  width: 20px;
+  height: 95%;
+  width: 95%;
   box-sizing: border-box;
   border-width: 2px;
   border-style: solid;
   border-color: black;
+  margin: auto;
 }
 
 .palettes .palette .realcolor:hover {
-  cursor: pointer;
-  float: left;
-  margin-top: 0px;
-  margin-left: 0px;
-  height: 30px;
-  width: 30px;
-  box-sizing: border-box;
-  border-width: 2px;
+  height: 100%;
+  width: 100%;
+  border-width: 4px;
   border-style: solid;
-  border-color: black;
+  border-color: lightgrey;
+  margin: auto;
 }
 
 

@@ -1,0 +1,29 @@
+.topBackBar {
+  width: 100%;
+  height: 50px;
+  background-color: dimgray;
+}
+.topBarBackIcon{
+  display: inline-block;
+  margin-top: 5px;
+  margin-left: 5px;
+  float: left;
+  height: 32px;
+  width: 32px;
+  fill: white;
+  padding: 5px;
+  border-radius: 8px;
+}
+
+.topBarBackIcon:hover{
+  background-color: grey;
+}
+
+.topBarLabel{
+  display: inline-block;
+  float: left;
+  padding-left: 10px;
+  padding-top: 15px;
+  font-weight: 600;
+  color: white;
+}
