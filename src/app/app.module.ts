@@ -22,6 +22,8 @@ import { AccountInformationComponent } from './components/account-information/ac
 import { PalettesComponent } from './components/palettes/palettes.component';
 import { LanguageSoundComponent } from './components/language-sound/language-sound.component';
 import { SavesComponent } from './components/saves/saves.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { ActualitesComponent } from './components/actualites/actualites.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { SavesComponent } from './components/saves/saves.component';
     AccountInformationComponent,
     PalettesComponent,
     LanguageSoundComponent,
-    SavesComponent
+    SavesComponent,
+    ContactComponent,
+    ActualitesComponent
   ],
   imports: [
     BrowserModule,

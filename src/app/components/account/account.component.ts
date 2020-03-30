@@ -8,13 +8,13 @@ import {GeticonService} from "../../services/geticon.service";
 })
 export class AccountComponent implements OnInit {
 
-  menu = [
+  menu: [string,string[]][] = [
     ['Compte', ['Informations du compte', 'Gestion des sauvegardes']],
     ['Apparence', ['Apparence générale', 'Gestion des palettes']],
-    ['Paramètres', ['Languee1', 'Languee2', 'Languee3']],
-    ['Langue', ['Général', 'Son']],
+    ['Paramètres', []],
+    ['Langue', []],
     ['Grammaire', ['Evenementse1', 'Evenementse2', 'Evenementse3']],
-    ['Partager', ['Importer', 'Exporter', 'Réseaux']],
+    ['Partager', []],
     ['Informations complémentaires', ['Actualités', 'Contacts']]
   ];
 

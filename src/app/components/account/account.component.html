@@ -55,26 +55,24 @@
             <ng-container *ngIf="selectedSubMenu==='Informations du compte'">
               <app-account-information></app-account-information>
             </ng-container>
+            <ng-container *ngIf="selectedSubMenu==='Actualités'">
+              <app-actualites></app-actualites>
+            </ng-container>
             <ng-container *ngIf="selectedSubMenu==='Gestion des sauvegardes'">
               <app-saves></app-saves>
             </ng-container>
-            <ng-container *ngIf="selectedSubMenu==='Son'">
+            <ng-container *ngIf="selectedMenu==='Langue'">
               <app-language-sound></app-language-sound>
             </ng-container>
             <ng-container *ngIf="selectedSubMenu==='Gestion des palettes'">
               <app-palettes></app-palettes>
             </ng-container>
+            <ng-container *ngIf="selectedSubMenu==='Contacts'">
+              <app-contact></app-contact>
+            </ng-container>
 
             <ng-container *ngIf="selectedMenu==='Partager'">
-              <nav>
-                <a routerLink="/share">
-                  <div class="button" id="shareButton">
-                    <div class="image" [ngStyle]="{'background-image':this.getIcon('share')}">
-
-                    </div>
-                  </div>
-                </a>
-              </nav>
+              <app-share></app-share>
             </ng-container>
             <ng-container *ngIf="selectedMenu==='Paramètres'">
               <nav>
