@@ -1,19 +1,18 @@
 .settings {
-  position: absolute;
-  top: 0%;
-  height: 100vh;
+  height: 100%;
   width: 100%;
-  background-color: lightgrey;
-  transition: top 0.5s, opacity 0.5s;
   opacity: 1;
-  overflow: scroll;
 }
 
-.settings .topBar {
-  width: 100%;
-  height: 1.5cm;
-  background-color: grey;
-  box-shadow: 0px 5px 10px black;
-  margin-bottom: 1cm;
+.settings-page{
+  margin-top: 20px;
 }
 
+.settings-item{
+  margin-top: 5px;
+  width: fit-content;
+}
+
+label {
+  margin-right: 10px;
+}

@@ -22,8 +22,7 @@
   height: 90%;
   width: 90%;
   margin-left: 5%;
-  background-color: lightgrey;
-  box-shadow: 0px 2px 10px black;
+  background: linear-gradient(transparent, lightgrey 100%);
 }
 
 .share .sharePanel .shareSection .listElement .image {
@@ -49,5 +48,4 @@
   height: 25%;
   width: 55%;
   transform: translateY(150%);
-  background-color: lightgrey;
 }

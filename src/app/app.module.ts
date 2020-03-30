@@ -20,7 +20,7 @@ import {SnapBarComponent} from './components/snap-bar/snap-bar.component';
 import { AccountComponent } from './components/account/account.component';
 import { AccountInformationComponent } from './components/account-information/account-information.component';
 import { PalettesComponent } from './components/palettes/palettes.component';
-import { LanguageSoundComponent } from './components/language-sound/language-sound.component';
+import { LanguageComponent } from './components/langue/language.component';
 import { SavesComponent } from './components/saves/saves.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ActualitesComponent } from './components/actualites/actualites.component';
@@ -39,7 +39,7 @@ import { ActualitesComponent } from './components/actualites/actualites.componen
     AccountComponent,
     AccountInformationComponent,
     PalettesComponent,
-    LanguageSoundComponent,
+    LanguageComponent,
     SavesComponent,
     ContactComponent,
     ActualitesComponent

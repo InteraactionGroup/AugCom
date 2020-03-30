@@ -2,11 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {ParametersService} from "../../services/parameters.service";
 
 @Component({
-  selector: 'app-language-sound',
-  templateUrl: './language-sound.component.html',
-  styleUrls: ['./language-sound.component.css']
+  selector: 'app-language',
+  templateUrl: './language.component.html',
+  styleUrls: ['./language.component.css']
 })
-export class LanguageSoundComponent implements OnInit {
+export class LanguageComponent implements OnInit {
 
   constructor(public parametersService: ParametersService) {
   }

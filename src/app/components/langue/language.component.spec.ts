@@ -1,20 +1,20 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {LanguageSoundComponent} from './language-sound.component';
+import {LanguageComponent} from './language.component';
 
-describe('LanguageSoundComponent', () => {
-  let component: LanguageSoundComponent;
-  let fixture: ComponentFixture<LanguageSoundComponent>;
+describe('LanguageComponent', () => {
+  let component: LanguageComponent;
+  let fixture: ComponentFixture<LanguageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [LanguageSoundComponent]
+      declarations: [LanguageComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LanguageSoundComponent);
+    fixture = TestBed.createComponent(LanguageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
