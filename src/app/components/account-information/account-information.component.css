@@ -27,9 +27,30 @@
   padding: 0;
 }
 
-.TimeLineSelectorContainer {
+.TimeLineSelectorDeleteContainer {
   position: relative;
-  top: -86px;
+  top: -166px;
+  left: 6px;
+  width: 160px;
+  height: 80px;
+  word-wrap: break-word;
+  border-top-left-radius: 80px;
+  border-top-right-radius: 80px;
+  background: transparent;
+  transition: background 0.2s ease-in-out;
+}
+
+.profilePicContainer:hover .TimeLineSelectorDeleteContainer {
+  background: linear-gradient(rgba(214, 0, 0, .5) 0%, rgba(214, 0, 0, .5) 50%, transparent);
+}
+
+.profilePicContainer:hover .TimeLineSelectorDeleteContainer:hover {
+  background: linear-gradient(rgba(214, 0, 0 ,.8) 0%, rgba(214, 0, 0, .8) 50%, transparent);
+}
+
+.TimeLineSelectorChangeContainer {
+  position: relative;
+  top: -166px;
   left: 6px;
   width: 160px;
   height: 80px;
@@ -40,8 +61,19 @@
   transition: background 0.2s ease-in-out;
 }
 
-.profilePicContainer:hover .TimeLineSelectorContainer {
-  background: linear-gradient(transparent, rgba(0, 0, 0, .6) 50%, rgba(0, 0, 0, .6) 100%);;
+.profilePicContainer:hover .TimeLineSelectorChangeContainer {
+  background: linear-gradient(transparent, rgba(0, 0, 214, .5) 50%, rgba(0, 0, 214, .5) 100%);
+}
+
+.profilePicContainer:hover .TimeLineSelectorChangeContainer:hover {
+  background: linear-gradient(transparent, rgba(0, 0, 214, .8) 50%, rgba(0, 0, 214, .8) 100%);
+}
+
+.hidden {
+  visibility: hidden;
+  height: 0;
+  width: 0;
+
 }
 
 .profilePicContainer:hover .TimelineText {
@@ -52,7 +84,7 @@
   color: transparent;
   display: block;
   margin: auto;
-  padding: 40px 0 0 0;
+  padding: 35px 0 0 0;
   text-align: center;
   font-size: 12px;
   vertical-align: middle;

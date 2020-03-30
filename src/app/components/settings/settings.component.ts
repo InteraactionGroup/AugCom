@@ -12,15 +12,8 @@ import {BoardService} from '../../services/board.service';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(private boardService: BoardService, private indexeddbaccessService: IndexeddbaccessService, private getIconService: GeticonService, public paletteService: PaletteService, public parametersService: ParametersService) {
+  constructor(public parametersService: ParametersService) {
   }
-
-  paletteCodamne = null;
-
-  /**
-   * the interactions bounded with the current html setting information
-   */
-  interaction = [this.parametersService.interaction[0], this.parametersService.interaction[1], this.parametersService.interaction[2]];
 
   ngOnInit() {
   }

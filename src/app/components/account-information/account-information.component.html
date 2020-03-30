@@ -1,15 +1,27 @@
 <div class="profileInfo">
   <div class="profilePicContainer">
     <img class="img"
-         src="https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-1/p240x240/66610296_474527773347948_5958574731522211840_o.jpg?_nc_cat=111&amp;_nc_sid=dbb9e7&amp;_nc_ohc=wTBD3TMICjYAX_0_PrC&amp;_nc_ht=scontent-cdg2-1.xx&amp;_nc_tp=6&amp;oh=29ee4d3d3702741b9dbda1e5fd1a2545&amp;oe=5EA1B44D">
-    <div class="TimeLineSelectorContainer">
+         src="{{profilePicture}}">
+
+    <div class="TimeLineSelectorDeleteContainer" (click)="resetPictureProfile()">
+      <div class="TimeLineSelector">
+        <div class="TimelineText">
+          Supprimer la photo
+        </div>
+      </div>
+    </div>
+
+    <label for="image-profile">
+    <div class="TimeLineSelectorChangeContainer">
       <div class="TimeLineSelector">
         <div class="TimelineText">
           Changer de photo
         </div>
       </div>
     </div>
+    </label>
   </div>
+  <input #file (change)="setProfilePicture(file.files)" onclick="this.value=null" type="file" id="image-profile" accept='image/*' class="hidden" />
 
   <div class="accountInformations">
     <div>

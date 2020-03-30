@@ -18,8 +18,8 @@ export class AccountComponent implements OnInit {
     ['Informations complémentaires', ['Actualités', 'Contacts']]
   ];
 
-  selectedMenu = 'Compte';
-  selectedSubMenu = '';
+  selectedMenu = 'Apparence';
+  selectedSubMenu = 'Gestion des palettes';
 
   constructor(public getIconService: GeticonService) {
   }

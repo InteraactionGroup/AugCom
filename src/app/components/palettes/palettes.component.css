@@ -1,7 +1,16 @@
+.palettesContainer{
+  display: flow;
+  margin: 20px auto auto;
+}
+
+.palette-item {
+  display: inline-block;
+  width: 100%;
+}
 
 .addPalette {
   margin-left: 20px;
-  margin-top: 0px;
+  margin-top: 0;
   width: 300px;
   background-color: grey;
 }
@@ -105,33 +114,32 @@
 }
 
 .palettes {
-  display: inline-block;
-  margin-top: 5px;
-  width: 400px;
-  height: fit-content;
+  width: 100%;
+  height: 100%;
+  margin: auto;
 }
 
 .palettes .paletteLabel {
   float: left;
-  width: 350px;
+  width: 100%;
   height: 20px;
   background-color: dimgrey;
 }
 
 .palettes .palette {
   float: left;
-  width: 300px;
+  width: fit-content;
   height: fit-content;
   display: grid;
   grid-template-columns: repeat(10, 30px);
   background-color: grey;
-  margin-bottom: 10px;
 }
 
 .palettes .supprPalette {
   float: left;
   width: 50px;
   background-color: grey;
+  cursor: pointer;
 }
 
 .palettes .supprPalette:hover {
