@@ -12,11 +12,11 @@
 
           </div>
         </div>
-        <div class="supprPalette"
+        <div class="supprPalette"  (click)="this.paletteCodamne = palette"
              [ngStyle]="{'height': 30*this.paletteService.rowNumber(palette.colors.length) + 'px'}">
           <div class="icon" [style.background-image]="this.getIcon('delete')"
                [ngStyle]="{'margin-top': (30*this.paletteService.rowNumber(palette.colors.length)-20)/2 + 'px'}"
-               (click)="this.paletteCodamne = palette">
+              >
 
           </div>
         </div>
@@ -25,7 +25,6 @@
   </div>
 
   <div class="addPalette"
-       [class.open]="this.paletteService.newpalette"
        [ngStyle]="{'height': 30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+3) + 'px'}">
     <div *ngIf="!this.paletteService.newpalette" class="addButtonPaletteContainer" (click)="this.clickOnAdd()">
       <div class="addButtonPalette">
@@ -56,11 +55,11 @@
           +
         </div>
       </div>
-      <div class="supprPalette"
+      <div class="supprPalette"  (click)="paletteService.close()"
            [ngStyle]="{'height': 30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+3) + 'px'}">
         <div class="icon" [style.background-image]="this.getIcon('delete')"
              [ngStyle]="{'margin-top': (30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+3)-20)/2 + 'px'}"
-             (click)="paletteService.close()">
+            >
 
         </div>
       </div>
