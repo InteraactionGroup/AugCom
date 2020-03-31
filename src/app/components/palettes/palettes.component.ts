@@ -18,6 +18,12 @@ export class PalettesComponent implements OnInit {
   ngOnInit() {
   }
 
+  clickOnAdd() {
+   if (!this.paletteService.newpalette) {
+     this.paletteService.newpalette = true;
+   }
+  }
+
   deletePalette() {
     this.paletteService.deletePalette(this.paletteCodamne);
     this.paletteCodamne = null;

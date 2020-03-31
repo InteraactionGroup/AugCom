@@ -36,10 +36,10 @@ export class AccountComponent implements OnInit {
   }
 
   selectMenu(menuSelected: string) {
-    this.selectedSubMenu = '';
     if (this.selectedMenu === menuSelected) {
-      this.selectedMenu = '';
+     // this.selectedMenu = '';
     } else {
+      this.selectedSubMenu = '';
       this.selectedMenu = menuSelected;
       let menuElement = this.menu.find(elt => {return elt[0] === menuSelected;});
       if (menuElement !== null && menuElement[1].length > 0) {

@@ -13,10 +13,15 @@
   fill: white;
   padding: 5px;
   border-radius: 8px;
+  background-color: dimgray;
 }
 
 .topBarBackIcon:hover{
   background-color: grey;
+}
+
+.topBarBackIcon:active{
+  background-color: dimgray;
 }
 
 .topBarLabel{

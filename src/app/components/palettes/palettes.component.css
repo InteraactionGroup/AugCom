@@ -6,14 +6,21 @@
 .palette-item {
   display: inline-block;
   width: 100%;
-  margin-top: 5px;
 }
 
 .addPalette {
-  margin-left: 20px;
-  margin-top: 0;
-  width: 300px;
-  background-color: grey;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  width: 50%;
+  background-color: #d1d5da;
+  border-radius: 3px;
+  height: 30px;
+  transition: all 0.3s ease-in-out;
+}
+
+.open {
+  width: 100%;
 }
 
 .addPalette .palette {
@@ -22,7 +29,6 @@
   height: fit-content;
   display: grid;
   grid-template-columns: repeat(10, 30px);
-  background-color: grey;
 }
 
 .addPalette .palette .color {
@@ -53,31 +59,43 @@
 
 .addPalette .palette .moreColor {
   float: left;
-  margin-top: 5px;
-  margin-left: 5px;
-  height: 20px;
-  width: 20px;
-  background-color: white;
-  border-radius: 50%;
+  height: 95%;
+  width: 95%;
+  box-sizing: border-box;
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
+  margin: auto;
+  background-color: dimgray;
 }
 
 
-.addPalette .palette .ok {
+.addPalette  .ok {
   float: right;
-  margin-top: 5px;
-  margin-left: 5px;
+  width: 100px;
   height: 20px;
-  width: 20px;
   background-color: seagreen;
+  margin-bottom: 2px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-top-right-radius: 3px;
+  text-align: center;
 }
 
-.addPalette .palette .cancel {
-  float: right;
-  margin-top: 5px;
-  margin-left: 5px;
-  height: 20px;
-  width: 20px;
+.addPalette  .ok:hover {
+  background-color: forestgreen;
+}
+
+.addPalette .cancel {
+  float: left;
+  width: 50px;
+  cursor: pointer;
   background-color: indianred;
+  text-align: center;
+}
+
+.addPalette .cancel:hover {
+  background-color: darkred;
 }
 
 
@@ -104,19 +122,37 @@
   border-color: black;
 }
 
+.addButtonPaletteContainer{
+  width: 100%;
+  height: 100%;
+}
 
 .addPalette .addButtonPalette {
   text-align: center;
-  width: 100px;
-  transform: translateY(10%);
-  margin-left: 100px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  transform: translateY(25%);
   height: 25px;
-  background-color: lightgrey;
+  color: #586069;
+  font-weight: 600;
 }
 
 .palettes {
   width: 100%;
   height: 100%;
+}
+.palettes .paletteAddLabel {
+  float: left;
+  height: 20px;
+  background-color: #d1d5da;
+  color: #586069;
+  font-size: 18px;
+  font-weight: 600;;
+  border-radius: 3px 3px 0 0 ;
+  padding-left: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 .palettes .paletteLabel {
@@ -127,8 +163,6 @@
   margin-bottom: 2px;
   line-height: 20px;
   color: #586069;
-  list-style: none;
-  border: 1px solid #d1d5da;
   font-size: 18px;
   font-weight: 600;
   padding-left: 5px;
