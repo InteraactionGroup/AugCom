@@ -61,8 +61,6 @@ export class PaletteService {
 
   newTempPalette = {name: '', colors: []};
 
-  currentColor = '#ffffff';
-
   constructor() {
     this.palettes = this.DEFAULTPALETTELIST;
   }
@@ -73,8 +71,7 @@ export class PaletteService {
   }
 
   addColor() {
-    this.currentColor = '#ffffff';
-    this.newTempPalette.colors.push({color: this.currentColor});
+    this.newTempPalette.colors.push({color: '#ffffff'});
   }
 
 

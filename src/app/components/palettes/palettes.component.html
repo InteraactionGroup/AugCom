@@ -40,7 +40,7 @@
         Enregistrer
       </div>
       <div class="palette"
-           [ngStyle]="{'height': 30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+3) + 'px'}">
+           [ngStyle]="{'grid-template-rows': 'repeat(' + this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+1) + ',30px)'}">
         <ng-container *ngFor="let color of this.paletteService.newTempPalette.colors">
           <div class="color">
             <div class="colorbox" [ngStyle]="{'background-color': color.color}">
@@ -52,13 +52,15 @@
           </div>
         </ng-container>
         <div class="moreColor" (click)="this.paletteService.addColor()">
-          +
+          <div class="icon" [style.background-image]="this.getIcon('add')">
+
+          </div>
         </div>
       </div>
       <div class="supprPalette"  (click)="paletteService.close()"
-           [ngStyle]="{'height': 30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+3) + 'px'}">
+           [ngStyle]="{'height': 30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+1) + 'px'}">
         <div class="icon" [style.background-image]="this.getIcon('delete')"
-             [ngStyle]="{'margin-top': (30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+3)-20)/2 + 'px'}"
+             [ngStyle]="{'margin-top': (30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+1)-20)/2 + 'px'}"
             >
 
         </div>
