@@ -5,18 +5,18 @@
         <div class="paletteLabel">
           {{palette.name}}
         </div>
-        <div class="palette"
-             [ngStyle]="{'grid-template-rows': 'repeat(' + this.paletteService.rowNumber(palette.colors.length) + ',30px)'}">
-          <div class="color" [class.realcolor]="color!==null" *ngFor="let color of palette.colors"
-               [ngStyle]="{'background-color': color}">
+        <div [ngStyle]="{'grid-template-rows': 'repeat(' + this.paletteService.rowNumber(palette.colors.length) + ',30px)'}"
+             class="palette">
+          <div *ngFor="let color of palette.colors" [class.realcolor]="color!==null" [ngStyle]="{'background-color': color}"
+               class="color">
 
           </div>
         </div>
-        <div class="supprPalette"  (click)="this.paletteCodamne = palette"
-             [ngStyle]="{'height': 30*this.paletteService.rowNumber(palette.colors.length) + 'px'}">
-          <div class="icon" [style.background-image]="this.getIcon('delete')"
-               [ngStyle]="{'margin-top': (30*this.paletteService.rowNumber(palette.colors.length)-20)/2 + 'px'}"
-              >
+        <div (click)="this.paletteCodamne = palette" [ngStyle]="{'height': 30*this.paletteService.rowNumber(palette.colors.length) + 'px'}"
+             class="supprPalette">
+          <div [ngStyle]="{'margin-top': (30*this.paletteService.rowNumber(palette.colors.length)-20)/2 + 'px'}" [style.background-image]="this.getIcon('delete')"
+               class="icon"
+          >
 
           </div>
         </div>
@@ -24,51 +24,51 @@
     </ng-container>
   </div>
 
-  <div class="addPalette"
-       [ngStyle]="{'height': 30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+3) + 'px'}">
-    <div *ngIf="!this.paletteService.newpalette" class="addButtonPaletteContainer" (click)="this.clickOnAdd()">
+  <div [ngStyle]="{'height': 30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+3) + 'px'}"
+       class="addPalette">
+    <div (click)="this.clickOnAdd()" *ngIf="!this.paletteService.newpalette" class="addButtonPaletteContainer">
       <div class="addButtonPalette">
         new palette
       </div>
     </div>
 
-    <div class="palette-item" *ngIf="this.paletteService.newpalette">
+    <div *ngIf="this.paletteService.newpalette" class="palette-item">
       <div class="paletteAddLabel">
         {{this.paletteService.getNextPaletteName()}}
       </div>
-      <div class="ok" (click)="this.saveNewPalette();">
+      <div (click)="this.saveNewPalette();" class="ok">
         Enregistrer
       </div>
-      <div class="palette"
-           [ngStyle]="{'grid-template-rows': 'repeat(' + this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+1) + ',30px)'}">
+      <div [ngStyle]="{'grid-template-rows': 'repeat(' + this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+1) + ',30px)'}"
+           class="palette">
         <ng-container *ngFor="let color of this.paletteService.newTempPalette.colors">
           <div class="color">
-            <div class="colorbox" [ngStyle]="{'background-color': color.color}">
-              <div class="deleteColor" (click)="this.paletteService.delete(color)"
-                   [style.background-image]="this.getIcon('clear')">
+            <div [ngStyle]="{'background-color': color.color}" class="colorbox">
+              <div (click)="this.paletteService.delete(color)" [style.background-image]="this.getIcon('clear')"
+                   class="deleteColor">
               </div>
             </div>
             <input [(ngModel)]="color.color" class="colorPicker" type="color">
           </div>
         </ng-container>
-        <div class="moreColor" (click)="this.paletteService.addColor()">
-          <div class="icon" [style.background-image]="this.getIcon('add')">
+        <div (click)="this.paletteService.addColor()" class="moreColor">
+          <div [style.background-image]="this.getIcon('add')" class="icon">
 
           </div>
         </div>
       </div>
-      <div class="supprPalette"  (click)="paletteService.close()"
-           [ngStyle]="{'height': 30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+1) + 'px'}">
-        <div class="icon" [style.background-image]="this.getIcon('delete')"
-             [ngStyle]="{'margin-top': (30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+1)-20)/2 + 'px'}"
-            >
+      <div (click)="paletteService.close()" [ngStyle]="{'height': 30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+1) + 'px'}"
+           class="supprPalette">
+        <div [ngStyle]="{'margin-top': (30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+1)-20)/2 + 'px'}" [style.background-image]="this.getIcon('delete')"
+             class="icon"
+        >
 
         </div>
       </div>
     </div>
   </div>
 
-  <div class="popup" *ngIf="this.paletteCodamne != null">
+  <div *ngIf="this.paletteCodamne != null" class="popup">
     <div class="popupcontainer">
       <div class="question">
         Vous êtes sur le point de supprimer une palette, voulez vous continuer ?
@@ -76,11 +76,11 @@
 
       <div class="buttons">
 
-        <div class="choiceButton no" (click)="this.paletteCodamne = null">
+        <div (click)="this.paletteCodamne = null" class="choiceButton no">
           non, annuler
         </div>
 
-        <div class="choiceButton yes" (click)="this.deletePalette()">
+        <div (click)="this.deletePalette()" class="choiceButton yes">
           oui, supprimer
         </div>
       </div>
