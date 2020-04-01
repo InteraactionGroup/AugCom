@@ -1,0 +1,69 @@
+  .element {
+  height: 40%;
+  width: 90%;
+  margin-left: 5%;
+  transform: translateY(13%);
+  background-color: lightgrey;
+}
+
+
+  .element .label {
+  text-align: center;
+  transform: translateY(90%);
+  display: block;
+}
+
+  .element .input {
+  display: block;
+  margin-left: 20%;
+  width: 60%;
+  transform: translateY(130%);
+}
+
+
+.inputLib {
+  width: 80%;
+}
+
+.searchLib {
+  width: 15%;
+}
+
+.inputURL {
+  transform: translateY(60%);
+}
+
+.inputURLText {
+  width: 80%;
+  margin-left: 10%;
+}
+
+.searchURL {
+  width: 30%;
+  margin-left: 35%;
+}
+
+
+.element .wrapperPreview {
+  list-style-type: none;
+  transform: translateY(15%);
+  margin-left: 4%;
+  display: grid;
+  width: 92%;
+  height: 75%;
+  background-color: whitesmoke;
+  overflow: scroll;
+  grid-template-columns: repeat(10, 10%);
+}
+
+.pictoImg {
+  cursor: pointer;
+  width: 80%;
+  padding-top: 80%;
+  margin-left: 10%;
+}
+
+.pictoList {
+  list-style-type: none;
+}
+

@@ -1,0 +1,111 @@
+
+  .elementVariant {
+  text-align: center;
+  width: 90%;
+  margin-left: 5%;
+  transform: translateY(5%);
+  background-color: lightgrey;
+}
+
+
+  .elementVariant .waitVariant {
+  height: 80%;
+  width: 80%;
+  transform: translateY(10%);
+  margin-left: 10%;
+}
+
+  .elementVariant .variantContainer {
+  width: 100%;
+  transform: translateY(5%);
+}
+
+  .elementVariant .variantContainer .variantListBox {
+  transform: translateY(200%);
+  display: block;
+  width: 80%;
+  margin-left: 10%;
+}
+
+  .elementVariant .variantContainer .variantOk {
+  transform: translateY(500%);
+  display: block;
+  width: 40%;
+  margin-left: 30%;
+}
+
+
+ .variantSelector {
+  width: 96%;
+  margin-left: 2%;
+  transform: translateY(5%);
+  background-color: lightgrey;
+}
+
+ .variantSelector .wrapperPreview {
+  text-align: center;
+  transform: translateY(5%);
+  margin-left: 4%;
+  display: grid;
+  width: 80%;
+  background-color: whitesmoke;
+  overflow: scroll;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(100, 20%);
+}
+
+
+.waitVariant {
+  height: 100%;
+  width: 100%;
+}
+
+
+ .variantSelector .variantOk {
+  width: 10%;
+  height: 20%;
+  margin-left: 3%;
+  transform: translateY(200%);
+  background-color: grey;
+}
+
+ .variantSelector .variantOk input {
+  width: 100%;
+  height: 100%;
+}
+
+.variantList {
+  width: 100%;
+  list-style-type: none;
+}
+
+.variantList .variant {
+  cursor: pointer;
+  width: 90%;
+  margin-left: 5%;
+  background-color: grey;
+  border-radius: 15px;
+}
+
+.variantList .variant .selector {
+  cursor: pointer;
+  width: 20%;
+  height: 40%;
+  margin-left: 40%;
+  margin-bottom: 0%;
+  border-radius: 50%;
+}
+
+  .imageContainer {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .floatLeft {
+    float: left;
+  }
+
+  .height90 {
+    height: 90%;
+  }

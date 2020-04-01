@@ -1,16 +1,11 @@
+<app-back-home-bar></app-back-home-bar>
 <div class="edition">
 
-  <div class="topBar">
-    <div class="back" (click)="this.close()">
-      <
-    </div>
-
-    <div class="save" (click)="this.save()">
-      save
-    </div>
+  <div class="save" (click)="this.save()">
+    save
   </div>
 
-
+  <div class="leftPane">
   <div class="leftEdition floatLeft">
 
     <div class="colorPickerContainer">
@@ -33,238 +28,41 @@
      'border-style': 'solid',
      'border-color': this.curentBorderColor}">
       <div class="image imageContainer"
-           [style.background-image]="this.sanitizer.bypassSecurityTrustStyle('url(' +this.imageURL+')')">
+           [style.background-image]="this.sanitizer.bypassSecurityTrustStyle('url(' +this.editionService.imageURL+')')">
 
       </div>
       <div class="label">
-        {{this.name}}
+        {{this.editionService.name}}
       </div>
     </div>
 
   </div>
 
-  <div class="rightEdition floatLeft"
-       [class.blured]="choseImage || variantDisplayed || eventDisplayed || this.colorPicked !== null">
-
-    <div class="rightContainer height90">
-      <div class="element height90 name">
-        <div class="icon floatLeft" [ngStyle]="{'background-image':this.getIcon('name')}">
-
-        </div>
-        <div class="label floatLeft">
-          Name
-        </div>
-        <div class="inputField floatLeft">
-          <input [(ngModel)]="name" type="text" class="input" placeholder="Entrez le nom de l'élément">
-        </div>
-      </div>
-
-      <div class="element height90 image">
-        <div class="icon floatLeft" [ngStyle]="{'background-image':this.getIcon('image')}">
-
-        </div>
-        <div class="label floatLeft">
-          Image
-        </div>
-        <div class="inputField floatLeft">
-          <input type="button" value="Choisir une image" class="input" (click)="choseImage=!choseImage">
-        </div>
-      </div>
-
-      <div class="element height90 type">
-        <div class="icon floatLeft" [ngStyle]="{'background-image':this.getIcon('type')}">
-
-        </div>
-        <div class="label floatLeft">
-          Type
-        </div>
-        <div class="inputField floatLeft">
-          <form class="input">
-            <input id="radioButton" [(ngModel)]="this.radioTypeFormat" name="typeFormat" type="radio" value="button"
-                   checked>
-            <label class="radio" for="radioButton">Button</label>
-            <input id="radioFolder" [(ngModel)]="this.radioTypeFormat" name="typeFormat" type="radio" value="folder">
-            <label class="radio" for="radioFolder">Folder</label>
-          </form>
-        </div>
-      </div>
-
-      <div class="element height90">
-        <div class="icon floatLeft" [ngStyle]="{'background-image':this.getIcon('other')}">
-
-        </div>
-        <div class="label floatLeft">
-          Autre
-        </div>
-        <div class="inputField floatLeft">
-          <div class="input">
-            <input class="inputHalfLeft" *ngIf="radioTypeFormat=='button'" type="button" value="Formes"
-                   (click)="getWordList(this.name)">
-            <input class="inputHalfRight" *ngIf="radioTypeFormat=='button'" type="button" value="Evenements"
-                   (click)="getEvents()">
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="optionEdition floatLeft" *ngIf="choseImage || variantDisplayed || eventDisplayed">
-
-    <ng-container *ngIf="choseImage">
-
-      <div class="element">
-        <label class="label" for="imagefromfile">A partir d'un fichier</label>
-        <input #file (change)="previewFile(file.files)" accept='image/*' class="input" type="file" id="imagefromfile">
-      </div>
-      <div class="ou">-----OU-----</div>
-
-      <div class="element">
-        <label class="label" for="imagefromURL">A partir d'une URL</label>
-        <div class="inputURL">
-          <input class="inputURLText" type="text" id="imagefromURL" #text placeholder="Entrez l'URL de l'image">
-          <input class="searchURL" type="button" value="Ok" (click)="previewWithURL(text.value)">
-        </div>
-      </div>
-      <div class="ou">-----OU-----</div>
-    </ng-container>
-
-    <div class="elementVariant height90" *ngIf="variantDisplayed">
-
-      <div class="wordToSearchPanel">
-        <input #wordToSearch type="text" class="inputText" value="{{this.name}}">
-        <input type="button" class="search" value="search" (click)="getWordList(wordToSearch.value)">
-      </div>
-
-      <div class="waitVariant imageContainer" *ngIf="this.dbnaryService.searchStarted == 1"
-           [ngStyle]="{'background-image':'url(assets/icons/load.gif'}">
-      </div>
-
-      <div class="variantContainer height90" *ngIf="this.dbnaryService.searchStarted!=1 ">
-        <label for="classe-select">Classe grammaticale du mot ?</label>
-        <select [(ngModel)]="classe" name="classe" id="classe-select" class="variantListBox">
-          <option value="">--choisissez une option--</option>
-          <ng-container *ngFor="let b of this.dbnaryService.typeList ">
-            <option id="{{b}}radio" name="buttonType" value="{{b}}">{{b}}</option>
-          </ng-container>
-        </select>
-        <input type="button" value="OK" (click)="displayVariant(classe,wordToSearch.value)" class="variantOk">
-      </div>
-    </div>
-
-    <div class="elementEvent height90" *ngIf="eventDisplayed">
-      <div class="elementEventContainer height90">
-        <div class="elementevent" (click)="this.selectInteraction(1)"
-             [ngStyle]="{'background-color': this.isCurrentInteraction(1)?'lightblue':'lightgrey'}">
-          <div class="label floatLeft">
-            Interaction: {{this.parametersService.interaction[0]}}
-          </div>
-          <input class="goto height90 floatLeft" type="button" value=">">
-        </div>
-        <div class="elementevent" (click)="this.selectInteraction(2)"
-             [ngStyle]="{'background-color': this.isCurrentInteraction(2)?'lightblue':'lightgrey'}">
-          <div class="label floatLeft">
-            Interaction: {{this.parametersService.interaction[1]}}
-          </div>
-          <input class="goto height90 floatLeft" type="button" value=">">
-        </div>
-        <div class="elementevent" (click)="this.selectInteraction(3)"
-             [ngStyle]="{'background-color': this.isCurrentInteraction(3)?'lightblue':'lightgrey'}">
-          <div class="label floatLeft">
-            Interaction: {{this.parametersService.interaction[2]}}
-          </div>
-          <input class="goto height90 floatLeft" type="button" value=">">
-        </div>
-      </div>
-    </div>
-
-
-  </div>
-
-  <div class="bottomEdition floatLeft" *ngIf="choseImage || variantDisplayed || eventDisplayed">
-
-    <div class="element height90" *ngIf="choseImage">
-      <label class="label" for="imagefromLib">A partir des librairies</label>
-      <div class="input">
-        <input #search class="inputLib" type="text" id="imagefromLib"
-               placeholder="Entrez le mot à chercher (en anglais)">
-        <input class="searchLib" type="button" value="search" (click)="searchInLib(search.value)">
-      </div>
-
-      <div class="wrapperPreview ">
-        <ng-container *ngFor="let b of this.imageList ">
-          <li class="pictoList">
-            <div class="pictoImg imageContainer"
-                 [ngStyle]="{'background-image':'url(assets/libs/mulberry-symbols/EN-symbols/'+b+'.svg)'}"
-                 (click)="previewMullberry(b)"></div>
-          </li>
-        </ng-container>
-      </div>
-
-    </div>
-
-    <div class="variantSelector height90" *ngIf="variantDisplayed">
-
-      <div class="wrapperPreview height90 floatLeft">
-        <ng-container *ngIf="this.dbnaryService.searchStarted==0">
-          <ng-container *ngFor="let b of this.dbnaryService.wordList">
-            <li class="variantList">
-              <div class="variant height90" (click)="b.selected=!b.selected">
-                {{b.val}}
-                <div class="selector imageContainer"
-                     [ngStyle]="{'background-image': b.selected?this.getIcon('checkmark'):this.getIcon('uncheckmark')}">
-                </div>
+  <div class="menu-container floatLeft">
+    <div class="menu">
+      <ng-container *ngFor="let menus of this.editionService.menu">
+        <div class="menu-item-container">
+          <div class="menu-item">
+            <div class="menu-item-title-container"
+                 [class.selected]="this.editionService.currentEditPage===menus"
+                 (click)="this.selectMenu(menus)">
+              <div class="menu-item-title">
+                {{menus}}
               </div>
-            </li>
-          </ng-container>
-        </ng-container>
-        <ng-container>
-          <div class="waitVariant imageContainer" [ngStyle]="{'background-image':'url(assets/icons/load.gif'}"
-               *ngIf="this.dbnaryService.searchStarted==2"></div>
-        </ng-container>
-      </div>
-
-      <div class="variantOk floatLeft">
-        <input type="button" value="Ok" (click)="closeVariant()">
-      </div>
-
-    </div>
-
-
-    <div class="element height90" *ngIf="eventDisplayed">
-      <ng-container *ngIf="this.currentInterractionNumber!=-1">
-        <div class="event floatLeft" (click)="this.addOrRemoveToInteraction('display')">
-          <div class="icon imageContainer" [ngStyle]="{'background-image':this.getIcon('display')}">
+            </div>
           </div>
-          <div class="label">
-            Display
-          </div>
-          <div class="checkmark floatLeft imageContainer"
-               [ngStyle]="{'background-image': this.isPartOfCurrentInteraction('display')?this.getIcon('checkmark'):this.getIcon('uncheckmark')}"></div>
-        </div>
-        <div class="event" (click)="this.addOrRemoveToInteraction('say')">
-          <div class="icon imageContainer" [ngStyle]="{'background-image':this.getIcon('say')}">
-          </div>
-          <div class="label floatLeft">
-            Pronounce
-          </div>
-          <div class="checkmark floatLeft imageContainer"
-               [ngStyle]="{'background-image': this.isPartOfCurrentInteraction('say')?this.getIcon('checkmark'):this.getIcon('uncheckmark')}"></div>
-        </div>
-        <div class="event" (click)="this.addOrRemoveToInteraction('otherforms')">
-          <div class="icon imageContainer" [ngStyle]="{'background-image':this.getIcon('variants')}">
-          </div>
-          <div class="label floatLeft">
-            Show other forms
-          </div>
-          <div class="checkmark floatLeft imageContainer"
-               [ngStyle]="{'background-image': this.isPartOfCurrentInteraction('otherforms')?this.getIcon('checkmark'):this.getIcon('uncheckmark')}"></div>
         </div>
       </ng-container>
+
     </div>
+  </div>
+  </div>
 
-
+  <div class="rightPane">
+    <app-event></app-event>
+    <app-alternative-forms></app-alternative-forms>
+    <app-image-selection-page></app-image-selection-page>
+    <app-information-edition-page></app-information-edition-page>
   </div>
 
 

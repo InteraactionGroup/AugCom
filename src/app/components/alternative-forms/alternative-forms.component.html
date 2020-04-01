@@ -1,0 +1,44 @@
+<div class="elementVariant height90" *ngIf="this.isVariantDisplayed()">
+
+  <div class="wordToSearchPanel">
+    <input #wordToSearch type="text" class="inputText" value="{{this.editionService.name}}">
+    <input type="button" class="search" value="search" (click)="getWordList(wordToSearch.value)">
+  </div>
+
+  <div class="waitVariant imageContainer" *ngIf="this.dbnaryService.searchStarted == 1"
+       [ngStyle]="{'background-image':'url(assets/icons/load.gif'}">
+  </div>
+
+  <div class="variantContainer height90" *ngIf="this.dbnaryService.searchStarted!=1 ">
+    <label for="classe-select">Classe grammaticale du mot ?</label>
+    <select [(ngModel)]="this.editionService.classe" name="classe" id="classe-select" class="variantListBox">
+      <option value="">--choisissez une option--</option>
+      <ng-container *ngFor="let b of this.dbnaryService.typeList ">
+        <option id="{{b}}radio" name="buttonType" value="{{b}}">{{b}}</option>
+      </ng-container>
+    </select>
+    <input type="button" value="OK" (click)="displayVariant(this.editionService.classe,wordToSearch.value)" class="variantOk">
+  </div>
+</div>
+
+<div class="variantSelector height90" *ngIf="this.isVariantDisplayed()">
+
+  <div class="wrapperPreview height90 floatLeft">
+    <ng-container *ngIf="this.dbnaryService.searchStarted==0">
+      <ng-container *ngFor="let b of this.dbnaryService.wordList">
+        <li class="variantList">
+          <div class="variant height90" (click)="b.selected=!b.selected">
+            {{b.val}}
+            <div class="selector imageContainer"
+                 [ngStyle]="{'background-image': b.selected?this.getIcon('checkmark'):this.getIcon('uncheckmark')}">
+            </div>
+          </div>
+        </li>
+      </ng-container>
+    </ng-container>
+    <ng-container>
+      <div class="waitVariant imageContainer" [ngStyle]="{'background-image':'url(assets/icons/load.gif'}"
+           *ngIf="this.dbnaryService.searchStarted==2"></div>
+    </ng-container>
+  </div>
+</div>

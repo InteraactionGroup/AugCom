@@ -25,6 +25,10 @@ import { SavesComponent } from './components/saves/saves.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ActualitesComponent } from './components/actualites/actualites.component';
 import { BackHomeBarComponent } from './components/back-home-bar/back-home-bar.component';
+import { EventComponent } from './components/event/event.component';
+import { AlternativeFormsComponent } from './components/alternative-forms/alternative-forms.component';
+import { ImageSelectionPageComponent } from './components/image-selection-page/image-selection-page.component';
+import { InformationEditionPageComponent } from './components/information-edition-page/information-edition-page.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +48,11 @@ import { BackHomeBarComponent } from './components/back-home-bar/back-home-bar.c
     SavesComponent,
     ContactComponent,
     ActualitesComponent,
-    BackHomeBarComponent
+    BackHomeBarComponent,
+    EventComponent,
+    AlternativeFormsComponent,
+    ImageSelectionPageComponent,
+    InformationEditionPageComponent
   ],
   imports: [
     BrowserModule,
