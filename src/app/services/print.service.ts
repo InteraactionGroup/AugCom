@@ -102,7 +102,7 @@ export class PrintService {
         this.urlList.push(url);
         innerValue = innerValue +
           '<div class="elementContainer">' +
-          '<div class="element" style="background-color:' + element.Color + '; border-color:' + element.BorderColor + this.getShadow(element) + '">\n' +
+          '<div class="optionsTable" style="background-color:' + element.Color + '; border-color:' + element.BorderColor + this.getShadow(element) + '">\n' +
           '<div class="image" style="background-image: ' + url + '"></div>\n' +
           '<div class="label">\n' +
           this.boardService.getLabel(element) +

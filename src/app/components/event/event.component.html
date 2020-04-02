@@ -24,7 +24,7 @@
   </div>
 </div>
 
-<div class="element height90" *ngIf="this.isEventDisplayed()">
+<div class="optionsTable height90" *ngIf="this.isEventDisplayed()">
   <ng-container *ngIf="this.currentInterractionNumber!=-1">
     <div class="event floatLeft" (click)="this.addOrRemoveToInteraction('display')">
       <div class="icon imageContainer" [ngStyle]="{'background-image':this.getIcon('display')}">

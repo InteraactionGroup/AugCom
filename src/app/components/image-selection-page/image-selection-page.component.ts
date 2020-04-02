@@ -23,7 +23,7 @@ export class ImageSelectionPageComponent implements OnInit {
   }
 
   isImageSelectionDisplayed(){
-    return this.editionService.currentEditPage==='image';
+    return this.editionService.currentEditPage==='Apparence';
   }
 
   /**

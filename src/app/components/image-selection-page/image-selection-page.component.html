@@ -1,37 +1,41 @@
 <ng-container *ngIf="this.isImageSelectionDisplayed()">
 
-  <div class="element">
-    <label class="label" for="imagefromfile">A partir d'un fichier</label>
-    <input #file (change)="previewFile(file.files)" accept='image/*' class="input" type="file" id="imagefromfile">
-  </div>
-  <div class="ou">-----OU-----</div>
+  <div class="page">
 
-  <div class="element">
-    <label class="label" for="imagefromURL">A partir d'une URL</label>
+    <div class="imageSelector">
+      <div class="tableTitle"> Modifier les couleurs: </div>
+      <div class="optionsTable">
+        <label class="label" for="borderColor">couleur des bords: </label>
+        <input #file (change)="previewFile(file.files)" accept='image/*' class="input" type="file" id="borderColor">
+        <label class="label" for="insideColor">couleur intérieur: </label>
+        <input #file (change)="previewFile(file.files)" accept='image/*' class="input" type="file" id="insideColor">
+      </div>
+    </div>
+
+      <div class="tableTitle"> Modifier l'image: </div>
+  <div class="optionsTable">
+    <label class="label" for="imagefromfile">à partir d'un fichier: </label>
+    <input #file (change)="previewFile(file.files)" accept='image/*' class="input" type="file" id="imagefromfile">
+    <label class="label" for="imagefromURL">à partir d'une URL: </label>
     <div class="inputURL">
-      <input class="inputURLText" type="text" id="imagefromURL" #text placeholder="Entrez l'URL de l'image">
+      <input class="inputURLText searchField" type="search" id="imagefromURL" #text placeholder="Entrez l'URL de l'image">
       <input class="searchURL" type="button" value="Ok" (click)="previewWithURL(text.value)">
     </div>
-  </div>
-  <div class="ou">-----OU-----</div>
-</ng-container>
-
-<div class="element height90" *ngIf="this.isImageSelectionDisplayed()">
-  <label class="label" for="imagefromLib">A partir des librairies</label>
+  <label class="label" for="imagefromLib">à partir des bibliothèques: </label>
   <div class="input">
-    <input #search class="inputLib" type="text" id="imagefromLib"
+    <input #search class="inputLib searchField" type="search" id="imagefromLib"
            placeholder="Entrez le mot à chercher (en anglais)">
     <input class="searchLib" type="button" value="search" (click)="searchInLib(search.value)">
   </div>
+    </div>
 
   <div class="wrapperPreview ">
     <ng-container *ngFor="let b of this.imageList ">
-      <li class="pictoList">
+
         <div class="pictoImg imageContainer"
              [ngStyle]="{'background-image':'url(assets/libs/mulberry-symbols/EN-symbols/'+b+'.svg)'}"
              (click)="previewMullberry(b)"></div>
-      </li>
     </ng-container>
   </div>
-
-</div>
+  </div>
+</ng-container>
