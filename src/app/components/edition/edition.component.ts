@@ -3,13 +3,9 @@ import {DbnaryService} from '../../services/dbnary.service';
 import {BoardService} from '../../services/board.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {GeticonService} from '../../services/geticon.service';
-import {MulBerryObject} from '../../libTypes';
-import mullberryJson from '../../../assets/symbol-info.json';
 import {DomSanitizer} from '@angular/platform-browser';
-import {Ng2ImgMaxService} from 'ng2-img-max';
-import {Action, Element} from '../../types';
+import {Element} from '../../types';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {ParametersService} from '../../services/parameters.service';
 import {Router} from '@angular/router';
 import {PaletteService} from '../../services/palette.service';
 import {EditionService} from '../../services/edition.service';
@@ -22,23 +18,14 @@ import {EditionService} from '../../services/edition.service';
 export class EditionComponent implements OnInit {
 
   constructor(public editionService: EditionService, public  paletteService: PaletteService,
-              private router: Router, public parametersService: ParametersService,
-              public indexedDBacess: IndexeddbaccessService, public ng2ImgMaxService: Ng2ImgMaxService,
+              private router: Router,
+              public indexedDBacess: IndexeddbaccessService,
               public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService,
               public dbnaryService: DbnaryService, public boardService: BoardService) {
 
   }
 
-  selectedPalette = this.paletteService.defaultPalette;
 
-  colorPicked = null;
-
-  /**
-   * current element color (#d3d3d3 = grey by default)
-   */
-  curentColor = '#d3d3d3';
-
-  curentBorderColor = 'black';
 
   /**
    * update the informations with the elementToModify if it exist and set the elementListener for listening next element modifications
@@ -78,7 +65,7 @@ export class EditionComponent implements OnInit {
    */
   clear() {
     this.editionService.name = '';
-    this.curentColor = '#d3d3d3';
+    this.editionService.curentColor = '#d3d3d3';
     this.editionService.imageURL = '';
     this.dbnaryService.wordList = [];
     this.dbnaryService.typeList = [];
@@ -117,11 +104,11 @@ export class EditionComponent implements OnInit {
   modifyAllButtons() {
     this.editionService.selectedElements.forEach(elt => {
 
-      if (this.curentColor !== '#d3d3d3') {
-        elt.Color = this.curentColor;
+      if (this.editionService.curentColor !== '#d3d3d3') {
+        elt.Color = this.editionService.curentColor;
       }
-      if (this.curentBorderColor !== '#d3d3d3') {
-        elt.BorderColor = this.curentBorderColor;
+      if (this.editionService.curentBorderColor !== '#d3d3d3') {
+        elt.BorderColor = this.editionService.curentBorderColor;
       }
 
       if (this.editionService.name !== this.editionService.DEFAULT_MULTPLE_NAME) { // todo there is probably a cleaner way to do it
@@ -215,8 +202,8 @@ export class EditionComponent implements OnInit {
       element.InteractionsList = Object.assign([], this.editionService.interractionList);
       console.log(element.InteractionsList);
 
-      element.Color = this.curentColor;
-      element.BorderColor = this.curentBorderColor;
+      element.Color = this.editionService.curentColor;
+      element.BorderColor = this.editionService.curentBorderColor;
       element.ImageID = this.boardService.currentFolder + element.ElementID;
 
       this.boardService.board.ImageList = this.boardService.board.ImageList.filter(
@@ -287,8 +274,8 @@ export class EditionComponent implements OnInit {
         ElementForms: elementForms,
         ImageID: this.boardService.currentFolder + tempId,
         InteractionsList: interList,
-        Color: this.curentColor,
-        BorderColor: this.curentBorderColor,
+        Color: this.editionService.curentColor,
+        BorderColor: this.editionService.curentBorderColor,
         Visible: true
       });
 
@@ -318,8 +305,8 @@ export class EditionComponent implements OnInit {
     if (this.editionService.selectedElements.length === 1) {
       const elementToModif: Element = this.editionService.selectedElements[0];
       this.editionService.name = this.getName(elementToModif);
-      this.curentColor = elementToModif.Color;
-      this.curentBorderColor = elementToModif.BorderColor;
+      this.editionService.curentColor = elementToModif.Color;
+      this.editionService.curentBorderColor = elementToModif.BorderColor;
       this.editionService.radioTypeFormat = elementToModif.ElementType;
       const imageToModif = this.boardService.board.ImageList.find(x => x.ImageID === elementToModif.ImageID);
       if (imageToModif != null && imageToModif !== undefined) {
@@ -341,7 +328,7 @@ export class EditionComponent implements OnInit {
       }
     } else if (this.editionService.selectedElements.length > 1) { // todo see what we want to modify here
       this.editionService.name = '$different$';
-      this.curentColor = '#d3d3d3';
+      this.editionService.curentColor = '#d3d3d3';
       this.editionService.radioTypeFormat = '';
       this.editionService.imageURL = 'assets/icons/multiple-images.svg';
       console.log(this.editionService.imageURL);
@@ -351,24 +338,7 @@ export class EditionComponent implements OnInit {
 
 
 
-  pickAColor(s: string) {
-    this.colorPicked = s;
-  }
 
-  selectColor(color) {
-    if (this.colorPicked === 'inside') {
-      this.curentColor = color;
-    } else if (this.colorPicked === 'border') {
-      this.curentBorderColor = color;
-    }
-  }
 
-  selectThePalette(name) {
-    if (this.selectedPalette === name) {
-      this.selectedPalette = null;
-    } else {
-      this.selectedPalette = name;
-    }
-  }
 }
 

@@ -1,44 +1,60 @@
-<div class="elementVariant height90" *ngIf="this.isVariantDisplayed()">
+<ng-container *ngIf="this.isVariantDisplayed()">
+  <div class="page">
 
-  <div class="wordToSearchPanel">
-    <input #wordToSearch type="text" class="inputText" value="{{this.editionService.name}}">
-    <input type="button" class="search" value="search" (click)="getWordList(wordToSearch.value)">
-  </div>
-
-  <div class="waitVariant imageContainer" *ngIf="this.dbnaryService.searchStarted == 1"
-       [ngStyle]="{'background-image':'url(assets/icons/load.gif'}">
-  </div>
-
-  <div class="variantContainer height90" *ngIf="this.dbnaryService.searchStarted!=1 ">
-    <label for="classe-select">Classe grammaticale du mot ?</label>
-    <select [(ngModel)]="this.editionService.classe" name="classe" id="classe-select" class="variantListBox">
-      <option value="">--choisissez une option--</option>
-      <ng-container *ngFor="let b of this.dbnaryService.typeList ">
-        <option id="{{b}}radio" name="buttonType" value="{{b}}">{{b}}</option>
-      </ng-container>
-    </select>
-    <input type="button" value="OK" (click)="displayVariant(this.editionService.classe,wordToSearch.value)" class="variantOk">
-  </div>
-</div>
-
-<div class="variantSelector height90" *ngIf="this.isVariantDisplayed()">
-
-  <div class="wrapperPreview height90 floatLeft">
-    <ng-container *ngIf="this.dbnaryService.searchStarted==0">
-      <ng-container *ngFor="let b of this.dbnaryService.wordList">
-        <li class="variantList">
-          <div class="variant height90" (click)="b.selected=!b.selected">
-            {{b.val}}
-            <div class="selector imageContainer"
-                 [ngStyle]="{'background-image': b.selected?this.getIcon('checkmark'):this.getIcon('uncheckmark')}">
+    <div class="variantSelector">
+        <div class="tableTitle">
+          Modifier les variantes du mot:
+        </div>
+          <div class="elementVariant">
+            <label class="label" for="wordToSearch">Chercher des variantes du mot en ligne: </label>
+            <div class="wordToSearchPanel">
+              <input id="wordToSearch" #wordToSearch class="inputText" type="text" value="{{this.editionService.name}}">
+              <input (click)="getWordList(wordToSearch.value)" class="search" type="button" value="search">
             </div>
+
+        </div>
+
+        <div class="variantContainer height90">
+          <div class="elementVariant">
+          <label for="classe-select">
+            <div class="floatLeft">Choisissez une classe grammaticale:</div>
+            <div *ngIf="this.dbnaryService.searchStarted == 1" [ngStyle]="{'background-image':'url(assets/icons/load.gif'}"
+                 class="waitVariant imageContainer">
+            </div>
+          </label>
+          <div>
+          <select [disabled]="this.dbnaryService.typeList.length===0" [(ngModel)]="this.editionService.classe" class="variantListBox" id="classe-select" name="classe">
+            <option value="">--choisissez une option--</option>
+            <ng-container *ngFor="let b of this.dbnaryService.typeList ">
+              <option id="{{b}}radio" name="buttonType" value="{{b}}">{{b}}</option>
+            </ng-container>
+          </select>
+          <input (click)="displayVariant(this.editionService.classe,wordToSearch.value)" class="variantOk" type="button"
+                 value="OK">
           </div>
-        </li>
-      </ng-container>
-    </ng-container>
-    <ng-container>
-      <div class="waitVariant imageContainer" [ngStyle]="{'background-image':'url(assets/icons/load.gif'}"
-           *ngIf="this.dbnaryService.searchStarted==2"></div>
-    </ng-container>
+          </div>
+        </div>
+
+      <div class="wrapperPreview">
+        <ng-container *ngIf="this.dbnaryService.searchStarted==0">
+          <ng-container *ngFor="let b of this.dbnaryService.wordList">
+            <li class="variantList">
+              <div (click)="b.selected=!b.selected" class="variant"
+                   [ngStyle]="{'background-color': b.selected?'#d1d5da': '#eef4f9'}" >
+                <div class="variantName">
+                {{b.val}}</div>
+                <div [ngStyle]="{'background-image': b.selected?this.getIcon('checkmark'):this.getIcon('uncheckmark')}"
+                     class="selector imageContainer">
+                </div>
+              </div>
+            </li>
+          </ng-container>
+        </ng-container>
+        <ng-container>
+          <div *ngIf="this.dbnaryService.searchStarted==2" [ngStyle]="{'background-image':'url(assets/icons/load.gif'}"
+               class="waitVariant imageContainer"></div>
+        </ng-container>
+      </div>
+    </div>
   </div>
-</div>
+</ng-container>

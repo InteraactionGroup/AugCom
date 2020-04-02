@@ -40,6 +40,7 @@ export class AlternativeFormsComponent implements OnInit {
    */
   getWordList(word) {
     this.dbnaryService.typeList = [];
+    this.editionService.classe= '';
     this.dbnaryService.startsearch(1);
     this.dbnaryService.getTypes(word);
   }

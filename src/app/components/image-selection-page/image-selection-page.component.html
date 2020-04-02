@@ -5,12 +5,25 @@
     <div class="imageSelector">
       <div class="tableTitle"> Modifier les couleurs: </div>
       <div class="element">
-        <label class="label" for="borderColor">couleur des bords: </label>
-        <input #file (change)="previewFile(file.files)" accept='image/*' class="input" type="file" id="borderColor">
-        <label class="label" for="insideColor">couleur intérieur: </label>
-        <input #file (change)="previewFile(file.files)" accept='image/*' class="input" type="file" id="insideColor">
+        <label class="label" for="borderColor">couleur intérieure: </label>
+        <div (click)="pickAColor('inside')">
+        <div id="borderColor" class="colorPickerContainer">
+          <div class="colorPicker"
+               [ngStyle]="{'background-color':this.editionService.curentColor}">
+          </div>
+        </div>
+          <label for="borderColor"> {{this.editionService.curentColor}} </label>
+        </div>
+        <label class="label" for="insideColor">couleur extérieure (bords) : </label>
+        <div (click)="pickAColor('border')">
+        <div id="insideColor" class="colorPickerContainerDown floatLeft">
+          <div class="colorPicker"
+               [ngStyle]="{'background-color':this.editionService.curentBorderColor}">
+          </div>
+        </div>
+          <label for="insideColor"> {{this.editionService.curentBorderColor}} </label>
+        </div>
       </div>
-    </div>
 
       <div class="tableTitle"> Modifier l'image: </div>
   <div class="element">
@@ -18,13 +31,13 @@
     <input #file (change)="previewFile(file.files)" accept='image/*' class="input" type="file" id="imagefromfile">
     <label class="label" for="imagefromURL">à partir d'une URL: </label>
     <div class="inputURL">
-      <input class="inputURLText searchField" type="search" id="imagefromURL" #text placeholder="Entrez l'URL de l'image">
+      <input class="inputURLText searchField" type="search" id="imagefromURL" #text placeholder="Entrez l'URL d'une image">
       <input class="searchURL" type="button" value="Ok" (click)="previewWithURL(text.value)">
     </div>
   <label class="label" for="imagefromLib">à partir des bibliothèques: </label>
   <div class="input">
     <input #search class="inputLib searchField" type="search" id="imagefromLib"
-           placeholder="Entrez le mot à chercher (en anglais)">
+           placeholder="Cherchez un mot (ENG)">
     <input class="searchLib" type="button" value="search" (click)="searchInLib(search.value)">
   </div>
     </div>
@@ -36,6 +49,7 @@
              [ngStyle]="{'background-image':'url(assets/libs/mulberry-symbols/EN-symbols/'+b+'.svg)'}"
              (click)="previewMullberry(b)"></div>
     </ng-container>
+  </div>
   </div>
   </div>
 </ng-container>

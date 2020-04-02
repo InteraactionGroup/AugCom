@@ -3,6 +3,7 @@ import {EditionService} from "../../services/edition.service";
 import {Ng2ImgMaxService} from "ng2-img-max";
 import mullberryJson from "../../../assets/symbol-info.json";
 import {MulBerryObject} from "../../libTypes";
+import {PaletteService} from "../../services/palette.service";
 
 @Component({
   selector: 'app-image-selection-page',
@@ -16,6 +17,7 @@ export class ImageSelectionPageComponent implements OnInit {
    * (the image list resulting in the research in the mullbery library)
    */
   imageList: any[];
+
 
   constructor(public ng2ImgMaxService: Ng2ImgMaxService,public editionService: EditionService) { }
 
@@ -107,6 +109,9 @@ export class ImageSelectionPageComponent implements OnInit {
     this.imageList = tempList.slice(0, 100);
   }
 
+  pickAColor(s: string) {
+    this.editionService.colorPicked = s;
+  }
 
 
 }

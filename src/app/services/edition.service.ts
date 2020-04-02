@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import {Action, Element} from '../types';
+import {PaletteService} from "./palette.service";
 
 @Injectable({
   providedIn: 'root'
@@ -54,10 +55,21 @@ export class EditionService {
 
   menu: string[] = ['Informations', 'Apparence', 'Grammaire', 'Autres formes', 'Interactions'];
 
-  currentEditPage = '';
+  currentEditPage = 'Autres formes';
 
 
-  constructor() {
+  colorPicked = null;
+
+  /**
+   * current element color (#d3d3d3 = grey by default)
+   */
+  curentColor = '#d3d3d3';
+
+  curentBorderColor = 'black';
+
+  selectedPalette = this.paletteService.defaultPalette;
+
+  constructor(public  paletteService: PaletteService) {
   }
 
   selectAllElementsOf(elementList) {
@@ -89,5 +101,21 @@ export class EditionService {
 
   delete(element: Element) {
     this.sentencedTodDeleteElement.push(element);
+  }
+
+  selectColor(color) {
+    if (this.colorPicked === 'inside') {
+      this.curentColor = color;
+    } else if (this.colorPicked === 'border') {
+      this.curentBorderColor = color;
+    }
+  }
+
+  selectThePalette(name) {
+    if (this.selectedPalette === name) {
+      this.selectedPalette = null;
+    } else {
+      this.selectedPalette = name;
+    }
   }
 }
