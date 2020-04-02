@@ -5,14 +5,14 @@
   transform: translateY(6%);
 }
 
-  .rightContainer .optionsTable {
+  .rightContainer .element {
   width: 94%;
   margin-left: 3%;
   transform: translateY(5%);
   background-color: lightgrey;
 }
 
-  .rightContainer .optionsTable .icon {
+  .rightContainer .element .icon {
   height: 100%;
   width: 15%;
   background-color: lightgrey;
@@ -22,14 +22,14 @@
   visibility: visible;
 }
 
-  .rightContainer .optionsTable .label {
+  .rightContainer .element .label {
   height: 40%;
   width: 10%;
   margin-left: 5%;
   transform: translateY(70%);
 }
 
-  .rightContainer .optionsTable .inputField {
+  .rightContainer .element .inputField {
   height: 60%;
   width: 60%;
   margin-left: 5%;
@@ -37,17 +37,17 @@
 }
 
 
-  .rightContainer .optionsTable .inputField .input {
+  .rightContainer .element .inputField .input {
   margin: 0 0 0 0;
   width: 100%;
 }
 
-  .rightContainer .optionsTable .inputField .input .inputHalfLeft {
+  .rightContainer .element .inputField .input .inputHalfLeft {
   width: 45%;
   margin: 0 10% 0 0;
 }
 
-  .rightContainer .optionsTable .inputField .input .inputHalfRight {
+  .rightContainer .element .inputField .input .inputHalfRight {
   margin: 0 0 0 0;
   width: 45%;
 }

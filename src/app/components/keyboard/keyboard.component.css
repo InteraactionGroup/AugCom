@@ -201,12 +201,12 @@
 }
 
 
-.keyboard .wrapper .elementContainer .optionsTable:hover {
+.keyboard .wrapper .elementContainer .element:hover {
   filter: brightness(80%);
 }
 
 
-.keyboard .wrapper .elementContainer .optionsTable {
+.keyboard .wrapper .elementContainer .element {
   cursor: pointer;
   height: 90%;
   width: 90%;
@@ -220,7 +220,7 @@
   overflow: hidden;
 }
 
-.keyboard .wrapper .elementContainer .optionsTable .image {
+.keyboard .wrapper .elementContainer .element .image {
   height: 70%;
   width: 90%;
   margin-left: 5%;
@@ -343,7 +343,7 @@ svg text {
   opacity: 0.8;
 }
 
-.gu-mirror .optionsTable {
+.gu-mirror .element {
   cursor: pointer;
   height: 90%;
   width: 90%;
@@ -353,7 +353,7 @@ svg text {
   border-radius: 10px;
 }
 
-.gu-mirror .optionsTable .image {
+.gu-mirror .element .image {
   height: 70%;
   width: 90%;
   min-width: 90%;

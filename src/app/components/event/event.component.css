@@ -39,7 +39,7 @@
 }
 
 
- .optionsTable .event {
+ .element .event {
   height: 60%;
   width: 20%;
   margin-left: 5%;
@@ -48,7 +48,7 @@
   float: left;
 }
 
- .optionsTable .event .icon {
+ .element .event .icon {
   float: top;
   height: 75%;
   width: 70%;
@@ -56,14 +56,14 @@
   transform: translateY(5%);
 }
 
- .optionsTable .event .label {
+ .element .event .label {
   float: left;
   height: 10%;
   width: 80%;
   transform: translateY(100%);
 }
 
- .optionsTable .event .checkmark {
+ .element .event .checkmark {
   float: left;
   height: 20%;
   width: 20%;

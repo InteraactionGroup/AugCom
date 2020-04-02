@@ -4,7 +4,7 @@
 
     <div class="imageSelector">
       <div class="tableTitle"> Modifier les couleurs: </div>
-      <div class="optionsTable">
+      <div class="element">
         <label class="label" for="borderColor">couleur des bords: </label>
         <input #file (change)="previewFile(file.files)" accept='image/*' class="input" type="file" id="borderColor">
         <label class="label" for="insideColor">couleur intérieur: </label>
@@ -13,7 +13,7 @@
     </div>
 
       <div class="tableTitle"> Modifier l'image: </div>
-  <div class="optionsTable">
+  <div class="element">
     <label class="label" for="imagefromfile">à partir d'un fichier: </label>
     <input #file (change)="previewFile(file.files)" accept='image/*' class="input" type="file" id="imagefromfile">
     <label class="label" for="imagefromURL">à partir d'une URL: </label>

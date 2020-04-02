@@ -92,7 +92,7 @@
   visibility: hidden;
 }
 
-.dialogBar .textBar .elementContainer .optionsTable {
+.dialogBar .textBar .elementContainer .element {
   cursor: pointer;
   height: 90%;
   width: 90%;
@@ -102,7 +102,7 @@
   visibility: visible;
 }
 
-.dialogBar .textBar .elementContainer .optionsTable .image {
+.dialogBar .textBar .elementContainer .element .image {
   float: top;
   height: 70%;
   width: 90%;
