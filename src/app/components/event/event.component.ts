@@ -32,34 +32,14 @@ export class EventComponent implements OnInit {
   }
 
   /**
-   * update the currentInterractionNumber and the currentInteraction with the interraction identified by i.
-   * by default i=0 for click, i=1 for longpress and i=2 for doubleClick
-   * return false otherwise
-   * @param i, a number
-   */
-  selectInteraction(i: number) {
-    this.currentInterractionNumber = i;
-  }
-
-  /**
-   * return true if the given number i is the same as the current interaction number 'currentInterractionNumber'
-   * return false otherwise
-   * @param i, a number
-   * @return true if i is the currentInterractionNumber, false otherwise
-   */
-  isCurrentInteraction(i) {
-    return this.currentInterractionNumber === i;
-  }
-
-  /**
    * Return true if the action identified by actionId exists in the current interaction
    * return false otherwise
+   * @param interractionId
    * @param actionId, the string identifying an action
    * @return true if the action identified by actionId exists in the current interaction, false otherwise
    */
-  isPartOfCurrentInteraction(actionId) {
-    const inter = this.parametersService.interaction[this.currentInterractionNumber - 1];
-    const currentInterraction = this.editionService.interractionList.find(interaction => interaction.InteractionID === inter);
+  isPartOfTheInteraction(interactionId:string, actionId: string) {
+    const currentInterraction = this.editionService.interractionList.find(interaction => interaction.InteractionID === interactionId);
     if (currentInterraction != null) {
       const res = currentInterraction.ActionList.find(x => x.ActionID === actionId);
       return res != null && res !== undefined;
@@ -70,20 +50,19 @@ export class EventComponent implements OnInit {
   /**
    * Add the action identified by the actionId to the current interaction if it doesn't contain it already,
    * otherwise it delete it from the current interaction
+   * @param interractionId
    * @param actionId, the string identifying an action
    */
-  addOrRemoveToInteraction(actionId: string) {
-    const inter = this.parametersService.interaction[this.currentInterractionNumber - 1];
-    const partOfCurrentInter = this.isPartOfCurrentInteraction(actionId);
+  addOrRemoveToInteraction(interactionId:string, actionId: string) {
+    const partOfCurrentInter = this.isPartOfTheInteraction(interactionId, actionId);
 
-    const currentInterraction = this.editionService.interractionList.findIndex(interaction => interaction.InteractionID === inter);
+    const currentInterraction = this.editionService.interractionList.findIndex(interaction => interaction.InteractionID === interactionId);
 
     if (currentInterraction === -1 && !partOfCurrentInter) {
-      this.editionService.interractionList.push({InteractionID: inter, ActionList: [{ActionID: actionId, Action: actionId}]});
+      this.editionService.interractionList.push({InteractionID: interactionId, ActionList: [{ActionID: actionId, Action: actionId}]});
     } else if (!partOfCurrentInter) {
       this.editionService.interractionList[currentInterraction].ActionList.push({ActionID: actionId, Action: actionId});
     } else if (partOfCurrentInter) {
-      // tslint:disable-next-line:max-line-length
       this.editionService.interractionList[currentInterraction].ActionList = this.editionService.interractionList[currentInterraction].ActionList.filter(x => x.ActionID !== actionId);
     }
 

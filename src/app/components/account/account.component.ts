@@ -13,7 +13,7 @@ export class AccountComponent implements OnInit {
     ['Apparence', ['Apparence générale', 'Gestion des palettes']],
     ['Paramètres', []],
     ['Langue', []],
-    ['Grammaire', ['Evenementse1', 'Evenementse2', 'Evenementse3']],
+    ['Grammaire', []],
     ['Partager', []],
     ['Informations complémentaires', ['Actualités', 'Contacts']]
   ];
@@ -25,6 +25,14 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  menuAVenir(){
+    return  (this.selectedSubMenu==='Actualités') ||
+            (this.selectedSubMenu==='Informations du compte') ||
+            (this.selectedMenu==='Grammaire') ||
+            (this.selectedSubMenu==='Apparence générale') ||
+            (this.selectedSubMenu==='Contacts');
   }
 
   getMenuPageTitle() {

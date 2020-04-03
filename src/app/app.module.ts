@@ -29,6 +29,7 @@ import { EventComponent } from './components/event/event.component';
 import { AlternativeFormsComponent } from './components/alternative-forms/alternative-forms.component';
 import { ImageSelectionPageComponent } from './components/image-selection-page/image-selection-page.component';
 import { InformationEditionPageComponent } from './components/information-edition-page/information-edition-page.component';
+import { AVenirComponent } from './components/a-venir/a-venir.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { InformationEditionPageComponent } from './components/information-editio
     EventComponent,
     AlternativeFormsComponent,
     ImageSelectionPageComponent,
-    InformationEditionPageComponent
+    InformationEditionPageComponent,
+    AVenirComponent
   ],
   imports: [
     BrowserModule,

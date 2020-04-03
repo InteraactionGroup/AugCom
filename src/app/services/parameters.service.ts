@@ -7,7 +7,7 @@ export class ParametersService {
 
   longpressTimeOut = 1000;
   doubleClickTimeOut = 200;
-  interaction = ['click', 'longPress', 'doubleClick'];
+  interactionIDs = ['click', 'longPress', 'doubleClick'];
   currentVoice = 'fr-FR@null';
   dragNDropinit = false;
 

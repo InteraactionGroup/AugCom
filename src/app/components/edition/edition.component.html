@@ -47,6 +47,9 @@
   </div>
 
   <div class="rightPane">
+    <ng-container *ngIf="this.editionService.currentEditPage==='Grammaire'">
+      <app-a-venir></app-a-venir>
+    </ng-container>
     <app-event></app-event>
     <app-alternative-forms></app-alternative-forms>
     <app-image-selection-page></app-image-selection-page>
