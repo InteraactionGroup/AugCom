@@ -47,6 +47,18 @@ export class EventComponent implements OnInit {
     return false;
   }
 
+  getLabel(text: string){
+    switch(text){
+      case 'display': return 'ajouter à la phrase' ;
+      case'say': return 'prononcer';
+      case 'otherforms': return 'afficher les formes alternatives';
+      case 'click' : return 'click';
+      case'longPress': return 'appui long';
+      case 'doubleClick': return 'double click';
+    }
+
+  }
+
   /**
    * Add the action identified by the actionId to the current interaction if it doesn't contain it already,
    * otherwise it delete it from the current interaction
