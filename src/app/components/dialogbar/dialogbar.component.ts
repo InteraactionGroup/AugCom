@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HistoricService} from '../../services/historic.service';
 import {GeticonService} from '../../services/geticon.service';
 import {BoardService} from '../../services/board.service';
@@ -10,7 +10,8 @@ import {BoardService} from '../../services/board.service';
 })
 export class DialogbarComponent implements OnInit {
 
-  constructor(public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService) { }
+  constructor(public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService) {
+  }
 
   ngOnInit() {
   }

@@ -1,0 +1,26 @@
+<ng-container *ngIf="this.isInformationsDisplayed()">
+
+  <div class="page">
+
+    <div class="fieldsSelector">
+      <div class="tableTitle"> Modifier les informations:</div>
+      <div class="element">
+        <label class="label" for="namefield">Nom de l'élément: </label>
+        <input id="namefield" [(ngModel)]="this.editionService.name" class="input"
+               placeholder="Entrez le nom de l'élément"
+               type="text">
+
+        <label class="label" for="typefield">Type d'élément : </label>
+        <form id="typefield" class="input">
+          <input [(ngModel)]="this.editionService.radioTypeFormat" checked id="radioButton" name="typeFormat"
+                 type="radio"
+                 value="button">
+          <label class="radio" for="radioButton">Bouton</label>
+          <input [(ngModel)]="this.editionService.radioTypeFormat" id="radioFolder" name="typeFormat" type="radio"
+                 value="folder">
+          <label class="radio" for="radioFolder">Dossier</label>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-container>

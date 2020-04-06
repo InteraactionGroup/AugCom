@@ -1,0 +1,46 @@
+* {
+  box-sizing: border-box;
+}
+
+.contact {
+  width: 100%;
+  height: 100%;
+}
+
+.formContainer {
+  margin: 5px auto auto;
+  height: 100%;
+  width: fit-content;
+}
+
+.form {
+  width: 100%;
+  height: 100%;
+}
+
+.firmItem {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.formText {
+  float: left;
+  width: 100%;
+}
+
+.formTextarea {
+  width: 100%;
+  height: 100%;
+}
+
+label {
+  margin-top: 10px;
+  float: left;
+  width: 100%;
+}
+
+
+textarea {
+  width: 100%;
+  height: 100px;
+}

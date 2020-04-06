@@ -1,19 +1,29 @@
+<!-- popup used for various question -->
 <div class="popup" *ngIf="this.userToolBarService.popup">
-  <div class="popupcontainer">
-    <div class="question">
-      {{this.questionBegin + this.getText() + this.questionEnd}}
+
+  <!-- container for the popup display -->
+  <div class="popupContainer">
+
+    <!-- display the popup question -->
+    <div class="popupQuestion">
+      {{this.questionBegin + this.getSentencedToDeleteElementStringValue() + this.questionEnd}}
     </div>
 
-    <div class="buttons">
+    <!-- popupButtons to answer the popup question -->
+    <div class="popupButtons">
 
-      <div class="choiceButton no" (click)="this.no()">
+      <!-- answer 'no' to the popup question -->
+      <div class="popupChoiceButton no" (click)="this.no()">
         non, annuler
       </div>
 
-      <div class="choiceButton yes" (click)="this.yes()">
+      <!-- answer 'yes' to the popup quesion -->
+      <div class="popupChoiceButton yes" (click)="this.yes()">
         oui, supprimer
       </div>
+
     </div>
 
   </div>
+
 </div>

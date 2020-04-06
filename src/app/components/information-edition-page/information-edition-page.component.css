@@ -1,0 +1,39 @@
+.page {
+  margin-top: 10px;
+  margin-left: 10px;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+}
+
+.imageSelector {
+  padding-top: 10px;
+  padding-left: 10px;
+  width: calc(100% - 10px);
+}
+
+.tableTitle {
+  border-top: black solid 1px;
+  padding-top: 10px;
+  padding-bottom: 15px;
+}
+
+.element {
+  width: 90%;
+  margin-left: 5%;
+  display: grid;
+  grid-template-columns: 205px 400px;
+  padding-bottom: 20px;
+}
+
+
+.element .label {
+  text-align: left;
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.element .input {
+  display: inline-block;
+  height: fit-content;
+}

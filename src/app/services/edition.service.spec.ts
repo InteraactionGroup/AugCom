@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { EditionService } from './edition.service';
+import {EditionService} from './edition.service';
 
 describe('EditionService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

@@ -1,10 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BoardService} from './board.service';
 import {Element} from '../types';
-import jsPDF from 'jspdf';
-import html2canvas, {Options} from 'html2canvas';
-import htmlToImage from 'html-to-image';
-import saveAs from 'file-saver';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +8,8 @@ import saveAs from 'file-saver';
 export class PrintService {
 
 
-  constructor(public boardService: BoardService) { }
+  constructor(public boardService: BoardService) {
+  }
 
   urlList: any[] = [];
 
@@ -22,7 +19,7 @@ export class PrintService {
 
   onImagesLoaded(event) {
     let loaded = this.urlList.length;
-    for ( const image of this.urlList ) {
+    for (const image of this.urlList) {
       const img = new Image();
       img.onload = () => {
         loaded--;
@@ -30,8 +27,12 @@ export class PrintService {
           event();
         }
         console.log('done ' + loaded);
+      };
+      const imgmatch = image.match(/\((.*?)\)/);
+      if (imgmatch != null) {
+        // console.log(imgmatch[0] + ' ET ' + imgmatch[1])
+        img.src = imgmatch[1].replace(/('|")/g, '');
       }
-      img.src = image.match(/\((.*?)\)/)[1].replace(/('|")/g, '');
 
     }
   }
@@ -50,22 +51,21 @@ export class PrintService {
   }
 
 
-
   getAllHTML() {
     const root = this.getHTML('.', this.boardService.board.ElementList.filter(elt => elt.ElementFolder === '.'));
     let other = '';
-    this.boardService.board.ElementList.forEach( elt => {
+    this.boardService.board.ElementList.forEach(elt => {
       if (elt.ElementType === 'folder') {
         other = other +
           this.getHTML(elt.ElementFolder !== '.' ? elt.ElementFolder + '.' +
-            elt.ElementID : '.' + elt.ElementID , this.boardService.board.ElementList.filter(e => {
-            if (elt.ElementFolder !== '.') {
-              return e.ElementFolder === (elt.ElementFolder + '.' + elt.ElementID);
-            } else {
-              return e.ElementFolder === ('.' + elt.ElementID);
-            }
-          })
-      );
+            elt.ElementID : '.' + elt.ElementID, this.boardService.board.ElementList.filter(e => {
+              if (elt.ElementFolder !== '.') {
+                return e.ElementFolder === (elt.ElementFolder + '.' + elt.ElementID);
+              } else {
+                return e.ElementFolder === ('.' + elt.ElementID);
+              }
+            })
+          );
       }
     });
     return root + other;
@@ -74,29 +74,29 @@ export class PrintService {
   getHTML(id, elementList) {
     console.log(id + ' , ' + elementList);
     return this.wrapperBegin(id) +
-     this.innerHTML(elementList) +
-     this.wrapperEnd();
+      this.innerHTML(elementList) +
+      this.wrapperEnd();
   }
 
   wrapperBegin(id) {
     return '<div class="id">' + id + '</div>\n' +
-              '<div class="keyboard" id="' + id + '">\n' +
-              '<div class="wrapper">\n';
+      '<div class="keyboard" id="' + id + '">\n' +
+      '<div class="wrapper">\n';
   }
 
   getShadow(element: Element) {
     if (element.ElementType === 'folder') {
-      let s = '; box-shadow: 3px -3px 0px -2px ' + (element.Color === undefined || element.Color == null ? '#d3d3d3' : element.Color ) ;
-      s = s + ' , 4px -4px '  + (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor ) ;
+      let s = '; box-shadow: 3px -3px 0px -2px ' + (element.Color === undefined || element.Color == null ? '#d3d3d3' : element.Color);
+      s = s + ' , 4px -4px ' + (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor);
       return s;
     } else {
       return '';
     }
   }
 
-  innerHTML( elementList: Element[]) {
+  innerHTML(elementList: Element[]) {
     let innerValue = '';
-    elementList.forEach( element => {
+    elementList.forEach(element => {
       if (element.ElementType !== 'empty') {
         const url = this.boardService.getSimpleImgUrl(element);
         this.urlList.push(url);
@@ -117,7 +117,7 @@ export class PrintService {
 
   wrapperEnd() {
     return '</div>\n' +
-    '</div>';
+      '</div>';
   }
 
   getCSSKeyboard() {

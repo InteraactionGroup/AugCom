@@ -1,7 +1,6 @@
-.keyboard{
+.keyboard {
   height: calc(100vh - 3.5cm);
   width: 100%;
-
   -webkit-user-select: none !important;
   -moz-user-select: none !important;
   -ms-user-select: none !important;
@@ -9,8 +8,8 @@
 
 }
 
-.settings{
-  height: 1cm ;
+.editionSettings {
+  height: 1cm;
   width: 100%;
   background-color: grey;
   margin: 0 0 0 0;
@@ -18,7 +17,7 @@
 }
 
 
-.settings .edit{
+.editionSettings .selectCheckBox {
   float: left;
   height: 0.8cm;
   width: 0.8cm;
@@ -30,7 +29,7 @@
   border-radius: 25%;
 }
 
-.settings .edit .image{
+.editionSettings .selectCheckBox .image {
   width: 80%;
   height: 80%;
   margin-left: 10%;
@@ -40,7 +39,7 @@
   background-position: center;
 }
 
-.settings .editSettings{
+.editionSettings .editSettingsButton {
   float: left;
   width: 20%;
   margin-left: 10px;
@@ -49,15 +48,15 @@
   background-color: lightgrey;
 }
 
-.settings .editSettings:hover{
+.editionSettings .editSettingsButton:hover {
   background-color: dimgrey;
 }
 
-.settings .editSettings input{
+.editionSettings .editSettingsButton input {
   visibility: hidden;
 }
 
-.settings .editSettings .editButton {
+.editionSettings .editSettingsButton .editButtonLabel {
   transform: translateY(45%);
   text-align: center;
   float: left;
@@ -65,7 +64,7 @@
   height: 50%;
 }
 
-.settings .editSettings .editImg{
+.editionSettings .editSettingsButton .editButtonImg {
   transform: translateY(50%);
   float: left;
   width: 20%;
@@ -75,7 +74,7 @@
   background-position: center;
 }
 
-.settings .gridSettings{
+.editionSettings .gridSettings {
   float: right;
   width: 20%;
   height: 100%;
@@ -83,7 +82,7 @@
   padding: 0 0 0 0;
 }
 
-.settings .gridSettings .inputSize{
+.editionSettings .gridSettings .inputSize {
   text-align: center;
   float: left;
   width: 40%;
@@ -91,40 +90,35 @@
   margin: 0 0 0 0;
   padding: 0 0 0 0;
 }
-.settings .gridSettings .x{
-   float: left;
-   margin: 0 0 0 0;
-  margin-top: 5px;
-   padding: 0 0 0 0;
- }
 
-.keyboard .wrapper{
+.editionSettings .gridSettings .x {
+  float: left;
+  margin: 0 0 0 0;
+  margin-top: 5px;
+  padding: 0 0 0 0;
+}
+
+.keyboard .wrapper {
   display: grid;
-  height:100%;
-  width:100%;
-  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   visibility: visible;
-
-
 }
 
-.keyboard .wrapper .elementContainer{
-  float:left;
-  height:100%;
-  width:100%;
+.keyboard .wrapper .elementContainer {
+  float: left;
   min-height: 1cm;
   min-width: 1cm;
   visibility: hidden;
-
-
 }
 
 
-
-.keyboard .wrapper .elementContainer .edit{
+.keyboard .wrapper .elementContainer .selectCheckBox {
   position: relative;
   float: right;
   height: 30px;
@@ -139,7 +133,7 @@
   visibility: visible;
 }
 
-.keyboard .wrapper .elementContainer .edit .image{
+.keyboard .wrapper .elementContainer .selectCheckBox .image {
   width: 80%;
   height: 80%;
   margin-left: 10%;
@@ -150,7 +144,7 @@
   visibility: visible;
 }
 
-.keyboard .wrapper .elementContainer .suppr{
+.keyboard .wrapper .elementContainer .deleteElement {
   cursor: pointer;
   position: relative;
   float: left;
@@ -161,21 +155,19 @@
   background-color: indianred;
   border-radius: 50%;
   visibility: visible;
-
   border-style: solid;
   border-color: darkred;
   border-width: 2px;
   box-sizing: border-box;
-
 }
 
 
-.keyboard .wrapper .elementContainer .suppr:hover{
+.keyboard .wrapper .elementContainer .deleteElement:hover {
   background-color: darkred;
 }
 
 
-.keyboard .wrapper .elementContainer .opacity{
+.keyboard .wrapper .elementContainer .elementVisibility {
   cursor: pointer;
   position: relative;
   float: bottom;
@@ -186,7 +178,6 @@
   background-color: lightgrey;
   border-radius: 50%;
   visibility: visible;
-
   border-style: solid;
   border-color: dimgrey;
   border-width: 2px;
@@ -194,11 +185,11 @@
 }
 
 
-.keyboard .wrapper .elementContainer .opacity:hover{
+.keyboard .wrapper .elementContainer .elementVisibility:hover {
   background-color: grey;
 }
 
-.keyboard .wrapper .elementContainer .suppr .image, .keyboard .wrapper .elementContainer .opacity .image{
+.keyboard .wrapper .elementContainer .deleteElement .image, .keyboard .wrapper .elementContainer .elementVisibility .image {
   width: 70%;
   height: 70%;
   margin-left: 15%;
@@ -210,16 +201,15 @@
 }
 
 
-.keyboard .wrapper .elementContainer .element:hover{
+.keyboard .wrapper .elementContainer .element:hover {
   filter: brightness(80%);
 }
 
 
-
-.keyboard .wrapper .elementContainer .element{
+.keyboard .wrapper .elementContainer .element {
   cursor: pointer;
-  height:90%;
-  width:90%;
+  height: 90%;
+  width: 90%;
   transform: translateY(5%);
   margin-left: 5%;
   visibility: visible;
@@ -228,12 +218,11 @@
   border-width: 3px;
   box-sizing: border-box;
   overflow: hidden;
-
 }
 
-.keyboard .wrapper .elementContainer .element .image{
-  height:70%;
-  width:90%;
+.keyboard .wrapper .elementContainer .element .image {
+  height: 70%;
+  width: 90%;
   margin-left: 5%;
   transform: translateY(10%);
   background-size: contain;
@@ -242,39 +231,60 @@
   visibility: visible;
 }
 
-.keyboard .wrapper .elementContainer .label{
+.keyboard .wrapper .elementContainer .label {
   transform: translateY(40%);
   min-font-size: 1vh;
   font-size: 2vh;
   text-align: center;
-  height:20%;
-  width:90%;
+  height: 20%;
+  width: 90%;
   margin-left: 5%;
   visibility: visible;
 }
 
+svg {
+  transform: translateY(40%);
+  width: 100%;
+  height: 20%;
+  text-align: center;
+}
 
+svg text {
+  text-align: center;
+}
 
-.keyboard .wrapper .elementContainer .blurredElt{
+.keyboard .wrapper .elementContainer .blurredElt {
   cursor: default;
   filter: blur(5px);
 }
 
-.keyboard .wrapper .elementContainer .blurredElt:hover{
+.keyboard .wrapper .elementContainer .blurredElt:hover {
   filter: blur(5px);
 }
 
-.keyboard .wrapper .elementContainer .searched:hover{
-  filter:drop-shadow(0 0 10px yellow) saturate(300%)
-}.keyboard .wrapper .elementContainer .searched{
-   filter:drop-shadow(0 0 10px yellow) saturate(300%)
- }
+.keyboard .wrapper .elementContainer .searched:hover {
+  filter: drop-shadow(0 0 20px yellow) saturate(300%)
+}
 
-.keyboard .wrapper .elementContainer .visible{
+.keyboard .wrapper .elementContainer .searched {
+  filter: drop-shadow(0 0 20px yellow) saturate(300%)
+}
+
+.keyboard .wrapper .elementContainer .notsearched:hover {
+  filter: brightness(50%);
+}
+
+.keyboard .wrapper .elementContainer .notsearched {
+  filter: brightness(50%);
+}
+
+.keyboard .wrapper .elementContainer .visible {
   opacity: 0;
 }
 
 .add {
+  width: 100%;
+  height: 100%;
   opacity: 0.5;
 }
 
@@ -327,26 +337,25 @@
 }
 
 
-
 .gu-mirror {
   position: absolute !important;
   z-index: 9998 !important;
   opacity: 0.8;
 }
 
-.gu-mirror .element{
+.gu-mirror .element {
   cursor: pointer;
-  height:90%;
-  width:90%;
+  height: 90%;
+  width: 90%;
   transform: translateY(5%);
   margin-left: 5%;
   visibility: visible;
   border-radius: 10px;
 }
 
-.gu-mirror  .element .image{
-  height:70%;
-  width:90%;
+.gu-mirror .element .image {
+  height: 70%;
+  width: 90%;
   min-width: 90%;
   margin-left: 5%;
   transform: translateY(10%);
@@ -356,19 +365,16 @@
   visibility: visible;
 }
 
-.gu-mirror  .label{
+.gu-mirror .label {
   transform: translateY(40%);
   min-font-size: 1vh;
   font-size: 2vh;
   text-align: center;
-  height:20%;
-  width:90%;
+  height: 20%;
+  width: 90%;
   margin-left: 5%;
   visibility: visible;
 }
-
-
-
 
 
 .gu-hide {
@@ -376,12 +382,14 @@
   background-color: darkred;
   /*display: none !important;*/
 }
+
 .gu-unselectable {
   -webkit-user-select: none !important;
   -moz-user-select: none !important;
   -ms-user-select: none !important;
   user-select: none !important;
 }
+
 .gu-transit {
   opacity: 0.4;
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BoardService} from './board.service';
 import {PaletteService} from './palette.service';
 
@@ -32,8 +32,8 @@ export class IndexeddbaccessService {
       const gridStore = db.transaction(['Grid'], 'readwrite').objectStore('Grid');
       const storeGridRequest = gridStore.get(1);
       storeGridRequest.onsuccess = () => {
-        this.updateBoardColsAndRows();
         gridStore.put(this.boardService.board, 1);
+        this.updateBoardColsAndRows();
       };
 
       // UPDATE THE PALETTES
@@ -44,7 +44,6 @@ export class IndexeddbaccessService {
       };
     };
   }
-
 
 
   // INITIALISATION
@@ -77,8 +76,8 @@ export class IndexeddbaccessService {
 
       // Creaction of Store
       const db = event.target.result;
-      db.createObjectStore('Grid', { autoIncrement : true });
-      db.createObjectStore('Palette', { autoIncrement : true });
+      db.createObjectStore('Grid', {autoIncrement: true});
+      db.createObjectStore('Palette', {autoIncrement: true});
 
 
       // Transaction in Store

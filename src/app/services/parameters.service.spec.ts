@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { ParametersService } from './parameters.service';
+import {ParametersService} from './parameters.service';
 
 describe('ParametersService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

@@ -1,9 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ParametersService} from '../../services/parameters.service';
-import {PaletteService} from '../../services/palette.service';
-import {GeticonService} from '../../services/geticon.service';
-import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {BoardService} from '../../services/board.service';
 
 @Component({
   selector: 'app-settings',
@@ -12,43 +8,10 @@ import {BoardService} from '../../services/board.service';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(private boardService: BoardService, private indexeddbaccessService: IndexeddbaccessService, private getIconService: GeticonService, public paletteService: PaletteService, public parametersService: ParametersService) {}
-
-  paletteCodamne = null;
-
-  /**
-   * the interactions bounded with the current html setting information
-   */
-  interaction = [this.parametersService.interaction[0], this.parametersService.interaction[1], this.parametersService.interaction[2]] ;
+  constructor(public parametersService: ParametersService) {
+  }
 
   ngOnInit() {
-  }
-
-  deletePalette() {
-    this.paletteService.deletePalette(this.paletteCodamne);
-    this.paletteCodamne = null;
-    this.indexeddbaccessService.update();
-  }
-
-  saveNewPalette() {
-    this.paletteService.savePalette();
-    this.indexeddbaccessService.update();
-  }
-
-  /**
-   * return the icon url corresponding to the string s
-   * @param s, the string identifying the icon
-   * @return the icon url
-   */
-  getIcon(s: string) {
-    return this.getIconService.getIconUrl(s);
-  }
-
-  reset() {
-    indexedDB.deleteDatabase('Saves');
-    this.boardService.resetBoard();
-    this.indexeddbaccessService.init();
-    this.indexeddbaccessService.update();
   }
 
 }

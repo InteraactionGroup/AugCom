@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SnapBarService} from '../../services/snap-bar.service';
 
 @Component({
@@ -8,7 +8,8 @@ import {SnapBarService} from '../../services/snap-bar.service';
 })
 export class SnapBarComponent implements OnInit {
 
-  constructor(public snapBarService: SnapBarService) { }
+  constructor(public snapBarService: SnapBarService) {
+  }
 
   ngOnInit() {
   }

@@ -1,14 +1,4 @@
-<div class="share" >
-
-
-
-  <nav>
-    <a routerLink="">
-      <div class="back" (click)="userToolBarService.share=false">
-        ^
-      </div>
-    </a>
-  </nav>
+<div class="share">
 
   <div class="sharePanel">
 
@@ -20,7 +10,7 @@
 
         </div>
         <div class="label">
-            Import Save
+          Import Save
         </div>
 
         <div class="inputField">
@@ -48,7 +38,7 @@
 
         </div>
         <div class="label">
-            Export Save
+          Export Save
         </div>
 
         <div class="inputField">
@@ -60,11 +50,25 @@
 
         </div>
         <div class="label">
-            Export to PDF
+          Export to PDF
         </div>
 
         <div class="inputField">
           <input type="button" value="Export" (click)="this.printToPDF()">
+        </div>
+      </div>
+
+
+      <div class="exportTo listElement">
+        <div class="image" [style.background-image]="this.getIcon('pdf')">
+
+        </div>
+        <div class="label">
+          Import SPEAK4YOURSELF
+        </div>
+
+        <div class="inputField">
+          <input type="button" value="Import" (click)="readCSV()">
         </div>
       </div>
 

@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { IndexeddbaccessService } from './indexeddbaccess.service';
+import {IndexeddbaccessService} from './indexeddbaccess.service';
 
 describe('IndexeddbaccessService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

@@ -1,15 +1,15 @@
-.usertoolbar{
+.usertoolbar {
   height: 1.5cm;
   min-height: 1cm;
   max-height: 14vw;
   min-width: 7cm;
   width: 100%;
   background-color: grey;
-  position:relative;
+  position: relative;
   z-index: 2;
 }
 
-.usertoolbar .button{
+.usertoolbar .button {
   cursor: pointer;
   float: right;
   height: 1.5cm;
@@ -21,7 +21,7 @@
   visibility: hidden;
 }
 
-.usertoolbar .buttonLeftLeft{
+.usertoolbar .buttonLeftLeft {
   cursor: pointer;
   float: left;
   height: 1.5cm;
@@ -31,7 +31,7 @@
   transition: width 1s;
 }
 
-.usertoolbar .buttonLeftRight{
+.usertoolbar .buttonLeftRight {
   cursor: pointer;
   float: left;
   height: 1.5cm;
@@ -46,7 +46,7 @@
   transition: width 1s;
 }
 
-.usertoolbar .buttonLeftLeftBig{
+.usertoolbar .buttonLeftLeftBig {
   cursor: pointer;
   float: left;
   height: 1.5cm;
@@ -56,11 +56,11 @@
   transition: width 1s;
 }
 
-.usertoolbar .button .image:hover, .usertoolbar .buttonLeftLeft .image:hover, .usertoolbar .buttonLeftRight .image:hover{
+.usertoolbar .button .image:hover, .usertoolbar .buttonLeftLeft .image:hover, .usertoolbar .buttonLeftRight .image:hover {
   background-color: darkgrey;
 }
 
-.usertoolbar .button .image{
+.usertoolbar .button .image {
   height: 80%;
   width: 80%;
   margin-left: 10%;
@@ -73,7 +73,7 @@
   visibility: visible;
 }
 
-.usertoolbar .buttonLeftLeft .image{
+.usertoolbar .buttonLeftLeft .image {
   height: 80%;
   width: 100%;
   margin-left: 0;
@@ -111,13 +111,13 @@
   overflow: scroll;
 }
 
-.usertoolbar .buttonLeftLeft .image .searchResults .searchResult{
+.usertoolbar .buttonLeftLeft .image .searchResults .searchResult {
   width: 100%;
   background-color: dimgrey;
   opacity: 0.8;
 }
 
-.usertoolbar .buttonLeftLeft .image .searchResults .searchResult:hover{
+.usertoolbar .buttonLeftLeft .image .searchResults .searchResult:hover {
   opacity: 1.3;
 }
 
@@ -135,7 +135,7 @@
   float: left;
 }
 
-.usertoolbar .buttonLeftRight .image{
+.usertoolbar .buttonLeftRight .image {
   height: 80%;
   width: 80%;
   margin-left: 0;
@@ -150,11 +150,11 @@
 }
 
 
-.usertoolbar .button .imageSelected:hover{
+.usertoolbar .button .imageSelected:hover {
   background-color: seagreen;
 }
 
-.usertoolbar .button .imageSelected{
+.usertoolbar .button .imageSelected {
   height: 80%;
   width: 80%;
   margin-left: 10%;
@@ -167,7 +167,7 @@
   visibility: visible;
 }
 
-.usertoolbar .button .noConnection{
+.usertoolbar .button .noConnection {
   height: 80%;
   width: 80%;
   margin-left: 10%;
@@ -181,7 +181,7 @@
   opacity: 0.5;
 }
 
-.usertoolbar .button .noConnection:hover{
+.usertoolbar .button .noConnection:hover {
   cursor: not-allowed;
   background-color: indianred;
 }

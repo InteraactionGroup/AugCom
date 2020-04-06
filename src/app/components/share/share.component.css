@@ -1,47 +1,32 @@
-.share{
-  position: absolute;
-  top:0%;
-  height: 100vh;
+.share {
+  height: 100%;
   width: 100%;
-  background-color: darkgrey;
-  transition: top 0.5s , opacity 0.5s;
   opacity: 1;
 }
 
-.share .back{
-  height: 1.5cm;
-  width: 100%;
-  background-color: grey;
-  box-shadow: 0px 5px 10px black;
-}
-
-.share .sharePanel{
-  height: calc(100% - 1.5cm);
+.share .sharePanel {
+  height: 50%;
   width: 90%;
-  margin-left: 5%;
-  background-color: white;
-  visibility: hidden;
+  margin: 20px auto auto;
 }
 
-.share .sharePanel .shareSection{
-  height: 30%;
-  width: 70%;
-  margin-left: 15%;
-  transform: translateY(50%);
+.share .sharePanel .shareSection {
+  height: 100%;
+  width: 100%;
+  margin-left: auto;
   display: inline-grid;
   visibility: visible;
 }
 
-.share .sharePanel .shareSection .listElement{
+.share .sharePanel .shareSection .listElement {
   height: 90%;
   width: 90%;
   margin-left: 5%;
-  background-color: lightgrey;
-  box-shadow: 0px 2px 10px black;
+  background: linear-gradient(transparent, lightgrey 100%);
 }
 
-.share .sharePanel .shareSection .listElement .image{
-  float:left;
+.share .sharePanel .shareSection .listElement .image {
+  float: left;
   height: 80%;
   width: 15%;
   transform: translateY(10%);
@@ -50,7 +35,7 @@
   background-position: center;
 }
 
-.share .sharePanel .shareSection .listElement .label{
+.share .sharePanel .shareSection .listElement .label {
   float: left;
   height: 80%;
   width: 20%;
@@ -58,10 +43,9 @@
   transform: translateY(50%);
 }
 
-.share .sharePanel .shareSection .inputField{
+.share .sharePanel .shareSection .inputField {
   float: left;
   height: 25%;
   width: 55%;
   transform: translateY(150%);
-  background-color: lightgrey;
 }

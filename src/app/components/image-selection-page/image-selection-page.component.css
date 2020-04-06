@@ -1,0 +1,112 @@
+.page {
+  margin-top: 10px;
+  margin-left: 10px;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+}
+
+.imageSelector {
+  padding-top: 10px;
+  padding-left: 10px;
+  width: calc(100% - 10px);
+}
+
+.tableTitle {
+  border-top: black solid 1px;
+  padding-top: 10px;
+  padding-bottom: 15px;
+}
+
+.element {
+  width: 90%;
+  margin-left: 5%;
+  display: grid;
+  grid-template-columns: 205px 400px;
+  padding-bottom: 20px;
+}
+
+
+.element .label {
+  text-align: left;
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.element .input {
+  display: inline-block;
+}
+
+
+.colorPickerContainer {
+  float: left;
+  height: 20px;
+  width: 100px;
+  background-color: dimgrey;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.colorPickerContainerDown {
+  float: left;
+  height: 20px;
+  width: 100px;
+  background-color: dimgrey;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.colorPicker {
+  cursor: pointer;
+  height: calc(100% - 4px);
+  width: calc(100% - 4px);
+  margin-left: 2px;
+  margin-top: 2px;
+  border-radius: 5px;
+  background-color: white;
+}
+
+
+.inputLib {
+}
+
+.searchLib {
+}
+
+.inputURL {
+  display: inline-block;
+}
+
+.inputURLText {
+}
+
+.searchField {
+  width: 300px;
+}
+
+.searchURL {
+}
+
+
+.wrapperPreview {
+  list-style-type: none;
+  width: calc(100% - 10px);;
+  height: 300px;
+  background-color: whitesmoke;
+  overflow-y: scroll;
+}
+
+.pictoImg {
+  display: inline-flex;;
+  cursor: pointer;
+  width: 10%;
+  padding-top: 10%;
+  box-sizing: border-box;
+  border: black solid 1px;
+}
+
+.imageContainer {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}

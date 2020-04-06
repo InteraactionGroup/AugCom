@@ -1,83 +1,42 @@
-.edition{
-  height: 100vh;
+.edition {
+  height: calc(100vh - 50px);
   width: 100%;
-  background-color: grey;
   opacity: 1;
+  background-color: white;
 }
 
-.selected{
-  height: 100vh;
-  width: 100%;
-  background-color: grey;
-  opacity: 1;
-}
-
-.edition .topBar{
-  height: 5%;
-  width: 100%;
-  background-color: black;
-}
-
-.edition .topBar .back{
-  cursor: pointer;
-  float:left;
+.rightPane {
+  float: left;
+  width: calc(100% - 300px);
   height: 100%;
-  width: 5%;
-  background-color: darkred;
 }
 
-.edition .topBar .save{
-  cursor: pointer;
-  float:right;
+.leftPane {
+  float: left;
+  width: 300px;
   height: 100%;
-  width: 20%;
+}
+
+
+.edition .save {
+  cursor: pointer;
+  display: block;
+  padding: 20px;
+  width: 100px;
+  height: 20px;
+  font-weight: 600;
+  background-color: dimgray;
   text-align: center;
-  background-color: lightblue;
   border-radius: 15px;
+  margin-left: 75px;
+  float: left;
 }
 
-.edition .leftEdition{
-  height: 33%;
-  width: 20%;
-  margin-left: 2%;
-  margin-top: 5%;
-  background-color: white;
+.edition .save:hover {
+  background-color: grey;
 }
 
-.edition .leftEdition .colorPickerContainer{
-  position: relative;
-  float: right;
-  height: 20%;
-  width: 20%;
-  margin-right: 1%;
-  transform: translateY(5%);
-  z-index: 99999;
-  background-color: dimgrey;
-  border-radius: 5px;
-}
-
-.edition .leftEdition .colorPickerContainerDown{
-  position: relative;
-  height: 10%;
-  width: 10%;
-  margin-left: 5%;
-  transform: translateY(50%);
-  z-index: 99999;
-  background-color: dimgrey;
-  border-radius: 5px;
-}
-
-.edition .leftEdition .colorPicker{
-  cursor: pointer;
-  height: 80%;
-  width: 80%;
-  margin-left: 10%;
-  transform: translateY(10%);
-  background-color: white;
-}
-
-
-.edition .leftEdition .button{
+.edition .leftEdition .button {
   height: 80%;
   width: 80%;
   margin-left: 10%;
@@ -85,364 +44,117 @@
   border-radius: 15px;
 }
 
-.edition .leftEdition .button .image{
-  float:top;
-  height:73%;
-  width:90%;
+.edition .leftEdition .button .image {
+  float: top;
+  height: 73%;
+  width: 90%;
   margin-left: 5%;
   transform: translateY(10%);
 }
 
-.edition .leftEdition .button .label{
+.edition .leftEdition .button .label {
   text-align: center;
-  float:top;
-  height:10%;
-  width:90%;
+  float: top;
+  height: 10%;
+  width: 90%;
   margin-left: 5%;
   transform: translateY(120%);
 }
 
 
-.edition .rightEdition{
-  height: 33%;
-  width: 40%;
-  margin-top: 5%;
-  margin-left: 2%;
+.edition .leftEdition {
+  height: 300px;
+  width: 300px;
   background-color: white;
 }
 
-.edition .rightEdition .rightContainer{
-  display: inline-grid;
-  width: 90%;
-  margin-left: 5%;
-  transform: translateY(6%);
+
+.menu-container {
+  width: 300px;
+  padding-right: 24px !important;
 }
 
-.edition .rightEdition .rightContainer .element{
-  width: 94%;
-  margin-left: 3%;
-  transform: translateY(5%);
-  background-color: lightgrey;
-}
-
-.edition .rightEdition .rightContainer .element .icon{
-  height: 100%;
-  width: 15%;
-  background-color: lightgrey;
-  background-size: 60%;
-  background-repeat: no-repeat;
-  background-position: center;
-  visibility: visible;
-}
-
-.edition .rightEdition .rightContainer .element .label{
-  height: 40%;
-  width: 10%;
-  margin-left: 5%;
-  transform: translateY(70%);
-}
-
-.edition .rightEdition .rightContainer .element .inputField{
-  height: 60%;
-  width: 60%;
-  margin-left: 5%;
-  transform: translateY(55%);
-}
-
-
-.edition .rightEdition .rightContainer .element .inputField .input{
-  margin: 0 0 0 0;
-  width: 100%;
-}
-
-.edition .rightEdition .rightContainer .element .inputField .input .inputHalfLeft{
-  width: 45%;
-  margin: 0 10% 0 0;
-}
-.edition .rightEdition .rightContainer .element .inputField .input .inputHalfRight{
-  margin: 0 0 0 0;
-  width: 45%;
-}
-
-.edition .bottomEdition{
-  height: 45%;
-  width: 96%;
-  margin-left: 2vw;
-  transform: translateY(7%);
-  background-color: white;
-}
-
-.edition .optionEdition{
-  height: 33%;
-  width: 32%;
-  margin-top: 5%;
-  margin-left: 2%;
-  background-color: white;
-}
-
-.edition .optionEdition .element{
-  height: 40%;
-  width: 90%;
-  margin-left: 5%;
-  transform: translateY(13%);
-  background-color: lightgrey;
-}
-
-.edition .optionEdition .elementVariant{
-  text-align: center;
-  width: 90%;
-  margin-left: 5%;
-  transform: translateY(5%);
-  background-color: lightgrey;
-}
-
-.edition .optionEdition .elementEvent{
-  text-align: center;
-  width: 90%;
-  margin-left: 5%;
-  transform: translateY(2%);
-  background-color: lightgrey;
-}
-
-.edition .optionEdition .elementEventContainer{
-  text-align: center;
-  width: 70%;
-  margin-left: 15%;
-  transform: translateY(5%);
-  background-color: white;
-}
-
-.edition .optionEdition .elementEventContainer .elementevent{
-  text-align: center;
-  height: 30%;
-  width: 90%;
-  margin-left: 5%;
-  background-color: lightgrey;
-  margin-top: 3%;
-  transform: translateY(5%);
-}
-
-.edition .optionEdition .elementEventContainer .label{
-  text-align: center;
-  height: 30%;
-  width: 80%;
-  transform: translateY(15%);
-}
-
-.edition .optionEdition .elementEventContainer .goto{
-  text-align: center;
-  width: 19%;
-  transform: translateY(5%);
-}
-
-.edition .optionEdition .elementVariant .waitVariant{
-  height: 80%;
-  width: 80%;
-  transform: translateY(10%);
-  margin-left: 10%;
-}
-
-.edition .optionEdition .elementVariant .variantContainer{
-  width: 100%;
-  transform: translateY(5%);
-}
-
-.edition .optionEdition .elementVariant .variantContainer .variantListBox{
-  transform: translateY(200%);
-  display: block;
-  width: 80%;
-  margin-left: 10%;
-}
-
-.edition .optionEdition .elementVariant .variantContainer .variantOk{
-  transform: translateY(500%);
-  display: block;
-  width: 40%;
-  margin-left: 30%;
-}
-
-
-.edition .optionEdition .element .label{
-  text-align: center;
-  transform: translateY(90%);
+.menu {
+  margin-left: 10px;
+  margin-bottom: 15px;
+  list-style: none;
+  background-color: #fff;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
   display: block;
 }
-.edition .optionEdition .element .input{
+
+.menu-title-container {
   display: block;
-  margin-left: 20%;
-  width: 60%;
-  transform: translateY(130%);
+  padding: 8px 10px;
+  margin-top: 0;
+  line-height: 20px;
+  color: #586069;
+  list-style: none;
+  background-color: #d1d5da;
+  border: 1px solid #d1d5da;
+  font-size: 18px;
+  font-weight: 600;
 }
 
-.edition .optionEdition .ou{
-  text-align: center;
-  width: 94%;
-  margin-left: 3%;
-  transform: translateY(70%);
+.menu-title {
+
 }
 
-.blured{
-  filter: blur(5px);
+.menu-item-container {
 }
 
-.edition .bottomEdition .element{
-  width: 94%;
-  margin-left: 3%;
-  transform: translateY(5%);
-  background-color: lightgrey;
+.menu-item {
+
 }
 
-.edition .bottomEdition .element .event{
-  height: 60%;
-  width: 20%;
-  margin-left: 5%;
-  transform: translateY(30%);
-  background-color: white;
-  float: left;
-}
-
-.edition .bottomEdition .element .event .icon{
-  float: top;
-  height: 75%;
-  width: 70%;
-  margin-left: 15%;
-  transform: translateY(5%);
-}
-
-.edition .bottomEdition .element .event .label{
-  float: left;
-  height: 10%;
-  width: 80%;
-  transform: translateY(100%);
-}
-
-.edition .bottomEdition .element .event .checkmark{
-  float: left;
-  height: 20%;
-  width: 20%;
-  transform: translateY(20%);
-}
-
-
-.edition .bottomEdition .element .label{
-  text-align: center;
-  transform: translateY(90%);
+.menu-item-title-container {
+  position: relative;
   display: block;
-}
-.edition .bottomEdition .element .input{
-  display: block;
-  margin-left: 20%;
-  width: 60%;
-  transform: translateY(130%);
-}
-
-.inputLib{
-  width:80%;
-}
-.searchLib{
-  width:15%;
+  padding: 8px 10px;
+  color: black;
+  text-decoration: none;
+  list-style: none;
+  background-color: #f4f4f4;
+  border: 1px solid #d1d5da;
+  font-size: 14px;
 }
 
-.inputURL{
-  transform: translateY(60%);
+.menu-item-title-container:hover:before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 6px;
+  content: "";
+  background-color: #d1d5da;
 }
 
-.inputURLText{
-  width:80%;
-  margin-left: 10%;
-}
-.searchURL{
-  width:30%;
-  margin-left: 35%;
-}
-
-
-.element .wrapperPreview {
-  list-style-type: none;
-  transform: translateY(15%);
-  margin-left: 4%;
-  display: grid;
-  width: 92%;
-  height: 75%;
-  background-color: whitesmoke;
-  overflow: scroll;
-  grid-template-columns: repeat(10, 10%);
+.menu-item-title-container.selected:before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 6px;
+  content: "";
+  background-color: #d1d5da;
 }
 
-.pictoImg{
-  cursor: pointer;
-  width:80%;
-  padding-top: 80%;
-  margin-left: 10%;
+.menu-item-title-container:hover {
+  background-color: #eef4f9;
 }
 
-.pictoList{
-  list-style-type: none;
+.menu-item-title-container.selected {
+  background-color: #eef4f9;
+  font-weight: 600;
+}
+
+.menu-item-title {
+
 }
 
 
-.bottomEdition .variantSelector{
-  width: 96%;
-  margin-left: 2%;
-  transform: translateY(5%);
-  background-color: lightgrey;
-}
-
-.bottomEdition .variantSelector .wrapperPreview{
-  text-align: center;
-  transform: translateY(5%);
-  margin-left: 4%;
-  display: grid;
-  width: 80%;
-  background-color: whitesmoke;
-  overflow: scroll;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(100,20%);
-}
-
-
-.waitVariant{
-  height: 100%;
-  width: 100%;
-}
-
-
-.bottomEdition .variantSelector .variantOk {
-  width: 10%;
-  height: 20%;
-  margin-left: 3%;
-  transform: translateY(200%);
-background-color: grey;
-}
-
-.bottomEdition .variantSelector .variantOk input{
-  width: 100%;
-  height: 100%;
-}
-
-.variantList{
-  width: 100%;
-  list-style-type: none;
-}
-
-.variantList .variant{
-  cursor: pointer;
-  width: 90%;
-  margin-left: 5%;
-  background-color: grey;
-  border-radius: 15px;
-}
-
-.variantList .variant .selector{
-  cursor: pointer;
-  width: 20%;
-  height: 40%;
-  margin-left: 40%;
-  margin-bottom: 0%;
-  border-radius: 50%;
-}
-
-.popup{
+.popup {
   position: absolute;
   top: 25%;
   left: 25%;
@@ -452,7 +164,7 @@ background-color: grey;
 
 }
 
-.popup .popupcontainer{
+.popup .popupContainer {
   height: 96%;
   width: 96%;
   margin-left: 2%;
@@ -460,17 +172,17 @@ background-color: grey;
   background-color: lightgrey;
 }
 
-.popup .close{
+.popup .close {
   position: absolute;
   cursor: pointer;
-  top:0;
+  top: 0;
   right: 0;
   height: 30px;
   width: 30px;
   background-color: red;
 }
 
-.palettes{
+.palettes {
   display: inline-block;
   margin-top: 65px;
   width: 80%;
@@ -478,39 +190,39 @@ background-color: grey;
   height: fit-content;
 }
 
-.palettes .palette{
+.palettes .palette {
   width: 100%;
   height: fit-content;
   display: grid;
-  grid-template-columns: repeat(10,10%);
+  grid-template-columns: repeat(10, 10%);
   background-color: grey;
   margin-bottom: 10px;
 }
 
 
-.palettes .paletteLabel{
+.palettes .paletteLabel {
   width: 100%;
   height: 20px;
   background-color: grey;
 }
 
-.palettes .paletteLabel:hover{
+.palettes .paletteLabel:hover {
   background-color: dimgrey;
 }
 
- .moreLess{
+.moreLess {
   float: right;
-   margin-right: 5%;
+  margin-right: 5%;
 }
 
-.palettes .palette .color{
+.palettes .palette .color {
   margin-top: 10%;
   margin-left: 10%;
   height: 80%;
   width: 80%;
 }
 
-.palettes .palette .realcolor{
+.palettes .palette .realcolor {
   margin-top: 10%;
   margin-left: 10%;
   height: 80%;
@@ -521,7 +233,7 @@ background-color: grey;
   border-color: black;
 }
 
-.palettes .palette .realcolor:hover{
+.palettes .palette .realcolor:hover {
   cursor: pointer;
   margin-top: 0;
   margin-left: 0;
