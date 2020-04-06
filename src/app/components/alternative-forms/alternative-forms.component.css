@@ -1,8 +1,8 @@
 .page {
   margin-top: 10px;
   margin-left: 10px;
-  width: calc( 100% - 20px);
-  height: calc( 100% - 20px);
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
 }
 
 .variantSelector {
@@ -11,7 +11,7 @@
   width: calc(100% - 10px);
 }
 
-.tableTitle{
+.tableTitle {
   border-top: black solid 1px;
   padding-top: 10px;
   padding-bottom: 15px;
@@ -36,29 +36,28 @@
   display: inline-block;
 }
 
-  .elementVariant .variantContainer {
+.elementVariant .variantContainer {
   width: 100%;
 }
 
- .variantListBox {
-   height: 100%;
-   width: 300px;
+.variantListBox {
+  height: 100%;
+  width: 300px;
 }
 
-  .elementVariant .variantContainer .variantOk {
+.elementVariant .variantContainer .variantOk {
   display: block;
   width: 40%;
   margin-left: 30%;
 }
 
 
-
- .variantSelector .wrapperPreview {
+.variantSelector .wrapperPreview {
   text-align: center;
   display: grid;
-   margin-left: 10px;
+  margin-left: 10px;
   width: calc(100% - 20px);
-   height: 150px;
+  height: 150px;
   background-color: whitesmoke;
   overflow-y: scroll;
   grid-template-columns: repeat(7, 1fr);
@@ -73,14 +72,14 @@
 }
 
 
- .variantSelector .variantOk {
+.variantSelector .variantOk {
 }
 
- .inputText{
-   width: 300px;
- }
+.inputText {
+  width: 300px;
+}
 
- .variantSelector .variantOk input {
+.variantSelector .variantOk input {
   width: 100%;
   height: 100%;
 }
@@ -104,7 +103,7 @@
 .variantName {
   float: left;
   text-align: center;
-  width: calc(100% - 25px) ;
+  width: calc(100% - 25px);
   margin-top: 5px;
   height: 100%;
 }
@@ -118,16 +117,16 @@
   border-radius: 100%;
 }
 
-  .imageContainer {
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
+.imageContainer {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 
-  .floatLeft {
-    float: left;
-  }
+.floatLeft {
+  float: left;
+}
 
-  .height90 {
-    height: 90%;
-  }
+.height90 {
+  height: 90%;
+}

@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { GeticonService } from './geticon.service';
+import {GeticonService} from './geticon.service';
 
 describe('GeticonService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

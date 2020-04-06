@@ -55,7 +55,7 @@ export class EditionService {
 
   menu: string[] = ['Informations', 'Apparence', 'Grammaire', 'Autres formes', 'Interactions'];
 
-  currentEditPage = 'Autres formes';
+  currentEditPage = 'Informations';
 
 
   colorPicked = null;

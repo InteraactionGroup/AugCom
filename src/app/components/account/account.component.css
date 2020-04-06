@@ -250,6 +250,7 @@
   overflow-y: auto;
   -ms-overflow-style: none;
 }
+
 .menu-page-content::-webkit-scrollbar {
   display: none;
 }

@@ -1,8 +1,8 @@
 .page {
   margin-top: 10px;
   margin-left: 10px;
-  width: calc( 100% - 20px);
-  height: calc( 100% - 20px);
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
 }
 
 .eventSelector {
@@ -11,12 +11,13 @@
   width: calc(100% - 10px);
 }
 
-.tableTitle{
+.tableTitle {
   border-top: black solid 1px;
   padding-top: 10px;
   padding-bottom: 15px;
 }
- .elementEvent {
+
+.elementEvent {
   text-align: center;
   width: 90%;
   margin-left: 5%;
@@ -24,7 +25,7 @@
   background-color: lightgrey;
 }
 
- .elementEventContainer {
+.elementEventContainer {
   text-align: center;
   width: 70%;
   margin-left: 15%;
@@ -32,7 +33,7 @@
   background-color: white;
 }
 
- .elementEventContainer .elementevent {
+.elementEventContainer .elementevent {
   text-align: center;
   height: 30%;
   width: 90%;
@@ -42,68 +43,68 @@
   transform: translateY(5%);
 }
 
- .elementEventContainer .label {
+.elementEventContainer .label {
   text-align: center;
   height: 30%;
   width: 80%;
   transform: translateY(15%);
 }
 
- .elementEventContainer .goto {
+.elementEventContainer .goto {
   text-align: center;
   width: 19%;
   transform: translateY(5%);
 }
 
- .tableEvent{
-   height: 295px;
-   width: 565px;
-   display: grid;
-   margin: auto;
-   grid-template-columns: 100px 150px 150px 150px;
-   grid-template-rows: 130px 50px 50px 50px;
-   grid-gap: 5px;
-   padding: 10px;
-   background-color: whitesmoke;
- }
-
- .leftTabLabel{
-   text-align: center;
-   vertical-align: auto;
-   padding-top: 15px;
-   padding-bottom: 15px;
-   background-color: white;
- }
-
-  .event {
-  height: 100%;
-  width: 100%;
-    box-sizing: border-box;
-  float: left;
-    text-align: center;
-    background-color: white;
+.tableEvent {
+  height: 295px;
+  width: 565px;
+  display: grid;
+  margin: auto;
+  grid-template-columns: 100px 150px 150px 150px;
+  grid-template-rows: 130px 50px 50px 50px;
+  grid-gap: 5px;
+  padding: 10px;
+  background-color: whitesmoke;
 }
 
-  .event .icon {
+.leftTabLabel {
+  text-align: center;
+  vertical-align: auto;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: white;
+}
+
+.event {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  float: left;
+  text-align: center;
+  background-color: white;
+}
+
+.event .icon {
   float: top;
   height: 80px;
   width: 80px;
-    margin: 10px auto auto;
+  margin: 10px auto auto;
 
-  }
-
-  .event .label {
-  float: left;
-    text-align: center;
 }
 
-  .event .checkmark {
+.event .label {
+  float: left;
+  text-align: center;
+}
+
+.event .checkmark {
   float: left;
   height: calc(100% - 10px);
   width: calc(100% - 10px);
-    margin-left: 5px;
-    margin-top: 5px;
-    background-color: white;
+  margin-left: 5px;
+  margin-top: 5px;
+  background-color: white;
 }
 
 
@@ -115,8 +116,8 @@
   height: 90%;
 }
 
- .imageContainer {
-   background-size: contain;
-   background-repeat: no-repeat;
-   background-position: center;
- }
+.imageContainer {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}

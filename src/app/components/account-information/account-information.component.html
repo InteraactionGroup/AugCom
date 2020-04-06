@@ -12,16 +12,17 @@
     </div>
 
     <label for="image-profile">
-    <div class="TimeLineSelectorChangeContainer">
-      <div class="TimeLineSelector">
-        <div class="TimelineText">
-          Changer de photo
+      <div class="TimeLineSelectorChangeContainer">
+        <div class="TimeLineSelector">
+          <div class="TimelineText">
+            Changer de photo
+          </div>
         </div>
       </div>
-    </div>
     </label>
   </div>
-  <input #file (change)="setProfilePicture(file.files)" onclick="this.value=null" type="file" id="image-profile" accept='image/*' class="hidden" />
+  <input #file (change)="setProfilePicture(file.files)" onclick="this.value=null" type="file" id="image-profile"
+         accept='image/*' class="hidden"/>
 
   <div class="accountInformations">
     <div>

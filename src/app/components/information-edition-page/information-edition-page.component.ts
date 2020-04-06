@@ -1,55 +1,56 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {EditionService} from "../../services/edition.service";
 import {GeticonService} from "../../services/geticon.service";
 import {DbnaryService} from "../../services/dbnary.service";
 
 @Component({
-  selector: 'app-information-edition-page',
-  templateUrl: './information-edition-page.component.html',
-  styleUrls: ['./information-edition-page.component.css']
+    selector: 'app-information-edition-page',
+    templateUrl: './information-edition-page.component.html',
+    styleUrls: ['./information-edition-page.component.css']
 })
 export class InformationEditionPageComponent implements OnInit {
 
-  constructor(public dbnaryService: DbnaryService, public editionService: EditionService, public getIconService: GeticonService) { }
+    constructor(public dbnaryService: DbnaryService, public editionService: EditionService, public getIconService: GeticonService) {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  isInformationsDisplayed() {
-    return this.editionService.currentEditPage==='Informations';
-  }
+    isInformationsDisplayed() {
+        return this.editionService.currentEditPage === 'Informations';
+    }
 
-  /**
-   * Actualize the grammatical type list (typeList)  of the word 'word'
-   * (ex: if word = 'bleu' typeList will be ['-nom-','-adj-'] because bleu can be a noun or an adjective
-   * @param word, a string word
-   */
-  getWordList(word) {
-    this.editionService.currentEditPage="Autres formes";
-    this.dbnaryService.typeList = [];
-    this.dbnaryService.startsearch(1);
-    this.dbnaryService.getTypes(word);
-  }
+    /**
+     * Actualize the grammatical type list (typeList)  of the word 'word'
+     * (ex: if word = 'bleu' typeList will be ['-nom-','-adj-'] because bleu can be a noun or an adjective
+     * @param word, a string word
+     */
+    getWordList(word) {
+        this.editionService.currentEditPage = "Autres formes";
+        this.dbnaryService.typeList = [];
+        this.dbnaryService.startsearch(1);
+        this.dbnaryService.getTypes(word);
+    }
 
-  /**
-   * display the html event panel by setting currentEditPage to event
-   *
-   */
-  getEvents() {
-    this.editionService.currentEditPage="Interactions";
-  }
+    /**
+     * display the html event panel by setting currentEditPage to event
+     *
+     */
+    getEvents() {
+        this.editionService.currentEditPage = "Interactions";
+    }
 
-  /**
-   * return the icon url corresponding to the string s
-   * @param s, the string identifying the icon
-   * @return the icon url
-   */
-  getIcon(s: string) {
-    return this.getIconService.getIconUrl(s);
-  }
+    /**
+     * return the icon url corresponding to the string s
+     * @param s, the string identifying the icon
+     * @return the icon url
+     */
+    getIcon(s: string) {
+        return this.getIconService.getIconUrl(s);
+    }
 
-  imageChoseClick(){
-    this.editionService.currentEditPage = this.editionService.currentEditPage==='' ? 'image' : '';
-  }
+    imageChoseClick() {
+        this.editionService.currentEditPage = this.editionService.currentEditPage === '' ? 'image' : '';
+    }
 
 }

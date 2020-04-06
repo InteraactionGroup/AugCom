@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { HistoricService } from './historic.service';
+import {HistoricService} from './historic.service';
 
 describe('HistoricService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

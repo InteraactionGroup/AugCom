@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { PaletteService } from './palette.service';
+import {PaletteService} from './palette.service';
 
 describe('PaletteService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

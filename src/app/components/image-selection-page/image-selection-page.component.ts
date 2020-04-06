@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {EditionService} from "../../services/edition.service";
 import {Ng2ImgMaxService} from "ng2-img-max";
 import mullberryJson from "../../../assets/symbol-info.json";
 import {MulBerryObject} from "../../libTypes";
-import {PaletteService} from "../../services/palette.service";
 
 @Component({
   selector: 'app-image-selection-page',
@@ -19,13 +18,14 @@ export class ImageSelectionPageComponent implements OnInit {
   imageList: any[];
 
 
-  constructor(public ng2ImgMaxService: Ng2ImgMaxService,public editionService: EditionService) { }
+  constructor(public ng2ImgMaxService: Ng2ImgMaxService, public editionService: EditionService) {
+  }
 
   ngOnInit() {
   }
 
-  isImageSelectionDisplayed(){
-    return this.editionService.currentEditPage==='Apparence';
+  isImageSelectionDisplayed() {
+    return this.editionService.currentEditPage === 'Apparence';
   }
 
   /**

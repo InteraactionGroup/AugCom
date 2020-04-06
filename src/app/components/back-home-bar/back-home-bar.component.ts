@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GeticonService} from "../../services/geticon.service";
 
 @Component({
@@ -8,7 +8,8 @@ import {GeticonService} from "../../services/geticon.service";
 })
 export class BackHomeBarComponent implements OnInit {
 
-  constructor(private getIconService: GeticonService) { }
+  constructor(private getIconService: GeticonService) {
+  }
 
   ngOnInit() {
   }

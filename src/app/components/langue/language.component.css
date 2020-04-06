@@ -1,8 +1,9 @@
-.language{
+.language {
   height: 100%;
   width: 100%;
 }
-.languageSelection{
+
+.languageSelection {
   margin: 20px auto auto;
   width: fit-content;
 }

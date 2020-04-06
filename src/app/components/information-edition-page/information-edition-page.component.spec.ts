@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { InformationEditionPageComponent } from './information-edition-page.component';
+import {InformationEditionPageComponent} from './information-edition-page.component';
 
 describe('InformationEditionPageComponent', () => {
   let component: InformationEditionPageComponent;
@@ -8,9 +8,9 @@ describe('InformationEditionPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InformationEditionPageComponent ]
+      declarations: [InformationEditionPageComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

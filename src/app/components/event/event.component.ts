@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {EditionService} from "../../services/edition.service";
 import {ParametersService} from "../../services/parameters.service";
-import {Action} from "../../types";
 import {GeticonService} from "../../services/geticon.service";
 
 @Component({
@@ -22,13 +21,14 @@ export class EventComponent implements OnInit {
    */
   currentInterractionNumber = -1;
 
-  constructor(public getIconService: GeticonService, public parametersService: ParametersService, public editionService: EditionService) { }
+  constructor(public getIconService: GeticonService, public parametersService: ParametersService, public editionService: EditionService) {
+  }
 
   ngOnInit() {
   }
 
-  isEventDisplayed(){
-    return this.editionService.currentEditPage==='Interactions';
+  isEventDisplayed() {
+    return this.editionService.currentEditPage === 'Interactions';
   }
 
   /**
@@ -38,7 +38,7 @@ export class EventComponent implements OnInit {
    * @param actionId, the string identifying an action
    * @return true if the action identified by actionId exists in the current interaction, false otherwise
    */
-  isPartOfTheInteraction(interactionId:string, actionId: string) {
+  isPartOfTheInteraction(interactionId: string, actionId: string) {
     const currentInterraction = this.editionService.interractionList.find(interaction => interaction.InteractionID === interactionId);
     if (currentInterraction != null) {
       const res = currentInterraction.ActionList.find(x => x.ActionID === actionId);
@@ -47,14 +47,20 @@ export class EventComponent implements OnInit {
     return false;
   }
 
-  getLabel(text: string){
-    switch(text){
-      case 'display': return 'ajouter à la phrase' ;
-      case'say': return 'prononcer';
-      case 'otherforms': return 'afficher les formes alternatives';
-      case 'click' : return 'click';
-      case'longPress': return 'appui long';
-      case 'doubleClick': return 'double click';
+  getLabel(text: string) {
+    switch (text) {
+      case 'display':
+        return 'ajouter à la phrase';
+      case'say':
+        return 'prononcer';
+      case 'otherforms':
+        return 'afficher les formes alternatives';
+      case 'click' :
+        return 'click';
+      case'longPress':
+        return 'appui long';
+      case 'doubleClick':
+        return 'double click';
     }
 
   }
@@ -65,13 +71,16 @@ export class EventComponent implements OnInit {
    * @param interractionId
    * @param actionId, the string identifying an action
    */
-  addOrRemoveToInteraction(interactionId:string, actionId: string) {
+  addOrRemoveToInteraction(interactionId: string, actionId: string) {
     const partOfCurrentInter = this.isPartOfTheInteraction(interactionId, actionId);
 
     const currentInterraction = this.editionService.interractionList.findIndex(interaction => interaction.InteractionID === interactionId);
 
     if (currentInterraction === -1 && !partOfCurrentInter) {
-      this.editionService.interractionList.push({InteractionID: interactionId, ActionList: [{ActionID: actionId, Action: actionId}]});
+      this.editionService.interractionList.push({
+        InteractionID: interactionId,
+        ActionList: [{ActionID: actionId, Action: actionId}]
+      });
     } else if (!partOfCurrentInter) {
       this.editionService.interractionList[currentInterraction].ActionList.push({ActionID: actionId, Action: actionId});
     } else if (partOfCurrentInter) {

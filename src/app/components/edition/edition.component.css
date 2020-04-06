@@ -1,33 +1,39 @@
 .edition {
-  height: calc( 100vh - 50px ) ;
+  height: calc(100vh - 50px);
   width: 100%;
   opacity: 1;
 }
 
-.rightPane{
+.rightPane {
   float: left;
   width: calc(100% - 300px);
   height: 100%;
 }
 
-.leftPane{
+.leftPane {
   float: left;
   width: 300px;
   height: 100%;
 }
 
 
-
-.edition  .save {
+.edition .save {
   cursor: pointer;
-  float: right;
-  height: 30px;
+  display: block;
+  padding: 20px;
   width: 100px;
+  height: 20px;
+  font-weight: 600;
+  background-color: dimgray;
   text-align: center;
-  background-color: lightblue;
   border-radius: 15px;
+  margin-left: 75px;
+  float: left;
 }
 
+.edition .save:hover {
+  background-color: grey;
+}
 
 .edition .leftEdition .button {
   height: 80%;
@@ -68,7 +74,6 @@
 }
 
 .menu {
-  position: relative !important;
   margin-left: 10px;
   margin-bottom: 15px;
   list-style: none;

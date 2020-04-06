@@ -79,7 +79,7 @@ export class PaletteService {
     this.newTempPalette.colors = this.newTempPalette.colors.filter(color => color !== thisColor);
   }
 
-  getNextPaletteName(){
+  getNextPaletteName() {
     let index = 1;
     while (this.palettes.findIndex(palette => palette.name === 'Ma Palette #' + index) !== -1) {
       index++;

@@ -1,61 +1,26 @@
-<div class="rightContainer height90" *ngIf="this.isInformationsDisplayed()">
-  <div class="element height90 name">
-    <div class="icon floatLeft" [ngStyle]="{'background-image':this.getIcon('name')}">
+<ng-container *ngIf="this.isInformationsDisplayed()">
 
-    </div>
-    <div class="label floatLeft">
-      Name
-    </div>
-    <div class="inputField floatLeft">
-      <input [(ngModel)]="this.editionService.name" type="text" class="input" placeholder="Entrez le nom de l'élément">
-    </div>
-  </div>
+  <div class="page">
 
-  <div class="element height90 image">
-    <div class="icon floatLeft" [ngStyle]="{'background-image':this.getIcon('image')}">
+    <div class="fieldsSelector">
+      <div class="tableTitle"> Modifier les informations:</div>
+      <div class="element">
+        <label class="label" for="namefield">Nom de l'élément: </label>
+        <input id="namefield" [(ngModel)]="this.editionService.name" class="input"
+               placeholder="Entrez le nom de l'élément"
+               type="text">
 
-    </div>
-    <div class="label floatLeft">
-      Image
-    </div>
-    <div class="inputField floatLeft">
-      <input type="button" value="Choisir une image" class="input" (click)="this.imageChoseClick()">
-    </div>
-  </div>
-
-  <div class="element height90 type">
-    <div class="icon floatLeft" [ngStyle]="{'background-image':this.getIcon('type')}">
-
-    </div>
-    <div class="label floatLeft">
-      Type
-    </div>
-    <div class="inputField floatLeft">
-      <form class="input">
-        <input id="radioButton" [(ngModel)]="this.editionService.radioTypeFormat" name="typeFormat" type="radio" value="button"
-               checked>
-        <label class="radio" for="radioButton">Button</label>
-        <input id="radioFolder" [(ngModel)]="this.editionService.radioTypeFormat" name="typeFormat" type="radio" value="folder">
-        <label class="radio" for="radioFolder">Folder</label>
-      </form>
-    </div>
-  </div>
-
-  <div class="element height90">
-    <div class="icon floatLeft" [ngStyle]="{'background-image':this.getIcon('other')}">
-
-    </div>
-    <div class="label floatLeft">
-      Autre
-    </div>
-    <div class="inputField floatLeft">
-      <div class="input">
-        <input class="inputHalfLeft" *ngIf="this.editionService.radioTypeFormat=='button'" type="button" value="Formes"
-               (click)="getWordList(this.editionService.name)">
-        <input class="inputHalfRight" *ngIf="this.editionService.radioTypeFormat=='button'" type="button" value="Evenements"
-               (click)="getEvents()">
+        <label class="label" for="typefield">Type d'élément : </label>
+        <form id="typefield" class="input">
+          <input [(ngModel)]="this.editionService.radioTypeFormat" checked id="radioButton" name="typeFormat"
+                 type="radio"
+                 value="button">
+          <label class="radio" for="radioButton">Bouton</label>
+          <input [(ngModel)]="this.editionService.radioTypeFormat" id="radioFolder" name="typeFormat" type="radio"
+                 value="folder">
+          <label class="radio" for="radioFolder">Dossier</label>
+        </form>
       </div>
     </div>
   </div>
-
-</div>
+</ng-container>

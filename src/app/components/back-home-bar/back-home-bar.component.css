@@ -3,7 +3,8 @@
   height: 50px;
   background-color: dimgray;
 }
-.topBarBackIcon{
+
+.topBarBackIcon {
   display: inline-block;
   margin-top: 5px;
   margin-left: 5px;
@@ -16,15 +17,15 @@
   background-color: dimgray;
 }
 
-.topBarBackIcon:hover{
+.topBarBackIcon:hover {
   background-color: grey;
 }
 
-.topBarBackIcon:active{
+.topBarBackIcon:active {
   background-color: dimgray;
 }
 
-.topBarLabel{
+.topBarLabel {
   display: inline-block;
   float: left;
   padding-left: 10px;

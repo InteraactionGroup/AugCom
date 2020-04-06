@@ -1,74 +1,39 @@
-  .rightContainer {
-  display: inline-grid;
+.page {
+  margin-top: 10px;
+  margin-left: 10px;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+}
+
+.imageSelector {
+  padding-top: 10px;
+  padding-left: 10px;
+  width: calc(100% - 10px);
+}
+
+.tableTitle {
+  border-top: black solid 1px;
+  padding-top: 10px;
+  padding-bottom: 15px;
+}
+
+.element {
   width: 90%;
   margin-left: 5%;
-  transform: translateY(6%);
-}
-
-  .rightContainer .element {
-  width: 94%;
-  margin-left: 3%;
-  transform: translateY(5%);
-  background-color: lightgrey;
-}
-
-  .rightContainer .element .icon {
-  height: 100%;
-  width: 15%;
-  background-color: lightgrey;
-  background-size: 60%;
-  background-repeat: no-repeat;
-  background-position: center;
-  visibility: visible;
-}
-
-  .rightContainer .element .label {
-  height: 40%;
-  width: 10%;
-  margin-left: 5%;
-  transform: translateY(70%);
-}
-
-  .rightContainer .element .inputField {
-  height: 60%;
-  width: 60%;
-  margin-left: 5%;
-  transform: translateY(55%);
+  display: grid;
+  grid-template-columns: 205px 400px;
+  padding-bottom: 20px;
 }
 
 
-  .rightContainer .element .inputField .input {
-  margin: 0 0 0 0;
-  width: 100%;
+.element .label {
+  text-align: left;
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
-  .rightContainer .element .inputField .input .inputHalfLeft {
-  width: 45%;
-  margin: 0 10% 0 0;
+.element .input {
+  display: inline-block;
+  height: fit-content;
 }
-
-  .rightContainer .element .inputField .input .inputHalfRight {
-  margin: 0 0 0 0;
-  width: 45%;
-}
-
-
-  .floatLeft {
-    float: left;
-  }
-
-  .height90 {
-    height: 90%;
-  }
-
-  .imageContainer {
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-
-  .icon {
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-  }

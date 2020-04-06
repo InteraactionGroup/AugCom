@@ -45,7 +45,7 @@
 }
 
 .profilePicContainer:hover .TimeLineSelectorDeleteContainer:hover {
-  background: linear-gradient(rgba(214, 0, 0 ,.8) 0%, rgba(214, 0, 0, .8) 50%, transparent);
+  background: linear-gradient(rgba(214, 0, 0, .8) 0%, rgba(214, 0, 0, .8) 50%, transparent);
 }
 
 .TimeLineSelectorChangeContainer {

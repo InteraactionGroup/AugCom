@@ -8,7 +8,7 @@ import {GeticonService} from "../../services/geticon.service";
 })
 export class AccountComponent implements OnInit {
 
-  menu: [string,string[]][] = [
+  menu: [string, string[]][] = [
     ['Compte', ['Informations du compte', 'Gestion des sauvegardes']],
     ['Apparence', ['Apparence générale', 'Gestion des palettes']],
     ['Paramètres', []],
@@ -27,12 +27,12 @@ export class AccountComponent implements OnInit {
   ngOnInit() {
   }
 
-  menuAVenir(){
-    return  (this.selectedSubMenu==='Actualités') ||
-            (this.selectedSubMenu==='Informations du compte') ||
-            (this.selectedMenu==='Grammaire') ||
-            (this.selectedSubMenu==='Apparence générale') ||
-            (this.selectedSubMenu==='Contacts');
+  menuAVenir() {
+    return (this.selectedSubMenu === 'Actualités') ||
+      (this.selectedSubMenu === 'Informations du compte') ||
+      (this.selectedMenu === 'Grammaire') ||
+      (this.selectedSubMenu === 'Apparence générale') ||
+      (this.selectedSubMenu === 'Contacts');
   }
 
   getMenuPageTitle() {
@@ -45,11 +45,13 @@ export class AccountComponent implements OnInit {
 
   selectMenu(menuSelected: string) {
     if (this.selectedMenu === menuSelected) {
-     // this.selectedMenu = '';
+      // this.selectedMenu = '';
     } else {
       this.selectedSubMenu = '';
       this.selectedMenu = menuSelected;
-      let menuElement = this.menu.find(elt => {return elt[0] === menuSelected;});
+      let menuElement = this.menu.find(elt => {
+        return elt[0] === menuSelected;
+      });
       if (menuElement !== null && menuElement[1].length > 0) {
         this.selectedSubMenu = menuElement[1][0];
       }

@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AlternativeFormsComponent } from './alternative-forms.component';
+import {AlternativeFormsComponent} from './alternative-forms.component';
 
 describe('AlternativeFormsComponent', () => {
   let component: AlternativeFormsComponent;
@@ -8,9 +8,9 @@ describe('AlternativeFormsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AlternativeFormsComponent ]
+      declarations: [AlternativeFormsComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

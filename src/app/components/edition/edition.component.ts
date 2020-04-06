@@ -26,7 +26,6 @@ export class EditionComponent implements OnInit {
   }
 
 
-
   /**
    * update the informations with the elementToModify if it exist and set the elementListener for listening next element modifications
    */
@@ -39,8 +38,8 @@ export class EditionComponent implements OnInit {
     });
   }
 
-  selectMenu(name: string){
-    this.editionService.currentEditPage=name;
+  selectMenu(name: string) {
+    this.editionService.currentEditPage = name;
   }
 
   /**
@@ -80,9 +79,6 @@ export class EditionComponent implements OnInit {
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
   }
-
-
-
 
 
   /**
@@ -335,9 +331,6 @@ export class EditionComponent implements OnInit {
       this.editionService.interractionList = [];
     }
   }
-
-
-
 
 
 }

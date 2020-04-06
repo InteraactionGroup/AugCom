@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {EditionService} from "../../services/edition.service";
 import {DbnaryService} from "../../services/dbnary.service";
 import {GeticonService} from "../../services/geticon.service";
@@ -10,13 +10,14 @@ import {GeticonService} from "../../services/geticon.service";
 })
 export class AlternativeFormsComponent implements OnInit {
 
-  constructor( public getIconService: GeticonService, public dbnaryService: DbnaryService, public editionService: EditionService) { }
+  constructor(public getIconService: GeticonService, public dbnaryService: DbnaryService, public editionService: EditionService) {
+  }
 
   ngOnInit() {
   }
 
-  isVariantDisplayed(){
-    return this.editionService.currentEditPage==='Autres formes';
+  isVariantDisplayed() {
+    return this.editionService.currentEditPage === 'Autres formes';
   }
 
   /**
@@ -32,7 +33,6 @@ export class AlternativeFormsComponent implements OnInit {
   }
 
 
-
   /**
    * Actualize the grammatical type list (typeList)  of the word 'word'
    * (ex: if word = 'bleu' typeList will be ['-nom-','-adj-'] because bleu can be a noun or an adjective
@@ -40,7 +40,7 @@ export class AlternativeFormsComponent implements OnInit {
    */
   getWordList(word) {
     this.dbnaryService.typeList = [];
-    this.editionService.classe= '';
+    this.editionService.classe = '';
     this.dbnaryService.startsearch(1);
     this.dbnaryService.getTypes(word);
   }
