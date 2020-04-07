@@ -21,8 +21,11 @@
   width: 90%;
   margin-left: 5%;
   display: grid;
-  grid-template-columns: 205px 400px;
+  grid-template-columns: 1fr 2fr;
   padding-bottom: 20px;
+  column-gap: 1px;
+  row-gap: 1px;
+  align-items: center;
 }
 
 
@@ -71,6 +74,8 @@
 }
 
 .searchLib {
+  width: 59px;
+  margin-left: 1px;
 }
 
 .inputURL {
@@ -81,10 +86,13 @@
 }
 
 .searchField {
-  width: 300px;
+  width: calc(100% - 60px);
+  box-sizing: border-box;
 }
 
 .searchURL {
+  width: 40px;
+  margin-left: 1px;
 }
 
 
