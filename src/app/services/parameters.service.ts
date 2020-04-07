@@ -11,24 +11,11 @@ export class ParametersService {
   currentVoice = 'fr-FR@null';
   dragNDropinit = false;
 
-  languagesAvailaibles: any[];
+  languagesAvailaibles: SpeechSynthesisVoice[];
 
   constructor() {
     this.languagesAvailaibles = [];
-    this.printVoicesList().then(() => {
-        if (!this.languagesAvailaibles.includes(this.currentVoice)) {
-          const res = this.currentVoice.split('@');
-          this.languagesAvailaibles.forEach(voice => {
-            if (res[0] !== null && res[0] === voice.lang) {
-              this.currentVoice = voice.lang + '@' + voice.name;
-              console.log(voice);
-            }
-          });
-
-          console.log(this.currentVoice);
-        }
-      }
-    );
+    this.printVoicesList();
   }
 
   async getVoices(): Promise<any[]> {
@@ -51,4 +38,8 @@ export class ParametersService {
     });
   }
 
+  getCurrentLang(){
+    const res = this.currentVoice.split('@');
+    return res[0];
+  }
 }

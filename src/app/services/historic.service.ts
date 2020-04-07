@@ -52,7 +52,26 @@ export class HistoricService {
   say(text: string) {
     this.speechSynthesis = window.speechSynthesis;
     const x = new SpeechSynthesisUtterance(text + ' ');
-    x.lang = this.parametersService.currentVoice;
+
+    /*checking if we can find the same voice*/
+    let newVoice = this.parametersService.languagesAvailaibles.find(voice => {
+      const res = this.parametersService.currentVoice.split('@');
+      return res[0] === voice.lang && res[1] === voice.name;
+    })
+
+    /*if we can't find the same voice checking if we can find the same lang*/
+    if (newVoice === undefined || newVoice === null) {
+      newVoice = this.parametersService.languagesAvailaibles.find(voice => {
+        const res = this.parametersService.currentVoice.split('@');
+        return res[0] === voice.lang
+      })
+    }
+
+    /*if we can't find the same lang don't change the voice*/
+    if (newVoice !== undefined && newVoice !== null) {
+      x.voice = newVoice;
+      x.lang = newVoice.lang;
+    }
     this.speechSynthesis.resume();
     this.speechSynthesis.speak(x);
   }
