@@ -7,7 +7,8 @@ import {MulBerryObject} from "../../libTypes";
 @Component({
   selector: 'app-image-selection-page',
   templateUrl: './image-selection-page.component.html',
-  styleUrls: ['./image-selection-page.component.css']
+  styleUrls: ['./image-selection-page.component.css'],
+  providers: [{provide: Ng2ImgMaxService}, EditionService]
 })
 export class ImageSelectionPageComponent implements OnInit {
 

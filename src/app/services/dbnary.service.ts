@@ -3,7 +3,8 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {ResultJson1} from '../sparqlJsonResults';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+
 })
 export class DbnaryService {
 

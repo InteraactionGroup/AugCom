@@ -1,20 +1,24 @@
 export class Traduction {
- head:
-   { link: any[],
-     vars: any[] };
+  head:
+    {
+      link: any[],
+      vars: any[]
+    };
   results:
-    { distinct: false,
+    {
+      distinct: false,
       ordered: true,
       bindings: [
-      { tradword:
-          { type: string,
-            xml: any,
-            value: string
-          }
-      }]
+        {
+          tradword:
+            {
+              type: string,
+              xml: any,
+              value: string
+            }
+        }]
     };
 }
-
 
 
 /**
@@ -22,10 +26,13 @@ export class Traduction {
  */
 export class ResultJson1 {
   head:
-    { link: any[],
-      vars: any[] };
+    {
+      link: any[],
+      vars: any[]
+    };
   results:
-    { distinct: false,
+    {
+      distinct: false,
       ordered: true,
       bindings:
         any[]
@@ -37,10 +44,13 @@ export class ResultJson1 {
  */
 export class ResultJson2 {
   head:
-    { link: any[],
-      vars: any[] };
+    {
+      link: any[],
+      vars: any[]
+    };
   results:
-    { distinct: false,
+    {
+      distinct: false,
       ordered: true,
       bindings:
         any[]
@@ -59,34 +69,34 @@ export class Ofo {
  * the description of person value of a variant form of a word
  */
 export class Pers {
-  p: { type: string,  value: string };
+  p: { type: string, value: string };
 }
 
 /**
  * the description of person value of a variant form of a word
  */
 export class Numb {
-  n: { type: string,  value: string };
+  n: { type: string, value: string };
 }
 
 /**
  * the description of gender value of a variant form of a word
  */
 export class Gend {
-  g: { type: string,  value: string };
+  g: { type: string, value: string };
 }
 
 /**
  * the description of tense value of a variant form of a word
  */
 export class Tense {
-  t: { type: string,  value: string };
+  t: { type: string, value: string };
 }
 
 /**
  * the description of formMood value of a variant form of a word (indicative, subjunctive, infinitive...)
  */
 export class FormMood {
-  vFM: { type: string,  value: string };
+  vFM: { type: string, value: string };
 }
 

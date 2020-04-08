@@ -57,7 +57,7 @@ export class HistoricService {
     let newVoice = this.parametersService.languagesAvailaibles.find(voice => {
       const res = this.parametersService.currentVoice.split('@');
       return res[0] === voice.lang && res[1] === voice.name;
-    })
+    });
 
     /*if we can't find the same voice checking if we can find the same lang*/
     if (newVoice === undefined || newVoice === null) {

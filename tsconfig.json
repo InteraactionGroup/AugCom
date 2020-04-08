@@ -16,7 +16,7 @@
         "node_modules/jszip/dist/jszip.min.js"
       ]
     },
-    "types": ["jquery"],
+    "types": ["jquery", "jasmine"],
     "typeRoots": [
       "node_modules/@types"
     ],

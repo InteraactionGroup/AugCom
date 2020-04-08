@@ -8,7 +8,8 @@
       <div class="elementVariant">
         <label class="label" for="wordToSearch">Chercher des variantes du mot en ligne: </label>
         <div class="tabCell">
-          <input id="wordToSearch" #wordToSearch class="inputText floatLeft" type="text" placeholder="Entrez un mot" value="{{this.editionService.name}}">
+          <input id="wordToSearch" #wordToSearch class="inputText floatLeft" type="text" placeholder="Entrez un mot"
+                 value="{{this.editionService.name}}">
           <input (click)="getWordList(wordToSearch.value)" class="search floatLeft" type="button" value="search">
         </div>
 

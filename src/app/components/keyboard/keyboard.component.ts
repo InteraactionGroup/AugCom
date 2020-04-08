@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HistoricService} from '../../services/historic.service';
 import {EditionService} from '../../services/edition.service';
-import {OtherformsService} from '../../services/otherforms.service';
 import {BoardService} from '../../services/board.service';
 import {Action, Element, ElementForm, Vignette} from '../../types';
 import {GeticonService} from '../../services/geticon.service';
@@ -13,11 +12,16 @@ import {DragulaService} from 'ng2-dragula';
 import {Subscription} from 'rxjs';
 import {PaletteService} from '../../services/palette.service';
 import {SearchService} from '../../services/search.service';
+import {Ng2ImgMaxService} from "ng2-img-max";
 
 @Component({
   selector: 'app-keyboard',
   templateUrl: './keyboard.component.html',
-  styleUrls: ['./keyboard.component.css']
+  styleUrls: ['./keyboard.component.css'],
+  providers: [{provide: Ng2ImgMaxService}, SearchService, PaletteService,
+    {provide: Router}, ParametersService, IndexeddbaccessService, UsertoolbarService,
+    {provide: DragulaService},
+    GeticonService, BoardService, HistoricService, EditionService]
 })
 export class KeyboardComponent implements OnInit {
 
@@ -41,15 +45,14 @@ export class KeyboardComponent implements OnInit {
    * The current fakeElementTempList, updated when an element wants to display its variants
    */
   fakeElementTempList = [];
-
+  dragulaService = new DragulaService();
   dragulaSubscription = new Subscription();
 
   press = [false, false];
   release = [false, false];
 
   // tslint:disable-next-line:max-line-length
-  constructor(public searchService: SearchService, private paletteService: PaletteService, private dragulaService: DragulaService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService, public otherFormsService: OtherformsService) {
-
+  constructor(public searchService: SearchService, private paletteService: PaletteService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService) {
     this.dragulaSubscription.add(this.dragulaService.drop('VAMPIRE')
       .subscribe(({el, target, source, sibling}) => {
         const temp = this.boardService.board.ElementList;

@@ -1,6 +1,8 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {DialogbarComponent} from './dialogbar.component';
+import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
+import {FormsModule} from "@angular/forms";
 
 describe('DialogbarComponent', () => {
   let component: DialogbarComponent;
@@ -8,6 +10,8 @@ describe('DialogbarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: [FormsModule],
       declarations: [DialogbarComponent]
     })
       .compileComponents();

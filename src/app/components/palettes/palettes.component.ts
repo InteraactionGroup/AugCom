@@ -2,11 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 import {GeticonService} from "../../services/geticon.service";
 import {PaletteService} from "../../services/palette.service";
+import {Ng2ImgMaxService} from "ng2-img-max";
 
 @Component({
   selector: 'app-palettes',
   templateUrl: './palettes.component.html',
-  styleUrls: ['./palettes.component.css']
+  styleUrls: ['./palettes.component.css'],
+  providers: [{provide: Ng2ImgMaxService}, Ng2ImgMaxService, IndexeddbaccessService, GeticonService, PaletteService]
 })
 export class PalettesComponent implements OnInit {
 

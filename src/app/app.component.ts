@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
+import {ChildrenOutletContexts, RouterOutlet} from '@angular/router';
 import {slideInAnimation} from './animations';
 
 @Component({
@@ -9,10 +9,11 @@ import {slideInAnimation} from './animations';
   animations: [
     slideInAnimation
     // animation triggers go here
-  ]
+  ],
+  providers: [ChildrenOutletContexts],
 })
 export class AppComponent {
-  title = 'AugCom1';
+  title = 'AugCom';
 
   /**
    * prepare a route taking into acount route data and route animation

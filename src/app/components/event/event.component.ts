@@ -2,11 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {EditionService} from "../../services/edition.service";
 import {ParametersService} from "../../services/parameters.service";
 import {GeticonService} from "../../services/geticon.service";
+import {Ng2ImgMaxService} from "ng2-img-max";
 
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
-  styleUrls: ['./event.component.css']
+  styleUrls: ['./event.component.css'],
+  providers: [{provide: Ng2ImgMaxService}, GeticonService, ParametersService, EditionService]
 })
 export class EventComponent implements OnInit {
 

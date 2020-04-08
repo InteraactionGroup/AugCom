@@ -1,6 +1,8 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {SnapBarComponent} from './snap-bar.component';
+import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
+import {FormsModule} from "@angular/forms";
 
 describe('SnapBarComponent', () => {
   let component: SnapBarComponent;
@@ -8,6 +10,8 @@ describe('SnapBarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: [FormsModule],
       declarations: [SnapBarComponent]
     })
       .compileComponents();

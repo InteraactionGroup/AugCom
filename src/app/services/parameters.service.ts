@@ -36,9 +36,9 @@ export class ParametersService {
     (await this.getVoices()).forEach(voice => {
       this.languagesAvailaibles.push(voice);
     });
-  }
+  };
 
-  getCurrentLang(){
+  getCurrentLang() {
     const res = this.currentVoice.split('@');
     return res[0];
   }

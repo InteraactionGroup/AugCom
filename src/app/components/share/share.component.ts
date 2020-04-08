@@ -11,15 +11,22 @@ import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {CsvReaderService} from '../../services/csv-reader.service';
 import {Traduction} from '../../sparqlJsonResults';
 import {DbnaryService} from '../../services/dbnary.service';
+import {HttpClient} from "@angular/common/http";
+import {Ng2ImgMaxService} from "ng2-img-max";
 
 @Component({
   selector: 'app-share',
   templateUrl: './share.component.html',
-  styleUrls: ['./share.component.css']
+  styleUrls: ['./share.component.css'],
+  providers: [{provide: Ng2ImgMaxService}, {provide: HttpClient}, DbnaryService, CsvReaderService, IndexeddbaccessService, PrintService, SnapBarService,
+    {provide: Router}, GeticonService, BoardService, UsertoolbarService]
 })
 export class ShareComponent implements OnInit {
 
-  constructor(private dbNaryService: DbnaryService, private csvReader: CsvReaderService, private indexedDBacess: IndexeddbaccessService, private printService: PrintService, public snapBarService: SnapBarService, private router: Router, public getIconService: GeticonService, public boardService: BoardService, public userToolBarService: UsertoolbarService) {
+  constructor(private dbNaryService: DbnaryService, private csvReader: CsvReaderService,
+              private indexedDBacess: IndexeddbaccessService, private printService: PrintService,
+              public snapBarService: SnapBarService, private router: Router, public getIconService: GeticonService,
+              public boardService: BoardService, public userToolBarService: UsertoolbarService) {
   }
 
 

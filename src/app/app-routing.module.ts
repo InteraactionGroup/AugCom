@@ -3,7 +3,6 @@ import {RouterModule, Routes} from '@angular/router';
 import {KeyboardComponent} from './components/keyboard/keyboard.component';
 import {ShareComponent} from './components/share/share.component';
 import {EditionComponent} from './components/edition/edition.component';
-import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SettingsComponent} from './components/settings/settings.component';
 import {AccountComponent} from './components/account/account.component';
@@ -19,8 +18,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [BrowserModule,
-    BrowserAnimationsModule, RouterModule.forRoot(routes, {useHash: true})],
+  imports: [BrowserAnimationsModule, RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 
