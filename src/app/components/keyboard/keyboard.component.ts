@@ -18,10 +18,7 @@ import {Ng2ImgMaxService} from "ng2-img-max";
   selector: 'app-keyboard',
   templateUrl: './keyboard.component.html',
   styleUrls: ['./keyboard.component.css'],
-  providers: [{provide: Ng2ImgMaxService}, SearchService, PaletteService,
-    {provide: Router}, ParametersService, IndexeddbaccessService, UsertoolbarService,
-    {provide: DragulaService},
-    GeticonService, BoardService, HistoricService, EditionService]
+  providers: [DragulaService, Ng2ImgMaxService]
 })
 export class KeyboardComponent implements OnInit {
 
@@ -45,14 +42,13 @@ export class KeyboardComponent implements OnInit {
    * The current fakeElementTempList, updated when an element wants to display its variants
    */
   fakeElementTempList = [];
-  dragulaService = new DragulaService();
   dragulaSubscription = new Subscription();
 
   press = [false, false];
   release = [false, false];
 
   // tslint:disable-next-line:max-line-length
-  constructor(public searchService: SearchService, private paletteService: PaletteService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService) {
+  constructor(public dragulaService :DragulaService, public searchService: SearchService, private paletteService: PaletteService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService) {
     this.dragulaSubscription.add(this.dragulaService.drop('VAMPIRE')
       .subscribe(({el, target, source, sibling}) => {
         const temp = this.boardService.board.ElementList;

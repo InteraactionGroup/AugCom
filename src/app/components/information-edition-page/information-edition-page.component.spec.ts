@@ -3,6 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {InformationEditionPageComponent} from './information-edition-page.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
 import {FormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('InformationEditionPageComponent', () => {
   let component: InformationEditionPageComponent;
@@ -11,7 +12,7 @@ describe('InformationEditionPageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [FormsModule],
+      imports: [FormsModule, HttpClientModule],
       declarations: [InformationEditionPageComponent]
     })
       .compileComponents();

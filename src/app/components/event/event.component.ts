@@ -7,8 +7,7 @@ import {Ng2ImgMaxService} from "ng2-img-max";
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
-  styleUrls: ['./event.component.css'],
-  providers: [{provide: Ng2ImgMaxService}, GeticonService, ParametersService, EditionService]
+  styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
 

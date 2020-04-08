@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ChildrenOutletContexts, RouterOutlet} from '@angular/router';
+import {RouterOutlet} from '@angular/router';
 import {slideInAnimation} from './animations';
 
 @Component({
@@ -9,8 +9,7 @@ import {slideInAnimation} from './animations';
   animations: [
     slideInAnimation
     // animation triggers go here
-  ],
-  providers: [ChildrenOutletContexts],
+  ]
 })
 export class AppComponent {
   title = 'AugCom';

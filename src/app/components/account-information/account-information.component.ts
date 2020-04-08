@@ -5,7 +5,7 @@ import {Ng2ImgMaxService} from "ng2-img-max";
   selector: 'app-account-information',
   templateUrl: './account-information.component.html',
   styleUrls: ['./account-information.component.css'],
-  providers: [{provide: Ng2ImgMaxService}]
+  providers: [Ng2ImgMaxService]
 })
 export class AccountInformationComponent implements OnInit {
 

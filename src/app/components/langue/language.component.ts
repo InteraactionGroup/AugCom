@@ -5,8 +5,7 @@ import {Ng2ImgMaxService} from "ng2-img-max";
 @Component({
   selector: 'app-language',
   templateUrl: './language.component.html',
-  styleUrls: ['./language.component.css'],
-  providers: [{provide: Ng2ImgMaxService}, ParametersService]
+  styleUrls: ['./language.component.css']
 })
 export class LanguageComponent implements OnInit {
 

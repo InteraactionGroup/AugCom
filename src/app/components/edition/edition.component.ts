@@ -8,15 +8,14 @@ import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {Router} from '@angular/router';
 import {PaletteService} from '../../services/palette.service';
 import {EditionService} from '../../services/edition.service';
-import {HttpClient} from "@angular/common/http";
 import {Ng2ImgMaxService} from "ng2-img-max";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-edition',
   templateUrl: './edition.component.html',
   styleUrls: ['./edition.component.css'],
-  providers: [{provide: Ng2ImgMaxService}, EditionService, PaletteService, {provide: Router},
-    IndexeddbaccessService, {provide: HttpClient}, DbnaryService, GeticonService, BoardService]
+  providers: [Ng2ImgMaxService, HttpClient]
 })
 export class EditionComponent implements OnInit {
 

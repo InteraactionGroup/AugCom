@@ -5,8 +5,7 @@ import {Ng2ImgMaxService} from "ng2-img-max";
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css'],
-  providers: [{provide: Ng2ImgMaxService}, ParametersService]
+  styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
 

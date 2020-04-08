@@ -7,8 +7,7 @@ import {Ng2ImgMaxService} from "ng2-img-max";
 @Component({
   selector: 'app-palettes',
   templateUrl: './palettes.component.html',
-  styleUrls: ['./palettes.component.css'],
-  providers: [{provide: Ng2ImgMaxService}, Ng2ImgMaxService, IndexeddbaccessService, GeticonService, PaletteService]
+  styleUrls: ['./palettes.component.css']
 })
 export class PalettesComponent implements OnInit {
 

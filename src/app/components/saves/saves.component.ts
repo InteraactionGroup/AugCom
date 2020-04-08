@@ -7,7 +7,7 @@ import {Ng2ImgMaxService} from "ng2-img-max";
   selector: 'app-saves',
   templateUrl: './saves.component.html',
   styleUrls: ['./saves.component.css'],
-  providers: [{provide: Ng2ImgMaxService}, BoardService, IndexeddbaccessService]
+  providers: [Ng2ImgMaxService]
 })
 export class SavesComponent implements OnInit {
 

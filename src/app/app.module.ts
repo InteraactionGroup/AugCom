@@ -66,8 +66,7 @@ import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-b
     AppRoutingModule,
     DragulaModule,
     DragulaModule.forRoot(),
-    BrowserAnimationsModule,
-    NoopAnimationsModule
+    BrowserAnimationsModule
   ],
   bootstrap: [AppComponent]
 })

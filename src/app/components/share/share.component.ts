@@ -18,14 +18,13 @@ import {Ng2ImgMaxService} from "ng2-img-max";
   selector: 'app-share',
   templateUrl: './share.component.html',
   styleUrls: ['./share.component.css'],
-  providers: [{provide: Ng2ImgMaxService}, {provide: HttpClient}, DbnaryService, CsvReaderService, IndexeddbaccessService, PrintService, SnapBarService,
-    {provide: Router}, GeticonService, BoardService, UsertoolbarService]
+  providers: [HttpClient, Ng2ImgMaxService, {provide :Router}]
 })
 export class ShareComponent implements OnInit {
 
   constructor(private dbNaryService: DbnaryService, private csvReader: CsvReaderService,
               private indexedDBacess: IndexeddbaccessService, private printService: PrintService,
-              public snapBarService: SnapBarService, private router: Router, public getIconService: GeticonService,
+              private router: Router, public getIconService: GeticonService,
               public boardService: BoardService, public userToolBarService: UsertoolbarService) {
   }
 

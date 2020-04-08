@@ -5,8 +5,7 @@ import {Ng2ImgMaxService} from "ng2-img-max";
 @Component({
   selector: 'app-snap-bar',
   templateUrl: './snap-bar.component.html',
-  styleUrls: ['./snap-bar.component.css'],
-  providers: [{provide: Ng2ImgMaxService}, SnapBarService]
+  styleUrls: ['./snap-bar.component.css']
 })
 export class SnapBarComponent implements OnInit {
 

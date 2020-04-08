@@ -5,8 +5,7 @@ import {Ng2ImgMaxService} from "ng2-img-max";
 @Component({
   selector: 'app-back-home-bar',
   templateUrl: './back-home-bar.component.html',
-  styleUrls: ['./back-home-bar.component.css'],
-  providers: [{provide: Ng2ImgMaxService}, GeticonService]
+  styleUrls: ['./back-home-bar.component.css']
 })
 export class BackHomeBarComponent implements OnInit {
 

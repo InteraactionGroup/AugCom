@@ -8,7 +8,7 @@ import {Ng2ImgMaxService} from "ng2-img-max";
   selector: 'app-dialogbar',
   templateUrl: './dialogbar.component.html',
   styleUrls: ['./dialogbar.component.css'],
-  providers: [{provide: Ng2ImgMaxService}, GeticonService, BoardService, HistoricService]
+  providers: [Ng2ImgMaxService]
 })
 export class DialogbarComponent implements OnInit {
 

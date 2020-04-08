@@ -9,7 +9,7 @@ import {Ng2ImgMaxService} from "ng2-img-max";
   selector: 'app-alternative-forms',
   templateUrl: './alternative-forms.component.html',
   styleUrls: ['./alternative-forms.component.css'],
-  providers: [{provide: Ng2ImgMaxService}, GeticonService, {provide: HttpClient}, DbnaryService, EditionService]
+  providers: [HttpClient]
 })
 export class AlternativeFormsComponent implements OnInit {
 

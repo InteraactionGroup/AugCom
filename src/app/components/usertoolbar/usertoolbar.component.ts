@@ -12,8 +12,8 @@ import {Ng2ImgMaxService} from "ng2-img-max";
   selector: 'app-usertoolbar',
   templateUrl: './usertoolbar.component.html',
   styleUrls: ['./usertoolbar.component.css'],
-  providers: [{provide: Ng2ImgMaxService}, BoardService, SearchService, ParametersService, SnapBarService, IndexeddbaccessService, GeticonService, UsertoolbarService]
-})
+  providers: [Ng2ImgMaxService]
+ })
 export class UsertoolbarComponent implements OnInit {
 
 

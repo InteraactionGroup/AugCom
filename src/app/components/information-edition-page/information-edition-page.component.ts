@@ -9,7 +9,7 @@ import {Ng2ImgMaxService} from "ng2-img-max";
   selector: 'app-information-edition-page',
   templateUrl: './information-edition-page.component.html',
   styleUrls: ['./information-edition-page.component.css'],
-  providers: [{provide: Ng2ImgMaxService}, {provide: HttpClient}, DbnaryService, EditionService, GeticonService]
+  providers : [HttpClient]
 })
 export class InformationEditionPageComponent implements OnInit {
 
