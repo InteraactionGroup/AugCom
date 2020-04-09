@@ -1,4 +1,4 @@
-<div class="profileInfo">
+<div class="profileInfo width-100">
   <div class="profilePicContainer floatLeft">
     <img class="img"
          src="{{profilePicture}}">
@@ -24,7 +24,7 @@
   <input #file (change)="setProfilePicture(file.files)" onclick="this.value=null" type="file" id="image-profile"
          accept='image/*' class="hidden"/>
 
-  <div class="accountInformations centerText floatLeft">
+  <div class="centerText floatLeft">
     <div>
       <label>Nom:</label>
       <input #nomText type="text">
@@ -38,4 +38,4 @@
   </div>
 </div>
 
-<input type="button" value="Changer de compte" class="bottomButton">
+<input type="button" value="Changer de compte">

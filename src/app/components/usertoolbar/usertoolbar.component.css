@@ -3,7 +3,6 @@
   min-height: 1cm;
   max-height: 14vw;
   min-width: 7cm;
-  width: 100%;
   background-color: grey;
   position: relative;
   z-index: 2;
@@ -72,7 +71,6 @@
 
 .usertoolbar .buttonLeftLeft .image {
   height: 80%;
-  width: 100%;
   margin-left: 0;
   margin-right: 0;
   transform: translateY(10%);
@@ -107,7 +105,6 @@
 }
 
 .usertoolbar .buttonLeftLeft .image .searchResults .searchResult {
-  width: 100%;
   background-color: dimgrey;
   opacity: 0.8;
 }
@@ -119,9 +116,6 @@
 .usertoolbar .buttonLeftLeft .image .searchResults .searchResult .searchImage {
   height: 100%;
   width: 50%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 

@@ -14,7 +14,7 @@
       <div class="element" (click)="this.historicService.say('' + element.VignetteLabel);"
            [style.background-color]="element.VignetteColor">
 
-        <div class="image" [style.background-image]="element.VignetteImageUrl">
+        <div class="image haveBackgroundImage" [style.background-image]="element.VignetteImageUrl">
 
         </div>
 
@@ -31,7 +31,7 @@
 
   <!-- the button used to play the sound of the sentence entered by the user -->
   <div class="button floatLeft">
-    <div class="image" [ngStyle]="{'background-image':this.getIcon('play')}"
+    <div class="image haveBackgroundImage" [ngStyle]="{'background-image':this.getIcon('play')}"
          (click)="this.historicService.playHistoric()">
 
     </div>
@@ -39,7 +39,7 @@
 
   <!-- the button used in order to remove the last element entered by the user -->
   <div class="button floatLeft">
-    <div class="image" [ngStyle]="{'background-image':this.getIcon('back')}"
+    <div class="image haveBackgroundImage" [ngStyle]="{'background-image':this.getIcon('back')}"
          (click)="this.historicService.backHistoric()">
 
     </div>
@@ -47,7 +47,7 @@
 
   <!-- the button used to clear the whole sentence entered by the user -->
   <div class="button floatLeft">
-    <div class="image" [ngStyle]="{'background-image':this.getIcon('clear')}" (click)="this.clear()">
+    <div class="image haveBackgroundImage" [ngStyle]="{'background-image':this.getIcon('clear')}" (click)="this.clear()">
 
     </div>
   </div>

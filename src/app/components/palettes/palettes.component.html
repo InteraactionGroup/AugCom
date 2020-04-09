@@ -1,8 +1,8 @@
-<div class="fillParent">
+<div class="height-width-100">
   <div class=palettesContainer>
     <ng-container *ngFor="let palette of this.paletteService.palettes">
-      <div class="palette-item">
-        <div class="paletteLabel floatLeft">
+      <div class="palette-item width-100">
+        <div class="paletteLabel width-100 floatLeft">
           {{palette.name}}
         </div>
         <div
@@ -19,7 +19,7 @@
              class="supprPalette floatLeft">
           <div [ngStyle]="{'margin-top': (30*this.paletteService.rowNumber(palette.colors.length)-20)/2 + 'px'}"
                [style.background-image]="this.getIcon('delete')"
-               class="icon"
+               class="icon haveBackgroundImage"
           >
 
           </div>
@@ -30,14 +30,14 @@
 
   <div
     [ngStyle]="{'height': 30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+3) + 'px'}"
-    class="addPalette fillParent">
+    class="addPalette height-width-100">
     <div (click)="this.clickOnAdd()" *ngIf="!this.paletteService.newpalette" class="addButtonPaletteContainer">
-      <div class="addButtonPalette centerText">
+      <div class="addButtonPalette width-100 centerText">
         new palette
       </div>
     </div>
 
-    <div *ngIf="this.paletteService.newpalette" class="palette-item">
+    <div *ngIf="this.paletteService.newpalette" class="palette-item width-100">
       <div class="paletteAddLabel floatLeft">
         {{this.paletteService.getNextPaletteName()}}
       </div>
@@ -49,16 +49,16 @@
         class="palette floatLeft centerText">
         <ng-container *ngFor="let color of this.paletteService.newTempPalette.colors">
           <div class="color floatLeft">
-            <div [ngStyle]="{'background-color': color.color}" class="colorbox fillParent">
+            <div [ngStyle]="{'background-color': color.color}" class="colorbox height-width-100">
               <div (click)="this.paletteService.delete(color)" [style.background-image]="this.getIcon('clear')"
-                   class="deleteColor">
+                   class="deleteColor haveBackgroundImage">
               </div>
             </div>
-            <input [(ngModel)]="color.color" class="colorPicker fillParent" type="color">
+            <input [(ngModel)]="color.color" class="colorPicker height-width-100" type="color">
           </div>
         </ng-container>
         <div (click)="this.paletteService.addColor()" class="moreColor floatLeft">
-          <div [style.background-image]="this.getIcon('add')" class="icon">
+          <div [style.background-image]="this.getIcon('add')" class="icon haveBackgroundImage">
 
           </div>
         </div>
@@ -69,7 +69,7 @@
         <div
           [ngStyle]="{'margin-top': (30*this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+1)-20)/2 + 'px'}"
           [style.background-image]="this.getIcon('delete')"
-          class="icon"
+          class="icon haveBackgroundImage"
         >
 
         </div>

@@ -1,8 +1,8 @@
 <app-back-home-bar></app-back-home-bar>
-<div class="edition">
+<div class="edition width-100">
 
   <div class="leftPane floatLeft">
-    <div class="leftEdition floatLeft">
+    <div class="leftEdition width-100 floatLeft">
 
 
       <div class="button" [ngStyle]="{'background-color': this.editionService.curentColor,
@@ -10,7 +10,7 @@
      'border-width': '3px',
      'border-style': 'solid',
      'border-color': this.editionService.curentBorderColor}">
-        <div class="image imageContainer"
+        <div class="image haveBackgroundImage"
              [style.background-image]="this.sanitizer.bypassSecurityTrustStyle('url(' +this.editionService.imageURL+')')">
 
         </div>
@@ -21,15 +21,15 @@
 
     </div>
 
-    <div class="menu-container floatLeft">
+    <div class="width-100 floatLeft">
       <div class="menu">
         <ng-container *ngFor="let menus of this.editionService.menu">
-          <div class="menu-item-container">
-            <div class="menu-item">
+          <div>
+            <div>
               <div class="menu-item-title-container"
                    [class.selected]="this.editionService.currentEditPage===menus"
                    (click)="this.selectMenu(menus)">
-                <div class="menu-item-title">
+                <div>
                   {{menus}}
                 </div>
               </div>
@@ -62,13 +62,13 @@
 
       <div class="palettes">
         <ng-container *ngFor="let palette of this.paletteService.palettes">
-          <div class="paletteLabel floatLeft" (click)="this.editionService.selectThePalette(palette.name)">
+          <div class="paletteLabel width-100 floatLeft" (click)="this.editionService.selectThePalette(palette.name)">
             {{palette.name}}
             <div class="moreLess">
               {{this.editionService.selectedPalette == palette.name ? '^' : 'v'}}
             </div>
           </div>
-          <div class="palette floatLeft" *ngIf="this.editionService.selectedPalette == palette.name"
+          <div class="palette width-100 floatLeft" *ngIf="this.editionService.selectedPalette == palette.name"
                [ngStyle]="{'grid-template-rows': 'repeat(' + this.paletteService.rowNumber(palette.colors.length) + ',30px)'}">
             <div class="color floatLeft" [class.realcolor]="color!==null" *ngFor="let color of palette.colors"
                  [ngStyle]="{'background-color': color}"
@@ -81,7 +81,7 @@
 
 
     </div>
-    <div class="close imageContainer" (click)="this.editionService.colorPicked = null;"
+    <div class="close haveBackgroundImage" (click)="this.editionService.colorPicked = null;"
          [ngStyle]="{'background-image':this.getIcon('clear')}">
 
     </div>

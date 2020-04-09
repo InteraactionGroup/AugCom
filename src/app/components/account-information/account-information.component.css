@@ -72,7 +72,6 @@
   visibility: hidden;
   height: 0;
   width: 0;
-
 }
 
 .profilePicContainer:hover .timelineText {
@@ -93,14 +92,7 @@
   transition: color 0.2s ease-in-out;
 }
 
-.accountInformations {
-}
-
 .profileInfo {
-  width: 100%;
   height: 168px;
   padding: 10px;
-}
-
-.bottomButton {
 }

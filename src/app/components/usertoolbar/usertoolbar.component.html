@@ -1,10 +1,10 @@
-<div class="usertoolbar">
+<div class="usertoolbar width-100">
 
   <nav>
     <a routerLink="/account">
       <div class="button" id="accountButton"
            (click)="this.userToolBarService.account = !this.userToolBarService.account">
-        <div class="image" [ngStyle]="{'background-image':this.getIcon('account')}">
+        <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('account')}">
 
         </div>
       </div>
@@ -12,7 +12,7 @@
   </nav>
 
   <div class="button" id="lockUnlockButton" (click)="this.setLock()">
-    <div class="image" [class.imageSelected]="this.userToolBarService.unlock"
+    <div class="image width-100" [class.imageSelected]="this.userToolBarService.unlock"
          [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.unlock?'unlock':'lock')}">
 
     </div>
@@ -20,7 +20,7 @@
 
 
   <div class="button" id="editButton" *ngIf="this.userToolBarService.unlock" (click)="this.edit()">
-    <div class="image" [class.noConnection]="!this.userToolBarService.isConnected"
+    <div class="image width-100" [class.noConnection]="!this.userToolBarService.isConnected"
          [class.imageSelected]="this.userToolBarService.edit" [ngStyle]="{'background-image':this.getIcon('edit')}">
 
     </div>
@@ -28,14 +28,14 @@
 
   <div class="button" id="babbleButton" *ngIf="this.userToolBarService.unlock"
        (click)="this.userToolBarService.babble = !this.userToolBarService.babble">
-    <div class="image" [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.babble?'hide':'show')}">
+    <div class="image width-100" [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.babble?'hide':'show')}">
 
     </div>
   </div>
 
   <div class="button" id="fullScreenButton" *ngIf="this.userToolBarService.unlock"
        (click)="this.userToolBarService.fullScreen()">
-    <div class="image"
+    <div class="image width-100"
          [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.full?'exitfullscreen':'fullscreen')}">
 
     </div>
@@ -43,13 +43,13 @@
 
   <div class="buttonLeftLeft floatLeft" [class.buttonLeftLeftBig]="this.userToolBarService.search"
        *ngIf="this.userToolBarService.unlock">
-    <div class="image" [ngStyle]="{'background-image': this.userToolBarService.search? '' : this.getIcon('search') }">
+    <div class="image width-100" [ngStyle]="{'background-image': this.userToolBarService.search? '' : this.getIcon('search') }">
       <input #searchedText type="text" [(ngModel)]="this.searchText"
              (input)="this.searchService.searchFor(searchedText.value)" class="searchBar"
              *ngIf="this.userToolBarService.search">
       <div class="searchempty" [class.searchResults]="this.userToolBarService.search"
            [ngStyle]="{'height': this.getResultsHeight(this.searchService.searchedWords.length)}">
-        <div class="searchResult" (click)="this.searchService.search(res.ElementID)"
+        <div class="searchResult width-100" (click)="this.searchService.search(res.ElementID)"
              *ngFor="let res of this.searchService.searchedWords"
              [ngStyle]="{'height': this.getResultHeight(this.searchService.searchedWords.length)}">
           <div class="searchImage floatLeft" [style.background-image]="this.boardService.getImgUrl(res)"></div>
@@ -60,7 +60,7 @@
   </div>
   <div class="buttonLeftRight floatLeft" [class.buttonLeftRightBig]="this.userToolBarService.search"
        *ngIf="this.userToolBarService.unlock" (click)="this.openSearch()">
-    <div class="image"
+    <div class="image width-100"
          [ngStyle]="{'background-image':this.userToolBarService.search? this.getIcon('search') : this.getIcon('play') }">
 
     </div>

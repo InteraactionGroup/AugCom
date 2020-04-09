@@ -25,9 +25,6 @@
   height: 80%;
   width: 15%;
   transform: translateY(10%);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 .share .sharePanel .shareSection .listElement .label {

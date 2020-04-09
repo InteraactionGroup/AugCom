@@ -1,36 +1,17 @@
-* {
-  box-sizing: border-box;
-}
-
-.contact {
-}
-
 .formContainer {
   margin: 5px auto auto;
   height: 100%;
   width: fit-content;
 }
 
-.form {
-}
-
-.firmItem {
-  width: 100%;
+.formItem {
   margin-top: 20px;
-}
-
-.formText {
-  width: 100%;
-}
-
-.formTextarea {
 }
 
 label {
   margin-top: 10px;
   width: 100%;
 }
-
 
 textarea {
   width: 100%;

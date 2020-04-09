@@ -2,16 +2,16 @@
 
   <div class="page">
 
-    <div class="fieldsSelector">
+    <div class="page-content">
       <div class="tableTitle"> Modifier les informations:</div>
       <div class="element">
         <label class="label" for="namefield">Nom de l'élément: </label>
-        <input id="namefield" [(ngModel)]="this.editionService.name" class="input"
+        <input id="namefield" [(ngModel)]="this.editionService.name" class="input width-100"
                placeholder="Entrez le nom de l'élément"
                type="text">
 
         <label class="label" for="typefield">Type d'élément : </label>
-        <form id="typefield" class="input">
+        <form id="typefield" class="input width-100">
           <input [(ngModel)]="this.editionService.radioTypeFormat" checked id="radioButton" name="typeFormat"
                  type="radio"
                  value="button">

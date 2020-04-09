@@ -1,15 +1,4 @@
-.page {
-  margin-top: 10px;
-  margin-left: 10px;
-  width: calc(100% - 20px);
-  height: calc(100% - 20px);
-}
 
-.eventSelector {
-  padding-top: 10px;
-  padding-left: 10px;
-  width: calc(100% - 10px);
-}
 
 .tableTitle {
   border-top: black solid 1px;
@@ -55,14 +44,4 @@
   margin-left: 5px;
   margin-top: 5px;
   background-color: white;
-}
-
-.height90 {
-  height: 90%;
-}
-
-.imageContainer {
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 }

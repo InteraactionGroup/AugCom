@@ -2,7 +2,7 @@
 
   <div class="page">
 
-    <div class="imageSelector">
+    <div class="page-content">
       <div class="tableTitle"> Modifier les couleurs:</div>
       <div class="element">
         <label class="label" for="borderColor">couleur intérieure: </label>
@@ -31,13 +31,13 @@
         <input #file (change)="previewFile(file.files)" accept='image/*' class="input" type="file" id="imagefromfile">
         <label class="label" for="imagefromURL">à partir d'une URL: </label>
         <div class="inputURL">
-          <input class="inputURLText searchField" type="search" id="imagefromURL" #text
+          <input class="searchField" type="search" id="imagefromURL" #text
                  placeholder="Entrez l'URL d'une image">
           <input class="searchURL" type="button" value="Ok" (click)="previewWithURL(text.value)">
         </div>
         <label class="label" for="imagefromLib">à partir des bibliothèques: </label>
         <div class="input">
-          <input #search class="inputLib searchField" type="search" id="imagefromLib"
+          <input #search class="searchField" type="search" id="imagefromLib"
                  placeholder="Cherchez un mot (ENG)">
           <input class="searchLib" type="button" value="search" (click)="searchInLib(search.value)">
         </div>
@@ -46,7 +46,7 @@
       <div class="wrapperPreview ">
         <ng-container *ngFor="let b of this.imageList ">
 
-          <div class="pictoImg imageContainer"
+          <div class="pictoImg haveBackgroundImage"
                [ngStyle]="{'background-image':'url(assets/libs/mulberry-symbols/EN-symbols/'+b+'.svg)'}"
                (click)="previewMullberry(b)"></div>
         </ng-container>

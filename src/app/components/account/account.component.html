@@ -1,34 +1,34 @@
 <app-back-home-bar></app-back-home-bar>
-<div class="page-container">
-  <div class="page">
+<div class="account-page-container">
+  <div class="account-page">
 
     <div class="menu-container floatLeft">
       <div class="menu">
 
         <div class="menu-title-container">
-          <div class="menu-title">
+          <div>
             Paramètres
           </div>
         </div>
 
         <ng-container *ngFor="let menus of menu">
-          <div class="menu-item-container">
-            <div class="menu-item">
+          <div>
+            <div>
               <div class="menu-item-title-container"
                    [class.selected]="selectedMenu===menus[0]"
                    (click)="this.selectMenu(menus[0])">
-                <div class="menu-item-title">
+                <div>
                   {{menus[0]}}
                 </div>
               </div>
               <ng-container *ngFor="let submenu of menus[1]">
-                <div class="sub-menu-item-container">
-                  <div class="sub-menu-item">
-                    <div class="sub-menu-item-title-container"
+                <div>
+                  <div>
+                    <div class="sub-menu-item-title-container centerText"
                          [class.closed]="!(selectedMenu===menus[0])"
                          [class.selected]="selectedSubMenu===submenu && selectedMenu===menus[0]"
                          (click)="this.selectSubMenu(menus[0],submenu)">
-                      <div class="sub-menu-item-title centerText">
+                      <div>
                         {{submenu}}
                       </div>
                     </div>
@@ -50,8 +50,8 @@
             {{getMenuPageTitle()}}
           </div>
         </div>
-        <div class="menu-page-content-container">
-          <div class="menu-page-content fillParent">
+        <div class="menu-page-content-container width-100">
+          <div class="menu-page-content height-width-100">
 
             <!--            <ng-container *ngIf="selectedSubMenu==='Informations du compte'">-->
             <!--              <app-account-information></app-account-information>-->

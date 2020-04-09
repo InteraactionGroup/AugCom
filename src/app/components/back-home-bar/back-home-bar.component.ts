@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {GeticonService} from "../../services/geticon.service";
-import {Ng2ImgMaxService} from "ng2-img-max";
+import {EditionService} from "../../services/edition.service";
 
 @Component({
   selector: 'app-back-home-bar',
@@ -9,7 +9,7 @@ import {Ng2ImgMaxService} from "ng2-img-max";
 })
 export class BackHomeBarComponent implements OnInit {
 
-  constructor(private getIconService: GeticonService) {
+  constructor(private getIconService: GeticonService, private editionService: EditionService) {
   }
 
   ngOnInit() {
