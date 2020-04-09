@@ -11,15 +11,21 @@ import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {CsvReaderService} from '../../services/csv-reader.service';
 import {Traduction} from '../../sparqlJsonResults';
 import {DbnaryService} from '../../services/dbnary.service';
+import {HttpClient} from "@angular/common/http";
+import {Ng2ImgMaxService} from "ng2-img-max";
 
 @Component({
   selector: 'app-share',
   templateUrl: './share.component.html',
-  styleUrls: ['./share.component.css']
+  styleUrls: ['./share.component.css'],
+  providers: [HttpClient, Ng2ImgMaxService, {provide :Router}]
 })
 export class ShareComponent implements OnInit {
 
-  constructor(private dbNaryService: DbnaryService, private csvReader: CsvReaderService, private indexedDBacess: IndexeddbaccessService, private printService: PrintService, public snapBarService: SnapBarService, private router: Router, public getIconService: GeticonService, public boardService: BoardService, public userToolBarService: UsertoolbarService) {
+  constructor(private dbNaryService: DbnaryService, private csvReader: CsvReaderService,
+              private indexedDBacess: IndexeddbaccessService, private printService: PrintService,
+              private router: Router, public getIconService: GeticonService,
+              public boardService: BoardService, public userToolBarService: UsertoolbarService) {
   }
 
 
@@ -74,9 +80,9 @@ export class ShareComponent implements OnInit {
    * using the image and image name to respectively create imageUrl and element name and keep the same tree aspect
    * @param e, an event containing a zip file
    */
-  exploreZip(e) {
+  exploreZip(zip) {
     const zipFolder: JSZip = new JSZip();
-    zipFolder.loadAsync(e.target.files[0])
+    zipFolder.loadAsync(zip.files[0])
       .then(zipFiles => {
         zipFiles.forEach(fileName => {
             if (fileName[fileName.length - 1] !== '/') {
@@ -177,34 +183,37 @@ export class ShareComponent implements OnInit {
 
   /**
    * import and set the current information contained in the file of event e into the board
-   * @param ev, an event containing a file
+   * @param file
    */
-  import(ev) {
-    const file = ev.target.files[0];
+  import(file) {
+    const myFile = file[0];
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
-      const t = JSON.parse(fileReader.result.toString());
-      this.boardService.board = t;
+      this.boardService.board = JSON.parse(fileReader.result.toString());
       this.boardService.board.ElementList.forEach(element => {
-        const defaultform = element.ElementForms.find(form => {
-          const newForm = form.LexicInfos.find(info => {
-            return (info.default != null && info.default);
-          });
-          return (newForm != null);
-        });
-        if (defaultform == null) {
-          element.ElementForms.push({
-            DisplayedText: element.ElementForms[0].DisplayedText,
-            VoiceText: element.ElementForms[0].VoiceText,
-            LexicInfos: [{default: true}]
-          });
-        }
+        console.log(this.boardService.getLabel(element));
+        this.checkAndUpdateElementDefaultForm(element);
       });
-
-
+      this.indexedDBacess.update();
+      this.router.navigate(['']);
     };
-    fileReader.readAsText(file);
-    this.router.navigate(['']);
+    fileReader.readAsText(myFile);
+  }
+
+  checkAndUpdateElementDefaultForm(element) {
+    const defaultform = element.ElementForms.find(form => {
+      const newForm = form.LexicInfos.find(info => {
+        return (info.default != null && info.default);
+      });
+      return (newForm != null);
+    });
+    if (defaultform == null) {
+      element.ElementForms.push({
+        DisplayedText: element.ElementForms[0].DisplayedText,
+        VoiceText: element.ElementForms[0].VoiceText,
+        LexicInfos: [{default: true}]
+      });
+    }
   }
 
   /**

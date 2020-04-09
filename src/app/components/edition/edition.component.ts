@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DbnaryService} from '../../services/dbnary.service';
 import {BoardService} from '../../services/board.service';
-import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {GeticonService} from '../../services/geticon.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {Element} from '../../types';
@@ -9,18 +8,21 @@ import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {Router} from '@angular/router';
 import {PaletteService} from '../../services/palette.service';
 import {EditionService} from '../../services/edition.service';
+import {Ng2ImgMaxService} from "ng2-img-max";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-edition',
   templateUrl: './edition.component.html',
-  styleUrls: ['./edition.component.css']
+  styleUrls: ['./edition.component.css'],
+  providers: [Ng2ImgMaxService, HttpClient]
 })
 export class EditionComponent implements OnInit {
 
   constructor(public editionService: EditionService, public  paletteService: PaletteService,
               private router: Router,
               public indexedDBacess: IndexeddbaccessService,
-              public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService,
+              public sanitizer: DomSanitizer, public getIconService: GeticonService,
               public dbnaryService: DbnaryService, public boardService: BoardService) {
 
   }

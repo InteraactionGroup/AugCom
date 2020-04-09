@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import jsonSpeak4Yourself from '../../assets/csvjson.json';
 import {CSVRecord} from '../csvType';
 import {Grid} from '../types';
-import {DbnaryService} from './dbnary.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +10,7 @@ export class CsvReaderService {
 
   speak4Yourself: CSVRecord[];
 
-  constructor(private dbNaryService: DbnaryService) {
+  constructor() {
     this.speak4Yourself = jsonSpeak4Yourself;
   }
 

@@ -7,28 +7,39 @@
 
 .rightPane {
   float: left;
-  width: calc(100% - 300px);
+  width: 80%;
   height: 100%;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+}
+
+.rightPane::-webkit-scrollbar {
+  display: none;
 }
 
 .leftPane {
   float: left;
-  width: 300px;
+  width: 20%;
   height: 100%;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+}
+
+.leftPane::-webkit-scrollbar {
+  display: none;
 }
 
 
 .edition .save {
   cursor: pointer;
   display: block;
-  padding: 20px;
-  width: 100px;
-  height: 20px;
+  padding: 10px;
+  width: 70%;
   font-weight: 600;
   background-color: dimgray;
   text-align: center;
-  border-radius: 15px;
-  margin-left: 75px;
+  border-radius: 5px;
+  margin-left: calc(15% - 10px);
   float: left;
 }
 
@@ -37,46 +48,43 @@
 }
 
 .edition .leftEdition .button {
-  height: 80%;
+  padding-bottom: 80%;
   width: 80%;
   margin-left: 10%;
-  transform: translateY(12%);
+  height: 0;
   border-radius: 15px;
 }
 
 .edition .leftEdition .button .image {
-  float: top;
-  height: 73%;
-  width: 90%;
-  margin-left: 5%;
-  transform: translateY(10%);
+  padding-top: 80%;
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 10%;
 }
 
 .edition .leftEdition .button .label {
   text-align: center;
-  float: top;
-  height: 10%;
   width: 90%;
   margin-left: 5%;
-  transform: translateY(120%);
 }
 
 
 .edition .leftEdition {
-  height: 300px;
-  width: 300px;
+  width: 100%;
+  margin-bottom: 10px;
+  margin-top: 10px;
   background-color: white;
 }
 
 
 .menu-container {
-  width: 300px;
-  padding-right: 24px !important;
+  width: 100%;
 }
 
 .menu {
+  width: calc(100% - 20px);
   margin-left: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   list-style: none;
   background-color: #fff;
   border: 1px solid #d1d5da;

@@ -1,6 +1,8 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {SettingsComponent} from './settings.component';
+import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
+import {FormsModule} from "@angular/forms";
 
 describe('SettingsComponent', () => {
   let component: SettingsComponent;
@@ -8,6 +10,8 @@ describe('SettingsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: [FormsModule],
       declarations: [SettingsComponent]
     })
       .compileComponents();

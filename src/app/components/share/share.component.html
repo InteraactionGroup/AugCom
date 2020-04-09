@@ -14,7 +14,7 @@
         </div>
 
         <div class="inputField">
-          <input type="file" (change)="import($event)">
+          <input #file type="file" (change)="import(file.files)" onclick="this.value=null">
         </div>
       </div>
 
@@ -28,7 +28,7 @@
         </div>
 
         <div class="inputField">
-          <input type="file" (change)="exploreZip($event)">
+          <input #zip type="file" (change)="exploreZip(zip.files)">
         </div>
       </div>
 

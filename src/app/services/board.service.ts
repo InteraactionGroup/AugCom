@@ -2,16 +2,16 @@ import {Injectable} from '@angular/core';
 import {Board} from '../data/ExempleOfBoard';
 import {Element, ElementForm, Grid} from '../types';
 import {DomSanitizer} from '@angular/platform-browser';
-import {UsertoolbarService} from './usertoolbar.service';
 import {EditionService} from './edition.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BoardService {
 
-  constructor(public ng2ImgMaxService: Ng2ImgMaxService, public editionService: EditionService, public userToolBarService: UsertoolbarService, public sanitizer: DomSanitizer) {
+  constructor(public ng2ImgMaxService: Ng2ImgMaxService, public editionService: EditionService,
+              public sanitizer: DomSanitizer) {
     this.board = Board;
     this.sliderValueCol = this.board.gridColsNumber;
     this.sliderValueRow = this.board.gridRowsNumber;

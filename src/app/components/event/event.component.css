@@ -57,12 +57,12 @@
 }
 
 .tableEvent {
-  height: 295px;
-  width: 565px;
+  height: fit-content;
+  width: fit-content;
   display: grid;
   margin: auto;
-  grid-template-columns: 100px 150px 150px 150px;
-  grid-template-rows: 130px 50px 50px 50px;
+  grid-template-columns: 2fr 3fr 3fr 3fr;
+  grid-template-rows: 3fr 1fr 1fr 1fr;
   grid-gap: 5px;
   padding: 10px;
   background-color: whitesmoke;

@@ -2,11 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {EditionService} from "../../services/edition.service";
 import {DbnaryService} from "../../services/dbnary.service";
 import {GeticonService} from "../../services/geticon.service";
+import {HttpClient} from "@angular/common/http";
+import {Ng2ImgMaxService} from "ng2-img-max";
 
 @Component({
   selector: 'app-alternative-forms',
   templateUrl: './alternative-forms.component.html',
-  styleUrls: ['./alternative-forms.component.css']
+  styleUrls: ['./alternative-forms.component.css'],
+  providers: [HttpClient]
 })
 export class AlternativeFormsComponent implements OnInit {
 

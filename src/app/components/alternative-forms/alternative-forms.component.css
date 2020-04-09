@@ -17,12 +17,19 @@
   padding-bottom: 15px;
 }
 
+.tabCell {
+  width: 100%;
+}
+
 .elementVariant {
   width: 90%;
   margin-left: 5%;
   display: grid;
-  grid-template-columns: 300px auto;
+  grid-template-columns: 1fr 2fr;
+  row-gap: 1px;
+  column-gap: 1px;
   padding-bottom: 20px;
+  align-items: center;
 }
 
 .label {
@@ -42,7 +49,7 @@
 
 .variantListBox {
   height: 100%;
-  width: 300px;
+  width: calc(100% - 60px);
 }
 
 .elementVariant .variantContainer .variantOk {
@@ -73,15 +80,18 @@
 
 
 .variantSelector .variantOk {
+  width: 40px;
+  margin-left: 1px;
 }
 
 .inputText {
-  width: 300px;
+  width: calc(100% - 60px);
+  box-sizing: border-box;
 }
 
-.variantSelector .variantOk input {
-  width: 100%;
-  height: 100%;
+.search {
+  width: 59px;
+  margin-left: 1px;
 }
 
 .variantList {

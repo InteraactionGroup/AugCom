@@ -5,7 +5,7 @@
   height: calc(100% - 20px);
 }
 
-.imageSelector {
+.fieldsSelector {
   padding-top: 10px;
   padding-left: 10px;
   width: calc(100% - 10px);
@@ -21,8 +21,11 @@
   width: 90%;
   margin-left: 5%;
   display: grid;
-  grid-template-columns: 205px 400px;
+  grid-template-columns: 1fr 2fr;
+  column-gap: 1px;
+  row-gap: 1px;
   padding-bottom: 20px;
+  align-items: center;
 }
 
 
@@ -34,6 +37,7 @@
 }
 
 .element .input {
-  display: inline-block;
-  height: fit-content;
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
 }

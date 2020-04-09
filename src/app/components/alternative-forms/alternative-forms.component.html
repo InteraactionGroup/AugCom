@@ -7,9 +7,10 @@
       </div>
       <div class="elementVariant">
         <label class="label" for="wordToSearch">Chercher des variantes du mot en ligne: </label>
-        <div class="wordToSearchPanel">
-          <input id="wordToSearch" #wordToSearch class="inputText" type="text" value="{{this.editionService.name}}">
-          <input (click)="getWordList(wordToSearch.value)" class="search" type="button" value="search">
+        <div class="tabCell">
+          <input id="wordToSearch" #wordToSearch class="inputText floatLeft" type="text" placeholder="Entrez un mot"
+                 value="{{this.editionService.name}}">
+          <input (click)="getWordList(wordToSearch.value)" class="search floatLeft" type="button" value="search">
         </div>
 
       </div>
@@ -23,7 +24,7 @@
                  class="waitVariant imageContainer">
             </div>
           </label>
-          <div>
+          <div class="tabCell">
             <select [disabled]="this.dbnaryService.typeList.length===0" [(ngModel)]="this.editionService.classe"
                     class="variantListBox" id="classe-select" name="classe">
               <option value="">--choisissez une option--</option>

@@ -3,11 +3,13 @@ import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {BoardService} from '../../services/board.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {EditionService} from '../../services/edition.service';
+import {Ng2ImgMaxService} from "ng2-img-max";
 
 @Component({
   selector: 'app-popup',
   templateUrl: './popup.component.html',
-  styleUrls: ['./popup.component.css']
+  styleUrls: ['./popup.component.css'],
+  providers: [Ng2ImgMaxService]
 })
 export class PopupComponent implements OnInit {
 
