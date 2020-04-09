@@ -1,7 +1,7 @@
 html{
   height: 100%;
   width: 100%;
-  margin-left: 0%;
+  margin-left: 0;
   background-color: white;
   overflow: hidden;
 
@@ -18,4 +18,9 @@ body{
   height: 100%;
   width: 100%;
   overflow: hidden;
+}
+
+.fillParent{
+  height: 100%;
+  width: 100%;
 }
