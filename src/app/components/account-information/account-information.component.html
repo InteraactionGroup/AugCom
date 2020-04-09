@@ -1,20 +1,20 @@
 <div class="profileInfo">
-  <div class="profilePicContainer">
+  <div class="profilePicContainer floatLeft">
     <img class="img"
          src="{{profilePicture}}">
 
-    <div class="TimeLineSelectorDeleteContainer" (click)="resetPictureProfile()">
+    <div class="timeLineSelectorDeleteContainer" (click)="resetPictureProfile()">
       <div class="TimeLineSelector">
-        <div class="TimelineText">
+        <div class="timelineText centerText">
           Supprimer la photo
         </div>
       </div>
     </div>
 
     <label for="image-profile">
-      <div class="TimeLineSelectorChangeContainer">
+      <div class="timeLineSelectorChangeContainer">
         <div class="TimeLineSelector">
-          <div class="TimelineText">
+          <div class="timelineText centerText">
             Changer de photo
           </div>
         </div>
@@ -24,7 +24,7 @@
   <input #file (change)="setProfilePicture(file.files)" onclick="this.value=null" type="file" id="image-profile"
          accept='image/*' class="hidden"/>
 
-  <div class="accountInformations">
+  <div class="accountInformations centerText floatLeft">
     <div>
       <label>Nom:</label>
       <input #nomText type="text">

@@ -81,7 +81,7 @@ export class PrintService {
   wrapperBegin(id) {
     return '<div class="id">' + id + '</div>\n' +
       '<div class="keyboard" id="' + id + '">\n' +
-      '<div class="wrapper">\n';
+      '<div class="wrapper fillParent">\n';
   }
 
   getShadow(element: Element) {

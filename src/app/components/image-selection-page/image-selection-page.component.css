@@ -42,7 +42,6 @@
 
 
 .colorPickerContainer {
-  float: left;
   height: 20px;
   width: 100px;
   background-color: dimgrey;
@@ -51,7 +50,6 @@
 }
 
 .colorPickerContainerDown {
-  float: left;
   height: 20px;
   width: 100px;
   background-color: dimgrey;

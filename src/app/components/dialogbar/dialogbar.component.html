@@ -3,7 +3,7 @@
 
   <!-- the textBar containing the sentence entered by the user -->
   <!-- *** note: the row-reverse trick is used in order to display last elements of the textBar on the right *** -->
-  <div class="textBar"
+  <div class="textBar floatLeft"
        [ngStyle]=" {'flex-flow': this.historicService.isHistoricLengthMoreThan10() ?'row-reverse nowrap':'nowrap'}">
 
     <!-- each elementContainer contains an element composed with one pictogram and the corresponding text -->
@@ -18,8 +18,8 @@
 
         </div>
 
-        <svg viewBox="0 0 30 20">
-          <text x="50%" y="50%" dominant-baseline="middle"
+        <svg class="centerText" viewBox="0 0 30 20">
+          <text class="centerText" x="50%" y="50%" dominant-baseline="middle"
                 text-anchor="middle">{{element.VignetteLabel}}</text>
         </svg>
 
@@ -30,7 +30,7 @@
   </div>
 
   <!-- the button used to play the sound of the sentence entered by the user -->
-  <div class="button">
+  <div class="button floatLeft">
     <div class="image" [ngStyle]="{'background-image':this.getIcon('play')}"
          (click)="this.historicService.playHistoric()">
 
@@ -38,7 +38,7 @@
   </div>
 
   <!-- the button used in order to remove the last element entered by the user -->
-  <div class="button">
+  <div class="button floatLeft">
     <div class="image" [ngStyle]="{'background-image':this.getIcon('back')}"
          (click)="this.historicService.backHistoric()">
 
@@ -46,7 +46,7 @@
   </div>
 
   <!-- the button used to clear the whole sentence entered by the user -->
-  <div class="button">
+  <div class="button floatLeft">
     <div class="image" [ngStyle]="{'background-image':this.getIcon('clear')}" (click)="this.clear()">
 
     </div>

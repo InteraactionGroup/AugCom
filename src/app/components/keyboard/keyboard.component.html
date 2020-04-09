@@ -6,33 +6,33 @@
 <div class="editionSettings" *ngIf="this.userToolBarService.edit">
 
   <!-- checkbox used to select all the elements in edition mode -->
-  <div class="selectCheckBox" (click)="this.selectAll()">
+  <div class="selectCheckBox floatLeft" (click)="this.selectAll()">
     <div class="image" [style.background-image]="this.editionService.selectAll?this.getIcon('check'):null">
 
     </div>
   </div>
 
   <!-- button used to edit all the selected elements-->
-  <div class="editSettingsButton" (click)=this.editAll()>
-    <div class="editButtonLabel"> edit selected</div>
-    <div class="editButtonImg" [style.background-image]="this.getIcon('edit')">
+  <div class="editSettingsButton floatLeft" (click)=this.editAll()>
+    <div class="editButtonLabel floatLeft centerText"> edit selected</div>
+    <div class="editButtonImg floatLeft" [style.background-image]="this.getIcon('edit')">
     </div>
   </div>
 
   <!-- button used to delete all the selected elements -->
-  <div class="editSettingsButton" (click)=this.deleteAll()>
-    <div class="editButtonLabel"> delete selected</div>
-    <div class="editButtonImg" [style.background-image]="this.getIcon('delete')">
+  <div class="editSettingsButton floatLeft" (click)=this.deleteAll()>
+    <div class="editButtonLabel floatLeft centerText"> delete selected</div>
+    <div class="editButtonImg floatLeft" [style.background-image]="this.getIcon('delete')">
     </div>
   </div>
 
   <!-- button used in order to change the background of the keyboard-->
   <!-- note: if we does not use this function for visual scene display we will have to move
         this function have to be moved in the setting of augCom -->
-  <div class="editSettingsButton">
+  <div class="editSettingsButton floatLeft">
     <label for="editBckButton">
-      <div class="editButtonLabel"> change background</div>
-      <div class="editButtonImg" [style.background-image]="this.getIcon('edit')">
+      <div class="editButtonLabel floatLeft centerText"> change background</div>
+      <div class="editButtonImg floatLeft" [style.background-image]="this.getIcon('edit')">
       </div>
     </label>
     <input #file type="file" accept='image/*' id='editBckButton'
@@ -41,11 +41,11 @@
 
   <!-- input fields for column and row size, have to be changed with a button number incrementer -->
   <div class="gridSettings">
-    <input class="inputSize" type="text" [(ngModel)]="this.boardService.sliderValueCol">
-    <div class="x">
+    <input class="inputSize floatLeft centerText" type="text" [(ngModel)]="this.boardService.sliderValueCol">
+    <div class="x floatLeft">
       x
     </div>
-    <input class="inputSize" type="text" [(ngModel)]="this.boardService.sliderValueRow">
+    <input class="inputSize floatLeft centerText" type="text" [(ngModel)]="this.boardService.sliderValueRow">
   </div>
 </div>
 
@@ -53,7 +53,7 @@
 <div class="keyboard" [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100vh - 4.5cm)':'calc(100vh - 3.5cm)'}">
 
   <!-- the wrapper displayed with elements containing pictogram and corresponding text -->
-  <div class="wrapper"
+  <div class="wrapper fillParent"
        [ngStyle]="{
           'grid-template-columns': 'repeat('+(this.boardService.sliderValueCol)+', '+(100/(this.boardService.sliderValueCol))+'%)',
           'grid-template-rows': 'repeat(100, '+(100/(this.boardService.sliderValueRow))+'%)',
@@ -65,7 +65,7 @@
     <ng-container *ngFor="let element of this.getTempList()">
 
       <!-- display elementContainers with element having non empty type-->
-      <div id="{{element.ElementID}}" class="elementContainer" *ngIf="element.ElementType!=='empty'">
+      <div id="{{element.ElementID}}" class="elementContainer floatLeft" *ngIf="element.ElementType!=='empty'">
 
         <!-- an element composed of a pictogram and a corresponding text-->
         <div class="element" [class.notsearched]="!isSearched(element)"
@@ -88,14 +88,14 @@
         </div>
 
         <!-- in edit mode this button is used to delete the associated element -->
-        <div class="deleteElement" *ngIf="this.userToolBarService.edit" (click)="this.delete(element)">
+        <div class="deleteElement floatLeft" *ngIf="this.userToolBarService.edit" (click)="this.delete(element)">
           <div class="image" [style.background-image]="this.getIcon('delete')">
 
           </div>
         </div>
 
         <!-- in edit mode this button is used to select the associated element -->
-        <div class="selectCheckBox" *ngIf="this.userToolBarService.edit" (click)="this.select(element)">
+        <div class="selectCheckBox floatLeft" *ngIf="this.userToolBarService.edit" (click)="this.select(element)">
           <div class="image"
                [style.background-image]="this.editionService.isSelected(element)?this.getIcon('check'):null">
 
@@ -118,7 +118,7 @@
     <ng-container *ngIf="this.boardService.currentFolder !== '.' && this.boardService.activatedElement==-1">
 
       <!-- container for the back button element -->
-      <div class="elementContainer no-drag">
+      <div class="elementContainer floatLeft no-drag">
 
         <!-- back button element-->
         <div class="element" (click)="this.boardService.backToPreviousFolder()" [ngStyle]="{'background-color': 'red'}">
@@ -146,7 +146,7 @@
         <a routerLink="/edit" class="no-drag">
 
           <!-- elementContainer for the add button element-->
-          <div class="elementContainer no-drag add">
+          <div class="elementContainer floatLeft no-drag add fillParent">
 
             <!-- add button element -->
             <div class="element" (click)="this.editionService.add = true "
@@ -156,8 +156,8 @@
 
               </div>
 
-              <svg viewBox="0 0 30 20">
-                <text x="50%" y="50%" dominant-baseline="middle"
+              <svg class="centerText" viewBox="0 0 30 20">
+                <text class="centerText" x="50%" y="50%" dominant-baseline="middle"
                       text-anchor="middle">ajouter
                 </text>
               </svg>

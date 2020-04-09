@@ -2,7 +2,7 @@
 <div class="page-container">
   <div class="page">
 
-    <div class="menu-container">
+    <div class="menu-container floatLeft">
       <div class="menu">
 
         <div class="menu-title-container">
@@ -28,7 +28,7 @@
                          [class.closed]="!(selectedMenu===menus[0])"
                          [class.selected]="selectedSubMenu===submenu && selectedMenu===menus[0]"
                          (click)="this.selectSubMenu(menus[0],submenu)">
-                      <div class="sub-menu-item-title">
+                      <div class="sub-menu-item-title centerText">
                         {{submenu}}
                       </div>
                     </div>
@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="menu-page-content-container">
-          <div class="menu-page-content">
+          <div class="menu-page-content fillParent">
 
             <!--            <ng-container *ngIf="selectedSubMenu==='Informations du compte'">-->
             <!--              <app-account-information></app-account-information>-->

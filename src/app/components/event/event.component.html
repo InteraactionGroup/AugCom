@@ -7,15 +7,15 @@
       <div class="element ">
         <div class="tableEvent">
           <div></div>
-          <div class="event floatLeft" *ngFor="let actionID of ['display','say','otherforms']">
+          <div class="event centerText fillParent floatLeft" *ngFor="let actionID of ['display','say','otherforms']">
             <div class="icon imageContainer" [ngStyle]="{'background-image':this.getIcon(actionID)}">
             </div>
             {{this.getLabel(actionID)}}
           </div>
           <ng-container *ngFor="let interID of this.parametersService.interactionIDs">
-            <label class="leftTabLabel">{{this.getLabel(interID)}}</label>
+            <label class="leftTabLabel centerText">{{this.getLabel(interID)}}</label>
             <ng-container *ngFor="let actionID of ['display','say','otherforms']">
-              <div class="event floatLeft" (click)="this.addOrRemoveToInteraction(interID, actionID)">
+              <div class="event centerText fillParent floatLeft" (click)="this.addOrRemoveToInteraction(interID, actionID)">
                 <div class="checkmark floatLeft imageContainer"
                      [ngStyle]="{'background-image': this.isPartOfTheInteraction(interID,actionID)?this.getIcon('checkmark'):this.getIcon('uncheckmark')}"></div>
               </div>

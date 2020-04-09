@@ -6,7 +6,6 @@
 }
 
 .rightPane {
-  float: left;
   width: 80%;
   height: 100%;
   overflow-y: auto;
@@ -18,7 +17,6 @@
 }
 
 .leftPane {
-  float: left;
   width: 20%;
   height: 100%;
   overflow-y: auto;
@@ -37,10 +35,8 @@
   width: 70%;
   font-weight: 600;
   background-color: dimgray;
-  text-align: center;
   border-radius: 5px;
   margin-left: calc(15% - 10px);
-  float: left;
 }
 
 .edition .save:hover {
@@ -63,7 +59,6 @@
 }
 
 .edition .leftEdition .button .label {
-  text-align: center;
   width: 90%;
   margin-left: 5%;
 }
@@ -253,10 +248,6 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-}
-
-.floatLeft {
-  float: left;
 }
 
 .height90 {

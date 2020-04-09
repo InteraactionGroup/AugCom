@@ -10,7 +10,7 @@
   background-color: white;
 }
 
-.page:after, .pahe:before {
+.page:after, .page:before {
   display: table;
   content: "";
 }
@@ -29,7 +29,6 @@
 }
 
 .menu-container {
-  float: left !important;
   width: 25%;
   display: block;
   padding-right: 24px !important;
@@ -60,14 +59,12 @@
 }
 
 .menu-title {
-
 }
 
 .menu-item-container {
 }
 
 .menu-item {
-
 }
 
 .menu-item-title-container {
@@ -112,15 +109,12 @@
 }
 
 .menu-item-title {
-
 }
 
 .sub-menu-item-container {
-
 }
 
 .sub-menu-item {
-
 }
 
 .sub-menu-item-title-container {
@@ -200,7 +194,6 @@
 }
 
 .sub-menu-item-title {
-  text-align: center;
 }
 
 .menu-page-container {
@@ -247,37 +240,10 @@
 }
 
 .menu-page-content {
-  width: 100%;
-  height: 100%;
   overflow-y: auto;
   -ms-overflow-style: none;
 }
 
 .menu-page-content::-webkit-scrollbar {
   display: none;
-}
-
-.button {
-  cursor: pointer;
-  float: right;
-  height: 1.5cm;
-  width: 1.5cm;
-  max-height: 14vw;
-  max-width: 14vw;
-  min-width: 1cm;
-  min-height: 1cm;
-  visibility: hidden;
-}
-
-.button .image {
-  height: 80%;
-  width: 80%;
-  margin-left: 10%;
-  transform: translateY(10%);
-  background-color: lightgrey;
-  border-radius: 10px;
-  background-size: 60%;
-  background-repeat: no-repeat;
-  background-position: center;
-  visibility: visible;
 }

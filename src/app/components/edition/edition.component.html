@@ -1,7 +1,7 @@
 <app-back-home-bar></app-back-home-bar>
 <div class="edition">
 
-  <div class="leftPane">
+  <div class="leftPane floatLeft">
     <div class="leftEdition floatLeft">
 
 
@@ -14,7 +14,7 @@
              [style.background-image]="this.sanitizer.bypassSecurityTrustStyle('url(' +this.editionService.imageURL+')')">
 
         </div>
-        <div class="label">
+        <div class="label centerText">
           {{this.editionService.name}}
         </div>
       </div>
@@ -40,13 +40,13 @@
       </div>
     </div>
 
-    <div class="save" (click)="this.save()">
+    <div class="save centerText floatLeft" (click)="this.save()">
       save
     </div>
 
   </div>
 
-  <div class="rightPane">
+  <div class="rightPane floatLeft">
     <ng-container *ngIf="this.editionService.currentEditPage==='Grammaire'">
       <app-a-venir></app-a-venir>
     </ng-container>

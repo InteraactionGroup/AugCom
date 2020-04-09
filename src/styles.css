@@ -24,3 +24,11 @@ body{
   height: 100%;
   width: 100%;
 }
+
+.centerText {
+  text-align: center;
+}
+
+.floatLeft{
+  float: left;
+}
