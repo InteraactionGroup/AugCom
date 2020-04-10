@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+
+runs-on: ubuntu-latest
+
+strategy:
+  matrix:
+    node-version: [ 10.x ]
+
+steps:
+  - uses: actions/checkout@v2
+  - name: Use Node.js ${{ matrix.node-version }}
+  uses: actions/setup-node@v1
+  with:
+    node-version: ${{ matrix.node-version }}
+  - run: npm ci
+  - run: npm run build --if-present
+  - name: Running npm tests
+    run: npm test -- --watch=false --progress=false
+    env:
+      CI: true
+  - name: Install SSH key of bastion
+    uses: shimataro/ssh-key-action@v2
+    with:
+      key: ${{ secrets.SSH_KEY_OF_BASTION }}
+      name: id_rsa-bastion
+      config: |
+        Host bastion
+          HostName ${{ secrets.SSH_HOSTNAME_FOR_TARGET }}
+          User ${{ secrets.SSH_USERNAME_FOR_BASTION }}
+          IdentityFile ~/.ssh/id_rsa-bastion
+  - name: Install SSH key of target
+    uses: shimataro/ssh-key-action@v2
+    with:
+      key: ${{ secrets.SSH_KEY_OF_TARGET }}
+      name: id_rsa-target
+      config: |
+        Host target
+          HostName ${{ secrets.SSH_HOSTNAME_FOR_TARGET }}
+          User ${{ secrets.SSH_USERNAME_FOR_TARGET }}
+          IdentityFile ~/.ssh/id_rsa-target
+          ProxyCommand ssh -W %h:%p bastion
+  - name: rsync running
+    run: rsync -r -e "ssh ${{ secrets.SSH_USERNAME_FOR_BASTION }}@${{ secrets.SSH_HOSTNAME_FOR_BASTION }} ssh" dist/prod/. ${{ secrets.SSH_USERNAME_FOR_TARGET }}@${{ secrets.SSH_HOSTNAME_FOR_TARGET }}:/var/www/html/stable
