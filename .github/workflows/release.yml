@@ -1,0 +1,20 @@
+name: DEPLOY
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: rsync deployments
+        uses: burnett01/rsync-deployments@4.0
+        with:
+          switches: -r -e "ssh ${{ secrets.USERNAME }}@ligone.imag.fr ssh"
+          path: dist/prod/.
+          remote_path: /var/www/html/stable
+          remote_host: lig-augcom.imag.fr
+          remote_user: ${{ secrets.USERNAME }}
+          remote_key: ${{ secrets.DEPLOY_KEY }}
