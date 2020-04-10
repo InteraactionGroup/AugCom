@@ -26,10 +26,16 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['HeadlessChrome'],
-    customLaunchers:{
-      HeadlessChrome:{
-        base: 'ChromeHeadless',
-        flags: ['--no-sandbox']
+    customLaunchers: {
+      ChromeHeadless: {
+        base: "Chrome",
+        flags: [
+          "--headless",
+          "--disable-gpu",
+          "--no-sandbox", // required to run without privileges in docker
+          "--remote-debugging-port=9222", // Without a remote debugging port, Google Chrome exits immediately.
+          "--js-flags=--max-old-space-size=4096"
+        ]
       }
     },
     singleRun: false,
