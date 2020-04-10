@@ -1,59 +1,9 @@
-.page {
-  margin-top: 10px;
-  margin-left: 10px;
-  width: calc(100% - 20px);
-  height: calc(100% - 20px);
-}
 
-.eventSelector {
-  padding-top: 10px;
-  padding-left: 10px;
-  width: calc(100% - 10px);
-}
 
 .tableTitle {
   border-top: black solid 1px;
   padding-top: 10px;
   padding-bottom: 15px;
-}
-
-.elementEvent {
-  text-align: center;
-  width: 90%;
-  margin-left: 5%;
-  transform: translateY(2%);
-  background-color: lightgrey;
-}
-
-.elementEventContainer {
-  text-align: center;
-  width: 70%;
-  margin-left: 15%;
-  transform: translateY(5%);
-  background-color: white;
-}
-
-.elementEventContainer .elementevent {
-  text-align: center;
-  height: 30%;
-  width: 90%;
-  margin-left: 5%;
-  background-color: lightgrey;
-  margin-top: 3%;
-  transform: translateY(5%);
-}
-
-.elementEventContainer .label {
-  text-align: center;
-  height: 30%;
-  width: 80%;
-  transform: translateY(15%);
-}
-
-.elementEventContainer .goto {
-  text-align: center;
-  width: 19%;
-  transform: translateY(5%);
 }
 
 .tableEvent {
@@ -69,7 +19,6 @@
 }
 
 .leftTabLabel {
-  text-align: center;
   vertical-align: auto;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -77,11 +26,7 @@
 }
 
 .event {
-  height: 100%;
-  width: 100%;
   box-sizing: border-box;
-  float: left;
-  text-align: center;
   background-color: white;
 }
 
@@ -93,31 +38,10 @@
 
 }
 
-.event .label {
-  float: left;
-  text-align: center;
-}
-
 .event .checkmark {
-  float: left;
   height: calc(100% - 10px);
   width: calc(100% - 10px);
   margin-left: 5px;
   margin-top: 5px;
   background-color: white;
-}
-
-
-.floatLeft {
-  float: left;
-}
-
-.height90 {
-  height: 90%;
-}
-
-.imageContainer {
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 }

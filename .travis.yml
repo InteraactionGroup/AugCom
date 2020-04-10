@@ -1,16 +1,16 @@
 dist: trusty
-sudo: false
+sudo: required
 
 language: node_js
 node_js:
-  - "8"
+  - "10"
 
 addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
+  chrome: stable
+
+before_install:
+  - # start your web application and listen on `localhost`
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 
 cache:
   directories:
@@ -20,5 +20,5 @@ install:
   - npm install
 
 script:
-  - npm run test -- --watch=false --progress=false --browsers=ChromeHeadlessCI
-  - npm run e2e -- --protractor-config=./e2e/protractor-ci.conf.js
+  - npm run test -- --watch=false --progress=false
+#  - npm run e2e -- --protractor-config=./e2e/protractor-ci.conf.js

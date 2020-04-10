@@ -509,13 +509,18 @@ export class KeyboardComponent implements OnInit {
   edit(element: Element) {
     if (this.userToolBarService.edit) {
       this.router.navigate(['/edit']).then(() => {
-          this.editionService.selectedElements = [];
+        this.editionService.clearEditionPane();
           this.editionService.selectedElements.push(element);
           this.editionService.ElementListener.next(element);
           this.editionService.add = false;
         }
       );
     }
+  }
+
+  addNewElement(){
+    this.editionService.add = true;
+    this.editionService.clearEditionPane();
   }
 
   /**
