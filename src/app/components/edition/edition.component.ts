@@ -45,23 +45,6 @@ export class EditionComponent implements OnInit {
   }
 
   /**
-   * close the current opened panel if there is one (image, variant or event panel) and go back to main edition panel
-   * otherwise close the edition menu
-   * reset the information to its initial value
-   */
-  close() {
-    // go back to main edition panel and close image, variant or event subpanel
-    if (this.editionService.currentEditPage !== "") {
-      this.editionService.currentEditPage = ""
-      // close the edition panel
-    } else {
-      this.editionService.add = false;
-      this.clear();
-      this.router.navigate(['']);
-    }
-  }
-
-  /**
    * Clear the informtation of the edition panel, reset all the information to their initial value
    */
   clear() {
@@ -88,15 +71,21 @@ export class EditionComponent implements OnInit {
    *
    */
   save() {
-    if (this.editionService.add) {
-      this.createNewButton();
-    } else if (this.editionService.selectedElements.length === 1) {
-      this.modifyButton();
-    } else if (this.editionService.selectedElements.length > 1) {
-      this.modifyAllButtons();
-    }
     this.indexedDBacess.update();
-    this.close();
+    if (this.editionService.currentEditPage !== "") {
+      this.editionService.currentEditPage = ""
+    } else {
+      if (this.editionService.add) {
+        this.createNewButton();
+      } else if (this.editionService.selectedElements.length === 1) {
+        this.modifyButton();
+      } else if (this.editionService.selectedElements.length > 1) {
+        this.modifyAllButtons();
+      }
+      this.editionService.add = false;
+      this.clear();
+      this.router.navigate(['']);
+    }
   }
 
   modifyAllButtons() {

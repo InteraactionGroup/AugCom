@@ -3,7 +3,6 @@
   min-height: 1cm;
   max-height: 14vw;
   min-width: 7cm;
-  width: 100%;
   background-color: grey;
   position: relative;
   z-index: 2;
@@ -23,7 +22,6 @@
 
 .usertoolbar .buttonLeftLeft {
   cursor: pointer;
-  float: left;
   height: 1.5cm;
   width: 1.5cm;
   min-width: 1cm;
@@ -33,7 +31,6 @@
 
 .usertoolbar .buttonLeftRight {
   cursor: pointer;
-  float: left;
   height: 1.5cm;
   width: 0.5cm;
   min-width: 1cm;
@@ -48,7 +45,6 @@
 
 .usertoolbar .buttonLeftLeftBig {
   cursor: pointer;
-  float: left;
   height: 1.5cm;
   width: calc(100% - 12.5cm);
   min-width: 1cm;
@@ -75,7 +71,6 @@
 
 .usertoolbar .buttonLeftLeft .image {
   height: 80%;
-  width: 100%;
   margin-left: 0;
   margin-right: 0;
   transform: translateY(10%);
@@ -101,18 +96,15 @@
   background-color: lightgrey;
   box-shadow: 0 2px 15px black;
   opacity: 0;
-  transition: height 0.1s;
 }
 
 .usertoolbar .buttonLeftLeft .image .searchResults {
   height: 500%;
   opacity: 1;
-  transition: height 1s;
-  overflow: scroll;
+  overflow-y: auto;
 }
 
 .usertoolbar .buttonLeftLeft .image .searchResults .searchResult {
-  width: 100%;
   background-color: dimgrey;
   opacity: 0.8;
 }
@@ -122,17 +114,12 @@
 }
 
 .usertoolbar .buttonLeftLeft .image .searchResults .searchResult .searchImage {
-  float: left;
   height: 100%;
   width: 50%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 
 .usertoolbar .buttonLeftLeft .image .searchResults .searchResult .searchLabel {
-  float: left;
 }
 
 .usertoolbar .buttonLeftRight .image {

@@ -5,7 +5,7 @@
   <div class="popupContainer">
 
     <!-- display the popup question -->
-    <div class="popupQuestion">
+    <div class="popupQuestion centerText">
       {{this.questionBegin + this.getSentencedToDeleteElementStringValue() + this.questionEnd}}
     </div>
 
@@ -13,12 +13,12 @@
     <div class="popupButtons">
 
       <!-- answer 'no' to the popup question -->
-      <div class="popupChoiceButton no" (click)="this.no()">
+      <div class="popupChoiceButton floatLeft centerText no" (click)="this.no()">
         non, annuler
       </div>
 
       <!-- answer 'yes' to the popup quesion -->
-      <div class="popupChoiceButton yes" (click)="this.yes()">
+      <div class="popupChoiceButton floatLeft centerText yes" (click)="this.yes()">
         oui, supprimer
       </div>
 
