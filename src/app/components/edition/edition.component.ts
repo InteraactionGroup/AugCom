@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DbnaryService} from '../../services/dbnary.service';
 import {BoardService} from '../../services/board.service';
-import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {GeticonService} from '../../services/geticon.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {Element} from '../../types';
@@ -9,18 +8,21 @@ import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {Router} from '@angular/router';
 import {PaletteService} from '../../services/palette.service';
 import {EditionService} from '../../services/edition.service';
+import {Ng2ImgMaxService} from "ng2-img-max";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-edition',
   templateUrl: './edition.component.html',
-  styleUrls: ['./edition.component.css']
+  styleUrls: ['./edition.component.css'],
+  providers: [Ng2ImgMaxService, HttpClient]
 })
 export class EditionComponent implements OnInit {
 
   constructor(public editionService: EditionService, public  paletteService: PaletteService,
               private router: Router,
               public indexedDBacess: IndexeddbaccessService,
-              public sanitizer: DomSanitizer, public userToolBar: UsertoolbarService, public getIconService: GeticonService,
+              public sanitizer: DomSanitizer, public getIconService: GeticonService,
               public dbnaryService: DbnaryService, public boardService: BoardService) {
 
   }
@@ -40,23 +42,6 @@ export class EditionComponent implements OnInit {
 
   selectMenu(name: string) {
     this.editionService.currentEditPage = name;
-  }
-
-  /**
-   * close the current opened panel if there is one (image, variant or event panel) and go back to main edition panel
-   * otherwise close the edition menu
-   * reset the information to its initial value
-   */
-  close() {
-    // go back to main edition panel and close image, variant or event subpanel
-    if (this.editionService.currentEditPage !== "") {
-      this.editionService.currentEditPage = ""
-      // close the edition panel
-    } else {
-      this.editionService.add = false;
-      this.clear();
-      this.router.navigate(['']);
-    }
   }
 
   /**
@@ -86,15 +71,21 @@ export class EditionComponent implements OnInit {
    *
    */
   save() {
-    if (this.editionService.add) {
-      this.createNewButton();
-    } else if (this.editionService.selectedElements.length === 1) {
-      this.modifyButton();
-    } else if (this.editionService.selectedElements.length > 1) {
-      this.modifyAllButtons();
-    }
     this.indexedDBacess.update();
-    this.close();
+    if (this.editionService.currentEditPage !== "") {
+      this.editionService.currentEditPage = ""
+    } else {
+      if (this.editionService.add) {
+        this.createNewButton();
+      } else if (this.editionService.selectedElements.length === 1) {
+        this.modifyButton();
+      } else if (this.editionService.selectedElements.length > 1) {
+        this.modifyAllButtons();
+      }
+      this.editionService.add = false;
+      this.clear();
+      this.router.navigate(['']);
+    }
   }
 
   modifyAllButtons() {

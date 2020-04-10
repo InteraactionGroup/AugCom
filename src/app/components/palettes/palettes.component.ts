@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 import {GeticonService} from "../../services/geticon.service";
 import {PaletteService} from "../../services/palette.service";
+import {Ng2ImgMaxService} from "ng2-img-max";
 
 @Component({
   selector: 'app-palettes',

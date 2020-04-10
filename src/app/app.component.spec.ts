@@ -1,12 +1,20 @@
-import { TestBed, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import {async, TestBed} from '@angular/core/testing';
+import {AppComponent} from './app.component';
+import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {KeyboardComponent} from "./components/keyboard/keyboard.component";
+import {ShareComponent} from "./components/share/share.component";
+import {EditionComponent} from "./components/edition/edition.component";
+import {SettingsComponent} from "./components/settings/settings.component";
+import {AccountComponent} from "./components/account/account.component";
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
+      imports: [RouterTestingModule ,  BrowserAnimationsModule],
+      declarations: [AppComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
 
@@ -16,16 +24,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'AugCom1'`, () => {
+  it(`should have as title 'AugCom'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('AugCom1');
+    expect(app.title).toEqual('AugCom');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('AugCom1 app is running!');
-  });
 });

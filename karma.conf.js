@@ -16,7 +16,7 @@ module.exports = function (config) {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     coverageIstanbulReporter: {
-      dir: require('path').join(__dirname, './coverage/AugCom1'),
+      dir: require('path').join(__dirname, './coverage/AugCom'),
       reports: ['html', 'lcovonly', 'text-summary'],
       fixWebpackSourcePaths: true
     },
@@ -25,7 +25,19 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
+    browsers: ['ChromeHeadless'],
+    customLaunchers: {
+      ChromeHeadless: {
+        base: "Chrome",
+        flags: [
+          "--headless",
+          "--disable-gpu",
+          "--no-sandbox", // required to run without privileges in docker
+          "--remote-debugging-port=9222", // Without a remote debugging port, Google Chrome exits immediately.
+          "--js-flags=--max-old-space-size=4096"
+        ]
+      }
+    },
     singleRun: false,
     restartOnFileChange: true
   });

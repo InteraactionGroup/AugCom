@@ -1,27 +1,22 @@
-* {
-  box-sizing: border-box;
-  word-wrap: break-word;
-}
-
-.page-container {
+.account-page-container {
   display: block;
   width: 100vw;
   height: 100vh;
   background-color: white;
 }
 
-.page:after, .pahe:before {
+.account-page:after, .account-page:before {
   display: table;
   content: "";
 }
 
-.page:after {
+.account-page:after {
   clear: both;
 }
 
-.page {
+.account-page {
   padding-top: 20px;
-  width: 980px;
+  width: 100%;
   height: 90%;
   margin-right: auto;
   margin-left: auto;
@@ -29,10 +24,10 @@
 }
 
 .menu-container {
-  float: left !important;
   width: 25%;
   display: block;
   padding-right: 24px !important;
+  padding-left: 10px;
 }
 
 .menu {
@@ -58,17 +53,6 @@
   font-weight: 600;
 }
 
-.menu-title {
-
-}
-
-.menu-item-container {
-}
-
-.menu-item {
-
-}
-
 .menu-item-title-container {
   position: relative;
   display: block;
@@ -81,16 +65,7 @@
   font-size: 14px;
 }
 
-.menu-item-title-container:hover:before {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 6px;
-  content: "";
-  background-color: #d1d5da;
-}
-
+.menu-item-title-container:hover:before,
 .menu-item-title-container.selected:before {
   position: absolute;
   top: 0;
@@ -108,18 +83,6 @@
 .menu-item-title-container.selected {
   background-color: #eef4f9;
   font-weight: 600;
-}
-
-.menu-item-title {
-
-}
-
-.sub-menu-item-container {
-
-}
-
-.sub-menu-item {
-
 }
 
 .sub-menu-item-title-container {
@@ -198,10 +161,6 @@
   background-color: #d1d5da;
 }
 
-.sub-menu-item-title {
-  text-align: center;
-}
-
 .menu-page-container {
   float: left !important;
   width: 75%;
@@ -210,7 +169,7 @@
 }
 
 .menu-page {
-  width: 100%;
+  width: calc(100% - 10px);
   height: 100%;
 }
 
@@ -230,7 +189,6 @@
 
 .menu-page-content-container {
   height: calc(100% - 20px);
-  width: 100%;
   display: flex !important;
   flex-shrink: 0 !important;
 }
@@ -245,37 +203,10 @@
 }
 
 .menu-page-content {
-  width: 100%;
-  height: 100%;
   overflow-y: auto;
   -ms-overflow-style: none;
 }
 
 .menu-page-content::-webkit-scrollbar {
   display: none;
-}
-
-.button {
-  cursor: pointer;
-  float: right;
-  height: 1.5cm;
-  width: 1.5cm;
-  max-height: 14vw;
-  max-width: 14vw;
-  min-width: 1cm;
-  min-height: 1cm;
-  visibility: hidden;
-}
-
-.button .image {
-  height: 80%;
-  width: 80%;
-  margin-left: 10%;
-  transform: translateY(10%);
-  background-color: lightgrey;
-  border-radius: 10px;
-  background-size: 60%;
-  background-repeat: no-repeat;
-  background-position: center;
-  visibility: visible;
 }

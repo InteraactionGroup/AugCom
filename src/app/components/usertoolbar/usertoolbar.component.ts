@@ -6,16 +6,20 @@ import {SnapBarService} from '../../services/snap-bar.service';
 import {ParametersService} from '../../services/parameters.service';
 import {SearchService} from '../../services/search.service';
 import {BoardService} from '../../services/board.service';
+import {Ng2ImgMaxService} from "ng2-img-max";
 
 @Component({
   selector: 'app-usertoolbar',
   templateUrl: './usertoolbar.component.html',
-  styleUrls: ['./usertoolbar.component.css']
-})
+  styleUrls: ['./usertoolbar.component.css'],
+  providers: [Ng2ImgMaxService]
+ })
 export class UsertoolbarComponent implements OnInit {
 
 
-  constructor(public boardService: BoardService, public searchService: SearchService, private parametersService: ParametersService, private snapBarService: SnapBarService, private indexedDBacess: IndexeddbaccessService, public getIconService: GeticonService, public userToolBarService: UsertoolbarService) {
+  constructor(public boardService: BoardService, public searchService: SearchService, private parametersService: ParametersService,
+              private snapBarService: SnapBarService, private indexedDBacess: IndexeddbaccessService, public getIconService: GeticonService,
+              public userToolBarService: UsertoolbarService) {
 
   }
 
@@ -65,11 +69,6 @@ export class UsertoolbarComponent implements OnInit {
     } else {
       this.snapBarService.snap();
     }
-  }
-
-  openSettings() {
-    this.userToolBarService.setting = !this.userToolBarService.setting;
-    this.setLock();
   }
 
   openSearch() {

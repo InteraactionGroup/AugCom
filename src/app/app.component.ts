@@ -12,7 +12,7 @@ import {slideInAnimation} from './animations';
   ]
 })
 export class AppComponent {
-  title = 'AugCom1';
+  title = 'AugCom';
 
   /**
    * prepare a route taking into acount route data and route animation

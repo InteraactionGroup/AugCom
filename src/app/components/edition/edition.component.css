@@ -1,35 +1,41 @@
 .edition {
   height: calc(100vh - 50px);
-  width: 100%;
   opacity: 1;
   background-color: white;
 }
 
 .rightPane {
-  float: left;
-  width: calc(100% - 300px);
+  width: 80%;
   height: 100%;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+}
+
+.rightPane::-webkit-scrollbar {
+  display: none;
 }
 
 .leftPane {
-  float: left;
-  width: 300px;
+  width: 20%;
   height: 100%;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+}
+
+.leftPane::-webkit-scrollbar {
+  display: none;
 }
 
 
 .edition .save {
   cursor: pointer;
   display: block;
-  padding: 20px;
-  width: 100px;
-  height: 20px;
+  padding: 10px;
+  width: 70%;
   font-weight: 600;
   background-color: dimgray;
-  text-align: center;
-  border-radius: 15px;
-  margin-left: 75px;
-  float: left;
+  border-radius: 5px;
+  margin-left: calc(15% - 10px);
 }
 
 .edition .save:hover {
@@ -37,46 +43,36 @@
 }
 
 .edition .leftEdition .button {
-  height: 80%;
+  padding-bottom: 80%;
   width: 80%;
   margin-left: 10%;
-  transform: translateY(12%);
+  height: 0;
   border-radius: 15px;
 }
 
 .edition .leftEdition .button .image {
-  float: top;
-  height: 73%;
-  width: 90%;
-  margin-left: 5%;
-  transform: translateY(10%);
+  padding-top: 80%;
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 10%;
 }
 
 .edition .leftEdition .button .label {
-  text-align: center;
-  float: top;
-  height: 10%;
   width: 90%;
   margin-left: 5%;
-  transform: translateY(120%);
 }
 
 
 .edition .leftEdition {
-  height: 300px;
-  width: 300px;
+  margin-bottom: 10px;
+  margin-top: 10px;
   background-color: white;
 }
 
-
-.menu-container {
-  width: 300px;
-  padding-right: 24px !important;
-}
-
 .menu {
+  width: calc(100% - 20px);
   margin-left: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   list-style: none;
   background-color: #fff;
   border: 1px solid #d1d5da;
@@ -95,17 +91,6 @@
   border: 1px solid #d1d5da;
   font-size: 18px;
   font-weight: 600;
-}
-
-.menu-title {
-
-}
-
-.menu-item-container {
-}
-
-.menu-item {
-
 }
 
 .menu-item-title-container {
@@ -149,11 +134,6 @@
   font-weight: 600;
 }
 
-.menu-item-title {
-
-}
-
-
 .popup {
   position: absolute;
   top: 25%;
@@ -161,7 +141,6 @@
   height: 50%;
   width: 50%;
   background-color: dimgrey;
-
 }
 
 .popup .popupContainer {
@@ -191,7 +170,6 @@
 }
 
 .palettes .palette {
-  width: 100%;
   height: fit-content;
   display: grid;
   grid-template-columns: repeat(10, 10%);
@@ -201,7 +179,6 @@
 
 
 .palettes .paletteLabel {
-  width: 100%;
   height: 20px;
   background-color: grey;
 }
@@ -239,18 +216,4 @@
   margin-left: 0;
   height: 100%;
   width: 100%;
-}
-
-.imageContainer {
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.floatLeft {
-  float: left;
-}
-
-.height90 {
-  height: 90%;
 }

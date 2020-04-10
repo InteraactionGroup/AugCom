@@ -2,11 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {HistoricService} from '../../services/historic.service';
 import {GeticonService} from '../../services/geticon.service';
 import {BoardService} from '../../services/board.service';
+import {Ng2ImgMaxService} from "ng2-img-max";
 
 @Component({
   selector: 'app-dialogbar',
   templateUrl: './dialogbar.component.html',
-  styleUrls: ['./dialogbar.component.css']
+  styleUrls: ['./dialogbar.component.css'],
+  providers: [Ng2ImgMaxService]
 })
 export class DialogbarComponent implements OnInit {
 

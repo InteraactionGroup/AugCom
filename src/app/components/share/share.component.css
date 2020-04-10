@@ -1,6 +1,4 @@
 .share {
-  height: 100%;
-  width: 100%;
   opacity: 1;
 }
 
@@ -11,8 +9,6 @@
 }
 
 .share .sharePanel .shareSection {
-  height: 100%;
-  width: 100%;
   margin-left: auto;
   display: inline-grid;
   visibility: visible;
@@ -26,17 +22,12 @@
 }
 
 .share .sharePanel .shareSection .listElement .image {
-  float: left;
   height: 80%;
   width: 15%;
   transform: translateY(10%);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 .share .sharePanel .shareSection .listElement .label {
-  float: left;
   height: 80%;
   width: 20%;
   margin-left: 5%;
@@ -44,7 +35,6 @@
 }
 
 .share .sharePanel .shareSection .inputField {
-  float: left;
   height: 25%;
   width: 55%;
   transform: translateY(150%);

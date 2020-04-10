@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {GeticonService} from "../../services/geticon.service";
+import {Ng2ImgMaxService} from "ng2-img-max";
 
 @Component({
   selector: 'app-account',

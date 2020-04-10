@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {GeticonService} from "../../services/geticon.service";
+import {EditionService} from "../../services/edition.service";
 
 @Component({
   selector: 'app-back-home-bar',
@@ -8,7 +9,7 @@ import {GeticonService} from "../../services/geticon.service";
 })
 export class BackHomeBarComponent implements OnInit {
 
-  constructor(private getIconService: GeticonService) {
+  constructor(private getIconService: GeticonService, private editionService: EditionService) {
   }
 
   ngOnInit() {

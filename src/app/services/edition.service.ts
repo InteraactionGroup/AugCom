@@ -72,6 +72,24 @@ export class EditionService {
   constructor(public  paletteService: PaletteService) {
   }
 
+  clearEditionPane(){
+   this.ElementListener = new Subject<Element>();
+   this.selectedElements = [];
+   this.selectAll = false;
+   this.sentencedTodDeleteElement = [];
+   this.classe = '';
+   this.name = '';
+   this.interractionList = [];
+   this.variantList = [];
+   this.imageURL = '';
+   this.radioTypeFormat = 'button';
+   this.currentEditPage = 'Informations';
+   this.colorPicked = null;
+   this.curentColor = '#d3d3d3';
+   this.curentBorderColor = 'black';
+   this.selectedPalette = this.paletteService.defaultPalette;
+  }
+
   selectAllElementsOf(elementList) {
     this.selectedElements = [];
     if (!this.selectAll) {

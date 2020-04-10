@@ -1,6 +1,5 @@
 .keyboard {
   height: calc(100vh - 3.5cm);
-  width: 100%;
   -webkit-user-select: none !important;
   -moz-user-select: none !important;
   -ms-user-select: none !important;
@@ -10,7 +9,6 @@
 
 .editionSettings {
   height: 1cm;
-  width: 100%;
   background-color: grey;
   margin: 0 0 0 0;
   padding: 0 0 0 0;
@@ -18,7 +16,6 @@
 
 
 .editionSettings .selectCheckBox {
-  float: left;
   height: 0.8cm;
   width: 0.8cm;
   margin-top: 0.1cm;
@@ -34,13 +31,9 @@
   height: 80%;
   margin-left: 10%;
   transform: translateY(10%);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 .editionSettings .editSettingsButton {
-  float: left;
   width: 20%;
   margin-left: 10px;
   transform: translateY(15%);
@@ -58,20 +51,14 @@
 
 .editionSettings .editSettingsButton .editButtonLabel {
   transform: translateY(45%);
-  text-align: center;
-  float: left;
   width: 80%;
   height: 50%;
 }
 
 .editionSettings .editSettingsButton .editButtonImg {
   transform: translateY(50%);
-  float: left;
   width: 20%;
   height: 50%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 .editionSettings .gridSettings {
@@ -83,8 +70,6 @@
 }
 
 .editionSettings .gridSettings .inputSize {
-  text-align: center;
-  float: left;
   width: 40%;
   height: 80%;
   margin: 0 0 0 0;
@@ -92,7 +77,6 @@
 }
 
 .editionSettings .gridSettings .x {
-  float: left;
   margin: 0 0 0 0;
   margin-top: 5px;
   padding: 0 0 0 0;
@@ -100,18 +84,12 @@
 
 .keyboard .wrapper {
   display: grid;
-  height: 100%;
-  width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
   visibility: visible;
 }
 
 .keyboard .wrapper .elementContainer {
-  float: left;
   min-height: 1cm;
   min-width: 1cm;
   visibility: hidden;
@@ -138,16 +116,12 @@
   height: 80%;
   margin-left: 10%;
   transform: translateY(10%);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
   visibility: visible;
 }
 
 .keyboard .wrapper .elementContainer .deleteElement {
   cursor: pointer;
   position: relative;
-  float: left;
   width: 30px;
   height: 30px;
   margin-left: 7%;
@@ -194,9 +168,6 @@
   height: 70%;
   margin-left: 15%;
   transform: translateY(20%);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
   visibility: visible;
 }
 
@@ -225,9 +196,6 @@
   width: 90%;
   margin-left: 5%;
   transform: translateY(10%);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
   visibility: visible;
 }
 
@@ -235,7 +203,6 @@
   transform: translateY(40%);
   min-font-size: 1vh;
   font-size: 2vh;
-  text-align: center;
   height: 20%;
   width: 90%;
   margin-left: 5%;
@@ -246,11 +213,6 @@ svg {
   transform: translateY(40%);
   width: 100%;
   height: 20%;
-  text-align: center;
-}
-
-svg text {
-  text-align: center;
 }
 
 .keyboard .wrapper .elementContainer .blurredElt {
@@ -283,20 +245,12 @@ svg text {
 }
 
 .add {
-  width: 100%;
-  height: 100%;
   opacity: 0.5;
 }
 
 .add:hover {
   opacity: 1;
   filter: brightness(150%);
-}
-
-.slidecontainer {
-  width: 100%;
-  outline: none;
-  float: left;
 }
 
 .slider {
@@ -359,9 +313,6 @@ svg text {
   min-width: 90%;
   margin-left: 5%;
   transform: translateY(10%);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
   visibility: visible;
 }
 
