@@ -8,7 +8,7 @@
 }
 
 .addPalette .palette {
-  width: 300px;
+  width: calc(100% - 50px);
   height: fit-content;
   display: grid;
   grid-template-columns: repeat(10, 10%);
