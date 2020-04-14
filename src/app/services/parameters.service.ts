@@ -8,14 +8,21 @@ export class ParametersService {
   longpressTimeOut = 1000;
   doubleClickTimeOut = 200;
   interactionIDs = ['click', 'longPress', 'doubleClick'];
-  currentVoice = 'fr-FR@null';
+  currentVoice = '@';
   dragNDropinit = false;
 
   languagesAvailaibles: SpeechSynthesisVoice[];
 
   constructor() {
     this.languagesAvailaibles = [];
-    this.printVoicesList();
+    this.printVoicesList().then(r => {
+      let voice = this.getCurrentVoice();
+      if (voice !== undefined && voice !== null) {
+        this.currentVoice = "" + voice.lang + "@" + voice.name;
+      } else {
+        this.currentVoice = "@";
+      }
+    });
   }
 
   async getVoices(): Promise<any[]> {
@@ -36,10 +43,23 @@ export class ParametersService {
     (await this.getVoices()).forEach(voice => {
       this.languagesAvailaibles.push(voice);
     });
+
   };
 
-  getCurrentLang() {
-    const res = this.currentVoice.split('@');
-    return res[0];
+  getCurrentVoice() {
+    let currentVoice = this.languagesAvailaibles.find(voice => {
+      const res = this.currentVoice.split('@');
+      return res[0] === voice.lang && res[1] === voice.name;
+    });
+
+    /*if we can't find the same voice checking if we can find the same lang*/
+    if (currentVoice === undefined || currentVoice === null) {
+      currentVoice = this.languagesAvailaibles.find(voice => {
+        const res = this.currentVoice.split('@');
+        return res[0] === voice.lang
+      })
+    }
+
+    return currentVoice;
   }
 }
