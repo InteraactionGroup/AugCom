@@ -17,6 +17,7 @@ export class SavesComponent implements OnInit {
   ngOnInit() {
   }
 
+  /*reset save to the "exempleOfBoard" value*/
   reset() {
     indexedDB.deleteDatabase('Saves');
     this.boardService.resetBoard();
