@@ -32,6 +32,7 @@ export class ShareComponent implements OnInit {
   ngOnInit() {
   }
 
+  /*open a new tab and display the grid in a "ready to print" format*/
   printToPDF() {
     this.userToolBarService.edit = false;
     this.printService.printDiv();
@@ -46,33 +47,12 @@ export class ShareComponent implements OnInit {
     return this.getIconService.getIconUrl(s);
   }
 
+  /*read CSV file of csv reader and open it as a grid*/
   readCSV() {
     this.boardService.board = this.csvReader.generateBoard();
     this.indexedDBacess.update();
     this.router.navigate(['']);
     // this.trad(0);
-  }
-
-  async trad(index: number) {
-    const val = await this.dbNaryService.getTrad(this.boardService.board.ElementList[index].ElementForms[0].DisplayedText, 'EN', 'fra');
-    val.subscribe(
-      data => {
-        console.log(this.boardService.board.ElementList[index].ElementForms[0].DisplayedText);
-        if ((data as Traduction).results.bindings[0] !== undefined) {
-          this.boardService.board.ElementList[index].ElementForms[0].DisplayedText = (data as Traduction).results.bindings[0].tradword.value;
-          console.log(this.boardService.board.ElementList[index].ElementForms[0].DisplayedText);
-          this.indexedDBacess.update();
-        }
-        if (this.boardService.board.ElementList.length > index + 1) {
-          this.trad(index + 1);
-        }
-      },
-      error => {
-        console.log(error.error.text, error);
-        return '';
-      }
-    );
-
   }
 
   /**
@@ -200,6 +180,7 @@ export class ShareComponent implements OnInit {
     fileReader.readAsText(myFile);
   }
 
+  /*check if a default form exists for the given element, otherwise create a new one with first displayed text*/
   checkAndUpdateElementDefaultForm(element) {
     const defaultform = element.ElementForms.find(form => {
       const newForm = form.LexicInfos.find(info => {

@@ -17,25 +17,33 @@ export class BoardService {
     this.sliderValueRow = this.board.gridRowsNumber;
   }
 
+  /*background url value for grid background image*/
   background: any = '';
 
+  /*number of element per Col and Row of the grid
+  * TODO remove "slider" part of the name
+  * */
   sliderValueCol;
   sliderValueRow;
+
   board: Grid;
+
   currentFolder = '.';
+  currentPath = '';
 
+  /*the current forms that verb and noun have to use to conjugate*/
   currentVerbTerminaison: { currentPerson: string, currentNumber: string } = {currentPerson: '', currentNumber: ''};
-
   currentNounTerminaison: { currentGender: string, currentNumber: string } = {currentGender: '', currentNumber: ''};
 
-
+  /*element that is displaying its alternative forms*/
   activatedElement = -1;
 
-
+  /*reset board with default Board value*/
   resetBoard() {
     this.board = Board;
   }
 
+  /*change background image of the grid*/
   updateBackground(file) {
     const reader = new FileReader();
     this.ng2ImgMaxService.resize([file[0]], 1000, 1000).subscribe(result => {
@@ -149,15 +157,18 @@ export class BoardService {
     return defaultVal;
   }
 
+  /*reset default end of word*/
   resetTerminaisons() {
-    this.currentVerbTerminaison = {currentPerson: '', currentNumber: ''};
+    this.resetVerbTerminaisons();
     this.currentNounTerminaison = {currentGender: '', currentNumber: ''};
   }
 
+  /*reset default end of word for verbs*/
   resetVerbTerminaisons() {
     this.currentVerbTerminaison = {currentPerson: '', currentNumber: ''};
   }
 
+  /*delete the element that is sentenced to death*/
   executer() {
     const imageTemp = [];
 
@@ -190,6 +201,7 @@ export class BoardService {
 
   }
 
+  /*get sanitized image URL of an element*/
   getImgUrl(element: Element) {
     if (this.board.ImageList != null) {
       const path = this.board.ImageList.find(x => x.ImageID === element.ImageID);
@@ -204,6 +216,7 @@ export class BoardService {
     }
   }
 
+  /*get normal image URL of an element (with no sanitizing)*/
   getSimpleImgUrl(element: Element) {
     if (this.board.ImageList != null) {
       const path = this.board.ImageList.find(x => x.ImageID === element.ImageID);
@@ -218,11 +231,7 @@ export class BoardService {
     }
   }
 
-  elementColor(element: Element) {
-    // return element.ElementType === 'button' ? 'greenyellow' : ('folder' ? 'orange' : 'red');
-    return element.Color;
-  }
-
+  /*go back to parent folder*/
   backToPreviousFolder() {
     const path = this.currentFolder.split('.');
     let temp = '';

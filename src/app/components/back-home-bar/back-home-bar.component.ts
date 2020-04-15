@@ -15,10 +15,16 @@ export class BackHomeBarComponent implements OnInit {
   ngOnInit() {
   }
 
+  /*go back in the browser history*/
   backInHistory() {
     window.history.back();
   }
 
+  /**
+   * return the icon url corresponding to the string s
+   * @param s, the string identifying the icon
+   * @return the icon url
+   */
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
   }
