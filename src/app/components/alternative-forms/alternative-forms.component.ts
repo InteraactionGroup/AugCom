@@ -3,7 +3,6 @@ import {EditionService} from "../../services/edition.service";
 import {DbnaryService} from "../../services/dbnary.service";
 import {GeticonService} from "../../services/geticon.service";
 import {HttpClient} from "@angular/common/http";
-import {Ng2ImgMaxService} from "ng2-img-max";
 
 @Component({
   selector: 'app-alternative-forms',

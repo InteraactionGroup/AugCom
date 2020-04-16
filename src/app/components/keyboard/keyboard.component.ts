@@ -53,8 +53,8 @@ export class KeyboardComponent implements OnInit {
       .subscribe(({el, target, source, sibling}) => {
         const temp = this.boardService.board.ElementList;
 
-        const i1 = temp.findIndex(elt => elt.ElementID === el.id);
-        let i2 = temp.findIndex(elt => elt.ElementID === sibling.id);
+        const i1 = temp.findIndex(elt => elt.ID === el.id);
+        let i2 = temp.findIndex(elt => elt.ID === sibling.id);
 
         // unfortunately dagula is not really adapted to grid display:
         // when we drag an element on an element after the draged one its ok ->
@@ -161,15 +161,15 @@ export class KeyboardComponent implements OnInit {
    */
   getShadow(element: Element) {
 
-    let s = (element.ElementType === 'folder' ? '3px ' : '0px ') +
-      (element.ElementType === 'folder' ? '-3px ' : '0px ') +
+    let s = (element.Type === 'folder' ? '3px ' : '0px ') +
+      (element.Type === 'folder' ? '-3px ' : '0px ') +
       '0px ' +
-      (element.ElementType === 'folder' ? '-2px ' : '0px ')
+      (element.Type === 'folder' ? '-2px ' : '0px ')
       + (element.Color === undefined || element.Color == null ? '#d3d3d3' : element.Color);
 
     s = s + ' , ' +
-      (element.ElementType === 'folder' ? '4px ' : '0px ') +
-      (element.ElementType === 'folder' ? '-4px ' : '0px ') +
+      (element.Type === 'folder' ? '4px ' : '0px ') +
+      (element.Type === 'folder' ? '-4px ' : '0px ') +
       (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor);
     return s;
   }
@@ -180,8 +180,9 @@ export class KeyboardComponent implements OnInit {
    * @return a list of elements to display in the keyboard
    */
   getNormalTempList() {
+    let currentPage = this.boardService.board.PageList.find( page => {return page.ID === this.boardService.currentFolder});
     return this.boardService.board.ElementList.filter(elt => {
-      return this.boardService.currentFolder === elt.ElementFolder;
+      return (currentPage!==null && currentPage!== undefined) ? currentPage.ElementIDsList.includes(elt.ID) : false;
     });
     // .slice(0, this.boardService.sliderValueRow * this.boardService.sliderValueCol + (this.boardService.currentFolder !== '.' ? -1 : 0));
   }
@@ -294,12 +295,10 @@ export class KeyboardComponent implements OnInit {
    */
   copy(element: Element): Element {
     return {
-      ElementID: element.ElementID,
-      ElementFolder: element.ElementFolder,
-      ElementPartOfSpeech: element.ElementPartOfSpeech,
-      ElementType: element.ElementType,
-      ElementForms: element.ElementForms.copyWithin(0, 0),
-      ImageID: element.ImageID,
+      ID: element.ID,
+      PartOfSpeech: element.PartOfSpeech,
+      Type: element.Type,
+      ElementFormsList: element.ElementFormsList.copyWithin(0, 0),
       InteractionsList: element.InteractionsList.copyWithin(0, 0),
       Color: element.Color
     } as Element;
@@ -315,7 +314,7 @@ export class KeyboardComponent implements OnInit {
     interactions.forEach(inter => {
       const tempAction = [];
       inter.ActionList.forEach(act => {
-        tempAction.push({ActionId: act.ActionID, Action: act.Action});
+        tempAction.push({ActionId: act.ID, Action: act.Action});
       });
       tempInter.push({InteractionID: inter.InteractionID, ActionList: tempAction});
     });
@@ -330,9 +329,9 @@ export class KeyboardComponent implements OnInit {
   activatedElementTempList() {
     this.fakeElementTempList = [];
     this.boardService.board.ImageList.push({
-      ImageID: '#back',
-      ImageLabel: '#back',
-      ImagePath: 'assets/icons/retour.svg'
+      ID: '#back',
+      OriginalName: '#back',
+      Path: 'assets/icons/retour.svg'
     });
     const tempOtherFOrmList: Element[] = [];
     this.getNormalTempList().forEach(e => tempOtherFOrmList.push(this.copy(e)));
@@ -341,15 +340,13 @@ export class KeyboardComponent implements OnInit {
     for (let newElementIndex = 0; newElementIndex < max; newElementIndex = newElementIndex + 1) { // fill with empty elements
       tempOtherFOrmList.push(new Element(
         '',
-        this.boardService.currentFolder,
         'button',
         '',
-        [],
-        '',
-        [],
         '#ffffff', // to delete later
         '#ffffff', // to delete later
-        false));
+        1,
+        [],
+        []));
     }
 
     let indexOfForm = 0;
@@ -357,37 +354,41 @@ export class KeyboardComponent implements OnInit {
     tempOtherFOrmList.forEach(elt => {
       const tempIndex = tempOtherFOrmList.indexOf(elt);
       let places = this.createPlaces(index);
-      places = places.slice(0, compElt.ElementForms.length);
+      places = places.slice(0, compElt.ElementFormsList.length);
       if (places.includes(tempIndex)) {
-        if (compElt.ElementForms.length > indexOfForm) {
+        if (compElt.ElementFormsList.length > indexOfForm) {
           elt.Color = compElt.Color;
           elt.BorderColor = compElt.BorderColor;
-          elt.ImageID = '' + compElt.ImageID;
-          elt.ElementType = 'button';
-          elt.ElementForms = [];
-          elt.Visible = true;
-          elt.ElementPartOfSpeech = '' + compElt.ElementPartOfSpeech;
-          elt.ElementForms.push(
+          elt.Type = 'button';
+          elt.ElementFormsList = [{
+              DisplayedText: "try",
+            VoiceText: "try",
+            LexicInfos: [{default: true}],
+            ImageID: ''
+          }];
+          elt.VisibilityLevel = 0;
+          elt.PartOfSpeech = '' + compElt.PartOfSpeech;
+          elt.ElementFormsList.push(
             {
-              DisplayedText: compElt.ElementForms[indexOfForm].DisplayedText,
-              VoiceText: compElt.ElementForms[indexOfForm].VoiceText,
-              LexicInfos: compElt.ElementForms[indexOfForm].LexicInfos
+              DisplayedText: compElt.ElementFormsList[indexOfForm].DisplayedText,
+              VoiceText: compElt.ElementFormsList[indexOfForm].VoiceText,
+              LexicInfos: compElt.ElementFormsList[indexOfForm].LexicInfos,
+              ImageID: '' + compElt.ElementFormsList[indexOfForm].ImageID
             });
           elt.InteractionsList = tempOtherFOrmList[index].InteractionsList.slice();
-          elt.InteractionsList.push({InteractionID: 'backFromVariant', ActionList: []});
+          elt.InteractionsList.push({ID: 'backFromVariant', ActionList: []});
           indexOfForm = indexOfForm + 1;
         }
       } else if (tempIndex !== index) {
-        elt.ElementID = '#disable';
+        elt.ID = '#disable';
         elt.InteractionsList = [];
       }
     });
 
     tempOtherFOrmList[index].Color = '#123548';
-    tempOtherFOrmList[index].ImageID = '#back';
-    tempOtherFOrmList[index].ElementPartOfSpeech = '';
-    tempOtherFOrmList[index].InteractionsList = [{InteractionID: 'backFromVariant', ActionList: []}];
-    tempOtherFOrmList[index].ElementForms = [{DisplayedText: 'back', VoiceText: 'back', LexicInfos: []}];
+    tempOtherFOrmList[index].PartOfSpeech = '';
+    tempOtherFOrmList[index].InteractionsList = [{ID: 'backFromVariant', ActionList: []}];
+    tempOtherFOrmList[index].ElementFormsList = [{DisplayedText: 'back', VoiceText: 'back', LexicInfos: [], ImageID: '#back'}];
 
 
     this.fakeElementTempList = tempOtherFOrmList;
@@ -437,65 +438,64 @@ export class KeyboardComponent implements OnInit {
   }
 
   action(element: Element, interaction: string) {
-    if (element.ElementType !== 'empty' && !(!this.userToolBarService.edit && !element.Visible && this.userToolBarService.babble)) {
+    if (element.Type !== 'empty' && !(!this.userToolBarService.edit && element.VisibilityLevel!==0 && this.userToolBarService.babble)) {
 
       // for button
-      if (element.ElementType === 'button') {
+      if (element.Type === 'button') {
 
         const prononcedText = this.boardService.getLabel(element);
         const color = element.Color;
+        const borderColor = element.BorderColor;
         const imgUrl = this.boardService.getImgUrl(element);
         const vignette: Vignette = {
-          VignetteLabel: prononcedText,
-          VignetteImageUrl: imgUrl,
-          VignetteColor: color
+          Label: prononcedText,
+          ImagePath: imgUrl,
+          Color: color,
+          BorderColor: borderColor
         };
         let otherFormsDisplayed = false;
 
         // Depend on the interaction
         element.InteractionsList.forEach(inter => {
-          if (inter.InteractionID === interaction) {
+          if (inter.ID === interaction) {
             inter.ActionList.forEach(action => {
-              if (action.ActionID === 'pronomChangeInfo') {
-                this.changePronomInfo(element.ElementForms[0]);
-              } else if (action.ActionID === 'display') {
+              if (action.ID === 'pronomChangeInfo') {
+                this.changePronomInfo(element.ElementFormsList[0]);
+              } else if (action.ID === 'display') {
                 this.historicService.push(vignette);
-              } else if (action.ActionID === 'say') {
+              } else if (action.ID === 'say') {
                 this.historicService.say('' + prononcedText);
-              } else if (action.ActionID === 'otherforms' && element.ElementForms.length > 2) {
+              } else if (action.ID === 'otherforms' && element.ElementFormsList.length > 2) {
                 otherFormsDisplayed = true;
                 this.boardService.activatedElement = this.getNormalTempList().indexOf(element);
                 this.activatedElementTempList();
                 this.pressedElement = null;
               }
             });
-          } else if (!otherFormsDisplayed && inter.InteractionID === 'backFromVariant') {
+          } else if (!otherFormsDisplayed && inter.ID === 'backFromVariant') {
             this.boardService.activatedElement = -1;
           }
         });
 
         // Always executed
-        if (element.ElementPartOfSpeech != null) {
-          if (element.ElementPartOfSpeech === ('article défini')) {
-            this.changeArticleInfo(element.ElementForms[0]);
-          } else if (element.ElementPartOfSpeech === '-verb-') {
+        if (element.PartOfSpeech != null) {
+          if (element.PartOfSpeech === ('article défini')) {
+            this.changeArticleInfo(element.ElementFormsList[0]);
+          } else if (element.PartOfSpeech === '-verb-') {
             this.boardService.resetVerbTerminaisons();
-          } else if (element.ElementPartOfSpeech === '-nom-') {
-            this.changePronomInfo(element.ElementForms.find(eltF => (eltF.DisplayedText === this.boardService.getLabel(element))));
+          } else if (element.PartOfSpeech === '-nom-') {
+            this.changePronomInfo(element.ElementFormsList.find(eltF => (eltF.DisplayedText === this.boardService.getLabel(element))));
           }
         }
 
         // for folder
-      } else if (element.ElementType === 'folder') {
-        if (element.ElementFolder === '.') {
-          this.boardService.currentFolder = element.ElementFolder + element.ElementID;
-        } else {
-          this.boardService.currentFolder = element.ElementFolder + '.' + element.ElementID;
-        }
+      } else if (element.Type === 'folder') {
+        this.boardService.currentFolder = element.ID;
+        console.log(this.boardService.currentFolder);
 
         // for errors
       } else {
-        console.error('ElementType : ' + element.ElementType + ' is not supported (supported ElementTypes are "button" or "folder")');
+        console.error('ElementType : ' + element.Type + ' is not supported (supported ElementTypes are "button" or "folder")');
       }
     }
   }
@@ -528,10 +528,10 @@ export class KeyboardComponent implements OnInit {
    * @param element, the element to check
    */
   isVisible(element: Element) {
-    if (element.Visible === undefined) {
-      element.Visible = true;
+    if (element.VisibilityLevel === undefined) {
+      element.VisibilityLevel = 0;
     }
-    return element.Visible;
+    return element.VisibilityLevel === 0;
   }
 
   /**
@@ -539,10 +539,10 @@ export class KeyboardComponent implements OnInit {
    * @param element, the element to change the visibility
    */
   changeVisibility(element: Element) {
-    if (element.Visible === undefined) {
-      element.Visible = false;
+    if (element.VisibilityLevel === undefined) {
+      element.VisibilityLevel = 1;
     } else {
-      element.Visible = !element.Visible;
+      element.VisibilityLevel = (element.VisibilityLevel + 1) % 2;
     }
   }
 

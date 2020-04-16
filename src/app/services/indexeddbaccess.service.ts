@@ -97,19 +97,19 @@ export class IndexeddbaccessService {
   }
 
   updateColsAndRowsFromBoard() {
-    if (this.boardService.board.gridColsNumber !== undefined && this.boardService.board.gridColsNumber != null
+    if (this.boardService.board.NumberOfCols !== undefined && this.boardService.board.NumberOfCols != null
       && this.boardService.sliderValueCol !== undefined && this.boardService.sliderValueCol != null) {
-      this.boardService.sliderValueCol = this.boardService.board.gridColsNumber;
+      this.boardService.sliderValueCol = this.boardService.board.NumberOfCols;
     }
-    if (this.boardService.board.gridRowsNumber !== undefined && this.boardService.board.gridRowsNumber != null
+    if (this.boardService.board.NumberOfRows !== undefined && this.boardService.board.NumberOfRows != null
       && this.boardService.sliderValueRow !== undefined && this.boardService.sliderValueRow != null) {
-      this.boardService.sliderValueRow = this.boardService.board.gridRowsNumber;
+      this.boardService.sliderValueRow = this.boardService.board.NumberOfRows;
     }
   }
 
   updateBoardColsAndRows() {
-    this.boardService.board.gridColsNumber = this.boardService.sliderValueCol;
-    this.boardService.board.gridRowsNumber = this.boardService.sliderValueRow;
+    this.boardService.board.NumberOfCols = this.boardService.sliderValueCol;
+    this.boardService.board.NumberOfRows = this.boardService.sliderValueRow;
   }
 
 }

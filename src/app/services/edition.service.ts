@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
-import {Action, Element} from '../types';
+import {Element, Interaction} from '../types';
 import {PaletteService} from "./palette.service";
 
 @Injectable({
@@ -35,7 +35,7 @@ export class EditionService {
   /**
    * the current Interraction element selected (empty by default)
    */
-  interractionList: { InteractionID: string, ActionList: Action[] }[] = [];
+  interractionList: Interaction[] = [];
 
   /**
    * current list of variant forms for the element (empty by default)

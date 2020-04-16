@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {EditionService} from "../../services/edition.service";
 import {ParametersService} from "../../services/parameters.service";
 import {GeticonService} from "../../services/geticon.service";
-import {Ng2ImgMaxService} from "ng2-img-max";
+import {Interaction} from "../../types";
 
 @Component({
   selector: 'app-event',
@@ -40,9 +40,9 @@ export class EventComponent implements OnInit {
    * @return true if the action identified by actionId exists in the current interaction, false otherwise
    */
   isPartOfTheInteraction(interactionId: string, actionId: string) {
-    const currentInterraction = this.editionService.interractionList.find(interaction => interaction.InteractionID === interactionId);
+    const currentInterraction: Interaction = this.editionService.interractionList.find(interaction => interaction.ID === interactionId);
     if (currentInterraction != null) {
-      const res = currentInterraction.ActionList.find(x => x.ActionID === actionId);
+      const res = currentInterraction.ActionList.find(x => x.ID === actionId);
       return res != null && res !== undefined;
     }
     return false;
@@ -75,17 +75,17 @@ export class EventComponent implements OnInit {
   addOrRemoveToInteraction(interactionId: string, actionId: string) {
     const partOfCurrentInter = this.isPartOfTheInteraction(interactionId, actionId);
 
-    const currentInterraction = this.editionService.interractionList.findIndex(interaction => interaction.InteractionID === interactionId);
+    const currentInterraction: Interaction = this.editionService.interractionList.find(interaction => interaction.ID === interactionId);
 
-    if (currentInterraction === -1 && !partOfCurrentInter) {
+    if ((currentInterraction === null || currentInterraction === undefined) && !partOfCurrentInter) {
       this.editionService.interractionList.push({
-        InteractionID: interactionId,
-        ActionList: [{ActionID: actionId, Action: actionId}]
+        ID: interactionId,
+        ActionList: [{ID: actionId, Action: actionId}]
       });
     } else if (!partOfCurrentInter) {
-      this.editionService.interractionList[currentInterraction].ActionList.push({ActionID: actionId, Action: actionId});
+      currentInterraction.ActionList.push({ID: actionId, Action: actionId});
     } else if (partOfCurrentInter) {
-      this.editionService.interractionList[currentInterraction].ActionList = this.editionService.interractionList[currentInterraction].ActionList.filter(x => x.ActionID !== actionId);
+      currentInterraction.ActionList = currentInterraction.ActionList.filter(x => x.ID !== actionId);
     }
 
   }

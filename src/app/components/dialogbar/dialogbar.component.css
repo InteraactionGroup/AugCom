@@ -97,6 +97,8 @@
   transform: translateY(5%);
   border-radius: 10px;
   visibility: visible;
+  border-width: 2px;
+  border-style: solid;
 }
 
 .dialogBar .textBar .elementContainer .element .image {

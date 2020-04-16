@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BoardService} from './board.service';
-import {Element} from '../types';
+import {Element, Page} from '../types';
 
 @Injectable({
   providedIn: 'root'
@@ -52,18 +52,15 @@ export class PrintService {
 
 
   getAllHTML() {
-    const root = this.getHTML('.', this.boardService.board.ElementList.filter(elt => elt.ElementFolder === '.'));
+    const root = '';//this.getHTML('.', this.boardService.board.ElementList.filter(elt => elt.ElementFolder === '.'));
     let other = '';
     this.boardService.board.ElementList.forEach(elt => {
-      if (elt.ElementType === 'folder') {
+      if (elt.Type === 'folder') {
+
+        let page: Page = this.boardService.board.PageList.find(p => {return  p.ID === elt.ID});
         other = other +
-          this.getHTML(elt.ElementFolder !== '.' ? elt.ElementFolder + '.' +
-            elt.ElementID : '.' + elt.ElementID, this.boardService.board.ElementList.filter(e => {
-              if (elt.ElementFolder !== '.') {
-                return e.ElementFolder === (elt.ElementFolder + '.' + elt.ElementID);
-              } else {
-                return e.ElementFolder === ('.' + elt.ElementID);
-              }
+          this.getHTML(elt.ID, this.boardService.board.ElementList.filter(e => {
+              return page.ElementIDsList.includes(e.ID);
             })
           );
       }
@@ -85,7 +82,7 @@ export class PrintService {
   }
 
   getShadow(element: Element) {
-    if (element.ElementType === 'folder') {
+    if (element.Type === 'folder') {
       let s = '; box-shadow: 3px -3px 0px -2px ' + (element.Color === undefined || element.Color == null ? '#d3d3d3' : element.Color);
       s = s + ' , 4px -4px ' + (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor);
       return s;
@@ -97,7 +94,7 @@ export class PrintService {
   innerHTML(elementList: Element[]) {
     let innerValue = '';
     elementList.forEach(element => {
-      if (element.ElementType !== 'empty') {
+      if (element.Type !== 'empty') {
         const url = this.boardService.getSimpleImgUrl(element);
         this.urlList.push(url);
         innerValue = innerValue +

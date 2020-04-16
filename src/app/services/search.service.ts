@@ -17,17 +17,19 @@ export class SearchService {
     this.searchedWords = [];
     this.searchedPath = [];
     if (searchedtext !== '') {
-      const result = this.boardService.board.ElementList.filter(element => element.ElementForms.find(form => form.DisplayedText.startsWith(searchedtext)));
+      const result = this.boardService.board.ElementList.filter(element => element.ElementFormsList.find(form => form.DisplayedText.startsWith(searchedtext)));
       if (result !== null) {
         result.forEach(res => {
-          const path = res.ElementFolder.split('.');
-          path.forEach(elt => {
-              const newelement = this.boardService.board.ElementList.find(e => e.ElementID === elt);
-              if (newelement != null) {
-                this.searchedPath.push(newelement);
-              }
-            }
-          );
+          this.searchedPath.push(res);
+          //TODO
+          // const path = res.ElementFolder.split('.');
+          // path.forEach(elt => {
+          //     const newelement = this.boardService.board.ElementList.find(e => e.ID === elt);
+          //     if (newelement != null) {
+          //       this.searchedPath.push(newelement);
+          //     }
+          //   }
+          //);
 
           this.searchedWords.push(res);
           this.searchedPath.push(res);
@@ -38,18 +40,19 @@ export class SearchService {
   }
 
   search(id: string) {
-    this.searchedWords = this.searchedWords.filter(elt => elt.ElementID === id);
+    this.searchedWords = this.searchedWords.filter(elt => elt.ID === id);
     this.searchedPath = [];
     if (this.searchedWords !== null) {
       this.searchedWords.forEach(res => {
-        const path = res.ElementFolder.split('.');
-        path.forEach(elt => {
-            const newelement = this.boardService.board.ElementList.find(e => e.ElementID === elt);
-            if (newelement != null) {
-              this.searchedPath.push(newelement);
-            }
-          }
-        );
+        //TODO
+        // const path = res.ElementFolder.split('.');
+        // path.forEach(elt => {
+        //     const newelement = this.boardService.board.ElementList.find(e => e.ID === elt);
+        //     if (newelement != null) {
+        //       this.searchedPath.push(newelement);
+        //     }
+        //   }
+        // );
         this.searchedPath.push(res);
       });
     }

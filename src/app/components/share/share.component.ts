@@ -54,13 +54,13 @@ export class ShareComponent implements OnInit {
   }
 
   async trad(index: number) {
-    const val = await this.dbNaryService.getTrad(this.boardService.board.ElementList[index].ElementForms[0].DisplayedText, 'EN', 'fra');
+    const val = await this.dbNaryService.getTrad(this.boardService.board.ElementList[index].ElementFormsList[0].DisplayedText, 'EN', 'fra');
     val.subscribe(
       data => {
-        console.log(this.boardService.board.ElementList[index].ElementForms[0].DisplayedText);
+        console.log(this.boardService.board.ElementList[index].ElementFormsList[0].DisplayedText);
         if ((data as Traduction).results.bindings[0] !== undefined) {
-          this.boardService.board.ElementList[index].ElementForms[0].DisplayedText = (data as Traduction).results.bindings[0].tradword.value;
-          console.log(this.boardService.board.ElementList[index].ElementForms[0].DisplayedText);
+          this.boardService.board.ElementList[index].ElementFormsList[0].DisplayedText = (data as Traduction).results.bindings[0].tradword.value;
+          console.log(this.boardService.board.ElementList[index].ElementFormsList[0].DisplayedText);
           this.indexedDBacess.update();
         }
         if (this.boardService.board.ElementList.length > index + 1) {
@@ -153,29 +153,28 @@ export class ShareComponent implements OnInit {
   createNewButton(name, imageURL, folder, type) {
     this.boardService.board.ElementList.push(
       {
-        ElementID: name,
-        ElementFolder: folder,
-        ElementType: type,
-        ElementPartOfSpeech: '',
-        ElementForms: [
+        ID: name,
+        Type: type,
+        PartOfSpeech: '',
+        ElementFormsList: [
           {
             DisplayedText: name,
             VoiceText: name,
-            LexicInfos: []
+            LexicInfos: [],
+            ImageID: folder + name,
           }
         ],
-        ImageID: folder + name,
         InteractionsList: [],
         Color: 'lightgrey',
         BorderColor: 'black',
-        Visible: true
+        VisibilityLevel: 0
       });
 
     this.boardService.board.ImageList.push(
       {
-        ImageID: folder + name,
-        ImageLabel: name,
-        ImagePath: imageURL
+        ID: folder + name,
+        OriginalName: name,
+        Path: imageURL
       });
 
     this.indexedDBacess.update(); // TODO alléger un peu l'appel
