@@ -14,7 +14,7 @@ import {BoardService} from "../../services/board.service";
   selector: 'app-alternative-forms',
   templateUrl: './alternative-forms.component.html',
   styleUrls: ['./alternative-forms.component.css'],
-  providers: [HttpClient]
+  providers: [Ng2ImgMaxService, HttpClient]
 })
 export class AlternativeFormsComponent implements OnInit {
 
