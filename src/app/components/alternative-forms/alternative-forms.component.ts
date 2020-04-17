@@ -25,19 +25,32 @@ export class AlternativeFormsComponent implements OnInit {
   }
 
   imageList=[];
-  selectedItemImageURL: string | ArrayBuffer =''
-  selectedItemName='';
-
+  elementFormNameImageURL: any =''
+  elementFormNameField='';
+  selectedItem: ElementForm =null;
+  selectedFile;
   selectedFeature=''; //can be add or modif
+  imageSelectionStarted=false;
 
-  selectedForm=null;
-
-  getSectionWidth(sectionName: string){
-    return this.selectedFeature===''?'50%':( this.selectedFeature===sectionName?'calc(100%-50px)':'50px');
+  saveCurrentElementForm(){
+  if (this.selectedItem !== null) {
+    this.selectedItem.DisplayedText = this.elementFormNameField;
+    this.selectedItem.VoiceText = this.elementFormNameField;
+    let i = 0;
+    while(-1 !== this.boardService.board.ImageList.findIndex( img => {return img.ID === (this.elementFormNameField + i)})){
+      i++;
+    }
+    this.boardService.board.ImageList.push({
+      ID: this.elementFormNameField + i,
+      OriginalName: this.elementFormNameField,
+      Path: this.elementFormNameImageURL
+    });
+    this.selectedItem.ImageID = this.elementFormNameField + i;
+  }
   }
 
   select(b){
-    this.selectedForm = this.selectedForm === b ? null : b;
+    this.selectedItem = this.selectedItem === b ? null : b;
   }
 
   isVariantDisplayed() {
@@ -94,7 +107,11 @@ export class AlternativeFormsComponent implements OnInit {
    * @param file, a file element
    */
   previewFile(file) {
-    this.editionService.imageURL = 'assets/icons/load.gif';
+    this.imageSelectionStarted=true;
+    this.elementFormNameImageURL = 'assets/icons/load.gif';
+    if (file === null) {
+      return;
+    }
     if (file.length === 0) {
       return;
     }
@@ -107,7 +124,7 @@ export class AlternativeFormsComponent implements OnInit {
     this.ng2ImgMaxService.resize([file[0]], 1000, 1000).subscribe(result => {
       reader.readAsDataURL(result);
       reader.onload = () => {
-        this.selectedItemImageURL = reader.result;
+        this.elementFormNameImageURL = reader.result;
         //this.choseImage = false;
       };
     }, () => {
@@ -117,14 +134,24 @@ export class AlternativeFormsComponent implements OnInit {
 
       };
     });
+
+
+    console.log(this.elementFormNameImageURL);
+    console.log(this.selectedItem.DisplayedText)
   }
 
   getSanitizeURL(elementForm: ElementForm){
-    let elementImage = this.boardService.board.ImageList.find( image => {return image.ID === elementForm.ImageID})
-    if (elementImage !== null && elementImage !== undefined){
-      return 'url(' + elementImage.Path + ')';
+    if( elementForm !== this.selectedItem ||  !this.imageSelectionStarted || this.elementFormNameImageURL===null || this.elementFormNameImageURL==='') {
+      let elementImage = this.boardService.board.ImageList.find(image => {
+        return image.ID === elementForm.ImageID
+      })
+      if (elementImage !== null && elementImage !== undefined) {
+        return 'url(' + elementImage.Path + ')';
+      }
+      return '';
+    } else {
+      return 'url(' + this.elementFormNameImageURL + ')';
     }
-    return '';
   }
 
 
@@ -134,7 +161,8 @@ export class AlternativeFormsComponent implements OnInit {
    * @param t, the new imageUrl
    */
   previewWithURL(t) {
-    this.selectedItemImageURL = t;
+    this.imageSelectionStarted=true;
+    this.elementFormNameImageURL = t;
     //this.choseImage = false;
   }
 
@@ -144,6 +172,7 @@ export class AlternativeFormsComponent implements OnInit {
    * @param t, the string short name of the image of the mulberry library image
    */
   previewMullberry(t: string) {
+    this.imageSelectionStarted=true;
     this.previewWithURL('assets/libs/mulberry-symbols/EN-symbols/' + t + '.svg');
   }
 

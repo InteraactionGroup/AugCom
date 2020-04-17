@@ -26,9 +26,6 @@
           "DisplayedText": "quoi",
           "VoiceText": "quoi",
           "LexicInfos": [
-            {
-              "default": true
-            }
           ],
           "ImageID": ".quoi"
         },
@@ -36,9 +33,6 @@
           "DisplayedText": "quand",
           "VoiceText": "quoi",
           "LexicInfos": [
-            {
-              "default": true
-            }
           ],
           "ImageID": ".quoi"
         },
@@ -46,9 +40,6 @@
           "DisplayedText": "où",
           "VoiceText": "quoi",
           "LexicInfos": [
-            {
-              "default": true
-            }
           ],
           "ImageID": ".quoi"
         }

@@ -333,39 +333,37 @@ export class KeyboardComponent implements OnInit {
       OriginalName: '#back',
       Path: 'assets/icons/retour.svg'
     });
-    const tempOtherFOrmList: Element[] = [];
-    this.getNormalTempList().forEach(e => tempOtherFOrmList.push(this.copy(e)));
+
+    const temporaryElementList: Element[] = [];
+    this.getNormalTempList().forEach(e => temporaryElementList.push(this.copy(e)));
     const index = this.boardService.activatedElement;
-    const max: number = Number(Number(index) + Number(this.boardService.sliderValueCol) + 1 - Number(tempOtherFOrmList.length) + 1);
-    for (let newElementIndex = 0; newElementIndex < max; newElementIndex = newElementIndex + 1) { // fill with empty elements
-      tempOtherFOrmList.push(new Element(
+    const max: number = Number(Number(index) + 1 + Number(this.boardService.sliderValueCol) + 1);
+    for (let newElementIndex = Number(temporaryElementList.length); newElementIndex < max; newElementIndex = newElementIndex + 1) { // fill with empty elements
+      temporaryElementList.push(new Element(
         '',
         'button',
         '',
-        '#ffffff', // to delete later
-        '#ffffff', // to delete later
-        1,
+        'transparent', // to delete later
+        'yellow', // to delete later
+        0,
         [],
         []));
     }
 
     let indexOfForm = 0;
-    const compElt = tempOtherFOrmList[index];
-    tempOtherFOrmList.forEach(elt => {
-      const tempIndex = tempOtherFOrmList.indexOf(elt);
-      let places = this.createPlaces(index);
-      places = places.slice(0, compElt.ElementFormsList.length);
+    const compElt = temporaryElementList[index];
+    let places = this.createPlaces(index);
+    places = places.slice(0, compElt.ElementFormsList.length);
+    console.log(places);
+    temporaryElementList.forEach(elt => {
+      const tempIndex = temporaryElementList.indexOf(elt);
+      console.log(tempIndex);
       if (places.includes(tempIndex)) {
         if (compElt.ElementFormsList.length > indexOfForm) {
           elt.Color = compElt.Color;
           elt.BorderColor = compElt.BorderColor;
           elt.Type = 'button';
-          elt.ElementFormsList = [{
-              DisplayedText: "try",
-            VoiceText: "try",
-            LexicInfos: [{default: true}],
-            ImageID: ''
-          }];
+          elt.ElementFormsList = [];
           elt.VisibilityLevel = 0;
           elt.PartOfSpeech = '' + compElt.PartOfSpeech;
           elt.ElementFormsList.push(
@@ -375,7 +373,7 @@ export class KeyboardComponent implements OnInit {
               LexicInfos: compElt.ElementFormsList[indexOfForm].LexicInfos,
               ImageID: '' + compElt.ElementFormsList[indexOfForm].ImageID
             });
-          elt.InteractionsList = tempOtherFOrmList[index].InteractionsList.slice();
+          elt.InteractionsList = temporaryElementList[index].InteractionsList.slice();
           elt.InteractionsList.push({ID: 'backFromVariant', ActionList: []});
           indexOfForm = indexOfForm + 1;
         }
@@ -385,13 +383,13 @@ export class KeyboardComponent implements OnInit {
       }
     });
 
-    tempOtherFOrmList[index].Color = '#123548';
-    tempOtherFOrmList[index].PartOfSpeech = '';
-    tempOtherFOrmList[index].InteractionsList = [{ID: 'backFromVariant', ActionList: []}];
-    tempOtherFOrmList[index].ElementFormsList = [{DisplayedText: 'back', VoiceText: 'back', LexicInfos: [], ImageID: '#back'}];
+    temporaryElementList[index].Color = '#123548';
+    temporaryElementList[index].PartOfSpeech = '';
+    temporaryElementList[index].InteractionsList = [{ID: 'backFromVariant', ActionList: []}];
+    temporaryElementList[index].ElementFormsList = [{DisplayedText: 'back', VoiceText: 'back', LexicInfos: [], ImageID: '#back'}];
 
 
-    this.fakeElementTempList = tempOtherFOrmList;
+    this.fakeElementTempList = temporaryElementList;
   }
 
   /**
@@ -399,9 +397,9 @@ export class KeyboardComponent implements OnInit {
    * @param ind, index of an element
    */
   createPlaces(ind: number) {
-    const index = Number(ind);
+    const index: number = Number(ind);
     const slider: number = Number(this.boardService.sliderValueCol);
-    const places = [];
+    let places = [];
 
     if (Math.trunc((index - 1) / slider) === Math.trunc(index / slider)) { // gauche
       places.push(index - 1);
@@ -433,6 +431,8 @@ export class KeyboardComponent implements OnInit {
     if (Math.trunc((index + slider + 1) / slider) === Math.trunc(index / slider) + 1) { // bas droite
       places.push(index + slider + 1);
     }
+
+    places = places.filter( val => {return val >= 0 });
 
     return places;
   }

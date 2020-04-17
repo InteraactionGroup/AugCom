@@ -91,15 +91,15 @@
             <div class="wrapperPreview centerText floatLeft" style="height: 300px">
               <ng-container *ngFor="let b of this.editionService.selectedElements[0].ElementFormsList">
                 <li class="variantList width-100">
-                  <div class="element"
+                  <div class="element" (click)="this.selectedItem = b; this.imageSelectionStarted=false; this.elementFormNameField = b.DisplayedText;"
                        [ngStyle]="{'background-color': this.editionService.selectedElements[0].Color ,
                     'border-color': this.editionService.selectedElements[0].BorderColor}">
 
-                    <div class="image haveBackgroundImage" [style.background-image]="getSanitizeURL(b)"></div>
+                    <div class="image haveBackgroundImage" [ngStyle]="{'background-image': getSanitizeURL(b)}"> </div>
 
-                    <svg viewBox="0 0 50 20">
+                    <svg viewBox="0 0 80 15">
                       <text x="50%" y="50%" dominant-baseline="middle"
-                            text-anchor="middle">{{b.DisplayedText}}</text>
+                            text-anchor="middle">{{this.selectedItem ===b ? this.elementFormNameField :b.DisplayedText}}</text>
                     </svg>
 
                   </div>
@@ -109,14 +109,14 @@
             <div class="floatLeft" style="margin-left: 10px">
 
               <div>
-                <input class="input width-100"
+                <input [(ngModel)]="this.elementFormNameField" class="input width-100"
                        placeholder="Entrez le nom de l'élément"
                        type="text">
               </div>
               <div class="tableTitle"> Modifier l'image:</div>
               <div>
                 <label class="label" for="imagefromfile">à partir d'un fichier: </label>
-                <input #file (change)="previewFile(file.files)" accept='image/*' class="input" type="file"
+                <input #selectedFile (change)="previewFile(selectedFile.files)" onclick="this.value=null" accept='image/*' class="input" type="file"
                        id="imagefromfile">
                 <label class="label" for="imagefromURL">à partir d'une URL: </label>
                 <div class="inputURL">
@@ -140,6 +140,7 @@
                        (click)="previewMullberry(b)"></div>
                 </ng-container>
               </div>
+              <input type="button" value="enregistrer les modifications" (click)="saveCurrentElementForm()">
             </div>
           </div>
         </ng-container>

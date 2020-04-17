@@ -193,10 +193,14 @@ export class BoardService {
 
   getImgUrl(element: Element) {
     if (this.board.ImageList != null) {
-      const path = this.board.ImageList.find(x => x.ID === element.ElementFormsList[0].ImageID);
-      if (path !== null && path !== undefined) {
-        const s = path.Path;
-        return this.sanitizer.bypassSecurityTrustStyle('url(' + s + ')');
+      if(element.ElementFormsList.length > 0) {
+        const path = this.board.ImageList.find(x => x.ID === element.ElementFormsList[0].ImageID);
+        if (path !== null && path !== undefined) {
+          const s = path.Path;
+          return this.sanitizer.bypassSecurityTrustStyle('url(' + s + ')');
+        } else {
+          return '';
+        }
       } else {
         return '';
       }
