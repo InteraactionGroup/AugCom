@@ -21,7 +21,7 @@ export class BoardService {
 
   sliderValueCol;
   sliderValueRow;
-  board;
+  board: Grid;
   currentFolder = '.';
 
   currentVerbTerminaison: { currentPerson: string, currentNumber: string } = {currentPerson: '', currentNumber: ''};

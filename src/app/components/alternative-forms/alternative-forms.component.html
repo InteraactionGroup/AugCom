@@ -1,62 +1,147 @@
 <ng-container *ngIf="this.isVariantDisplayed()">
   <div class="page">
 
-    <div class="page-content">
-      <div class="tableTitle">
-        Modifier les variantes du mot:
-      </div>
-      <div class="elementVariant">
-        <label class="label" for="wordToSearch">Chercher des variantes du mot en ligne: </label>
-        <div class="width-100">
-          <input id="wordToSearch" #wordToSearch class="inputText floatLeft" type="text" placeholder="Entrez un mot"
-                 value="{{this.editionService.name}}">
-          <input (click)="getWordList(wordToSearch.value)" class="search floatLeft" type="button" value="search">
-        </div>
-
+    <div class="page-content" style="height: 100%">
+      <div class="floatLeft" [ngStyle]="{'width': this.selectedFeature===''?'50%':'50px', 'height': this.selectedFeature===''?'100%':'50px'}">
+        <ng-container>
+          <input type="button" value="{{this.selectedFeature===''?'modifier les formes':'<'}}" style="width: 100%; height: 100%"
+                 (click)="this.selectedFeature = (this.selectedFeature===''?'modif':'')">
+        </ng-container>
       </div>
 
-      <div class="variantContainer">
-        <div class="elementVariant">
-          <label for="classe-select">
-            <div class="floatLeft">Choisissez une classe grammaticale:</div>
-            <div *ngIf="this.dbnaryService.searchStarted == 1"
-                 [ngStyle]="{'background-image':'url(assets/icons/load.gif'}"
-                 class="waitVariant floatLeft haveBackgroundImage">
-            </div>
-          </label>
-          <div class="width-100">
-            <select [disabled]="this.dbnaryService.typeList.length===0" [(ngModel)]="this.editionService.classe"
-                    class="variantListBox" id="classe-select" name="classe">
-              <option value="">--choisissez une option--</option>
-              <ng-container *ngFor="let b of this.dbnaryService.typeList ">
-                <option id="{{b}}radio" name="buttonType" value="{{b}}">{{b}}</option>
-              </ng-container>
-            </select>
-            <input (click)="displayVariant(this.editionService.classe,wordToSearch.value)" class="variantOk"
-                   type="button"
-                   value="OK">
+
+      <div class="floatLeft" [ngStyle]="{'width': this.selectedFeature===''?'50%':'calc(100% - 50px)'}" style="height: 100%">
+        <ng-container *ngIf="this.selectedFeature===''">
+          <input type="button" value="ajouter des formes" style="width: 100%; height: 100%"
+                 (click)="selectedFeature='add'">
+        </ng-container>
+        <ng-container *ngIf="this.selectedFeature==='add'">
+          <div class="tableTitle">
+            Ajouter des variantes du mot:
           </div>
-        </div>
-      </div>
+          <div class="elementVariant">
+            <label class="label" for="wordToSearch">Chercher des variantes du mot en ligne: </label>
+          </div>
 
-      <div class="wrapperPreview centerText">
-        <ng-container *ngIf="this.dbnaryService.searchStarted==0">
-          <ng-container *ngFor="let b of this.dbnaryService.wordList">
-            <li class="variantList width-100">
-              <div (click)="b.selected=!b.selected" class="variant"
-                   [ngStyle]="{'background-color': b.selected?'#d1d5da': '#eef4f9'}">
-                <div class="variantName floatLeft centerText">
-                  {{b.val}}</div>
-                <div [ngStyle]="{'background-image': b.selected?this.getIcon('checkmark'):this.getIcon('uncheckmark')}"
-                     class="selector haveBackgroundImage">
+          <div class="tableTitle">
+            Ajouter des variantes du mot depuis le net:
+          </div>
+          <div class="elementVariant">
+            <label class="label" for="wordToSearch">Chercher des variantes du mot en ligne: </label>
+            <div class="width-100">
+              <input id="wordToSearch" #wordToSearch class="inputText floatLeft" type="text" placeholder="Entrez un mot"
+                     value="{{this.editionService.name}}">
+              <input (click)="getWordList(wordToSearch.value)" class="search floatLeft" type="button" value="search">
+            </div>
+
+          </div>
+
+          <div class="variantContainer">
+            <div class="elementVariant">
+              <label for="classe-select">
+                <div class="floatLeft">Choisissez une classe grammaticale:</div>
+                <div *ngIf="this.dbnaryService.searchStarted == 1"
+                     [ngStyle]="{'background-image':'url(assets/icons/load.gif'}"
+                     class="waitVariant floatLeft haveBackgroundImage">
+                </div>
+              </label>
+              <div class="width-100">
+                <select [disabled]="this.dbnaryService.typeList.length===0" [(ngModel)]="this.editionService.classe"
+                        class="variantListBox" id="classe-select" name="classe">
+                  <option value="">--choisissez une option--</option>
+                  <ng-container *ngFor="let b of this.dbnaryService.typeList ">
+                    <option id="{{b}}radio" name="buttonType" value="{{b}}">{{b}}</option>
+                  </ng-container>
+                </select>
+                <input (click)="displayVariant(this.editionService.classe,wordToSearch.value)" class="variantOk"
+                       type="button"
+                       value="OK">
+              </div>
+            </div>
+          </div>
+
+          <div class="wrapperPreview centerText" style="width: calc(100% - 20px)">
+            <ng-container *ngIf="this.dbnaryService.searchStarted==0">
+              <ng-container *ngFor="let b of this.dbnaryService.wordList">
+                <li class="variantList width-100">
+                  <div (click)="b.selected=!b.selected" class="variant"
+                       [ngStyle]="{'background-color': b.selected?'#d1d5da': '#eef4f9'}">
+                    <div class="variantName floatLeft centerText">
+                      {{b.val}}</div>
+                    <div
+                      [ngStyle]="{'background-image': b.selected?this.getIcon('checkmark'):this.getIcon('uncheckmark')}"
+                      class="selector haveBackgroundImage">
+                    </div>
+                  </div>
+                </li>
+              </ng-container>
+            </ng-container>
+            <ng-container>
+              <div *ngIf="this.dbnaryService.searchStarted==2"
+                   [ngStyle]="{'background-image':'url(assets/icons/load.gif'}"
+                   class="waitVariant floatLeft haveBackgroundImage"></div>
+            </ng-container>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="this.selectedFeature==='modif'">
+          <div class="tableTitle">
+            Modifier les variantes du mot:
+          </div>
+          <div class="alternativeElementVariant">
+            <div class="wrapperPreview centerText floatLeft" style="height: 300px">
+              <ng-container *ngFor="let b of this.editionService.selectedElements[0].ElementFormsList">
+                <li class="variantList width-100">
+                  <div class="element"
+                       [ngStyle]="{'background-color': this.editionService.selectedElements[0].Color ,
+                    'border-color': this.editionService.selectedElements[0].BorderColor}">
+
+                    <div class="image haveBackgroundImage" [style.background-image]="getSanitizeURL(b)"></div>
+
+                    <svg viewBox="0 0 50 20">
+                      <text x="50%" y="50%" dominant-baseline="middle"
+                            text-anchor="middle">{{b.DisplayedText}}</text>
+                    </svg>
+
+                  </div>
+                </li>
+              </ng-container>
+            </div>
+            <div class="floatLeft" style="margin-left: 10px">
+
+              <div>
+                <input class="input width-100"
+                       placeholder="Entrez le nom de l'élément"
+                       type="text">
+              </div>
+              <div class="tableTitle"> Modifier l'image:</div>
+              <div>
+                <label class="label" for="imagefromfile">à partir d'un fichier: </label>
+                <input #file (change)="previewFile(file.files)" accept='image/*' class="input" type="file"
+                       id="imagefromfile">
+                <label class="label" for="imagefromURL">à partir d'une URL: </label>
+                <div class="inputURL">
+                  <input class="searchField" type="search" id="imagefromURL" #text
+                         placeholder="Entrez l'URL d'une image">
+                  <input class="searchURL" type="button" value="Ok" (click)="previewWithURL(text.value)">
+                </div>
+                <label class="label" for="imagefromLib">à partir des bibliothèques: </label>
+                <div class="input">
+                  <input #search class="searchField" type="search" id="imagefromLib"
+                         placeholder="Cherchez un mot (ENG)">
+                  <input class="searchLib" type="button" value="search" (click)="searchInLib(search.value)">
                 </div>
               </div>
-            </li>
-          </ng-container>
-        </ng-container>
-        <ng-container>
-          <div *ngIf="this.dbnaryService.searchStarted==2" [ngStyle]="{'background-image':'url(assets/icons/load.gif'}"
-               class="waitVariant floatLeft haveBackgroundImage"></div>
+
+              <div class="wrapperPreview" style="height: 100px">
+                <ng-container *ngFor="let b of this.imageList ">
+
+                  <div class="pictoImg haveBackgroundImage"
+                       [ngStyle]="{'background-image':'url(assets/libs/mulberry-symbols/EN-symbols/'+b+'.svg)'}"
+                       (click)="previewMullberry(b)"></div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
         </ng-container>
       </div>
     </div>

@@ -3,6 +3,12 @@ import {EditionService} from "../../services/edition.service";
 import {DbnaryService} from "../../services/dbnary.service";
 import {GeticonService} from "../../services/geticon.service";
 import {HttpClient} from "@angular/common/http";
+import mullberryJson from "../../../assets/symbol-info.json";
+import {MulBerryObject} from "../../libTypes";
+import {Ng2ImgMaxService} from "ng2-img-max";
+import {DomSanitizer} from "@angular/platform-browser";
+import {ElementForm} from "../../types";
+import {BoardService} from "../../services/board.service";
 
 @Component({
   selector: 'app-alternative-forms',
@@ -12,10 +18,26 @@ import {HttpClient} from "@angular/common/http";
 })
 export class AlternativeFormsComponent implements OnInit {
 
-  constructor(public getIconService: GeticonService, public dbnaryService: DbnaryService, public editionService: EditionService) {
+  constructor(public sanitizer: DomSanitizer, public ng2ImgMaxService: Ng2ImgMaxService, public boardService: BoardService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public editionService: EditionService) {
   }
 
   ngOnInit() {
+  }
+
+  imageList=[];
+  selectedItemImageURL: string | ArrayBuffer =''
+  selectedItemName='';
+
+  selectedFeature=''; //can be add or modif
+
+  selectedForm=null;
+
+  getSectionWidth(sectionName: string){
+    return this.selectedFeature===''?'50%':( this.selectedFeature===sectionName?'calc(100%-50px)':'50px');
+  }
+
+  select(b){
+    this.selectedForm = this.selectedForm === b ? null : b;
   }
 
   isVariantDisplayed() {
@@ -64,4 +86,95 @@ export class AlternativeFormsComponent implements OnInit {
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
   }
+
+  /**
+   * Set the current preview imageUrl according to the given file 'file' and close the chooseImage panel
+   * if the initial image is bigger than 1000*1000 the the image is reduced
+   *
+   * @param file, a file element
+   */
+  previewFile(file) {
+    this.editionService.imageURL = 'assets/icons/load.gif';
+    if (file.length === 0) {
+      return;
+    }
+    const mimeType = file[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+    const reader = new FileReader();
+
+    this.ng2ImgMaxService.resize([file[0]], 1000, 1000).subscribe(result => {
+      reader.readAsDataURL(result);
+      reader.onload = () => {
+        this.selectedItemImageURL = reader.result;
+        //this.choseImage = false;
+      };
+    }, () => {
+      reader.readAsDataURL(file[0]);
+      reader.onload = () => {
+        this.previewWithURL(reader.result);
+
+      };
+    });
+  }
+
+  getSanitizeURL(elementForm: ElementForm){
+    let elementImage = this.boardService.board.ImageList.find( image => {return image.ID === elementForm.ImageID})
+    if (elementImage !== null && elementImage !== undefined){
+      return 'url(' + elementImage.Path + ')';
+    }
+    return '';
+  }
+
+
+  /**
+   * Set the current preview imageUrl with the image string Url 't' and close the chooseImage panel
+   *
+   * @param t, the new imageUrl
+   */
+  previewWithURL(t) {
+    this.selectedItemImageURL = t;
+    //this.choseImage = false;
+  }
+
+  /**
+   * Set the current preview imageUrl with a mulberry library image Url according to the given string 't' and close the chooseImage panel
+   *
+   * @param t, the string short name of the image of the mulberry library image
+   */
+  previewMullberry(t: string) {
+    this.previewWithURL('assets/libs/mulberry-symbols/EN-symbols/' + t + '.svg');
+  }
+
+  /**
+   * Return the list of 100 first mullberry library images, sorted by length name, matching with string 'text'
+   *
+   * @param text, the string researched text
+   * @return list of 100 mulberry library images
+   */
+  searchInLib(text: string) {
+    this.imageList = [];
+    let tempList = [];
+    (mullberryJson as unknown as MulBerryObject[]).forEach(value => {
+      if (text !== null && text !== '' && value.symbol.toLowerCase().includes(text.toLocaleLowerCase())) {
+        const url = value.symbol;
+        tempList.push(url);
+        tempList = tempList.sort((a: string, b: string) => {
+            if (a.toLowerCase().startsWith(text.toLowerCase()) && b.toLowerCase().startsWith(text.toLowerCase())) {
+              return a.length - b.length;
+            } else if (a.toLowerCase().startsWith(text.toLowerCase())) {
+              return -1;
+            } else {
+              return 1;
+            }
+
+          }
+        );
+      }
+    }, this);
+    this.imageList = tempList.slice(0, 100);
+  }
+
+
 }

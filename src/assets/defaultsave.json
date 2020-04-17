@@ -13,7 +13,37 @@
       "VisibilityLevel": 0,
       "ElementFormsList": [
         {
+          "DisplayedText": "qui",
+          "VoiceText": "quoi",
+          "LexicInfos": [
+            {
+              "default": true
+            }
+          ],
+          "ImageID": ".quoi"
+        },
+        {
           "DisplayedText": "quoi",
+          "VoiceText": "quoi",
+          "LexicInfos": [
+            {
+              "default": true
+            }
+          ],
+          "ImageID": ".quoi"
+        },
+        {
+          "DisplayedText": "quand",
+          "VoiceText": "quoi",
+          "LexicInfos": [
+            {
+              "default": true
+            }
+          ],
+          "ImageID": ".quoi"
+        },
+        {
+          "DisplayedText": "où",
           "VoiceText": "quoi",
           "LexicInfos": [
             {
