@@ -25,32 +25,51 @@ export class AlternativeFormsComponent implements OnInit {
   }
 
   imageList=[];
-  elementFormNameImageURL: any =''
-  elementFormNameField='';
-  selectedItem: ElementForm =null;
-  selectedFile;
-  selectedFeature=''; //can be add or modif
+  elementFormNameImageURL: any ='';
+  elementFormDisplayedWordField='';
+  elementFormPronouncedWordField='';
+  selectedItem: ElementForm = null;
+  currentMode = '';
   imageSelectionStarted=false;
 
   saveCurrentElementForm(){
   if (this.selectedItem !== null) {
-    this.selectedItem.DisplayedText = this.elementFormNameField;
-    this.selectedItem.VoiceText = this.elementFormNameField;
-    let i = 0;
-    while(-1 !== this.boardService.board.ImageList.findIndex( img => {return img.ID === (this.elementFormNameField + i)})){
+    this.selectedItem.DisplayedText = this.elementFormDisplayedWordField;
+    this.selectedItem.VoiceText = this.elementFormPronouncedWordField;
+    if (this.elementFormNameImageURL !== '') {
+      let i = 0;
+    while(-1 !== this.boardService.board.ImageList.findIndex( img => {return img.ID === (this.elementFormDisplayedWordField + i)})){
       i++;
     }
     this.boardService.board.ImageList.push({
-      ID: this.elementFormNameField + i,
-      OriginalName: this.elementFormNameField,
+      ID: this.elementFormDisplayedWordField + i,
+      OriginalName: this.elementFormDisplayedWordField,
       Path: this.elementFormNameImageURL
     });
-    this.selectedItem.ImageID = this.elementFormNameField + i;
+    this.selectedItem.ImageID = this.elementFormDisplayedWordField + i;}
   }
+    this.elementFormNameImageURL= '';
+  }
+
+  selectNewForm(){
+    if (this.currentMode !== 'addNew') {
+      this.currentMode = 'addNew';
+      this.selectedItem = new ElementForm();
+    } else {
+      this.currentMode = '';
+    }
   }
 
   select(b){
-    this.selectedItem = this.selectedItem === b ? null : b;
+    if (this.currentMode !== 'modif' || this.selectedItem !== b) {
+      this.currentMode = 'modif'
+      this.selectedItem = b;
+      this.imageSelectionStarted=false;
+      this.elementFormDisplayedWordField = b.DisplayedText;
+      this.elementFormPronouncedWordField= b.VoiceText;
+    } else {
+      this.currentMode = '';
+    }
   }
 
   isVariantDisplayed() {

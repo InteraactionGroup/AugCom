@@ -5,6 +5,11 @@
   padding-bottom: 15px;
 }
 
+.tableSubTitle {
+  padding-top: 10px;
+  padding-bottom: 15px;
+}
+
 .alternativeTableTitle {
   border-top: black solid 1px;
   padding-top: 10px;
@@ -12,15 +17,21 @@
 
 .alternativeElementVariant {
   width: 100%;
-  display: grid;
-  grid-template-columns: 400px 2fr;
-  row-gap: 1px;
-  column-gap: 1px;
-  padding-bottom: 20px;
-  align-items: center;
 }
 
-.tabCell {
+.searchField {
+  width: calc(100% - 60px);
+  box-sizing: border-box;
+}
+
+.searchURL {
+  width: 40px;
+  margin-left: 1px;
+}
+
+.searchLib {
+  width: 59px;
+  margin-left: 1px;
 }
 
 .elementVariant {
@@ -64,10 +75,11 @@
 .wrapperPreview {
   display: grid;
   margin-left: 10px;
+  width: 100%;
   height: 150px;
   background-color: whitesmoke;
   overflow-y: scroll;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(10, 1fr);
 }
 
 
@@ -135,10 +147,28 @@
   border: black solid 1px;
 }
 
-. .element:hover {
+.table{
+  width: 90%;
+  margin-left: 5%;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  padding-bottom: 20px;
+  column-gap: 1px;
+  row-gap: 1px;
+  align-items: center;
+}
+
+.element:hover {
   filter: brightness(80%);
 }
 
+.inModification {
+  filter: drop-shadow(0 0 20px white) saturate(150%) brightness(120%);
+}
+
+.inModification:hover {
+  filter: drop-shadow(0 0 20px white) saturate(150%) brightness(95%);
+}
 
 .element {
   cursor: pointer;
@@ -156,4 +186,14 @@
   margin-left: 5%;
   margin-top: 5px;
   visibility: visible;
+}
+
+.addButton {
+  border-color: black;
+  background-color: dimgray;
+  opacity:0.5;
+}
+
+.addButton:hover {
+  opacity: 1;
 }

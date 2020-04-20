@@ -52,7 +52,7 @@
         <div class="searchResult width-100" (click)="this.searchService.search(res.ID)"
              *ngFor="let res of this.searchService.searchedWords"
              [ngStyle]="{'height': this.getResultHeight(this.searchService.searchedWords.length)}">
-          <div class="searchImage floatLeft" [style.background-image]="this.boardService.getImgUrl(res)"></div>
+          <div class="searchImage haveBackgroundImage floatLeft" [style.background-image]="this.boardService.getImgUrl(res)"></div>
           <div class="searchLabel floatLeft"> {{res.ID}} {{res.ElementFormsList[0].DisplayedText}} </div>
         </div>
       </div>
