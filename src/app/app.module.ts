@@ -31,6 +31,8 @@ import {ImageSelectionPageComponent} from './components/image-selection-page/ima
 import {InformationEditionPageComponent} from './components/information-edition-page/information-edition-page.component';
 import {AVenirComponent} from './components/a-venir/a-venir.component';
 import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
+import { GridComponent } from './grid/grid.component';
+import { TileComponent } from './tile/tile.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-b
     AlternativeFormsComponent,
     ImageSelectionPageComponent,
     InformationEditionPageComponent,
-    AVenirComponent
+    AVenirComponent,
+    GridComponent,
+    TileComponent
   ],
   imports: [
     BrowserModule,
