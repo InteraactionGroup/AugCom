@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TileComponent implements OnInit {
 
+  id: string;
+  type: string;
+  color: string
+  borderColor: string;
+
   constructor() { }
 
   ngOnInit(): void {
   }
+
 
 }

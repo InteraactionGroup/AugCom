@@ -34,6 +34,7 @@
     "jquery": "^3.4.1",
     "jspdf": "^1.5.3",
     "jszip": "^3.2.2",
+    "muuri": "^0.8.0",
     "ng-connection-service": "^1.0.4",
     "ng2-dragula": "^2.1.1",
     "ng2-img-max": "^2.1.18",
