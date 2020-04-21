@@ -13,6 +13,7 @@ import {Subscription} from 'rxjs';
 import {PaletteService} from '../../services/palette.service';
 import {SearchService} from '../../services/search.service';
 import {Ng2ImgMaxService} from "ng2-img-max";
+import {computeLineHeight} from "html2canvas/dist/types/css/property-descriptors/line-height";
 
 @Component({
   selector: 'app-keyboard',
@@ -87,8 +88,13 @@ export class KeyboardComponent implements OnInit {
    * @return  true or false, depending if the element corresponds to the search result
    */
   isSearched(element: Element) {
-    return !((this.searchService.searchedPath.length > 0) && (!this.searchService.searchedPath.includes(element)));
+    return   this.searchService.searchedPath.includes(element);
   }
+
+  searchStarted(){
+    return this.searchService.searchedPath.length > 0;
+  }
+
 
   /**
    * Init the dragula Drag n Drop part
@@ -145,7 +151,7 @@ export class KeyboardComponent implements OnInit {
    * otherwise return the 'fakeElementTempList' of the element that is displaying its variant forms
    * @return a list of element
    */
-  getTempList() {
+  getTempList(): Element[]  {
     if (this.boardService.activatedElement === -1) {
       return this.getNormalTempList();
     } else {
@@ -340,11 +346,11 @@ export class KeyboardComponent implements OnInit {
     const max: number = Number(Number(index) + 1 + Number(this.boardService.sliderValueCol) + 1);
     for (let newElementIndex = Number(temporaryElementList.length); newElementIndex < max; newElementIndex = newElementIndex + 1) { // fill with empty elements
       temporaryElementList.push(new Element(
-        '',
+        '#disable',
         'button',
         '',
         'transparent', // to delete later
-        'yellow', // to delete later
+        'transparent', // to delete later
         0,
         [],
         []));
@@ -360,6 +366,7 @@ export class KeyboardComponent implements OnInit {
       console.log(tempIndex);
       if (places.includes(tempIndex)) {
         if (compElt.ElementFormsList.length > indexOfForm) {
+          elt.ID = compElt.ID;
           elt.Color = compElt.Color;
           elt.BorderColor = compElt.BorderColor;
           elt.Type = 'button';
@@ -465,7 +472,7 @@ export class KeyboardComponent implements OnInit {
                 this.historicService.push(vignette);
               } else if (action.ID === 'say') {
                 this.historicService.say('' + prononcedText);
-              } else if (action.ID === 'otherforms' && element.ElementFormsList.length > 2) {
+              } else if (action.ID === 'otherforms' && element.ElementFormsList.length > 1) {
                 otherFormsDisplayed = true;
                 this.boardService.activatedElement = this.getNormalTempList().indexOf(element);
                 this.activatedElementTempList();
@@ -564,9 +571,13 @@ export class KeyboardComponent implements OnInit {
    * @param element, the element we compute the cursor used when hover it
    */
   getCursor(element: Element) {
-    const visible: boolean = this.isVisible(element);
-    return !this.userToolBarService.babble ? 'pointer' :
-      (visible ? 'pointer' : this.userToolBarService.edit ? 'pointer' : 'default');
+    if(element.ID==='#disable'){
+      return 'default';
+    } else if ((!this.userToolBarService.babble) || this.isVisible(element) || (this.userToolBarService.edit)) {
+      return 'pointer';
+    } else{
+      return 'default';
+    }
   }
 
   /**

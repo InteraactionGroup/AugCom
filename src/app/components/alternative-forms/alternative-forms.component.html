@@ -11,7 +11,7 @@
 <!--            DISPLAY TABLE OF EXISTING FORMS-->
             <div class="wrapperPreview centerText floatLeft">
               <ng-container *ngFor="let b of this.editionService.selectedElements[0].ElementFormsList">
-                <li class="variantList width-100">
+                <div class="elementContainer">
                   <div class="element" [class.inModification]="b===this.selectedItem" (click)="select(b)"
                        [ngStyle]="{'background-color': this.editionService.selectedElements[0].Color ,
                     'border-color': this.editionService.selectedElements[0].BorderColor}">
@@ -22,22 +22,32 @@
                       <text x="50%" y="50%" dominant-baseline="middle"
                             text-anchor="middle">{{this.selectedItem ===b ? this.elementFormDisplayedWordField :b.DisplayedText}}</text>
                     </svg>
-
                   </div>
-                </li>
+                  <div class="deleteElement" (click)="deleteElementForm(b)">
+                    <div class="image haveBackgroundImage" [style.background-image]="this.getIcon('delete')"></div>
+                  </div>
+                  </div>
               </ng-container>
-              <li class="variantList width-100">
-                <div class="element addButton" (click)="this.selectNewForm()">
+                <ng-container *ngIf="this.currentMode==='addNew'">
+                <div class="element inModification" [ngStyle]="{'background-color': this.editionService.selectedElements[0].Color ,
+                    'border-color': this.editionService.selectedElements[0].BorderColor}" >
+                  <div class="image haveBackgroundImage" [ngStyle]="{'background-image': getPreviewURL()}"> </div>
 
+                  <svg viewBox="0 0 80 15">
+                    <text x="50%" y="50%" dominant-baseline="middle"
+                          text-anchor="middle">{{this.elementFormDisplayedWordField}}</text>
+                  </svg>
+                </div>
+                </ng-container>
+
+                <div class="element addButton" (click)="this.selectNewForm()">
                   <div class="image haveBackgroundImage" [ngStyle]="{'background-image': getIcon('add')}"> </div>
 
                   <svg viewBox="0 0 80 15">
                     <text x="50%" y="50%" dominant-baseline="middle"
                           text-anchor="middle">ajouter</text>
                   </svg>
-
                 </div>
-              </li>
             </div>
 
 
@@ -46,7 +56,10 @@
             <ng-container *ngIf="this.currentMode !== ''" >
             <div class="floatLeft" style="margin-left: 10px; width: calc(50% - 10px)">
 
-              <div class="tableTitle"> Modifier le mot:</div>
+              <div  [class.tableTitle]="this.currentMode === 'addNew'"> {{getTitle('table')}}</div>
+                <div [class.elementVariantAddNew]="this.currentMode === 'addNew'">
+
+              <div class="tableTitle"> {{getTitle('name')}} </div>
               <div class="variantContainer">
                 <div class="elementVariant">
                   <label class="label" for="displayedName">mot affiché: </label>
@@ -60,7 +73,7 @@
                 </div>
               </div>
 
-              <div class="tableTitle"> Modifier l'image:</div>
+              <div class="tableTitle"> {{getTitle('image')}}</div>
               <div class="variantContainer">
                 <div class="elementVariant">
                 <label class="label" for="imagefromfile">à partir d'un fichier: </label>
@@ -91,8 +104,8 @@
               </div>
               <input type="button" value="enregistrer les modifications" (click)="saveCurrentElementForm()">
             </div>
+            </div>
             </ng-container>
-
 
 
 <!--            ADD A NEW ELEMENT FORM-->

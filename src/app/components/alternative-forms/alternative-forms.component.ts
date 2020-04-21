@@ -33,11 +33,36 @@ export class AlternativeFormsComponent implements OnInit {
   imageSelectionStarted=false;
 
   saveCurrentElementForm(){
-  if (this.selectedItem !== null) {
+  if (this.currentMode === 'modif' && this.selectedItem !== null) {
     this.selectedItem.DisplayedText = this.elementFormDisplayedWordField;
     this.selectedItem.VoiceText = this.elementFormPronouncedWordField;
     if (this.elementFormNameImageURL !== '') {
-      let i = 0;
+    this.selectedItem.ImageID = this.getNewCreatedImageName();
+    } else {
+      this.selectedItem.ImageID = '';
+    }
+  } else if (this.currentMode === 'addNew'){
+    let newElementForm : ElementForm = new ElementForm();
+    newElementForm.DisplayedText = this.elementFormDisplayedWordField;
+    newElementForm.VoiceText = this.elementFormPronouncedWordField;
+    if (this.elementFormNameImageURL !== '') {
+      newElementForm.ImageID = this.getNewCreatedImageName();
+    } else {
+      newElementForm.ImageID = '';
+    }
+    newElementForm.LexicInfos = [];
+    this.editionService.selectedElements[0].ElementFormsList.push(newElementForm);
+  }
+    this.currentMode = '';
+    this.elementFormNameImageURL= '';
+  }
+
+  deleteElementForm( elementForm : ElementForm){
+    this.editionService.selectedElements[0].ElementFormsList = this.editionService.selectedElements[0].ElementFormsList.filter( elt => {return elt !== elementForm});
+  }
+
+  getNewCreatedImageName(){
+    let i = 0;
     while(-1 !== this.boardService.board.ImageList.findIndex( img => {return img.ID === (this.elementFormDisplayedWordField + i)})){
       i++;
     }
@@ -46,9 +71,7 @@ export class AlternativeFormsComponent implements OnInit {
       OriginalName: this.elementFormDisplayedWordField,
       Path: this.elementFormNameImageURL
     });
-    this.selectedItem.ImageID = this.elementFormDisplayedWordField + i;}
-  }
-    this.elementFormNameImageURL= '';
+    return this.elementFormDisplayedWordField + i;
   }
 
   selectNewForm(){
@@ -56,7 +79,23 @@ export class AlternativeFormsComponent implements OnInit {
       this.currentMode = 'addNew';
       this.selectedItem = new ElementForm();
     } else {
+      this.elementFormNameImageURL ='';
+      this.elementFormDisplayedWordField='';
+      this.elementFormPronouncedWordField='';
       this.currentMode = '';
+    }
+  }
+
+  getTitle( s: string){
+    switch(s){
+      case 'name':
+        return this.currentMode==='modif'? 'Modifier le mot:': 'Choisir le mot:';
+      case 'image':
+        return this.currentMode==='modif'? "Modifier l'image:": "Choisir l'image:";
+      case 'table':
+        return this.currentMode==='addNew'? "Ajouter une variante du mot manuelement:": "";
+      default :
+          return '';
     }
   }
 
@@ -160,19 +199,26 @@ export class AlternativeFormsComponent implements OnInit {
   }
 
   getSanitizeURL(elementForm: ElementForm){
-    if( elementForm !== this.selectedItem ||  !this.imageSelectionStarted || this.elementFormNameImageURL===null || this.elementFormNameImageURL==='') {
+    if( elementForm !== this.selectedItem ||
+      !this.imageSelectionStarted ||
+      this.elementFormNameImageURL===null ||
+      this.elementFormNameImageURL==='')
+    {
       let elementImage = this.boardService.board.ImageList.find(image => {
         return image.ID === elementForm.ImageID
-      })
+      });
       if (elementImage !== null && elementImage !== undefined) {
         return 'url(' + elementImage.Path + ')';
       }
       return '';
     } else {
-      return 'url(' + this.elementFormNameImageURL + ')';
+      this.getPreviewURL();
     }
   }
 
+  getPreviewURL(){
+    return 'url(' + this.elementFormNameImageURL + ')';
+  }
 
   /**
    * Set the current preview imageUrl with the image string Url 't' and close the chooseImage panel

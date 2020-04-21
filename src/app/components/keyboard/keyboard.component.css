@@ -87,6 +87,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   visibility: visible;
+  gap: 5px;
 }
 
 .keyboard .wrapper .elementContainer {
@@ -102,12 +103,12 @@
   height: 30px;
   width: 30px;
   margin-top: 5px;
-  margin-right: 7%;
+  margin-right: 5px;
   border: deepskyblue 3px solid;
   background-color: rgba(255, 255, 255, 0.8);
   box-sizing: border-box;
   border-radius: 25%;
-  top: -87%;
+  top: -100%;
   visibility: visible;
 }
 
@@ -124,10 +125,9 @@
   position: relative;
   width: 30px;
   height: 30px;
-  margin-left: 7%;
-  top: -83%;
+  top: -100%;
   background-color: indianred;
-  border-radius: 50%;
+  border-radius: 10px 0 50% 0;
   visibility: visible;
   border-style: solid;
   border-color: darkred;
@@ -144,13 +144,11 @@
 .keyboard .wrapper .elementContainer .elementVisibility {
   cursor: pointer;
   position: relative;
-  float: bottom;
   width: 30px;
   height: 30px;
-  margin-left: 7%;
   top: -30px;
   background-color: lightgrey;
-  border-radius: 50%;
+  border-radius: 0 50% 0 10px;
   visibility: visible;
   border-style: solid;
   border-color: dimgrey;
@@ -179,10 +177,8 @@
 
 .keyboard .wrapper .elementContainer .element {
   cursor: pointer;
-  height: 90%;
-  width: 90%;
-  transform: translateY(5%);
-  margin-left: 5%;
+  height: 100%;
+  width: 100%;
   visibility: visible;
   border-radius: 10px;
   border-style: solid;

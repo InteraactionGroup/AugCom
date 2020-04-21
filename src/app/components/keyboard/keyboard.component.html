@@ -55,7 +55,7 @@
   <!-- the wrapper displayed with elements containing pictogram and corresponding text -->
   <div class="wrapper haveBackgroundImage height-width-100"
        [ngStyle]="{
-          'grid-template-columns': 'repeat('+(this.boardService.sliderValueCol)+', '+(100/(this.boardService.sliderValueCol))+'%)',
+          'grid-template-columns': 'repeat('+(this.boardService.sliderValueCol)+', 1fr)',
           'grid-template-rows': 'repeat(100, '+(100/(this.boardService.sliderValueRow))+'%)',
           'background-image' : this.boardService.background
         }"
@@ -65,12 +65,12 @@
     <ng-container *ngFor="let element of this.getTempList()">
 
       <!-- display elementContainers with element having non empty type-->
-      <div id="{{element.ElementID}}" class="elementContainer floatLeft" *ngIf="element.ElementType!=='empty'">
+      <div id="{{element.ID}}" class="elementContainer floatLeft" *ngIf="element.Type!=='empty'">
 
         <!-- an element composed of a pictogram and a corresponding text-->
-        <div class="element" [class.notsearched]="!isSearched(element)"
-             [class.searched]="this.searchService.searchedPath.includes(element)"
-             [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)"
+        <div class="element" [class.notsearched]="searchStarted()&&!isSearched(element)"
+             [class.searched]="searchStarted()&&isSearched(element)"
+             [class.blurredElt]="element.ID==='#disable'" (click)="this.edit(element)"
              (touchstart)="this.pointerDown(element,0)" (touchend)="this.pointerUp(element,0)"
              (pointerdown)="this.pointerDown(element,1)" (pointerup)="this.pointerUp(element,1)" [ngStyle]="{'background-color': element.Color !== null ? element.Color : 'grey' ,
           'border-color': element.BorderColor === null || element.BorderColor === undefined ? 'black' : element.BorderColor,
