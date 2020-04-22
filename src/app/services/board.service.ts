@@ -25,7 +25,6 @@ export class BoardService {
   currentPath = '#HOME';
 
   currentVerbTerminaison: { currentPerson: string, currentNumber: string } = {currentPerson: '', currentNumber: ''};
-
   currentNounTerminaison: { currentGender: string, currentNumber: string } = {currentGender: '', currentNumber: ''};
 
 

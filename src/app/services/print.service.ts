@@ -40,11 +40,11 @@ export class PrintService {
 
   printDiv() { // todo change this (we could use th eprevious idead instead)
     const wind = window.open();
-    wind.document.body.innerHTML = wind.document.body.innerHTML + '<style>' + this.getCSSKeyboard() + '</style>'
+    wind.document.body.innerHTML = wind.document.body.innerHTML
+      + '<style>' + this.getCSSKeyboard() + '</style>'
       + '<style>' + this.getCSSIndex() + '</style>'
       + this.getAllHTML();
 
-    const container = wind.document.body;
     this.onImagesLoaded(() => {
       wind.print();
     });
@@ -54,22 +54,19 @@ export class PrintService {
   getAllHTML() {
     const root = '';//this.getHTML('.', this.boardService.board.ElementList.filter(elt => elt.ElementFolder === '.'));
     let other = '';
-    this.boardService.board.ElementList.forEach(elt => {
-      if (elt.Type === 'folder') {
 
-        let page: Page = this.boardService.board.PageList.find(p => {return  p.ID === elt.ID});
-        other = other +
-          this.getHTML(elt.ID, this.boardService.board.ElementList.filter(e => {
-              return page.ElementIDsList.includes(e.ID);
-            })
-          );
-      }
+    this.boardService.board.PageList.forEach( p => {
+      other = other +
+        this.getHTML(p.ID, this.boardService.board.ElementList.filter(e => {
+            return p.ElementIDsList.includes(e.ID);
+          })
+        );
     });
+
     return root + other;
   }
 
   getHTML(id, elementList) {
-    console.log(id + ' , ' + elementList);
     return this.wrapperBegin(id) +
       this.innerHTML(elementList) +
       this.wrapperEnd();
