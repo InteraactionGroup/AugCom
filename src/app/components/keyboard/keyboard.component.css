@@ -88,6 +88,7 @@
   overflow-x: hidden;
   visibility: visible;
   gap: 5px;
+  padding-top: 5px;
 }
 
 .keyboard .wrapper .elementContainer {

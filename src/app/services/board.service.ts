@@ -22,7 +22,7 @@ export class BoardService {
   sliderValueCol;
   sliderValueRow;
   board: Grid;
-  currentFolder = '.';
+  currentPath = '#HOME';
 
   currentVerbTerminaison: { currentPerson: string, currentNumber: string } = {currentPerson: '', currentNumber: ''};
 
@@ -31,6 +31,15 @@ export class BoardService {
 
   activatedElement = -1;
 
+
+  getCurrentFolder() {
+    let path = this.currentPath.split('.');
+    if (path != null){
+      return path[path.length-1];
+    } else {
+      return '#HOME';
+    }
+  }
 
   resetBoard() {
     this.board = Board;
@@ -223,22 +232,19 @@ export class BoardService {
     }
   }
   backToPreviousFolder() {
-    const path = this.currentFolder.split('.');
-    let temp = '';
-    const newPath = path.slice(0, path.length - 1);
-    console.log(newPath);
-    let index = 0;
+    const path = this.currentPath.split('.');
+    let temp = '#HOME';
+
+    const newPath = path.slice(1, path.length - 1);
     newPath.forEach(value => {
-        if (index !== 0) {
-          temp = temp + '.' + value;
-        }
-        index++;
-      }
-    );
+      temp = temp + '.' + value;
+    });
+
     if (temp === '') {
-      temp = '.';
+      temp = '#HOME';
     }
-    this.currentFolder = temp;
-    console.log(this.currentFolder);
+
+    this.currentPath = temp;
+    console.log(this.currentPath);
   }
 }

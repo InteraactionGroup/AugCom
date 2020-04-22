@@ -186,11 +186,10 @@ export class KeyboardComponent implements OnInit {
    * @return a list of elements to display in the keyboard
    */
   getNormalTempList() {
-    let currentPage = this.boardService.board.PageList.find( page => {return page.ID === this.boardService.currentFolder});
+    let currentPage = this.boardService.board.PageList.find( page => {return page.ID === this.boardService.getCurrentFolder()});
     return this.boardService.board.ElementList.filter(elt => {
       return (currentPage!==null && currentPage!== undefined) ? currentPage.ElementIDsList.includes(elt.ID) : false;
     });
-    // .slice(0, this.boardService.sliderValueRow * this.boardService.sliderValueCol + (this.boardService.currentFolder !== '.' ? -1 : 0));
   }
 
   /**
@@ -497,8 +496,8 @@ export class KeyboardComponent implements OnInit {
 
         // for folder
       } else if (element.Type === 'folder') {
-        this.boardService.currentFolder = element.ID;
-        console.log(this.boardService.currentFolder);
+        this.boardService.currentPath = this.boardService.currentPath + '.' + element.ID;
+        console.log(this.boardService.currentPath);
 
         // for errors
       } else {

@@ -6,7 +6,7 @@ import {Grid} from '../types';
 @Injectable({
   providedIn: 'root'
 })
-export class CsvReaderService {
+export class CsvReaderService { //TODO modify this class for new file format with Path
 
   speak4Yourself: CSVRecord[];
 
@@ -38,7 +38,7 @@ export class CsvReaderService {
 
       let folder = '';
       if (element.page === 'HOME') {
-        folder = '.';
+        folder = '#HOME';
       } else {
         folder = this.getFolder(element);
       }

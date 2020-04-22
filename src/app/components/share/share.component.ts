@@ -80,7 +80,7 @@ export class ShareComponent implements OnInit {
    * using the image and image name to respectively create imageUrl and element name and keep the same tree aspect
    * @param e, an event containing a zip file
    */
-  exploreZip(zip) {
+  exploreZip(zip) { //TODO change the folderPath implementation
     const zipFolder: JSZip = new JSZip();
     zipFolder.loadAsync(zip.files[0])
       .then(zipFiles => {

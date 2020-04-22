@@ -148,7 +148,7 @@ export class EditionComponent implements OnInit {
             DisplayedText: variant.val,
             VoiceText: variant.val,
             LexicInfos: lexicInfo,
-            ImageID: this.boardService.currentFolder + element.ID
+            ImageID: element.ID
 
           });
         });
@@ -158,7 +158,7 @@ export class EditionComponent implements OnInit {
             DisplayedText: this.editionService.name,
             VoiceText: this.editionService.name,
             LexicInfos: [{default: true}],
-            ImageID: this.boardService.currentFolder + element.ID
+            ImageID: element.ID
           });
         }
       } else {
@@ -185,7 +185,7 @@ export class EditionComponent implements OnInit {
             DisplayedText: this.editionService.name,
             VoiceText: this.editionService.name,
             LexicInfos: [{default: true}],
-            ImageID: this.boardService.currentFolder + element.ID
+            ImageID: element.ID
           });
         }
       }
@@ -199,11 +199,11 @@ export class EditionComponent implements OnInit {
 
 
       this.boardService.board.ImageList = this.boardService.board.ImageList.filter(
-        img => img.ID !== this.boardService.currentFolder + element.ID);
+        img => img.ID !== element.ID);
 
       this.boardService.board.ImageList.push(
         {
-          ID: this.boardService.currentFolder + element.ID,
+          ID: element.ID,
           OriginalName: this.editionService.name,
           Path: this.editionService.imageURL
         });
@@ -280,9 +280,9 @@ export class EditionComponent implements OnInit {
         Path: this.editionService.imageURL
       });
 
-    let currentPage = this.boardService.board.PageList.find(page =>{ return page.ID === this.boardService.currentFolder});
+    let currentPage = this.boardService.board.PageList.find(page =>{ return page.ID === this.boardService.getCurrentFolder()});
     if(currentPage===null || currentPage===undefined){
-      currentPage = {ID: this.boardService.currentFolder, ElementIDsList: []};
+      currentPage = {ID: this.boardService.getCurrentFolder(), ElementIDsList: []};
       this.boardService.board.PageList.push(currentPage);
     }
     currentPage.ElementIDsList.push(tempId);
