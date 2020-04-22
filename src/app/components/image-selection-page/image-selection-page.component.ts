@@ -25,6 +25,7 @@ export class ImageSelectionPageComponent implements OnInit {
   ngOnInit() {
   }
 
+  /*return true if the currentEditPage is the page of appearance*/
   isImageSelectionDisplayed() {
     return this.editionService.currentEditPage === 'Apparence';
   }
@@ -110,6 +111,7 @@ export class ImageSelectionPageComponent implements OnInit {
     this.imageList = tempList.slice(0, 100);
   }
 
+  /*s can be 'inside' or 'border', used to open the corresponding color picker popup  */
   pickAColor(s: string) {
     this.editionService.colorPicked = s;
   }

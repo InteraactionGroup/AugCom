@@ -10,24 +10,13 @@ import {Interaction} from "../../types";
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
-
-  /**
-   * the current Interaction index number
-   * (by default:
-   *      -1 = no interaction selected
-   *      0 = click selected
-   *      1 = longPress selected
-   *      2 = doubleClick selected
-   * )
-   */
-  currentInterractionNumber = -1;
-
   constructor(public getIconService: GeticonService, public parametersService: ParametersService, public editionService: EditionService) {
   }
 
   ngOnInit() {
   }
 
+  /*return true if the currentEditPage is the interaction page*/
   isEventDisplayed() {
     return this.editionService.currentEditPage === 'Interactions';
   }
@@ -35,7 +24,7 @@ export class EventComponent implements OnInit {
   /**
    * Return true if the action identified by actionId exists in the current interaction
    * return false otherwise
-   * @param interractionId
+   * @param interactionId
    * @param actionId, the string identifying an action
    * @return true if the action identified by actionId exists in the current interaction, false otherwise
    */
@@ -48,8 +37,9 @@ export class EventComponent implements OnInit {
     return false;
   }
 
-  getLabel(text: string) {
-    switch (text) {
+  /*get label of the interaction depending on its code name (will be replace by an implementation of multilinguism soon)*/
+  getLabel(codeName: string) {
+    switch (codeName) {
       case 'display':
         return 'ajouter à la phrase';
       case'say':

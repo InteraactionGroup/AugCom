@@ -11,35 +11,17 @@ export class DbnaryService {
   private sparkqlData = null;
   public wordList = [];
   public typeList = [];
-
-  public newList = [];
-
   searchStarted = 0;
 
   constructor(private http: HttpClient) {
   }
 
+  /*1 opens display variant 2 open wordlist*/
   startsearch(i: number) {
     this.searchStarted = i;
   }
 
-  async getTrad(word: string, langFrom: string, langTo) {
-    const query = [
-      'select distinct ?tradword where {{\n' +
-      '?mot ontolex:canonicalForm/ontolex:writtenRep "' + word.toLowerCase() + '"@' + langFrom + '.\n' +
-      '?trad dbnary:isTranslationOf ?mot.\n' +
-      '?trad dbnary:targetLanguage lexvo:' + langTo + '.\n' +
-      '?trad dbnary:writtenForm ?tradword\n' +
-      '}UNION {\n' +
-      '?mot ontolex:canonicalForm/ontolex:writtenRep "' + word.toUpperCase() + '"@' + langFrom + '.\n' +
-      '?trad dbnary:isTranslationOf ?mot.\n' +
-      '?trad dbnary:targetLanguage lexvo:' + langTo + '.\n' +
-      '?trad dbnary:writtenForm ?tradword\n' +
-      '}\n' +
-      '} LIMIT 1'].join(' ');
-    return this.getTradFromSparkql(query);
-  }
-
+  /*get grammatical types of a word*/
   getTypes(word: string) {
 
     const query = [
@@ -69,29 +51,9 @@ export class DbnaryService {
     this.sparkql(query);
   }
 
-  async getTradFromSparkql(query) {
-    const headers = new HttpHeaders({
-      'Content-type': 'application/x-www-form-urlencoded',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': 'true',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT',
-      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
-    });
-    const params = new HttpParams();
-    params.append('format', 'json');
-    const httpOptions = {
-      headers,
-      params,
-      withCreditals: false
-    };
-    const proxy = 'https://cors-anywhere.herokuapp.com/';
-    return this.http.get(proxy + 'http://kaiko.getalp.org/sparql' + '?query=' + encodeURIComponent(query), httpOptions);
-  }
-
+  /*execute given sparql query on dbnary*/
   sparkql(query) {
-
     this.typeList = [];
-
     const headers = new HttpHeaders({
       'Content-type': 'application/x-www-form-urlencoded',
       'Access-Control-Allow-Origin': '*',
@@ -129,10 +91,11 @@ export class DbnaryService {
       );
   }
 
-  getWords(classe) {
+  /*get the words of results with the given grammaticalClass*/
+  getWords(grammaticalClass) {
     this.searchStarted = 1;
     this.sparkqlData.results.bindings.forEach(w => {
-      if (w.po !== undefined && w.po.value === classe) {
+      if (w.po !== undefined && w.po.value === grammaticalClass) {
         const infoList = [];
         if (w.p !== undefined) {
           infoList.push({person: w.p.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
@@ -153,26 +116,21 @@ export class DbnaryService {
 
         }
 
-        if (classe === '-verb-' && this.isIndicativePresent(w)) {
+        if (grammaticalClass === '-verb-' && this.isIndicativePresent(w)) {
           this.wordList.push({val: w.ofo.value, info: infoList, selected: false});
-        } else if (classe !== '-verb-') {
+        } else if (grammaticalClass !== '-verb-') {
           this.wordList.push({val: w.ofo.value, info: infoList, selected: false});
         }
       }
     });
     this.searchStarted = 0;
   }
-
+  /*return true if the given verb is present of indicative */
   isIndicativePresent(verb): boolean {
     return (
       verb.t !== undefined && verb.t.value === 'http://www.lexinfo.net/ontology/2.0/lexinfo#present' &&
       verb.vFM !== undefined && verb.vFM.value === 'http://www.lexinfo.net/ontology/2.0/lexinfo#indicative'
     );
-  }
-
-  unselect() {
-    this.newList.forEach(word => word.selected = false);
-    this.wordList.forEach(word => word.selected = false);
   }
 }
 

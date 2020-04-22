@@ -9,6 +9,7 @@ import {Ng2ImgMaxService} from "ng2-img-max";
 })
 export class AccountComponent implements OnInit {
 
+  /*menu and submenus of the account settings*/
   menu: [string, string[]][] = [
     ['Compte', ['Informations du compte', 'Gestion des sauvegardes']],
     ['Apparence', ['Apparence générale', 'Gestion des palettes']],
@@ -28,6 +29,7 @@ export class AccountComponent implements OnInit {
   ngOnInit() {
   }
 
+  /*list of menu that are not yet implemented and that are currently displaying the "a venir" page (=soon available)*/
   menuAVenir() {
     return (this.selectedSubMenu === 'Actualités') ||
       (this.selectedSubMenu === 'Informations du compte') ||
@@ -36,6 +38,7 @@ export class AccountComponent implements OnInit {
       (this.selectedSubMenu === 'Contacts');
   }
 
+  /*get title of the page currently displayed*/
   getMenuPageTitle() {
     if (this.selectedMenu === "") {
       return "Paramètres"
@@ -44,6 +47,7 @@ export class AccountComponent implements OnInit {
     }
   }
 
+  /* select the given menu and open first submenu if it exist*/
   selectMenu(menuSelected: string) {
     if (this.selectedMenu === menuSelected) {
       // this.selectedMenu = '';
@@ -59,6 +63,7 @@ export class AccountComponent implements OnInit {
     }
   }
 
+  /*select given submenu of given menu */
   selectSubMenu(menu: string, subMenu: string) {
     this.selectedMenu = menu;
     this.selectedSubMenu = subMenu;

@@ -111,6 +111,7 @@ export class AlternativeFormsComponent implements OnInit {
     }
   }
 
+  /*return true if the page for alternative forms is the currentEditPage*/
   isVariantDisplayed() {
     return this.editionService.currentEditPage === 'Autres formes';
   }

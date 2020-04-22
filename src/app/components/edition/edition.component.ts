@@ -40,6 +40,7 @@ export class EditionComponent implements OnInit {
     });
   }
 
+  /*select given edit page menu item*/
   selectMenu(name: string) {
     this.editionService.currentEditPage = name;
   }
@@ -88,6 +89,7 @@ export class EditionComponent implements OnInit {
     }
   }
 
+  /*open modification for all selected items of the grid*/
   modifyAllButtons() {
     this.editionService.selectedElements.forEach(elt => {
 
@@ -288,7 +290,7 @@ export class EditionComponent implements OnInit {
     currentPage.ElementIDsList.push(tempId);
   }
 
-
+  /* get the default name of an element */
   getName(element: Element) {
     const index = element.ElementFormsList.findIndex(form => form.LexicInfos.findIndex(info => info.default) !== -1);
     if (index !== -1) {
