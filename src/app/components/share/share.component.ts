@@ -5,7 +5,6 @@ import {GeticonService} from '../../services/geticon.service';
 import {saveAs as importedSaveAs} from 'file-saver';
 import * as JSZip from 'jszip';
 import {Router} from '@angular/router';
-import {SnapBarService} from '../../services/snap-bar.service';
 import {PrintService} from '../../services/print.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {CsvReaderService} from '../../services/csv-reader.service';
@@ -13,12 +12,13 @@ import {Traduction} from '../../sparqlJsonResults';
 import {DbnaryService} from '../../services/dbnary.service';
 import {HttpClient} from "@angular/common/http";
 import {Ng2ImgMaxService} from "ng2-img-max";
+import {Element} from "../../types";
 
 @Component({
   selector: 'app-share',
   templateUrl: './share.component.html',
   styleUrls: ['./share.component.css'],
-  providers: [HttpClient, Ng2ImgMaxService, {provide :Router}]
+  providers: [HttpClient, Ng2ImgMaxService]
 })
 export class ShareComponent implements OnInit {
 
@@ -199,18 +199,19 @@ export class ShareComponent implements OnInit {
     fileReader.readAsText(myFile);
   }
 
-  checkAndUpdateElementDefaultForm(element) {
-    const defaultform = element.ElementForms.find(form => {
+  checkAndUpdateElementDefaultForm(element: Element) {
+    const defaultform = element.ElementFormsList.find(form => {
       const newForm = form.LexicInfos.find(info => {
         return (info.default != null && info.default);
       });
       return (newForm != null);
     });
     if (defaultform == null) {
-      element.ElementForms.push({
-        DisplayedText: element.ElementForms[0].DisplayedText,
-        VoiceText: element.ElementForms[0].VoiceText,
-        LexicInfos: [{default: true}]
+      element.ElementFormsList.push({
+        DisplayedText: element.ElementFormsList[0].DisplayedText,
+        VoiceText: element.ElementFormsList[0].VoiceText,
+        LexicInfos: [{default: true}],
+        ImageID: element.ElementFormsList[0].ImageID
       });
     }
   }
