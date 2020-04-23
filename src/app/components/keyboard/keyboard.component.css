@@ -4,7 +4,6 @@
   -moz-user-select: none !important;
   -ms-user-select: none !important;
   user-select: none !important;
-
 }
 
 .editionSettings {
@@ -13,7 +12,6 @@
   margin: 0 0 0 0;
   padding: 0 0 0 0;
 }
-
 
 .editionSettings .selectCheckBox {
   height: 0.8cm;
@@ -82,7 +80,7 @@
   padding: 0 0 0 0;
 }
 
-.keyboard .wrapper{
+.keyboard .wrapper {
   display: grid;
   overflow-y: auto;
   overflow-x: hidden;
@@ -94,7 +92,6 @@
   min-width: 1cm;
   visibility: hidden;
 }
-
 
 .keyboard .wrapper .elementContainer .selectCheckBox {
   position: relative;
@@ -135,11 +132,9 @@
   box-sizing: border-box;
 }
 
-
 .keyboard .wrapper .elementContainer .deleteElement:hover {
   background-color: darkred;
 }
-
 
 .keyboard .wrapper .elementContainer .elementVisibility {
   cursor: pointer;
@@ -158,12 +153,12 @@
   box-sizing: border-box;
 }
 
-
 .keyboard .wrapper .elementContainer .elementVisibility:hover {
   background-color: grey;
 }
 
-.keyboard .wrapper .elementContainer .deleteElement .image, .keyboard .wrapper .elementContainer .elementVisibility .image {
+.keyboard .wrapper .elementContainer .deleteElement .image,
+.keyboard .wrapper .elementContainer .elementVisibility .image {
   width: 70%;
   height: 70%;
   margin-left: 15%;
@@ -171,11 +166,9 @@
   visibility: visible;
 }
 
-
 .keyboard .wrapper .elementContainer .element:hover {
   filter: brightness(80%);
 }
-
 
 .keyboard .wrapper .elementContainer .element {
   cursor: pointer;
@@ -225,11 +218,11 @@ svg {
 }
 
 .keyboard .wrapper .elementContainer .searched:hover {
-  filter: drop-shadow(0 0 20px yellow) saturate(300%)
+  filter: drop-shadow(0 0 20px yellow) saturate(300%);
 }
 
 .keyboard .wrapper .elementContainer .searched {
-  filter: drop-shadow(0 0 20px yellow) saturate(300%)
+  filter: drop-shadow(0 0 20px yellow) saturate(300%);
 }
 
 .keyboard .wrapper .elementContainer .notsearched:hover {
@@ -262,7 +255,7 @@ svg {
   height: 20px;
   background: grey;
   outline: none;
-  -webkit-transition: .2s;
+  -webkit-transition: 0.2s;
   border-radius: 15px;
   outline: none;
   border: none;
@@ -289,7 +282,6 @@ svg {
   outline: none;
   border: none;
 }
-
 
 .gu-mirror {
   position: absolute !important;
@@ -327,7 +319,6 @@ svg {
   visibility: visible;
 }
 
-
 .gu-hide {
   display: contents;
   background-color: darkred;
@@ -345,42 +336,31 @@ svg {
   opacity: 0.4;
 }
 
+/*
 .grid {
   position: relative;
 }
-
 .item {
   display: block;
   position: absolute;
+  width: 100px;
+  height: 100px;
+  margin: 5px;
   z-index: 1;
+  background: white;
+  color: black;
 }
-
+.item.muuri-item-dragging {
+  z-index: 3;
+}
+.item.muuri-item-releasing {
+  z-index: 2;
+}
+.item.muuri-item-hidden {
+  z-index: 0;
+}
 .item-content {
   position: relative;
   width: 100%;
   height: 100%;
-}
-
-
-.item.muuri-item-dragging {
-  z-index: 3;
-}
-
-.item.muuri-item-dragging .item-content {
-  background-image: none;
-  cursor: move;
-}
-
-.item.muuri-item-dragging {
-  -webkit-box-shadow: 0 0 5px 5px rgba(0, 0, 0, .1);
-  box-shadow: 0 0 5px 5px rgba(0, 0, 0, .1);
-}
-
-.item.muuri-item-releasing {
-  z-index: 2;
-}
-
-.item.muuri-item-hidden {
-  z-index: 0;
-}
-
+} */

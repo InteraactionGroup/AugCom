@@ -14,14 +14,14 @@
   </div>
 
   <!-- button used to edit all the selected elements-->
-  <div class="editSettingsButton floatLeft" (click)=this.editAll()>
+  <div class="editSettingsButton floatLeft" (click)="this.editAll()">
     <div class="editButtonLabel floatLeft centerText"> edit selected</div>
     <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('edit')">
     </div>
   </div>
 
   <!-- button used to delete all the selected elements -->
-  <div class="editSettingsButton floatLeft" (click)=this.deleteAll()>
+  <div class="editSettingsButton floatLeft" (click)="this.deleteAll()">
     <div class="editButtonLabel floatLeft centerText"> delete selected</div>
     <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('delete')">
     </div>
@@ -50,6 +50,6 @@
   </div>
 </div>
 
-<!-- the keyboard containing the element wrapper -->
-<!-- TODO enabled drag-n-drop in app-grid -->
-<app-grid [enabled]="this.userToolBarService.edit"></app-grid>
+<app-grid [dragNdrop]="this.enabled"></app-grid>
+
+<app-snap-bar></app-snap-bar>

@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from "@angular/core";
+import { Component, OnInit, NgZone, AfterViewInit } from "@angular/core";
 import { HistoricService } from "../../services/historic.service";
 import { EditionService } from "../../services/edition.service";
 import { BoardService } from "../../services/board.service";
@@ -84,20 +84,22 @@ export class KeyboardComponent implements OnInit {
   /**
    * execute the indexeddbaccessService init fucntion to get the information of the DB or to create new entries if there is no info
    */
+  public enabled: boolean;
   ngOnInit() {
     this.indexeddbaccessService.init();
     // this.initDragAndDrop();
-    this.zone.runOutsideAngular(() =>
-      setTimeout(() => {
-        const grid = new Muuri.default(".grid", {
-          dragEnabled: true,
-          dragSortPredicate: {
-            threshold: 20,
-            action: "move",
-          },
-        });
-      }, 100)
-    );
+    // this.zone.runOutsideAngular(() =>
+    //   setTimeout(() => {
+    //     const grid = new Muuri.default(".grid", {
+    //       dragEnabled: true,
+    //       dragSortPredicate: {
+    //         threshold: 20,
+    //         action: "move",
+    //       },
+    //     });
+    //   }, 100)
+    // );
+    this.enabled = this.userToolBarService.edit;
   }
 
   /**
@@ -169,14 +171,12 @@ export class KeyboardComponent implements OnInit {
    * otherwise return the 'fakeElementTempList' of the element that is displaying its variant forms
    * @return a list of element
    */
-  // TODO get this
-  getTempList(): string {
-    return "[1, 2, 3, 4]";
-    // if (this.boardService.activatedElement === -1) {
-    //   return this.getNormalTempList();
-    // } else {
-    //   return this.fakeElementTempList;
-    // }
+  getTempList() {
+    if (this.boardService.activatedElement === -1) {
+      return this.getNormalTempList();
+    } else {
+      return this.fakeElementTempList;
+    }
   }
 
   /**

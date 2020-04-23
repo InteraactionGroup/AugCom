@@ -7,10 +7,12 @@ import * as Muuri from "muuri";
   styleUrls: ["./grid.component.css"],
 })
 export class GridComponent implements OnInit {
-  @Input() enabled: boolean;
+  @Input() dragNdrop: boolean;
+
   elements = [];
 
   constructor(private zone: NgZone) {
+    // Test
     for (let i = 0; i < 10; i++) {
       this.elements.push(i);
     }
@@ -19,14 +21,10 @@ export class GridComponent implements OnInit {
   ngOnInit(): void {
     this.zone.runOutsideAngular(() =>
       setTimeout(() => {
-        const grid = new Muuri.default(".grid", {
-          // dragEnabled: false
-          // dragSortPredicate: {
-          //   threshold: 20,
-          //   action: "move",
-          // },
+        let grid = new Muuri(".grid", {
+          dragEnabled: this.dragNdrop,
         });
-      }, 100)
+      })
     );
   }
 }
