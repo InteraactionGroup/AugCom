@@ -7,7 +7,7 @@ export class Grid {
   NumberOfCols: number;
   NumberOfRows: number;
 
-  ElementList: Element[];
+  ElementList: GridElement[];
   ImageList: Image[];
   PageList: Page[];
 
@@ -26,7 +26,7 @@ export class Grid {
 /**
  * an element of the Board
  */
-export class Element {
+export class GridElement {
   ID: string;
   Type: string;
   PartOfSpeech: string;

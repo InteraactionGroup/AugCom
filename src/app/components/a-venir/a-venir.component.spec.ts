@@ -26,4 +26,10 @@ describe('AVenirComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should contain proper text in a-venir-text class component', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('.a-venir-text').textContent).toContain('à venir...');
+  });
+
 });

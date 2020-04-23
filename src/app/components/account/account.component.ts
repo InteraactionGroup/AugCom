@@ -52,13 +52,12 @@ export class AccountComponent implements OnInit {
     if (this.selectedMenu === menuSelected) {
       // this.selectedMenu = '';
     } else {
-      this.selectedSubMenu = '';
-      this.selectedMenu = menuSelected;
+      this.selectSubMenu(menuSelected,'');
       let menuElement = this.menu.find(elt => {
         return elt[0] === menuSelected;
       });
       if (menuElement !== null && menuElement[1].length > 0) {
-        this.selectedSubMenu = menuElement[1][0];
+        this.selectSubMenu(menuSelected,menuElement[1][0]);
       }
     }
   }

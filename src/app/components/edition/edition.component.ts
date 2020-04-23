@@ -3,7 +3,7 @@ import {DbnaryService} from '../../services/dbnary.service';
 import {BoardService} from '../../services/board.service';
 import {GeticonService} from '../../services/geticon.service';
 import {DomSanitizer} from '@angular/platform-browser';
-import {Element, ElementForm, Interaction, Page} from '../../types';
+import {GridElement, ElementForm, Interaction, Page} from '../../types';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {Router} from '@angular/router';
 import {PaletteService} from '../../services/palette.service';
@@ -134,7 +134,7 @@ export class EditionComponent implements OnInit {
    */
   modifyButton() {
     if (this.editionService.selectedElements[0] != null && this.editionService.selectedElements[0] !== undefined) {
-      const element: Element = this.editionService.selectedElements[0];
+      const element: GridElement = this.editionService.selectedElements[0];
       element.Type = this.editionService.radioTypeFormat;
 
       if (this.editionService.variantList.length > 0) {
@@ -291,7 +291,7 @@ export class EditionComponent implements OnInit {
   }
 
   /* get the default name of an element */
-  getName(element: Element) {
+  getName(element: GridElement) {
     const index = element.ElementFormsList.findIndex(form => form.LexicInfos.findIndex(info => info.default) !== -1);
     if (index !== -1) {
       return element.ElementFormsList[index].DisplayedText;
@@ -306,7 +306,7 @@ export class EditionComponent implements OnInit {
    */
   updatemodif() {
     if (this.editionService.selectedElements.length === 1) {
-      const elementToModif: Element = this.editionService.selectedElements[0];
+      const elementToModif: GridElement = this.editionService.selectedElements[0];
       this.editionService.name = this.getName(elementToModif);
       this.editionService.curentColor = elementToModif.Color;
       this.editionService.curentBorderColor = elementToModif.BorderColor;

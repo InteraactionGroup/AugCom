@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HistoricService} from '../../services/historic.service';
 import {EditionService} from '../../services/edition.service';
 import {BoardService} from '../../services/board.service';
-import {Action, Element, ElementForm, Vignette} from '../../types';
+import {Action, GridElement, ElementForm, Vignette} from '../../types';
 import {GeticonService} from '../../services/geticon.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
@@ -32,7 +32,7 @@ export class KeyboardComponent implements OnInit {
   /**
    * element currently pressed
    */
-  pressedElement: Element = null;
+  pressedElement: GridElement = null;
   down = 0;
 
   /**
@@ -87,7 +87,7 @@ export class KeyboardComponent implements OnInit {
    * @param  element, the element to test
    * @return  true or false, depending if the element corresponds to the search result
    */
-  isSearched(element: Element) {
+  isSearched(element: GridElement) {
     return   this.searchService.searchedPath.includes(element);
   }
 
@@ -131,7 +131,7 @@ export class KeyboardComponent implements OnInit {
    *
    * @param  element, the element to delete
    */
-  delete(element: Element) {
+  delete(element: GridElement) {
     this.userToolBarService.popup = true;
     this.editionService.delete(element);
   }
@@ -141,7 +141,7 @@ export class KeyboardComponent implements OnInit {
    *
    * @param  element, the element to select
    */
-  select(element: Element) {
+  select(element: GridElement) {
     this.editionService.select(element);
   }
 
@@ -151,7 +151,7 @@ export class KeyboardComponent implements OnInit {
    * otherwise return the 'fakeElementTempList' of the element that is displaying its variant forms
    * @return a list of element
    */
-  getTempList(): Element[]  {
+  getTempList(): GridElement[]  {
     if (this.boardService.activatedElement === -1) {
       return this.getNormalTempList();
     } else {
@@ -165,7 +165,7 @@ export class KeyboardComponent implements OnInit {
    * @param  element, the element for which the shadow is beeing returned
    * @return  the string corresponding to the box-shadow effect
    */
-  getShadow(element: Element) {
+  getShadow(element: GridElement) {
 
     let s = (element.Type === 'folder' ? '3px ' : '0px ') +
       (element.Type === 'folder' ? '-3px ' : '0px ') +
@@ -223,7 +223,7 @@ export class KeyboardComponent implements OnInit {
    * @param element, the element triggering the event
    * @param num, number of the event triggering the action
    */
-  pointerDown(element: Element, num) {
+  pointerDown(element: GridElement, num) {
     this.press[num] = false;
     this.press[(num + 1) % 2] = false;
     this.release[num] = true;
@@ -248,7 +248,7 @@ export class KeyboardComponent implements OnInit {
    * @param element, the element triggering the event
    * @param num, number of the event triggering the action
    */
-  pointerUp(element: Element, num) {
+  pointerUp(element: GridElement, num) {
     this.release[num] = false;
     this.release[(num + 1) % 2] = false;
     this.press[num] = true;
@@ -298,7 +298,7 @@ export class KeyboardComponent implements OnInit {
    * @param element, an element
    * @return the copied element
    */
-  copy(element: Element): Element {
+  copy(element: GridElement): GridElement {
     return {
       ID: element.ID,
       PartOfSpeech: element.PartOfSpeech,
@@ -306,7 +306,7 @@ export class KeyboardComponent implements OnInit {
       ElementFormsList: element.ElementFormsList.copyWithin(0, 0),
       InteractionsList: element.InteractionsList.copyWithin(0, 0),
       Color: element.Color
-    } as Element;
+    } as GridElement;
   }
 
   /**
@@ -339,12 +339,12 @@ export class KeyboardComponent implements OnInit {
       Path: 'assets/icons/retour.svg'
     });
 
-    const temporaryElementList: Element[] = [];
+    const temporaryElementList: GridElement[] = [];
     this.getNormalTempList().forEach(e => temporaryElementList.push(this.copy(e)));
     const index = this.boardService.activatedElement;
     const max: number = Number(Number(index) + 1 + Number(this.boardService.sliderValueCol) + 1);
     for (let newElementIndex = Number(temporaryElementList.length); newElementIndex < max; newElementIndex = newElementIndex + 1) { // fill with empty elements
-      temporaryElementList.push(new Element(
+      temporaryElementList.push(new GridElement(
         '#disable',
         'button',
         '',
@@ -443,7 +443,7 @@ export class KeyboardComponent implements OnInit {
     return places;
   }
 
-  action(element: Element, interaction: string) {
+  action(element: GridElement, interaction: string) {
     if (element.Type !== 'empty' && !(!this.userToolBarService.edit && element.VisibilityLevel!==0 && this.userToolBarService.babble)) {
 
       // for button
@@ -512,7 +512,7 @@ export class KeyboardComponent implements OnInit {
    * open the edition panel to modify the information of element 'element'
    * @param element, the Element we want to edit
    */
-  edit(element: Element) {
+  edit(element: GridElement) {
     if (this.userToolBarService.edit) {
       this.router.navigate(['/edit']).then(() => {
         this.editionService.clearEditionPane();
@@ -533,7 +533,7 @@ export class KeyboardComponent implements OnInit {
    * check if the current element is visible on the board
    * @param element, the element to check
    */
-  isVisible(element: Element) {
+  isVisible(element: GridElement) {
     if (element.VisibilityLevel === undefined) {
       element.VisibilityLevel = 0;
     }
@@ -544,7 +544,7 @@ export class KeyboardComponent implements OnInit {
    * change the current element visibility
    * @param element, the element to change the visibility
    */
-  changeVisibility(element: Element) {
+  changeVisibility(element: GridElement) {
     if (element.VisibilityLevel === undefined) {
       element.VisibilityLevel = 1;
     } else {
@@ -557,7 +557,7 @@ export class KeyboardComponent implements OnInit {
    * @return a string corresponding to the opacity value of the element
    * @param element, the element we compute the opacity
    */
-  getOpacity(element: Element) {
+  getOpacity(element: GridElement) {
     const visible: boolean = this.isVisible(element);
     return !this.userToolBarService.babble ?
       (this.userToolBarService.edit && !visible ? '0.5' : '1') :
@@ -569,7 +569,7 @@ export class KeyboardComponent implements OnInit {
    * @return a string corresponding to the cursor value for the element
    * @param element, the element we compute the cursor used when hover it
    */
-  getCursor(element: Element) {
+  getCursor(element: GridElement) {
     if(element.ID==='#disable'){
       return 'default';
     } else if ((!this.userToolBarService.babble) || this.isVisible(element) || (this.userToolBarService.edit)) {

@@ -12,7 +12,7 @@ import {Traduction} from '../../sparqlJsonResults';
 import {DbnaryService} from '../../services/dbnary.service';
 import {HttpClient} from "@angular/common/http";
 import {Ng2ImgMaxService} from "ng2-img-max";
-import {Element} from "../../types";
+import {GridElement} from "../../types";
 
 @Component({
   selector: 'app-share',
@@ -180,7 +180,7 @@ export class ShareComponent implements OnInit {
   }
 
   /*check if a default form exists for the given element, otherwise create a new one with first displayed text*/
-  checkAndUpdateElementDefaultForm(element: Element) {
+  checkAndUpdateElementDefaultForm(element: GridElement) {
     const defaultform = element.ElementFormsList.find(form => {
       const newForm = form.LexicInfos.find(info => {
         return (info.default != null && info.default);

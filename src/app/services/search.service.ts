@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BoardService} from './board.service';
-import {Element} from "../types";
+import {GridElement} from "../types";
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +10,8 @@ export class SearchService {
   constructor(private boardService: BoardService) {
   }
 
-  searchedWords: Element[] = [];
-  searchedPath: Element[] = [];
+  searchedWords: GridElement[] = [];
+  searchedPath: GridElement[] = [];
 
   searchFor(searchedText: string) {
     this.searchedWords = [];
@@ -38,8 +38,8 @@ export class SearchService {
     }
   }
 
-  recursiveSearch(children: Element[]) {
-    let parents: Element[] = [];
+  recursiveSearch(children: GridElement[]) {
+    let parents: GridElement[] = [];
     console.log(this.searchedPath);
     children.forEach(elt => {
       this.boardService.board.PageList.forEach( page => {

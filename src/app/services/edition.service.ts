@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
-import {Element, Interaction} from '../types';
+import {GridElement, Interaction} from '../types';
 import {PaletteService} from "./palette.service";
 
 @Injectable({
@@ -11,15 +11,15 @@ export class EditionService {
 
   public add = false;
 
-  public ElementListener = new Subject<Element>();
+  public ElementListener = new Subject<GridElement>();
 
-  selectedElements: Element[] = [];
+  selectedElements: GridElement[] = [];
 
   DEFAULT_MULTPLE_NAME = '$different$';
 
   selectAll = false;
 
-  sentencedTodDeleteElement: Element[] = [];
+  sentencedTodDeleteElement: GridElement[] = [];
 
   /**
    * current grammatical class type of the element (empty by default)
@@ -73,7 +73,7 @@ export class EditionService {
   }
 
   clearEditionPane(){
-   this.ElementListener = new Subject<Element>();
+   this.ElementListener = new Subject<GridElement>();
    this.selectedElements = [];
    this.selectAll = false;
    this.sentencedTodDeleteElement = [];
@@ -98,13 +98,13 @@ export class EditionService {
     this.selectAll = !this.selectAll;
   }
 
-  addToSelected(element: Element) {
+  addToSelected(element: GridElement) {
     if (!this.selectedElements.includes(element)) {
       this.selectedElements.push(element);
     }
   }
 
-  select(element: Element) {
+  select(element: GridElement) {
     if (this.selectedElements.includes(element)) {
       this.selectedElements = this.selectedElements.filter(elt => elt !== element);
       this.selectAll = false;
@@ -113,11 +113,11 @@ export class EditionService {
     }
   }
 
-  isSelected(element: Element) {
+  isSelected(element: GridElement) {
     return this.selectedElements.includes(element);
   }
 
-  delete(element: Element) {
+  delete(element: GridElement) {
     this.sentencedTodDeleteElement.push(element);
   }
 
