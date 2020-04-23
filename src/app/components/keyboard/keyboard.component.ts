@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, AfterViewInit } from "@angular/core";
+import { Component, OnInit, NgZone, OnChanges } from "@angular/core";
 import { HistoricService } from "../../services/historic.service";
 import { EditionService } from "../../services/edition.service";
 import { BoardService } from "../../services/board.service";
@@ -84,7 +84,6 @@ export class KeyboardComponent implements OnInit {
   /**
    * execute the indexeddbaccessService init fucntion to get the information of the DB or to create new entries if there is no info
    */
-  public enabled: boolean;
   ngOnInit() {
     this.indexeddbaccessService.init();
     // this.initDragAndDrop();
@@ -99,9 +98,7 @@ export class KeyboardComponent implements OnInit {
     //     });
     //   }, 100)
     // );
-    this.enabled = this.userToolBarService.edit;
   }
-
   /**
    * Return true if the element is part of the search result
    *

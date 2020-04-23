@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
+import { Element } from "../../types";
 
 @Component({
   selector: "app-tile",
@@ -12,13 +13,9 @@ export class TileComponent implements OnInit {
   borderColor: string;
 
   // element var is  a Element class from types.ts
-  @Input() element: any;
+  @Input() element: Element;
 
-  constructor() {
-    if (this.element === undefined) {
-      this.element = "undefined";
-    }
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 }

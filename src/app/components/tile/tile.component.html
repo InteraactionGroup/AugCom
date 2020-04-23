@@ -1,13 +1,25 @@
 <div class="tile">
 
   <!--TODO display elementContainers with element having non empty type -->
-  <p>{{element}}</p>
-  <!--TODO an element composed of a pictogram and a corresponding text -->
+  <div id={{element.ElementID}} class="tile-content" *ngIf="element.ElementType!='empty'">
+    <!--TODO an element composed of a pictogram and a corresponding text -->
+    <div class="image">
+      url = ceci est un url
+    </div>
+    <div class="text">
+      text = ceci est le text associé
+    </div>
+    <!--TODO in edit mode this button is used to delete the associated element -->
+    <div class="deleteElement">
 
-  <!--TODO in edit mode this button is used to delete the associated element -->
+    </div>
+    <!--TODO in edit mode this button is used to select the associated element -->
+    <div class="selectCheckBox">
 
-  <!--TODO in edit mode this button is used to select the associated element -->
+    </div>
+    <!--TODO in edit mode this button is used to change the visibility of the associated element for 'babble' function-->
+    <div class="elementVisibility">
 
-  <!--TODO in edit mode this button is used to change the visibility of the associated element for 'babble' function-->
-
+    </div>
+  </div>
 </div>

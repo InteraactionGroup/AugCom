@@ -1,4 +1,5 @@
 import { Component, OnInit, NgZone, Input } from "@angular/core";
+import { Element } from "../../types";
 import * as Muuri from "muuri";
 
 @Component({
@@ -8,22 +9,24 @@ import * as Muuri from "muuri";
 })
 export class GridComponent implements OnInit {
   @Input() dragNdrop: boolean;
+  @Input() elements: Element[];
 
-  elements = [];
-
-  constructor(private zone: NgZone) {
-    // Test
-    for (let i = 0; i < 10; i++) {
-      this.elements.push(i);
-    }
-  }
+  constructor(private zone: NgZone) {}
 
   ngOnInit(): void {
     this.zone.runOutsideAngular(() =>
       setTimeout(() => {
-        let grid = new Muuri(".grid", {
-          dragEnabled: this.dragNdrop,
-        });
+        let grid = new Muuri(
+          ".grid",
+          {
+            dragEnabled: this.dragNdrop,
+            dragSortPredicate: {
+              threshold: 20,
+              action: "move",
+            },
+          },
+          100
+        );
       })
     );
   }
