@@ -339,6 +339,10 @@ export class EditionComponent implements OnInit {
     }
   }
 
+  /*return true if the page for alternative forms is the currentEditPage*/
+  isDisplayed(page:string) {
+    return this.editionService.currentEditPage === page;
+  }
 
 }
 

@@ -111,11 +111,6 @@ export class AlternativeFormsComponent implements OnInit {
     }
   }
 
-  /*return true if the page for alternative forms is the currentEditPage*/
-  isVariantDisplayed() {
-    return this.editionService.currentEditPage === 'Autres formes';
-  }
-
   /**
    * Actualize the variants forms list (wordList) of the word 'word' with the grammatical type b
    * (ex: displayVariant('-nom-','chien') will actualise the wordList with ['chien','chiens','chienne','chiennes'])

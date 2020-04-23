@@ -51,7 +51,9 @@
       <app-a-venir></app-a-venir>
     </ng-container>
     <app-event></app-event>
-    <app-alternative-forms></app-alternative-forms>
+    <ng-container *ngIf="this.isDisplayed('Autres formes')">
+      <app-alternative-forms></app-alternative-forms>
+    </ng-container>
     <app-image-selection-page></app-image-selection-page>
     <app-information-edition-page></app-information-edition-page>
   </div>
