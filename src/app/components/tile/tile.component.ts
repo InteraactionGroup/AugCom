@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Element } from "../../types";
+import { BoardService } from "src/app/services/board.service";
 
 @Component({
   selector: "app-tile",
@@ -7,15 +8,9 @@ import { Element } from "../../types";
   styleUrls: ["./tile.component.css"],
 })
 export class TileComponent implements OnInit {
-  id: string;
-  type: string;
-  color: string;
-  borderColor: string;
-
-  // element var is  a Element class from types.ts
   @Input() element: Element;
 
-  constructor() {}
+  constructor(public boardService: BoardService) {}
 
   ngOnInit(): void {}
 }

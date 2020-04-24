@@ -21,7 +21,7 @@ import * as Muuri from "muuri";
   styleUrls: ["./keyboard.component.css"],
   providers: [DragulaService, Ng2ImgMaxService],
 })
-export class KeyboardComponent implements OnInit {
+export class KeyboardComponent implements OnInit, OnChanges {
   /**
    * the current pressTimer started when pressing an element and ending on release
    */
@@ -51,7 +51,6 @@ export class KeyboardComponent implements OnInit {
   constructor(
     public dragulaService: DragulaService,
     public searchService: SearchService,
-    private paletteService: PaletteService,
     private router: Router,
     public parametersService: ParametersService,
     public indexeddbaccessService: IndexeddbaccessService,
@@ -59,45 +58,22 @@ export class KeyboardComponent implements OnInit {
     public getIconService: GeticonService,
     public boardService: BoardService,
     public historicService: HistoricService,
-    public editionService: EditionService,
-    private zone: NgZone
-  ) {
-    // this.dragulaSubscription.add(
-    //   this.dragulaService
-    //     .drop("VAMPIRE")
-    //     .subscribe(({ el, target, source, sibling }) => {
-    //       const temp = this.boardService.board.ElementList;
-    //       const i1 = temp.findIndex((elt) => elt.ElementID === el.id);
-    //       let i2 = temp.findIndex((elt) => elt.ElementID === sibling.id);
-    //       // unfortunately dagula is not really adapted to grid display:
-    //       // when we drag an element on an element after the draged one its ok ->
-    //       // but we drag it before it returns the element just after the sibling we want <-
-    //       i2 = i1 < i2 ? i2 - 1 : i2;
-    //       // also here if the element we drop on is the last element then findIndex will return -1
-    //       i2 = i2 >= 0 ? i2 : i2 + this.boardService.board.ElementList.length;
-    //       [temp[i2], temp[i1]] = [temp[i1], temp[i2]];
-    //       this.boardService.board.ElementList = temp;
-    //     })
-    // );
-  }
+    public editionService: EditionService
+  ) {}
 
   /**
    * execute the indexeddbaccessService init fucntion to get the information of the DB or to create new entries if there is no info
    */
+
+  enabled: boolean = false;
+
   ngOnInit() {
     this.indexeddbaccessService.init();
     // this.initDragAndDrop();
-    // this.zone.runOutsideAngular(() =>
-    //   setTimeout(() => {
-    //     const grid = new Muuri.default(".grid", {
-    //       dragEnabled: true,
-    //       dragSortPredicate: {
-    //         threshold: 20,
-    //         action: "move",
-    //       },
-    //     });
-    //   }, 100)
-    // );
+    this.enabled = this.userToolBarService.edit;
+  }
+  ngOnChanges() {
+    this.enabled = this.userToolBarService.edit;
   }
   /**
    * Return true if the element is part of the search result

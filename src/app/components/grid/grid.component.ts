@@ -1,5 +1,7 @@
-import { Component, OnInit, NgZone, Input } from "@angular/core";
+import { Component, OnInit, NgZone, Input, OnChanges } from "@angular/core";
 import { Element } from "../../types";
+import { UsertoolbarService } from "../../services/usertoolbar.service";
+import { IndexeddbaccessService } from "../../services/indexeddbaccess.service";
 import * as Muuri from "muuri";
 
 @Component({
@@ -7,26 +9,32 @@ import * as Muuri from "muuri";
   templateUrl: "./grid.component.html",
   styleUrls: ["./grid.component.css"],
 })
-export class GridComponent implements OnInit {
-  @Input() dragNdrop: boolean;
+export class GridComponent implements OnInit, OnChanges {
   @Input() elements: Element[];
 
-  constructor(private zone: NgZone) {}
+  grid: any;
+  items: any;
+
+  constructor(
+    private zone: NgZone,
+    private indexeddbaccessService: IndexeddbaccessService,
+    public userToolbarService: UsertoolbarService
+  ) {
+    Muuri.defaultOptions.dragSortPredicate.action = "swap";
+  }
 
   ngOnInit(): void {
+    this.grid = new Muuri(".grid");
+    this.indexeddbaccessService.init();
+  }
+
+  ngOnChanges(): void {
     this.zone.runOutsideAngular(() =>
       setTimeout(() => {
-        let grid = new Muuri(
-          ".grid",
-          {
-            dragEnabled: this.dragNdrop,
-            dragSortPredicate: {
-              threshold: 20,
-              action: "move",
-            },
-          },
-          100
-        );
+        this.grid.destroy();
+        this.grid = new Muuri(".grid", {
+          dragEnabled: this.userToolbarService.edit,
+        });
       })
     );
   }
