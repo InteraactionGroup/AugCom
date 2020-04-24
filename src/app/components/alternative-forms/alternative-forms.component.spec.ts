@@ -6,6 +6,7 @@ import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {Ng2ImgMaxModule} from "ng2-img-max";
 import {GridElement} from "../../types";
+import {By} from "protractor";
 
 function createElement(component: any, id: any, numberOfElementForms: number) {
   let elementForms = [];
@@ -25,7 +26,7 @@ function createElement(component: any, id: any, numberOfElementForms: number) {
       'white',
       'black',
       0,
-      [],
+      elementForms,
       [])
   );
 }
@@ -64,6 +65,8 @@ describe('AlternativeFormsComponent', () => {
     component.editionService.selectedElements = [];
     fixture.detectChanges();
     expect(compiled.querySelector('app-error-on-edit')).not.toBe(null);
+    expect(compiled.querySelector('.tableTitle')).toBe(null);
+    expect(compiled.querySelector('.alternativeElementVariant')).toBe(null);
   });
 
   it('should not display app-error-on-edit if an element exists', () => {
@@ -72,6 +75,79 @@ describe('AlternativeFormsComponent', () => {
     createElements(component,1,1);
     fixture.detectChanges();
     expect(compiled.querySelector('app-error-on-edit')).toBe(null);
+    expect(compiled.querySelector('.tableTitle')).not.toBe(null);
+    expect(compiled.querySelector('.alternativeElementVariant')).not.toBe(null);
+    expect(compiled.querySelectorAll('.addButton')).not.toBe(null);
+  });
+
+  it('should create the good number of previewed elements for one element selected', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    component.editionService.selectedElements = [];
+    createElements(component,1,10);
+    fixture.detectChanges();
+    expect(compiled.querySelectorAll('.elementContainer').length).toEqual(10);
+  });
+
+  it('should create the good number of previewed elements for one element selected', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    component.editionService.selectedElements = [];
+    createElements(component,1,0);
+    fixture.detectChanges();
+    expect(compiled.querySelectorAll('.elementContainer').length).toEqual(0);
+    expect(compiled.querySelectorAll('.addButton')).not.toBe(null);
+  });
+
+  it('should create the good number of previewed elements for more than one elements selected', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    component.editionService.selectedElements = [];
+    createElements(component,5,10);
+    fixture.detectChanges();
+    expect(compiled.querySelector('.tableTitle').textContent).toContain("L'édition des variantes des mots est impossible si plus d'un élément a été sélectionné.");
+    expect(compiled.querySelector('.alternativeElementVariant')).toBe(null);
+    expect(compiled.querySelector('.elementContainer')).toBe(null);
+  });
+
+  it('should create a new variant if addButton and enregistrer les modifications button are pressed', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    component.editionService.selectedElements = [];
+    createElements(component,1,10);
+    fixture.detectChanges();
+    compiled.querySelector('.addButton').click();
+    fixture.detectChanges();
+    compiled.querySelector('#saveAlternativeFormModifButton').click();
+    fixture.detectChanges();
+    expect(compiled.querySelectorAll('.elementContainer').length).toEqual(11);
+  });
+
+  it('should create the first new variant if addButton and enregistrer les modifications button are pressed and there was no variant before', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    component.editionService.selectedElements = [];
+    createElements(component,1,0);
+    fixture.detectChanges();
+    compiled.querySelector('.addButton').click();
+    fixture.detectChanges();
+    compiled.querySelector('#saveAlternativeFormModifButton').click();
+    fixture.detectChanges();
+    expect(compiled.querySelectorAll('.elementContainer').length).toEqual(1);
+  });
+
+  it('should create add the corresponding new created element to the elementFormsList', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    component.editionService.selectedElements = [];
+    createElements(component,1,0);
+    fixture.detectChanges();
+    compiled.querySelector('.addButton').click();
+    fixture.detectChanges();
+    component.elementFormDisplayedWordField = 'newDisplayedWordTest';
+    component.elementFormPronouncedWordField = 'newPronouncedWordTest';
+    component.elementFormNameImageURL = 'assets/libs/mulberry-symbols/En-symbols/test.svg'
+    compiled.querySelector('#saveAlternativeFormModifButton').click();
+    fixture.detectChanges();
+    expect(component.editionService.selectedElements[0].ElementFormsList[0].DisplayedText).toEqual('newDisplayedWordTest');
+    expect(component.editionService.selectedElements[0].ElementFormsList[0].VoiceText).toEqual('newPronouncedWordTest');
+    let relatedImage = component.boardService.board.ImageList.find( image => {return image.Path === 'assets/libs/mulberry-symbols/En-symbols/test.svg'});
+    expect(component.editionService.selectedElements[0].ElementFormsList[0].ImageID).toEqual(relatedImage.ID);
+    expect(relatedImage).not.toBe(null);
   });
 
 });

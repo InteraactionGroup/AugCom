@@ -1,10 +1,15 @@
   <div class="page">
 
     <div class="page-content" style="height: 100%">
-      <ng-container *ngIf="this.editionService.selectedElements.length<=0">
-         <app-error-on-edit></app-error-on-edit>
+      <ng-container *ngIf="this.editionService.selectedElements.length <= 0">
+        <app-error-on-edit></app-error-on-edit>
       </ng-container>
-      <ng-container *ngIf="this.editionService.selectedElements.length>0">
+      <ng-container *ngIf="this.editionService.selectedElements.length > 1">
+        <div class="tableTitle" style="text-align: center; color: indianred">
+          L'édition des variantes des mots est impossible si plus d'un élément a été sélectionné.
+        </div>
+      </ng-container>
+      <ng-container *ngIf="this.editionService.selectedElements.length === 1">
         <div class="tableTitle">
           Modifier les variantes du mot:
         </div>
@@ -104,7 +109,7 @@
                        (click)="previewMullberry(b)"></div>
                 </ng-container>
               </div>
-              <input type="button" value="enregistrer les modifications" (click)="saveCurrentElementForm()">
+              <input id="saveAlternativeFormModifButton" type="button" value="enregistrer les modifications" (click)="saveCurrentElementForm()">
             </div>
             </div>
             </ng-container>

@@ -28,14 +28,14 @@ export class HistoricService {
 
   clearHistoric() {
     this.historic = [];
-    if (this.speechSynthesis !== null) {
+    if (this.speechSynthesis !== null && this.speechSynthesis !== undefined) {
       this.speechSynthesis.cancel();
     }
   }
 
   backHistoric() {
     this.historic.pop();
-    if (this.speechSynthesis !== null) {
+    if (this.speechSynthesis !== null && this.speechSynthesis !== undefined) {
       this.speechSynthesis.cancel();
     }
   }
