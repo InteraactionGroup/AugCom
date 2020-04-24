@@ -140,6 +140,7 @@ export class EditionComponent implements OnInit {
       element.BorderColor = this.editionService.curentBorderColor;
       element.InteractionsList = Object.assign([], this.editionService.interractionList);
       element.ElementFormsList = Object.assign([], this.editionService.variantList);
+      this.editionService.getDefaultForm(element.ElementFormsList).DisplayedText = this.editionService.name;
 
       this.boardService.board.ImageList = this.boardService.board.ImageList.filter(
         img => img.ID !== element.ID);
@@ -206,15 +207,6 @@ export class EditionComponent implements OnInit {
    return  {ID: this.boardService.getCurrentFolder(), ElementIDsList: []};
   }
 
-  /* get the default name of an element */
-  getName(element: GridElement) {
-    const index = element.ElementFormsList.findIndex(form => form.LexicInfos.findIndex(info => {return info.default}) !== -1);
-    if (index !== -1) {
-      return element.ElementFormsList[index].DisplayedText;
-    }
-    return element.ElementFormsList[0].DisplayedText;
-  }
-
   /**
    * Load the information of the element we have to modify, given by this.userToolBar.modif into the current informations of the class:
    * 'name' is the name of current element to modify, 'events' is the interraction event list, 'color' is its color
@@ -223,7 +215,7 @@ export class EditionComponent implements OnInit {
   updateModifications() {
     if (this.editionService.selectedElements.length === 1) {
       const elementToModif: GridElement = this.editionService.selectedElements[0];
-      this.editionService.name = this.getName(elementToModif);
+      this.editionService.name = this.editionService.getDefaultForm(elementToModif.ElementFormsList).DisplayedText;
       this.editionService.curentColor = elementToModif.Color;
       this.editionService.curentBorderColor = elementToModif.BorderColor;
       this.editionService.radioTypeFormat = elementToModif.Type;

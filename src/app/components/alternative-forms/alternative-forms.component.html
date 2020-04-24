@@ -17,7 +17,7 @@
 
 <!--            DISPLAY TABLE OF EXISTING FORMS-->
             <div class="wrapperPreview centerText floatLeft">
-              <ng-container *ngFor="let b of this.editionService.variantList">
+              <ng-container *ngFor="let b of this.getVariantListExceptDefault()">
                 <div class="elementContainer">
                   <div class="element" [class.inModification]="b===this.selectedItem" (click)="select(b)"
                        [ngStyle]="{'background-color': this.editionService.curentColor ,

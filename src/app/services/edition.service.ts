@@ -72,6 +72,15 @@ export class EditionService {
   constructor(public  paletteService: PaletteService) {
   }
 
+  /* get the default name of an element */
+  getDefaultForm(elementFormList: ElementForm[]): ElementForm {
+    const index = elementFormList.findIndex(form => form.LexicInfos.findIndex(info => {return info.default}) !== -1);
+    if (index !== -1) {
+      return elementFormList[index];
+    }
+    return elementFormList[0];
+  }
+
   clearEditionPane(){
    this.ElementListener = new Subject<GridElement>();
    this.selectedElements = [];

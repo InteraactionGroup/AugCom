@@ -123,6 +123,10 @@ export class AlternativeFormsComponent implements OnInit {
     this.dbnaryService.getWords(classe);
   }
 
+  getVariantListExceptDefault(){
+    let defaultForm = this.editionService.getDefaultForm(this.editionService.variantList);
+    return this.editionService.variantList.filter(variant => {return variant !== defaultForm});
+  }
 
   /**
    * Actualize the grammatical type list (typeList)  of the word 'word'
