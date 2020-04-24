@@ -17,11 +17,11 @@
 
 <!--            DISPLAY TABLE OF EXISTING FORMS-->
             <div class="wrapperPreview centerText floatLeft">
-              <ng-container *ngFor="let b of this.editionService.selectedElements[0].ElementFormsList">
+              <ng-container *ngFor="let b of this.editionService.variantList">
                 <div class="elementContainer">
                   <div class="element" [class.inModification]="b===this.selectedItem" (click)="select(b)"
-                       [ngStyle]="{'background-color': this.editionService.selectedElements[0].Color ,
-                    'border-color': this.editionService.selectedElements[0].BorderColor}">
+                       [ngStyle]="{'background-color': this.editionService.curentColor ,
+                    'border-color': this.editionService.curentBorderColor}">
 
                     <div class="image haveBackgroundImage" [ngStyle]="{'background-image': getSanitizeURL(b)}"> </div>
 
@@ -36,8 +36,8 @@
                   </div>
               </ng-container>
                 <ng-container *ngIf="this.currentMode==='addNew'">
-                <div class="element inModification" [ngStyle]="{'background-color': this.editionService.selectedElements[0].Color ,
-                    'border-color': this.editionService.selectedElements[0].BorderColor}" >
+                <div class="element inModification" [ngStyle]="{'background-color': this.editionService.curentColor ,
+                    'border-color': this.editionService.curentBorderColor}" >
                   <div class="image haveBackgroundImage" [ngStyle]="{'background-image': getPreviewURL()}"> </div>
 
                   <svg viewBox="0 0 80 15">

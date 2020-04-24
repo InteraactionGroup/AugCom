@@ -16,11 +16,6 @@ export class EventComponent implements OnInit {
   ngOnInit() {
   }
 
-  /*return true if the currentEditPage is the interaction page*/
-  isEventDisplayed() {
-    return this.editionService.currentEditPage === 'Interactions';
-  }
-
   /**
    * Return true if the action identified by actionId exists in the current interaction
    * return false otherwise

@@ -51,14 +51,14 @@ export class AlternativeFormsComponent implements OnInit {
       newElementForm.ImageID = '';
     }
     newElementForm.LexicInfos = [];
-    this.editionService.selectedElements[0].ElementFormsList.push(newElementForm);
+    this.editionService.variantList.push(newElementForm);
   }
     this.currentMode = '';
     this.elementFormNameImageURL= '';
   }
 
   deleteElementForm( elementForm : ElementForm){
-    this.editionService.selectedElements[0].ElementFormsList = this.editionService.selectedElements[0].ElementFormsList.filter( elt => {return elt !== elementForm});
+    this.editionService.variantList = this.editionService.variantList.filter( elt => {return elt !== elementForm});
   }
 
   getNewCreatedImageName(){

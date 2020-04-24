@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
-import {GridElement, Interaction} from '../types';
+import {ElementForm, GridElement, Interaction} from '../types';
 import {PaletteService} from "./palette.service";
 
 @Injectable({
@@ -40,7 +40,7 @@ export class EditionService {
   /**
    * current list of variant forms for the element (empty by default)
    */
-  variantList = [];
+  variantList: ElementForm[] = [];
 
   /**
    * current imageUrl of the element (empty by default), can be a string or a safe url

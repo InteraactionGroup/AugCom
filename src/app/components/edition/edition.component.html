@@ -47,15 +47,21 @@
   </div>
 
   <div class="rightPane floatLeft">
-    <ng-container *ngIf="this.editionService.currentEditPage==='Grammaire'">
+    <ng-container *ngIf="this.isDisplayed('Grammaire')">
       <app-a-venir></app-a-venir>
     </ng-container>
-    <app-event></app-event>
+    <ng-container *ngIf="this.isDisplayed('Interactions')">
+      <app-event></app-event>
+    </ng-container>
     <ng-container *ngIf="this.isDisplayed('Autres formes')">
       <app-alternative-forms></app-alternative-forms>
     </ng-container>
-    <app-image-selection-page></app-image-selection-page>
-    <app-information-edition-page></app-information-edition-page>
+    <ng-container *ngIf="this.isDisplayed('Apparence')">
+      <app-image-selection-page></app-image-selection-page>
+    </ng-container>
+    <ng-container *ngIf="this.isDisplayed('Informations')">
+      <app-information-edition-page></app-information-edition-page>
+    </ng-container>
   </div>
 
 

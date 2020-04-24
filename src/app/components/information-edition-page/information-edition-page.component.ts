@@ -18,10 +18,6 @@ export class InformationEditionPageComponent implements OnInit {
   ngOnInit() {
   }
 
-  isInformationsDisplayed() {
-    return this.editionService.currentEditPage === 'Informations';
-  }
-
   /**
    * Actualize the grammatical type list (typeList)  of the word 'word'
    * (ex: if word = 'bleu' typeList will be ['-nom-','-adj-'] because bleu can be a noun or an adjective
