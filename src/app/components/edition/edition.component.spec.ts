@@ -32,6 +32,23 @@ function newBoard(component: any) {
   );
 }
 
+function addElementToBoard(component: any) {
+  component.boardService.board.ElementList.push(
+    new GridElement(
+      'elt2',
+      'button',
+      '',
+      'red',
+      'green',
+      0,
+      [{
+        DisplayedText: 'test2BeforeModif',
+        VoiceText: 'test2BeforeModif',
+        LexicInfos: [{default:true}],
+        ImageID: ''}],
+      []));
+}
+
 function clickElementOf(compiled: any, fixture: any, selector: any, textIncluded: any) {
   compiled.querySelectorAll(selector).forEach(
     elt => {
@@ -123,7 +140,7 @@ describe('EditionComponent', () => {
     expect(component.boardService.board.ElementList[1].Color).toBe('white');
   });
 
-  it('should add element to save', () => {
+  it('should modify an element of save', () => {
     const compiled = fixture.debugElement.nativeElement;
     component.editionService.currentEditPage = "";
 
@@ -148,6 +165,95 @@ describe('EditionComponent', () => {
     expect(component.boardService.board.ElementList[0].ElementFormsList[0].DisplayedText).toBe('test');
     expect(component.boardService.board.ElementList[0].BorderColor).toBe('black');
     expect(component.boardService.board.ElementList[0].Color).toBe('white');
+  });
+
+  it('should not modify an element of save if there was no modif on edition panel', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    component.editionService.currentEditPage = "";
+
+    newBoard(component);
+    fixture.detectChanges();
+
+    expect(component.boardService.board.ElementList.length).toBe(1);
+
+    component.editionService.selectedElements = [component.boardService.board.ElementList[0]];
+
+    component.updateModifications();
+
+    component.editionService.add = false;
+
+    compiled.querySelector('.save').click();
+    fixture.detectChanges();
+
+    expect(component.boardService.board.ElementList.length).toBe(1);
+    expect(component.boardService.board.ElementList[0].ElementFormsList[0].DisplayedText).toBe('testBeforeModif');
+    expect(component.boardService.board.ElementList[0].BorderColor).toBe('orange');
+    expect(component.boardService.board.ElementList[0].Color).toBe('yellow');
+  });
+
+  it('should modify multiple element of save but not their name', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    component.editionService.currentEditPage = "";
+
+    newBoard(component);
+    addElementToBoard(component);
+    fixture.detectChanges();
+
+    expect(component.boardService.board.ElementList.length).toBe(2);
+
+    component.editionService.selectedElements = [component.boardService.board.ElementList[0], component.boardService.board.ElementList[1]];
+
+    component.updateModifications();
+
+    component.editionService.add = false;
+    component.editionService.name = 'test';
+    component.editionService.curentBorderColor = 'black';
+    component.editionService.curentColor = 'white';
+
+    compiled.querySelector('.save').click();
+    fixture.detectChanges();
+
+    expect(component.boardService.board.ElementList.length).toBe(2);
+
+    expect(component.boardService.board.ElementList[0].ElementFormsList[0].DisplayedText).toBe('testBeforeModif');
+    expect(component.boardService.board.ElementList[0].BorderColor).toBe('black');
+    expect(component.boardService.board.ElementList[0].Color).toBe('white');
+
+
+    expect(component.boardService.board.ElementList[1].ElementFormsList[0].DisplayedText).toBe('test2BeforeModif');
+    expect(component.boardService.board.ElementList[1].BorderColor).toBe('black');
+    expect(component.boardService.board.ElementList[1].Color).toBe('white');
+  });
+
+  it('should not modify multiple element of save if they have not been modify in edition panel', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    component.editionService.currentEditPage = "";
+
+    newBoard(component);
+    addElementToBoard(component);
+    fixture.detectChanges();
+
+    expect(component.boardService.board.ElementList.length).toBe(2);
+
+    component.editionService.selectedElements = [component.boardService.board.ElementList[0], component.boardService.board.ElementList[1]];
+
+    component.updateModifications();
+
+    component.editionService.add = false;
+
+    compiled.querySelector('.save').click();
+    fixture.detectChanges();
+
+    expect(component.boardService.board.ElementList.length).toBe(2);
+
+    expect(component.boardService.board.ElementList[0].ElementFormsList[0].DisplayedText).toBe('testBeforeModif');
+    expect(component.boardService.board.ElementList[0].BorderColor).toBe('orange');
+    expect(component.boardService.board.ElementList[0].Color).toBe('yellow');
+
+
+    expect(component.boardService.board.ElementList[1].ElementFormsList[0].DisplayedText).toBe('test2BeforeModif');
+    expect(component.boardService.board.ElementList[1].BorderColor).toBe('green');
+    expect(component.boardService.board.ElementList[1].Color).toBe('red');
   });
 
 });
