@@ -1,5 +1,44 @@
 <div class="tile">
-  {{this.element.ElementID}}
-  {{this.boardService.getImgUrl(this.element)}}
 
+  <!--TODO display elementContainers with element having non empty type -->
+  <div id="{{element.ElementID}}" *ngIf="element.ElementType!=='empty'">
+
+    <!--TODO an element composed of a pictogram and a corresponding text -->
+    <div class="element">
+      <div class="pictogram" [ngStyle]="{'background-image': this.boardService.getImgUrl(element) }">
+      </div>
+      <svg viewBox="0 0 30 20">
+        <text x="50%" y="50%" dominant-baseline="middle"
+          text-anchor="middle">{{this.boardService.getLabel(element)}}</text>
+      </svg>
+    </div>
+
+    <!--TODO in edit mode this button is used to delete the associated element -->
+    <div class="delete" *ngIf="this.userToolBarService.edit" (click)="this.delete(element)">
+      <div class="delete-content"></div>
+      <!-- <div class="delete-content" [style.background-image]="this.getIcon('delete')">
+
+      </div> -->
+    </div>
+
+    <!--TODO in edit mode this button is used to select the associated element -->
+    <div class="select" *ngIf="this.userToolBarService.edit" (click)="this.select(element)">
+      <div class="select-content">
+
+      </div>
+      <!-- <div class="image haveBackgroundImage"
+        [style.background-image]="this.editionService.isSelected(element)?this.getIcon('check'):null">
+
+      </div> -->
+    </div>
+
+    <!--TODO in edit mode this button is used to change the visibility of the associated element for 'babble' function-->
+    <div class="visibility" *ngIf="this.userToolBarService.edit" (click)="this.changeVisibility(element)">
+      <div class="visibility-content"></div>
+      <!-- <div class="image haveBackgroundImage"
+        [style.background-image]="this.isVisible(element) ? this.getIcon('hide') : this.getIcon('show')">
+
+      </div> -->
+    </div>
+  </div>
 </div>
