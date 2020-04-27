@@ -33,7 +33,7 @@ function createElement(component: any, id: any, numberOfElementForms: number) {
     new GridElement(
       id,
       'button',
-      [],
+      '',
       'white',
       'black',
       0,

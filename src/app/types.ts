@@ -38,8 +38,8 @@ export class GridElement {
   InteractionsList: Interaction[];
 
 
-  constructor(elementId, elementType, elementPartOfSpeech,
-              color, borderColor, visibilityLevel, elementsForms, interactionList) {
+  constructor(elementId: string, elementType: string, elementPartOfSpeech: string,
+              color: string, borderColor: string, visibilityLevel: number, elementsForms: ElementForm[], interactionList: Interaction[]) {
 
     this.ID = elementId;
     this.Type = elementType;
