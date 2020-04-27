@@ -1,36 +1,42 @@
-import {Injectable} from '@angular/core';
-import {Board} from '../data/ExempleOfBoard';
-import {Element, ElementForm, Grid} from '../types';
-import {DomSanitizer} from '@angular/platform-browser';
-import {EditionService} from './edition.service';
-import {Ng2ImgMaxService} from 'ng2-img-max';
+import { Injectable } from "@angular/core";
+import { Board } from "../data/ExempleOfBoard";
+import { Element, ElementForm, Grid } from "../types";
+import { DomSanitizer } from "@angular/platform-browser";
+import { EditionService } from "./edition.service";
+import { Ng2ImgMaxService } from "ng2-img-max";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class BoardService {
-
-  constructor(public ng2ImgMaxService: Ng2ImgMaxService, public editionService: EditionService,
-              public sanitizer: DomSanitizer) {
+  constructor(
+    public ng2ImgMaxService: Ng2ImgMaxService,
+    public editionService: EditionService,
+    public sanitizer: DomSanitizer
+  ) {
     this.board = Board;
     this.sliderValueCol = this.board.gridColsNumber;
     this.sliderValueRow = this.board.gridRowsNumber;
   }
 
-  background: any = '';
+  background: any = "";
 
   sliderValueCol;
   sliderValueRow;
   board: Grid;
-  currentFolder = '.';
+  currentFolder = ".";
 
-  currentVerbTerminaison: { currentPerson: string, currentNumber: string } = {currentPerson: '', currentNumber: ''};
+  currentVerbTerminaison: { currentPerson: string; currentNumber: string } = {
+    currentPerson: "",
+    currentNumber: "",
+  };
 
-  currentNounTerminaison: { currentGender: string, currentNumber: string } = {currentGender: '', currentNumber: ''};
-
+  currentNounTerminaison: { currentGender: string; currentNumber: string } = {
+    currentGender: "",
+    currentNumber: "",
+  };
 
   activatedElement = -1;
-
 
   resetBoard() {
     this.board = Board;
@@ -38,10 +44,10 @@ export class BoardService {
 
   updateBackground(file) {
     const reader = new FileReader();
-    this.ng2ImgMaxService.resize([file[0]], 1000, 1000).subscribe(result => {
+    this.ng2ImgMaxService.resize([file[0]], 1000, 1000).subscribe((result) => {
       reader.readAsDataURL(result);
       reader.onload = () => {
-        this.background = 'url(' + reader.result + ')';
+        this.background = "url(" + reader.result + ")";
       };
     });
   }
@@ -52,16 +58,22 @@ export class BoardService {
    * @return return the current label of the element
    */
   getLabel(element: Element) {
-
-    if (element.ElementPartOfSpeech === '-verb-') {
-      const verbElement = element.ElementForms.find(elt => this.checkVerbForms(elt));
+    if (element.ElementPartOfSpeech === "-verb-") {
+      const verbElement = element.ElementForms.find((elt) =>
+        this.checkVerbForms(elt)
+      );
       if (verbElement != null) {
         return verbElement.DisplayedText;
       }
     }
 
-    if (element.ElementPartOfSpeech === '-nom-' || element.ElementPartOfSpeech === '-adj-') {
-      const nounElement = element.ElementForms.find(elt => this.checkNounForms(elt));
+    if (
+      element.ElementPartOfSpeech === "-nom-" ||
+      element.ElementPartOfSpeech === "-adj-"
+    ) {
+      const nounElement = element.ElementForms.find((elt) =>
+        this.checkNounForms(elt)
+      );
       if (nounElement != null) {
         return nounElement.DisplayedText;
       }
@@ -75,14 +87,16 @@ export class BoardService {
    * @return return the default label of the element
    */
   getDefaultLabel(element: Element) {
-    const defaultElement = element.ElementForms.find(elt => this.checkDefault(elt));
+    const defaultElement = element.ElementForms.find((elt) =>
+      this.checkDefault(elt)
+    );
     if (defaultElement != null) {
       return defaultElement.DisplayedText;
     } else {
       if (element.ElementForms.length > 0) {
         return element.ElementForms[0].DisplayedText;
       } else {
-        return '';
+        return "";
       }
     }
   }
@@ -95,14 +109,20 @@ export class BoardService {
   checkVerbForms(elt: ElementForm): boolean {
     let person = false;
     let n = false;
-    elt.LexicInfos.forEach(info => {
-      if (!person && info.person != null
-        && info.person === this.currentVerbTerminaison.currentPerson) {
+    elt.LexicInfos.forEach((info) => {
+      if (
+        !person &&
+        info.person != null &&
+        info.person === this.currentVerbTerminaison.currentPerson
+      ) {
         person = true;
       }
 
-      if (!n && info.number != null
-        && info.number === this.currentVerbTerminaison.currentNumber) {
+      if (
+        !n &&
+        info.number != null &&
+        info.number === this.currentVerbTerminaison.currentNumber
+      ) {
         n = true;
       }
     });
@@ -115,18 +135,26 @@ export class BoardService {
    * @return true if elt gender and number information correspond to current gender and number of current Noun Termination
    */
   checkNounForms(elt: ElementForm): boolean {
-    let gender = this.currentNounTerminaison.currentGender === '' ||
-      elt.LexicInfos.find(info => info.gender != null && info.gender !== undefined) === undefined;
+    let gender =
+      this.currentNounTerminaison.currentGender === "" ||
+      elt.LexicInfos.find(
+        (info) => info.gender != null && info.gender !== undefined
+      ) === undefined;
     let n = false;
-    elt.LexicInfos.forEach(info => {
-      if (!gender && info.gender != null
-        && info.gender === this.currentNounTerminaison.currentGender) {
-
+    elt.LexicInfos.forEach((info) => {
+      if (
+        !gender &&
+        info.gender != null &&
+        info.gender === this.currentNounTerminaison.currentGender
+      ) {
         gender = true;
       }
 
-      if (!n && info.number != null
-        && info.number === this.currentNounTerminaison.currentNumber) {
+      if (
+        !n &&
+        info.number != null &&
+        info.number === this.currentNounTerminaison.currentNumber
+      ) {
         n = true;
       }
     });
@@ -140,9 +168,8 @@ export class BoardService {
    */
   checkDefault(elt: ElementForm): boolean {
     let defaultVal = false;
-    elt.LexicInfos.forEach(info => {
-      if (info.default != null
-        && info.default === true) {
+    elt.LexicInfos.forEach((info) => {
+      if (info.default != null && info.default === true) {
         defaultVal = true;
       }
     });
@@ -150,71 +177,78 @@ export class BoardService {
   }
 
   resetTerminaisons() {
-    this.currentVerbTerminaison = {currentPerson: '', currentNumber: ''};
-    this.currentNounTerminaison = {currentGender: '', currentNumber: ''};
+    this.currentVerbTerminaison = { currentPerson: "", currentNumber: "" };
+    this.currentNounTerminaison = { currentGender: "", currentNumber: "" };
   }
 
   resetVerbTerminaisons() {
-    this.currentVerbTerminaison = {currentPerson: '', currentNumber: ''};
+    this.currentVerbTerminaison = { currentPerson: "", currentNumber: "" };
   }
 
   executer() {
     const imageTemp = [];
 
-    this.board.ElementList = this.board.ElementList.filter(x => {
-        let isChildrenOfCondamnedElt = false;
-        this.editionService.sentencedTodDeleteElement.forEach(condamnedElt => {
-          isChildrenOfCondamnedElt = isChildrenOfCondamnedElt ||
-            x.ElementFolder.startsWith(condamnedElt.ElementFolder + condamnedElt.ElementID);
-        });
-        return !isChildrenOfCondamnedElt;
-      }
-    );
+    this.board.ElementList = this.board.ElementList.filter((x) => {
+      let isChildrenOfCondamnedElt = false;
+      this.editionService.sentencedTodDeleteElement.forEach((condamnedElt) => {
+        isChildrenOfCondamnedElt =
+          isChildrenOfCondamnedElt ||
+          x.ElementFolder.startsWith(
+            condamnedElt.ElementFolder + condamnedElt.ElementID
+          );
+      });
+      return !isChildrenOfCondamnedElt;
+    });
 
-    this.board.ElementList = this.board.ElementList.filter(x => {
+    this.board.ElementList = this.board.ElementList.filter((x) => {
       let isCondamned = false;
-      this.editionService.sentencedTodDeleteElement.forEach(condamnedElt => {
+      this.editionService.sentencedTodDeleteElement.forEach((condamnedElt) => {
         isCondamned = isCondamned || x === condamnedElt;
       });
       return !isCondamned;
     });
 
-    this.board.ElementList.forEach(elt => {
-      const res = this.board.ImageList.find(img => img.ImageID === elt.ImageID);
+    this.board.ElementList.forEach((elt) => {
+      const res = this.board.ImageList.find(
+        (img) => img.ImageID === elt.ImageID
+      );
       if (res !== null && res !== undefined) {
         imageTemp.push(res);
       }
     });
     this.board.ImageList = imageTemp;
     this.editionService.sentencedTodDeleteElement = [];
-
   }
 
   getImgUrl(element: Element) {
     if (this.board.ImageList != null) {
-      const path = this.board.ImageList.find(x => x.ImageID === element.ImageID);
+      const path = this.board.ImageList.find(
+        (x) => x.ImageID === element.ImageID
+      );
       if (path !== null && path !== undefined) {
         const s = path.ImagePath;
-        return this.sanitizer.bypassSecurityTrustStyle('url(' + s + ')');
+        return this.sanitizer.bypassSecurityTrustStyle("url(" + s + ")");
       } else {
-        return '';
+        return "";
       }
     } else {
-      return '';
+      return "";
     }
   }
 
   getSimpleImgUrl(element: Element) {
     if (this.board.ImageList != null) {
-      const path = this.board.ImageList.find(x => x.ImageID === element.ImageID);
+      const path = this.board.ImageList.find(
+        (x) => x.ImageID === element.ImageID
+      );
       if (path !== null && path !== undefined) {
         const s = path.ImagePath;
-        return 'url(' + s + ')';
+        return "url(" + s + ")";
       } else {
-        return '';
+        return "";
       }
     } else {
-      return '';
+      return "";
     }
   }
 
@@ -224,20 +258,19 @@ export class BoardService {
   }
 
   backToPreviousFolder() {
-    const path = this.currentFolder.split('.');
-    let temp = '';
+    const path = this.currentFolder.split(".");
+    let temp = "";
     const newPath = path.slice(0, path.length - 1);
     console.log(newPath);
     let index = 0;
-    newPath.forEach(value => {
-        if (index !== 0) {
-          temp = temp + '.' + value;
-        }
-        index++;
+    newPath.forEach((value) => {
+      if (index !== 0) {
+        temp = temp + "." + value;
       }
-    );
-    if (temp === '') {
-      temp = '.';
+      index++;
+    });
+    if (temp === "") {
+      temp = ".";
     }
     this.currentFolder = temp;
     console.log(this.currentFolder);

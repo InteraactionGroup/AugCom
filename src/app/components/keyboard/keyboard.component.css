@@ -336,19 +336,14 @@ svg {
   opacity: 0.4;
 }
 
-/*
-.grid {
+/* .grid {
   position: relative;
 }
 .item {
   display: block;
   position: absolute;
-  width: 100px;
-  height: 100px;
-  margin: 5px;
+  margin: 0.5em;
   z-index: 1;
-  background: white;
-  color: black;
 }
 .item.muuri-item-dragging {
   z-index: 3;

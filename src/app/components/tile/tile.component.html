@@ -1,16 +1,18 @@
-<div class="tile">
+<div class="tile" id="{{element.ElementID}}" *ngIf="element.ElementType!=='empty'"
+  [style.background-image]="this.boardService.getImgUrl(element)">
 
   <!--TODO display elementContainers with element having non empty type -->
-  <div id="{{element.ElementID}}" *ngIf="element.ElementType!=='empty'">
+  <div [class.notsearched]="!isSearched(element)" [class.searched]="this.searchService.searchedPath.includes(element)"
+    [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)"
+    (touchstart)="this.pointerDown(element,0)" (touchend)="this.pointerUp(element,0)"
+    (pointerdown)="this.pointerDown(element,1)" (pointerup)="this.pointerUp(element,1)">
 
     <!--TODO an element composed of a pictogram and a corresponding text -->
-    <div class="element">
-      <div class="pictogram" [ngStyle]="{'background-image': this.boardService.getImgUrl(element) }">
+    <div>
+      <div class="pictogram" [style.background-image]="this.boardService.getImgUrl(element)">
+
       </div>
-      <svg viewBox="0 0 30 20">
-        <text x="50%" y="50%" dominant-baseline="middle"
-          text-anchor="middle">{{this.boardService.getLabel(element)}}</text>
-      </svg>
+      <h3>{{this.boardService.getLabel(element)}}</h3>
     </div>
 
     <!--TODO in edit mode this button is used to delete the associated element -->
