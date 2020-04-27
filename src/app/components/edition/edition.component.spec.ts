@@ -6,7 +6,7 @@ import {FormsModule} from "@angular/forms";
 import {Ng2ImgMaxModule} from "ng2-img-max";
 import {HttpClientModule} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {ElementForm, Grid, GridElement} from "../../types";
+import {Grid, GridElement} from "../../types";
 
 function newBoard(component: any) {
   component.boardService.board = new Grid(
@@ -24,8 +24,9 @@ function newBoard(component: any) {
       [{
         DisplayedText: 'testBeforeModif',
         VoiceText: 'testBeforeModif',
-        LexicInfos: [{default:true}],
-        ImageID: ''}],
+        LexicInfos: [{default: true}],
+        ImageID: ''
+      }],
       [])],
     [],
     []
@@ -44,8 +45,9 @@ function addElementToBoard(component: any) {
       [{
         DisplayedText: 'test2BeforeModif',
         VoiceText: 'test2BeforeModif',
-        LexicInfos: [{default:true}],
-        ImageID: ''}],
+        LexicInfos: [{default: true}],
+        ImageID: ''
+      }],
       []));
 }
 
@@ -61,9 +63,9 @@ function clickElementOf(compiled: any, fixture: any, selector: any, textIncluded
 }
 
 function expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled: any, openElementName: any) {
-  let tabNameList = ['app-event','app-alternative-forms','app-image-selection-page','app-information-edition-page'];
-  tabNameList.forEach( tabName => {
-    if(tabName === openElementName){
+  let tabNameList = ['app-event', 'app-alternative-forms', 'app-image-selection-page', 'app-information-edition-page'];
+  tabNameList.forEach(tabName => {
+    if (tabName === openElementName) {
       expect(compiled.querySelector(tabName)).not.toBe(null);
     } else {
       expect(compiled.querySelector(tabName)).toBe(null);
@@ -79,7 +81,11 @@ describe('EditionComponent', () => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [FormsModule, Ng2ImgMaxModule, HttpClientModule],
-      providers: [ { provide: Router, useClass: class { navigate = jasmine.createSpy("navigate"); } }],
+      providers: [{
+        provide: Router, useClass: class {
+          navigate = jasmine.createSpy("navigate");
+        }
+      }],
       declarations: [EditionComponent]
     })
       .compileComponents();
@@ -99,25 +105,25 @@ describe('EditionComponent', () => {
   it('should display app-event when Interactions is clicked', () => {
     const compiled = fixture.debugElement.nativeElement;
     clickElementOf(compiled, fixture, '.menu-item-title-container', 'Interactions');
-    expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled,'app-event');
+    expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled, 'app-event');
   });
 
   it('should display app-alternative-forms when Autres formes is clicked', () => {
     const compiled = fixture.debugElement.nativeElement;
     clickElementOf(compiled, fixture, '.menu-item-title-container', 'Autres formes');
-    expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled,'app-alternative-forms');
+    expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled, 'app-alternative-forms');
   });
 
   it('should display app-image-selection-page when Apparence is clicked', () => {
     const compiled = fixture.debugElement.nativeElement;
     clickElementOf(compiled, fixture, '.menu-item-title-container', 'Apparence');
-    expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled,'app-image-selection-page');
+    expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled, 'app-image-selection-page');
   });
 
   it('should display app-information-edition-page when Informations is clicked', () => {
     const compiled = fixture.debugElement.nativeElement;
     clickElementOf(compiled, fixture, '.menu-item-title-container', 'Informations');
-    expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled,'app-information-edition-page');
+    expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled, 'app-information-edition-page');
   });
 
   it('should add element to save', () => {

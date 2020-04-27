@@ -22,4 +22,9 @@ describe('ErrorOnEditComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should display the right message', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('.tableTitle').textContent).toContain('Aucun élément à modifier n\'a été selectionné.');
+  });
 });
