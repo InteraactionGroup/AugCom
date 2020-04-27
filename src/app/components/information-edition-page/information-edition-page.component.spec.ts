@@ -27,4 +27,12 @@ describe('InformationEditionPageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should display right labels', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelectorAll('.label').item(0).textContent).toContain("Nom de l'élément:");
+    expect(compiled.querySelectorAll('.label').item(1).textContent).toContain("Type d'élément :");
+  });
+
+
 });

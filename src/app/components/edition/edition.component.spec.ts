@@ -262,4 +262,36 @@ describe('EditionComponent', () => {
     expect(component.boardService.board.ElementList[1].Color).toBe('red');
   });
 
+  it('should change the color value when a color is selected', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    clickElementOf(compiled, fixture, '.menu-item-title-container', 'Apparence');
+    component.editionService.colorPicked = 'inside';
+    component.editionService.selectedPalette='22 magic colors';
+    fixture.detectChanges();
+
+    compiled.querySelector('.color').click();
+    fixture.detectChanges();
+
+    compiled.querySelector('.close').click();
+    fixture.detectChanges();
+
+    expect(component.editionService.curentColor).toEqual('#800000')
+  });
+
+  it('should change the bordercolor value when a bordercolor is selected', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    clickElementOf(compiled, fixture, '.menu-item-title-container', 'Apparence');
+    component.editionService.colorPicked = 'border';
+    component.editionService.selectedPalette='22 magic colors';
+    fixture.detectChanges();
+
+    compiled.querySelector('.color').click();
+    fixture.detectChanges();
+
+    compiled.querySelector('.close').click();
+    fixture.detectChanges();
+
+    expect(component.editionService.curentBorderColor).toEqual('#800000')
+  });
+
 });
