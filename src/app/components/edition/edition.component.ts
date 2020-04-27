@@ -3,7 +3,7 @@ import {DbnaryService} from '../../services/dbnary.service';
 import {BoardService} from '../../services/board.service';
 import {GeticonService} from '../../services/geticon.service';
 import {DomSanitizer} from '@angular/platform-browser';
-import {Element} from '../../types';
+import {Element, ElementForm, Interaction, Page} from '../../types';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {Router} from '@angular/router';
 import {PaletteService} from '../../services/palette.service';
@@ -101,27 +101,28 @@ export class EditionComponent implements OnInit {
       }
 
       if (this.editionService.name !== this.editionService.DEFAULT_MULTPLE_NAME) { // todo there is probably a cleaner way to do it
-        elt.ElementForms.forEach(form => {
+        elt.ElementFormsList.forEach(form => {
           form.LexicInfos.forEach(info => {
             if (info.default) {
               info.default = false;
             }
           });
         });
-        elt.ElementForms.push(
+        elt.ElementFormsList.push(
           {
             DisplayedText: this.editionService.name,
             VoiceText: this.editionService.name,
-            LexicInfos: [{default: true}]
+            LexicInfos: [{default: true}],
+            ImageID: elt.ElementFormsList[0].ImageID
           }
         );
       }
 
 
       if (this.editionService.imageURL !== 'assets/icons/multiple-images.svg') {
-        const img = this.boardService.board.ImageList.find(image => image.ImageID === elt.ImageID);
+        const img = this.boardService.board.ImageList.find(image => image.ID === elt.ElementFormsList[0].ImageID);
         if (img != null) {
-          img.ImagePath = this.editionService.imageURL;
+          img.Path = this.editionService.imageURL;
         }
       }
     });
@@ -134,10 +135,10 @@ export class EditionComponent implements OnInit {
   modifyButton() {
     if (this.editionService.selectedElements[0] != null && this.editionService.selectedElements[0] !== undefined) {
       const element: Element = this.editionService.selectedElements[0];
-      element.ElementType = this.editionService.radioTypeFormat;
+      element.Type = this.editionService.radioTypeFormat;
 
       if (this.editionService.variantList.length > 0) {
-        element.ElementForms = [];
+        element.ElementFormsList = [];
         let defaultExist = false;
         this.editionService.variantList.forEach(variant => {
           const lexicInfo = variant.info;
@@ -145,23 +146,26 @@ export class EditionComponent implements OnInit {
             lexicInfo.push({default: true});
             defaultExist = true;
           }
-          element.ElementForms.push({
+          element.ElementFormsList.push({
             DisplayedText: variant.val,
             VoiceText: variant.val,
-            LexicInfos: lexicInfo
+            LexicInfos: lexicInfo,
+            ImageID: element.ID
+
           });
         });
 
         if (!defaultExist) {
-          element.ElementForms.push({
+          element.ElementFormsList.push({
             DisplayedText: this.editionService.name,
             VoiceText: this.editionService.name,
-            LexicInfos: [{default: true}]
+            LexicInfos: [{default: true}],
+            ImageID: element.ID
           });
         }
       } else {
         let defaultExist = false;
-        element.ElementForms.forEach(elementForm => {
+        element.ElementFormsList.forEach(elementForm => {
           const lexicInfo = elementForm.LexicInfos;
           if (elementForm.DisplayedText === this.editionService.name) {
             const defaultinfo = lexicInfo.find(info => info.default !== undefined);
@@ -179,10 +183,11 @@ export class EditionComponent implements OnInit {
           }
         });
         if (!defaultExist) {
-          element.ElementForms.push({
+          element.ElementFormsList.push({
             DisplayedText: this.editionService.name,
             VoiceText: this.editionService.name,
-            LexicInfos: [{default: true}]
+            LexicInfos: [{default: true}],
+            ImageID: element.ID
           });
         }
       }
@@ -193,16 +198,16 @@ export class EditionComponent implements OnInit {
 
       element.Color = this.editionService.curentColor;
       element.BorderColor = this.editionService.curentBorderColor;
-      element.ImageID = this.boardService.currentFolder + element.ElementID;
+
 
       this.boardService.board.ImageList = this.boardService.board.ImageList.filter(
-        img => img.ImageID !== this.boardService.currentFolder + element.ElementID);
+        img => img.ID !== element.ID);
 
       this.boardService.board.ImageList.push(
         {
-          ImageID: this.boardService.currentFolder + element.ElementID,
-          ImageLabel: this.editionService.name,
-          ImagePath: this.editionService.imageURL
+          ID: element.ID,
+          OriginalName: this.editionService.name,
+          Path: this.editionService.imageURL
         });
     }
   }
@@ -211,8 +216,16 @@ export class EditionComponent implements OnInit {
    * Create a new button and add it to the board, given the information of this class, updated by the edition html panel
    */
   createNewButton() {
-    const elementForms = [];
+    const elementForms: ElementForm[] = [];
     let defaultExist = false;
+
+    let i = 0;
+    let tempId = this.editionService.name;
+    while (this.boardService.board.ElementList.findIndex(elt => elt.ID === tempId) !== -1) {
+      tempId = this.editionService.name + i;
+      i = i + 1;
+    }
+
     this.editionService.variantList.forEach(variant => {
       const lexicInfo = variant.info;
       if (variant.val === this.editionService.name) {
@@ -222,7 +235,8 @@ export class EditionComponent implements OnInit {
       elementForms.push({
         DisplayedText: variant.val,
         VoiceText: variant.val,
-        LexicInfos: lexicInfo
+        LexicInfos: lexicInfo,
+        ImageID: tempId,
       });
     });
 
@@ -230,59 +244,59 @@ export class EditionComponent implements OnInit {
       elementForms.push({
         DisplayedText: this.editionService.name,
         VoiceText: this.editionService.name,
-        LexicInfos: [{default: true}]
+        LexicInfos: [{default: true}],
+        ImageID: tempId,
       });
     }
 
-    const interList = [{
-      InteractionID: 'click', ActionList: [{
-        ActionID: 'display', Action: 'display'
-      }, {
-        ActionID: 'say', Action: 'say'
-      }]
-    }, {
-      InteractionID: 'longPress', ActionList: [{
-        ActionID: 'otherforms', Action: 'otherforms'
-      }]
-    }];
-
-
-    let i = 0;
-    let tempId = this.editionService.name;
-    while (this.boardService.board.ElementList.findIndex(elt => elt.ElementID === tempId) !== -1) {
-      tempId = this.editionService.name + i;
-      i = i + 1;
-    }
+    const interList: Interaction[] = [
+      {ID: 'click',
+      ActionList: [
+                  {ID: 'display', Action: 'display'},
+                  {ID: 'say', Action: 'say'}
+      ]
+      },
+      {ID: 'longPress',
+      ActionList: [
+                  {ID: 'otherforms', Action: 'otherforms'}
+      ]
+      }
+    ];
 
     this.boardService.board.ElementList.push(
       {
-        ElementID: tempId,
-        ElementFolder: this.boardService.currentFolder,
-        ElementType: this.editionService.radioTypeFormat,
-        ElementPartOfSpeech: this.editionService.classe,
-        ElementForms: elementForms,
-        ImageID: this.boardService.currentFolder + tempId,
+        ID: tempId,
+        Type: this.editionService.radioTypeFormat,
+        PartOfSpeech: this.editionService.classe,
+        ElementFormsList: elementForms,
         InteractionsList: interList,
         Color: this.editionService.curentColor,
         BorderColor: this.editionService.curentBorderColor,
-        Visible: true
+        VisibilityLevel: 0
       });
 
     this.boardService.board.ImageList.push(
       {
-        ImageID: this.boardService.currentFolder + tempId,
-        ImageLabel: this.editionService.name,
-        ImagePath: this.editionService.imageURL
+        ID: tempId,
+        OriginalName: this.editionService.name,
+        Path: this.editionService.imageURL
       });
+
+    let currentPage = this.boardService.board.PageList.find(page =>{ return page.ID === this.boardService.getCurrentFolder()});
+    if(currentPage===null || currentPage===undefined){
+      currentPage = {ID: this.boardService.getCurrentFolder(), ElementIDsList: []};
+      this.boardService.board.PageList.push(currentPage);
+    }
+    currentPage.ElementIDsList.push(tempId);
   }
 
   /* get the default name of an element */
   getName(element: Element) {
-    const index = element.ElementForms.findIndex(form => form.LexicInfos.findIndex(info => info.default) !== -1);
+    const index = element.ElementFormsList.findIndex(form => form.LexicInfos.findIndex(info => info.default) !== -1);
     if (index !== -1) {
-      return element.ElementForms[index].DisplayedText;
+      return element.ElementFormsList[index].DisplayedText;
     }
-    return element.ElementForms[0].DisplayedText;
+    return element.ElementFormsList[0].DisplayedText;
   }
 
   /**
@@ -296,10 +310,10 @@ export class EditionComponent implements OnInit {
       this.editionService.name = this.getName(elementToModif);
       this.editionService.curentColor = elementToModif.Color;
       this.editionService.curentBorderColor = elementToModif.BorderColor;
-      this.editionService.radioTypeFormat = elementToModif.ElementType;
-      const imageToModif = this.boardService.board.ImageList.find(x => x.ImageID === elementToModif.ImageID);
+      this.editionService.radioTypeFormat = elementToModif.Type;
+      const imageToModif = this.boardService.board.ImageList.find(x => x.ID === elementToModif.ElementFormsList[0].ImageID);
       if (imageToModif != null && imageToModif !== undefined) {
-        this.editionService.imageURL = imageToModif.ImagePath;
+        this.editionService.imageURL = imageToModif.Path;
       } else {
         this.editionService.imageURL = '';
       }
@@ -309,7 +323,7 @@ export class EditionComponent implements OnInit {
         this.editionService.interractionList = [];
         interactionListToModify.map(val =>
           this.editionService.interractionList.push({
-            InteractionID: val.InteractionID,
+            ID: val.ID,
             ActionList: Object.assign([], val.ActionList)
           }));
       } else {

@@ -13,8 +13,8 @@ export class BoardService {
   constructor(public ng2ImgMaxService: Ng2ImgMaxService, public editionService: EditionService,
               public sanitizer: DomSanitizer) {
     this.board = Board;
-    this.sliderValueCol = this.board.gridColsNumber;
-    this.sliderValueRow = this.board.gridRowsNumber;
+    this.sliderValueCol = this.board.NumberOfCols;
+    this.sliderValueRow = this.board.NumberOfRows;
   }
 
   /*background url value for grid background image*/
@@ -27,9 +27,7 @@ export class BoardService {
   sliderValueRow;
 
   board: Grid;
-
-  currentFolder = '.';
-  currentPath = '';
+  currentPath = '#HOME';
 
   /*the current forms that verb and noun have to use to conjugate*/
   currentVerbTerminaison: { currentPerson: string, currentNumber: string } = {currentPerson: '', currentNumber: ''};
@@ -37,6 +35,16 @@ export class BoardService {
 
   /*element that is displaying its alternative forms*/
   activatedElement = -1;
+
+
+  getCurrentFolder() {
+    let path = this.currentPath.split('.');
+    if (path != null){
+      return path[path.length-1];
+    } else {
+      return '#HOME';
+    }
+  }
 
   /*reset board with default Board value*/
   resetBoard() {
@@ -61,15 +69,15 @@ export class BoardService {
    */
   getLabel(element: Element) {
 
-    if (element.ElementPartOfSpeech === '-verb-') {
-      const verbElement = element.ElementForms.find(elt => this.checkVerbForms(elt));
+    if (element.PartOfSpeech === '-verb-') {
+      const verbElement = element.ElementFormsList.find(elt => this.checkVerbForms(elt));
       if (verbElement != null) {
         return verbElement.DisplayedText;
       }
     }
 
-    if (element.ElementPartOfSpeech === '-nom-' || element.ElementPartOfSpeech === '-adj-') {
-      const nounElement = element.ElementForms.find(elt => this.checkNounForms(elt));
+    if (element.PartOfSpeech === '-nom-' || element.PartOfSpeech === '-adj-') {
+      const nounElement = element.ElementFormsList.find(elt => this.checkNounForms(elt));
       if (nounElement != null) {
         return nounElement.DisplayedText;
       }
@@ -83,12 +91,12 @@ export class BoardService {
    * @return return the default label of the element
    */
   getDefaultLabel(element: Element) {
-    const defaultElement = element.ElementForms.find(elt => this.checkDefault(elt));
+    const defaultElement = element.ElementFormsList.find(elt => this.checkDefault(elt));
     if (defaultElement != null) {
       return defaultElement.DisplayedText;
     } else {
-      if (element.ElementForms.length > 0) {
-        return element.ElementForms[0].DisplayedText;
+      if (element.ElementFormsList.length > 0) {
+        return element.ElementFormsList[0].DisplayedText;
       } else {
         return '';
       }
@@ -172,15 +180,16 @@ export class BoardService {
   executer() {
     const imageTemp = [];
 
-    this.board.ElementList = this.board.ElementList.filter(x => {
-        let isChildrenOfCondamnedElt = false;
-        this.editionService.sentencedTodDeleteElement.forEach(condamnedElt => {
-          isChildrenOfCondamnedElt = isChildrenOfCondamnedElt ||
-            x.ElementFolder.startsWith(condamnedElt.ElementFolder + condamnedElt.ElementID);
-        });
-        return !isChildrenOfCondamnedElt;
-      }
-    );
+    //TODO
+    // this.board.ElementList = this.board.ElementList.filter(x => {
+    //     let isChildrenOfCondamnedElt = false;
+    //     this.editionService.sentencedTodDeleteElement.forEach(condamnedElt => {
+    //       isChildrenOfCondamnedElt = isChildrenOfCondamnedElt ||
+    //         x.ElementFolder.startsWith(condamnedElt.ElementFolder + condamnedElt.ID);
+    //     });
+    //     return !isChildrenOfCondamnedElt;
+    //   }
+    // );
 
     this.board.ElementList = this.board.ElementList.filter(x => {
       let isCondamned = false;
@@ -191,7 +200,7 @@ export class BoardService {
     });
 
     this.board.ElementList.forEach(elt => {
-      const res = this.board.ImageList.find(img => img.ImageID === elt.ImageID);
+      const res = this.board.ImageList.find(img => img.ID === elt.ElementFormsList[0].ImageID);
       if (res !== null && res !== undefined) {
         imageTemp.push(res);
       }
@@ -204,10 +213,14 @@ export class BoardService {
   /*get sanitized image URL of an element*/
   getImgUrl(element: Element) {
     if (this.board.ImageList != null) {
-      const path = this.board.ImageList.find(x => x.ImageID === element.ImageID);
-      if (path !== null && path !== undefined) {
-        const s = path.ImagePath;
-        return this.sanitizer.bypassSecurityTrustStyle('url(' + s + ')');
+      if(element.ElementFormsList.length > 0) {
+        const path = this.board.ImageList.find(x => x.ID === element.ElementFormsList[0].ImageID);
+        if (path !== null && path !== undefined) {
+          const s = path.Path;
+          return this.sanitizer.bypassSecurityTrustStyle('url(' + s + ')');
+        } else {
+          return '';
+        }
       } else {
         return '';
       }
@@ -219,9 +232,9 @@ export class BoardService {
   /*get normal image URL of an element (with no sanitizing)*/
   getSimpleImgUrl(element: Element) {
     if (this.board.ImageList != null) {
-      const path = this.board.ImageList.find(x => x.ImageID === element.ImageID);
+      const path = this.board.ImageList.find(x => x.ID === element.ElementFormsList[0].ImageID);
       if (path !== null && path !== undefined) {
-        const s = path.ImagePath;
+        const s = path.Path;
         return 'url(' + s + ')';
       } else {
         return '';
@@ -233,22 +246,19 @@ export class BoardService {
 
   /*go back to parent folder*/
   backToPreviousFolder() {
-    const path = this.currentFolder.split('.');
-    let temp = '';
-    const newPath = path.slice(0, path.length - 1);
-    console.log(newPath);
-    let index = 0;
+    const path = this.currentPath.split('.');
+    let temp = '#HOME';
+
+    const newPath = path.slice(1, path.length - 1);
     newPath.forEach(value => {
-        if (index !== 0) {
-          temp = temp + '.' + value;
-        }
-        index++;
-      }
-    );
+      temp = temp + '.' + value;
+    });
+
     if (temp === '') {
-      temp = '.';
+      temp = '#HOME';
     }
-    this.currentFolder = temp;
-    console.log(this.currentFolder);
+
+    this.currentPath = temp;
+    console.log(this.currentPath);
   }
 }

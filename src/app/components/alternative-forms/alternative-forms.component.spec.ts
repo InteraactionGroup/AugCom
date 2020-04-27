@@ -4,6 +4,7 @@ import {AlternativeFormsComponent} from './alternative-forms.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import {Ng2ImgMaxModule} from "ng2-img-max";
 
 describe('AlternativeFormsComponent', () => {
   let component: AlternativeFormsComponent;
@@ -12,7 +13,7 @@ describe('AlternativeFormsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [FormsModule, HttpClientModule],
+      imports: [FormsModule, Ng2ImgMaxModule, HttpClientModule],
       declarations: [AlternativeFormsComponent]
     })
       .compileComponents();

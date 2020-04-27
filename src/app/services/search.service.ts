@@ -13,46 +13,53 @@ export class SearchService {
   searchedWords: Element[] = [];
   searchedPath: Element[] = [];
 
-  searchFor(searchedtext) {
+  searchFor(searchedText: string) {
     this.searchedWords = [];
     this.searchedPath = [];
-    if (searchedtext !== '') {
-      const result = this.boardService.board.ElementList.filter(element => element.ElementForms.find(form => form.DisplayedText.startsWith(searchedtext)));
-      if (result !== null) {
-        result.forEach(res => {
-          const path = res.ElementFolder.split('.');
-          path.forEach(elt => {
-              const newelement = this.boardService.board.ElementList.find(e => e.ElementID === elt);
-              if (newelement != null) {
-                this.searchedPath.push(newelement);
-              }
-            }
-          );
-
-          this.searchedWords.push(res);
-          this.searchedPath.push(res);
+    if (searchedText !== '') {
+      this.searchedWords = this.boardService.board.ElementList.filter( elt => {
+        let tempList = elt.ElementFormsList.filter( eltformlist => {
+          return eltformlist.DisplayedText.toLowerCase().includes(searchedText.toLowerCase())
         });
-      }
-      console.log(this.searchedWords);
+        if (tempList !== null) {
+          return tempList.length>0;
+        }
+        return false;
+      })
     }
   }
 
   search(id: string) {
-    this.searchedWords = this.searchedWords.filter(elt => elt.ElementID === id);
+    this.searchedWords = this.searchedWords.filter(elt => elt.ID === id);
     this.searchedPath = [];
+    console.log(this.searchedWords);
     if (this.searchedWords !== null) {
-      this.searchedWords.forEach(res => {
-        const path = res.ElementFolder.split('.');
-        path.forEach(elt => {
-            const newelement = this.boardService.board.ElementList.find(e => e.ElementID === elt);
-            if (newelement != null) {
-              this.searchedPath.push(newelement);
+      this.recursiveSearch(this.searchedWords);
+    }
+  }
+
+  recursiveSearch(children: Element[]) {
+    let parents: Element[] = [];
+    console.log(this.searchedPath);
+    children.forEach(elt => {
+      this.boardService.board.PageList.forEach( page => {
+        if(page.ElementIDsList.includes(elt.ID)){
+          let tempElt = this.boardService.board.ElementList.find( newelt => {
+            return newelt.ID === page.ID;
+          });
+          if(tempElt != null && tempElt != undefined){
+            if (!parents.includes(tempElt) && !this.searchedPath.includes(tempElt)) {
+              parents.push(tempElt);
             }
           }
-        );
-        this.searchedPath.push(res);
-      });
-    }
+        }
+      })
+    });
+
+    this.searchedPath = this.searchedPath.concat(children);
+
+    if(parents.length > 0){this.recursiveSearch(parents);}
+
   }
 
 }

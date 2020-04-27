@@ -5,6 +5,7 @@ import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {Ng2ImgMaxModule} from "ng2-img-max";
+import {Router} from "@angular/router";
 
 describe('ShareComponent', () => {
   let component: ShareComponent;
@@ -13,6 +14,7 @@ describe('ShareComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      providers: [ { provide: Router, useClass: class { navigate = jasmine.createSpy("navigate"); } }],
       imports: [FormsModule, HttpClientModule, Ng2ImgMaxModule],
       declarations: [ShareComponent]
     })

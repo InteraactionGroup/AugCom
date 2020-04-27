@@ -13,6 +13,7 @@ import {Subscription} from 'rxjs';
 import {PaletteService} from '../../services/palette.service';
 import {SearchService} from '../../services/search.service';
 import {Ng2ImgMaxService} from "ng2-img-max";
+import {computeLineHeight} from "html2canvas/dist/types/css/property-descriptors/line-height";
 
 @Component({
   selector: 'app-keyboard',
@@ -53,8 +54,8 @@ export class KeyboardComponent implements OnInit {
       .subscribe(({el, target, source, sibling}) => {
         const temp = this.boardService.board.ElementList;
 
-        const i1 = temp.findIndex(elt => elt.ElementID === el.id);
-        let i2 = temp.findIndex(elt => elt.ElementID === sibling.id);
+        const i1 = temp.findIndex(elt => elt.ID === el.id);
+        let i2 = temp.findIndex(elt => elt.ID === sibling.id);
 
         // unfortunately dagula is not really adapted to grid display:
         // when we drag an element on an element after the draged one its ok ->
@@ -87,8 +88,13 @@ export class KeyboardComponent implements OnInit {
    * @return  true or false, depending if the element corresponds to the search result
    */
   isSearched(element: Element) {
-    return !((this.searchService.searchedPath.length > 0) && (!this.searchService.searchedPath.includes(element)));
+    return   this.searchService.searchedPath.includes(element);
   }
+
+  searchStarted(){
+    return this.searchService.searchedPath.length > 0;
+  }
+
 
   /**
    * Init the dragula Drag n Drop part
@@ -145,7 +151,7 @@ export class KeyboardComponent implements OnInit {
    * otherwise return the 'fakeElementTempList' of the element that is displaying its variant forms
    * @return a list of element
    */
-  getTempList() {
+  getTempList(): Element[]  {
     if (this.boardService.activatedElement === -1) {
       return this.getNormalTempList();
     } else {
@@ -161,15 +167,15 @@ export class KeyboardComponent implements OnInit {
    */
   getShadow(element: Element) {
 
-    let s = (element.ElementType === 'folder' ? '3px ' : '0px ') +
-      (element.ElementType === 'folder' ? '-3px ' : '0px ') +
+    let s = (element.Type === 'folder' ? '3px ' : '0px ') +
+      (element.Type === 'folder' ? '-3px ' : '0px ') +
       '0px ' +
-      (element.ElementType === 'folder' ? '-2px ' : '0px ')
+      (element.Type === 'folder' ? '-2px ' : '0px ')
       + (element.Color === undefined || element.Color == null ? '#d3d3d3' : element.Color);
 
     s = s + ' , ' +
-      (element.ElementType === 'folder' ? '4px ' : '0px ') +
-      (element.ElementType === 'folder' ? '-4px ' : '0px ') +
+      (element.Type === 'folder' ? '4px ' : '0px ') +
+      (element.Type === 'folder' ? '-4px ' : '0px ') +
       (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor);
     return s;
   }
@@ -180,10 +186,10 @@ export class KeyboardComponent implements OnInit {
    * @return a list of elements to display in the keyboard
    */
   getNormalTempList() {
+    let currentPage = this.boardService.board.PageList.find( page => {return page.ID === this.boardService.getCurrentFolder()});
     return this.boardService.board.ElementList.filter(elt => {
-      return this.boardService.currentFolder === elt.ElementFolder;
+      return (currentPage!==null && currentPage!== undefined) ? currentPage.ElementIDsList.includes(elt.ID) : false;
     });
-    // .slice(0, this.boardService.sliderValueRow * this.boardService.sliderValueCol + (this.boardService.currentFolder !== '.' ? -1 : 0));
   }
 
   /**
@@ -294,12 +300,10 @@ export class KeyboardComponent implements OnInit {
    */
   copy(element: Element): Element {
     return {
-      ElementID: element.ElementID,
-      ElementFolder: element.ElementFolder,
-      ElementPartOfSpeech: element.ElementPartOfSpeech,
-      ElementType: element.ElementType,
-      ElementForms: element.ElementForms.copyWithin(0, 0),
-      ImageID: element.ImageID,
+      ID: element.ID,
+      PartOfSpeech: element.PartOfSpeech,
+      Type: element.Type,
+      ElementFormsList: element.ElementFormsList.copyWithin(0, 0),
       InteractionsList: element.InteractionsList.copyWithin(0, 0),
       Color: element.Color
     } as Element;
@@ -315,7 +319,7 @@ export class KeyboardComponent implements OnInit {
     interactions.forEach(inter => {
       const tempAction = [];
       inter.ActionList.forEach(act => {
-        tempAction.push({ActionId: act.ActionID, Action: act.Action});
+        tempAction.push({ActionId: act.ID, Action: act.Action});
       });
       tempInter.push({InteractionID: inter.InteractionID, ActionList: tempAction});
     });
@@ -330,67 +334,68 @@ export class KeyboardComponent implements OnInit {
   activatedElementTempList() {
     this.fakeElementTempList = [];
     this.boardService.board.ImageList.push({
-      ImageID: '#back',
-      ImageLabel: '#back',
-      ImagePath: 'assets/icons/retour.svg'
+      ID: '#back',
+      OriginalName: '#back',
+      Path: 'assets/icons/retour.svg'
     });
-    const tempOtherFOrmList: Element[] = [];
-    this.getNormalTempList().forEach(e => tempOtherFOrmList.push(this.copy(e)));
+
+    const temporaryElementList: Element[] = [];
+    this.getNormalTempList().forEach(e => temporaryElementList.push(this.copy(e)));
     const index = this.boardService.activatedElement;
-    const max: number = Number(Number(index) + Number(this.boardService.sliderValueCol) + 1 - Number(tempOtherFOrmList.length) + 1);
-    for (let newElementIndex = 0; newElementIndex < max; newElementIndex = newElementIndex + 1) { // fill with empty elements
-      tempOtherFOrmList.push(new Element(
-        '',
-        this.boardService.currentFolder,
+    const max: number = Number(Number(index) + 1 + Number(this.boardService.sliderValueCol) + 1);
+    for (let newElementIndex = Number(temporaryElementList.length); newElementIndex < max; newElementIndex = newElementIndex + 1) { // fill with empty elements
+      temporaryElementList.push(new Element(
+        '#disable',
         'button',
         '',
+        'transparent', // to delete later
+        'transparent', // to delete later
+        0,
         [],
-        '',
-        [],
-        '#ffffff', // to delete later
-        '#ffffff', // to delete later
-        false));
+        []));
     }
 
     let indexOfForm = 0;
-    const compElt = tempOtherFOrmList[index];
-    tempOtherFOrmList.forEach(elt => {
-      const tempIndex = tempOtherFOrmList.indexOf(elt);
-      let places = this.createPlaces(index);
-      places = places.slice(0, compElt.ElementForms.length);
+    const compElt = temporaryElementList[index];
+    let places = this.createPlaces(index);
+    places = places.slice(0, compElt.ElementFormsList.length);
+    console.log(places);
+    temporaryElementList.forEach(elt => {
+      const tempIndex = temporaryElementList.indexOf(elt);
+      console.log(tempIndex);
       if (places.includes(tempIndex)) {
-        if (compElt.ElementForms.length > indexOfForm) {
+        if (compElt.ElementFormsList.length > indexOfForm) {
+          elt.ID = compElt.ID;
           elt.Color = compElt.Color;
           elt.BorderColor = compElt.BorderColor;
-          elt.ImageID = '' + compElt.ImageID;
-          elt.ElementType = 'button';
-          elt.ElementForms = [];
-          elt.Visible = true;
-          elt.ElementPartOfSpeech = '' + compElt.ElementPartOfSpeech;
-          elt.ElementForms.push(
+          elt.Type = 'button';
+          elt.ElementFormsList = [];
+          elt.VisibilityLevel = 0;
+          elt.PartOfSpeech = '' + compElt.PartOfSpeech;
+          elt.ElementFormsList.push(
             {
-              DisplayedText: compElt.ElementForms[indexOfForm].DisplayedText,
-              VoiceText: compElt.ElementForms[indexOfForm].VoiceText,
-              LexicInfos: compElt.ElementForms[indexOfForm].LexicInfos
+              DisplayedText: compElt.ElementFormsList[indexOfForm].DisplayedText,
+              VoiceText: compElt.ElementFormsList[indexOfForm].VoiceText,
+              LexicInfos: compElt.ElementFormsList[indexOfForm].LexicInfos,
+              ImageID: '' + compElt.ElementFormsList[indexOfForm].ImageID
             });
-          elt.InteractionsList = tempOtherFOrmList[index].InteractionsList.slice();
-          elt.InteractionsList.push({InteractionID: 'backFromVariant', ActionList: []});
+          elt.InteractionsList = temporaryElementList[index].InteractionsList.slice();
+          elt.InteractionsList.push({ID: 'backFromVariant', ActionList: []});
           indexOfForm = indexOfForm + 1;
         }
       } else if (tempIndex !== index) {
-        elt.ElementID = '#disable';
+        elt.ID = '#disable';
         elt.InteractionsList = [];
       }
     });
 
-    tempOtherFOrmList[index].Color = '#123548';
-    tempOtherFOrmList[index].ImageID = '#back';
-    tempOtherFOrmList[index].ElementPartOfSpeech = '';
-    tempOtherFOrmList[index].InteractionsList = [{InteractionID: 'backFromVariant', ActionList: []}];
-    tempOtherFOrmList[index].ElementForms = [{DisplayedText: 'back', VoiceText: 'back', LexicInfos: []}];
+    temporaryElementList[index].Color = '#123548';
+    temporaryElementList[index].PartOfSpeech = '';
+    temporaryElementList[index].InteractionsList = [{ID: 'backFromVariant', ActionList: []}];
+    temporaryElementList[index].ElementFormsList = [{DisplayedText: 'back', VoiceText: 'back', LexicInfos: [], ImageID: '#back'}];
 
 
-    this.fakeElementTempList = tempOtherFOrmList;
+    this.fakeElementTempList = temporaryElementList;
   }
 
   /**
@@ -398,9 +403,9 @@ export class KeyboardComponent implements OnInit {
    * @param ind, index of an element
    */
   createPlaces(ind: number) {
-    const index = Number(ind);
+    const index: number = Number(ind);
     const slider: number = Number(this.boardService.sliderValueCol);
-    const places = [];
+    let places = [];
 
     if (Math.trunc((index - 1) / slider) === Math.trunc(index / slider)) { // gauche
       places.push(index - 1);
@@ -433,69 +438,70 @@ export class KeyboardComponent implements OnInit {
       places.push(index + slider + 1);
     }
 
+    places = places.filter( val => {return val >= 0 });
+
     return places;
   }
 
   action(element: Element, interaction: string) {
-    if (element.ElementType !== 'empty' && !(!this.userToolBarService.edit && !element.Visible && this.userToolBarService.babble)) {
+    if (element.Type !== 'empty' && !(!this.userToolBarService.edit && element.VisibilityLevel!==0 && this.userToolBarService.babble)) {
 
       // for button
-      if (element.ElementType === 'button') {
+      if (element.Type === 'button') {
 
         const prononcedText = this.boardService.getLabel(element);
         const color = element.Color;
+        const borderColor = element.BorderColor;
         const imgUrl = this.boardService.getImgUrl(element);
         const vignette: Vignette = {
-          VignetteLabel: prononcedText,
-          VignetteImageUrl: imgUrl,
-          VignetteColor: color
+          Label: prononcedText,
+          ImagePath: imgUrl,
+          Color: color,
+          BorderColor: borderColor
         };
         let otherFormsDisplayed = false;
 
         // Depend on the interaction
         element.InteractionsList.forEach(inter => {
-          if (inter.InteractionID === interaction) {
+          if (inter.ID === interaction) {
             inter.ActionList.forEach(action => {
-              if (action.ActionID === 'pronomChangeInfo') {
-                this.changePronomInfo(element.ElementForms[0]);
-              } else if (action.ActionID === 'display') {
+              if (action.ID === 'pronomChangeInfo') {
+                this.changePronomInfo(element.ElementFormsList[0]);
+              } else if (action.ID === 'display') {
                 this.historicService.push(vignette);
-              } else if (action.ActionID === 'say') {
+              } else if (action.ID === 'say') {
                 this.historicService.say('' + prononcedText);
-              } else if (action.ActionID === 'otherforms' && element.ElementForms.length > 2) {
+              } else if (action.ID === 'otherforms' && element.ElementFormsList.length > 1) {
                 otherFormsDisplayed = true;
                 this.boardService.activatedElement = this.getNormalTempList().indexOf(element);
                 this.activatedElementTempList();
                 this.pressedElement = null;
               }
             });
-          } else if (!otherFormsDisplayed && inter.InteractionID === 'backFromVariant') {
+          } else if (!otherFormsDisplayed && inter.ID === 'backFromVariant') {
             this.boardService.activatedElement = -1;
           }
         });
 
         // Always executed
-        if (element.ElementPartOfSpeech != null) {
-          if (element.ElementPartOfSpeech === ('article défini')) {
-            this.changeArticleInfo(element.ElementForms[0]);
-          } else if (element.ElementPartOfSpeech === '-verb-') {
+        if (element.PartOfSpeech != null) {
+          if (element.PartOfSpeech === ('article défini')) {
+            this.changeArticleInfo(element.ElementFormsList[0]);
+          } else if (element.PartOfSpeech === '-verb-') {
             this.boardService.resetVerbTerminaisons();
-          } else if (element.ElementPartOfSpeech === '-nom-') {
-            this.changePronomInfo(element.ElementForms.find(eltF => (eltF.DisplayedText === this.boardService.getLabel(element))));
+          } else if (element.PartOfSpeech === '-nom-') {
+            this.changePronomInfo(element.ElementFormsList.find(eltF => (eltF.DisplayedText === this.boardService.getLabel(element))));
           }
         }
 
         // for folder
-      } else if (element.ElementType === 'folder') {
-        if (element.ElementFolder === '.') {
-          this.boardService.currentFolder = element.ElementFolder + element.ElementID;
-        } else {
-          this.boardService.currentFolder = element.ElementFolder + '.' + element.ElementID;
-        }
+      } else if (element.Type === 'folder') {
+        this.boardService.currentPath = this.boardService.currentPath + '.' + element.ID;
+        console.log(this.boardService.currentPath);
 
         // for errors
       } else {
-        console.error('ElementType : ' + element.ElementType + ' is not supported (supported ElementTypes are "button" or "folder")');
+        console.error('ElementType : ' + element.Type + ' is not supported (supported ElementTypes are "button" or "folder")');
       }
     }
   }
@@ -528,10 +534,10 @@ export class KeyboardComponent implements OnInit {
    * @param element, the element to check
    */
   isVisible(element: Element) {
-    if (element.Visible === undefined) {
-      element.Visible = true;
+    if (element.VisibilityLevel === undefined) {
+      element.VisibilityLevel = 0;
     }
-    return element.Visible;
+    return element.VisibilityLevel === 0;
   }
 
   /**
@@ -539,10 +545,10 @@ export class KeyboardComponent implements OnInit {
    * @param element, the element to change the visibility
    */
   changeVisibility(element: Element) {
-    if (element.Visible === undefined) {
-      element.Visible = false;
+    if (element.VisibilityLevel === undefined) {
+      element.VisibilityLevel = 1;
     } else {
-      element.Visible = !element.Visible;
+      element.VisibilityLevel = (element.VisibilityLevel + 1) % 2;
     }
   }
 
@@ -564,9 +570,13 @@ export class KeyboardComponent implements OnInit {
    * @param element, the element we compute the cursor used when hover it
    */
   getCursor(element: Element) {
-    const visible: boolean = this.isVisible(element);
-    return !this.userToolBarService.babble ? 'pointer' :
-      (visible ? 'pointer' : this.userToolBarService.edit ? 'pointer' : 'default');
+    if(element.ID==='#disable'){
+      return 'default';
+    } else if ((!this.userToolBarService.babble) || this.isVisible(element) || (this.userToolBarService.edit)) {
+      return 'pointer';
+    } else{
+      return 'default';
+    }
   }
 
   /**

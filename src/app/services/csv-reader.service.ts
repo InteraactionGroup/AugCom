@@ -6,7 +6,7 @@ import {Grid} from '../types';
 @Injectable({
   providedIn: 'root'
 })
-export class CsvReaderService {
+export class CsvReaderService { //TODO modify this class for new file format with Path
 
   speak4Yourself: CSVRecord[];
 
@@ -33,35 +33,34 @@ export class CsvReaderService {
   }
 
   generateBoard() {
-    const grille: Grid = new Grid('speak4yourself', [], [], [], 'grid', [12], [12], null);
+    const grille: Grid = new Grid('speak4yourself', 'grid', 12, 12, [], [], []);
     this.speak4Yourself.forEach(element => {
 
       let folder = '';
       if (element.page === 'HOME') {
-        folder = '.';
+        folder = '#HOME';
       } else {
         folder = this.getFolder(element);
       }
 
       const isFolder = this.elementIsFolder(element);
       grille.ElementList.push({
-        ElementID: '' + element.id,
-        ElementFolder: folder,
-        ElementType: isFolder ? 'folder' : 'button',
-        ElementPartOfSpeech: '',
-        ElementForms: [{
+        ID: '' + element.id,
+        Type: isFolder ? 'folder' : 'button',
+        PartOfSpeech: '',
+        ElementFormsList: [{
           DisplayedText: element.mot,
           VoiceText: element.mot,
-          LexicInfos: [{default: true}]
+          LexicInfos: [{default: true}],
+          ImageID: ''
         }],
-        ImageID: '',
         InteractionsList: [{
-          InteractionID: 'click',
-          ActionList: [{ActionID: 'say', Action: 'say'}, {ActionID: 'display', Action: 'display'}]
+          ID: 'click',
+          ActionList: [{ID: 'say', Action: 'say'}, {ID: 'display', Action: 'display'}]
         }],
         Color: isFolder ? '#fda728' : '#fde498',
         BorderColor: 'black',
-        Visible: true
+        VisibilityLevel: 0
       });
     });
 
@@ -79,8 +78,8 @@ export class CsvReaderService {
 
     console.log(maxCol + ' ; ' + maxRow);
 
-    grille.gridRowsNumber = maxRow + 1;
-    grille.gridColsNumber = maxCol;
+    grille.NumberOfRows = maxRow + 1;
+    grille.NumberOfCols = maxCol;
 
     return grille;
   }

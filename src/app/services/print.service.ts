@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BoardService} from './board.service';
-import {Element} from '../types';
+import {Element, Page} from '../types';
 
 @Injectable({
   providedIn: 'root'
@@ -40,11 +40,11 @@ export class PrintService {
 
   printDiv() { // todo change this (we could use th eprevious idead instead)
     const wind = window.open();
-    wind.document.body.innerHTML = wind.document.body.innerHTML + '<style>' + this.getCSSKeyboard() + '</style>'
+    wind.document.body.innerHTML = wind.document.body.innerHTML
+      + '<style>' + this.getCSSKeyboard() + '</style>'
       + '<style>' + this.getCSSIndex() + '</style>'
       + this.getAllHTML();
 
-    const container = wind.document.body;
     this.onImagesLoaded(() => {
       wind.print();
     });
@@ -52,27 +52,21 @@ export class PrintService {
 
 
   getAllHTML() {
-    const root = this.getHTML('.', this.boardService.board.ElementList.filter(elt => elt.ElementFolder === '.'));
+    const root = '';//this.getHTML('.', this.boardService.board.ElementList.filter(elt => elt.ElementFolder === '.'));
     let other = '';
-    this.boardService.board.ElementList.forEach(elt => {
-      if (elt.ElementType === 'folder') {
-        other = other +
-          this.getHTML(elt.ElementFolder !== '.' ? elt.ElementFolder + '.' +
-            elt.ElementID : '.' + elt.ElementID, this.boardService.board.ElementList.filter(e => {
-              if (elt.ElementFolder !== '.') {
-                return e.ElementFolder === (elt.ElementFolder + '.' + elt.ElementID);
-              } else {
-                return e.ElementFolder === ('.' + elt.ElementID);
-              }
-            })
-          );
-      }
+
+    this.boardService.board.PageList.forEach( p => {
+      other = other +
+        this.getHTML(p.ID, this.boardService.board.ElementList.filter(e => {
+            return p.ElementIDsList.includes(e.ID);
+          })
+        );
     });
+
     return root + other;
   }
 
   getHTML(id, elementList) {
-    console.log(id + ' , ' + elementList);
     return this.wrapperBegin(id) +
       this.innerHTML(elementList) +
       this.wrapperEnd();
@@ -85,7 +79,7 @@ export class PrintService {
   }
 
   getShadow(element: Element) {
-    if (element.ElementType === 'folder') {
+    if (element.Type === 'folder') {
       let s = '; box-shadow: 3px -3px 0px -2px ' + (element.Color === undefined || element.Color == null ? '#d3d3d3' : element.Color);
       s = s + ' , 4px -4px ' + (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor);
       return s;
@@ -97,7 +91,7 @@ export class PrintService {
   innerHTML(elementList: Element[]) {
     let innerValue = '';
     elementList.forEach(element => {
-      if (element.ElementType !== 'empty') {
+      if (element.Type !== 'empty') {
         const url = this.boardService.getSimpleImgUrl(element);
         this.urlList.push(url);
         innerValue = innerValue +

@@ -44,7 +44,7 @@ export class HistoricService {
   playHistoric() {
     let text = '';
     for (const historicElement of this.historic) {
-      text = text + ' ' + historicElement.VignetteLabel;
+      text = text + ' ' + historicElement.Label;
     }
     this.say(text);
   }

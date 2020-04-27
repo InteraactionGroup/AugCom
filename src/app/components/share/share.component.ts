@@ -5,7 +5,6 @@ import {GeticonService} from '../../services/geticon.service';
 import {saveAs as importedSaveAs} from 'file-saver';
 import * as JSZip from 'jszip';
 import {Router} from '@angular/router';
-import {SnapBarService} from '../../services/snap-bar.service';
 import {PrintService} from '../../services/print.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {CsvReaderService} from '../../services/csv-reader.service';
@@ -13,12 +12,13 @@ import {Traduction} from '../../sparqlJsonResults';
 import {DbnaryService} from '../../services/dbnary.service';
 import {HttpClient} from "@angular/common/http";
 import {Ng2ImgMaxService} from "ng2-img-max";
+import {Element} from "../../types";
 
 @Component({
   selector: 'app-share',
   templateUrl: './share.component.html',
   styleUrls: ['./share.component.css'],
-  providers: [HttpClient, Ng2ImgMaxService, {provide :Router}]
+  providers: [HttpClient, Ng2ImgMaxService]
 })
 export class ShareComponent implements OnInit {
 
@@ -60,7 +60,7 @@ export class ShareComponent implements OnInit {
    * using the image and image name to respectively create imageUrl and element name and keep the same tree aspect
    * @param e, an event containing a zip file
    */
-  exploreZip(zip) {
+  exploreZip(zip) { //TODO change the folderPath implementation
     const zipFolder: JSZip = new JSZip();
     zipFolder.loadAsync(zip.files[0])
       .then(zipFiles => {
@@ -133,29 +133,28 @@ export class ShareComponent implements OnInit {
   createNewButton(name, imageURL, folder, type) {
     this.boardService.board.ElementList.push(
       {
-        ElementID: name,
-        ElementFolder: folder,
-        ElementType: type,
-        ElementPartOfSpeech: '',
-        ElementForms: [
+        ID: name,
+        Type: type,
+        PartOfSpeech: '',
+        ElementFormsList: [
           {
             DisplayedText: name,
             VoiceText: name,
-            LexicInfos: []
+            LexicInfos: [],
+            ImageID: folder + name,
           }
         ],
-        ImageID: folder + name,
         InteractionsList: [],
         Color: 'lightgrey',
         BorderColor: 'black',
-        Visible: true
+        VisibilityLevel: 0
       });
 
     this.boardService.board.ImageList.push(
       {
-        ImageID: folder + name,
-        ImageLabel: name,
-        ImagePath: imageURL
+        ID: folder + name,
+        OriginalName: name,
+        Path: imageURL
       });
 
     this.indexedDBacess.update(); // TODO alléger un peu l'appel
@@ -181,18 +180,19 @@ export class ShareComponent implements OnInit {
   }
 
   /*check if a default form exists for the given element, otherwise create a new one with first displayed text*/
-  checkAndUpdateElementDefaultForm(element) {
-    const defaultform = element.ElementForms.find(form => {
+  checkAndUpdateElementDefaultForm(element: Element) {
+    const defaultform = element.ElementFormsList.find(form => {
       const newForm = form.LexicInfos.find(info => {
         return (info.default != null && info.default);
       });
       return (newForm != null);
     });
     if (defaultform == null) {
-      element.ElementForms.push({
-        DisplayedText: element.ElementForms[0].DisplayedText,
-        VoiceText: element.ElementForms[0].VoiceText,
-        LexicInfos: [{default: true}]
+      element.ElementFormsList.push({
+        DisplayedText: element.ElementFormsList[0].DisplayedText,
+        VoiceText: element.ElementFormsList[0].VoiceText,
+        LexicInfos: [{default: true}],
+        ImageID: element.ElementFormsList[0].ImageID
       });
     }
   }
