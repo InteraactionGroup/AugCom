@@ -18,7 +18,7 @@ import {BoardService} from "../../services/board.service";
 })
 export class AlternativeFormsComponent implements OnInit {
 
-  constructor(public sanitizer: DomSanitizer, public ng2ImgMaxService: Ng2ImgMaxService, public boardService: BoardService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public editionService: EditionService) {
+  constructor(public ng2ImgMaxService: Ng2ImgMaxService, public boardService: BoardService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public editionService: EditionService) {
   }
 
   ngOnInit() {
@@ -99,13 +99,13 @@ export class AlternativeFormsComponent implements OnInit {
     }
   }
 
-  select(b){
-    if (this.currentMode !== 'modif' || this.selectedItem !== b) {
+  select(itemSelected){
+    if (this.currentMode !== 'modif' || this.selectedItem !== itemSelected) {
       this.currentMode = 'modif'
-      this.selectedItem = b;
+      this.selectedItem = itemSelected;
       this.imageSelectionStarted=false;
-      this.elementFormDisplayedWordField = b.DisplayedText;
-      this.elementFormPronouncedWordField= b.VoiceText;
+      this.elementFormDisplayedWordField = itemSelected.DisplayedText;
+      this.elementFormPronouncedWordField= itemSelected.VoiceText;
     } else {
       this.currentMode = '';
     }

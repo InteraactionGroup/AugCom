@@ -164,6 +164,15 @@ export class EditionComponent implements OnInit {
       i = i + 1;
     }
 
+    this.editionService.variantList.push(
+      {
+        DisplayedText: this.editionService.name,
+        VoiceText: this.editionService.name,
+        LexicInfos: [{default: true}],
+        ImageID: tempId
+      }
+    );
+
     const elementFormsList = Object.assign([], this.editionService.variantList);
 
     const interList: Interaction[] = [
@@ -231,6 +240,7 @@ export class EditionComponent implements OnInit {
       } else {
         this.editionService.variantList =[];
       }
+
 
       if(elementToModif.InteractionsList!=null && elementToModif.InteractionsList!=undefined) {
         this.editionService.interractionList = Object.assign([], elementToModif.InteractionsList);

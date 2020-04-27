@@ -8,6 +8,30 @@ import {HttpClientModule} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {ElementForm, Grid, GridElement} from "../../types";
 
+function newBoard(component: any) {
+  component.boardService.board = new Grid(
+    'gridId',
+    'grid',
+    2,
+    2,
+    [new GridElement(
+      'elt1',
+      'button',
+      '',
+      'yellow',
+      'orange',
+      0,
+      [{
+        DisplayedText: 'testBeforeModif',
+        VoiceText: 'testBeforeModif',
+        LexicInfos: [{default:true}],
+        ImageID: ''}],
+      [])],
+    [],
+    []
+  );
+}
+
 function clickElementOf(compiled: any, fixture: any, selector: any, textIncluded: any) {
   compiled.querySelectorAll(selector).forEach(
     elt => {
@@ -79,59 +103,46 @@ describe('EditionComponent', () => {
     expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled,'app-information-edition-page');
   });
 
-  it('should add ellement to save', () => {
+  it('should add element to save', () => {
     const compiled = fixture.debugElement.nativeElement;
     component.editionService.currentEditPage = "";
-
     component.editionService.add = true;
     component.editionService.name = 'test';
     component.editionService.curentBorderColor = 'black';
     component.editionService.curentColor = 'white';
 
-    clickElementOf(compiled, fixture, '.save', 'save');
+    newBoard(component);
+    fixture.detectChanges();
 
-    expect(component.boardService.board.ElementList.length).toBe(1);
-    expect(component.boardService.board.ElementList[0].ElementFormsList[0].DisplayedText).toBe('test');
-    expect(component.boardService.board.ElementList[0].BorderColor).toBe('black');
-    expect(component.boardService.board.ElementList[0].Color).toBe('white');
+    compiled.querySelector('.save').click();
+    fixture.detectChanges();
+
+    expect(component.boardService.board.ElementList.length).toBe(2);
+    expect(component.boardService.board.ElementList[1].ElementFormsList[0].DisplayedText).toBe('test');
+    expect(component.boardService.board.ElementList[1].BorderColor).toBe('black');
+    expect(component.boardService.board.ElementList[1].Color).toBe('white');
   });
 
-  it('should add ellement to save', () => {
+  it('should add element to save', () => {
     const compiled = fixture.debugElement.nativeElement;
     component.editionService.currentEditPage = "";
 
-    component.boardService.board = new Grid(
-      'gridId',
-      'grid',
-      2,
-      2,
-      [new GridElement(
-        'elt1',
-        'button',
-        '',
-        'yellow',
-        'orange',
-        0,
-        [{
-          DisplayedText: 'testBeforeModif',
-          VoiceText: 'testBeforeModif',
-          LexicInfos: [{default:true}],
-          ImageID: ''}],
-        [])],
-      [],
-      []
-    );
+    newBoard(component);
     fixture.detectChanges();
+
     expect(component.boardService.board.ElementList.length).toBe(1);
 
     component.editionService.selectedElements = [component.boardService.board.ElementList[0]];
+
+    component.updateModifications();
 
     component.editionService.add = false;
     component.editionService.name = 'test';
     component.editionService.curentBorderColor = 'black';
     component.editionService.curentColor = 'white';
 
-    clickElementOf(compiled, fixture, '.save', 'save');
+    compiled.querySelector('.save').click();
+    fixture.detectChanges();
 
     expect(component.boardService.board.ElementList.length).toBe(1);
     expect(component.boardService.board.ElementList[0].ElementFormsList[0].DisplayedText).toBe('test');
