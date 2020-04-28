@@ -1,44 +1,41 @@
-<div class="tile" id="{{element.ElementID}}" *ngIf="element.ElementType!=='empty'"
-  [style.background-color]="this.element.Color !== null ? this.element.Color : 'grey'">
+<div class="elementContainer floatLeft" id="{{element.ElementID}}" *ngIf="element.ElementType!=='empty'">
 
   <!--TODO display elementContainers with element having non empty type -->
-  <div [class.notsearched]=" !isSearched(element)" [class.searched]="this.searchService.searchedPath.includes(element)"
+  <div class="element" [class.notsearched]=" !isSearched(element)"
+    [class.searched]="this.searchService.searchedPath.includes(element)"
     [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)"
     (touchstart)="this.pointerDown(element,0)" (touchend)="this.pointerUp(element,0)"
-    (pointerdown)="this.pointerDown(element,1)" (pointerup)="this.pointerUp(element,1)">
+    (pointerdown)="this.pointerDown(element,1)" (pointerup)="this.pointerUp(element,1)" [ngStyle]="{'background-color': element.Color !== null ? element.Color : 'grey' ,
+    'border-color': element.BorderColor === null || element.BorderColor === undefined ? 'black' : element.BorderColor,
+    'box-shadow': this.getShadow(element) ,
+    'opacity': this.getOpacity(element),
+    'cursor': this.getCursor(element)}">
 
     <!--TODO an element composed of a pictogram and a corresponding text -->
-    <div class="element">
-      <div class="pictogram" [style.background-image]="this.boardService.getImgUrl(element)"></div>
-      <h3>{{this.boardService.getLabel(element)}}</h3>
+    <div class="image haveBackgroundImage" [style.background-image]="this.boardService.getImgUrl(element)"></div>
+    <h3>{{this.boardService.getLabel(element)}}</h3>
+  </div>
+
+  <!--TODO in edit mode this button is used to delete the associated element -->
+  <div class="deleteElement floatLeft" *ngIf="this.userToolBarService.edit" (click)="this.delete(element)">
+    <div class="image haveBackgroundImage" [style.background-image]="this.getIcon('delete')">
+
     </div>
+  </div>
 
-    <!--TODO in edit mode this button is used to delete the associated element -->
-    <div class="delete" *ngIf="this.userToolBarService.edit" (click)="this.delete(element)">
-      <div class="delete-content"></div>
-      <!-- <div class="delete-content" [style.background-image]="this.getIcon('delete')">
+  <!--TODO in edit mode this button is used to select the associated element -->
+  <div class="selectCheckBox floatLeft" *ngIf="this.userToolBarService.edit" (click)="this.select(element)">
+    <div class="image haveBackgroundImage"
+      [style.background-image]="this.editionService.isSelected(element)?this.getIcon('check'):null">
 
-      </div> -->
     </div>
+  </div>
 
-    <!--TODO in edit mode this button is used to select the associated element -->
-    <div class="select" *ngIf="this.userToolBarService.edit" (click)="this.select(element)">
-      <div class="select-content">
+  <!--TODO in edit mode this button is used to change the visibility of the associated element for 'babble' function-->
+  <div class="elementVisibility" *ngIf="this.userToolBarService.edit" (click)="this.changeVisibility(element)">
+    <div class="image haveBackgroundImage"
+      [style.background-image]="this.isVisible(element) ? this.getIcon('hide') : this.getIcon('show')">
 
-      </div>
-      <!-- <div class="image haveBackgroundImage"
-        [style.background-image]="this.editionService.isSelected(element)?this.getIcon('check'):null">
-
-      </div> -->
-    </div>
-
-    <!--TODO in edit mode this button is used to change the visibility of the associated element for 'babble' function-->
-    <div class="visibility" *ngIf="this.userToolBarService.edit" (click)="this.changeVisibility(element)">
-      <div class="visibility-content"></div>
-      <!-- <div class="image haveBackgroundImage"
-        [style.background-image]="this.isVisible(element) ? this.getIcon('hide') : this.getIcon('show')">
-
-      </div> -->
     </div>
   </div>
 </div>
