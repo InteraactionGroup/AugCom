@@ -1,17 +1,15 @@
 <div class="tile" id="{{element.ElementID}}" *ngIf="element.ElementType!=='empty'"
-  [style.background-image]="this.boardService.getImgUrl(element)">
+  [style.background-color]="this.element.Color !== null ? this.element.Color : 'grey'">
 
   <!--TODO display elementContainers with element having non empty type -->
-  <div [class.notsearched]="!isSearched(element)" [class.searched]="this.searchService.searchedPath.includes(element)"
+  <div [class.notsearched]=" !isSearched(element)" [class.searched]="this.searchService.searchedPath.includes(element)"
     [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)"
     (touchstart)="this.pointerDown(element,0)" (touchend)="this.pointerUp(element,0)"
     (pointerdown)="this.pointerDown(element,1)" (pointerup)="this.pointerUp(element,1)">
 
     <!--TODO an element composed of a pictogram and a corresponding text -->
-    <div>
-      <div class="pictogram" [style.background-image]="this.boardService.getImgUrl(element)">
-
-      </div>
+    <div class="element">
+      <div class="pictogram" [style.background-image]="this.boardService.getImgUrl(element)"></div>
       <h3>{{this.boardService.getLabel(element)}}</h3>
     </div>
 
