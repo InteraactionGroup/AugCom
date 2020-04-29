@@ -54,7 +54,7 @@ export class UsertoolbarService {
     }
   }
 
-  editt() {
+  switchEditValue() {
     this.edit = !this.edit;
   }
 

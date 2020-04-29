@@ -22,6 +22,7 @@ describe('PalettesComponent', () => {
     fixture = TestBed.createComponent(PalettesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.indexeddbaccessService.init();
   });
 
   it('should create', () => {

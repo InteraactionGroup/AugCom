@@ -11,7 +11,7 @@ import {Ng2ImgMaxService} from "ng2-img-max";
 })
 export class SavesComponent implements OnInit {
 
-  constructor(private boardService: BoardService, private indexeddbaccessService: IndexeddbaccessService) {
+  constructor(public boardService: BoardService, public indexeddbaccessService: IndexeddbaccessService) {
   }
 
   ngOnInit() {

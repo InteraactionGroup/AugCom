@@ -13,7 +13,6 @@ export class IndexeddbaccessService {
   constructor(public paletteService: PaletteService, public boardService: BoardService) {
   }
 
-
   // UPDATE THE DATABASE
   update() {
 
@@ -28,21 +27,28 @@ export class IndexeddbaccessService {
     this.openRequest.onsuccess = event => {
       const db = event.target.result;
 
+      // if (!db.objectStoreNames.contains('Palette') || !db.objectStoreNames.contains('Grid')) {
+      //   this.init();
+      // }
+
       // UPDATE THE GRID
-      const gridStore = db.transaction(['Grid'], 'readwrite').objectStore('Grid');
-      const storeGridRequest = gridStore.get(1);
+      const gridStore = db.transaction(['Grid'], 'readwrite');
+      const gridObjectStore = gridStore.objectStore('Grid');
+      const storeGridRequest = gridObjectStore.get(1);
       storeGridRequest.onsuccess = () => {
-        gridStore.put(this.boardService.board, 1);
+        gridObjectStore.put(this.boardService.board, 1);
         this.updateBoardColsAndRows();
       };
 
       // UPDATE THE PALETTES
-      const paletteStore = db.transaction(['Palette'], 'readwrite').objectStore('Palette');
-      const storePaletteRequest = paletteStore.get(1);
+      const paletteStore = db.transaction(['Palette'], 'readwrite');
+      const paletteObjectStore = paletteStore.objectStore('Palette');
+      const storePaletteRequest = paletteObjectStore.get(1);
       storePaletteRequest.onsuccess = () => {
-        paletteStore.put(this.paletteService.palettes, 1);
+        paletteObjectStore.put(this.paletteService.palettes, 1);
       };
     };
+
   }
 
 
@@ -60,6 +66,10 @@ export class IndexeddbaccessService {
     this.openRequest.onsuccess = event => {
       const db = event.target.result;
 
+      // if (!db.transaction(['Grid']).objectStoreNames.contains('Palette') || !db.objectStoreNames.contains('Grid')) {
+      //   this.init();
+      // }
+
       const gridStore = db.transaction(['Grid']).objectStore('Grid').get(1);
       gridStore.onsuccess = e => {
         this.boardService.board = gridStore.result;
@@ -76,24 +86,27 @@ export class IndexeddbaccessService {
 
       // Creaction of Store
       const db = event.target.result;
-      db.createObjectStore('Grid', {autoIncrement: true});
-      db.createObjectStore('Palette', {autoIncrement: true});
-
-
-      // Transaction in Store
       const transaction = event.target.transaction;
-      console.log('palette loaded');
-      const paletteStore = transaction.objectStore('Palette');
-      paletteStore.add(this.paletteService.palettes);
 
-
-      console.log('save loaded');
-      const gridStore = transaction.objectStore('Grid');
-      gridStore.add(this.boardService.board);
-      this.updateColsAndRowsFromBoard();
-
+      this.createPaletteObject(db,transaction);
+      this.createGridObject(db,transaction)
 
     };
+  }
+
+  createPaletteObject(db,transaction){
+    db.createObjectStore('Palette', {autoIncrement: true});
+    console.log('palette loaded');
+    const paletteStore =transaction.objectStore('Palette');
+    paletteStore.add(this.paletteService.palettes);
+  }
+
+  createGridObject(db,transaction){
+    db.createObjectStore('Grid', {autoIncrement: true});
+    console.log('save loaded');
+    const gridStore = transaction.objectStore('Grid');
+    gridStore.add(this.boardService.board);
+    this.updateColsAndRowsFromBoard();
   }
 
   updateColsAndRowsFromBoard() {

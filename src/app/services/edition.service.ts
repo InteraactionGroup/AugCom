@@ -19,7 +19,7 @@ export class EditionService {
 
   selectAll = false;
 
-  sentencedTodDeleteElement: GridElement[] = [];
+  sentencedToBeDeletedElement: GridElement[] = [];
 
   /**
    * current grammatical class type of the element (empty by default)
@@ -85,7 +85,7 @@ export class EditionService {
    this.ElementListener = new Subject<GridElement>();
    this.selectedElements = [];
    this.selectAll = false;
-   this.sentencedTodDeleteElement = [];
+   this.sentencedToBeDeletedElement = [];
    this.classe = '';
    this.name = '';
    this.interractionList = [];
@@ -127,7 +127,7 @@ export class EditionService {
   }
 
   delete(element: GridElement) {
-    this.sentencedTodDeleteElement.push(element);
+    this.sentencedToBeDeletedElement.push(element);
   }
 
   selectColor(color) {

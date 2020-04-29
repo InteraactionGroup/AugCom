@@ -18,7 +18,7 @@ export class UsertoolbarComponent implements OnInit {
 
 
   constructor(public boardService: BoardService, public searchService: SearchService, private parametersService: ParametersService,
-              private snapBarService: SnapBarService, private indexedDBacess: IndexeddbaccessService, public getIconService: GeticonService,
+              private snapBarService: SnapBarService, public indexedDBacess: IndexeddbaccessService, public getIconService: GeticonService,
               public userToolBarService: UsertoolbarService) {
 
   }
@@ -64,7 +64,7 @@ export class UsertoolbarComponent implements OnInit {
    */
   edit() {
     if (this.userToolBarService.isConnected) {
-      this.userToolBarService.editt();
+      this.userToolBarService.switchEditValue();
       if (!this.userToolBarService.edit) {
         this.indexedDBacess.update();
         console.log('info saved');

@@ -193,7 +193,7 @@ export class BoardService {
 
     this.board.ElementList = this.board.ElementList.filter(x => {
       let isCondamned = false;
-      this.editionService.sentencedTodDeleteElement.forEach(condamnedElt => {
+      this.editionService.sentencedToBeDeletedElement.forEach(condamnedElt => {
         isCondamned = isCondamned || x === condamnedElt;
       });
       return !isCondamned;
@@ -206,7 +206,7 @@ export class BoardService {
       }
     });
     this.board.ImageList = imageTemp;
-    this.editionService.sentencedTodDeleteElement = [];
+    this.editionService.sentencedToBeDeletedElement = [];
 
   }
 

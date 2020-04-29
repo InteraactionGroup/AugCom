@@ -96,6 +96,7 @@ describe('EditionComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     component.boardService.board = new Grid('gridId', 'grid', 2, 2, [], [], []);
+    component.indexedDBacess.init();
   });
 
   it('should create', () => {

@@ -25,9 +25,22 @@ describe('ShareComponent', () => {
     fixture = TestBed.createComponent(ShareComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.indexedDBacess.init();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should create the 5 different options components', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    const allListElements = compiled.querySelectorAll('.listElement');
+    expect(allListElements.length).toEqual(5);
+    expect(allListElements[0].textContent).toContain('Import Save')
+    expect(allListElements[1].textContent).toContain('Import Zip')
+    expect(allListElements[2].textContent).toContain('Export Save')
+    expect(allListElements[3].textContent).toContain('Export to PDF')
+    expect(allListElements[4].textContent).toContain('Import SPEAK4YOURSELF')
+  });
+
 });
