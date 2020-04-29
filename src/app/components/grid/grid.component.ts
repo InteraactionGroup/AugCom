@@ -34,6 +34,7 @@ export class GridComponent implements OnInit, OnChanges {
         this.grid.destroy();
         this.grid = new Muuri(".grid", {
           dragEnabled: this.userToolbarService.edit,
+          layoutEasing: "cubic-bezier(0.215, 0.61, 0.355, 1)",
         });
       })
     );

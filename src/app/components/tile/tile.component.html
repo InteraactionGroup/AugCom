@@ -1,7 +1,7 @@
 <div class="elementContainer floatLeft" id="{{element.ElementID}}" *ngIf="element.ElementType!=='empty'">
 
   <!--TODO display elementContainers with element having non empty type -->
-  <div class="element" [class.notsearched]=" !isSearched(element)"
+  <div class="element" [class.notsearched]="!isSearched(element)"
     [class.searched]="this.searchService.searchedPath.includes(element)"
     [class.blurredElt]="element.ElementID==='#disable'" (click)="this.edit(element)"
     (touchstart)="this.pointerDown(element,0)" (touchend)="this.pointerUp(element,0)"

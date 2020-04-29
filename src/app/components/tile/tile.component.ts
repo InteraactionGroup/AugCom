@@ -8,10 +8,7 @@ import { UsertoolbarService } from "../../services/usertoolbar.service";
 import { IndexeddbaccessService } from "../../services/indexeddbaccess.service";
 import { ParametersService } from "../../services/parameters.service";
 import { Router } from "@angular/router";
-import { Subscription } from "rxjs";
-import { PaletteService } from "../../services/palette.service";
 import { SearchService } from "../../services/search.service";
-import { Ng2ImgMaxService } from "ng2-img-max";
 
 @Component({
   selector: "app-tile",
@@ -51,6 +48,7 @@ export class TileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
   /**
    * Return true if the element is part of the search result
    *
@@ -108,7 +106,6 @@ export class TileComponent implements OnInit {
       (element.Color === undefined || element.Color == null
         ? "#d3d3d3"
         : element.Color);
-
     s =
       s +
       " , " +

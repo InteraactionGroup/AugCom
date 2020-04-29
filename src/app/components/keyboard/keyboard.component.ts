@@ -2,7 +2,7 @@ import { Component, OnInit, NgZone, OnChanges } from "@angular/core";
 import { HistoricService } from "../../services/historic.service";
 import { EditionService } from "../../services/edition.service";
 import { BoardService } from "../../services/board.service";
-import { Action, Element, ElementForm, Vignette } from "../../types";
+import { Action, Element } from "../../types";
 import { GeticonService } from "../../services/geticon.service";
 import { UsertoolbarService } from "../../services/usertoolbar.service";
 import { IndexeddbaccessService } from "../../services/indexeddbaccess.service";
@@ -10,10 +10,8 @@ import { ParametersService } from "../../services/parameters.service";
 import { Router } from "@angular/router";
 import { DragulaService } from "ng2-dragula";
 import { Subscription } from "rxjs";
-import { PaletteService } from "../../services/palette.service";
 import { SearchService } from "../../services/search.service";
 import { Ng2ImgMaxService } from "ng2-img-max";
-import * as Muuri from "muuri";
 
 @Component({
   selector: "app-keyboard",
@@ -21,7 +19,7 @@ import * as Muuri from "muuri";
   styleUrls: ["./keyboard.component.css"],
   providers: [DragulaService, Ng2ImgMaxService],
 })
-export class KeyboardComponent implements OnInit, OnChanges {
+export class KeyboardComponent implements OnInit {
   /**
    * the current pressTimer started when pressing an element and ending on release
    */
@@ -64,48 +62,23 @@ export class KeyboardComponent implements OnInit, OnChanges {
   /**
    * execute the indexeddbaccessService init fucntion to get the information of the DB or to create new entries if there is no info
    */
-
-  enabled: boolean = false;
-
   ngOnInit() {
     this.indexeddbaccessService.init();
-    // this.initDragAndDrop();
-    this.enabled = this.userToolBarService.edit;
-  }
-  ngOnChanges() {
-    this.enabled = this.userToolBarService.edit;
   }
   /**
-   * Return true if the element is part of the search result
-   *
-   * @param  element, the element to test
-   * @return  true or false, depending if the element corresponds to the search result
+   * if we are in edit mode
+   * open th edition panel in order to edit the selected elements
    */
-  isSearched(element: Element) {
-    return !(
-      this.searchService.searchedPath.length > 0 &&
-      !this.searchService.searchedPath.includes(element)
-    );
-  }
-
-  /**
-   * Init the dragula Drag n Drop part
-   *
-   */
-  initDragAndDrop() {
-    if (!this.parametersService.dragNDropinit) {
-      this.dragulaService.createGroup("VAMPIRE", {
-        moves: (el, container, handle) => {
-          return !el.classList.contains("no-drag");
-        },
-        accepts: (el, target, source, sibling) => {
-          if (el.classList.contains("no-drag")) {
-            return false;
-          }
-          return sibling !== null;
-        },
-      });
-      this.parametersService.dragNDropinit = true;
+  editAll() {
+    if (
+      this.userToolBarService.edit &&
+      this.editionService.selectedElements.length > 1
+    ) {
+      this.router
+        .navigate(["/edit"])
+        .then(() => (this.editionService.add = false));
+    } else {
+      // do nothing
     }
   }
 
@@ -130,12 +103,16 @@ export class KeyboardComponent implements OnInit, OnChanges {
   }
 
   /**
-   * used in edition mode in order to select a specific element
-   *
-   * @param  element, the element to select
+   * if we are in edit mode
+   * set the information of the element we want to modify with the current 'element' informations
+   * open the edition panel to modify the information of element 'element'
    */
-  select(element: Element) {
-    this.editionService.select(element);
+  deleteAll() {
+    if (this.userToolBarService.edit) {
+      this.editionService.selectedElements.forEach((elt) => {
+        this.delete(elt);
+      });
+    }
   }
 
   /**
@@ -153,33 +130,6 @@ export class KeyboardComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Return the string corresponding to the value of a box-shadow css effect, used for create folder design effect
-   *
-   * @param  element, the element for which the shadow is beeing returned
-   * @return  the string corresponding to the box-shadow effect
-   */
-  getShadow(element: Element) {
-    let s =
-      (element.ElementType === "folder" ? "3px " : "0px ") +
-      (element.ElementType === "folder" ? "-3px " : "0px ") +
-      "0px " +
-      (element.ElementType === "folder" ? "-2px " : "0px ") +
-      (element.Color === undefined || element.Color == null
-        ? "#d3d3d3"
-        : element.Color);
-
-    s =
-      s +
-      " , " +
-      (element.ElementType === "folder" ? "4px " : "0px ") +
-      (element.ElementType === "folder" ? "-4px " : "0px ") +
-      (element.BorderColor === undefined || element.BorderColor == null
-        ? "black"
-        : element.BorderColor);
-    return s;
-  }
-
-  /**
    * return the element of the currentFolder, the commented part is returning the part of elements that can fit in the board
    * depending on the current rows and columns values
    * @return a list of elements to display in the keyboard
@@ -189,125 +139,6 @@ export class KeyboardComponent implements OnInit, OnChanges {
       return this.boardService.currentFolder === elt.ElementFolder;
     });
     // .slice(0, this.boardService.sliderValueRow * this.boardService.sliderValueCol + (this.boardService.currentFolder !== '.' ? -1 : 0));
-  }
-
-  /**
-   * update the current person and number information for verb terminations
-   * @param elementForm, an list of element forms
-   */
-  changePronomInfo(elementForm: ElementForm) {
-    const person = elementForm.LexicInfos.find(
-      (info) => info.person != null && info.person !== undefined
-    );
-    this.boardService.currentVerbTerminaison.currentPerson =
-      person != null && person !== undefined ? person.person : "thirdPerson";
-
-    const num = elementForm.LexicInfos.find(
-      (info) => info.number != null && info.number !== undefined
-    );
-    this.boardService.currentVerbTerminaison.currentNumber =
-      num != null && num !== undefined ? num.number : "";
-  }
-
-  /**
-   * update the current gender and number information for noun (and adj) terminations
-   * @param elementForm, an list of element forms
-   */
-  changeArticleInfo(elementForm: ElementForm) {
-    const gender = elementForm.LexicInfos.find(
-      (info) => info.gender != null && info.gender !== undefined
-    );
-    this.boardService.currentNounTerminaison.currentGender =
-      gender != null && gender !== undefined ? gender.gender : "";
-
-    const num = elementForm.LexicInfos.find(
-      (info) => info.number != null && info.number !== undefined
-    );
-    this.boardService.currentNounTerminaison.currentNumber =
-      num != null && num !== undefined ? num.number : "";
-  }
-
-  /**
-   * if not in edit mode
-   * process the pointerDown event triggered by 'element' and starts the longpress timer
-   * @param element, the element triggering the event
-   * @param num, number of the event triggering the action
-   */
-  pointerDown(element: Element, num) {
-    this.press[num] = false;
-    this.press[(num + 1) % 2] = false;
-    this.release[num] = true;
-    if (
-      !this.userToolBarService.edit &&
-      this.release[num] &&
-      !this.release[(num + 1) % 2]
-    ) {
-      if (this.down === 0) {
-        this.pressedElement = element;
-      } else {
-        window.clearTimeout(this.dblClickTimer);
-        if (this.pressedElement !== element && this.pressedElement != null) {
-          this.action(element, "click");
-        }
-      }
-      this.down = this.down + 1;
-      this.setLongPressTimer(element);
-    }
-  }
-
-  /**
-   * if not in edit mode
-   * process the pointerUp event triggered by 'element' and execute its corresponding normal click function
-   * if the element has not been longpressed yet
-   * @param element, the element triggering the event
-   * @param num, number of the event triggering the action
-   */
-  pointerUp(element: Element, num) {
-    this.release[num] = false;
-    this.release[(num + 1) % 2] = false;
-    this.press[num] = true;
-    if (
-      !this.userToolBarService.edit &&
-      this.press[num] &&
-      !this.press[(num + 1) % 2]
-    ) {
-      window.clearTimeout(this.pressTimer);
-      window.clearTimeout(this.dblClickTimer);
-      if (this.down === 1) {
-        if (this.pressedElement === element) {
-          this.setClickTimer(element);
-        } else {
-          this.down = 0;
-          this.pressedElement = null;
-        }
-      } else if (this.down > 1) {
-        if (this.pressedElement === element) {
-          this.action(element, "doubleClick");
-          this.pressedElement = null;
-          this.down = 0;
-        } else if (this.pressedElement != null) {
-          this.down = 1;
-          this.pressedElement = element;
-          this.setClickTimer(element);
-        }
-      }
-    }
-  }
-
-  setClickTimer(element) {
-    this.dblClickTimer = window.setTimeout(() => {
-      this.action(element, "click");
-      this.pressedElement = null;
-      this.down = 0;
-    }, this.parametersService.doubleClickTimeOut);
-  }
-
-  setLongPressTimer(element) {
-    this.pressTimer = window.setTimeout(() => {
-      this.action(element, "longPress");
-      this.pressedElement = null;
-      this.down = 0;
-    }, this.parametersService.longpressTimeOut);
   }
 
   /**
@@ -511,208 +342,6 @@ export class KeyboardComponent implements OnInit, OnChanges {
     }
 
     return places;
-  }
-
-  action(element: Element, interaction: string) {
-    if (
-      element.ElementType !== "empty" &&
-      !(
-        !this.userToolBarService.edit &&
-        !element.Visible &&
-        this.userToolBarService.babble
-      )
-    ) {
-      // for button
-      if (element.ElementType === "button") {
-        const prononcedText = this.boardService.getLabel(element);
-        const color = element.Color;
-        const imgUrl = this.boardService.getImgUrl(element);
-        const vignette: Vignette = {
-          VignetteLabel: prononcedText,
-          VignetteImageUrl: imgUrl,
-          VignetteColor: color,
-        };
-        let otherFormsDisplayed = false;
-
-        // Depend on the interaction
-        element.InteractionsList.forEach((inter) => {
-          if (inter.InteractionID === interaction) {
-            inter.ActionList.forEach((action) => {
-              if (action.ActionID === "pronomChangeInfo") {
-                this.changePronomInfo(element.ElementForms[0]);
-              } else if (action.ActionID === "display") {
-                this.historicService.push(vignette);
-              } else if (action.ActionID === "say") {
-                this.historicService.say("" + prononcedText);
-              } else if (
-                action.ActionID === "otherforms" &&
-                element.ElementForms.length > 2
-              ) {
-                otherFormsDisplayed = true;
-                this.boardService.activatedElement = this.getNormalTempList().indexOf(
-                  element
-                );
-                this.activatedElementTempList();
-                this.pressedElement = null;
-              }
-            });
-          } else if (
-            !otherFormsDisplayed &&
-            inter.InteractionID === "backFromVariant"
-          ) {
-            this.boardService.activatedElement = -1;
-          }
-        });
-
-        // Always executed
-        if (element.ElementPartOfSpeech != null) {
-          if (element.ElementPartOfSpeech === "article défini") {
-            this.changeArticleInfo(element.ElementForms[0]);
-          } else if (element.ElementPartOfSpeech === "-verb-") {
-            this.boardService.resetVerbTerminaisons();
-          } else if (element.ElementPartOfSpeech === "-nom-") {
-            this.changePronomInfo(
-              element.ElementForms.find(
-                (eltF) =>
-                  eltF.DisplayedText === this.boardService.getLabel(element)
-              )
-            );
-          }
-        }
-
-        // for folder
-      } else if (element.ElementType === "folder") {
-        if (element.ElementFolder === ".") {
-          this.boardService.currentFolder =
-            element.ElementFolder + element.ElementID;
-        } else {
-          this.boardService.currentFolder =
-            element.ElementFolder + "." + element.ElementID;
-        }
-
-        // for errors
-      } else {
-        console.error(
-          "ElementType : " +
-            element.ElementType +
-            ' is not supported (supported ElementTypes are "button" or "folder")'
-        );
-      }
-    }
-  }
-
-  /**
-   * if we are in edit mode
-   * set the information of the element we want to modify with the current 'element' informations
-   * open the edition panel to modify the information of element 'element'
-   * @param element, the Element we want to edit
-   */
-  edit(element: Element) {
-    if (this.userToolBarService.edit) {
-      this.router.navigate(["/edit"]).then(() => {
-        this.editionService.clearEditionPane();
-        this.editionService.selectedElements.push(element);
-        this.editionService.ElementListener.next(element);
-        this.editionService.add = false;
-      });
-    }
-  }
-
-  addNewElement() {
-    this.editionService.add = true;
-    this.editionService.clearEditionPane();
-  }
-
-  /**
-   * check if the current element is visible on the board
-   * @param element, the element to check
-   */
-  isVisible(element: Element) {
-    if (element.Visible === undefined) {
-      element.Visible = true;
-    }
-    return element.Visible;
-  }
-
-  /**
-   * change the current element visibility
-   * @param element, the element to change the visibility
-   */
-  changeVisibility(element: Element) {
-    if (element.Visible === undefined) {
-      element.Visible = false;
-    } else {
-      element.Visible = !element.Visible;
-    }
-  }
-
-  /**
-   * compute the right opacity value for a given element
-   * @return a string corresponding to the opacity value of the element
-   * @param element, the element we compute the opacity
-   */
-  getOpacity(element: Element) {
-    const visible: boolean = this.isVisible(element);
-    return !this.userToolBarService.babble
-      ? this.userToolBarService.edit && !visible
-        ? "0.5"
-        : "1"
-      : visible
-      ? "1"
-      : this.userToolBarService.edit
-      ? "0.3"
-      : "0";
-  }
-
-  /**
-   * compute the right cursor value for a given element
-   * @return a string corresponding to the cursor value for the element
-   * @param element, the element we compute the cursor used when hover it
-   */
-  getCursor(element: Element) {
-    const visible: boolean = this.isVisible(element);
-    return !this.userToolBarService.babble
-      ? "pointer"
-      : visible
-      ? "pointer"
-      : this.userToolBarService.edit
-      ? "pointer"
-      : "default";
-  }
-
-  /**
-   * if we are in edit mode
-   * open th edition panel in order to edit the selected elements
-   */
-  editAll() {
-    if (
-      this.userToolBarService.edit &&
-      this.editionService.selectedElements.length === 1
-    ) {
-      this.edit(this.editionService.selectedElements[0]);
-    } else if (
-      this.userToolBarService.edit &&
-      this.editionService.selectedElements.length > 1
-    ) {
-      this.router
-        .navigate(["/edit"])
-        .then(() => (this.editionService.add = false));
-    } else {
-      // do nothing
-    }
-  }
-
-  /**
-   * if we are in edit mode
-   * set the information of the element we want to modify with the current 'element' informations
-   * open the edition panel to modify the information of element 'element'
-   */
-  deleteAll() {
-    if (this.userToolBarService.edit) {
-      this.editionService.selectedElements.forEach((elt) => {
-        this.delete(elt);
-      });
-    }
   }
 
   /**
