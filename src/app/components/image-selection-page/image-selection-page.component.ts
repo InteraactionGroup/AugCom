@@ -25,11 +25,6 @@ export class ImageSelectionPageComponent implements OnInit {
   ngOnInit() {
   }
 
-  /*return true if the currentEditPage is the page of appearance*/
-  isImageSelectionDisplayed() {
-    return this.editionService.currentEditPage === 'Apparence';
-  }
-
   /**
    * Set the current preview imageUrl according to the given file 'file' and close the chooseImage panel
    * if the initial image is bigger than 1000*1000 the the image is reduced

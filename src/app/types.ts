@@ -7,7 +7,7 @@ export class Grid {
   NumberOfCols: number;
   NumberOfRows: number;
 
-  ElementList: Element[];
+  ElementList: GridElement[];
   ImageList: Image[];
   PageList: Page[];
 
@@ -26,7 +26,7 @@ export class Grid {
 /**
  * an element of the Board
  */
-export class Element {
+export class GridElement {
   ID: string;
   Type: string;
   PartOfSpeech: string;
@@ -38,8 +38,8 @@ export class Element {
   InteractionsList: Interaction[];
 
 
-  constructor(elementId, elementType, elementPartOfSpeech,
-              color, borderColor, visibilityLevel, elementsForms, interactionList) {
+  constructor(elementId: string, elementType: string, elementPartOfSpeech: string,
+              color: string, borderColor: string, visibilityLevel: number, elementsForms: ElementForm[], interactionList: Interaction[]) {
 
     this.ID = elementId;
     this.Type = elementType;

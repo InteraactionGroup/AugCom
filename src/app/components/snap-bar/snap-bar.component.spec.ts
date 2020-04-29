@@ -26,4 +26,9 @@ describe('SnapBarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should create snap', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelectorAll('.snap').length).toEqual(1);
+  });
 });

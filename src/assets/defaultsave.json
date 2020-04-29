@@ -20,28 +20,28 @@
               "default": true
             }
           ],
-          "ImageID": ".quoi"
+          "ImageID": "quoi"
         },
         {
           "DisplayedText": "quoi",
           "VoiceText": "quoi",
           "LexicInfos": [
           ],
-          "ImageID": ".quoi"
+          "ImageID": "quoi"
         },
         {
           "DisplayedText": "quand",
           "VoiceText": "quoi",
           "LexicInfos": [
           ],
-          "ImageID": ".quoi"
+          "ImageID": "quoi"
         },
         {
           "DisplayedText": "où",
           "VoiceText": "quoi",
           "LexicInfos": [
           ],
-          "ImageID": ".quoi"
+          "ImageID": "quoi"
         }
       ],
       "InteractionsList": [
@@ -63,7 +63,7 @@
   ],
   "ImageList": [
     {
-      "ID": ".quoi",
+      "ID": "quoi",
       "OriginalName": "quoi",
       "Path": "http://www.arasaac.org/classes/img/thumbnail.php?i=c2l6ZT0zMDAmcnV0YT0uLi8uLi9yZXBvc2l0b3Jpby9vcmlnaW5hbGVzLzY2MzIucG5n"
     }

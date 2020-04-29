@@ -4,6 +4,8 @@ import {SavesComponent} from './saves.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {Ng2ImgMaxModule} from "ng2-img-max";
+import {GridElement} from "../../types";
+import {Board} from '../../data/ExempleOfBoard';
 
 describe('SavesComponent', () => {
   let component: SavesComponent;
@@ -22,9 +24,35 @@ describe('SavesComponent', () => {
     fixture = TestBed.createComponent(SavesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.indexeddbaccessService.init();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should revert save to default value', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    let prevLength = component.boardService.board.ElementList.length;
+    component.boardService.board.ElementList.push(new GridElement(
+      '',
+      '',
+      '',
+      '',
+      '',
+      0,
+      [],
+      []));
+
+    expect(component.boardService.board.ElementList.length).toEqual(prevLength + 1);
+    fixture.detectChanges();
+
+    component.boardService.board = null;
+    compiled.querySelector('#resetButton').click();
+    fixture.detectChanges();
+
+    expect(component.boardService.board.ElementList.length).toEqual(Board.ElementList.length);
+  });
+
+
 });

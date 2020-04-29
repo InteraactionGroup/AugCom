@@ -89,7 +89,7 @@
   transform: translateY(8%);
 }
 
-.usertoolbar .buttonLeftLeft .image .searchempty {
+.usertoolbar .buttonLeftLeft .image .emptySearchResultContainer {
   width: 98%;
   height: 0;
   margin-left: 1%;
@@ -98,28 +98,32 @@
   opacity: 0;
 }
 
-.usertoolbar .buttonLeftLeft .image .searchResults {
+.usertoolbar .buttonLeftLeft .image .searchResultContainer {
+  width: 98%;
   height: 500%;
   opacity: 1;
+  margin-left: 1%;
+  background-color: lightgrey;
+  box-shadow: 0 2px 15px black;
   overflow-y: auto;
 }
 
-.usertoolbar .buttonLeftLeft .image .searchResults .searchResult {
+.usertoolbar .buttonLeftLeft .image .searchResultContainer .searchResult {
   background-color: dimgrey;
   opacity: 0.8;
 }
 
-.usertoolbar .buttonLeftLeft .image .searchResults .searchResult:hover {
+.usertoolbar .buttonLeftLeft .image .searchResultContainer .searchResult:hover {
   opacity: 1.3;
 }
 
-.usertoolbar .buttonLeftLeft .image .searchResults .searchResult .searchImage {
+.usertoolbar .buttonLeftLeft .image .searchResultContainer .searchResult .searchImage {
   height: 100%;
   width: 50%;
 }
 
 
-.usertoolbar .buttonLeftLeft .image .searchResults .searchResult .searchLabel {
+.usertoolbar .buttonLeftLeft .image .searchResultContainer .searchResult .searchLabel {
 }
 
 .usertoolbar .buttonLeftRight .image {

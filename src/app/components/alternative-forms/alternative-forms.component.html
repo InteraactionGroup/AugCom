@@ -1,20 +1,27 @@
-<ng-container *ngIf="this.isVariantDisplayed()">
   <div class="page">
 
     <div class="page-content" style="height: 100%">
-
-          <div class="tableTitle">
-            Modifier les variantes du mot:
-          </div>
+      <ng-container *ngIf="this.editionService.selectedElements.length <= 0">
+        <app-error-on-edit></app-error-on-edit>
+      </ng-container>
+      <ng-container *ngIf="this.editionService.selectedElements.length > 1">
+        <div class="tableTitle" style="text-align: center; color: indianred">
+          L'édition des variantes des mots est impossible si plus d'un élément a été sélectionné.
+        </div>
+      </ng-container>
+      <ng-container *ngIf="this.editionService.selectedElements.length === 1">
+        <div class="tableTitle">
+          Modifier les variantes du mot:
+        </div>
           <div class="alternativeElementVariant">
 
 <!--            DISPLAY TABLE OF EXISTING FORMS-->
             <div class="wrapperPreview centerText floatLeft">
-              <ng-container *ngFor="let b of this.editionService.selectedElements[0].ElementFormsList">
+              <ng-container *ngFor="let b of this.getVariantListExceptDefault()">
                 <div class="elementContainer">
                   <div class="element" [class.inModification]="b===this.selectedItem" (click)="select(b)"
-                       [ngStyle]="{'background-color': this.editionService.selectedElements[0].Color ,
-                    'border-color': this.editionService.selectedElements[0].BorderColor}">
+                       [ngStyle]="{'background-color': this.editionService.curentColor ,
+                    'border-color': this.editionService.curentBorderColor}">
 
                     <div class="image haveBackgroundImage" [ngStyle]="{'background-image': getSanitizeURL(b)}"> </div>
 
@@ -29,8 +36,8 @@
                   </div>
               </ng-container>
                 <ng-container *ngIf="this.currentMode==='addNew'">
-                <div class="element inModification" [ngStyle]="{'background-color': this.editionService.selectedElements[0].Color ,
-                    'border-color': this.editionService.selectedElements[0].BorderColor}" >
+                <div class="element inModification" [ngStyle]="{'background-color': this.editionService.curentColor ,
+                    'border-color': this.editionService.curentBorderColor}" >
                   <div class="image haveBackgroundImage" [ngStyle]="{'background-image': getPreviewURL()}"> </div>
 
                   <svg viewBox="0 0 80 15">
@@ -102,7 +109,7 @@
                        (click)="previewMullberry(b)"></div>
                 </ng-container>
               </div>
-              <input type="button" value="enregistrer les modifications" (click)="saveCurrentElementForm()">
+              <input id="saveAlternativeFormModifButton" type="button" value="enregistrer les modifications" (click)="saveCurrentElementForm()">
             </div>
             </div>
             </ng-container>
@@ -171,6 +178,6 @@
             </ng-container>
 
           </div>
+      </ng-container>
     </div>
   </div>
-</ng-container>

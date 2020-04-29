@@ -18,7 +18,7 @@ import {BoardService} from "../../services/board.service";
 })
 export class AlternativeFormsComponent implements OnInit {
 
-  constructor(public sanitizer: DomSanitizer, public ng2ImgMaxService: Ng2ImgMaxService, public boardService: BoardService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public editionService: EditionService) {
+  constructor(public ng2ImgMaxService: Ng2ImgMaxService, public boardService: BoardService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public editionService: EditionService) {
   }
 
   ngOnInit() {
@@ -51,14 +51,14 @@ export class AlternativeFormsComponent implements OnInit {
       newElementForm.ImageID = '';
     }
     newElementForm.LexicInfos = [];
-    this.editionService.selectedElements[0].ElementFormsList.push(newElementForm);
+    this.editionService.variantList.push(newElementForm);
   }
     this.currentMode = '';
     this.elementFormNameImageURL= '';
   }
 
   deleteElementForm( elementForm : ElementForm){
-    this.editionService.selectedElements[0].ElementFormsList = this.editionService.selectedElements[0].ElementFormsList.filter( elt => {return elt !== elementForm});
+    this.editionService.variantList = this.editionService.variantList.filter( elt => {return elt !== elementForm});
   }
 
   getNewCreatedImageName(){
@@ -99,21 +99,16 @@ export class AlternativeFormsComponent implements OnInit {
     }
   }
 
-  select(b){
-    if (this.currentMode !== 'modif' || this.selectedItem !== b) {
+  select(itemSelected){
+    if (this.currentMode !== 'modif' || this.selectedItem !== itemSelected) {
       this.currentMode = 'modif'
-      this.selectedItem = b;
+      this.selectedItem = itemSelected;
       this.imageSelectionStarted=false;
-      this.elementFormDisplayedWordField = b.DisplayedText;
-      this.elementFormPronouncedWordField= b.VoiceText;
+      this.elementFormDisplayedWordField = itemSelected.DisplayedText;
+      this.elementFormPronouncedWordField= itemSelected.VoiceText;
     } else {
       this.currentMode = '';
     }
-  }
-
-  /*return true if the page for alternative forms is the currentEditPage*/
-  isVariantDisplayed() {
-    return this.editionService.currentEditPage === 'Autres formes';
   }
 
   /**
@@ -128,6 +123,10 @@ export class AlternativeFormsComponent implements OnInit {
     this.dbnaryService.getWords(classe);
   }
 
+  getVariantListExceptDefault(){
+    let defaultForm = this.editionService.getDefaultForm(this.editionService.variantList);
+    return this.editionService.variantList.filter(variant => {return variant !== defaultForm});
+  }
 
   /**
    * Actualize the grammatical type list (typeList)  of the word 'word'

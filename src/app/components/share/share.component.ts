@@ -12,7 +12,7 @@ import {Traduction} from '../../sparqlJsonResults';
 import {DbnaryService} from '../../services/dbnary.service';
 import {HttpClient} from "@angular/common/http";
 import {Ng2ImgMaxService} from "ng2-img-max";
-import {Element} from "../../types";
+import {GridElement} from "../../types";
 
 @Component({
   selector: 'app-share',
@@ -23,7 +23,7 @@ import {Element} from "../../types";
 export class ShareComponent implements OnInit {
 
   constructor(private dbNaryService: DbnaryService, private csvReader: CsvReaderService,
-              private indexedDBacess: IndexeddbaccessService, private printService: PrintService,
+              public indexedDBacess: IndexeddbaccessService, private printService: PrintService,
               private router: Router, public getIconService: GeticonService,
               public boardService: BoardService, public userToolBarService: UsertoolbarService) {
   }
@@ -96,7 +96,7 @@ export class ShareComponent implements OnInit {
                     } else {
                       type = 'button';
                     }
-                    this.createNewButton(name, imageURL, path, type);
+                    this.createNewButtonFromInfoInZIP(name, imageURL, path, type);
 
                   }
                 }
@@ -113,7 +113,7 @@ export class ShareComponent implements OnInit {
               splitName.forEach(s => {
                 path = path + '.' + s;
               });
-              this.createNewButton(name, imageURL, path, 'folder');
+              this.createNewButtonFromInfoInZIP(name, imageURL, path, 'folder');
             }
           }
         );
@@ -130,7 +130,7 @@ export class ShareComponent implements OnInit {
    * @param folder, the folder having to contain the new element
    * @param type, the type of the new element (button or folder)
    */
-  createNewButton(name, imageURL, folder, type) {
+  createNewButtonFromInfoInZIP(name, imageURL, folder, type) {
     this.boardService.board.ElementList.push(
       {
         ID: name,
@@ -180,14 +180,14 @@ export class ShareComponent implements OnInit {
   }
 
   /*check if a default form exists for the given element, otherwise create a new one with first displayed text*/
-  checkAndUpdateElementDefaultForm(element: Element) {
-    const defaultform = element.ElementFormsList.find(form => {
+  checkAndUpdateElementDefaultForm(element: GridElement) {
+    const defaultForm = element.ElementFormsList.find(form => {
       const newForm = form.LexicInfos.find(info => {
         return (info.default != null && info.default);
       });
       return (newForm != null);
     });
-    if (defaultform == null) {
+    if (defaultForm == null) {
       element.ElementFormsList.push({
         DisplayedText: element.ElementFormsList[0].DisplayedText,
         VoiceText: element.ElementFormsList[0].VoiceText,

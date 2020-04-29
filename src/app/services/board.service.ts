@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Board} from '../data/ExempleOfBoard';
-import {Element, ElementForm, Grid} from '../types';
+import {GridElement, ElementForm, Grid} from '../types';
 import {DomSanitizer} from '@angular/platform-browser';
 import {EditionService} from './edition.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
@@ -67,7 +67,7 @@ export class BoardService {
    * @param element, an Element
    * @return return the current label of the element
    */
-  getLabel(element: Element) {
+  getLabel(element: GridElement) {
 
     if (element.PartOfSpeech === '-verb-') {
       const verbElement = element.ElementFormsList.find(elt => this.checkVerbForms(elt));
@@ -90,7 +90,7 @@ export class BoardService {
    * @param element, an Element
    * @return return the default label of the element
    */
-  getDefaultLabel(element: Element) {
+  getDefaultLabel(element: GridElement) {
     const defaultElement = element.ElementFormsList.find(elt => this.checkDefault(elt));
     if (defaultElement != null) {
       return defaultElement.DisplayedText;
@@ -193,7 +193,7 @@ export class BoardService {
 
     this.board.ElementList = this.board.ElementList.filter(x => {
       let isCondamned = false;
-      this.editionService.sentencedTodDeleteElement.forEach(condamnedElt => {
+      this.editionService.sentencedToBeDeletedElement.forEach(condamnedElt => {
         isCondamned = isCondamned || x === condamnedElt;
       });
       return !isCondamned;
@@ -206,12 +206,12 @@ export class BoardService {
       }
     });
     this.board.ImageList = imageTemp;
-    this.editionService.sentencedTodDeleteElement = [];
+    this.editionService.sentencedToBeDeletedElement = [];
 
   }
 
   /*get sanitized image URL of an element*/
-  getImgUrl(element: Element) {
+  getImgUrl(element: GridElement) {
     if (this.board.ImageList != null) {
       if(element.ElementFormsList.length > 0) {
         const path = this.board.ImageList.find(x => x.ID === element.ElementFormsList[0].ImageID);
@@ -230,7 +230,7 @@ export class BoardService {
   }
 
   /*get normal image URL of an element (with no sanitizing)*/
-  getSimpleImgUrl(element: Element) {
+  getSimpleImgUrl(element: GridElement) {
     if (this.board.ImageList != null) {
       const path = this.board.ImageList.find(x => x.ID === element.ElementFormsList[0].ImageID);
       if (path !== null && path !== undefined) {
