@@ -21,29 +21,9 @@ import { Ng2ImgMaxService } from "ng2-img-max";
 })
 export class KeyboardComponent implements OnInit {
   /**
-   * the current pressTimer started when pressing an element and ending on release
-   */
-  pressTimer;
-  dblClickTimer;
-
-  /**
-   * element currently pressed
-   */
-  pressedElement: Element = null;
-  down = 0;
-
-  /**
-   * the current pressed element
-   */
-
-  /**
    * The current fakeElementTempList, updated when an element wants to display its variants
    */
   fakeElementTempList = [];
-  dragulaSubscription = new Subscription();
-
-  press = [false, false];
-  release = [false, false];
 
   // tslint:disable-next-line:max-line-length
   constructor(
