@@ -13,6 +13,7 @@ import {DbnaryService} from '../../services/dbnary.service';
 import {HttpClient} from "@angular/common/http";
 import {Ng2ImgMaxService} from "ng2-img-max";
 import {GridElement} from "../../types";
+import {CsvParserService} from "../../services/csv-parser.service";
 
 @Component({
   selector: 'app-share',
@@ -25,7 +26,8 @@ export class ShareComponent implements OnInit {
   constructor(private dbNaryService: DbnaryService, private csvReader: CsvReaderService,
               public indexedDBacess: IndexeddbaccessService, private printService: PrintService,
               private router: Router, public getIconService: GeticonService,
-              public boardService: BoardService, public userToolBarService: UsertoolbarService) {
+              public boardService: BoardService, public userToolBarService: UsertoolbarService,
+              public csvParser : CsvParserService) {
   }
 
 
@@ -52,6 +54,13 @@ export class ShareComponent implements OnInit {
     this.boardService.board = this.csvReader.generateBoard();
     this.indexedDBacess.update();
     this.router.navigate(['']);
+    // this.trad(0);
+  }
+
+  /*read CSV file of csv reader and open it as a grid*/
+  parseCSV() {
+    this.csvParser.requestLease()
+    // this.boardService.board = this.csvParser.generateBoard();
     // this.trad(0);
   }
 
