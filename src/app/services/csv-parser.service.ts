@@ -75,34 +75,73 @@ export class CsvParserService {
     let maxColNumber = 0;
     let tempElement: GridElement[] = [];
     let tempPage: Page[] = [];
-    let tempPageRework: Page[] = [];
 
     this.links.forEach( link => {
-      tempPage.push({
+      let theoreticalId = link.page.split('@')[0];
+      if (theoreticalId !== link.id
+        && theoreticalId !== 'retour'
+        && theoreticalId !== 'plus'
+        && theoreticalId !== 'page_suivante'
+        && theoreticalId !== 'page_précédente') {
+        // if(theoreticalId === 'accueil' || link.id==='accueil') {
+        //   console.log(theoreticalId + ' different from ' + link.id);
+        // }
+        this.records.forEach( rec => {
+          if (rec.page === link.id){
+            rec.page = theoreticalId;
+          }
+        });
+        link.id = theoreticalId;
+      } else if (theoreticalId !== link.id
+        && (theoreticalId === 'retour'
+        || theoreticalId === 'page_suivante'
+          || theoreticalId === 'plus'
+        || theoreticalId === 'page_précédente')){
+        this.records.forEach( rec => {
+          if (rec.id === link.page){
+            rec.id = link.id + '@' + link.page.split('@')[1];
+          }
+        });
+        link.page = link.id + '@' + link.page.split('@')[1];
+      }
+    });
+
+    this.links.forEach( link => {
+      if(tempPage.findIndex( page => page.ID === link.id) === -1)
+     { tempPage.push({
         ID: link.id,
         ElementIDsList: []
-      })
+      })}
     });
+
+    const interList: Interaction[] = [
+      {ID: 'click', ActionList: [ {ID: 'display', Action: 'display'},{ID: 'say', Action: 'say'}]}
+    ];
 
     this.records.forEach( record => {
       maxColNumber = record.colonne > maxColNumber ? record.colonne : maxColNumber;
       maxRowNumber = record.ligne > maxRowNumber ? record.ligne : maxRowNumber;
 
-      let isButton =  this.links.findIndex( link => {return link.page === record.id}) !== -1;
+      let isFolder =  this.links.findIndex( link => {return link.page === record.id}) !== -1;
 
-      let associatedPage = tempPage.find( page => {return page.ID === record.page});
-      if (associatedPage !== null && associatedPage !== undefined){
-        associatedPage.ElementIDsList.push(record.id.split('@')[0]+ (isButton ? '' : 'button'));
+      let id = record.id.split('@')[0]+ (isFolder ? '' : 'button');
+
+      let parentPage = tempPage.find( page => {return page.ID === record.page});
+      if (parentPage !== null && parentPage !== undefined){
+        parentPage.ElementIDsList.push(id);
       }
 
-      let index = tempElement.findIndex( elt => {return elt.ID === (record.id.split('@')[0] + (isButton ? '' : 'button'))});
+      let index = tempElement.findIndex( elt => {return elt.ID === id});
+
       if(index === -1) {
         console.log('added');
         tempElement.push(new GridElement(
-          record.id.split('@')[0] + (isButton ? '' : 'button'),
-          isButton ? 'folder' : 'button',
+          id,
+          isFolder ? 'folder' : 'button',
           '',
-          'white',
+          record.mot === 'PLUS' ? 'lightgrey' :
+            (record.mot === 'RETOUR' ? 'red' :
+              (record.mot ==='PAGE SUIVANTE' ? 'green' : (record.mot ==='PAGE PRÉCÉDENTE'? 'yellow' :'white'))),
           'black',
           0,
           [{
@@ -111,19 +150,10 @@ export class CsvParserService {
             LexicInfos: [{default: true}],
             ImageID: ''
           }],
-          []));
+          interList));
       }
     });
 
-    // this.links.forEach( link => {
-    //   let theoricalId = link.page.split('@')[0];
-    //   if (theoricalId !== link.id) {
-    //     console.log(theoricalId);
-    //     let pageToModif = tempPage.find( page => {return page.ID === link.id});
-    //     if (pageToModif !== null && pageToModif !== undefined)
-    //     {pageToModif.ID = theoricalId;}
-    //   }
-    // });
 
     //tempPage = tempPage.filter( page => { return page.ElementIDsList.length > 0});
 
