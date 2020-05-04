@@ -25,9 +25,6 @@ export class BoardService {
   * */
   sliderValueCol;
   sliderValueRow;
-
-  currentList = [];
-
   board: Grid;
   currentPath = '#HOME';
 
