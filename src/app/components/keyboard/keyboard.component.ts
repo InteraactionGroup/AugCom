@@ -187,7 +187,7 @@ export class KeyboardComponent implements OnInit {
    */
   getNormalTempList() {
     let currentPage = this.boardService.board.PageList.find( page => {return page.ID === this.boardService.getCurrentFolder()});
-    return  this.boardService.board.ElementList.filter(elt => {
+    return this.boardService.board.ElementList.filter(elt => {
       return (currentPage!==null && currentPage!== undefined) ? currentPage.ElementIDsList.includes(elt.ID) : false;
     });
   }
