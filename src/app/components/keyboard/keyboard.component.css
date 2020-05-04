@@ -126,7 +126,7 @@
   position: relative;
   width: 30px;
   height: 30px;
-  top: -100%;
+  top: calc(-100% + 5px);
   background-color: indianred;
   border-radius: 10px 0 50% 0;
   visibility: visible;
