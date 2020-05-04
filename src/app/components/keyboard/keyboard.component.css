@@ -87,7 +87,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   visibility: visible;
-  gap: 5px;
+  /*gap: 5px;*/
   padding-top: 5px;
 }
 
@@ -178,8 +178,8 @@
 
 .keyboard .wrapper .elementContainer .element {
   cursor: pointer;
-  height: 100%;
-  width: 100%;
+  height: calc(100% - 5px);
+  width: calc(100% - 5px);
   visibility: visible;
   border-radius: 10px;
   border-style: solid;
