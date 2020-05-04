@@ -29,7 +29,7 @@ export class BoardService {
   currentList = [];
 
   board: Grid;
-  currentPath = 'accueil';
+  currentPath = '#HOME';
 
   /*the current forms that verb and noun have to use to conjugate*/
   currentVerbTerminaison: { currentPerson: string, currentNumber: string } = {currentPerson: '', currentNumber: ''};
@@ -44,7 +44,7 @@ export class BoardService {
     if (path != null){
       return path[path.length-1];
     } else {
-      return 'accueil';
+      return '#HOME';
     }
   }
 
@@ -249,7 +249,7 @@ export class BoardService {
   /*go back to parent folder*/
   backToPreviousFolder() {
     const path = this.currentPath.split('.');
-    let temp = 'accueil';
+    let temp = '#HOME';
 
     const newPath = path.slice(1, path.length - 1);
     newPath.forEach(value => {
@@ -257,7 +257,7 @@ export class BoardService {
     });
 
     if (temp === '') {
-      temp = 'accueil';
+      temp = '#HOME';
     }
 
     this.currentPath = temp;

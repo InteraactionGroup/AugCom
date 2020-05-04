@@ -48,7 +48,12 @@ export class CsvParserService {
           let csvLink: CSVLink = new CSVLink();
           csvLink.page = curruntRecord[3].trim();
           csvLink.id = curruntRecord[4].trim();
+
+          csvLink.page = csvLink.page.replace('accueil','#HOME');
+          csvLink.id = csvLink.id.replace('accueil','#HOME');
+
           this.links.push(csvLink);
+
         } else {
           let csvRecord: CSVRecord2 = new CSVRecord2();
           csvRecord.mot = curruntRecord[0].trim();
@@ -56,6 +61,10 @@ export class CsvParserService {
           csvRecord.colonne = Number(curruntRecord[2].trim());
           csvRecord.page = curruntRecord[3].trim();
           csvRecord.id = curruntRecord[4].trim();
+
+          csvRecord.page = csvRecord.page.replace('accueil','#HOME');
+          csvRecord.id = csvRecord.id.replace('accueil','#HOME');
+
           this.records.push(csvRecord);
         }
       }
