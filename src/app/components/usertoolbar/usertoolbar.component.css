@@ -176,3 +176,22 @@
   cursor: not-allowed;
   background-color: indianred;
 }
+
+.titleContainer{
+  height: 100%;
+}
+
+.titleSVG{
+  height: 1.5cm;
+  width: 9cm;
+  float: left;
+  margin-left: calc(50% - 4.5cm);
+}
+
+.widthMinus10 {
+  width: calc(100% - 10cm);
+}
+
+.widthMinus3 {
+  width: calc(100% - 3cm);
+}

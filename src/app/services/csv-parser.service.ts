@@ -92,9 +92,6 @@ export class CsvParserService {
         && theoreticalId !== 'plus'
         && theoreticalId !== 'page_suivante'
         && theoreticalId !== 'page_précédente') {
-        // if(theoreticalId === 'accueil' || link.id==='accueil') {
-        //   console.log(theoreticalId + ' different from ' + link.id);
-        // }
         this.records.forEach( rec => {
           if (rec.page === link.id){
             rec.page = theoreticalId;
