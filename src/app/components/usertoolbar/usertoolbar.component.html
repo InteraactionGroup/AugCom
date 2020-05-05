@@ -4,7 +4,7 @@
        [class.width0]="this.userToolBarService.search">
     <ng-container *ngIf="!this.userToolBarService.search">
       <svg class="titleSVG" viewBox="0 0 110 60">
-        <text x="50%" y="50%" dominant-baseline="middle"
+        <text x="50%" y="50%" dominant-baseline="middle" (click)="this.boardService.currentPath='#HOME'"
               text-anchor="middle">{{this.boardService.getCurrentTitle()}}</text>
       </svg>
     </ng-container>
