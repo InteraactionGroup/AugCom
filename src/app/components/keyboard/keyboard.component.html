@@ -80,10 +80,12 @@
 
           <div class="image haveBackgroundImage" [style.background-image]="this.boardService.getImgUrl(element)"></div>
 
-          <svg viewBox="0 0 30 100%">
-            <text x="50%" y="50%" dominant-baseline="middle"  textLength="100%" lengthAdjust="spacingAndGlyphs"
-                  text-anchor="middle">{{this.boardService.getLabel(element)}}</text>
-          </svg>
+<!--          <svg viewBox="0 0 30 30">-->
+<!--            <text x="50%" y="50%" dominant-baseline="middle"  text-anchor="middle">{{this.boardService.getLabel(element)}}</text>-->
+<!--          </svg>-->
+          <div class="adjustableText" >
+          {{this.boardService.getLabel(element)}}
+          </div>
 
         </div>
 
@@ -125,11 +127,9 @@
 
           <div class="image haveBackgroundImage" [style.background-image]="this.getIcon('retour')"></div>
 
-          <svg viewBox="0 0 30 20">
-            <text x="50%" y="50%" dominant-baseline="middle"
-                  text-anchor="middle">retour
-            </text>
-          </svg>
+          <div class="adjustableText" >
+            retour
+          </div>
 
         </div>
 
