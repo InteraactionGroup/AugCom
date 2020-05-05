@@ -191,6 +191,10 @@
   align-items: center;
 }
 
+.keyboard .wrapper .elementContainer .noImageElement{
+  grid-template-rows: 40% 20%;
+}
+
 .keyboard .wrapper .elementContainer .element .image {
   height: calc(100% - 10px);
   margin-top: 5px;
