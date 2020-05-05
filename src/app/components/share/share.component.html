@@ -59,6 +59,17 @@
         </div>
       </div>
 
+      <div class="exportTo listElement">
+        <div class="image floatLeft haveBackgroundImage" [style.background-image]="this.getIcon('pdf')">
+        </div>
+        <div class="label floatLeft">
+          Import Proloquo
+        </div>
+        <div class="inputField floatLeft">
+          <input type="button" value="Import" (click)="parseCSV()">
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
