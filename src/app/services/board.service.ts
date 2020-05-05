@@ -231,6 +231,9 @@ export class BoardService {
         const path = this.board.ImageList.find(x => x.ID === element.ElementFormsList[0].ImageID);
         if (path !== null && path !== undefined) {
           const s = path.Path;
+          if(s.replace(' ','')===''){
+            return '';
+          }
           return this.sanitizer.bypassSecurityTrustStyle('url(' + s + ')');
         } else {
           return '';
