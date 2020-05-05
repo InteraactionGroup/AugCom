@@ -178,20 +178,21 @@
 }
 
 .titleContainer{
+  position: absolute;
   height: 100%;
+  margin-left:calc(50% - 6cm);
+  width:9cm;
+  opacity: 1;
 }
 
 .titleSVG{
   height: 1.5cm;
-  width: 9cm;
+  width: 100%;
   float: left;
-  margin-left: calc(50% - 4.5cm);
 }
 
-.widthMinus10 {
-  width: calc(100% - 10cm);
-}
-
-.widthMinus3 {
-  width: calc(100% - 3cm);
+.width0{
+  width: 0;
+  opacity: 0;
+  transition: width 5s;
 }

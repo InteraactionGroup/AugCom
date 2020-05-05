@@ -1,5 +1,15 @@
 <div class="usertoolbar width-100">
 
+  <div class="titleContainer floatLeft"
+       [class.width0]="this.userToolBarService.search">
+    <ng-container *ngIf="!this.userToolBarService.search">
+      <svg class="titleSVG" viewBox="0 0 110 60">
+        <text x="50%" y="50%" dominant-baseline="middle"
+              text-anchor="middle">{{this.boardService.getCurrentTitle()}}</text>
+      </svg>
+    </ng-container>
+  </div>
+
   <nav>
     <a routerLink="/account">
       <div class="button" id="accountButton">
@@ -58,13 +68,6 @@
     <div class="image width-100"
          [ngStyle]="{'background-image':this.userToolBarService.search? this.getIcon('search') : this.getIcon('play') }">
     </div>
-  </div>
-
-  <div class="titleContainer floatLeft" [class.widthMinus10]="this.userToolBarService.unlock" [class.widthMinus3]="!this.userToolBarService.unlock">
-    <svg class="titleSVG" viewBox="0 0 110 60">
-      <text x="50%" y="50%" dominant-baseline="middle"
-            text-anchor="middle">{{this.boardService.getCurrentTitle()}}</text>
-    </svg>
   </div>
 
 </div>
