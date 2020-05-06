@@ -118,9 +118,7 @@ export class CsvParserService {
       })}
     });
 
-    const interList: Interaction[] = [
-      {ID: 'click', ActionList: [ {ID: 'display', Action: 'display'},{ID: 'say', Action: 'say'}]}
-    ];
+    const interList: Interaction[] = [{ID: 'click', ActionList: [ {ID: 'display', Action: 'display'},{ID: 'say', Action: 'say'}]}];
 
     this.records.forEach( record => {
       let isFolder =  this.links.findIndex( link => {return link.page === record.id}) !== -1;
