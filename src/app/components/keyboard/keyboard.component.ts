@@ -189,12 +189,12 @@ export class KeyboardComponent implements OnInit {
     let currentPage = this.boardService.board.PageList.find( page => {return page.ID === this.boardService.getCurrentFolder()});
 
     let tempList = [];
-
+if(currentPage !== null && currentPage !== undefined){
     for(let i = 0; i < currentPage.ElementIDsList.length; i++){
       tempList.push(this.boardService.board.ElementList.find(elt => {
-        return  elt.ID === currentPage.ElementIDsList[i] ;
+        return  elt.ID === currentPage.ElementIDsList[i];
       }));
-    }
+    }}
     return tempList;
   }
 

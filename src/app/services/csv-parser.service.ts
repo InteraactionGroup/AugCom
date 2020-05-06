@@ -141,7 +141,7 @@ export class CsvParserService {
           id,
           isFolder ? 'folder' : 'button',
           '',
-          record.mot === 'PLUS' ? 'lightgrey' :
+          ( record.mot === 'PLUS' && isFolder ) ? 'lightgrey' :
             (record.mot === 'RETOUR' ? 'red' :
               (record.mot ==='PAGE SUIVANTE' ? 'green' : (record.mot ==='PAGE PRÉCÉDENTE'? 'yellow' :'white'))),
           'black',
@@ -162,14 +162,14 @@ export class CsvParserService {
       for(let i = 0; i < page.ElementIDsList.length; i++){
         if (page.ElementIDsList[i] === undefined || page.ElementIDsList[i] === null){
           console.log("hidden in page " + page.ID);
-          page.ElementIDsList[i]= '#hidden';
+          page.ElementIDsList[i]= '#disable';
         }
       }
     });
 
     tempElement.push(
       new GridElement(
-      '#hidden',
+      '#disable',
       'button',
       '',
       'transparent', // to delete later
