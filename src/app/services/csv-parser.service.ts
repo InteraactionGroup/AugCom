@@ -136,7 +136,6 @@ export class CsvParserService {
       let index = tempElement.findIndex( elt => {return elt.ID === id});
 
       if(index === -1) {
-        console.log('added');
         tempElement.push(new GridElement(
           id,
           isFolder ? 'folder' : 'button',
@@ -161,7 +160,6 @@ export class CsvParserService {
     tempPage.forEach( page => {
       for(let i = 0; i < page.ElementIDsList.length; i++){
         if (page.ElementIDsList[i] === undefined || page.ElementIDsList[i] === null){
-          console.log("hidden in page " + page.ID);
           page.ElementIDsList[i]= '#disable';
         }
       }
@@ -188,9 +186,6 @@ export class CsvParserService {
       ImageList: [],
       PageList: tempPage
     };
-
-    console.log(tempElement);
-    console.log(tempPage);
 
     return grid;
   }
