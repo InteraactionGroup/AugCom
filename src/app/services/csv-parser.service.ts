@@ -129,7 +129,8 @@ export class CsvParserService {
 
       let parentPage = tempPage.find( page => {return page.ID === record.page});
       if (parentPage !== null && parentPage !== undefined){
-        parentPage.ElementIDsList.push(id);
+        let index = (record.ligne - 1) * 8 + (record.colonne - 1);
+        parentPage.ElementIDsList[index]=id;
       }
 
       let index = tempElement.findIndex( elt => {return elt.ID === id});
@@ -157,7 +158,26 @@ export class CsvParserService {
 
 
     //tempPage = tempPage.filter( page => { return page.ElementIDsList.length > 0});
+    tempPage.forEach( page => {
+      for(let i = 0; i < page.ElementIDsList.length; i++){
+        if (page.ElementIDsList[i] === undefined || page.ElementIDsList[i] === null){
+          console.log("hidden in page " + page.ID);
+          page.ElementIDsList[i]= '#hidden';
+        }
+      }
+    });
 
+    tempElement.push(
+      new GridElement(
+      '#hidden',
+      'button',
+      '',
+      'transparent', // to delete later
+      'transparent', // to delete later
+      0,
+      [],
+      [])
+    );
 
     let grid = {
       ID: 'ProloquoGrid',

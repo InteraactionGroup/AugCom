@@ -43,7 +43,6 @@ export class ParametersService {
     (await this.getVoices()).forEach(voice => {
       this.languagesAvailaibles.push(voice);
     });
-
   };
 
   getCurrentVoice() {
