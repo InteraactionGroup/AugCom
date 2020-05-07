@@ -107,9 +107,10 @@ export class PrintService {
       if (element.Type !== 'empty') {
         const url = this.boardService.getSimpleImgUrl(element);
         this.urlList.push(url);
+
         innerValue = innerValue +
           '<div class="elementContainer">' +
-          '<div class="element" style="background-color:' + element.Color + '; border-color:' + element.BorderColor + this.getShadow(element) + '">\n' +
+          '<div class="'+ ( url === '' ? "element noImageElement" : "element") + '" style="background-color:' + element.Color + '; border-color:' + element.BorderColor + this.getShadow(element) + '">\n' +
           '<div class="image" style="background-image: ' + url + '"></div>\n' +
           '<div class="adjustableText">\n' +
           this.boardService.getLabel(element) +
@@ -165,39 +166,42 @@ export class PrintService {
       '  visibility: hidden;\n' +
       '}\n' +
       '\n' +
-      '.keyboard .wrapper .elementContainer .element{\n' +
-      '  height:90%;\n' +
-      '  width:90%;\n' +
-      '  transform: translateY(5%);\n' +
-      '  margin-left: 5%;\n' +
+      '.keyboard .wrapper .elementContainer .element {\n' +
+      '  cursor: pointer;\n' +
+      '  height: calc(100% - 5px);\n' +
+      '  width: calc(100% - 5px);\n' +
       '  visibility: visible;\n' +
       '  border-radius: 10px;\n' +
-      '  -webkit-user-select: none !important;\n' +
-      '  -moz-user-select: none !important;\n' +
-      '  -ms-user-select: none !important;\n' +
-      '  user-select: none !important;\n' +
-      '\n' +
-      '  /*border-style: solid;*/\n' +
-      '  /*border-color: black;*/\n' +
-      '  /*border-width: 3px;*/\n' +
-      '\n' +
       '  border-style: solid;\n' +
-      '  border-width: 2px;\n' +
-      '  box-sizing: border-box;' +
+      '  border-width: 3px;\n' +
+      '  box-sizing: border-box;\n' +
+      '  overflow: hidden;\n' +
+      '  display: grid;\n' +
+      '  grid-template-rows: 80% 20%;\n' +
+      '  align-items: center;\n' +
       '}\n' +
       '\n' +
-      '.keyboard .wrapper .elementContainer .element .image{\n' +
-      '  height:70%;\n' +
-      '  width:90%;\n' +
+      '.keyboard .wrapper .elementContainer .noImageElement{\n' +
+      '  grid-template-rows: 40% 20%;\n' +
+      '}\n' +
+      '\n' +
+      '.keyboard .wrapper .elementContainer .element .image {\n' +
+      '  height: calc(100% - 10px);\n' +
+      '  margin-top: 5px;\n' +
+      '  width: 90%;\n' +
       '  margin-left: 5%;\n' +
-      '  transform: translateY(10%);\n' +
-      '  background-size: contain;\n' +
-      '  background-repeat: no-repeat;\n' +
-      '  background-position: center;\n' +
+      '  visibility: visible;\n' +
+      '  align-items: center;\n' +
+      '}\n' +
+      '\n' +
+      '.keyboard .wrapper .elementContainer .label {\n' +
+      '  min-font-size: 1vh;\n' +
+      '  font-size: 2vh;\n' +
+      '  height: 20%;\n' +
+      '  width: 90%;\n' +
+      '  margin-left: 5%;\n' +
       '  visibility: visible;\n' +
       '}\n' +
-      '\n' +
-      '\n' +
       '\n' +
       '.adjustableText {\n' +
       '  text-align: center;\n' +
@@ -208,7 +212,8 @@ export class PrintService {
       '  vertical-align: middle;\n' +
       '  overflow-wrap: break-word ;\n' +
       '  word-break: break-all;\n' +
-      '}\n';
+      '}'
+   ;
   }
 
   getCSSIndex() {
