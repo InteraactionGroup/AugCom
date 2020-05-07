@@ -220,6 +220,8 @@
   height: fit-content;
   align-items: center;
   vertical-align: middle;
+  overflow-wrap: break-word ;
+  word-break: break-all;
 }
 
 .keyboard .wrapper .elementContainer .blurredElt {

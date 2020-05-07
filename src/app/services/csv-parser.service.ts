@@ -175,6 +175,8 @@ export class CsvParserService {
       [])
     );
 
+    tempPage = tempPage.filter(page => page.ElementIDsList.length !== 0);
+
     let grid = {
       ID: 'ProloquoGrid',
       Type: 'Grid',

@@ -52,24 +52,37 @@ export class PrintService {
 
 
   getAllHTML() {
-    const root = '';//this.getHTML('.', this.boardService.board.ElementList.filter(elt => elt.ElementFolder === '.'));
+    const root = '';
     let other = '';
 
     this.boardService.board.PageList.forEach( p => {
+      let tempList = [];
+      if (p !== null && p !== undefined) {
+        for (let i = 0; i < p.ElementIDsList.length; i++) {
+          tempList.push(this.boardService.board.ElementList.find(elt => {
+            return elt.ID === p.ElementIDsList[i];
+          }));
+        }
+      }
       other = other +
-        this.getHTML(p.ID, this.boardService.board.ElementList.filter(e => {
-            return p.ElementIDsList.includes(e.ID);
-          })
-        );
+        this.getHTML(p.ID, tempList);
     });
 
     return root + other;
   }
 
-  getHTML(id, elementList) {
-    return this.wrapperBegin(id) +
-      this.innerHTML(elementList) +
-      this.wrapperEnd();
+  getHTML(id, elementList: any[]) {
+    let temp = '';
+    let numberOfPages =  Math.ceil(elementList.length / (this.boardService.sliderValueCol * this.boardService.sliderValueRow));
+    for (let i = 0; i < numberOfPages; i++){
+      let beginning = i * (this.boardService.sliderValueCol * this.boardService.sliderValueRow) ;
+      let ending = (i + 1) * (this.boardService.sliderValueCol * this.boardService.sliderValueRow);
+      temp = temp +
+        this.wrapperBegin(id + '- page ' + <number>(<number>i+<number>1)) +
+        this.innerHTML(elementList.slice(beginning,ending)) +
+        this.wrapperEnd();
+    }
+    return temp;
   }
 
   wrapperBegin(id) {
@@ -138,9 +151,8 @@ export class PrintService {
       '  background-repeat: no-repeat;\n' +
       '  background-position: center;\n' +
       '  visibility: visible;\n' +
-      'grid-template-columns : repeat(' + (this.boardService.sliderValueCol) +
-      ',' + (100 / (this.boardService.sliderValueCol)) + '%) ; \n' +
-      'grid-template-rows :  repeat(' + (this.boardService.sliderValueRow) + ',' + (100 / (this.boardService.sliderValueRow)) + '%) ; \n' +
+      'grid-template-columns: repeat('+(this.boardService.sliderValueCol)+', 1fr) ; \n' +
+      'grid-template-rows: repeat(100, '+(100/(this.boardService.sliderValueRow))+'%) ; \n'+
       'background-image : ' + this.boardService.background +
       '}\n' +
       '\n' +
