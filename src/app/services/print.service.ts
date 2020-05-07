@@ -111,7 +111,7 @@ export class PrintService {
           '<div class="elementContainer">' +
           '<div class="element" style="background-color:' + element.Color + '; border-color:' + element.BorderColor + this.getShadow(element) + '">\n' +
           '<div class="image" style="background-image: ' + url + '"></div>\n' +
-          '<div class="label">\n' +
+          '<div class="adjustableText">\n' +
           this.boardService.getLabel(element) +
           '</div>\n' +
           '</div>\n' +
@@ -197,15 +197,17 @@ export class PrintService {
       '  visibility: visible;\n' +
       '}\n' +
       '\n' +
-      '.keyboard .wrapper .elementContainer .label{\n' +
-      '  transform: translateY(40%);\n' +
-      '  min-font-size: 1vh;\n' +
-      '  font-size: 2vh;\n' +
+      '\n' +
+      '\n' +
+      '.adjustableText {\n' +
       '  text-align: center;\n' +
-      '  height:20%;\n' +
-      '  width:90%;\n' +
-      '  margin-left: 5%;\n' +
-      '  visibility: visible;\n' +
+      '  font-size: 1.8vmin;\n' +
+      '  width: 100%;\n' +
+      '  height: fit-content;\n' +
+      '  align-items: center;\n' +
+      '  vertical-align: middle;\n' +
+      '  overflow-wrap: break-word ;\n' +
+      '  word-break: break-all;\n' +
       '}\n';
   }
 
