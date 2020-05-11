@@ -80,8 +80,6 @@ export class CsvParserService {
     return headerArray;
   }
   createGrid(){
-    let maxRowNumber = 0;
-    let maxColNumber = 0;
     let tempElement: GridElement[] = [];
     let tempPage: Page[] = [];
 
@@ -92,9 +90,6 @@ export class CsvParserService {
         && theoreticalId !== 'plus'
         && theoreticalId !== 'page_suivante'
         && theoreticalId !== 'page_précédente') {
-        // if(theoreticalId === 'accueil' || link.id==='accueil') {
-        //   console.log(theoreticalId + ' different from ' + link.id);
-        // }
         this.records.forEach( rec => {
           if (rec.page === link.id){
             rec.page = theoreticalId;
@@ -128,9 +123,6 @@ export class CsvParserService {
     ];
 
     this.records.forEach( record => {
-      maxColNumber = record.colonne > maxColNumber ? record.colonne : maxColNumber;
-      maxRowNumber = record.ligne > maxRowNumber ? record.ligne : maxRowNumber;
-
       let isFolder =  this.links.findIndex( link => {return link.page === record.id}) !== -1;
 
       let id = record.id.split('@')[0]+ (isFolder ? '' : 'button');
@@ -170,8 +162,8 @@ export class CsvParserService {
     let grid = {
       ID: 'ProloquoGrid',
       Type: 'Grid',
-      NumberOfCols: maxColNumber,
-      NumberOfRows: maxRowNumber,
+      NumberOfCols: 8,
+      NumberOfRows: 4,
       ElementList: tempElement,
       ImageList: [],
       PageList: tempPage

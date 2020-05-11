@@ -141,7 +141,9 @@ export class EditionComponent implements OnInit {
       element.InteractionsList = Object.assign([], this.editionService.interractionList);
       element.ElementFormsList = Object.assign([], this.editionService.variantList);
       this.editionService.getDefaultForm(element.ElementFormsList).DisplayedText = this.editionService.name;
-
+      if (this.editionService.getDefaultForm(element.ElementFormsList).ImageID === '') {
+        this.editionService.getDefaultForm(element.ElementFormsList).ImageID = element.ID;
+      }
       this.boardService.board.ImageList = this.boardService.board.ImageList.filter(
         img => img.ID !== element.ID);
 

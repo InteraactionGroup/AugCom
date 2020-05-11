@@ -76,14 +76,18 @@
           'border-color': element.BorderColor === null || element.BorderColor === undefined ? 'black' : element.BorderColor,
           'box-shadow': this.getShadow(element) ,
           'opacity': this.getOpacity(element),
-          'cursor': this.getCursor(element)}">
+          'cursor': this.getCursor(element)}"
+        [class.noImageElement]="this.boardService.getImgUrl(element) === '' "
+        >
 
           <div class="image haveBackgroundImage" [style.background-image]="this.boardService.getImgUrl(element)"></div>
 
-          <svg viewBox="0 0 30 20">
-            <text x="50%" y="50%" dominant-baseline="middle"
-                  text-anchor="middle">{{this.boardService.getLabel(element)}}</text>
-          </svg>
+<!--          <svg viewBox="0 0 30 30">-->
+<!--            <text x="50%" y="50%" dominant-baseline="middle"  text-anchor="middle">{{this.boardService.getLabel(element)}}</text>-->
+<!--          </svg>-->
+          <div class="adjustableText" >
+          {{this.boardService.getLabel(element)}}
+          </div>
 
         </div>
 
@@ -125,11 +129,9 @@
 
           <div class="image haveBackgroundImage" [style.background-image]="this.getIcon('retour')"></div>
 
-          <svg viewBox="0 0 30 20">
-            <text x="50%" y="50%" dominant-baseline="middle"
-                  text-anchor="middle">retour
-            </text>
-          </svg>
+          <div class="adjustableText" >
+            retour
+          </div>
 
         </div>
 
@@ -156,11 +158,9 @@
 
               </div>
 
-              <svg class="centerText" viewBox="0 0 30 20">
-                <text class="centerText" x="50%" y="50%" dominant-baseline="middle"
-                      text-anchor="middle">ajouter
-                </text>
-              </svg>
+              <div class="adjustableText" >
+               ajouter
+              </div>
 
             </div>
 

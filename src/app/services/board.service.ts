@@ -45,6 +45,21 @@ export class BoardService {
     }
   }
 
+  getCurrentTitle() {
+    let path = this.currentPath.split('.');
+    if (path !== null){
+      let id = path[path.length-1];
+      if (id === '#HOME') { return 'Accueil'; }
+      let element = this.board.ElementList.find( elt => elt.ID === id);
+      if(element !== null && element !== undefined){
+        let label = this.getDefaultLabel(element);
+        return label === '#HOME' ? 'Accueil' : label;
+      }
+      return 'Accueil';
+    }
+    return 'Accueil';
+  }
+
   /*reset board with default Board value*/
   resetBoard() {
     this.board = Board;
@@ -216,6 +231,9 @@ export class BoardService {
         const path = this.board.ImageList.find(x => x.ID === element.ElementFormsList[0].ImageID);
         if (path !== null && path !== undefined) {
           const s = path.Path;
+          if(s.replace(' ','')===''){
+            return '';
+          }
           return this.sanitizer.bypassSecurityTrustStyle('url(' + s + ')');
         } else {
           return '';

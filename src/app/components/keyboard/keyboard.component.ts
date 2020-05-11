@@ -187,9 +187,14 @@ export class KeyboardComponent implements OnInit {
    */
   getNormalTempList() {
     let currentPage = this.boardService.board.PageList.find( page => {return page.ID === this.boardService.getCurrentFolder()});
-    return this.boardService.board.ElementList.filter(elt => {
+    let filteredList =  this.boardService.board.ElementList.filter(elt => {
       return (currentPage!==null && currentPage!== undefined) ? currentPage.ElementIDsList.includes(elt.ID) : false;
     });
+    return filteredList.sort((a, b) =>
+      {
+        return currentPage.ElementIDsList.indexOf(a.ID) - currentPage.ElementIDsList.indexOf(b.ID);
+      }
+    );
   }
 
   /**

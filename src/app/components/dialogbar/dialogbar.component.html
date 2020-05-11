@@ -13,17 +13,16 @@
       <!-- the element containing a pictogram and its text -->
       <div class="element" (click)="this.historicService.say('' + element.Label);"
            [ngStyle]="{
-              'color':element.BorderColor,
+              'border-color':element.BorderColor,
               'background-color':element.Color}">
 
         <div class="image haveBackgroundImage" [style.background-image]="element.ImagePath">
 
         </div>
 
-        <svg class="centerText" viewBox="0 0 30 20">
-          <text class="centerText" x="50%" y="50%" dominant-baseline="middle"
-                text-anchor="middle">{{element.Label}}</text>
-        </svg>
+        <div class="adjustableText">
+          {{element.Label}}
+        </div>
 
       </div>
 
