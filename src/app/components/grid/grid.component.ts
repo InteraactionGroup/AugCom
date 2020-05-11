@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, AfterViewInit } from "@angular/core";
 import { Element } from "../../types";
 import { UsertoolbarService } from "../../services/usertoolbar.service";
+import { Observable, observable, Subscriber } from "rxjs";
 import * as Muuri from "muuri";
 
 @Component({
@@ -13,6 +14,7 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   constructor(public userToolbarService: UsertoolbarService) {
     Muuri.defaultOptions.dragSortPredicate.action = "swap";
+    Muuri.defaultOptions.dragEnabled = true;
   }
 
   ngOnInit(): void {}
@@ -22,7 +24,6 @@ export class GridComponent implements OnInit, AfterViewInit {
   }
 
   checkIfEditEnabled(item, e) {
-    console.log("check");
     return this.userToolbarService.edit
       ? Muuri.ItemDrag.defaultStartPredicate(item, e)
       : false;
@@ -33,11 +34,10 @@ export class GridComponent implements OnInit, AfterViewInit {
       setTimeout(() => {
         new Muuri(".grid", {
           layoutEasing: "cubic-bezier(0.215, 0.61, 0.355, 1)",
-          dragEnabled: true,
           dragStartPredicate: (item, e) => this.checkIfEditEnabled(item, e),
         });
-      }, 1000);
-      resolve("grid init");
+        resolve("grid is init");
+      }, 100);
     });
   }
 }
