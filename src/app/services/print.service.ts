@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BoardService} from './board.service';
-import {GridElement, Page} from '../types';
+import {GridElement} from '../types';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +18,14 @@ export class PrintService {
   }
 
 
-  printDiv() { // todo change this (we could use th eprevious idead instead)
+  printDiv() {
     const wind = window.open('/#/print');
-    wind.onload =() => {wind.document.body.innerHTML =
-      '<style>' + this.getCSSKeyboard() + '</style>'
-      + '<style>' + this.getCSSIndex() + '</style>'
-      + this.getAllHTML();
-        wind.print();
+    wind.onload = () => {
+      wind.document.body.innerHTML =
+        '<style>' + this.getCSSKeyboard() + '</style>'
+        + '<style>' + this.getCSSIndex() + '</style>'
+        + this.getAllHTML();
+      wind.print();
     };
 
   }
@@ -34,7 +35,7 @@ export class PrintService {
     const root = '';
     let other = '';
 
-    this.boardService.board.PageList.forEach( p => {
+    this.boardService.board.PageList.forEach(p => {
       let tempList = [];
       if (p !== null && p !== undefined) {
         for (let i = 0; i < p.ElementIDsList.length; i++) {
@@ -52,13 +53,13 @@ export class PrintService {
 
   getHTML(id, elementList: any[]) {
     let temp = '';
-    let numberOfPages =  Math.ceil(elementList.length / (this.boardService.sliderValueCol * this.boardService.sliderValueRow));
-    for (let i = 0; i < numberOfPages; i++){
-      let beginning = i * (this.boardService.sliderValueCol * this.boardService.sliderValueRow) ;
+    let numberOfPages = Math.ceil(elementList.length / (this.boardService.sliderValueCol * this.boardService.sliderValueRow));
+    for (let i = 0; i < numberOfPages; i++) {
+      let beginning = i * (this.boardService.sliderValueCol * this.boardService.sliderValueRow);
       let ending = (i + 1) * (this.boardService.sliderValueCol * this.boardService.sliderValueRow);
       temp = temp +
-        this.wrapperBegin(id + '- page ' + <number>(<number>i+<number>1)) +
-        this.innerHTML(elementList.slice(beginning,ending)) +
+        this.wrapperBegin(id + '- page ' + <number>(<number>i + <number>1)) +
+        this.innerHTML(elementList.slice(beginning, ending)) +
         this.wrapperEnd();
     }
     return temp;
@@ -89,7 +90,7 @@ export class PrintService {
 
         innerValue = innerValue +
           '<div class="elementContainer">' +
-          '<div class="'+ ( url === '' ? "element noImageElement" : "element") + '" style="background-color:' + element.Color + '; border-color:' + element.BorderColor + this.getShadow(element) + '">\n' +
+          '<div class="' + (url === '' ? "element noImageElement" : "element") + '" style="background-color:' + element.Color + '; border-color:' + element.BorderColor + this.getShadow(element) + '">\n' +
           '<div class="image" style="background-image: ' + url + '"></div>\n' +
           '<div class="adjustableText">\n' +
           this.boardService.getLabel(element) +
@@ -131,8 +132,8 @@ export class PrintService {
       '  background-repeat: no-repeat;\n' +
       '  background-position: center;\n' +
       '  visibility: visible;\n' +
-      'grid-template-columns: repeat('+(this.boardService.sliderValueCol)+', 1fr) ; \n' +
-      'grid-template-rows: repeat(100, '+(100/(this.boardService.sliderValueRow))+'%) ; \n'+
+      'grid-template-columns: repeat(' + (this.boardService.sliderValueCol) + ', 1fr) ; \n' +
+      'grid-template-rows: repeat(100, ' + (100 / (this.boardService.sliderValueRow)) + '%) ; \n' +
       'background-image : ' + this.boardService.background +
       '}\n' +
       '\n' +
@@ -173,7 +174,7 @@ export class PrintService {
       '  align-items: center;\n' +
       '   background-size: contain;\n' +
       '   background-repeat: no-repeat;\n' +
-      '   background-position: center;'+
+      '   background-position: center;' +
       '}\n' +
       '\n' +
       '.keyboard .wrapper .elementContainer .label {\n' +
@@ -195,7 +196,7 @@ export class PrintService {
       '  overflow-wrap: break-word ;\n' +
       '  word-break: break-all;\n' +
       '}'
-   ;
+      ;
   }
 
   getCSSIndex() {
