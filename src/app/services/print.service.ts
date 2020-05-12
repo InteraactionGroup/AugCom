@@ -17,37 +17,16 @@ export class PrintService {
 
   }
 
-  onImagesLoaded(event) {
-    let loaded = this.urlList.length;
-    for (const image of this.urlList) {
-      const img = new Image();
-      img.onload = () => {
-        loaded--;
-        if (loaded === 0) {
-          event();
-        }
-        console.log('done ' + loaded);
-      };
-      const imgmatch = image.match(/\((.*?)\)/);
-      if (imgmatch != null) {
-        // console.log(imgmatch[0] + ' ET ' + imgmatch[1])
-        img.src = imgmatch[1].replace(/('|")/g, '');
-      }
-
-    }
-  }
-
 
   printDiv() { // todo change this (we could use th eprevious idead instead)
-    const wind = window.open();
-    wind.document.body.innerHTML = wind.document.body.innerHTML
-      + '<style>' + this.getCSSKeyboard() + '</style>'
+    const wind = window.open('/#/print');
+    wind.onload =() => {wind.document.body.innerHTML =
+      '<style>' + this.getCSSKeyboard() + '</style>'
       + '<style>' + this.getCSSIndex() + '</style>'
       + this.getAllHTML();
+        wind.print();
+    };
 
-    this.onImagesLoaded(() => {
-      wind.print();
-    });
   }
 
 
@@ -192,6 +171,9 @@ export class PrintService {
       '  margin-left: 5%;\n' +
       '  visibility: visible;\n' +
       '  align-items: center;\n' +
+      '   background-size: contain;\n' +
+      '   background-repeat: no-repeat;\n' +
+      '   background-position: center;'+
       '}\n' +
       '\n' +
       '.keyboard .wrapper .elementContainer .label {\n' +
@@ -228,6 +210,7 @@ export class PrintService {
       '  margin: 0 0 0 0;\n' +
       '  height: 100%;\n' +
       '  width: 100%;\n' +
+      '  overflow: visible;\n' +
       '}\n';
   }
 }
