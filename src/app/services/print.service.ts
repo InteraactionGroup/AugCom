@@ -12,6 +12,7 @@ export class PrintService {
   }
 
   urlList: any[] = [];
+  buttonHTML = '<input id="print" type="button" value="cliquez pour imprimer" style="margin-left: 25%; height: 50px; width: 50%; font-size: x-large;">\n';
 
   print() {
 
@@ -24,16 +25,25 @@ export class PrintService {
       wind.document.body.innerHTML =
         '<style>' + this.getCSSKeyboard() + '</style>'
         + '<style>' + this.getCSSIndex() + '</style>'
+        + '<style>' + this.getCSSPrint() + '</style>'
         + this.getAllHTML();
-      wind.print();
+      this.recEventSettingFunction(wind);
     };
 
   }
 
+ recEventSettingFunction(wind){
+   wind.document.getElementById('print').onclick = () => {
+     wind.document.getElementById('print').hidden =true;
+     wind.print();
+     //wind.close();
+     wind.document.body.innerHTML = this.buttonHTML + wind.document.body.innerHTML;
+     this.recEventSettingFunction(wind);
+   }
+ }
 
   getAllHTML() {
-    const root = '';
-    let other = '';
+    let tempHTML = this.buttonHTML;
 
     this.boardService.board.PageList.forEach(p => {
       let tempList = [];
@@ -43,12 +53,11 @@ export class PrintService {
             return elt.ID === p.ElementIDsList[i];
           }));
         }
+        tempHTML = tempHTML + this.getHTML(p.ID, tempList);
       }
-      other = other +
-        this.getHTML(p.ID, tempList);
     });
 
-    return root + other;
+    return tempHTML;
   }
 
   getHTML(id, elementList: any[]) {
@@ -66,8 +75,8 @@ export class PrintService {
   }
 
   wrapperBegin(id) {
-    return '<div class="id">' + id + '</div>\n' +
-      '<div class="keyboard" id="' + id + '">\n' +
+    return '<div class="id section-to-print">' + id + '</div>\n' +
+      '<div class="keyboard section-to-print" id="' + id + '">\n' +
       '<div class="wrapper height-width-100">\n';
   }
 
@@ -106,6 +115,24 @@ export class PrintService {
   wrapperEnd() {
     return '</div>\n' +
       '</div>';
+  }
+
+  getCSSPrint(){
+    return '@media print {\n' +
+      '  body * {\n' +
+      '    visibility: hidden;\n' +
+      ' height: 0; \n'+
+      '  }\n' +
+      '  .section-to-print, .section-to-print * {\n' +
+      '    visibility: visible;\n' +
+      '  }\n' +
+      'body{\n' +
+      '  margin: 0 0 0 0;\n' +
+      '  height: 100%;\n' +
+      '  width: 100%;\n' +
+      '  overflow: visible;\n' +
+      '}\n'+
+      '}'
   }
 
   getCSSKeyboard() {
@@ -211,7 +238,7 @@ export class PrintService {
       '  margin: 0 0 0 0;\n' +
       '  height: 100%;\n' +
       '  width: 100%;\n' +
-      '  overflow: visible;\n' +
+      '  overflow: scroll;\n' +
       '}\n';
   }
 }
