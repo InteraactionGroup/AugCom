@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import jsonSpeak4Yourself from '../../assets/csvjson.json';
 import {CSVRecord} from '../csvType';
-import {Grid} from '../types';
+import {FolderGoTo, Grid} from '../types';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +46,7 @@ export class CsvReaderService { //TODO modify this class for new file format wit
       const isFolder = this.elementIsFolder(element);
       grille.ElementList.push({
         ID: '' + element.id,
-        Type: isFolder ? 'folder' : 'button',
+        Type: isFolder ? new FolderGoTo(element.id) : 'button',
         PartOfSpeech: '',
         ElementFormsList: [{
           DisplayedText: element.mot,

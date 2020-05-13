@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HistoricService} from '../../services/historic.service';
 import {EditionService} from '../../services/edition.service';
 import {BoardService} from '../../services/board.service';
-import {Action, GridElement, ElementForm, Vignette} from '../../types';
+import {Action, GridElement, ElementForm, Vignette, FolderGoTo} from '../../types';
 import {GeticonService} from '../../services/geticon.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
@@ -167,15 +167,17 @@ export class KeyboardComponent implements OnInit {
    */
   getShadow(element: GridElement) {
 
-    let s = (element.Type === 'folder' ? '3px ' : '0px ') +
-      (element.Type === 'folder' ? '-3px ' : '0px ') +
+    let isFolder = (<FolderGoTo> element.Type).GoTo !== undefined;
+
+    let s = (isFolder ? '3px ' : '0px ') +
+      (isFolder ? '-3px ' : '0px ') +
       '0px ' +
-      (element.Type === 'folder' ? '-2px ' : '0px ')
+      (isFolder ? '-2px ' : '0px ')
       + (element.Color === undefined || element.Color == null ? '#d3d3d3' : element.Color);
 
     s = s + ' , ' +
-      (element.Type === 'folder' ? '4px ' : '0px ') +
-      (element.Type === 'folder' ? '-4px ' : '0px ') +
+      (isFolder ? '4px ' : '0px ') +
+      (isFolder ? '-4px ' : '0px ') +
       (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor);
     return s;
   }
@@ -500,12 +502,13 @@ export class KeyboardComponent implements OnInit {
         }
 
         // for folder
-      } else if (element.Type === 'folder') {
-        this.boardService.currentPath = this.boardService.currentPath + '.' + element.ID;
+      } else if ((<FolderGoTo> element.Type).GoTo !== undefined) {
+        this.boardService.currentPath = this.boardService.currentPath + '.' + (<FolderGoTo> element.Type).GoTo;
         console.log(this.boardService.currentPath);
 
         // for errors
       } else {
+        console.error(element.Type);
         console.error('ElementType : ' + element.Type + ' is not supported (supported ElementTypes are "button" or "folder")');
       }
     }

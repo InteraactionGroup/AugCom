@@ -12,7 +12,7 @@ import {Traduction} from '../../sparqlJsonResults';
 import {DbnaryService} from '../../services/dbnary.service';
 import {HttpClient} from "@angular/common/http";
 import {Ng2ImgMaxService} from "ng2-img-max";
-import {GridElement} from "../../types";
+import {FolderGoTo, GridElement} from "../../types";
 import {CsvParserService} from "../../services/csv-parser.service";
 
 @Component({
@@ -59,7 +59,7 @@ export class ShareComponent implements OnInit {
 
   /*read CSV file of csv reader and open it as a grid*/
   parseCSV() {
-    this.csvParser.requestLease()
+    this.csvParser.createGridFromProloquoCSVs()
     // this.boardService.board = this.csvParser.generateBoard();
     // this.trad(0);
   }
@@ -101,7 +101,7 @@ export class ShareComponent implements OnInit {
 
                     let type;
                     if (folderPath.length === 0) {
-                      type = 'folder';
+                      type = new FolderGoTo(name);
                     } else {
                       type = 'button';
                     }
@@ -122,7 +122,7 @@ export class ShareComponent implements OnInit {
               splitName.forEach(s => {
                 path = path + '.' + s;
               });
-              this.createNewButtonFromInfoInZIP(name, imageURL, path, 'folder');
+              this.createNewButtonFromInfoInZIP(name, imageURL, path, new FolderGoTo(name));
             }
           }
         );

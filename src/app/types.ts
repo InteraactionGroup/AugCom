@@ -23,12 +23,20 @@ export class Grid {
 
 }
 
+export class FolderGoTo {
+  GoTo: string;
+
+  constructor(goto) {
+    this.GoTo = goto;
+  }
+}
+
 /**
  * an element of the Board
  */
 export class GridElement {
   ID: string;
-  Type: string;
+  Type: string |  FolderGoTo;
   PartOfSpeech: string;
   Color: string; // to delete later
   BorderColor: string; // to delete later

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {CSVLink, CSVRecord, CSVRecord2} from "../csvType";
-import {ElementForm, Grid, GridElement, Image, Interaction, Page} from "../types";
+import {backLinksCSV, buttonLinksCSV, CSVRecord, pageLinksCSV, wordsCSV} from "../csvType";
+import {ElementForm, FolderGoTo, Grid, GridElement, Image, Interaction, Page} from "../types";
 import {BoardService} from "./board.service";
 import {IndexeddbaccessService} from "./indexeddbaccess.service";
 import {PrintService} from "./print.service";
@@ -15,58 +15,93 @@ export class CsvParserService {
   constructor(private http: HttpClient, public boardService: BoardService, public indexedDBacess: IndexeddbaccessService, private printService: PrintService,
               private router: Router,) { }
 
-  public records: CSVRecord2[] = [];
-  public links: CSVLink[] = [];
+  public words: wordsCSV[] = [];
+  public pageLinks: pageLinksCSV[] = [];
+  public  buttonLinks: buttonLinksCSV[] = [];
+  public backLinks: backLinksCSV[] = [];
 
+  public createGridFromProloquoCSVs(): void {
+    /*WORD CSV DATA*/
+    this.http.get('assets/libs/proloquo/proloquoMots.csv', { responseType: 'text' }).subscribe(wordData => {
+      let csvRecordsArray = (<string>wordData).split(/\r\n|\n/);
+      let headersRow = this.getHeaderArray(csvRecordsArray);
+      this.getDataRecordsArrayFromWordsCSV(csvRecordsArray, headersRow.length);
 
-  public requestLease(): void {
-    this.http.get('assets/CanadianProloquo.csv', { responseType: 'text' })
-      .subscribe(data => {
-        this.uploadListener(data);
-        this.boardService.board = this.createGrid();
-        this.indexedDBacess.update();
-        this.router.navigate(['']);
-      });
-  }
-
-  uploadListener(csvData: string): void {
-
-        let csvRecordsArray = (<string>csvData).split(/\r\n|\n/);
-
+      /*PAGE CSV DATA*/
+      this.http.get('assets/libs/proloquo/proloquoPageLinks.csv', { responseType: 'text' }).subscribe(pageData => {
+        let csvRecordsArray = (<string>pageData).split(/\r\n|\n/);
         let headersRow = this.getHeaderArray(csvRecordsArray);
+        this.getDataRecordsArrayFromPageLinksCSV(csvRecordsArray, headersRow.length);
 
-        this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length);
+        /*BUTTON CSV DATA*/
+        this.http.get('assets/libs/proloquo/proloquoButtonLinks.csv', { responseType: 'text' }).subscribe(buttonData => {
+          let csvRecordsArray = (<string>buttonData).split(/\r\n|\n/);
+          let headersRow = this.getHeaderArray(csvRecordsArray);
+          this.getDataRecordsArrayFromButtonLinksCSV(csvRecordsArray, headersRow.length);
 
+          /*BACK CSV DATA*/
+          this.http.get('assets/libs/proloquo/proloquoBackLinks.csv', { responseType: 'text' }).subscribe(backData => {
+            let csvRecordsArray = (<string>backData).split(/\r\n|\n/);
+            let headersRow = this.getHeaderArray(csvRecordsArray);
+            this.getDataRecordsArrayFromBackLinksCSV(csvRecordsArray, headersRow.length);
 
+            this.boardService.board = this.createGrid();
+            this.indexedDBacess.update();
+            this.router.navigate(['']);
+          });
+        });
+      });
+    });
   }
 
-  getDataRecordsArrayFromCSVFile(csvRecordsArray: any, headerLength: any) {
+  getDataRecordsArrayFromWordsCSV(csvRecordsArray: any, headerLength: any) {
     for (let i = 1; i < csvRecordsArray.length; i++) {
       let curruntRecord = (<string>csvRecordsArray[i]).split(',');
       if (curruntRecord.length == headerLength) {
-        if(curruntRecord[0].trim()==='' && curruntRecord[1].trim() ==='' && curruntRecord[2].trim() ===''){
-          let csvLink: CSVLink = new CSVLink();
-          csvLink.page = curruntRecord[3].trim();
-          csvLink.id = curruntRecord[4].trim();
+        let csvRecord: wordsCSV = new wordsCSV();
+        csvRecord.mot = curruntRecord[0].trim();
+        csvRecord.ligne = Number(curruntRecord[1].trim());
+        csvRecord.colonne = Number(curruntRecord[2].trim());
+        csvRecord.page = curruntRecord[3].trim();
+        csvRecord.wordID = curruntRecord[4].trim();
+        this.words.push(csvRecord);
+      }
+    }
+  }
 
-          csvLink.page = csvLink.page.replace('accueil','#HOME');
-          csvLink.id = csvLink.id.replace('accueil','#HOME');
+  getDataRecordsArrayFromPageLinksCSV(csvRecordsArray: any, headerLength: any) {
+    for (let i = 1; i < csvRecordsArray.length; i++) {
+      let curruntRecord = (<string>csvRecordsArray[i]).split(',');
+      if (curruntRecord.length == headerLength) {
+        let csvRecord: pageLinksCSV = new pageLinksCSV();
+        csvRecord.from = curruntRecord[0].trim();
+        csvRecord.to = curruntRecord[1].trim();
+        this.pageLinks.push(csvRecord);
+      }
+    }
+  }
 
-          this.links.push(csvLink);
+  getDataRecordsArrayFromButtonLinksCSV(csvRecordsArray: any, headerLength: any) {
+    for (let i = 1; i < csvRecordsArray.length; i++) {
+      let curruntRecord = (<string>csvRecordsArray[i]).split(',');
+      if (curruntRecord.length == headerLength) {
+        let csvRecord: buttonLinksCSV = new buttonLinksCSV();
+        csvRecord.from = curruntRecord[0].trim();
+        csvRecord.to = curruntRecord[1].trim();
+        this.buttonLinks.push(csvRecord);
+      }
+    }
+  }
 
-        } else {
-          let csvRecord: CSVRecord2 = new CSVRecord2();
-          csvRecord.mot = curruntRecord[0].trim();
-          csvRecord.ligne = Number(curruntRecord[1].trim());
-          csvRecord.colonne = Number(curruntRecord[2].trim());
-          csvRecord.page = curruntRecord[3].trim();
-          csvRecord.id = curruntRecord[4].trim();
-
-          csvRecord.page = csvRecord.page.replace('accueil','#HOME');
-          csvRecord.id = csvRecord.id.replace('accueil','#HOME');
-
-          this.records.push(csvRecord);
-        }
+  getDataRecordsArrayFromBackLinksCSV(csvRecordsArray: any, headerLength: any) {
+    for (let i = 1; i < csvRecordsArray.length; i++) {
+      let curruntRecord = (<string>csvRecordsArray[i]).split(',');
+      if (curruntRecord.length == headerLength) {
+        let csvRecord: backLinksCSV = new backLinksCSV();
+        csvRecord.from = curruntRecord[0].trim();
+        csvRecord.backID = curruntRecord[1].trim();
+        csvRecord.to = curruntRecord[2].trim();
+        this.backLinks.push(csvRecord);
       }
     }
   }
@@ -74,90 +109,70 @@ export class CsvParserService {
   getHeaderArray(csvRecordsArr: any) {
     let headers = (<string>csvRecordsArr[0]).split(',');
     let headerArray = [];
-    for (let j = 0; j < headers.length; j++) {
-      headerArray.push(headers[j]);
-    }
+    for (let i = 0; i < headers.length; i++) { headerArray.push(headers[i]); }
     return headerArray;
   }
+
   createGrid(){
     let tempElement: GridElement[] = [];
     let tempPage: Page[] = [];
 
-    this.links.forEach( link => {
-      let theoreticalId = link.page.split('@')[0];
-      if (theoreticalId !== link.id
-        && theoreticalId !== 'retour'
-        && theoreticalId !== 'plus'
-        && theoreticalId !== 'page_suivante'
-        && theoreticalId !== 'page_précédente') {
-        this.records.forEach( rec => {
-          if (rec.page === link.id){
-            rec.page = theoreticalId;
-          }
-        });
-        link.id = theoreticalId;
-      } else if (theoreticalId !== link.id
-        && (theoreticalId === 'retour'
-        || theoreticalId === 'page_suivante'
-          || theoreticalId === 'plus'
-        || theoreticalId === 'page_précédente')){
-        this.records.forEach( rec => {
-          if (rec.id === link.page){
-            rec.id = link.id + '@' + link.page.split('@')[1];
-          }
-        });
-        link.page = link.id + '@' + link.page.split('@')[1];
-      }
-    });
-
-    this.links.forEach( link => {
-      if(tempPage.findIndex( page => page.ID === link.id) === -1)
-     { tempPage.push({
-        ID: link.id,
-        ElementIDsList: []
-      })}
+    this.words.forEach( word => {
+      if(tempPage.findIndex( page => page.ID === word.page) === -1)
+      {tempPage.push({ID: word.page , ElementIDsList: []})}
     });
 
     const interList: Interaction[] = [
       {ID: 'click', ActionList: [ {ID: 'display', Action: 'display'},{ID: 'say', Action: 'say'}]}
     ];
 
-    this.records.forEach( record => {
-      let isFolder =  this.links.findIndex( link => {return link.page === record.id}) !== -1;
 
-      let id = record.id.split('@')[0]+ (isFolder ? '' : 'button');
 
-      let parentPage = tempPage.find( page => {return page.ID === record.page});
-      if (parentPage !== null && parentPage !== undefined){
-        parentPage.ElementIDsList.push(id);
+    this.words.forEach( word => {
+
+      let getType: any = 'button';
+      let getPage = this.pageLinks.find( pageLink => {return pageLink.from === word.wordID});
+      if(getPage !== null && getPage !== undefined){
+        getType = new FolderGoTo( getPage.to);
       }
 
-      let index = tempElement.findIndex( elt => {return elt.ID === id});
+      let idOfWord = word.wordID.split('@')[0] + (getType === 'button' ? 'button' : '');
 
-      if(index === -1) {
-        console.log('added');
-        tempElement.push(new GridElement(
-          id,
-          isFolder ? 'folder' : 'button',
-          '',
-          record.mot === 'PLUS' ? 'lightgrey' :
-            (record.mot === 'RETOUR' ? 'red' :
-              (record.mot ==='PAGE SUIVANTE' ? 'green' : (record.mot ==='PAGE PRÉCÉDENTE'? 'yellow' :'white'))),
-          'black',
-          0,
-          [{
-            DisplayedText: record.mot,
-            VoiceText: record.mot,
+      let getParentPage = tempPage.find( page => {return page.ID === word.page});
+      if(getParentPage !== null && getParentPage !== undefined){
+        getParentPage.ElementIDsList[(word.colonne-1) + (word.ligne-1) * 8] = idOfWord;
+      }
+
+      if(tempElement.findIndex(elt => elt.ID === idOfWord) ===-1){
+
+      tempElement.push({
+        ID: idOfWord,
+        Type: getType,
+        PartOfSpeech: '',
+        Color: 'white',
+        BorderColor: 'black',
+        VisibilityLevel: 0,
+        ElementFormsList: [
+          { DisplayedText: word.mot,
+            VoiceText: word.mot,
             LexicInfos: [{default: true}],
-            ImageID: ''
-          }],
-          interList));
+            ImageID: word.wordID
+          }
+      ],
+        InteractionsList: interList
+      });
+
       }
     });
 
-
-    //tempPage = tempPage.filter( page => { return page.ElementIDsList.length > 0});
-
+    tempPage.find(page => page.ID==='accueil').ID = "#HOME";
+    tempPage.forEach( page => {
+      for(let i = 0; i < page.ElementIDsList.length; i++){
+        if (page.ElementIDsList[i] === undefined || page.ElementIDsList[i] === null){
+          page.ElementIDsList[i]= '#disable';
+        }
+      }
+    });
 
     let grid = {
       ID: 'ProloquoGrid',

@@ -3,7 +3,7 @@ import {DbnaryService} from '../../services/dbnary.service';
 import {BoardService} from '../../services/board.service';
 import {GeticonService} from '../../services/geticon.service';
 import {DomSanitizer} from '@angular/platform-browser';
-import {GridElement, ElementForm, Interaction, Page} from '../../types';
+import {GridElement, ElementForm, Interaction, Page, FolderGoTo} from '../../types';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {Router} from '@angular/router';
 import {PaletteService} from '../../services/palette.service';
@@ -135,7 +135,7 @@ export class EditionComponent implements OnInit {
   modifyButton() {
     if (this.editionService.selectedElements[0] != null && this.editionService.selectedElements[0] !== undefined) {
       const element: GridElement = this.editionService.selectedElements[0];
-      element.Type = this.editionService.radioTypeFormat;
+      element.Type = this.editionService.radioTypeFormat === 'folder' ? new FolderGoTo(element.ID) : this.editionService.radioTypeFormat;
       element.Color = this.editionService.curentColor;
       element.BorderColor = this.editionService.curentBorderColor;
       element.InteractionsList = Object.assign([], this.editionService.interractionList);
@@ -185,7 +185,7 @@ export class EditionComponent implements OnInit {
     this.boardService.board.ElementList.push(
       {
         ID: tempId,
-        Type: this.editionService.radioTypeFormat,
+        Type: this.editionService.radioTypeFormat === 'folder' ? new FolderGoTo(tempId): this.editionService.radioTypeFormat ,
         PartOfSpeech: this.editionService.classe,
         ElementFormsList: elementFormsList,
         InteractionsList: interList,
@@ -229,7 +229,7 @@ export class EditionComponent implements OnInit {
       this.editionService.name = this.editionService.getDefaultForm(elementToModif.ElementFormsList).DisplayedText;
       this.editionService.curentColor = elementToModif.Color;
       this.editionService.curentBorderColor = elementToModif.BorderColor;
-      this.editionService.radioTypeFormat = elementToModif.Type;
+      this.editionService.radioTypeFormat = elementToModif.Type === 'button' ? 'button' : 'folder';
       const imageToModif = this.boardService.board.ImageList.find(x => x.ID === elementToModif.ElementFormsList[0].ImageID);
       if (imageToModif != null && imageToModif !== undefined) {
         this.editionService.imageURL = imageToModif.Path;

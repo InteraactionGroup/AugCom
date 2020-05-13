@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BoardService} from './board.service';
-import {GridElement, Page} from '../types';
+import {FolderGoTo, GridElement, Page} from '../types';
 
 @Injectable({
   providedIn: 'root'
@@ -79,7 +79,7 @@ export class PrintService {
   }
 
   getShadow(element: GridElement) {
-    if (element.Type === 'folder') {
+    if ((<FolderGoTo> element.Type).GoTo !== undefined) {
       let s = '; box-shadow: 3px -3px 0px -2px ' + (element.Color === undefined || element.Color == null ? '#d3d3d3' : element.Color);
       s = s + ' , 4px -4px ' + (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor);
       return s;
