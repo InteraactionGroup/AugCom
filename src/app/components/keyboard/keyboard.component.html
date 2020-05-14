@@ -118,27 +118,6 @@
 
     </ng-container>
 
-    <!-- ng container checking if back button have to be displayed -->
-    <ng-container *ngIf="this.boardService.getCurrentFolder() !== '#HOME' && this.boardService.activatedElement==-1">
-
-      <!-- container for the back button element -->
-      <div id="backButton" class="elementContainer floatLeft no-drag">
-
-        <!-- back button element-->
-        <div class="element" (click)="this.boardService.backToPreviousFolder()" [ngStyle]="{'background-color': 'red'}">
-
-          <div class="image haveBackgroundImage" [style.background-image]="this.getIcon('retour')"></div>
-
-          <div class="adjustableText" >
-            retour
-          </div>
-
-        </div>
-
-      </div>
-
-    </ng-container>
-
 
     <!-- ng container checking if the add button have to be displayed -->
     <ng-container *ngIf="this.userToolBarService.edit">

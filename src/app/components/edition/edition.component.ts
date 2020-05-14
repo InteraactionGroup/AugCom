@@ -215,7 +215,8 @@ export class EditionComponent implements OnInit {
   }
 
   createAndGetNewPage(): Page{
-   return  {ID: this.boardService.getCurrentFolder(), ElementIDsList: []};
+    let name = this.boardService.getCurrentFolder();
+   return  {ID: name, Name:name, ElementIDsList: []};
   }
 
   /**

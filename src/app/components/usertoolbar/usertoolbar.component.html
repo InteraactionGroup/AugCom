@@ -12,36 +12,45 @@
 
   <nav>
     <a routerLink="/account">
-      <div class="button" id="accountButton">
+      <div class="button floatRight" id="accountButton">
         <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('account')}">
         </div>
       </div>
     </a>
   </nav>
 
-  <div class="button" id="lockUnlockButton" (click)="this.setLock()">
+  <div class="button floatRight" id="lockUnlockButton" (click)="this.setLock()">
     <div class="image width-100" [class.imageSelected]="this.userToolBarService.unlock"
          [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.unlock?'unlock':'lock')}">
     </div>
   </div>
 
 
-  <div class="button" id="editButton" *ngIf="this.userToolBarService.unlock" (click)="this.edit()">
+  <div class="button floatRight" id="editButton" *ngIf="this.userToolBarService.unlock" (click)="this.edit()">
     <div class="image width-100" [class.noConnection]="!this.userToolBarService.isConnected"
          [class.imageSelected]="this.userToolBarService.edit" [ngStyle]="{'background-image':this.getIcon('edit')}">
     </div>
   </div>
 
-  <div class="button" id="babbleButton" *ngIf="this.userToolBarService.unlock"
+  <div class="button floatRight" id="babbleButton" *ngIf="this.userToolBarService.unlock"
        (click)="this.userToolBarService.babble = !this.userToolBarService.babble">
     <div class="image width-100" [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.babble?'hide':'show')}">
     </div>
   </div>
 
-  <div class="button" id="fullScreenButton" *ngIf="this.userToolBarService.unlock"
+  <div class="button floatRight" id="fullScreenButton" *ngIf="this.userToolBarService.unlock"
        (click)="this.userToolBarService.fullScreen()">
     <div class="image width-100"
          [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.full?'exitfullscreen':'fullscreen')}">
+    </div>
+  </div>
+
+
+  <div class="button floatLeft" id="backButton"
+       (click)="this.boardService.backToPreviousFolder()"
+  [ngStyle]="{'opacity': (this.boardService.getCurrentFolder() !== '#HOME' && this.boardService.activatedElement==-1) ? '1' : '0.5'}">
+    <div class="image width-100"
+         [ngStyle]="{'background-image':this.getIcon('retour')}">
     </div>
   </div>
 
@@ -69,5 +78,7 @@
          [ngStyle]="{'background-image':this.userToolBarService.search? this.getIcon('search') : this.getIcon('play') }">
     </div>
   </div>
+
+
 
 </div>

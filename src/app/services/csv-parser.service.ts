@@ -117,16 +117,7 @@ export class CsvParserService {
     let tempElement: GridElement[] = [];
     let tempPage: Page[] = [];
 
-    this.words.forEach( word => {
-      if(tempPage.findIndex( page => page.ID === word.page) === -1)
-      {tempPage.push({ID: word.page , ElementIDsList: []})}
-    });
-
-    const interList: Interaction[] = [
-      {ID: 'click', ActionList: [ {ID: 'display', Action: 'display'},{ID: 'say', Action: 'say'}]}
-    ];
-
-
+    this.setUpTempPage(tempPage);
 
     this.words.forEach( word => {
 
@@ -134,9 +125,14 @@ export class CsvParserService {
       let getPage = this.pageLinks.find( pageLink => {return pageLink.from === word.wordID});
       if(getPage !== null && getPage !== undefined){
         getType = new FolderGoTo( getPage.to);
+      } else {
+        getPage = this.buttonLinks.find( buttonLink => {return buttonLink.from === word.wordID});
+        if(getPage !== null && getPage !== undefined){
+          getType = new FolderGoTo( getPage.to);
+        }
       }
 
-      let idOfWord = word.wordID.split('@')[0] + (getType === 'button' ? 'button' : '');
+      let idOfWord = this.setUpID(word,getType);
 
       let getParentPage = tempPage.find( page => {return page.ID === word.page});
       if(getParentPage !== null && getParentPage !== undefined){
@@ -144,37 +140,92 @@ export class CsvParserService {
       }
 
       if(tempElement.findIndex(elt => elt.ID === idOfWord) ===-1){
-
-      tempElement.push({
-        ID: idOfWord,
-        Type: getType,
-        PartOfSpeech: '',
-        Color: 'white',
-        BorderColor: 'black',
-        VisibilityLevel: 0,
-        ElementFormsList: [
-          { DisplayedText: word.mot,
-            VoiceText: word.mot,
-            LexicInfos: [{default: true}],
-            ImageID: word.wordID
-          }
-      ],
-        InteractionsList: interList
-      });
-
+        tempElement.push(this.setUpNewGridElement(idOfWord, getType, word));
       }
+
     });
 
-    tempPage.find(page => page.ID==='accueil').ID = "#HOME";
+    this.setUpHomeID(tempPage);
+    this.setUpElementIDToDisable(tempPage);
+
+    return this.setUpNewGrid(tempElement, tempPage);
+  }
+
+  setUpID(word, getType){
+    let name = word.wordID.split('@')[0];
+   // if (name === 'fermer' || name === 'plus' || name === 'retour' || name === 'page_suivante' || name === 'page_précédente') {
+     name = name + word.wordID.split('@')[1];
+   // }
+     name = name + (getType === 'button' ? 'button' : '');
+     return name;
+  }
+
+  setUpTempPage(tempPage){
+    this.words.forEach( word => {
+      if(tempPage.findIndex( page => page.ID === word.page) === -1) {
+        let name = word.page;
+
+        let pageLink = this.pageLinks.find(pageLink => pageLink.to === word.page );
+
+        if(pageLink !== undefined && pageLink !== null){
+          let word = this.words.find( word => word.wordID === pageLink.from);
+          if(word !== undefined && word !== null){
+            name = word.mot;
+          }
+        } else {
+
+          let buttonLink = this.buttonLinks.find(buttonLink => buttonLink.to === word.page );
+
+          if(buttonLink !== undefined && buttonLink !== null){
+            let word = this.words.find( word => word.wordID === buttonLink.from);
+            if(word !== undefined && word !== null){
+              name = word.mot;
+            }
+          }
+        }
+
+        tempPage.push({ID: word.page , Name:name, ElementIDsList: []})
+      }
+    });
+  }
+
+  setUpNewGridElement(idOfWord, type, word){
+
+    const interList: Interaction[] = [
+      {ID: 'click', ActionList: [ {ID: 'display', Action: 'display'},{ID: 'say', Action: 'say'}]}
+    ];
+
+    return {
+      ID: idOfWord, Type: type, PartOfSpeech: '', Color: this.getColor(word.wordID), BorderColor: 'black', VisibilityLevel: 0,
+      ElementFormsList: [
+        { DisplayedText: word.mot,
+          VoiceText: word.mot,
+          LexicInfos: [{default: true}],
+          ImageID: word.wordID
+        }
+      ],
+      InteractionsList: interList
+    };
+  }
+
+  setUpElementIDToDisable(tempPage){
     tempPage.forEach( page => {
-      for(let i = 0; i < page.ElementIDsList.length; i++){
+      for(let i = 0; i < page.ElementIDsList.length ; i++){
         if (page.ElementIDsList[i] === undefined || page.ElementIDsList[i] === null){
           page.ElementIDsList[i]= '#disable';
         }
       }
     });
+  }
 
-    let grid = {
+  setUpHomeID(tempPage: Page[]){
+    let homePage = tempPage.find(page => page.ID==='accueil');
+    homePage.ID = "#HOME";
+    homePage.Name = "ACCUEIL";
+  }
+
+  setUpNewGrid(tempElement, tempPage){
+    return {
       ID: 'ProloquoGrid',
       Type: 'Grid',
       NumberOfCols: 8,
@@ -183,11 +234,19 @@ export class CsvParserService {
       ImageList: [],
       PageList: tempPage
     };
+  }
 
-    console.log(tempElement);
-    console.log(tempPage);
+  getColor(wordID: string){
+    let name = wordID.split('@')[0];
+    switch (name) {
+      case 'fermer' : return 'darkgray';
+      case 'plus' : return 'dimgrey';
+      case 'retour' : return 'red';
+      case 'page_suivante' : return 'yellow';
+      case 'page_précédente' : return 'orange';
+      default: return 'white';
+    }
 
-    return grid;
   }
 
 }

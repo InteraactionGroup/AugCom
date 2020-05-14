@@ -104,5 +104,6 @@ export class ElementForm {
 
 export class Page {
   ID: string;
+  Name : string;
   ElementIDsList: string[];
 }

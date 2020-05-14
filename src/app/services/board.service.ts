@@ -48,15 +48,21 @@ export class BoardService {
   getCurrentTitle() {
     let path = this.currentPath.split('.');
     if (path !== null){
-      let id = path[path.length-1];
-      if (id === '#HOME') { return 'Accueil'; }
-      let element = this.board.ElementList.find( elt => elt.ID === id);
-      if(element !== null && element !== undefined){
-        let label = this.getDefaultLabel(element);
-        return label === '#HOME' ? 'Accueil' : label;
+      let name = '';
+      for(let i = 0; i <= path.length-1; i++){
+        let id = path[i];
+        console.log(i);
+        let associatedPage = this.board.PageList.find(page => id === page.ID);
+        if(associatedPage !== null && associatedPage !== undefined){
+          name = name + associatedPage.Name + '/';
+        } else {
+          name = name + '?/';
+        }
       }
-      return 'Accueil';
+      console.log(name);
+      return name;
     }
+    console.log('Accueil');
     return 'Accueil';
   }
 
