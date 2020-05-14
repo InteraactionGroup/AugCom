@@ -1,0 +1,12 @@
+<!-- <div class="toolbar"> -->
+<!-- <button (click)="layoutService.addItem()">Add Item</button> -->
+<!-- </div> -->
+
+<gridster [options]="options">
+  <gridster-item *ngFor="let item of elementLayout" [item]="item.gridsterItem">
+    <!-- <button (click)=" layoutService.deleteItem(item)">
+    Delete Item
+    </button> -->
+    <app-tile [element]=item.element></app-tile>
+  </gridster-item>
+</gridster>

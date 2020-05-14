@@ -1,0 +1,10 @@
+.toolbar {
+  height: 100px;
+  display: flex;
+}
+
+gridster {
+  display: flex;
+  height: calc(100vh - 115px);
+  flex-direction: column;
+}

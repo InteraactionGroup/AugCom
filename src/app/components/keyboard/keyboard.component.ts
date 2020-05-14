@@ -27,7 +27,6 @@ export class KeyboardComponent implements OnInit {
 
   // tslint:disable-next-line:max-line-length
   constructor(
-    public dragulaService: DragulaService,
     public searchService: SearchService,
     private router: Router,
     public parametersService: ParametersService,
@@ -331,5 +330,10 @@ export class KeyboardComponent implements OnInit {
    */
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
+  }
+
+  addNewElement() {
+    this.editionService.add = true;
+    this.editionService.clearEditionPane();
   }
 }

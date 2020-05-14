@@ -9,9 +9,18 @@ export class Grid {
   GridType: string;
   gridColsNumber: number;
   gridRowsNumber: number;
-  Style: { ElementType: string, Link: string }[];
+  Style: { ElementType: string; Link: string }[];
 
-  constructor(gridId, elemList, imageList, actionList, gridType, gridCol, gridRow, style) {
+  constructor(
+    gridId,
+    elemList,
+    imageList,
+    actionList,
+    gridType,
+    gridCol,
+    gridRow,
+    style
+  ) {
     this.GridID = gridId;
     this.ElementList = elemList;
     this.ImageList = imageList;
@@ -20,7 +29,6 @@ export class Grid {
     this.gridRowsNumber = Number(gridRow);
     this.Style = style;
   }
-
 }
 
 /**
@@ -33,13 +41,23 @@ export class Element {
   ElementPartOfSpeech: string;
   ElementForms: ElementForm[];
   ImageID: string;
-  InteractionsList: { InteractionID: string, ActionList: Action[] }[];
+  InteractionsList: { InteractionID: string; ActionList: Action[] }[];
   Color: string; // to delete later
   BorderColor: string; // to delete later
   Visible: boolean;
 
-  constructor(elementId, elementFolder, elementType, elementPartOfSpeech, elementsForms,
-              imageID, interactionList, color, borderColor, visible) {
+  constructor(
+    elementId,
+    elementFolder,
+    elementType,
+    elementPartOfSpeech,
+    elementsForms,
+    imageID,
+    interactionList,
+    color,
+    borderColor,
+    visible
+  ) {
     this.ElementID = elementId;
     this.ElementFolder = elementFolder;
     this.ElementType = elementType;
@@ -87,4 +105,3 @@ export class ElementForm {
   VoiceText: string;
   LexicInfos: any[];
 }
-

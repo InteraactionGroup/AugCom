@@ -37,6 +37,8 @@ import {
 import { GridComponent } from "./components/grid/grid.component";
 import { TileComponent } from "./components/tile/tile.component";
 import { ElementContainerDirective } from "./directives/element-container.directive";
+import { LayoutComponent } from "./components/layout/layout.component";
+import { GridsterModule } from "angular-gridster2";
 
 @NgModule({
   declarations: [
@@ -65,6 +67,7 @@ import { ElementContainerDirective } from "./directives/element-container.direct
     GridComponent,
     TileComponent,
     ElementContainerDirective,
+    LayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,6 +81,7 @@ import { ElementContainerDirective } from "./directives/element-container.direct
     DragulaModule,
     DragulaModule.forRoot(),
     BrowserAnimationsModule,
+    GridsterModule,
   ],
   bootstrap: [AppComponent],
 })
