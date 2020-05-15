@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { GridsterConfig, GridsterItem } from "angular-gridster2";
-import { LayoutService, IComponent } from "../../services/layout.service";
+import { GridsterConfig } from "angular-gridster2";
+import { UsertoolbarService } from "../../services/usertoolbar.service";
+import { LayoutService } from "../../services/layout.service";
 import { Element } from "../../types";
 
 @Component({
@@ -11,24 +12,23 @@ import { Element } from "../../types";
 export class LayoutComponent implements OnInit {
   @Input() elements: Element[];
 
-  constructor(public layoutService: LayoutService) {}
+  constructor(
+    public layoutService: LayoutService,
+    private userToolbarService: UsertoolbarService
+  ) {}
 
   ngOnInit() {
     this.elements.forEach((element) => {
       this.layoutService.addItem(element);
     });
+    this.layoutService.setDraggable(true);
   }
 
   get options(): GridsterConfig {
     return this.layoutService.options;
   }
-  get layout(): GridsterItem[] {
+
+  get layout(): any {
     return this.layoutService.layout;
-  }
-  get components(): IComponent[] {
-    return this.layoutService.components;
-  }
-  get elementLayout(): any {
-    return this.layoutService.elementLayout;
   }
 }
