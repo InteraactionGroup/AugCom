@@ -30,10 +30,9 @@ import {AlternativeFormsComponent} from './components/alternative-forms/alternat
 import {ImageSelectionPageComponent} from './components/image-selection-page/image-selection-page.component';
 import {InformationEditionPageComponent} from './components/information-edition-page/information-edition-page.component';
 import {AVenirComponent} from './components/a-venir/a-venir.component';
-import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ErrorOnEditComponent } from './components/error-on-edit/error-on-edit.component';
 import { PrintComponent } from './components/print/print.component';
-import {NgxPrintModule} from "ngx-print";
 
 @NgModule({
   declarations: [
@@ -71,8 +70,7 @@ import {NgxPrintModule} from "ngx-print";
         AppRoutingModule,
         DragulaModule,
         DragulaModule.forRoot(),
-        BrowserAnimationsModule,
-        NgxPrintModule
+        BrowserAnimationsModule
     ],
   bootstrap: [AppComponent]
 })
