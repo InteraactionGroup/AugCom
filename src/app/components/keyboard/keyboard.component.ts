@@ -503,7 +503,18 @@ export class KeyboardComponent implements OnInit {
 
         // for folder
       } else if ((<FolderGoTo> element.Type).GoTo !== undefined) {
-        this.boardService.currentPath = this.boardService.currentPath + '.' + (<FolderGoTo> element.Type).GoTo;
+        let pathTab = this.boardService.currentPath.split('.');
+        if (pathTab.length >= 2) {
+          if (pathTab[pathTab.length - 2] === (<FolderGoTo>element.Type).GoTo) {
+            pathTab = pathTab.slice(0, length - 1);
+            this.boardService.currentPath = pathTab.join('.');
+          } else {
+            this.boardService.currentPath = this.boardService.currentPath + '.' + (<FolderGoTo> element.Type).GoTo;
+          }
+        }else {
+          this.boardService.currentPath = this.boardService.currentPath + '.' + (<FolderGoTo> element.Type).GoTo;
+        }
+
         console.log(this.boardService.currentPath);
 
         // for errors

@@ -49,7 +49,12 @@ export class BoardService {
     let path = this.currentPath.split('.');
     if (path !== null){
       let name = '';
-      for(let i = 0; i <= path.length-1; i++){
+      let i = 0;
+      if(path.length >= 4){
+        i = path.length-3;
+        name = '.../'
+      }
+      for(i; i <= path.length-1; i++){
         let id = path[i];
         console.log(i);
         let associatedPage = this.board.PageList.find(page => id === page.ID);

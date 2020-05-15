@@ -152,9 +152,9 @@ export class CsvParserService {
   }
 
   setUpID(word, getType){
-    let name = word.wordID.split('@')[0];
+    let name = word.wordID.split('@%')[0];
    // if (name === 'fermer' || name === 'plus' || name === 'retour' || name === 'page_suivante' || name === 'page_précédente') {
-     name = name + word.wordID.split('@')[1];
+     name = name + word.wordID.split('@%')[1];
    // }
      name = name + (getType === 'button' ? 'button' : '');
      return name;
@@ -237,7 +237,7 @@ export class CsvParserService {
   }
 
   getColor(wordID: string){
-    let name = wordID.split('@')[0];
+    let name = wordID.split('@%')[0];
     switch (name) {
       case 'fermer' : return 'darkgray';
       case 'plus' : return 'dimgrey';
