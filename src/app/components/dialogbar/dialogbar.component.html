@@ -14,13 +14,14 @@
       <div class="element" (click)="this.historicService.say('' + element.Label);"
            [ngStyle]="{
               'border-color':element.BorderColor,
-              'background-color':element.Color}">
+              'background-color':element.Color}"
+           [class.noImageElement]="element.ImagePath === '' ">
 
         <div class="image haveBackgroundImage" [style.background-image]="element.ImagePath">
 
         </div>
 
-        <div class="adjustableText">
+        <div class="adjustableText" >
           {{element.Label}}
         </div>
 

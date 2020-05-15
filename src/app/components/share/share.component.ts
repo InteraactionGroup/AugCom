@@ -67,12 +67,15 @@ export class ShareComponent implements OnInit {
   /**
    * explore the zip file e containing only images and folders and create elements and images in the board
    * using the image and image name to respectively create imageUrl and element name and keep the same tree aspect
-   * @param e, an event containing a zip file
+   * @param zip
    */
   exploreZip(zip) { //TODO change the folderPath implementation
     const zipFolder: JSZip = new JSZip();
-    zipFolder.loadAsync(zip.files[0])
+    zipFolder.loadAsync(zip[0])
       .then(zipFiles => {
+        this.boardService.board.PageList = [];
+        this.boardService.board.ElementList = [];
+        this.boardService.board.ImageList = [];
         zipFiles.forEach(fileName => {
             if (fileName[fileName.length - 1] !== '/') {
               zipFolder.file(fileName).async('base64').then(content => {
@@ -128,6 +131,7 @@ export class ShareComponent implements OnInit {
         );
       });
 
+    this.indexedDBacess.update();
     this.router.navigate(['']);
 
   }
@@ -136,24 +140,28 @@ export class ShareComponent implements OnInit {
    * create and add a new element and a new image to the bard using information contained in parameters
    * @param name, the name of the new element
    * @param imageURL, the imageUrl of the nex element
-   * @param folder, the folder having to contain the new element
+   * @param path, the folder having to contain the new element
    * @param type, the type of the new element (button or folder)
    */
-  createNewButtonFromInfoInZIP(name, imageURL, folder, type) {
+  createNewButtonFromInfoInZIP(name, imageURL, path: string, type) {
+    let regex = /\./g;
+    let pathWithNoDot = path.replace(regex,'$');
+
+    let theID = pathWithNoDot +'$'+ name + (type === 'folder' ? '' : 'button');
     this.boardService.board.ElementList.push(
       {
-        ID: name,
+        ID: theID,
         Type: type,
         PartOfSpeech: '',
         ElementFormsList: [
           {
             DisplayedText: name,
             VoiceText: name,
-            LexicInfos: [],
-            ImageID: folder + name,
+            LexicInfos: [{default: true}],
+            ImageID: theID,
           }
         ],
-        InteractionsList: [],
+        InteractionsList: [{ID: 'click', ActionList: [{ID: 'display', Action: 'display'}]}],
         Color: 'lightgrey',
         BorderColor: 'black',
         VisibilityLevel: 0
@@ -161,12 +169,21 @@ export class ShareComponent implements OnInit {
 
     this.boardService.board.ImageList.push(
       {
-        ID: folder + name,
+        ID: theID,
         OriginalName: name,
         Path: imageURL
       });
 
-    this.indexedDBacess.update(); // TODO alléger un peu l'appel
+    let pathTab = path.split('.');
+    pathTab = pathTab.filter( tab => tab.length > 0);
+    let folder = pathTab.length === 1 ? '#HOME' : pathWithNoDot;
+
+    let getPage = this.boardService.board.PageList.find( page => page.ID === folder);
+    if(getPage === null || getPage ===undefined){
+      this.boardService.board.PageList.push({ID: folder, ElementIDsList: []});
+      getPage = this.boardService.board.PageList.find( page => page.ID === folder);
+    }
+    getPage.ElementIDsList.push(theID);
   }
 
   /**

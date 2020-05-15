@@ -30,8 +30,9 @@ import {AlternativeFormsComponent} from './components/alternative-forms/alternat
 import {ImageSelectionPageComponent} from './components/image-selection-page/image-selection-page.component';
 import {InformationEditionPageComponent} from './components/information-edition-page/information-edition-page.component';
 import {AVenirComponent} from './components/a-venir/a-venir.component';
-import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ErrorOnEditComponent } from './components/error-on-edit/error-on-edit.component';
+import { PrintComponent } from './components/print/print.component';
 
 @NgModule({
   declarations: [
@@ -57,19 +58,20 @@ import { ErrorOnEditComponent } from './components/error-on-edit/error-on-edit.c
     ImageSelectionPageComponent,
     InformationEditionPageComponent,
     AVenirComponent,
-    ErrorOnEditComponent
+    ErrorOnEditComponent,
+    PrintComponent
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    Ng2ImgMaxModule,
-    HttpClientModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
-    AppRoutingModule,
-    DragulaModule,
-    DragulaModule.forRoot(),
-    BrowserAnimationsModule
-  ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        Ng2ImgMaxModule,
+        HttpClientModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+        AppRoutingModule,
+        DragulaModule,
+        DragulaModule.forRoot(),
+        BrowserAnimationsModule
+    ],
   bootstrap: [AppComponent]
 })
 

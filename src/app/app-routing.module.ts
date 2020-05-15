@@ -7,11 +7,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SettingsComponent} from './components/settings/settings.component';
 import {AccountComponent} from './components/account/account.component';
 import {BrowserModule} from "@angular/platform-browser";
+import {PrintComponent} from "./components/print/print.component";
 
 
 const routes: Routes = [
   {path: 'keyboard', component: KeyboardComponent, data: {animation: 'HomePage'}},
   {path: 'share', component: ShareComponent, data: {animation: 'x'}},
+  {path: 'print', component: PrintComponent, data: {animation: 'x'}},
   {path: 'edit', component: EditionComponent, data: {animation: 'x'}},
   {path: 'settings', component: SettingsComponent, data: {animation: 'x'}},
   {path: 'account', component: AccountComponent, data: {animation: 'x'}},
