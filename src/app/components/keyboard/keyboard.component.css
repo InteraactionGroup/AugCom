@@ -187,7 +187,7 @@
   box-sizing: border-box;
   overflow: hidden;
   display: grid;
-  grid-template-rows: 80% 20%;
+  grid-template-rows: 75% 25%;
   align-items: center;
 }
 
@@ -196,10 +196,9 @@
 }
 
 .keyboard .wrapper .elementContainer .element .image {
-  height: calc(100% - 10px);
-  margin-top: 5px;
-  width: 90%;
-  margin-left: 5%;
+  height: calc(100% - 5px);
+  width: 98%;
+  margin-left: 1%;
   visibility: visible;
   align-items: center;
 }
@@ -220,6 +219,8 @@
   height: fit-content;
   align-items: center;
   vertical-align: middle;
+  overflow-wrap: break-word ;
+  word-break: break-all;
 }
 
 .keyboard .wrapper .elementContainer .blurredElt {

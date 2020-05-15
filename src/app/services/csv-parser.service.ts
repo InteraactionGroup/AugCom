@@ -118,9 +118,7 @@ export class CsvParserService {
       })}
     });
 
-    const interList: Interaction[] = [
-      {ID: 'click', ActionList: [ {ID: 'display', Action: 'display'},{ID: 'say', Action: 'say'}]}
-    ];
+    const interList: Interaction[] = [{ID: 'click', ActionList: [ {ID: 'display', Action: 'display'},{ID: 'say', Action: 'say'}]}];
 
     this.records.forEach( record => {
       let isFolder =  this.links.findIndex( link => {return link.page === record.id}) !== -1;
@@ -129,18 +127,18 @@ export class CsvParserService {
 
       let parentPage = tempPage.find( page => {return page.ID === record.page});
       if (parentPage !== null && parentPage !== undefined){
-        parentPage.ElementIDsList.push(id);
+        let index = (record.ligne - 1) * 8 + (record.colonne - 1);
+        parentPage.ElementIDsList[index]=id;
       }
 
       let index = tempElement.findIndex( elt => {return elt.ID === id});
 
       if(index === -1) {
-        console.log('added');
         tempElement.push(new GridElement(
           id,
           isFolder ? 'folder' : 'button',
           '',
-          record.mot === 'PLUS' ? 'lightgrey' :
+          ( record.mot === 'PLUS' && isFolder ) ? 'lightgrey' :
             (record.mot === 'RETOUR' ? 'red' :
               (record.mot ==='PAGE SUIVANTE' ? 'green' : (record.mot ==='PAGE PRÉCÉDENTE'? 'yellow' :'white'))),
           'black',
@@ -157,7 +155,27 @@ export class CsvParserService {
 
 
     //tempPage = tempPage.filter( page => { return page.ElementIDsList.length > 0});
+    tempPage.forEach( page => {
+      for(let i = 0; i < page.ElementIDsList.length; i++){
+        if (page.ElementIDsList[i] === undefined || page.ElementIDsList[i] === null){
+          page.ElementIDsList[i]= '#disable';
+        }
+      }
+    });
 
+    tempElement.push(
+      new GridElement(
+      '#disable',
+      'button',
+      '',
+      'transparent', // to delete later
+      'transparent', // to delete later
+      0,
+      [],
+      [])
+    );
+
+    tempPage = tempPage.filter(page => page.ElementIDsList.length !== 0);
 
     let grid = {
       ID: 'ProloquoGrid',
@@ -168,9 +186,6 @@ export class CsvParserService {
       ImageList: [],
       PageList: tempPage
     };
-
-    console.log(tempElement);
-    console.log(tempPage);
 
     return grid;
   }

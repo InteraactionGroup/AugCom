@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import jsonSpeak4Yourself from '../../assets/csvjson.json';
 import {CSVRecord} from '../csvType';
-import {Grid} from '../types';
+import {Grid, GridElement} from '../types';
 
 @Injectable({
   providedIn: 'root'
@@ -14,38 +14,38 @@ export class CsvReaderService { //TODO modify this class for new file format wit
     this.speak4Yourself = jsonSpeak4Yourself;
   }
 
-  getFolder(element: CSVRecord) {
-    if (element.page === 'HOME') {
-      return '';
-    } else {
-      const parentPage = this.speak4Yourself.find(elt => elt.mot === element.page);
-      if (parentPage != null) {
-        return this.getFolder(parentPage) + '.' + parentPage.id;
-      } else {
-        return '.' + element.id;
-      }
-    }
-  }
-
-
   elementIsFolder(element: CSVRecord): boolean {
-    return (this.speak4Yourself.findIndex(compElt => compElt.page === element.mot) !== -1) && element.mot !== element.page;
+    if ((this.speak4Yourself.findIndex(compElt => compElt.page === element.mot) !== -1) && (element.mot !== element.page) ){
+      console.log(element.mot + ' !=== ' + element.page);
+      return true;
+    }
+    return false;
   }
 
   generateBoard() {
     const grille: Grid = new Grid('speak4yourself', 'grid', 12, 12, [], [], []);
     this.speak4Yourself.forEach(element => {
 
-      let folder = '';
       if (element.page === 'HOME') {
-        folder = '#HOME';
-      } else {
-        folder = this.getFolder(element);
+        element.page = '#HOME';
       }
 
-      const isFolder = this.elementIsFolder(element);
+      if(grille.PageList.findIndex(page => {return page.ID === element.page}) === -1){
+       grille.PageList.push({
+        ID: element.page,
+        ElementIDsList: []
+      });}
+
+      let isFolder = this.elementIsFolder(element);
+
+      let parentPage = grille.PageList.find(page => {return page.ID === element.page});
+      if (parentPage !== null && parentPage !== undefined){
+        let index = (element.ligne - 1) * 15 + (element.colonne - 1);
+        parentPage.ElementIDsList[index]=element.mot + (isFolder ? '' : 'button');
+      }
+
       grille.ElementList.push({
-        ID: '' + element.id,
+        ID: element.mot + (isFolder ? '' : 'button'),
         Type: isFolder ? 'folder' : 'button',
         PartOfSpeech: '',
         ElementFormsList: [{
@@ -64,22 +64,28 @@ export class CsvReaderService { //TODO modify this class for new file format wit
       });
     });
 
-    // grille.ElementList.forEach( elt => {
-    //   elt.ElementForms[0].DisplayedText =
-    // });
-
-    let maxCol = 0;
-    let maxRow = 0;
-
-    this.speak4Yourself.forEach(elt => {
-      maxCol = elt.colonne > maxCol ? elt.colonne : maxCol;
-      maxRow = elt.ligne > maxRow ? elt.ligne : maxRow;
+    grille.PageList.forEach( page => {
+      for(let i = 0; i < page.ElementIDsList.length; i++){
+        if (page.ElementIDsList[i] === undefined || page.ElementIDsList[i] === null){
+          page.ElementIDsList[i]= '#disable';
+        }
+      }
     });
 
-    console.log(maxCol + ' ; ' + maxRow);
+    grille.ElementList.push(
+      new GridElement(
+        '#disable',
+        'button',
+        '',
+        'transparent', // to delete later
+        'transparent', // to delete later
+        0,
+        [],
+        [])
+    );
 
-    grille.NumberOfRows = maxRow + 1;
-    grille.NumberOfCols = maxCol;
+    grille.NumberOfRows = 8;
+    grille.NumberOfCols = 15;
 
     return grille;
   }

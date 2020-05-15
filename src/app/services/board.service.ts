@@ -231,7 +231,7 @@ export class BoardService {
         const path = this.board.ImageList.find(x => x.ID === element.ElementFormsList[0].ImageID);
         if (path !== null && path !== undefined) {
           const s = path.Path;
-          if(s.replace(' ','')===''){
+          if(s.replace( / /g ,'')===''){
             return '';
           }
           return this.sanitizer.bypassSecurityTrustStyle('url(' + s + ')');
@@ -252,6 +252,9 @@ export class BoardService {
       const path = this.board.ImageList.find(x => x.ID === element.ElementFormsList[0].ImageID);
       if (path !== null && path !== undefined) {
         const s = path.Path;
+        if(s.replace(/ /g, '') === ''){
+          return '';
+        }
         return 'url(' + s + ')';
       } else {
         return '';
