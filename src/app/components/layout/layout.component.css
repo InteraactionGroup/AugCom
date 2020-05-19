@@ -7,4 +7,5 @@ gridster {
   display: flex;
   height: calc(100vh - 115px);
   flex-direction: column;
+  /* background-color: white; */
 }

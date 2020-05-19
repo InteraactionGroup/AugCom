@@ -1,12 +1,16 @@
 <!-- <div class="toolbar"> -->
-<!-- <button (click)="layoutService.addItem()">Add Item</button> -->
+<!-- <button (click)="this.setE(true)">Drag enabled</button>
+  <button (click)="this.setE(false)">Drag disable</button> -->
+
 <!-- </div> -->
 
+<!-- <button (click)="this.setDraggable(false)">Drag disable</button> -->
+<!-- <button (click)="this.setDraggable(true)">Drag unenable</button> -->
+
+
 <gridster [options]="options">
-  <gridster-item *ngFor="let item of layout" [item]="item.gridsterItem">
-    <!-- <button (click)=" layoutService.deleteItem(item)">
-    Delete Item
-    </button> -->
+  <gridster-item *ngFor=" let item of layout" [item]="item.gridsterItem">
+    <!-- <button (click)="this.deleteItem(item.gridsterItem.id)">Remove</button> -->
     <app-tile [element]=item.element></app-tile>
   </gridster-item>
 </gridster>

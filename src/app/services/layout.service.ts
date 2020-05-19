@@ -1,6 +1,6 @@
-import { Injectable, OnInit } from "@angular/core";
-import { GridsterConfig, GridsterItem } from "angular-gridster2";
-import { UUID } from "angular2-uuid";
+import { Injectable } from "@angular/core";
+import { GridsterConfig } from "angular-gridster2";
+import { Element } from "../types";
 
 @Injectable({
   providedIn: "root",
@@ -9,11 +9,13 @@ export class LayoutService {
   public options: GridsterConfig = {
     draggable: {
       enabled: false,
+      stop: (item, gridsterItem, event) => {},
     },
     pushItems: true,
-    // swapItems: true,
+    swapItems: false,
     resizable: {
       enabled: false,
+      stop: (item, gridsterItem, event) => {},
     },
   };
 
@@ -21,12 +23,12 @@ export class LayoutService {
 
   constructor() {}
 
-  addItem(element): void {
+  addItem(element: Element): void {
     this.layout.push({
       gridsterItem: {
         cols: 5,
-        id: UUID.UUID(),
-        rows: 5,
+        rows: 10,
+        id: element.ElementID,
         x: 0,
         y: 0,
       },
@@ -38,8 +40,9 @@ export class LayoutService {
     this.options.draggable.enabled = b;
     this.options.resizable.enabled = b;
   }
-  // deleteItem(id: string): void {
-  //   const item = this.layout.find((d) => d.id === id);
-  //   this.layout.splice(this.layout.indexOf(item), 1);
-  // }
+
+  deleteItem(id: string): void {
+    const item = this.layout.find((d) => d.gridsterItem.id === id);
+    this.layout.splice(this.layout.indexOf(item), 1);
+  }
 }
