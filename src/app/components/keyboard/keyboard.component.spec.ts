@@ -65,21 +65,11 @@ describe('KeyboardComponent', () => {
     expect(compiled.querySelectorAll('app-dialogbar')).not.toBe(null);
   });
 
-  it('should display home page and its elements but no back button', () => {
+  it('should display home page and its elements', () => {
     const compiled = fixture.debugElement.nativeElement;
     component.boardService.currentPath='#HOME';
     fixture.detectChanges();
     expect(compiled.querySelectorAll('.element').length).toBeGreaterThan(0);
-    expect(compiled.querySelector('#backButton')).toBe(null);
-    expect(compiled.querySelector('.add')).toBe(null);
-    expect(compiled.querySelector('.editionSettings')).toBe(null);
-  });
-
-  it('should display backButton if we are not on the home page', () => {
-    const compiled = fixture.debugElement.nativeElement;
-    component.boardService.currentPath='#HOME.otherPage';
-    fixture.detectChanges();
-    expect(compiled.querySelector('#backButton')).not.toBe(null);
     expect(compiled.querySelector('.add')).toBe(null);
     expect(compiled.querySelector('.editionSettings')).toBe(null);
   });
@@ -93,7 +83,6 @@ describe('KeyboardComponent', () => {
     expect(compiled.querySelectorAll('.deleteElement').length).toBeGreaterThan(0);
     expect(compiled.querySelectorAll('.selectCheckBox').length).toBeGreaterThan(0);
     expect(compiled.querySelectorAll('.elementVisibility').length).toBeGreaterThan(0);
-    expect(compiled.querySelector('#backButton')).toBe(null);
     expect(compiled.querySelector('.add')).not.toBe(null);
     expect(compiled.querySelector('.editionSettings')).not.toBe(null);
   });

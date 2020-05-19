@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HistoricService} from '../../services/historic.service';
 import {EditionService} from '../../services/edition.service';
 import {BoardService} from '../../services/board.service';
-import {Action, ElementForm, GridElement, Vignette} from '../../types';
+import {Action, GridElement, ElementForm, Vignette, FolderGoTo} from '../../types';
 import {GeticonService} from '../../services/geticon.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
@@ -76,8 +76,7 @@ export class KeyboardComponent implements OnInit {
      * execute the indexeddbaccessService init fucntion to get the information of the DB or to create new entries if there is no info
      */
     ngOnInit() {
-        this.indexeddbaccessService.init();
-        this.initDragAndDrop();
+      this.initDragAndDrop();
     }
 
     /**
@@ -166,18 +165,20 @@ export class KeyboardComponent implements OnInit {
      */
     getShadow(element: GridElement) {
 
-        let s = (element.Type === 'folder' ? '3px ' : '0px ') +
-            (element.Type === 'folder' ? '-3px ' : '0px ') +
-            '0px ' +
-            (element.Type === 'folder' ? '-2px ' : '0px ')
-            + (element.Color === undefined || element.Color == null ? '#d3d3d3' : element.Color);
+    let isFolder = (<FolderGoTo> element.Type).GoTo !== undefined;
 
-        s = s + ' , ' +
-            (element.Type === 'folder' ? '4px ' : '0px ') +
-            (element.Type === 'folder' ? '-4px ' : '0px ') +
-            (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor);
-        return s;
-    }
+    let s = (isFolder ? '3px ' : '0px ') +
+      (isFolder ? '-3px ' : '0px ') +
+      '0px ' +
+      (isFolder ? '-2px ' : '0px ')
+      + (element.Color === undefined || element.Color == null ? '#d3d3d3' : element.Color);
+
+    s = s + ' , ' +
+      (isFolder ? '4px ' : '0px ') +
+      (isFolder ? '-4px ' : '0px ') +
+      (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor);
+    return s;
+  }
 
     /**
      * return the element of the currentFolder, the commented part is returning the part of elements that can fit in the board
@@ -350,7 +351,7 @@ export class KeyboardComponent implements OnInit {
         const temporaryElementList: GridElement[] = [];
         this.getNormalTempList().forEach(e => temporaryElementList.push(this.copy(e)));
         const index = this.boardService.activatedElement;
-        const max: number = Number(Number(index) + 1 + Number(this.boardService.sliderValueCol) + 1);
+        const max: number = Number(Number(index) + 1 + Number(this.boardService.board.NumberOfCols) + 1);
         for (let newElementIndex = Number(temporaryElementList.length); newElementIndex < max; newElementIndex = newElementIndex + 1) { // fill with empty elements
             temporaryElementList.push(new GridElement(
                 '#disable',
@@ -367,10 +368,8 @@ export class KeyboardComponent implements OnInit {
         const compElt = temporaryElementList[index];
         let places = this.createPlaces(index);
         places = places.slice(0, compElt.ElementFormsList.length);
-        console.log(places);
         temporaryElementList.forEach(elt => {
             const tempIndex = temporaryElementList.indexOf(elt);
-            console.log(tempIndex);
             if (places.includes(tempIndex)) {
                 if (compElt.ElementFormsList.length > indexOfForm) {
                     elt.ID = compElt.ID;
@@ -417,7 +416,7 @@ export class KeyboardComponent implements OnInit {
      */
     createPlaces(ind: number) {
         const index: number = Number(ind);
-        const slider: number = Number(this.boardService.sliderValueCol);
+        const slider: number = Number(this.boardService.board.NumberOfCols);
         let places = [];
 
         if (Math.trunc((index - 1) / slider) === Math.trunc(index / slider)) { // gauche
@@ -509,17 +508,26 @@ export class KeyboardComponent implements OnInit {
                     }
                 }
 
-                // for folder
-            } else if (element.Type === 'folder') {
-                this.boardService.currentPath = this.boardService.currentPath + '.' + element.ID;
-                console.log(this.boardService.currentPath);
-
-                // for errors
-            } else {
-                console.error('ElementType : ' + element.Type + ' is not supported (supported ElementTypes are "button" or "folder")');
-            }
+        // for folder
+      } else if ((<FolderGoTo> element.Type).GoTo !== undefined) {
+        let pathTab = this.boardService.currentPath.split('.');
+        if (pathTab.length >= 2) {
+          if (pathTab[pathTab.length - 2] === (<FolderGoTo>element.Type).GoTo) {
+            pathTab = pathTab.slice(0, length - 1);
+            this.boardService.currentPath = pathTab.join('.');
+          } else {
+            this.boardService.currentPath = this.boardService.currentPath + '.' + (<FolderGoTo> element.Type).GoTo;
+          }
+        }else {
+          this.boardService.currentPath = this.boardService.currentPath + '.' + (<FolderGoTo> element.Type).GoTo;
         }
+        // for errors
+      } else {
+        console.error(element.Type);
+        console.error('ElementType : ' + element.Type + ' is not supported (supported ElementTypes are "button" or "folder")');
+      }
     }
+  }
 
     /**
      * if we are in edit mode

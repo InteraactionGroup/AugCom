@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import jsonSpeak4Yourself from '../../assets/csvjson.json';
 import {CSVRecord} from '../csvType';
-import {Grid, GridElement} from '../types';
+import {FolderGoTo, Grid,GridElement} from '../types';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CsvReaderService { //TODO modify this class for new file format with Path
+export class SpeakForYourselfParser {
 
   speak4Yourself: CSVRecord[];
 
@@ -16,7 +16,6 @@ export class CsvReaderService { //TODO modify this class for new file format wit
 
   elementIsFolder(element: CSVRecord): boolean {
     if ((this.speak4Yourself.findIndex(compElt => compElt.page === element.mot) !== -1) && (element.mot !== element.page) ){
-      console.log(element.mot + ' !=== ' + element.page);
       return true;
     }
     return false;
@@ -33,6 +32,7 @@ export class CsvReaderService { //TODO modify this class for new file format wit
       if(grille.PageList.findIndex(page => {return page.ID === element.page}) === -1){
        grille.PageList.push({
         ID: element.page,
+         Name: element.page,
         ElementIDsList: []
       });}
 
@@ -46,7 +46,7 @@ export class CsvReaderService { //TODO modify this class for new file format wit
 
       grille.ElementList.push({
         ID: element.mot + (isFolder ? '' : 'button'),
-        Type: isFolder ? 'folder' : 'button',
+        Type: isFolder ? new FolderGoTo(element.mot) : 'button',
         PartOfSpeech: '',
         ElementFormsList: [{
           DisplayedText: element.mot,

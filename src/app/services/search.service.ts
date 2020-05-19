@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BoardService} from './board.service';
-import {GridElement} from "../types";
+import {FolderGoTo, GridElement} from "../types";
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +45,7 @@ export class SearchService {
       this.boardService.board.PageList.forEach( page => {
         if(page.ElementIDsList.includes(elt.ID)){
           let tempElt = this.boardService.board.ElementList.find( newelt => {
-            return newelt.ID === page.ID;
+            return (<FolderGoTo>newelt.Type).GoTo === page.ID;
           });
           if(tempElt != null && tempElt != undefined){
             if (!parents.includes(tempElt) && !this.searchedPath.includes(tempElt)) {

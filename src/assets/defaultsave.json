@@ -70,6 +70,7 @@
   ],
   "PageList": [{
     "ID": "#HOME",
+    "Name": "Accueil",
     "ElementIDsList" : ["quoi"]
   }
   ]

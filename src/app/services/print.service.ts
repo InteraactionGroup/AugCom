@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BoardService} from './board.service';
 import {GridElement} from '../types';
+import {IndexeddbaccessService} from "./indexeddbaccess.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,6 @@ export class PrintService {
 
   urlList: any[] = [];
   buttonHTML = '<input id="print" type="button" value="cliquez pour imprimer" style="margin-left: 25%; height: 50px; width: 50%; font-size: x-large;">\n';
-
-  print() {
-
-  }
-
 
   printDiv() {
     const wind = window.open('/#/print');
@@ -62,10 +58,10 @@ export class PrintService {
 
   getHTML(id, elementList: any[]) {
     let temp = '';
-    let numberOfPages = Math.ceil(elementList.length / (this.boardService.sliderValueCol * this.boardService.sliderValueRow));
+    let numberOfPages = Math.ceil(elementList.length / (this.boardService.board.NumberOfCols * this.boardService.board.NumberOfRows));
     for (let i = 0; i < numberOfPages; i++) {
-      let beginning = i * (this.boardService.sliderValueCol * this.boardService.sliderValueRow);
-      let ending = (i + 1) * (this.boardService.sliderValueCol * this.boardService.sliderValueRow);
+      let beginning = i * (this.boardService.board.NumberOfCols * this.boardService.board.NumberOfRows);
+      let ending = (i + 1) * (this.boardService.board.NumberOfCols * this.boardService.board.NumberOfRows);
       temp = temp +
         this.wrapperBegin(id + '- page ' + <number>(<number>i + <number>1)) +
         this.innerHTML(elementList.slice(beginning, ending)) +
@@ -159,8 +155,8 @@ export class PrintService {
       '  background-repeat: no-repeat;\n' +
       '  background-position: center;\n' +
       '  visibility: visible;\n' +
-      'grid-template-columns: repeat(' + (this.boardService.sliderValueCol) + ', 1fr) ; \n' +
-      'grid-template-rows: repeat(100, ' + (100 / (this.boardService.sliderValueRow)) + '%) ; \n' +
+      'grid-template-columns: repeat(' + (this.boardService.board.NumberOfCols) + ', 1fr) ; \n' +
+      'grid-template-rows: repeat(100, ' + (100 / (this.boardService.board.NumberOfRows)) + '%) ; \n' +
       'background-image : ' + this.boardService.background +
       '}\n' +
       '\n' +

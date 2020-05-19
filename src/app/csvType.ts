@@ -6,16 +6,27 @@ export class CSVRecord {
   public id: number;
 }
 
-export class CSVRecord2 {
+export class wordsCSV {
   public mot: string;
   public ligne: number;
   public colonne: number;
   public page: string;
-  public id: string;
+  public wordID: string;
 }
 
-export class CSVLink {
-  public page: string;
-  public id: string;
+export class buttonLinksCSV {
+  public from: string;
+  public to: string;
+}
+
+export class pageLinksCSV {
+  public from: string;
+  public to: string;
+}
+
+export class backLinksCSV {
+  public from: string;
+  public backID : string;
+  public to: string;
 }
 

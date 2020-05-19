@@ -11,6 +11,7 @@ export class IndexeddbaccessService {
 
 
   constructor(public paletteService: PaletteService, public boardService: BoardService) {
+    this.init();
   }
 
   // UPDATE THE DATABASE
@@ -37,7 +38,6 @@ export class IndexeddbaccessService {
       const storeGridRequest = gridObjectStore.get(1);
       storeGridRequest.onsuccess = () => {
         gridObjectStore.put(this.boardService.board, 1);
-        this.updateBoardColsAndRows();
       };
 
       // UPDATE THE PALETTES
@@ -73,7 +73,6 @@ export class IndexeddbaccessService {
       const gridStore = db.transaction(['Grid']).objectStore('Grid').get(1);
       gridStore.onsuccess = e => {
         this.boardService.board = gridStore.result;
-        this.updateColsAndRowsFromBoard();
       };
 
       const paletteStore = db.transaction(['Palette']).objectStore('Palette').get(1);
@@ -106,23 +105,5 @@ export class IndexeddbaccessService {
     console.log('save loaded');
     const gridStore = transaction.objectStore('Grid');
     gridStore.add(this.boardService.board);
-    this.updateColsAndRowsFromBoard();
   }
-
-  updateColsAndRowsFromBoard() {
-    if (this.boardService.board.NumberOfCols !== undefined && this.boardService.board.NumberOfCols != null
-      && this.boardService.sliderValueCol !== undefined && this.boardService.sliderValueCol != null) {
-      this.boardService.sliderValueCol = this.boardService.board.NumberOfCols;
-    }
-    if (this.boardService.board.NumberOfRows !== undefined && this.boardService.board.NumberOfRows != null
-      && this.boardService.sliderValueRow !== undefined && this.boardService.sliderValueRow != null) {
-      this.boardService.sliderValueRow = this.boardService.board.NumberOfRows;
-    }
-  }
-
-  updateBoardColsAndRows() {
-    this.boardService.board.NumberOfCols = this.boardService.sliderValueCol;
-    this.boardService.board.NumberOfRows = this.boardService.sliderValueRow;
-  }
-
 }

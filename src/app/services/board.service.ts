@@ -13,18 +13,11 @@ export class BoardService {
   constructor(public ng2ImgMaxService: Ng2ImgMaxService, public editionService: EditionService,
               public sanitizer: DomSanitizer) {
     this.board = Board;
-    this.sliderValueCol = this.board.NumberOfCols;
-    this.sliderValueRow = this.board.NumberOfRows;
   }
 
   /*background url value for grid background image*/
   background: any = '';
 
-  /*number of element per Col and Row of the grid
-  * TODO remove "slider" part of the name
-  * */
-  sliderValueCol;
-  sliderValueRow;
   board: Grid;
   currentPath = '#HOME';
 
@@ -47,15 +40,24 @@ export class BoardService {
 
   getCurrentTitle() {
     let path = this.currentPath.split('.');
+    console.log(path);
     if (path !== null){
-      let id = path[path.length-1];
-      if (id === '#HOME') { return 'Accueil'; }
-      let element = this.board.ElementList.find( elt => elt.ID === id);
-      if(element !== null && element !== undefined){
-        let label = this.getDefaultLabel(element);
-        return label === '#HOME' ? 'Accueil' : label;
+      let name = '';
+      let i = 0;
+      if(path.length >= 4){
+        i = path.length-3;
+        name = '.../'
       }
-      return 'Accueil';
+      for(i; i <= path.length-1; i++){
+        let id = path[i];
+        let associatedPage = this.board.PageList.find(page => id === page.ID);
+        if(associatedPage !== null && associatedPage !== undefined){
+          name = name + associatedPage.Name + '/';
+        } else {
+          name = name + '?/';
+        }
+      }
+      return name;
     }
     return 'Accueil';
   }
@@ -279,6 +281,5 @@ export class BoardService {
     }
 
     this.currentPath = temp;
-    console.log(this.currentPath);
   }
 }

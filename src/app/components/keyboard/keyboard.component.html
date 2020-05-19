@@ -41,11 +41,11 @@
 
   <!-- input fields for column and row size, have to be changed with a button number incrementer -->
   <div class="gridSettings">
-    <input class="inputSize floatLeft centerText" type="text" [(ngModel)]="this.boardService.sliderValueCol">
+    <input class="inputSize floatLeft centerText" type="text" [(ngModel)]="this.boardService.board.NumberOfCols">
     <div class="x floatLeft">
       x
     </div>
-    <input class="inputSize floatLeft centerText" type="text" [(ngModel)]="this.boardService.sliderValueRow">
+    <input class="inputSize floatLeft centerText" type="text" [(ngModel)]="this.boardService.board.NumberOfRows">
   </div>
 </div>
 
@@ -55,8 +55,8 @@
   <!-- the wrapper displayed with elements containing pictogram and corresponding text -->
   <div class="wrapper haveBackgroundImage height-width-100"
        [ngStyle]="{
-          'grid-template-columns': 'repeat('+(this.boardService.sliderValueCol)+', 1fr)',
-          'grid-template-rows': 'repeat(100, '+(100/(this.boardService.sliderValueRow))+'%)',
+          'grid-template-columns': 'repeat('+(this.boardService.board.NumberOfCols)+', 1fr)',
+          'grid-template-rows': 'repeat(100, '+(100/(this.boardService.board.NumberOfRows))+'%)',
           'background-image' : this.boardService.background
         }"
        [dragula]="this.userToolBarService.edit ? 'VAMPIRE' :null">
@@ -112,27 +112,6 @@
                [style.background-image]="this.isVisible(element) ? this.getIcon('hide') : this.getIcon('show')">
 
           </div>
-        </div>
-
-      </div>
-
-    </ng-container>
-
-    <!-- ng container checking if back button have to be displayed -->
-    <ng-container *ngIf="this.boardService.getCurrentFolder() !== '#HOME' && this.boardService.activatedElement==-1">
-
-      <!-- container for the back button element -->
-      <div id="backButton" class="elementContainer floatLeft no-drag">
-
-        <!-- back button element-->
-        <div class="element" (click)="this.boardService.backToPreviousFolder()" [ngStyle]="{'background-color': 'red'}">
-
-          <div class="image haveBackgroundImage" [style.background-image]="this.getIcon('retour')"></div>
-
-          <div class="adjustableText" >
-            retour
-          </div>
-
         </div>
 
       </div>

@@ -7,13 +7,13 @@ import * as JSZip from 'jszip';
 import {Router} from '@angular/router';
 import {PrintService} from '../../services/print.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {CsvReaderService} from '../../services/csv-reader.service';
+import {SpeakForYourselfParser} from '../../services/speakForYourselfParser';
 import {Traduction} from '../../sparqlJsonResults';
 import {DbnaryService} from '../../services/dbnary.service';
 import {HttpClient} from "@angular/common/http";
 import {Ng2ImgMaxService} from "ng2-img-max";
-import {GridElement} from "../../types";
-import {CsvParserService} from "../../services/csv-parser.service";
+import {FolderGoTo, GridElement} from "../../types";
+import {ProloquoParser} from "../../services/proloquoParser";
 
 @Component({
   selector: 'app-share',
@@ -23,11 +23,11 @@ import {CsvParserService} from "../../services/csv-parser.service";
 })
 export class ShareComponent implements OnInit {
 
-  constructor(private dbNaryService: DbnaryService, private csvReader: CsvReaderService,
+  constructor(private dbNaryService: DbnaryService, private csvReader: SpeakForYourselfParser,
               public indexedDBacess: IndexeddbaccessService, private printService: PrintService,
               private router: Router, public getIconService: GeticonService,
               public boardService: BoardService, public userToolBarService: UsertoolbarService,
-              public csvParser : CsvParserService) {
+              public csvParser : ProloquoParser) {
   }
 
 
@@ -59,7 +59,7 @@ export class ShareComponent implements OnInit {
 
   /*read CSV file of csv reader and open it as a grid*/
   parseCSV() {
-    this.csvParser.requestLease()
+    this.csvParser.createGridFromProloquoCSVs()
     // this.boardService.board = this.csvParser.generateBoard();
     // this.trad(0);
   }
@@ -104,7 +104,7 @@ export class ShareComponent implements OnInit {
 
                     let type;
                     if (folderPath.length === 0) {
-                      type = 'folder';
+                      type = new FolderGoTo(name);
                     } else {
                       type = 'button';
                     }
@@ -125,7 +125,7 @@ export class ShareComponent implements OnInit {
               splitName.forEach(s => {
                 path = path + '.' + s;
               });
-              this.createNewButtonFromInfoInZIP(name, imageURL, path, 'folder');
+              this.createNewButtonFromInfoInZIP(name, imageURL, path, new FolderGoTo(name));
             }
           }
         );
@@ -147,7 +147,7 @@ export class ShareComponent implements OnInit {
     let regex = /\./g;
     let pathWithNoDot = path.replace(regex,'$');
 
-    let theID = pathWithNoDot +'$'+ name + (type === 'folder' ? '' : 'button');
+    let theID = pathWithNoDot +'$'+ name + (type === 'button' ? 'button' : '');
     this.boardService.board.ElementList.push(
       {
         ID: theID,
@@ -180,7 +180,7 @@ export class ShareComponent implements OnInit {
 
     let getPage = this.boardService.board.PageList.find( page => page.ID === folder);
     if(getPage === null || getPage ===undefined){
-      this.boardService.board.PageList.push({ID: folder, ElementIDsList: []});
+      this.boardService.board.PageList.push({ID: folder, Name: folder, ElementIDsList: []});
       getPage = this.boardService.board.PageList.find( page => page.ID === folder);
     }
     getPage.ElementIDsList.push(theID);

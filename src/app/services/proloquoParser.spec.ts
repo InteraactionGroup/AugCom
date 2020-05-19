@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CsvParserService } from './csv-parser.service';
+import { ProloquoParser } from './proloquoParser';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {Ng2ImgMaxModule} from "ng2-img-max";
@@ -13,7 +13,7 @@ describe('CsvParserService', () => {
   }));
 
   it('should be created', () => {
-    const service: CsvParserService = TestBed.get(CsvParserService);
+    const service: ProloquoParser = TestBed.get(ProloquoParser);
     expect(service).toBeTruthy();
   });
 });
