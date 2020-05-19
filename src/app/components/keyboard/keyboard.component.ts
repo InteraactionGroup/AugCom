@@ -76,7 +76,6 @@ export class KeyboardComponent implements OnInit {
      * execute the indexeddbaccessService init fucntion to get the information of the DB or to create new entries if there is no info
      */
     ngOnInit() {
-        this.indexeddbaccessService.init();
         this.initDragAndDrop();
     }
 

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GeticonService} from "../../services/geticon.service";
 import {Ng2ImgMaxService} from "ng2-img-max";
+import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 
 @Component({
   selector: 'app-account',
@@ -23,7 +24,7 @@ export class AccountComponent implements OnInit {
   selectedMenu = 'Informations complémentaires';
   selectedSubMenu = 'Contacts';
 
-  constructor(public getIconService: GeticonService) {
+  constructor(public getIconService: GeticonService, public indexeddbaccessService: IndexeddbaccessService) {
   }
 
   ngOnInit() {

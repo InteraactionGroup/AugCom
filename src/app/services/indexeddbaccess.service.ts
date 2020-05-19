@@ -11,6 +11,7 @@ export class IndexeddbaccessService {
 
 
   constructor(public paletteService: PaletteService, public boardService: BoardService) {
+    this.init();
   }
 
   // UPDATE THE DATABASE

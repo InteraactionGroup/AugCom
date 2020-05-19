@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BoardService} from './board.service';
 import {GridElement} from '../types';
+import {IndexeddbaccessService} from "./indexeddbaccess.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,6 @@ export class PrintService {
 
   urlList: any[] = [];
   buttonHTML = '<input id="print" type="button" value="cliquez pour imprimer" style="margin-left: 25%; height: 50px; width: 50%; font-size: x-large;">\n';
-
-  print() {
-
-  }
-
 
   printDiv() {
     const wind = window.open('/#/print');
