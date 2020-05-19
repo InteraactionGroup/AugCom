@@ -23,7 +23,7 @@ export class LayoutService {
 
   constructor() {}
 
-  addItem(element: Element): void {
+  public addItem(element: Element): void {
     this.layout.push({
       gridsterItem: {
         cols: 5,
@@ -36,12 +36,13 @@ export class LayoutService {
     });
   }
 
-  setDraggable(b: boolean): void {
+  public setDraggable(b: boolean): void {
     this.options.draggable.enabled = b;
     this.options.resizable.enabled = b;
+    console.log(this.options.draggable.enabled);
   }
 
-  deleteItem(id: string): void {
+  public deleteItem(id: string): void {
     const item = this.layout.find((d) => d.gridsterItem.id === id);
     this.layout.splice(this.layout.indexOf(item), 1);
   }

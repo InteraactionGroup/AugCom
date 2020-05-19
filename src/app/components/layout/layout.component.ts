@@ -16,7 +16,7 @@ export class LayoutComponent implements OnInit {
 
   constructor(
     private userToolBarService: UsertoolbarService,
-    private layoutService: LayoutService,
+    public layoutService: LayoutService,
     private indexedDBacess: IndexeddbaccessService
   ) {}
 
