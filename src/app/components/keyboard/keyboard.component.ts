@@ -76,7 +76,7 @@ export class KeyboardComponent implements OnInit {
      * execute the indexeddbaccessService init fucntion to get the information of the DB or to create new entries if there is no info
      */
     ngOnInit() {
-        this.initDragAndDrop();
+      this.initDragAndDrop();
     }
 
     /**
@@ -351,7 +351,7 @@ export class KeyboardComponent implements OnInit {
         const temporaryElementList: GridElement[] = [];
         this.getNormalTempList().forEach(e => temporaryElementList.push(this.copy(e)));
         const index = this.boardService.activatedElement;
-        const max: number = Number(Number(index) + 1 + Number(this.boardService.sliderValueCol) + 1);
+        const max: number = Number(Number(index) + 1 + Number(this.boardService.board.NumberOfCols) + 1);
         for (let newElementIndex = Number(temporaryElementList.length); newElementIndex < max; newElementIndex = newElementIndex + 1) { // fill with empty elements
             temporaryElementList.push(new GridElement(
                 '#disable',
@@ -416,7 +416,7 @@ export class KeyboardComponent implements OnInit {
      */
     createPlaces(ind: number) {
         const index: number = Number(ind);
-        const slider: number = Number(this.boardService.sliderValueCol);
+        const slider: number = Number(this.boardService.board.NumberOfCols);
         let places = [];
 
         if (Math.trunc((index - 1) / slider) === Math.trunc(index / slider)) { // gauche

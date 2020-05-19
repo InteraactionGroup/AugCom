@@ -6,7 +6,7 @@ import {FolderGoTo, Grid,GridElement} from '../types';
 @Injectable({
   providedIn: 'root'
 })
-export class CsvReaderService { //TODO modify this class for new file format with Path
+export class SpeakForYourselfParser { //TODO modify this class for new file format with Path
 
   speak4Yourself: CSVRecord[];
 

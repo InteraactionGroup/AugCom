@@ -7,13 +7,13 @@ import * as JSZip from 'jszip';
 import {Router} from '@angular/router';
 import {PrintService} from '../../services/print.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {CsvReaderService} from '../../services/csv-reader.service';
+import {SpeakForYourselfParser} from '../../services/speakForYourselfParser';
 import {Traduction} from '../../sparqlJsonResults';
 import {DbnaryService} from '../../services/dbnary.service';
 import {HttpClient} from "@angular/common/http";
 import {Ng2ImgMaxService} from "ng2-img-max";
 import {FolderGoTo, GridElement} from "../../types";
-import {CsvParserService} from "../../services/csv-parser.service";
+import {ProloquoParser} from "../../services/proloquoParser";
 
 @Component({
   selector: 'app-share',
@@ -23,11 +23,11 @@ import {CsvParserService} from "../../services/csv-parser.service";
 })
 export class ShareComponent implements OnInit {
 
-  constructor(private dbNaryService: DbnaryService, private csvReader: CsvReaderService,
+  constructor(private dbNaryService: DbnaryService, private csvReader: SpeakForYourselfParser,
               public indexedDBacess: IndexeddbaccessService, private printService: PrintService,
               private router: Router, public getIconService: GeticonService,
               public boardService: BoardService, public userToolBarService: UsertoolbarService,
-              public csvParser : CsvParserService) {
+              public csvParser : ProloquoParser) {
   }
 
 

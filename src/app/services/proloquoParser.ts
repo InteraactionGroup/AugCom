@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
 @Injectable({
   providedIn: 'root'
 })
-export class CsvParserService {
+export class ProloquoParser {
 
   constructor(private http: HttpClient, public boardService: BoardService, public indexedDBacess: IndexeddbaccessService, private printService: PrintService,
               private router: Router,) { }

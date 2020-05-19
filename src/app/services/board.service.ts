@@ -13,18 +13,11 @@ export class BoardService {
   constructor(public ng2ImgMaxService: Ng2ImgMaxService, public editionService: EditionService,
               public sanitizer: DomSanitizer) {
     this.board = Board;
-    this.sliderValueCol = this.board.NumberOfCols;
-    this.sliderValueRow = this.board.NumberOfRows;
   }
 
   /*background url value for grid background image*/
   background: any = '';
 
-  /*number of element per Col and Row of the grid
-  * TODO remove "slider" part of the name
-  * */
-  sliderValueCol;
-  sliderValueRow;
   board: Grid;
   currentPath = '#HOME';
 

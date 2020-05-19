@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 
-import {CsvReaderService} from './csv-reader.service';
+import {SpeakForYourselfParser} from './speakForYourselfParser';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {Ng2ImgMaxModule} from "ng2-img-max";
@@ -11,7 +11,7 @@ describe('CsvReaderService', () => {
   }));
 
   it('should be created', () => {
-    const service: CsvReaderService = TestBed.get(CsvReaderService);
+    const service: SpeakForYourselfParser = TestBed.get(SpeakForYourselfParser);
     expect(service).toBeTruthy();
   });
 });
