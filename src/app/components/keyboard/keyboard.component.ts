@@ -369,10 +369,8 @@ export class KeyboardComponent implements OnInit {
         const compElt = temporaryElementList[index];
         let places = this.createPlaces(index);
         places = places.slice(0, compElt.ElementFormsList.length);
-        console.log(places);
         temporaryElementList.forEach(elt => {
             const tempIndex = temporaryElementList.indexOf(elt);
-            console.log(tempIndex);
             if (places.includes(tempIndex)) {
                 if (compElt.ElementFormsList.length > indexOfForm) {
                     elt.ID = compElt.ID;
@@ -524,9 +522,6 @@ export class KeyboardComponent implements OnInit {
         }else {
           this.boardService.currentPath = this.boardService.currentPath + '.' + (<FolderGoTo> element.Type).GoTo;
         }
-
-        console.log(this.boardService.currentPath);
-
         // for errors
       } else {
         console.error(element.Type);

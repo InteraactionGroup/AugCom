@@ -47,6 +47,7 @@ export class BoardService {
 
   getCurrentTitle() {
     let path = this.currentPath.split('.');
+    console.log(path);
     if (path !== null){
       let name = '';
       let i = 0;
@@ -56,7 +57,6 @@ export class BoardService {
       }
       for(i; i <= path.length-1; i++){
         let id = path[i];
-        console.log(i);
         let associatedPage = this.board.PageList.find(page => id === page.ID);
         if(associatedPage !== null && associatedPage !== undefined){
           name = name + associatedPage.Name + '/';
@@ -64,10 +64,8 @@ export class BoardService {
           name = name + '?/';
         }
       }
-      console.log(name);
       return name;
     }
-    console.log('Accueil');
     return 'Accueil';
   }
 
@@ -290,6 +288,5 @@ export class BoardService {
     }
 
     this.currentPath = temp;
-    console.log(this.currentPath);
   }
 }

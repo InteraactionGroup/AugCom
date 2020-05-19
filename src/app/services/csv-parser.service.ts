@@ -124,11 +124,11 @@ export class CsvParserService {
       let getType: any = 'button';
       let getPage = this.pageLinks.find( pageLink => {return pageLink.from === word.wordID});
       if(getPage !== null && getPage !== undefined){
-        getType = new FolderGoTo( getPage.to);
+        getType = new FolderGoTo( getPage.to === 'accueil' ? '#HOME' : getPage.to);
       } else {
         getPage = this.buttonLinks.find( buttonLink => {return buttonLink.from === word.wordID});
         if(getPage !== null && getPage !== undefined){
-          getType = new FolderGoTo( getPage.to);
+          getType = new FolderGoTo( getPage.to === 'accueil' ? '#HOME' : getPage.to);
         }
       }
 
@@ -146,7 +146,17 @@ export class CsvParserService {
     });
 
     this.setUpHomeID(tempPage);
+
+    tempElement.push(new GridElement('#disable','','','transparent','transparent',
+      1,[],[]));
+
     this.setUpElementIDToDisable(tempPage);
+
+    tempPage.forEach(page => {
+      if(page.ElementIDsList.length===0){
+        console.log(page.ID);
+      }
+    });
 
     return this.setUpNewGrid(tempElement, tempPage);
   }

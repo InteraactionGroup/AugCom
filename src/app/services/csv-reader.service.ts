@@ -16,7 +16,6 @@ export class CsvReaderService { //TODO modify this class for new file format wit
 
   elementIsFolder(element: CSVRecord): boolean {
     if ((this.speak4Yourself.findIndex(compElt => compElt.page === element.mot) !== -1) && (element.mot !== element.page) ){
-      console.log(element.mot + ' !=== ' + element.page);
       return true;
     }
     return false;
@@ -47,7 +46,7 @@ export class CsvReaderService { //TODO modify this class for new file format wit
 
       grille.ElementList.push({
         ID: element.mot + (isFolder ? '' : 'button'),
-        Type: isFolder ? new FolderGoTo(element.id) : 'button',
+        Type: isFolder ? new FolderGoTo(element.mot) : 'button',
         PartOfSpeech: '',
         ElementFormsList: [{
           DisplayedText: element.mot,

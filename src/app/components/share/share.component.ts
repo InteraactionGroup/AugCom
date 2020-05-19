@@ -147,7 +147,7 @@ export class ShareComponent implements OnInit {
     let regex = /\./g;
     let pathWithNoDot = path.replace(regex,'$');
 
-    let theID = pathWithNoDot +'$'+ name + (type === 'folder' ? '' : 'button');
+    let theID = pathWithNoDot +'$'+ name + (type === 'button' ? 'button' : '');
     this.boardService.board.ElementList.push(
       {
         ID: theID,
@@ -180,7 +180,7 @@ export class ShareComponent implements OnInit {
 
     let getPage = this.boardService.board.PageList.find( page => page.ID === folder);
     if(getPage === null || getPage ===undefined){
-      this.boardService.board.PageList.push({ID: folder, ElementIDsList: []});
+      this.boardService.board.PageList.push({ID: folder, Name: folder, ElementIDsList: []});
       getPage = this.boardService.board.PageList.find( page => page.ID === folder);
     }
     getPage.ElementIDsList.push(theID);
