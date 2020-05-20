@@ -1,0 +1,61 @@
+{
+"type": "object",
+"properties": {
+ "ID": { "type": "string" },
+  "Type": { "type": "string" ,
+            "enum": ["Grid"]
+          },
+  "NumberOfCols": { "type": "number" },
+  "NumberOfRows": { "type": "number" },
+  "ElementList": {
+   "type": "array",
+   "items": {
+     "type": "object",
+     "properties": {
+       "ID": { "type": "string" },
+       "Type": { "type": "object" ,
+                 "enum": ["empty","button", { "type": "object",
+                                              "properties": {
+                                              "GoTo": { "type": "string" }
+                                              }
+                                            }
+                         ]
+                },
+       "PartOfSpeech": { "type": "string" },
+       "Color": { "type": "string" },
+       "BorderColor": { "type": "string" },
+       "VisibilityLevel": { "type": "number" },
+
+       "ElementFormsList":  {"type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                 "DisplayedText": { "type": "string" },
+                                  "VoiceText": { "type": "string" },
+                                  "LexicInfos": {"type": "array"},
+                                  "ImageID": { "type": "string" }
+                                }
+                              }
+                             },
+       "InteractionsList": Interaction[]
+     }
+   }
+  } ,
+  "ImageList":{
+   "type": "array",
+   "items": {
+     "type": "object",
+     "properties": {
+     }
+   }
+  } ,
+  "PageList": {
+   "type": "array",
+   "items": {
+     "type": "object",
+     "properties": {
+     }
+   }
+  } ,
+  }
+}

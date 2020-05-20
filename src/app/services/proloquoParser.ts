@@ -234,7 +234,7 @@ export class ProloquoParser {
     homePage.Name = "ACCUEIL";
   }
 
-  setUpNewGrid(tempElement, tempPage){
+  setUpNewGrid(tempElement, tempPage): Grid{
     return {
       ID: 'ProloquoGrid',
       Type: 'Grid',

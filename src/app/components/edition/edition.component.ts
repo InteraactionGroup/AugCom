@@ -135,7 +135,7 @@ export class EditionComponent implements OnInit {
   modifyButton() {
     if (this.editionService.selectedElements[0] != null && this.editionService.selectedElements[0] !== undefined) {
       const element: GridElement = this.editionService.selectedElements[0];
-      element.Type = this.editionService.radioTypeFormat === 'folder' ? new FolderGoTo(element.ID) : this.editionService.radioTypeFormat;
+      element.Type = this.editionService.radioTypeFormat === 'folder' ? new FolderGoTo(element.ID) : 'button';
       element.Color = this.editionService.curentColor;
       element.BorderColor = this.editionService.curentBorderColor;
       element.InteractionsList = Object.assign([], this.editionService.interractionList);
@@ -185,7 +185,7 @@ export class EditionComponent implements OnInit {
     this.boardService.board.ElementList.push(
       {
         ID: tempId,
-        Type: this.editionService.radioTypeFormat === 'folder' ? new FolderGoTo(tempId): this.editionService.radioTypeFormat ,
+        Type: this.editionService.radioTypeFormat === 'folder' ? new FolderGoTo(tempId): 'button' ,
         PartOfSpeech: this.editionService.classe,
         ElementFormsList: elementFormsList,
         InteractionsList: interList,

@@ -57,7 +57,7 @@ export class EventComponent implements OnInit {
    * @param interractionId
    * @param actionId, the string identifying an action
    */
-  addOrRemoveToInteraction(interactionId: string, actionId: string) {
+  addOrRemoveToInteraction(interactionId , actionId: string) {
     const partOfCurrentInter = this.isPartOfTheInteraction(interactionId, actionId);
 
     const currentInterraction: Interaction = this.editionService.interractionList.find(interaction => interaction.ID === interactionId);

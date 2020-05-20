@@ -32,7 +32,6 @@ export class SearchService {
   search(id: string) {
     this.searchedWords = this.searchedWords.filter(elt => elt.ID === id);
     this.searchedPath = [];
-    console.log(this.searchedWords);
     if (this.searchedWords !== null) {
       this.recursiveSearch(this.searchedWords);
     }
@@ -40,7 +39,6 @@ export class SearchService {
 
   recursiveSearch(children: GridElement[]) {
     let parents: GridElement[] = [];
-    console.log(this.searchedPath);
     children.forEach(elt => {
       this.boardService.board.PageList.forEach( page => {
         if(page.ElementIDsList.includes(elt.ID)){
