@@ -1,12 +1,5 @@
-<!-- <div class="toolbar"> -->
-<!-- <button (click)="this.setE(true)">Drag enabled</button>
-  <button (click)="this.setE(false)">Drag disable</button> -->
-
-<!-- </div> -->
-
-<button (click)="this.layoutService.setDraggable(false)">Drag disable</button>
-<button (click)="this.layoutService.setDraggable(true)">Drag unenable</button>
-
+<button (click)="this.layoutService.setDraggable(false)">No drag</button>
+<button (click)="this.layoutService.setDraggable(true)">Drag</button>
 
 <gridster [options]="options">
   <gridster-item *ngFor=" let item of layout" [item]="item.gridsterItem">

@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { GridsterConfig } from "angular-gridster2";
 import { Element } from "../types";
+import { UsertoolbarService } from "../services/usertoolbar.service";
 
 @Injectable({
   providedIn: "root",
@@ -23,7 +24,11 @@ export class LayoutService {
 
   constructor() {}
 
-  public addItem(element: Element): void {
+  emptyLayout(): void {
+    this.layout = [];
+  }
+
+  addItem(element: Element): void {
     this.layout.push({
       gridsterItem: {
         cols: 5,
@@ -36,14 +41,15 @@ export class LayoutService {
     });
   }
 
-  public setDraggable(b: boolean): void {
-    this.options.draggable.enabled = b;
-    this.options.resizable.enabled = b;
-    console.log(this.options.draggable.enabled);
-  }
-
-  public deleteItem(id: string): void {
+  deleteItem(id: string): void {
     const item = this.layout.find((d) => d.gridsterItem.id === id);
     this.layout.splice(this.layout.indexOf(item), 1);
+  }
+
+  setDraggable(b: boolean): void {
+    this.options.draggable.enabled = b;
+    this.options.resizable.enabled = b;
+    this.options.api.optionsChanged();
+    // if (this.options.api !== undefined) this.options.api.optionsChanged();
   }
 }

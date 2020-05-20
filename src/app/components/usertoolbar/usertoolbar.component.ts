@@ -1,48 +1,51 @@
-import {Component, OnInit} from '@angular/core';
-import {UsertoolbarService} from '../../services/usertoolbar.service';
-import {GeticonService} from '../../services/geticon.service';
-import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {SnapBarService} from '../../services/snap-bar.service';
-import {ParametersService} from '../../services/parameters.service';
-import {SearchService} from '../../services/search.service';
-import {BoardService} from '../../services/board.service';
-import {Ng2ImgMaxService} from "ng2-img-max";
+import { Component, OnInit } from "@angular/core";
+import { UsertoolbarService } from "../../services/usertoolbar.service";
+import { GeticonService } from "../../services/geticon.service";
+import { IndexeddbaccessService } from "../../services/indexeddbaccess.service";
+import { SnapBarService } from "../../services/snap-bar.service";
+import { ParametersService } from "../../services/parameters.service";
+import { SearchService } from "../../services/search.service";
+import { BoardService } from "../../services/board.service";
+import { Ng2ImgMaxService } from "ng2-img-max";
+import { LayoutService } from "../../services/layout.service";
 
 @Component({
-  selector: 'app-usertoolbar',
-  templateUrl: './usertoolbar.component.html',
-  styleUrls: ['./usertoolbar.component.css'],
-  providers: [Ng2ImgMaxService]
- })
+  selector: "app-usertoolbar",
+  templateUrl: "./usertoolbar.component.html",
+  styleUrls: ["./usertoolbar.component.css"],
+  providers: [Ng2ImgMaxService],
+})
 export class UsertoolbarComponent implements OnInit {
+  constructor(
+    public boardService: BoardService,
+    public searchService: SearchService,
+    private parametersService: ParametersService,
+    private snapBarService: SnapBarService,
+    private indexedDBacess: IndexeddbaccessService,
+    public getIconService: GeticonService,
+    public userToolBarService: UsertoolbarService,
+    private layoutService: LayoutService
+  ) {}
 
+  searchText = "";
 
-  constructor(public boardService: BoardService, public searchService: SearchService, private parametersService: ParametersService,
-              private snapBarService: SnapBarService, private indexedDBacess: IndexeddbaccessService, public getIconService: GeticonService,
-              public userToolBarService: UsertoolbarService) {
-
-  }
-
-  searchText = '';
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   getResultsHeight(size) {
     if (size >= 5) {
-      return '500%';
+      return "500%";
     } else {
-      return (size * 100) + '%';
+      return size * 100 + "%";
     }
   }
 
   getResultHeight(size) {
     if (size >= 5) {
-      return '20%';
+      return "20%";
     } else if (size === 0) {
-      return '0';
+      return "0";
     } else {
-      return (100 / size) + '%';
+      return 100 / size + "%";
     }
   }
 
@@ -64,11 +67,13 @@ export class UsertoolbarComponent implements OnInit {
       this.userToolBarService.editt();
       if (!this.userToolBarService.edit) {
         this.indexedDBacess.update();
-        console.log('info saved');
+        console.log("info saved");
       }
     } else {
       this.snapBarService.snap();
+      this.userToolBarService.editt();
     }
+    this.layoutService.setDraggable(this.userToolBarService.edit);
   }
 
   openSearch() {
@@ -76,13 +81,13 @@ export class UsertoolbarComponent implements OnInit {
     if (!this.userToolBarService.search) {
       this.searchService.searchedPath = [];
       this.searchService.searchedWords = [];
-      this.searchText = '';
+      this.searchText = "";
     }
   }
 
   setLock() {
     this.userToolBarService.unlock = !this.userToolBarService.unlock;
-    this.userToolBarService.edit = this.userToolBarService.edit && this.userToolBarService.unlock;
+    this.userToolBarService.edit =
+      this.userToolBarService.edit && this.userToolBarService.unlock;
   }
-
 }

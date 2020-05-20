@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, OnChanges } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { GridsterConfig } from "angular-gridster2";
 import { UsertoolbarService } from "../../services/usertoolbar.service";
 import { LayoutService } from "../../services/layout.service";
-import { IndexeddbaccessService } from "../../services/indexeddbaccess.service";
 
 import { Element } from "../../types";
 
@@ -14,17 +13,14 @@ import { Element } from "../../types";
 export class LayoutComponent implements OnInit {
   @Input() elements: Element[];
 
-  constructor(
-    private userToolBarService: UsertoolbarService,
-    public layoutService: LayoutService,
-    private indexedDBacess: IndexeddbaccessService
-  ) {}
+  constructor(public layoutService: LayoutService) {}
 
   ngOnInit() {
-    this.elements.forEach((element) => {
-      this.layoutService.addItem(element);
-    });
-    this.layoutService.setDraggable(this.userToolBarService.edit);
+    if (this.layout.length === 0) {
+      this.elements.forEach((element) => {
+        this.layoutService.addItem(element);
+      });
+    }
   }
 
   get options(): GridsterConfig {
