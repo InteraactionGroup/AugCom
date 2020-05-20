@@ -1,6 +1,3 @@
-<button (click)="this.layoutService.setDraggable(false)">No drag</button>
-<button (click)="this.layoutService.setDraggable(true)">Drag</button>
-
 <gridster [options]="options">
   <gridster-item *ngFor=" let item of layout" [item]="item.gridsterItem">
     <!-- <button (click)="this.deleteItem(item.gridsterItem.id)">Remove</button> -->

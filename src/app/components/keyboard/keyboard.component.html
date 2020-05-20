@@ -50,8 +50,62 @@
   </div>
 </div>
 
-<!-- <app-grid [elements]="this.getTempList()"></app-grid> -->
-<!-- ng container checking if back button have to be displayed -->
+<div class="keyboard, width-100"
+  [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100vh - 4.5cm)':'calc(100vh - 3.5cm)'}">
+  <app-layout [elements]="this.getTempList()"></app-layout>
+  <!-- ng container checking if back button have to be displayed -->
+  <ng-container *ngIf="this.boardService.currentFolder !== '.' && this.boardService.activatedElement==-1">
 
-<app-snap-bar></app-snap-bar>
-<app-layout [elements]="this.getTempList()"></app-layout>
+    <!-- container for the back button element -->
+    <div class="elementContainer floatLeft no-drag">
+
+      <!-- back button element-->
+      <div class="element" (click)="this.boardService.backToPreviousFolder()" [ngStyle]="{'background-color': 'red'}">
+
+        <div class="image haveBackgroundImage" [style.background-image]="this.getIcon('retour')"></div>
+
+        <svg viewBox="0 0 30 20">
+          <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle">retour
+          </text>
+        </svg>
+
+      </div>
+
+    </div>
+
+  </ng-container>
+
+  <!-- ng container checking if the add button have to be displayed -->
+  <ng-container *ngIf="this.userToolBarService.edit">
+
+    <!-- nav link to the edit route-->
+    <nav class="no-drag">
+      <a routerLink="/edit" class="no-drag">
+
+        <!-- elementContainer for the add button element-->
+        <div class="elementContainer floatLeft no-drag add height-width-100">
+
+          <!-- add button element -->
+          <div class="element" (click)="this.addNewElement()" [ngStyle]="{'background-color': 'rgb(125,125,125)'}">
+
+            <div class="image haveBackgroundImage" [style.background-image]="this.getIcon('add')">
+
+            </div>
+
+            <svg class="centerText" viewBox="0 0 30 20">
+              <text class="centerText" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle">ajouter
+              </text>
+            </svg>
+
+          </div>
+
+        </div>
+
+      </a>
+
+    </nav>
+
+  </ng-container>
+
+  <app-snap-bar></app-snap-bar>
+</div>

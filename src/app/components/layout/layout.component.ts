@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { GridsterConfig } from "angular-gridster2";
-import { UsertoolbarService } from "../../services/usertoolbar.service";
 import { LayoutService } from "../../services/layout.service";
 
 import { Element } from "../../types";

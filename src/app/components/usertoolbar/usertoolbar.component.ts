@@ -71,7 +71,7 @@ export class UsertoolbarComponent implements OnInit {
       }
     } else {
       this.snapBarService.snap();
-      this.userToolBarService.editt();
+      // this.userToolBarService.editt();
     }
     this.layoutService.setDraggable(this.userToolBarService.edit);
   }
@@ -89,5 +89,6 @@ export class UsertoolbarComponent implements OnInit {
     this.userToolBarService.unlock = !this.userToolBarService.unlock;
     this.userToolBarService.edit =
       this.userToolBarService.edit && this.userToolBarService.unlock;
+    this.layoutService.setDraggable(this.userToolBarService.edit);
   }
 }
