@@ -39,6 +39,7 @@ import { TileComponent } from "./components/tile/tile.component";
 import { ElementContainerDirective } from "./directives/element-container.directive";
 import { LayoutComponent } from "./components/layout/layout.component";
 import { GridsterModule } from "angular-gridster2";
+import { GridSettingsComponent } from './grid-settings/grid-settings.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { GridsterModule } from "angular-gridster2";
     TileComponent,
     ElementContainerDirective,
     LayoutComponent,
+    GridSettingsComponent,
   ],
   imports: [
     BrowserModule,

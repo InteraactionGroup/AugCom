@@ -1,13 +1,13 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { GridsterConfig } from "angular-gridster2";
-import { LayoutService } from "../../services/layout.service";
+import { Component, OnInit, Input } from '@angular/core';
+import { GridsterConfig } from 'angular-gridster2';
+import { LayoutService } from '../../services/layout.service';
 
-import { Element } from "../../types";
+import { Element } from '../../types';
 
 @Component({
-  selector: "app-layout",
-  templateUrl: "./layout.component.html",
-  styleUrls: ["./layout.component.css"],
+  selector: 'app-layout',
+  templateUrl: './layout.component.html',
+  styleUrls: ['./layout.component.css'],
 })
 export class LayoutComponent implements OnInit {
   @Input() elements: Element[];

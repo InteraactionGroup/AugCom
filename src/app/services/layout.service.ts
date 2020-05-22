@@ -1,23 +1,29 @@
-import { Injectable } from "@angular/core";
-import { GridsterConfig } from "angular-gridster2";
-import { Element } from "../types";
-import { UsertoolbarService } from "../services/usertoolbar.service";
+import { Injectable } from '@angular/core';
+import { GridsterConfig } from 'angular-gridster2';
+import {Element, Grid} from '../types';
+import { UsertoolbarService } from './usertoolbar.service';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class LayoutService {
   public options: GridsterConfig = {
     draggable: {
       enabled: false,
-      stop: (item, gridsterItem, event) => {},
+      stop: (item, gridsterItem, event) => {
+        console.log('');
+      },
     },
     pushItems: true,
     swapItems: false,
     resizable: {
       enabled: false,
-      stop: (item, gridsterItem, event) => {},
+      stop: (item, gridsterItem, event) => {
+        console.log('');
+      },
     },
+    // maxCols: 100,
+    // maxRows: 100,
   };
 
   public layout: any[] = [];
@@ -37,7 +43,7 @@ export class LayoutService {
         x: 0,
         y: 0,
       },
-      element: element,
+      element,
     });
   }
 
@@ -50,6 +56,17 @@ export class LayoutService {
     this.options.draggable.enabled = b;
     this.options.resizable.enabled = b;
     this.options.api.optionsChanged();
-    // if (this.options.api !== undefined) this.options.api.optionsChanged();
   }
+
+  setCols(cols: number): void {
+    this.options.maxCols = cols;
+  }
+
+  setRows(rows: number): void {
+    this.options.maxRows = rows;
+  }
+
+  loadGrid(grid: Grid): void {
+  }
+
 }

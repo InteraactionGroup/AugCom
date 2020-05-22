@@ -72,8 +72,8 @@ export class EditionComponent implements OnInit {
    */
   save() {
     this.indexedDBacess.update();
-    if (this.editionService.currentEditPage !== "") {
-      this.editionService.currentEditPage = ""
+    if (this.editionService.currentEditPage !== '') {
+      this.editionService.currentEditPage = '';
     } else {
       if (this.editionService.add) {
         this.createNewButton();
