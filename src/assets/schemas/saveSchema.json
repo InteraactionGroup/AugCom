@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "$id": "http://lig-augcom.imag.fr/stable/#/schemas/saveSchema.json",
+  "type": "object",
+  "properties": {
+    "ID": { "type": "string" },
+    "Type": { "type": "string" ,
+      "enum": ["Grid"]
+    },
+    "NumberOfCols": { "type": "number", "multipleOf": 1.0 , "minimum": 0 },
+    "NumberOfRows": { "type": "number", "multipleOf": 1.0 , "minimum": 0 },
+    "ElementList": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ID": { "type": "string" },
+          "Type": {
+            "enum": ["empty","button", { "type": "object",
+              "properties": {
+                "GoTo": { "type": "string" }
+              },
+              "additionalProperties": false,
+              "required": ["GoTo"]
+            }
+            ]
+          },
+          "PartOfSpeech": { "type": "string" },
+          "Color": { "type": "string" },
+          "BorderColor": { "type": "string" },
+          "VisibilityLevel": { "type": "number", "multipleOf": 1.0 , "minimum": 0, "maximum" : 3},
+
+          "ElementFormsList":  {"type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "DisplayedText": { "type": "string" },
+                "VoiceText": { "type": "string" },
+                "LexicInfos": {"type": "array"},
+                "ImageID": { "type": "string" }
+              },
+              "additionalProperties": false,
+              "required": ["DisplayedText", "VoiceText","LexicInfos","ImageID"]
+            }
+          },
+          "InteractionsList": {"type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ID": { "type": "string" ,
+                  "enum": ["click" , "longPress" , "doubleClick" , "backFromVariant"]},
+                "ActionList": {"type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "ID": { "type": "string" },
+                      "Action": { "type": "string" }
+                    },
+                    "additionalProperties": false,
+                    "required": ["ID", "Action"]
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "required": ["ID", "ActionList"]
+            }
+          }
+        },
+        "additionalProperties": false,
+        "required": ["ID","Type","PartOfSpeech","Color","BorderColor","VisibilityLevel","ElementFormsList","InteractionsList"]
+      }
+    } ,
+    "ImageList":{
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ID": { "type": "string" },
+          "OriginalName": { "type": "string" },
+          "Path": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    } ,
+    "PageList": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ID": { "type": "string" },
+          "Name" : { "type": "string" },
+          "ElementIDsList": {"type": "array",
+            "items": {"type": "string" }
+          }
+        },
+        "additionalProperties": false,
+        "required": ["ID","Name","ElementIDsList"]
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": ["ID","Type","NumberOfCols","NumberOfRows","ElementList","ImageList","PageList"]
+}

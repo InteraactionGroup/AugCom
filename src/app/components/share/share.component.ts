@@ -12,8 +12,11 @@ import {Traduction} from '../../sparqlJsonResults';
 import {DbnaryService} from '../../services/dbnary.service';
 import {HttpClient} from "@angular/common/http";
 import {Ng2ImgMaxService} from "ng2-img-max";
-import {FolderGoTo, GridElement} from "../../types";
+import {FolderGoTo, Grid, GridElement} from "../../types";
 import {ProloquoParser} from "../../services/proloquoParser";
+import Ajv from "ajv";
+import schema from "../../../assets/schemas/saveSchema.json";
+import defaultgrid from "../../../assets/defaultsave.json";
 
 @Component({
   selector: 'app-share',
@@ -51,7 +54,17 @@ export class ShareComponent implements OnInit {
 
   /*read CSV file of csv reader and open it as a grid*/
   readCSV() {
-    this.boardService.board = this.csvReader.generateBoard();
+      var ajv = new Ajv(); // options can be passed, e.g. {allErrors: true}
+      var validate = ajv.compile(schema);
+      var valid = validate(defaultgrid);
+      if (!valid) {
+        console.log("ERROR ");
+        console.log(validate.errors);
+        return <Grid>defaultgrid;
+      } else {
+        console.log("NoERROR!");
+        this.boardService.board = this.csvReader.generateBoard();
+      }
     this.indexedDBacess.update();
     this.router.navigate(['']);
     // this.trad(0);
