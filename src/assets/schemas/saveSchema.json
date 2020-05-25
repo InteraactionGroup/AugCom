@@ -16,20 +16,23 @@
         "properties": {
           "ID": { "type": "string" },
           "Type": {
-            "enum": ["empty","button", { "type": "object",
-              "properties": {
-                "GoTo": { "type": "string" }
-              },
-              "additionalProperties": false,
-              "required": ["GoTo"]
-            }
-            ]
-          },
+                      "anyOf": [
+                          {
+                              "type": "string",
+                              "enum": ["empty","button"]
+                          },
+                          {
+                              "type": "object",
+                              "properties": {
+                                "GoTo": { "type": "string" }
+                              }
+                          }
+                      ]
+                  },
           "PartOfSpeech": { "type": "string" },
           "Color": { "type": "string" },
           "BorderColor": { "type": "string" },
           "VisibilityLevel": { "type": "number", "multipleOf": 1.0 , "minimum": 0, "maximum" : 3},
-
           "ElementFormsList":  {"type": "array",
             "items": {
               "type": "object",

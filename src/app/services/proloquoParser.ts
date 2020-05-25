@@ -1,11 +1,13 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {backLinksCSV, buttonLinksCSV, CSVRecord, pageLinksCSV, wordsCSV} from "../csvType";
-import {ElementForm, FolderGoTo, Grid, GridElement, Image, Interaction, Page} from "../types";
+import {backLinksCSV, buttonLinksCSV, pageLinksCSV, wordsCSV} from "../csvType";
+import {FolderGoTo, Grid, GridElement, Interaction, Page} from "../types";
 import {BoardService} from "./board.service";
 import {IndexeddbaccessService} from "./indexeddbaccess.service";
 import {PrintService} from "./print.service";
 import {Router} from "@angular/router";
+import {JsonValidatorService} from "./json-validator.service";
+import {element} from "protractor";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,7 @@ import {Router} from "@angular/router";
 export class ProloquoParser {
 
   constructor(private http: HttpClient, public boardService: BoardService, public indexedDBacess: IndexeddbaccessService, private printService: PrintService,
-              private router: Router,) { }
+              private router: Router,public jsonValidator: JsonValidatorService) { }
 
   public words: wordsCSV[] = [];
   public pageLinks: pageLinksCSV[] = [];
@@ -45,7 +47,8 @@ export class ProloquoParser {
             let headersRow = this.getHeaderArray(csvRecordsArray);
             this.getDataRecordsArrayFromBackLinksCSV(csvRecordsArray, headersRow.length);
 
-            this.boardService.board = this.createGrid();
+            console.log("3");
+            this.boardService.board =  this.jsonValidator.getCheckedGrid(this.createGrid());
             this.indexedDBacess.update();
             this.router.navigate(['']);
           });
@@ -147,16 +150,22 @@ export class ProloquoParser {
 
     this.setUpHomeID(tempPage);
 
-    tempElement.push(new GridElement('#disable','','','transparent','transparent',
+    tempElement.push(new GridElement('#disable','empty','','transparent','transparent',
       1,[],[]));
 
     this.setUpElementIDToDisable(tempPage);
 
     tempPage.forEach(page => {
       if(page.ElementIDsList.length===0){
-        console.log(page.ID);
+        console.log('This page was empty: ' + page.ID);
       }
     });
+
+    tempElement.forEach( elt => {
+      if(elt.Type !== 'button' && elt.Type !== 'empty' && (<FolderGoTo>elt.Type).GoTo === null && (<FolderGoTo>elt.Type).GoTo === undefined ){
+        console.log('ID: ' +elt.ID + '  Type:' +elt.Type);
+      }
+    })
 
     return this.setUpNewGrid(tempElement, tempPage);
   }

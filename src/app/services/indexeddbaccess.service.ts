@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BoardService} from './board.service';
 import {PaletteService} from './palette.service';
+import {JsonValidatorService} from "./json-validator.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class IndexeddbaccessService {
   openRequest;
 
 
-  constructor(public paletteService: PaletteService, public boardService: BoardService) {
+  constructor(public paletteService: PaletteService, public boardService: BoardService, public jsonValidator: JsonValidatorService) {
     this.init();
   }
 
@@ -72,7 +73,8 @@ export class IndexeddbaccessService {
 
       const gridStore = db.transaction(['Grid']).objectStore('Grid').get(1);
       gridStore.onsuccess = e => {
-        this.boardService.board = gridStore.result;
+        console.log("2");
+        this.boardService.board = this.jsonValidator.getCheckedGrid(gridStore.result);
       };
 
       const paletteStore = db.transaction(['Palette']).objectStore('Palette').get(1);
