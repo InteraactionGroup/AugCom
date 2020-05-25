@@ -73,7 +73,6 @@ export class IndexeddbaccessService {
 
       const gridStore = db.transaction(['Grid']).objectStore('Grid').get(1);
       gridStore.onsuccess = e => {
-        console.log("2");
         this.boardService.board = this.jsonValidator.getCheckedGrid(gridStore.result);
       };
 

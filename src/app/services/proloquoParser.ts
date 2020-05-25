@@ -47,7 +47,6 @@ export class ProloquoParser {
             let headersRow = this.getHeaderArray(csvRecordsArray);
             this.getDataRecordsArrayFromBackLinksCSV(csvRecordsArray, headersRow.length);
 
-            console.log("3");
             this.boardService.board =  this.jsonValidator.getCheckedGrid(this.createGrid());
             this.indexedDBacess.update();
             this.router.navigate(['']);

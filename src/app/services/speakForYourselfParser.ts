@@ -20,7 +20,6 @@ export class SpeakForYourselfParser {
   }
 
   createGridSpeak4YourselfCSV(){
-    console.log("4");
     this.boardService.board = this.jsonValidator.getCheckedGrid(this.createGrid());
     this.indexedDBacess.update();
     this.router.navigate(['']);

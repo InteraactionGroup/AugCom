@@ -194,7 +194,7 @@ export class ShareComponent implements OnInit {
         console.log(this.boardService.getLabel(element));
         this.checkAndUpdateElementDefaultForm(element);
       });
-      console.log("1");
+
       this.boardService.board = this.jsonValidator.getCheckedGrid(tempBoard);
       this.indexedDBacess.update();
       this.router.navigate(['']);
