@@ -43,6 +43,7 @@ export class KeyboardComponent implements OnInit {
    */
   ngOnInit() {
     this.indexeddbaccessService.init();
+    console.log(this.boardService.sliderValueCol);
   }
   /**
    * if we are in edit mode
@@ -54,7 +55,7 @@ export class KeyboardComponent implements OnInit {
       this.editionService.selectedElements.length > 1
     ) {
       this.router
-        .navigate(["/edit"])
+        .navigate(['/edit'])
         .then(() => (this.editionService.add = false));
     } else {
       // do nothing
@@ -139,7 +140,7 @@ export class KeyboardComponent implements OnInit {
   }
 
   /**
-   * return the copy of the given 'intaractions' list
+   * return the copy of the given 'interactions' list
    * @param interactions, an interaction list
    * @return the copied interaction List
    */

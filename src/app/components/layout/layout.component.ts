@@ -16,9 +16,9 @@ export class LayoutComponent implements OnInit {
 
   ngOnInit() {
     if (this.layout.length === 0) {
-      this.elements.forEach((element) => {
+      for (const element of this.elements) {
         this.layoutService.addItem(element);
-      });
+      }
     }
   }
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { GridsterConfig } from 'angular-gridster2';
 import {Element, Grid} from '../types';
 import { UsertoolbarService } from './usertoolbar.service';
+import {element} from 'protractor';
 
 @Injectable({
   providedIn: 'root',
@@ -22,23 +23,21 @@ export class LayoutService {
         console.log('');
       },
     },
-    // maxCols: 100,
-    // maxRows: 100,
+    defaultItemCols: 1,
+    defaultItemRows: 1,
+    displayGrid: 'always',
+    minCols: 5,
+    minRows: 6,
   };
 
   public layout: any[] = [];
 
   constructor() {}
 
-  emptyLayout(): void {
-    this.layout = [];
-  }
-
+  // tslint:disable-next-line:no-shadowed-variable
   addItem(element: Element): void {
     this.layout.push({
       gridsterItem: {
-        cols: 5,
-        rows: 10,
         id: element.ElementID,
         x: 0,
         y: 0,
@@ -59,11 +58,13 @@ export class LayoutService {
   }
 
   setCols(cols: number): void {
-    this.options.maxCols = cols;
+    this.options.minCols = this.options.maxCols = cols;
+    this.options.api.optionsChanged();
   }
 
   setRows(rows: number): void {
-    this.options.maxRows = rows;
+    this.options.minRows = this.options.maxRows = rows;
+    this.options.api.optionsChanged();
   }
 
   loadGrid(grid: Grid): void {
