@@ -191,7 +191,6 @@ export class ShareComponent implements OnInit {
     fileReader.onload = (e) => {
       let tempBoard = JSON.parse(fileReader.result.toString());
       tempBoard.ElementList.forEach(element => {
-        console.log(this.boardService.getLabel(element));
         this.checkAndUpdateElementDefaultForm(element);
       });
 
@@ -210,13 +209,23 @@ export class ShareComponent implements OnInit {
       });
       return (newForm != null);
     });
-    if (defaultForm == null) {
+    if (defaultForm === null ) {
+      if (element.ElementFormsList[0] !== null && element.ElementFormsList[0] !== undefined) {
       element.ElementFormsList.push({
         DisplayedText: element.ElementFormsList[0].DisplayedText,
         VoiceText: element.ElementFormsList[0].VoiceText,
         LexicInfos: [{default: true}],
         ImageID: element.ElementFormsList[0].ImageID
       });
+      } else {
+        console.log( 'DEFAULT FORM NOT FOUND FOR ' + element.ID);
+        element.ElementFormsList.push({
+          DisplayedText: element.ID,
+          VoiceText: element.ID,
+          LexicInfos: [{default: true}],
+          ImageID: element.ID
+        });
+      }
     }
   }
 
