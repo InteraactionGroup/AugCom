@@ -40,7 +40,6 @@ export class BoardService {
 
   getCurrentTitle() {
     let path = this.currentPath.split('.');
-    console.log(path);
     if (path !== null){
       let name = '';
       let i = 0;

@@ -1,6 +1,6 @@
 {
   "ID": "gridExample",
-  "Type": "grid",
+  "Type": "Grid",
   "NumberOfCols": 4,
   "NumberOfRows": 4,
   "ElementList": [
