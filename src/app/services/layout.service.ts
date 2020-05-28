@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GridsterConfig } from 'angular-gridster2';
 import {Element, Grid} from '../types';
-import { UsertoolbarService } from './usertoolbar.service';
-import {element} from 'protractor';
 
 @Injectable({
   providedIn: 'root',

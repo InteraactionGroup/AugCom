@@ -9,3 +9,7 @@ gridster {
   flex-direction: column;
   /* background-color: white; */
 }
+gridster-item {
+  width: 10em;
+  height: auto;
+}

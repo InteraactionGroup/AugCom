@@ -43,7 +43,6 @@ export class KeyboardComponent implements OnInit {
    */
   ngOnInit() {
     this.indexeddbaccessService.init();
-    console.log(this.boardService.sliderValueCol);
   }
   /**
    * if we are in edit mode
