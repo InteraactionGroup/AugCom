@@ -221,6 +221,18 @@ export class BoardService {
         imageTemp.push(res);
       }
     });
+
+    let currentPage = this.board.PageList.find(page => {
+      return page.ID === this.getCurrentFolder()
+    });
+
+    if(currentPage !== null && currentPage !== undefined){
+      currentPage.ElementIDsList = currentPage.ElementIDsList.filter(elt => {
+        return this.editionService.sentencedToBeDeletedElement.findIndex( sentenced => {return sentenced.ID === elt}) === -1
+      })
+    }
+
+
     this.board.ImageList = imageTemp;
     this.editionService.sentencedToBeDeletedElement = [];
 
