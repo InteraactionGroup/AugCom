@@ -1,7 +1,11 @@
 import {Injectable} from '@angular/core';
 import jsonSpeak4Yourself from '../../assets/csvjson.json';
 import {CSVRecord} from '../csvType';
-import {FolderGoTo, Grid,GridElement} from '../types';
+import {FolderGoTo, Grid, GridElement} from '../types';
+import {IndexeddbaccessService} from "./indexeddbaccess.service";
+import {Router} from "@angular/router";
+import {BoardService} from "./board.service";
+import {JsonValidatorService} from "./json-validator.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,19 +14,23 @@ export class SpeakForYourselfParser {
 
   speak4Yourself: CSVRecord[];
 
-  constructor() {
+  constructor(public indexedDBacess: IndexeddbaccessService, public jsonValidator: JsonValidatorService,
+              private router: Router,  public boardService: BoardService) {
     this.speak4Yourself = jsonSpeak4Yourself;
   }
 
-  elementIsFolder(element: CSVRecord): boolean {
-    if ((this.speak4Yourself.findIndex(compElt => compElt.page === element.mot) !== -1) && (element.mot !== element.page) ){
-      return true;
-    }
-    return false;
+  createGridSpeak4YourselfCSV(){
+    this.boardService.board = this.jsonValidator.getCheckedGrid(this.createGrid());
+    this.indexedDBacess.update();
+    this.router.navigate(['']);
   }
 
-  generateBoard() {
-    const grille: Grid = new Grid('speak4yourself', 'grid', 12, 12, [], [], []);
+  elementIsFolder(element: CSVRecord): boolean {
+    return (this.speak4Yourself.findIndex(compElt => compElt.page === element.mot) !== -1) && (element.mot !== element.page);
+  }
+
+  createGrid() {
+    const grille: Grid = new Grid('speak4yourself', 'Grid', 12, 12, [], [], []);
     this.speak4Yourself.forEach(element => {
 
       if (element.page === 'HOME') {

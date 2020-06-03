@@ -3,7 +3,7 @@
  */
 export class Grid {
   ID: string;
-  Type: string;
+  Type: 'Grid';
   NumberOfCols: number;
   NumberOfRows: number;
 
@@ -36,7 +36,7 @@ export class FolderGoTo {
  */
 export class GridElement {
   ID: string;
-  Type: string |  FolderGoTo;
+  Type: 'empty' | 'button' |  FolderGoTo;
   PartOfSpeech: string;
   Color: string; // to delete later
   BorderColor: string; // to delete later
@@ -46,8 +46,8 @@ export class GridElement {
   InteractionsList: Interaction[];
 
 
-  constructor(elementId: string, elementType: string, elementPartOfSpeech: string,
-              color: string, borderColor: string, visibilityLevel: number, elementsForms: ElementForm[], interactionList: Interaction[]) {
+  constructor(elementId: string, elementType , elementPartOfSpeech: string,
+              color: string, borderColor: string, visibilityLevel , elementsForms: ElementForm[], interactionList: Interaction[]) {
 
     this.ID = elementId;
     this.Type = elementType;
@@ -80,7 +80,7 @@ export class Image {
 }
 
 export class Interaction {
-  ID: string;
+  ID: 'click' | 'longPress' | 'doubleClick' | 'backFromVariant';
   ActionList: Action[];
 }
 

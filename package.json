@@ -26,6 +26,7 @@
     "@material/snackbar": "^6.0.0",
     "@types/jquery": "^3.3.31",
     "acorn": "^7.1.1",
+    "ajv": "^6.12.2",
     "blueimp-canvas-to-blob": "^3.16.0",
     "file-saver": "^2.0.2",
     "html-to-image": "^0.1.1",

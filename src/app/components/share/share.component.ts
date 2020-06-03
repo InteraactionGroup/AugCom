@@ -8,12 +8,12 @@ import {Router} from '@angular/router';
 import {PrintService} from '../../services/print.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {SpeakForYourselfParser} from '../../services/speakForYourselfParser';
-import {Traduction} from '../../sparqlJsonResults';
 import {DbnaryService} from '../../services/dbnary.service';
 import {HttpClient} from "@angular/common/http";
 import {Ng2ImgMaxService} from "ng2-img-max";
 import {FolderGoTo, GridElement} from "../../types";
 import {ProloquoParser} from "../../services/proloquoParser";
+import {JsonValidatorService} from "../../services/json-validator.service";
 
 @Component({
   selector: 'app-share',
@@ -23,11 +23,11 @@ import {ProloquoParser} from "../../services/proloquoParser";
 })
 export class ShareComponent implements OnInit {
 
-  constructor(private dbNaryService: DbnaryService, private csvReader: SpeakForYourselfParser,
+  constructor(private dbNaryService: DbnaryService, private speakForYourselfParser: SpeakForYourselfParser,
               public indexedDBacess: IndexeddbaccessService, private printService: PrintService,
               private router: Router, public getIconService: GeticonService,
               public boardService: BoardService, public userToolBarService: UsertoolbarService,
-              public csvParser : ProloquoParser) {
+              public proloquoParser: ProloquoParser, public jsonValidator: JsonValidatorService) {
   }
 
 
@@ -50,18 +50,13 @@ export class ShareComponent implements OnInit {
   }
 
   /*read CSV file of csv reader and open it as a grid*/
-  readCSV() {
-    this.boardService.board = this.csvReader.generateBoard();
-    this.indexedDBacess.update();
-    this.router.navigate(['']);
-    // this.trad(0);
+  parseAndCreateSpeak4YourselfGrid() {
+    this.speakForYourselfParser.createGridSpeak4YourselfCSV();
   }
 
   /*read CSV file of csv reader and open it as a grid*/
-  parseCSV() {
-    this.csvParser.createGridFromProloquoCSVs()
-    // this.boardService.board = this.csvParser.generateBoard();
-    // this.trad(0);
+  parseAndCreateProloquoGrid() {
+    this.proloquoParser.createGridFromProloquoCSVs()
   }
 
   /**
@@ -145,9 +140,9 @@ export class ShareComponent implements OnInit {
    */
   createNewButtonFromInfoInZIP(name, imageURL, path: string, type) {
     let regex = /\./g;
-    let pathWithNoDot = path.replace(regex,'$');
+    let pathWithNoDot = path.replace(regex, '$');
 
-    let theID = pathWithNoDot +'$'+ name + (type === 'button' ? 'button' : '');
+    let theID = pathWithNoDot + '$' + name + (type === 'button' ? 'button' : '');
     this.boardService.board.ElementList.push(
       {
         ID: theID,
@@ -175,13 +170,13 @@ export class ShareComponent implements OnInit {
       });
 
     let pathTab = path.split('.');
-    pathTab = pathTab.filter( tab => tab.length > 0);
+    pathTab = pathTab.filter(tab => tab.length > 0);
     let folder = pathTab.length === 1 ? '#HOME' : pathWithNoDot;
 
-    let getPage = this.boardService.board.PageList.find( page => page.ID === folder);
-    if(getPage === null || getPage ===undefined){
+    let getPage = this.boardService.board.PageList.find(page => page.ID === folder);
+    if (getPage === null || getPage === undefined) {
       this.boardService.board.PageList.push({ID: folder, Name: folder, ElementIDsList: []});
-      getPage = this.boardService.board.PageList.find( page => page.ID === folder);
+      getPage = this.boardService.board.PageList.find(page => page.ID === folder);
     }
     getPage.ElementIDsList.push(theID);
   }
@@ -194,11 +189,12 @@ export class ShareComponent implements OnInit {
     const myFile = file[0];
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
-      this.boardService.board = JSON.parse(fileReader.result.toString());
-      this.boardService.board.ElementList.forEach(element => {
-        console.log(this.boardService.getLabel(element));
+      let tempBoard = JSON.parse(fileReader.result.toString());
+      tempBoard.ElementList.forEach(element => {
         this.checkAndUpdateElementDefaultForm(element);
       });
+
+      this.boardService.board = this.jsonValidator.getCheckedGrid(tempBoard);
       this.indexedDBacess.update();
       this.router.navigate(['']);
     };
@@ -213,13 +209,23 @@ export class ShareComponent implements OnInit {
       });
       return (newForm != null);
     });
-    if (defaultForm == null) {
+    if (defaultForm === null ) {
+      if (element.ElementFormsList[0] !== null && element.ElementFormsList[0] !== undefined) {
       element.ElementFormsList.push({
         DisplayedText: element.ElementFormsList[0].DisplayedText,
         VoiceText: element.ElementFormsList[0].VoiceText,
         LexicInfos: [{default: true}],
         ImageID: element.ElementFormsList[0].ImageID
       });
+      } else {
+        console.log( 'DEFAULT FORM NOT FOUND FOR ' + element.ID);
+        element.ElementFormsList.push({
+          DisplayedText: element.ID,
+          VoiceText: element.ID,
+          LexicInfos: [{default: true}],
+          ImageID: element.ID
+        });
+      }
     }
   }
 
