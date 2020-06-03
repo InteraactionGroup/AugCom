@@ -128,6 +128,29 @@ export class EditionComponent implements OnInit {
     });
   }
 
+  returnTypeOf ( elementID ) {
+    if ( this.editionService.radioTypeFormat === 'folder') {
+      if( this.editionService.pageLink ===  '@' ) {
+        return new FolderGoTo(elementID);
+      } else if (this.editionService.pageLink ===  '@NEW@') {
+          if ( this.editionService.newPage.replace(/ /g, '') == "") {
+            return new FolderGoTo(elementID)
+          }else {
+            this.boardService.board.PageList.push({
+              ID: this.editionService.newPage,
+              Name : this.editionService.newPage.replace(/_/g, ' ').toUpperCase(),
+              ElementIDsList: [],
+            });
+            return new FolderGoTo(this.editionService.newPage);
+          }
+      } else {
+        return new FolderGoTo(this.editionService.pageLink);
+      }
+    } else {
+      return 'button';
+    }
+  }
+
   /**
    * Update the current modified element and load its modifications into the board,
    * given the information of this class, updated by the edition html panel
@@ -135,7 +158,7 @@ export class EditionComponent implements OnInit {
   modifyButton() {
     if (this.editionService.selectedElements[0] != null && this.editionService.selectedElements[0] !== undefined) {
       const element: GridElement = this.editionService.selectedElements[0];
-      element.Type = this.editionService.radioTypeFormat === 'folder' ? new FolderGoTo(element.ID) : 'button';
+      element.Type = this.returnTypeOf (element.ID);
       element.Color = this.editionService.curentColor;
       element.BorderColor = this.editionService.curentBorderColor;
       element.InteractionsList = Object.assign([], this.editionService.interractionList);
@@ -177,11 +200,10 @@ export class EditionComponent implements OnInit {
 
     const elementFormsList = Object.assign([], this.editionService.variantList);
 
-
     this.boardService.board.ElementList.push(
       {
         ID: tempId,
-        Type: this.editionService.radioTypeFormat === 'folder' ? new FolderGoTo(tempId): 'button' ,
+        Type: this.returnTypeOf(tempId),
         PartOfSpeech: this.editionService.classe,
         ElementFormsList: elementFormsList,
         InteractionsList: this.editionService.interractionList ,
@@ -227,6 +249,7 @@ export class EditionComponent implements OnInit {
       this.editionService.curentColor = elementToModif.Color;
       this.editionService.curentBorderColor = elementToModif.BorderColor;
       this.editionService.radioTypeFormat = elementToModif.Type === 'button' ? 'button' : 'folder';
+      this.editionService.pageLink = elementToModif.Type === 'button' ? '@' : (<FolderGoTo> elementToModif.Type).GoTo;
       const imageToModif = this.boardService.board.ImageList.find(x => x.ID === elementToModif.ElementFormsList[0].ImageID);
       if (imageToModif != null && imageToModif !== undefined) {
         this.editionService.imageURL = imageToModif.Path;
