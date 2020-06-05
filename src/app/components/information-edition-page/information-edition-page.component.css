@@ -9,11 +9,10 @@
   width: 90%;
   margin-left: 5%;
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 33% 67%;
   column-gap: 1px;
   row-gap: 1px;
   padding-bottom: 20px;
-  align-items: center;
 }
 
 .element .label {
@@ -26,4 +25,9 @@
 .element .input {
   padding: 0;
   box-sizing: border-box;
+}
+
+.selectBox{
+  display: block;
+  width: 100%;
 }
