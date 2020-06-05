@@ -20,7 +20,7 @@
                  value="folder">
           <label class="radio" for="radioFolder">Dossier</label>
 
-          <select  id="lang" class="selectBox" [(ngModel)]="this.editionService.pageLink" *ngIf="this.editionService.radioTypeFormat=='folder'"
+          <select  class="selectBox" [(ngModel)]="this.editionService.pageLink" *ngIf="this.editionService.radioTypeFormat=='folder'"
                    [ngModelOptions]="{standalone: true}">
             <option value="@" selected >--choisissez une page--</option>
             <option value="@NEW@">-créer une nouvelle page-</option>
