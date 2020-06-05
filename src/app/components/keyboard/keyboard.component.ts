@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HistoricService} from '../../services/historic.service';
 import {EditionService} from '../../services/edition.service';
 import {BoardService} from '../../services/board.service';
-import {Action, GridElement, ElementForm, Vignette, FolderGoTo} from '../../types';
+import {Action, GridElement, ElementForm, Vignette, FolderGoTo, Interaction} from '../../types';
 import {GeticonService} from '../../services/geticon.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
@@ -550,6 +550,10 @@ export class KeyboardComponent implements OnInit {
     addNewElement() {
         this.editionService.add = true;
         this.editionService.clearEditionPane();
+        this.editionService.interractionList = [
+        {ID: 'click', ActionList: [ {ID: 'display', Action: 'display'},{ID: 'say', Action: 'say'}]},
+        {ID: 'longPress', ActionList: [{ID: 'otherforms', Action: 'otherforms'}]}
+      ];
     }
 
     /**

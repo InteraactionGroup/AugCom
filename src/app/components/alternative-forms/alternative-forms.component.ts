@@ -124,8 +124,17 @@ export class AlternativeFormsComponent implements OnInit {
   }
 
   getVariantListExceptDefault(){
-    let defaultForm = this.editionService.getDefaultForm(this.editionService.variantList);
-    return this.editionService.variantList.filter(variant => {return variant !== defaultForm});
+    if(this.editionService.add) {
+      let defaultForm = this.editionService.getDefaultFormIfExists(this.editionService.variantList);
+      return this.editionService.variantList.filter(variant => {
+        return variant !== defaultForm
+      });
+    } else {
+      let defaultForm = this.editionService.getDefaultForm(this.editionService.variantList);
+      return this.editionService.variantList.filter(variant => {
+        return variant !== defaultForm
+      });
+    }
   }
 
   /**

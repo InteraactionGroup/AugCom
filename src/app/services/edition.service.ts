@@ -81,6 +81,16 @@ export class EditionService {
     return elementFormList[0];
   }
 
+  getDefaultFormIfExists(elementFormList: ElementForm[]): ElementForm {
+    const index = elementFormList.findIndex(form => form.LexicInfos.findIndex(info => {return info.default}) !== -1);
+    if (index !== -1) {
+      return elementFormList[index];
+    }
+    return null;
+  }
+
+
+
   clearEditionPane(){
    this.ElementListener = new Subject<GridElement>();
    this.selectedElements = [];

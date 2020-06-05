@@ -177,10 +177,6 @@ export class EditionComponent implements OnInit {
 
     const elementFormsList = Object.assign([], this.editionService.variantList);
 
-    const interList: Interaction[] = [
-      {ID: 'click', ActionList: [ {ID: 'display', Action: 'display'},{ID: 'say', Action: 'say'}]},
-      {ID: 'longPress', ActionList: [{ID: 'otherforms', Action: 'otherforms'}]}
-    ];
 
     this.boardService.board.ElementList.push(
       {
@@ -188,7 +184,7 @@ export class EditionComponent implements OnInit {
         Type: this.editionService.radioTypeFormat === 'folder' ? new FolderGoTo(tempId): 'button' ,
         PartOfSpeech: this.editionService.classe,
         ElementFormsList: elementFormsList,
-        InteractionsList: interList,
+        InteractionsList: this.editionService.interractionList ,
         Color: this.editionService.curentColor,
         BorderColor: this.editionService.curentBorderColor,
         VisibilityLevel: 0

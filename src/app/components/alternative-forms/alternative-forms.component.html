@@ -1,7 +1,7 @@
   <div class="page">
 
     <div class="page-content" style="height: 100%">
-      <ng-container *ngIf="this.editionService.selectedElements.length <= 0">
+      <ng-container *ngIf="this.editionService.selectedElements.length <= 0 && !this.editionService.add">
         <app-error-on-edit></app-error-on-edit>
       </ng-container>
       <ng-container *ngIf="this.editionService.selectedElements.length > 1">
@@ -9,7 +9,7 @@
           L'édition des variantes des mots est impossible si plus d'un élément a été sélectionné.
         </div>
       </ng-container>
-      <ng-container *ngIf="this.editionService.selectedElements.length === 1">
+      <ng-container *ngIf="this.editionService.selectedElements.length === 1 || this.editionService.add">
         <div class="tableTitle">
           Modifier les variantes du mot:
         </div>
