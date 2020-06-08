@@ -5,43 +5,43 @@
   "NumberOfRows": 4,
   "ElementList": [
     {
-      "ID": "quoi",
+      "ID": "moi",
       "Type": "button",
       "PartOfSpeech": "",
-      "Color": "#50e2ff",
-      "BorderColor": "black",
+      "Color": "#42d4f4",
+      "BorderColor": "#469990",
       "VisibilityLevel": 0,
       "ElementFormsList": [
         {
-          "DisplayedText": "qui",
-          "VoiceText": "quoi",
+          "DisplayedText": "moi",
+          "VoiceText": "moi",
           "LexicInfos": [
             {
               "default": true
             }
           ],
-          "ImageID": "quoi"
+          "ImageID": "moi"
         },
         {
-          "DisplayedText": "quoi",
-          "VoiceText": "quoi",
+          "DisplayedText": "moi",
+          "VoiceText": "moi",
           "LexicInfos": [
           ],
-          "ImageID": "quoi"
+          "ImageID": "moi"
         },
         {
           "DisplayedText": "quand",
-          "VoiceText": "quoi",
+          "VoiceText": "moi",
           "LexicInfos": [
           ],
-          "ImageID": "quoi"
+          "ImageID": "moi"
         },
         {
           "DisplayedText": "où",
-          "VoiceText": "quoi",
+          "VoiceText": "moi",
           "LexicInfos": [
           ],
-          "ImageID": "quoi"
+          "ImageID": "moi"
         }
       ],
       "InteractionsList": [
@@ -59,19 +59,654 @@
           ]
         }
       ]
+    },
+    {
+      "ID": "fruits",
+      "Type": {
+        "GoTo": "fruits"
+      },
+      "PartOfSpeech": "",
+      "ElementFormsList": [
+        {
+          "DisplayedText": "fruits",
+          "VoiceText": "fruits",
+          "LexicInfos": [
+            {
+              "default": true
+            }
+          ],
+          "ImageID": "fruits"
+        }
+      ],
+      "InteractionsList": [
+        {
+          "ID": "click",
+          "ActionList": [
+            {
+              "ID": "display",
+              "Action": "display"
+            },
+            {
+              "ID": "say",
+              "Action": "say"
+            }
+          ]
+        },
+        {
+          "ID": "longPress",
+          "ActionList": [
+            {
+              "ID": "otherforms",
+              "Action": "otherforms"
+            }
+          ]
+        }
+      ],
+      "Color": "#a9a9a9",
+      "BorderColor": "#000000",
+      "VisibilityLevel": 0
+    },
+    {
+      "ID": "lieux",
+      "Type": {
+        "GoTo": "lieux"
+      },
+      "PartOfSpeech": "",
+      "ElementFormsList": [
+        {
+          "DisplayedText": "lieux",
+          "VoiceText": "lieux",
+          "LexicInfos": [
+            {
+              "default": true
+            }
+          ],
+          "ImageID": "lieux"
+        }
+      ],
+      "InteractionsList": [
+        {
+          "ID": "click",
+          "ActionList": [
+            {
+              "ID": "display",
+              "Action": "display"
+            },
+            {
+              "ID": "say",
+              "Action": "say"
+            }
+          ]
+        },
+        {
+          "ID": "longPress",
+          "ActionList": [
+            {
+              "ID": "otherforms",
+              "Action": "otherforms"
+            }
+          ]
+        }
+      ],
+      "Color": "#a9a9a9",
+      "BorderColor": "black",
+      "VisibilityLevel": 0
+    },
+    {
+      "ID": "non",
+      "Type": "button",
+      "PartOfSpeech": "",
+      "ElementFormsList": [
+        {
+          "DisplayedText": "non",
+          "VoiceText": "non",
+          "LexicInfos": [
+            {
+              "default": true
+            }
+          ],
+          "ImageID": "non"
+        }
+      ],
+      "InteractionsList": [
+        {
+          "ID": "click",
+          "ActionList": [
+            {
+              "ID": "display",
+              "Action": "display"
+            },
+            {
+              "ID": "say",
+              "Action": "say"
+            }
+          ]
+        },
+        {
+          "ID": "longPress",
+          "ActionList": [
+            {
+              "ID": "otherforms",
+              "Action": "otherforms"
+            }
+          ]
+        }
+      ],
+      "Color": "#fabebe",
+      "BorderColor": "#e6194B",
+      "VisibilityLevel": 0
+    },
+    {
+      "ID": "vous",
+      "Type": "button",
+      "PartOfSpeech": "",
+      "ElementFormsList": [
+        {
+          "DisplayedText": "vous",
+          "VoiceText": "vous",
+          "LexicInfos": [
+            {
+              "default": true
+            }
+          ],
+          "ImageID": "vous"
+        }
+      ],
+      "InteractionsList": [
+        {
+          "ID": "click",
+          "ActionList": [
+            {
+              "ID": "display",
+              "Action": "display"
+            },
+            {
+              "ID": "say",
+              "Action": "say"
+            }
+          ]
+        },
+        {
+          "ID": "longPress",
+          "ActionList": [
+            {
+              "ID": "otherforms",
+              "Action": "otherforms"
+            }
+          ]
+        }
+      ],
+      "Color": "#42d4f4",
+      "BorderColor": "#469990",
+      "VisibilityLevel": 0
+    },
+    {
+      "ID": "banane",
+      "Type": "button",
+      "PartOfSpeech": "",
+      "ElementFormsList": [
+        {
+          "DisplayedText": "banane",
+          "VoiceText": "banane",
+          "LexicInfos": [
+            {
+              "default": true
+            }
+          ],
+          "ImageID": "banane"
+        }
+      ],
+      "InteractionsList": [
+        {
+          "ID": "click",
+          "ActionList": [
+            {
+              "ID": "display",
+              "Action": "display"
+            },
+            {
+              "ID": "say",
+              "Action": "say"
+            }
+          ]
+        },
+        {
+          "ID": "longPress",
+          "ActionList": [
+            {
+              "ID": "otherforms",
+              "Action": "otherforms"
+            }
+          ]
+        }
+      ],
+      "Color": "#fffac8",
+      "BorderColor": "#ffe119",
+      "VisibilityLevel": 0
+    },
+    {
+      "ID": "pomme",
+      "Type": "button",
+      "PartOfSpeech": "",
+      "ElementFormsList": [
+        {
+          "DisplayedText": "pomme",
+          "VoiceText": "pomme",
+          "LexicInfos": [
+            {
+              "default": true
+            }
+          ],
+          "ImageID": "pomme"
+        }
+      ],
+      "InteractionsList": [
+        {
+          "ID": "click",
+          "ActionList": [
+            {
+              "ID": "display",
+              "Action": "display"
+            },
+            {
+              "ID": "say",
+              "Action": "say"
+            }
+          ]
+        },
+        {
+          "ID": "longPress",
+          "ActionList": [
+            {
+              "ID": "otherforms",
+              "Action": "otherforms"
+            }
+          ]
+        }
+      ],
+      "Color": "#aaffc3",
+      "BorderColor": "#3cb44b",
+      "VisibilityLevel": 0
+    },
+    {
+      "ID": "dedans",
+      "Type": {
+        "GoTo": "dedans"
+      },
+      "PartOfSpeech": "",
+      "ElementFormsList": [
+        {
+          "DisplayedText": "dedans",
+          "VoiceText": "dedans",
+          "LexicInfos": [
+            {
+              "default": true
+            }
+          ],
+          "ImageID": "dedans"
+        }
+      ],
+      "InteractionsList": [
+        {
+          "ID": "click",
+          "ActionList": [
+            {
+              "ID": "display",
+              "Action": "display"
+            },
+            {
+              "ID": "say",
+              "Action": "say"
+            }
+          ]
+        },
+        {
+          "ID": "longPress",
+          "ActionList": [
+            {
+              "ID": "otherforms",
+              "Action": "otherforms"
+            }
+          ]
+        }
+      ],
+      "Color": "#d3d3d3",
+      "BorderColor": "black",
+      "VisibilityLevel": 0
+    },
+    {
+      "ID": "dehors",
+      "Type": {
+        "GoTo": "dehors"
+      },
+      "PartOfSpeech": "",
+      "ElementFormsList": [
+        {
+          "DisplayedText": "dehors",
+          "VoiceText": "dehors",
+          "LexicInfos": [
+            {
+              "default": true
+            }
+          ],
+          "ImageID": "dehors"
+        }
+      ],
+      "InteractionsList": [
+        {
+          "ID": "click",
+          "ActionList": [
+            {
+              "ID": "display",
+              "Action": "display"
+            },
+            {
+              "ID": "say",
+              "Action": "say"
+            }
+          ]
+        },
+        {
+          "ID": "longPress",
+          "ActionList": [
+            {
+              "ID": "otherforms",
+              "Action": "otherforms"
+            }
+          ]
+        }
+      ],
+      "Color": "#d3d3d3",
+      "BorderColor": "black",
+      "VisibilityLevel": 0
+    },
+    {
+      "ID": "salle à manger",
+      "Type": "button",
+      "PartOfSpeech": "",
+      "ElementFormsList": [
+        {
+          "DisplayedText": "salle à manger",
+          "VoiceText": "salle à manger",
+          "LexicInfos": [
+            {
+              "default": true
+            }
+          ],
+          "ImageID": "salle à manger"
+        }
+      ],
+      "InteractionsList": [
+        {
+          "ID": "click",
+          "ActionList": [
+            {
+              "ID": "display",
+              "Action": "display"
+            },
+            {
+              "ID": "say",
+              "Action": "say"
+            }
+          ]
+        },
+        {
+          "ID": "longPress",
+          "ActionList": [
+            {
+              "ID": "otherforms",
+              "Action": "otherforms"
+            }
+          ]
+        }
+      ],
+      "Color": "#ffd8b1",
+      "BorderColor": "#f58231",
+      "VisibilityLevel": 0
+    },
+    {
+      "ID": "chambre",
+      "Type": "button",
+      "PartOfSpeech": "",
+      "ElementFormsList": [
+        {
+          "DisplayedText": "chambre",
+          "VoiceText": "chambre",
+          "LexicInfos": [
+            {
+              "default": true
+            }
+          ],
+          "ImageID": "chambre"
+        }
+      ],
+      "InteractionsList": [
+        {
+          "ID": "click",
+          "ActionList": [
+            {
+              "ID": "display",
+              "Action": "display"
+            },
+            {
+              "ID": "say",
+              "Action": "say"
+            }
+          ]
+        },
+        {
+          "ID": "longPress",
+          "ActionList": [
+            {
+              "ID": "otherforms",
+              "Action": "otherforms"
+            }
+          ]
+        }
+      ],
+      "Color": "#ffd8b1",
+      "BorderColor": "#f58231",
+      "VisibilityLevel": 0
+    },
+    {
+      "ID": "école",
+      "Type": "button",
+      "PartOfSpeech": "",
+      "ElementFormsList": [
+        {
+          "DisplayedText": "école",
+          "VoiceText": "école",
+          "LexicInfos": [
+            {
+              "default": true
+            }
+          ],
+          "ImageID": "école"
+        }
+      ],
+      "InteractionsList": [
+        {
+          "ID": "click",
+          "ActionList": [
+            {
+              "ID": "display",
+              "Action": "display"
+            },
+            {
+              "ID": "say",
+              "Action": "say"
+            }
+          ]
+        },
+        {
+          "ID": "longPress",
+          "ActionList": [
+            {
+              "ID": "otherforms",
+              "Action": "otherforms"
+            }
+          ]
+        }
+      ],
+      "Color": "#d3d3d3",
+      "BorderColor": "#a9a9a9",
+      "VisibilityLevel": 0
+    },
+    {
+      "ID": "chez mamie",
+      "Type": "button",
+      "PartOfSpeech": "",
+      "ElementFormsList": [
+        {
+          "DisplayedText": "chez mamie",
+          "VoiceText": "chez mamie",
+          "LexicInfos": [
+            {
+              "default": true
+            }
+          ],
+          "ImageID": "chez mamie"
+        }
+      ],
+      "InteractionsList": [
+        {
+          "ID": "click",
+          "ActionList": [
+            {
+              "ID": "display",
+              "Action": "display"
+            },
+            {
+              "ID": "say",
+              "Action": "say"
+            }
+          ]
+        },
+        {
+          "ID": "longPress",
+          "ActionList": [
+            {
+              "ID": "otherforms",
+              "Action": "otherforms"
+            }
+          ]
+        }
+      ],
+      "Color": "#d3d3d3",
+      "BorderColor": "#a9a9a9",
+      "VisibilityLevel": 0
     }
   ],
   "ImageList": [
     {
-      "ID": "quoi",
-      "OriginalName": "quoi",
-      "Path": "http://www.arasaac.org/classes/img/thumbnail.php?i=c2l6ZT0zMDAmcnV0YT0uLi8uLi9yZXBvc2l0b3Jpby9vcmlnaW5hbGVzLzY2MzIucG5n"
+      "ID": "fruits",
+      "OriginalName": "fruits",
+      "Path": "assets/libs/mulberry-symbols/EN-symbols/fruit.svg"
+    },
+    {
+      "ID": "lieux",
+      "OriginalName": "lieux",
+      "Path": "assets/libs/mulberry-symbols/EN-symbols/house.svg"
+    },
+    {
+      "ID": "non",
+      "OriginalName": "non",
+      "Path": "assets/libs/mulberry-symbols/EN-symbols/mistake_no_wrong.svg"
+    },
+    {
+      "ID": "vous",
+      "OriginalName": "vous",
+      "Path": "assets/libs/mulberry-symbols/EN-symbols/dinner_3_people.svg"
+    },
+    {
+      "ID": "moi",
+      "OriginalName": "moi",
+      "Path": "assets/libs/mulberry-symbols/EN-symbols/man_-_face.svg"
+    },
+    {
+      "ID": "banane",
+      "OriginalName": "banane",
+      "Path": "assets/libs/mulberry-symbols/EN-symbols/banana_bunch.svg"
+    },
+    {
+      "ID": "pomme",
+      "OriginalName": "pomme",
+      "Path": "assets/libs/mulberry-symbols/EN-symbols/apple.svg"
+    },
+    {
+      "ID": "dedans",
+      "OriginalName": "dedans",
+      "Path": "assets/libs/mulberry-symbols/EN-symbols/inside_room.svg"
+    },
+    {
+      "ID": "dehors",
+      "OriginalName": "dehors",
+      "Path": "assets/libs/mulberry-symbols/EN-symbols/outside.svg"
+    },
+    {
+      "ID": "salle à manger",
+      "OriginalName": "salle à manger",
+      "Path": "assets/libs/mulberry-symbols/EN-symbols/dining_table.svg"
+    },
+    {
+      "ID": "chambre",
+      "OriginalName": "chambre",
+      "Path": "assets/libs/mulberry-symbols/EN-symbols/bunk_beds.svg"
+    },
+    {
+      "ID": "école",
+      "OriginalName": "école",
+      "Path": "assets/libs/mulberry-symbols/EN-symbols/school.svg"
+    },
+    {
+      "ID": "chez mamie",
+      "OriginalName": "chez mamie",
+      "Path": "assets/libs/mulberry-symbols/EN-symbols/grandmother.svg"
     }
   ],
-  "PageList": [{
-    "ID": "#HOME",
-    "Name": "Accueil",
-    "ElementIDsList" : ["quoi"]
-  }
+  "PageList": [
+    {
+      "ID": "#HOME",
+      "Name": "Accueil",
+      "ElementIDsList": [
+        "moi",
+        "fruits",
+        "lieux",
+        "non",
+        "vous"
+      ]
+    },
+    {
+      "ID": "fruits",
+      "Name": "FRUITS",
+      "ElementIDsList": [
+        "banane",
+        "pomme"
+      ]
+    },
+    {
+      "ID": "lieux",
+      "Name": "LIEUX",
+      "ElementIDsList": [
+        "dedans",
+        "dehors"
+      ]
+    },
+    {
+      "ID": "dedans",
+      "Name": "DEDANS",
+      "ElementIDsList": [
+        "salle à manger",
+        "chambre"
+      ]
+    },
+    {
+      "ID": "dehors",
+      "Name": "DEHORS",
+      "ElementIDsList": [
+        "école",
+        "chez mamie"
+      ]
+    }
   ]
 }
