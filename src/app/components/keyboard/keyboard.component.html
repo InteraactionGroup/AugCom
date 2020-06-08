@@ -62,7 +62,7 @@
        [dragula]="this.userToolBarService.edit ? 'VAMPIRE' :null">
 
     <!-- iterate among the list of element of the currentFolder -->
-    <ng-container *ngFor="let element of this.getTempList()">
+    <ng-container *ngFor="let element of this.boardService.elementList">
 
       <!-- display elementContainers with element having non empty type-->
       <div id="{{element.ID}}" class="elementContainer floatLeft" *ngIf="element.Type!=='empty'">
