@@ -13,6 +13,7 @@ export class BoardService {
   constructor(public ng2ImgMaxService: Ng2ImgMaxService, public editionService: EditionService,
               public sanitizer: DomSanitizer) {
     this.board = Board;
+    this.updateElementList();
   }
 
   /*background url value for grid background image*/
@@ -28,6 +29,12 @@ export class BoardService {
   /*element that is displaying its alternative forms*/
   activatedElement = -1;
 
+  /**
+   * The current fakeElementTempList, updated when an element wants to display its variants
+   */
+  fakeElementTempList = [];
+
+  elementList = [];
 
   getCurrentFolder() {
     let path = this.currentPath.split('.');
@@ -64,6 +71,7 @@ export class BoardService {
   /*reset board with default Board value*/
   resetBoard() {
     this.board = Board;
+    this.updateElementList();
   }
 
   /*change background image of the grid*/
@@ -292,5 +300,185 @@ export class BoardService {
     }
 
     this.currentPath = temp;
+    this.updateElementList();
   }
+
+  updateElementList() {
+    this.elementList = this.getTempList();
+  }
+
+  /**
+   * Tricks implementation:
+   * return the normal list of elements that have to be displayed on the board if no element is currently displaying its variant forms
+   * otherwise return the 'fakeElementTempList' of the element that is displaying its variant forms
+   * @return a list of element
+   */
+  getTempList(): GridElement[] {
+    if (this.activatedElement === -1) {
+      return this.getNormalTempList();
+    } else {
+      return this.fakeElementTempList;
+    }
+  }
+
+  /**
+   * return the element of the currentFolder, the commented part is returning the part of elements that can fit in the board
+   * depending on the current rows and columns values
+   * @return a list of elements to display in the keyboard
+   */
+  getNormalTempList() {
+    let currentPage = this.board.PageList.find(page => {
+      return page.ID === this.getCurrentFolder()
+    });
+
+    let tempList = [];
+    if (currentPage !== null && currentPage !== undefined) {
+      for (let i = 0; i < currentPage.ElementIDsList.length; i++) {
+        tempList.push(this.board.ElementList.find(elt => {
+          return elt.ID === currentPage.ElementIDsList[i];
+        }));
+      }
+    }
+    return tempList;
+  }
+
+  /**
+   * process the different functions when the element identified by the index activatedElement want to display
+   * its variant forms.
+   * Create a tempOtherFOrmList that is displayed instead of the initial board
+   */
+  activatedElementTempList() {
+    this.fakeElementTempList = [];
+    this.board.ImageList.push({
+      ID: '#back',
+      OriginalName: '#back',
+      Path: 'assets/icons/retour.svg'
+    });
+
+    const temporaryElementList: GridElement[] = [];
+    this.getNormalTempList().forEach(e => temporaryElementList.push(this.copy(e)));
+    const index = this.activatedElement;
+    const max: number = Number(Number(index) + 1 + Number(this.board.NumberOfCols) + 1);
+    for (let newElementIndex = Number(temporaryElementList.length); newElementIndex < max; newElementIndex = newElementIndex + 1) { // fill with empty elements
+      temporaryElementList.push(new GridElement(
+        '#disable',
+        'button',
+        '',
+        'transparent', // to delete later
+        'transparent', // to delete later
+        0,
+        [],
+        []));
+    }
+
+    let indexOfForm = 0;
+    const compElt = temporaryElementList[index];
+    let places = this.createPlaces(index);
+    places = places.slice(0, compElt.ElementFormsList.length);
+    temporaryElementList.forEach(elt => {
+      const tempIndex = temporaryElementList.indexOf(elt);
+      if (places.includes(tempIndex)) {
+        if (compElt.ElementFormsList.length > indexOfForm) {
+          elt.ID = compElt.ID;
+          elt.Color = compElt.Color;
+          elt.BorderColor = compElt.BorderColor;
+          elt.Type = 'button';
+          elt.ElementFormsList = [];
+          elt.VisibilityLevel = 0;
+          elt.PartOfSpeech = '' + compElt.PartOfSpeech;
+          elt.ElementFormsList.push(
+            {
+              DisplayedText: compElt.ElementFormsList[indexOfForm].DisplayedText,
+              VoiceText: compElt.ElementFormsList[indexOfForm].VoiceText,
+              LexicInfos: compElt.ElementFormsList[indexOfForm].LexicInfos,
+              ImageID: '' + compElt.ElementFormsList[indexOfForm].ImageID
+            });
+          elt.InteractionsList = temporaryElementList[index].InteractionsList.slice();
+          elt.InteractionsList.push({ID: 'backFromVariant', ActionList: []});
+          indexOfForm = indexOfForm + 1;
+        }
+      } else if (tempIndex !== index) {
+        elt.ID = '#disable';
+        elt.InteractionsList = [];
+      }
+    });
+
+    temporaryElementList[index].Color = '#123548';
+    temporaryElementList[index].PartOfSpeech = '';
+    temporaryElementList[index].InteractionsList = [{ID: 'backFromVariant', ActionList: []}];
+    temporaryElementList[index].ElementFormsList = [{
+      DisplayedText: 'back',
+      VoiceText: 'back',
+      LexicInfos: [],
+      ImageID: '#back'
+    }];
+
+
+    this.fakeElementTempList = temporaryElementList;
+  }
+
+
+  /**
+   * return the available neighbor index of an element identified by index 'ind'
+   * @param ind, index of an element
+   */
+  createPlaces(ind: number) {
+    const index: number = Number(ind);
+    const slider: number = Number(this.board.NumberOfCols);
+    let places = [];
+
+    if (Math.trunc((index - 1) / slider) === Math.trunc(index / slider)) { // gauche
+      places.push(index - 1);
+    }
+    if (Math.trunc((index + 1) / slider) === Math.trunc(index / slider)) { // droite
+      places.push(index + 1);
+    }
+
+    if (Math.trunc((index - slider) / slider) === Math.trunc(index / slider) - 1) { // haut
+      places.push(index - slider);
+    }
+
+    if (Math.trunc((index - slider - 1) / slider) === Math.trunc(index / slider) - 1) { // haut gauche
+      places.push(index - slider - 1);
+    }
+
+    if (Math.trunc((index - slider + 1) / slider) === Math.trunc(index / slider) - 1) { // haut droite
+      places.push(index - slider + 1);
+    }
+
+    if (Math.trunc((index + slider) / slider) === Math.trunc(index / slider) + 1) { // bas
+      places.push(index + slider);
+    }
+
+    if (Math.trunc((index + slider - 1) / slider) === Math.trunc(index / slider) + 1) { // bas gauche
+      places.push(index + slider - 1);
+    }
+
+    if (Math.trunc((index + slider + 1) / slider) === Math.trunc(index / slider) + 1) { // bas droite
+      places.push(index + slider + 1);
+    }
+
+    places = places.filter(val => {
+      return val >= 0
+    });
+
+    return places;
+  }
+
+  /**
+   * return the copy of the given 'element'
+   * @param element, an element
+   * @return the copied element
+   */
+  copy(element: GridElement): GridElement {
+    return {
+      ID: element.ID,
+      PartOfSpeech: element.PartOfSpeech,
+      Type: element.Type,
+      ElementFormsList: element.ElementFormsList.copyWithin(0, 0),
+      InteractionsList: element.InteractionsList.copyWithin(0, 0),
+      Color: element.Color
+    } as GridElement;
+  }
+
 }

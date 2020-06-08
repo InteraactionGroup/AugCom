@@ -37,11 +37,6 @@ export class KeyboardComponent implements OnInit {
     /**
      * the current pressed element
      */
-
-    /**
-     * The current fakeElementTempList, updated when an element wants to display its variants
-     */
-    fakeElementTempList = [];
     dragulaSubscription = new Subscription();
 
     press = [false, false];
@@ -76,6 +71,7 @@ export class KeyboardComponent implements OnInit {
      * execute the indexeddbaccessService init fucntion to get the information of the DB or to create new entries if there is no info
      */
     ngOnInit() {
+      this.boardService.updateElementList();
       this.initDragAndDrop();
     }
 
@@ -144,20 +140,6 @@ export class KeyboardComponent implements OnInit {
     }
 
     /**
-     * Tricks implementation:
-     * return the normal list of elements that have to be displayed on the board if no element is currently displaying its variant forms
-     * otherwise return the 'fakeElementTempList' of the element that is displaying its variant forms
-     * @return a list of element
-     */
-    getTempList(): GridElement[] {
-        if (this.boardService.activatedElement === -1) {
-            return this.getNormalTempList();
-        } else {
-            return this.fakeElementTempList;
-        }
-    }
-
-    /**
      * Return the string corresponding to the value of a box-shadow css effect, used for create folder design effect
      *
      * @param  element, the element for which the shadow is beeing returned
@@ -179,27 +161,6 @@ export class KeyboardComponent implements OnInit {
       (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor);
     return s;
   }
-
-    /**
-     * return the element of the currentFolder, the commented part is returning the part of elements that can fit in the board
-     * depending on the current rows and columns values
-     * @return a list of elements to display in the keyboard
-     */
-    getNormalTempList() {
-        let currentPage = this.boardService.board.PageList.find(page => {
-            return page.ID === this.boardService.getCurrentFolder()
-        });
-
-        let tempList = [];
-        if (currentPage !== null && currentPage !== undefined) {
-            for (let i = 0; i < currentPage.ElementIDsList.length; i++) {
-                tempList.push(this.boardService.board.ElementList.find(elt => {
-                    return elt.ID === currentPage.ElementIDsList[i];
-                }));
-            }
-        }
-        return tempList;
-    }
 
     /**
      * update the current person and number information for verb terminations
@@ -303,22 +264,6 @@ export class KeyboardComponent implements OnInit {
     }
 
     /**
-     * return the copy of the given 'element'
-     * @param element, an element
-     * @return the copied element
-     */
-    copy(element: GridElement): GridElement {
-        return {
-            ID: element.ID,
-            PartOfSpeech: element.PartOfSpeech,
-            Type: element.Type,
-            ElementFormsList: element.ElementFormsList.copyWithin(0, 0),
-            InteractionsList: element.InteractionsList.copyWithin(0, 0),
-            Color: element.Color
-        } as GridElement;
-    }
-
-    /**
      * return the copy of the given 'intaractions' list
      * @param interactions, an interaction list
      * @return the copied interaction List
@@ -335,127 +280,6 @@ export class KeyboardComponent implements OnInit {
         return tempInter;
     }
 
-    /**
-     * process the different functions when the element identified by the index activatedElement want to display
-     * its variant forms.
-     * Create a tempOtherFOrmList that is displayed instead of the initial board
-     */
-    activatedElementTempList() {
-        this.fakeElementTempList = [];
-        this.boardService.board.ImageList.push({
-            ID: '#back',
-            OriginalName: '#back',
-            Path: 'assets/icons/retour.svg'
-        });
-
-        const temporaryElementList: GridElement[] = [];
-        this.getNormalTempList().forEach(e => temporaryElementList.push(this.copy(e)));
-        const index = this.boardService.activatedElement;
-        const max: number = Number(Number(index) + 1 + Number(this.boardService.board.NumberOfCols) + 1);
-        for (let newElementIndex = Number(temporaryElementList.length); newElementIndex < max; newElementIndex = newElementIndex + 1) { // fill with empty elements
-            temporaryElementList.push(new GridElement(
-                '#disable',
-                'button',
-                '',
-                'transparent', // to delete later
-                'transparent', // to delete later
-                0,
-                [],
-                []));
-        }
-
-        let indexOfForm = 0;
-        const compElt = temporaryElementList[index];
-        let places = this.createPlaces(index);
-        places = places.slice(0, compElt.ElementFormsList.length);
-        temporaryElementList.forEach(elt => {
-            const tempIndex = temporaryElementList.indexOf(elt);
-            if (places.includes(tempIndex)) {
-                if (compElt.ElementFormsList.length > indexOfForm) {
-                    elt.ID = compElt.ID;
-                    elt.Color = compElt.Color;
-                    elt.BorderColor = compElt.BorderColor;
-                    elt.Type = 'button';
-                    elt.ElementFormsList = [];
-                    elt.VisibilityLevel = 0;
-                    elt.PartOfSpeech = '' + compElt.PartOfSpeech;
-                    elt.ElementFormsList.push(
-                        {
-                            DisplayedText: compElt.ElementFormsList[indexOfForm].DisplayedText,
-                            VoiceText: compElt.ElementFormsList[indexOfForm].VoiceText,
-                            LexicInfos: compElt.ElementFormsList[indexOfForm].LexicInfos,
-                            ImageID: '' + compElt.ElementFormsList[indexOfForm].ImageID
-                        });
-                    elt.InteractionsList = temporaryElementList[index].InteractionsList.slice();
-                    elt.InteractionsList.push({ID: 'backFromVariant', ActionList: []});
-                    indexOfForm = indexOfForm + 1;
-                }
-            } else if (tempIndex !== index) {
-                elt.ID = '#disable';
-                elt.InteractionsList = [];
-            }
-        });
-
-        temporaryElementList[index].Color = '#123548';
-        temporaryElementList[index].PartOfSpeech = '';
-        temporaryElementList[index].InteractionsList = [{ID: 'backFromVariant', ActionList: []}];
-        temporaryElementList[index].ElementFormsList = [{
-            DisplayedText: 'back',
-            VoiceText: 'back',
-            LexicInfos: [],
-            ImageID: '#back'
-        }];
-
-
-        this.fakeElementTempList = temporaryElementList;
-    }
-
-    /**
-     * return the available neighbor index of an element identified by index 'ind'
-     * @param ind, index of an element
-     */
-    createPlaces(ind: number) {
-        const index: number = Number(ind);
-        const slider: number = Number(this.boardService.board.NumberOfCols);
-        let places = [];
-
-        if (Math.trunc((index - 1) / slider) === Math.trunc(index / slider)) { // gauche
-            places.push(index - 1);
-        }
-        if (Math.trunc((index + 1) / slider) === Math.trunc(index / slider)) { // droite
-            places.push(index + 1);
-        }
-
-        if (Math.trunc((index - slider) / slider) === Math.trunc(index / slider) - 1) { // haut
-            places.push(index - slider);
-        }
-
-        if (Math.trunc((index - slider - 1) / slider) === Math.trunc(index / slider) - 1) { // haut gauche
-            places.push(index - slider - 1);
-        }
-
-        if (Math.trunc((index - slider + 1) / slider) === Math.trunc(index / slider) - 1) { // haut droite
-            places.push(index - slider + 1);
-        }
-
-        if (Math.trunc((index + slider) / slider) === Math.trunc(index / slider) + 1) { // bas
-            places.push(index + slider);
-        }
-
-        if (Math.trunc((index + slider - 1) / slider) === Math.trunc(index / slider) + 1) { // bas gauche
-            places.push(index + slider - 1);
-        }
-
-        if (Math.trunc((index + slider + 1) / slider) === Math.trunc(index / slider) + 1) { // bas droite
-            places.push(index + slider + 1);
-        }
-
-        places = places.filter(val => {
-            return val >= 0
-        });
-
-        return places;
-    }
 
     action(element: GridElement, interaction: string) {
         if (element.Type !== 'empty' && !(!this.userToolBarService.edit && element.VisibilityLevel !== 0 && this.userToolBarService.babble)) {
@@ -487,8 +311,8 @@ export class KeyboardComponent implements OnInit {
                                 this.historicService.say('' + prononcedText);
                             } else if (action.ID === 'otherforms' && element.ElementFormsList.length > 1) {
                                 otherFormsDisplayed = true;
-                                this.boardService.activatedElement = this.getNormalTempList().indexOf(element);
-                                this.activatedElementTempList();
+                                this.boardService.activatedElement = this.boardService.getNormalTempList().indexOf(element);
+                                this.boardService.activatedElementTempList();
                                 this.pressedElement = null;
                             }
                         });
@@ -521,6 +345,7 @@ export class KeyboardComponent implements OnInit {
         }else {
           this.boardService.currentPath = this.boardService.currentPath + '.' + (<FolderGoTo> element.Type).GoTo;
         }
+        this.boardService.updateElementList();
         // for errors
       } else {
         console.error(element.Type);

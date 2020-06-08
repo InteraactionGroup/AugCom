@@ -39,6 +39,7 @@ export class IndexeddbaccessService {
       const storeGridRequest = gridObjectStore.get(1);
       storeGridRequest.onsuccess = () => {
         gridObjectStore.put(this.boardService.board, 1);
+        this.boardService.updateElementList();
       };
 
       // UPDATE THE PALETTES
@@ -49,7 +50,6 @@ export class IndexeddbaccessService {
         paletteObjectStore.put(this.paletteService.palettes, 1);
       };
     };
-
   }
 
 
@@ -74,6 +74,7 @@ export class IndexeddbaccessService {
       const gridStore = db.transaction(['Grid']).objectStore('Grid').get(1);
       gridStore.onsuccess = e => {
         this.boardService.board = this.jsonValidator.getCheckedGrid(gridStore.result);
+        this.boardService.updateElementList();
       };
 
       const paletteStore = db.transaction(['Palette']).objectStore('Palette').get(1);
@@ -90,6 +91,8 @@ export class IndexeddbaccessService {
 
       this.createPaletteObject(db,transaction);
       this.createGridObject(db,transaction)
+
+      this.boardService.updateElementList();
 
     };
   }
