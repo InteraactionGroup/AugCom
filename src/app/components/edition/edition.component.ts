@@ -72,7 +72,6 @@ export class EditionComponent implements OnInit {
    *
    */
   save() {
-    this.indexedDBacess.update();
     if (this.editionService.currentEditPage !== "") {
       this.editionService.currentEditPage = ""
     } else {
@@ -85,6 +84,7 @@ export class EditionComponent implements OnInit {
       }
       this.editionService.add = false;
       this.clear();
+      this.indexedDBacess.update();
       this.router.navigate(['']);
     }
   }
@@ -168,10 +168,10 @@ export class EditionComponent implements OnInit {
         this.editionService.getDefaultForm(element.ElementFormsList).ImageID = element.ID;
       }
       this.boardService.board.ImageList = this.boardService.board.ImageList.filter(
-        img => img.ID !== element.ID);
+        img => img.ID !== this.editionService.getDefaultForm(element.ElementFormsList).ImageID);
 
       this.boardService.board.ImageList.push({
-          ID: element.ID,
+          ID: this.editionService.getDefaultForm(element.ElementFormsList).ImageID,
           OriginalName: this.editionService.name,
           Path: this.editionService.imageURL
         });
