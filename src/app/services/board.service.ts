@@ -268,7 +268,7 @@ export class BoardService {
         if(s.replace(/ /g, '') === ''){
           return '';
         }
-        return 'url(' + s + ')';
+        return 'url(\'' + s + '\')';
       } else {
         return '';
       }

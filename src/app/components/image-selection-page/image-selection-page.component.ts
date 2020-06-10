@@ -3,6 +3,7 @@ import {EditionService} from "../../services/edition.service";
 import {Ng2ImgMaxService} from "ng2-img-max";
 import mullberryJson from "../../../assets/symbol-info.json";
 import arasaacJson from "../../../assets/arasaac-symbol-info.json";
+import arasaacColoredJson from "../../../assets/arasaac-color-symbol-info.json";
 import {ArasaacObject, MulBerryObject} from "../../libTypes";
 
 @Component({
@@ -62,7 +63,9 @@ export class ImageSelectionPageComponent implements OnInit {
     if(elt.lib === 'mulberry'){
       return 'url(\'assets/libs/mulberry-symbols/EN-symbols/'+elt.word+'.svg\')';
     }else if (elt.lib === 'arasaacNB'){
-     return 'url(\'assets/libs/FR_Noir_et_blanc_pictogrammes/'+elt.word+'.png\')';
+      return 'url(\'assets/libs/FR_Noir_et_blanc_pictogrammes/'+elt.word+'.png\')';
+    }else if (elt.lib === 'arasaacColor'){
+      return 'url(\'assets/libs/FR_Pictogrammes_couleur/'+elt.word+'.png\')';
     }
   }
 
@@ -99,6 +102,8 @@ export class ImageSelectionPageComponent implements OnInit {
       this.previewMullberry(elt.word);
     }else if (elt.lib === 'arasaacNB'){
       this.previewArasaac(elt.word,false);
+    } else if (elt.lib === 'arasaacColor'){
+      this.previewArasaac(elt.word,true);
     }
   }
 
@@ -125,6 +130,13 @@ export class ImageSelectionPageComponent implements OnInit {
       if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase())) {
         const url = word;
         tempList.push({lib:"arasaacNB", word:this.cleanString(url)});
+      }
+    }, this);
+
+    (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
+      if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase())) {
+        const url = word;
+        tempList.push({lib:"arasaacColor", word:this.cleanString(url)});
       }
     }, this);
 
