@@ -25,10 +25,6 @@ export class ImageSelectionPageComponent implements OnInit {
   ngOnInit() {
   }
 
-  isImageSelectionDisplayed() {
-    return this.editionService.currentEditPage === 'Apparence';
-  }
-
   /**
    * Set the current preview imageUrl according to the given file 'file' and close the chooseImage panel
    * if the initial image is bigger than 1000*1000 the the image is reduced
@@ -110,6 +106,7 @@ export class ImageSelectionPageComponent implements OnInit {
     this.imageList = tempList.slice(0, 100);
   }
 
+  /*s can be 'inside' or 'border', used to open the corresponding color picker popup  */
   pickAColor(s: string) {
     this.editionService.colorPicked = s;
   }

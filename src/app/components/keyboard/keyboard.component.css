@@ -4,6 +4,7 @@
   -moz-user-select: none !important;
   -ms-user-select: none !important;
   user-select: none !important;
+
 }
 
 .editionSettings {
@@ -12,6 +13,7 @@
   margin: 0 0 0 0;
   padding: 0 0 0 0;
 }
+
 
 .editionSettings .selectCheckBox {
   height: 0.8cm;
@@ -85,6 +87,8 @@
   overflow-y: auto;
   overflow-x: hidden;
   visibility: visible;
+  /*gap: 5px;*/
+  padding-top: 5px;
 }
 
 .keyboard .wrapper .elementContainer {
@@ -93,18 +97,19 @@
   visibility: hidden;
 }
 
+
 .keyboard .wrapper .elementContainer .selectCheckBox {
   position: relative;
   float: right;
   height: 30px;
   width: 30px;
   margin-top: 5px;
-  margin-right: 7%;
+  margin-right: 5px;
   border: deepskyblue 3px solid;
   background-color: rgba(255, 255, 255, 0.8);
   box-sizing: border-box;
   border-radius: 25%;
-  top: -87%;
+  top: -100%;
   visibility: visible;
 }
 
@@ -121,10 +126,9 @@
   position: relative;
   width: 30px;
   height: 30px;
-  margin-left: 7%;
-  top: -83%;
+  top: calc(-100% + 5px);
   background-color: indianred;
-  border-radius: 50%;
+  border-radius: 10px 0 50% 0;
   visibility: visible;
   border-style: solid;
   border-color: darkred;
@@ -132,20 +136,20 @@
   box-sizing: border-box;
 }
 
+
 .keyboard .wrapper .elementContainer .deleteElement:hover {
   background-color: darkred;
 }
 
+
 .keyboard .wrapper .elementContainer .elementVisibility {
   cursor: pointer;
   position: relative;
-  float: bottom;
   width: 30px;
   height: 30px;
-  margin-left: 7%;
   top: -30px;
   background-color: lightgrey;
-  border-radius: 50%;
+  border-radius: 0 50% 0 10px;
   visibility: visible;
   border-style: solid;
   border-color: dimgrey;
@@ -153,12 +157,12 @@
   box-sizing: border-box;
 }
 
+
 .keyboard .wrapper .elementContainer .elementVisibility:hover {
   background-color: grey;
 }
 
-.keyboard .wrapper .elementContainer .deleteElement .image,
-.keyboard .wrapper .elementContainer .elementVisibility .image {
+.keyboard .wrapper .elementContainer .deleteElement .image, .keyboard .wrapper .elementContainer .elementVisibility .image {
   width: 70%;
   height: 70%;
   margin-left: 15%;
@@ -166,34 +170,40 @@
   visibility: visible;
 }
 
+
 .keyboard .wrapper .elementContainer .element:hover {
   filter: brightness(80%);
 }
 
+
 .keyboard .wrapper .elementContainer .element {
   cursor: pointer;
-  height: 90%;
-  width: 90%;
-  transform: translateY(5%);
-  margin-left: 5%;
+  height: calc(100% - 5px);
+  width: calc(100% - 5px);
   visibility: visible;
   border-radius: 10px;
   border-style: solid;
   border-width: 3px;
   box-sizing: border-box;
   overflow: hidden;
+  display: grid;
+  grid-template-rows: 75% 25%;
+  align-items: center;
+}
+
+.keyboard .wrapper .elementContainer .noImageElement{
+  grid-template-rows: 40% 20%;
 }
 
 .keyboard .wrapper .elementContainer .element .image {
-  height: 70%;
-  width: 90%;
-  margin-left: 5%;
-  transform: translateY(10%);
+  height: calc(100% - 5px);
+  width: 98%;
+  margin-left: 1%;
   visibility: visible;
+  align-items: center;
 }
 
 .keyboard .wrapper .elementContainer .label {
-  transform: translateY(40%);
   min-font-size: 1vh;
   font-size: 2vh;
   height: 20%;
@@ -202,10 +212,15 @@
   visibility: visible;
 }
 
-svg {
-  transform: translateY(40%);
+.adjustableText {
+  text-align: center;
+  font-size: 1.8vmin;
   width: 100%;
-  height: 20%;
+  height: fit-content;
+  align-items: center;
+  vertical-align: middle;
+  overflow-wrap: break-word ;
+  word-break: break-all;
 }
 
 .keyboard .wrapper .elementContainer .blurredElt {
@@ -218,11 +233,11 @@ svg {
 }
 
 .keyboard .wrapper .elementContainer .searched:hover {
-  filter: drop-shadow(0 0 20px yellow) saturate(300%);
+  filter: drop-shadow(0 0 20px yellow) saturate(300%)
 }
 
 .keyboard .wrapper .elementContainer .searched {
-  filter: drop-shadow(0 0 20px yellow) saturate(300%);
+  filter: drop-shadow(0 0 20px yellow) saturate(300%)
 }
 
 .keyboard .wrapper .elementContainer .notsearched:hover {
@@ -255,7 +270,7 @@ svg {
   height: 20px;
   background: grey;
   outline: none;
-  -webkit-transition: 0.2s;
+  -webkit-transition: .2s;
   border-radius: 15px;
   outline: none;
   border: none;
@@ -282,6 +297,7 @@ svg {
   outline: none;
   border: none;
 }
+
 
 .gu-mirror {
   position: absolute !important;
@@ -319,6 +335,7 @@ svg {
   visibility: visible;
 }
 
+
 .gu-hide {
   display: contents;
   background-color: darkred;
@@ -335,27 +352,3 @@ svg {
 .gu-transit {
   opacity: 0.4;
 }
-
-/* .grid {
-  position: relative;
-}
-.item {
-  display: block;
-  position: absolute;
-  margin: 0.5em;
-  z-index: 1;
-}
-.item.muuri-item-dragging {
-  z-index: 3;
-}
-.item.muuri-item-releasing {
-  z-index: 2;
-}
-.item.muuri-item-hidden {
-  z-index: 0;
-}
-.item-content {
-  position: relative;
-  width: 100%;
-  height: 100%;
-} */

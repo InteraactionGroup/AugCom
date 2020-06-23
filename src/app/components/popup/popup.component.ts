@@ -33,7 +33,7 @@ export class PopupComponent implements OnInit {
   yes() {
     this.boardService.executer();
     this.editionService.selectedElements = [];
-    this.editionService.sentencedTodDeleteElement = [];
+    this.editionService.sentencedToBeDeletedElement = [];
     this.indexedDBacess.update();
     this.closePopup();
   }
@@ -43,7 +43,7 @@ export class PopupComponent implements OnInit {
    */
   no() {
     this.editionService.selectedElements = [];
-    this.editionService.sentencedTodDeleteElement = [];
+    this.editionService.sentencedToBeDeletedElement = [];
     this.closePopup();
   }
 
@@ -58,9 +58,9 @@ export class PopupComponent implements OnInit {
    * @return the string value to display for the sentencedToDeleteElements
    */
   getSentencedToDeleteElementStringValue() {
-    if (this.editionService.sentencedTodDeleteElement.length === 1) {
-      return 'l\'élément: "' + this.boardService.getDefaultLabel(this.editionService.sentencedTodDeleteElement[0]) + '".\n';
-    } else if (this.editionService.sentencedTodDeleteElement.length >= 1) {
+    if (this.editionService.sentencedToBeDeletedElement.length === 1) {
+      return 'l\'élément: "' + this.boardService.getDefaultLabel(this.editionService.sentencedToBeDeletedElement[0]) + '".\n';
+    } else if (this.editionService.sentencedToBeDeletedElement.length >= 1) {
       return 'plusieurs éléments. \n';
     }
   }

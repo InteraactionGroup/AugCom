@@ -21,16 +21,18 @@ export class UsertoolbarComponent implements OnInit {
     public searchService: SearchService,
     private parametersService: ParametersService,
     private snapBarService: SnapBarService,
-    private indexedDBacess: IndexeddbaccessService,
+    public indexedDBacess: IndexeddbaccessService,
     public getIconService: GeticonService,
     public userToolBarService: UsertoolbarService,
     private layoutService: LayoutService
   ) {}
 
+  /*text to search in the searchBar*/
   searchText = "";
 
   ngOnInit() {}
 
+  /*get size of the searched result under search bar, maximum size reached for 5 results*/
   getResultsHeight(size) {
     if (size >= 5) {
       return "500%";
@@ -39,6 +41,7 @@ export class UsertoolbarComponent implements OnInit {
     }
   }
 
+  /*get height of each result depending on the size of the bar (TODO we should change it to a fix value)*/
   getResultHeight(size) {
     if (size >= 5) {
       return "20%";
@@ -64,18 +67,18 @@ export class UsertoolbarComponent implements OnInit {
    */
   edit() {
     if (this.userToolBarService.isConnected) {
-      this.userToolBarService.editt();
+      this.userToolBarService.switchEditValue();
       if (!this.userToolBarService.edit) {
         this.indexedDBacess.update();
         console.log("info saved");
       }
     } else {
       this.snapBarService.snap();
-      // this.userToolBarService.editt();
     }
     this.layoutService.setDraggable(this.userToolBarService.edit);
   }
 
+  /*open search bar*/
   openSearch() {
     this.userToolBarService.search = !this.userToolBarService.search;
     if (!this.userToolBarService.search) {
@@ -85,10 +88,10 @@ export class UsertoolbarComponent implements OnInit {
     }
   }
 
+  /*lock or unlock the usertoolbar (and close the edit service if we lock)*/
   setLock() {
     this.userToolBarService.unlock = !this.userToolBarService.unlock;
     this.userToolBarService.edit =
       this.userToolBarService.edit && this.userToolBarService.unlock;
-    this.layoutService.setDraggable(this.userToolBarService.edit);
   }
 }

@@ -26,4 +26,10 @@ describe('LanguageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should display at least one option in the selection language', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelectorAll('option').length).toBeGreaterThanOrEqual(1);
+  });
+
 });

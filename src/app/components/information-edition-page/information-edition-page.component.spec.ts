@@ -4,6 +4,7 @@ import {InformationEditionPageComponent} from './information-edition-page.compon
 import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import {Ng2ImgMaxModule} from "ng2-img-max";
 
 describe('InformationEditionPageComponent', () => {
   let component: InformationEditionPageComponent;
@@ -12,7 +13,7 @@ describe('InformationEditionPageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [FormsModule, HttpClientModule],
+      imports: [FormsModule, HttpClientModule, Ng2ImgMaxModule],
       declarations: [InformationEditionPageComponent]
     })
       .compileComponents();
@@ -27,4 +28,12 @@ describe('InformationEditionPageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should display right labels', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelectorAll('.label').item(0).textContent).toContain("Nom de l'élément:");
+    expect(compiled.querySelectorAll('.label').item(1).textContent).toContain("Type d'élément :");
+  });
+
+
 });

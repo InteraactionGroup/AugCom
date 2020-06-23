@@ -1,4 +1,4 @@
-<ng-container *ngIf="this.isInformationsDisplayed()">
+<ng-container>
 
   <div class="page">
 
@@ -19,6 +19,19 @@
           <input [(ngModel)]="this.editionService.radioTypeFormat" id="radioFolder" name="typeFormat" type="radio"
                  value="folder">
           <label class="radio" for="radioFolder">Dossier</label>
+
+          <select  class="selectBox" [(ngModel)]="this.editionService.pageLink" *ngIf="this.editionService.radioTypeFormat=='folder'"
+                   [ngModelOptions]="{standalone: true}">
+            <option value="@" selected >--choisissez une page--</option>
+            <option value="@NEW@">-créer une nouvelle page-</option>
+            <ng-container *ngFor="let p of this.board.board.PageList">
+              <option value="{{p.ID}}"> {{p.ID}} </option>
+            </ng-container>
+          </select>
+          <input type="text" [(ngModel)]="this.editionService.newPage" placeholder="ID de la nouvelle page"
+                 *ngIf="this.editionService.radioTypeFormat=='folder' && this.editionService.pageLink === '@NEW@'"
+                 [ngModelOptions]="{standalone: true}" >
+
         </form>
       </div>
     </div>

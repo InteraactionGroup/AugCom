@@ -1,43 +1,56 @@
 <div class="usertoolbar width-100">
 
+  <div class="titleContainer floatLeft"
+       [class.width0]="this.userToolBarService.search">
+    <ng-container *ngIf="!this.userToolBarService.search">
+      <svg class="titleSVG" viewBox="0 0 110 60">
+        <text x="50%" y="50%" dominant-baseline="middle" (click)="this.boardService.currentPath='#HOME'"
+              text-anchor="middle">{{this.boardService.getCurrentTitle()}}</text>
+      </svg>
+    </ng-container>
+  </div>
+
   <nav>
     <a routerLink="/account">
-      <div class="button" id="accountButton"
-           (click)="this.userToolBarService.account = !this.userToolBarService.account">
+      <div class="button floatRight" id="accountButton">
         <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('account')}">
-
         </div>
       </div>
     </a>
   </nav>
 
-  <div class="button" id="lockUnlockButton" (click)="this.setLock()">
+  <div class="button floatRight" id="lockUnlockButton" (click)="this.setLock()">
     <div class="image width-100" [class.imageSelected]="this.userToolBarService.unlock"
          [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.unlock?'unlock':'lock')}">
-
     </div>
   </div>
 
 
-  <div class="button" id="editButton" *ngIf="this.userToolBarService.unlock" (click)="this.edit()">
+  <div class="button floatRight" id="editButton" *ngIf="this.userToolBarService.unlock" (click)="this.edit()">
     <div class="image width-100" [class.noConnection]="!this.userToolBarService.isConnected"
          [class.imageSelected]="this.userToolBarService.edit" [ngStyle]="{'background-image':this.getIcon('edit')}">
-
     </div>
   </div>
 
-  <div class="button" id="babbleButton" *ngIf="this.userToolBarService.unlock"
+  <div class="button floatRight" id="babbleButton" *ngIf="this.userToolBarService.unlock"
        (click)="this.userToolBarService.babble = !this.userToolBarService.babble">
     <div class="image width-100" [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.babble?'hide':'show')}">
-
     </div>
   </div>
 
-  <div class="button" id="fullScreenButton" *ngIf="this.userToolBarService.unlock"
+  <div class="button floatRight" id="fullScreenButton" *ngIf="this.userToolBarService.unlock"
        (click)="this.userToolBarService.fullScreen()">
     <div class="image width-100"
          [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.full?'exitfullscreen':'fullscreen')}">
+    </div>
+  </div>
 
+
+  <div class="button floatLeft" id="backButton"
+       (click)="this.boardService.backToPreviousFolder()"
+  [ngStyle]="{'opacity': (this.boardService.getCurrentFolder() !== '#HOME' && this.boardService.activatedElement==-1) ? '1' : '0.5'}">
+    <div class="image width-100"
+         [ngStyle]="{'background-image':this.getIcon('retour')}">
     </div>
   </div>
 
@@ -47,22 +60,22 @@
       <input #searchedText type="text" [(ngModel)]="this.searchText"
              (input)="this.searchService.searchFor(searchedText.value)" class="searchBar"
              *ngIf="this.userToolBarService.search">
-      <div class="searchempty" [class.searchResults]="this.userToolBarService.search"
+      <div class="searchResultContainer"
            [ngStyle]="{'height': this.getResultsHeight(this.searchService.searchedWords.length)}">
-        <div class="searchResult width-100" (click)="this.searchService.search(res.ElementID)"
+        <div class="searchResult width-100" (click)="this.searchService.search(res.ID)"
              *ngFor="let res of this.searchService.searchedWords"
              [ngStyle]="{'height': this.getResultHeight(this.searchService.searchedWords.length)}">
-          <div class="searchImage floatLeft" [style.background-image]="this.boardService.getImgUrl(res)"></div>
-          <div class="searchLabel floatLeft"> {{res.ElementID}} {{res.ElementForms[0].DisplayedText}} </div>
+          <div class="searchImage haveBackgroundImage floatLeft" [style.background-image]="this.boardService.getImgUrl(res)"></div>
+          <div class="searchLabel floatLeft"> {{this.boardService.getDefaultLabel(res)}} </div>
         </div>
       </div>
     </div>
   </div>
+
   <div class="buttonLeftRight floatLeft" [class.buttonLeftRightBig]="this.userToolBarService.search"
        *ngIf="this.userToolBarService.unlock" (click)="this.openSearch()">
     <div class="image width-100"
          [ngStyle]="{'background-image':this.userToolBarService.search? this.getIcon('search') : this.getIcon('play') }">
-
     </div>
   </div>
 

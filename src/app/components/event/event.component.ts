@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {EditionService} from "../../services/edition.service";
 import {ParametersService} from "../../services/parameters.service";
 import {GeticonService} from "../../services/geticon.service";
-import {Ng2ImgMaxService} from "ng2-img-max";
+import {Interaction} from "../../types";
 
 @Component({
   selector: 'app-event',
@@ -10,46 +10,31 @@ import {Ng2ImgMaxService} from "ng2-img-max";
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
-
-  /**
-   * the current Interaction index number
-   * (by default:
-   *      -1 = no interaction selected
-   *      0 = click selected
-   *      1 = longPress selected
-   *      2 = doubleClick selected
-   * )
-   */
-  currentInterractionNumber = -1;
-
   constructor(public getIconService: GeticonService, public parametersService: ParametersService, public editionService: EditionService) {
   }
 
   ngOnInit() {
   }
 
-  isEventDisplayed() {
-    return this.editionService.currentEditPage === 'Interactions';
-  }
-
   /**
    * Return true if the action identified by actionId exists in the current interaction
    * return false otherwise
-   * @param interractionId
+   * @param interactionId
    * @param actionId, the string identifying an action
    * @return true if the action identified by actionId exists in the current interaction, false otherwise
    */
   isPartOfTheInteraction(interactionId: string, actionId: string) {
-    const currentInterraction = this.editionService.interractionList.find(interaction => interaction.InteractionID === interactionId);
+    const currentInterraction: Interaction = this.editionService.interractionList.find(interaction => interaction.ID === interactionId);
     if (currentInterraction != null) {
-      const res = currentInterraction.ActionList.find(x => x.ActionID === actionId);
+      const res = currentInterraction.ActionList.find(x => x.ID === actionId);
       return res != null && res !== undefined;
     }
     return false;
   }
 
-  getLabel(text: string) {
-    switch (text) {
+  /*get label of the interaction depending on its code name (will be replace by an implementation of multilinguism soon)*/
+  getLabel(codeName: string) {
+    switch (codeName) {
       case 'display':
         return 'ajouter à la phrase';
       case'say':
@@ -72,20 +57,20 @@ export class EventComponent implements OnInit {
    * @param interractionId
    * @param actionId, the string identifying an action
    */
-  addOrRemoveToInteraction(interactionId: string, actionId: string) {
+  addOrRemoveToInteraction(interactionId , actionId: string) {
     const partOfCurrentInter = this.isPartOfTheInteraction(interactionId, actionId);
 
-    const currentInterraction = this.editionService.interractionList.findIndex(interaction => interaction.InteractionID === interactionId);
+    const currentInterraction: Interaction = this.editionService.interractionList.find(interaction => interaction.ID === interactionId);
 
-    if (currentInterraction === -1 && !partOfCurrentInter) {
+    if ((currentInterraction === null || currentInterraction === undefined) && !partOfCurrentInter) {
       this.editionService.interractionList.push({
-        InteractionID: interactionId,
-        ActionList: [{ActionID: actionId, Action: actionId}]
+        ID: interactionId,
+        ActionList: [{ID: actionId, Action: actionId}]
       });
     } else if (!partOfCurrentInter) {
-      this.editionService.interractionList[currentInterraction].ActionList.push({ActionID: actionId, Action: actionId});
+      currentInterraction.ActionList.push({ID: actionId, Action: actionId});
     } else if (partOfCurrentInter) {
-      this.editionService.interractionList[currentInterraction].ActionList = this.editionService.interractionList[currentInterraction].ActionList.filter(x => x.ActionID !== actionId);
+      currentInterraction.ActionList = currentInterraction.ActionList.filter(x => x.ID !== actionId);
     }
 
   }

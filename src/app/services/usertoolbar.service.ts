@@ -34,6 +34,8 @@ export class UsertoolbarService {
   public search = false;
   public popup = false;
 
+  public title = 'Title';
+
   fullScreen() {
     if (document.fullscreen || (document as any).webkitIsFullScreen || (document as any).mozFullScreen) {
       if (document.exitFullscreen) {
@@ -54,7 +56,7 @@ export class UsertoolbarService {
     }
   }
 
-  editt() {
+  switchEditValue() {
     this.edit = !this.edit;
   }
 

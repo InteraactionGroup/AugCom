@@ -2,72 +2,61 @@
  * A Grid (aka Board)
  */
 export class Grid {
-  GridID: string;
-  // ElementList: {ElementListId: string, ElementSubList: Element[]};
-  ElementList: Element[];
-  ImageList: Image[];
-  GridType: string;
-  gridColsNumber: number;
-  gridRowsNumber: number;
-  Style: { ElementType: string; Link: string }[];
+  ID: string;
+  Type: 'Grid';
+  NumberOfCols: number;
+  NumberOfRows: number;
 
-  constructor(
-    gridId,
-    elemList,
-    imageList,
-    actionList,
-    gridType,
-    gridCol,
-    gridRow,
-    style
-  ) {
-    this.GridID = gridId;
+  ElementList: GridElement[];
+  ImageList: Image[];
+  PageList: Page[];
+
+  constructor(gridId, gridType, gridCol, gridRow, elemList, imageList, pageList) {
+    this.ID = gridId;
+    this.Type = gridType;
+    this.NumberOfCols = Number(gridCol);
+    this.NumberOfRows = Number(gridRow);
     this.ElementList = elemList;
     this.ImageList = imageList;
-    this.GridType = gridType;
-    this.gridColsNumber = Number(gridCol);
-    this.gridRowsNumber = Number(gridRow);
-    this.Style = style;
+    this.PageList = pageList;
+  }
+
+}
+
+export class FolderGoTo {
+  GoTo: string;
+
+  constructor(goto) {
+    this.GoTo = goto;
   }
 }
 
 /**
  * an element of the Board
  */
-export class Element {
-  ElementID: string;
-  ElementFolder: string;
-  ElementType: string;
-  ElementPartOfSpeech: string;
-  ElementForms: ElementForm[];
-  ImageID: string;
-  InteractionsList: { InteractionID: string; ActionList: Action[] }[];
+export class GridElement {
+  ID: string;
+  Type: 'empty' | 'button' |  FolderGoTo;
+  PartOfSpeech: string;
   Color: string; // to delete later
   BorderColor: string; // to delete later
-  Visible: boolean;
+  VisibilityLevel: number;
 
-  constructor(
-    elementId,
-    elementFolder,
-    elementType,
-    elementPartOfSpeech,
-    elementsForms,
-    imageID,
-    interactionList,
-    color,
-    borderColor,
-    visible
-  ) {
-    this.ElementID = elementId;
-    this.ElementFolder = elementFolder;
-    this.ElementType = elementType;
-    this.ElementPartOfSpeech = elementPartOfSpeech;
-    this.ElementForms = elementsForms;
-    this.ImageID = imageID;
-    this.InteractionsList = interactionList;
+  ElementFormsList: ElementForm[];
+  InteractionsList: Interaction[];
+
+
+  constructor(elementId: string, elementType , elementPartOfSpeech: string,
+              color: string, borderColor: string, visibilityLevel , elementsForms: ElementForm[], interactionList: Interaction[]) {
+
+    this.ID = elementId;
+    this.Type = elementType;
+    this.PartOfSpeech = elementPartOfSpeech;
     this.Color = color;
     this.BorderColor = borderColor;
-    this.Visible = visible;
+    this.VisibilityLevel = visibilityLevel;
+    this.ElementFormsList = elementsForms;
+    this.InteractionsList = interactionList;
   }
 }
 
@@ -75,25 +64,31 @@ export class Element {
  * a vignette for the dialog bar
  */
 export class Vignette {
-  VignetteLabel: string;
-  VignetteImageUrl: any;
-  VignetteColor: string;
+  Label: string;
+  ImagePath: any;
+  Color: string;
+  BorderColor: string;
 }
 
 /**
  * an image of the Board
  */
 export class Image {
-  ImageID: string;
-  ImageLabel: string;
-  ImagePath: string;
+  ID: string;
+  OriginalName: string;
+  Path: string;
+}
+
+export class Interaction {
+  ID: 'click' | 'longPress' | 'doubleClick' | 'backFromVariant';
+  ActionList: Action[];
 }
 
 /**
  * the action of an interaction of an element of the board
  */
 export class Action {
-  ActionID: string;
+  ID: string;
   Action: string;
 }
 
@@ -104,4 +99,11 @@ export class ElementForm {
   DisplayedText: string;
   VoiceText: string;
   LexicInfos: any[];
+  ImageID: string;
+}
+
+export class Page {
+  ID: string;
+  Name : string;
+  ElementIDsList: string[];
 }

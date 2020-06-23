@@ -1,32 +1,24 @@
 <div class="share height-width-100">
-
   <div class="sharePanel">
-
-
     <div class="shareSection height-width-100">
 
       <div class="import listElement">
-        <div class="image floatLeft" [style.background-image]="this.getIcon('import')">
-
+        <div class="image floatLeft haveBackgroundImage" [style.background-image]="this.getIcon('import')">
         </div>
         <div class="label floatLeft">
           Import Save
         </div>
-
         <div class="inputField floatLeft">
           <input #file type="file" (change)="import(file.files)" onclick="this.value=null">
         </div>
       </div>
 
-
       <div class="import listElement">
-        <div class="image floatLeft" [style.background-image]="this.getIcon('import')">
-
+        <div class="image floatLeft haveBackgroundImage" [style.background-image]="this.getIcon('import')">
         </div>
         <div class="label floatLeft">
           Import Zip
         </div>
-
         <div class="inputField floatLeft">
           <input #zip type="file" (change)="exploreZip(zip.files)">
         </div>
@@ -34,25 +26,22 @@
 
 
       <div class="export listElement">
-        <div class="image floatLeft" [style.background-image]="this.getIcon('export')">
-
+        <div class="image floatLeft haveBackgroundImage" [style.background-image]="this.getIcon('export')">
         </div>
         <div class="label floatLeft">
           Export Save
         </div>
-
         <div class="inputField floatLeft">
           <input type="button" value="Export" (click)="export()">
         </div>
       </div>
-      <div class="exportTo listElement">
-        <div class="image floatLeft" [style.background-image]="this.getIcon('pdf')">
 
+      <div class="exportTo listElement">
+        <div class="image floatLeft haveBackgroundImage" [style.background-image]="this.getIcon('pdf')">
         </div>
         <div class="label floatLeft">
           Export to PDF
         </div>
-
         <div class="inputField floatLeft">
           <input type="button" value="Export" (click)="this.printToPDF()">
         </div>
@@ -60,20 +49,27 @@
 
 
       <div class="exportTo listElement">
-        <div class="image floatLeft" [style.background-image]="this.getIcon('pdf')">
-
+        <div class="image floatLeft haveBackgroundImage" [style.background-image]="this.getIcon('pdf')">
         </div>
         <div class="label floatLeft">
           Import SPEAK4YOURSELF
         </div>
-
         <div class="inputField floatLeft">
-          <input type="button" value="Import" (click)="readCSV()">
+          <input type="button" value="Import" (click)="parseAndCreateSpeak4YourselfGrid()">
+        </div>
+      </div>
+
+      <div class="exportTo listElement">
+        <div class="image floatLeft haveBackgroundImage" [style.background-image]="this.getIcon('pdf')">
+        </div>
+        <div class="label floatLeft">
+          Import Proloquo
+        </div>
+        <div class="inputField floatLeft">
+          <input type="button" value="Import" (click)="parseAndCreateProloquoGrid()">
         </div>
       </div>
 
     </div>
-
   </div>
-
 </div>

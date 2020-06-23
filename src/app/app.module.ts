@@ -30,16 +30,13 @@ import { AlternativeFormsComponent } from "./components/alternative-forms/altern
 import { ImageSelectionPageComponent } from "./components/image-selection-page/image-selection-page.component";
 import { InformationEditionPageComponent } from "./components/information-edition-page/information-edition-page.component";
 import { AVenirComponent } from "./components/a-venir/a-venir.component";
-import {
-  BrowserAnimationsModule,
-  NoopAnimationsModule,
-} from "@angular/platform-browser/animations";
-import { GridComponent } from "./components/grid/grid.component";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ErrorOnEditComponent } from "./components/error-on-edit/error-on-edit.component";
+import { PrintComponent } from "./components/print/print.component";
 import { TileComponent } from "./components/tile/tile.component";
-import { ElementContainerDirective } from "./directives/element-container.directive";
 import { LayoutComponent } from "./components/layout/layout.component";
+import { GridComponent } from "./components/grid/grid.component";
 import { GridsterModule } from "angular-gridster2";
-import { GridSettingsComponent } from './grid-settings/grid-settings.component';
 
 @NgModule({
   declarations: [
@@ -65,11 +62,11 @@ import { GridSettingsComponent } from './grid-settings/grid-settings.component';
     ImageSelectionPageComponent,
     InformationEditionPageComponent,
     AVenirComponent,
-    GridComponent,
+    ErrorOnEditComponent,
+    PrintComponent,
     TileComponent,
-    ElementContainerDirective,
     LayoutComponent,
-    GridSettingsComponent,
+    GridComponent,
   ],
   imports: [
     BrowserModule,

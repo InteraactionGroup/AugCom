@@ -1,29 +1,23 @@
-import { Injectable } from '@angular/core';
-import { GridsterConfig } from 'angular-gridster2';
-import {Element, Grid} from '../types';
+import { Injectable } from "@angular/core";
+import { GridElement } from "../types";
+import { GridsterConfig } from "angular-gridster2";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class LayoutService {
   public options: GridsterConfig = {
     draggable: {
       enabled: false,
-      stop: (item, gridsterItem, event) => {
-        console.log('');
-      },
     },
     pushItems: true,
     swapItems: false,
     resizable: {
       enabled: false,
-      stop: (item, gridsterItem, event) => {
-        console.log('');
-      },
     },
     defaultItemCols: 1,
     defaultItemRows: 1,
-    displayGrid: 'always',
+    displayGrid: "always",
     minCols: 5,
     minRows: 6,
   };
@@ -32,11 +26,10 @@ export class LayoutService {
 
   constructor() {}
 
-  // tslint:disable-next-line:no-shadowed-variable
-  addItem(element: Element): void {
+  addItem(element: GridElement): void {
     this.layout.push({
       gridsterItem: {
-        id: element.ElementID,
+        id: element.ID,
         x: 0,
         y: 0,
       },
@@ -64,8 +57,4 @@ export class LayoutService {
     this.options.minRows = this.options.maxRows = rows;
     this.options.api.optionsChanged();
   }
-
-  loadGrid(grid: Grid): void {
-  }
-
 }

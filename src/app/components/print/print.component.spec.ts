@@ -1,20 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GridSettingsComponent } from './grid-settings.component';
+import { PrintComponent } from './print.component';
+import {Ng2ImgMaxModule} from "ng2-img-max";
 
-describe('GridSettingsComponent', () => {
-  let component: GridSettingsComponent;
-  let fixture: ComponentFixture<GridSettingsComponent>;
+describe('PrintComponent', () => {
+  let component: PrintComponent;
+  let fixture: ComponentFixture<PrintComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GridSettingsComponent ]
+      declarations: [ PrintComponent ],
+      imports: [Ng2ImgMaxModule],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GridSettingsComponent);
+    fixture = TestBed.createComponent(PrintComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

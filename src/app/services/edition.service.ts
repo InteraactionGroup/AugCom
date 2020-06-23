@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
-import {Action, Element} from '../types';
+import {ElementForm, GridElement, Interaction} from '../types';
 import {PaletteService} from "./palette.service";
 
 @Injectable({
@@ -11,15 +11,15 @@ export class EditionService {
 
   public add = false;
 
-  public ElementListener = new Subject<Element>();
+  public ElementListener = new Subject<GridElement>();
 
-  selectedElements: Element[] = [];
+  selectedElements: GridElement[] = [];
 
   DEFAULT_MULTPLE_NAME = '$different$';
 
   selectAll = false;
 
-  sentencedTodDeleteElement: Element[] = [];
+  sentencedToBeDeletedElement: GridElement[] = [];
 
   /**
    * current grammatical class type of the element (empty by default)
@@ -35,12 +35,12 @@ export class EditionService {
   /**
    * the current Interraction element selected (empty by default)
    */
-  interractionList: { InteractionID: string, ActionList: Action[] }[] = [];
+  interractionList: Interaction[] = [];
 
   /**
    * current list of variant forms for the element (empty by default)
    */
-  variantList = [];
+  variantList: ElementForm[] = [];
 
   /**
    * current imageUrl of the element (empty by default), can be a string or a safe url
@@ -67,16 +67,38 @@ export class EditionService {
 
   curentBorderColor = 'black';
 
+  pageLink: string = '@';
+  newPage : string = '';
+
   selectedPalette = this.paletteService.defaultPalette;
 
   constructor(public  paletteService: PaletteService) {
   }
 
+  /* get the default name of an element */
+  getDefaultForm(elementFormList: ElementForm[]): ElementForm {
+    const index = elementFormList.findIndex(form => form.LexicInfos.findIndex(info => {return info.default}) !== -1);
+    if (index !== -1) {
+      return elementFormList[index];
+    }
+    return elementFormList[0];
+  }
+
+  getDefaultFormIfExists(elementFormList: ElementForm[]): ElementForm {
+    const index = elementFormList.findIndex(form => form.LexicInfos.findIndex(info => {return info.default}) !== -1);
+    if (index !== -1) {
+      return elementFormList[index];
+    }
+    return null;
+  }
+
+
+
   clearEditionPane(){
-   this.ElementListener = new Subject<Element>();
+   this.ElementListener = new Subject<GridElement>();
    this.selectedElements = [];
    this.selectAll = false;
-   this.sentencedTodDeleteElement = [];
+   this.sentencedToBeDeletedElement = [];
    this.classe = '';
    this.name = '';
    this.interractionList = [];
@@ -98,13 +120,13 @@ export class EditionService {
     this.selectAll = !this.selectAll;
   }
 
-  addToSelected(element: Element) {
+  addToSelected(element: GridElement) {
     if (!this.selectedElements.includes(element)) {
       this.selectedElements.push(element);
     }
   }
 
-  select(element: Element) {
+  select(element: GridElement) {
     if (this.selectedElements.includes(element)) {
       this.selectedElements = this.selectedElements.filter(elt => elt !== element);
       this.selectAll = false;
@@ -113,12 +135,12 @@ export class EditionService {
     }
   }
 
-  isSelected(element: Element) {
+  isSelected(element: GridElement) {
     return this.selectedElements.includes(element);
   }
 
-  delete(element: Element) {
-    this.sentencedTodDeleteElement.push(element);
+  delete(element: GridElement) {
+    this.sentencedToBeDeletedElement.push(element);
   }
 
   selectColor(color) {

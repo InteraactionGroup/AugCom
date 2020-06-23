@@ -5,33 +5,36 @@ import {GeticonService} from '../../services/geticon.service';
 import {saveAs as importedSaveAs} from 'file-saver';
 import * as JSZip from 'jszip';
 import {Router} from '@angular/router';
-import {SnapBarService} from '../../services/snap-bar.service';
 import {PrintService} from '../../services/print.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {CsvReaderService} from '../../services/csv-reader.service';
-import {Traduction} from '../../sparqlJsonResults';
+import {SpeakForYourselfParser} from '../../services/speakForYourselfParser';
 import {DbnaryService} from '../../services/dbnary.service';
 import {HttpClient} from "@angular/common/http";
 import {Ng2ImgMaxService} from "ng2-img-max";
+import {FolderGoTo, GridElement} from "../../types";
+import {ProloquoParser} from "../../services/proloquoParser";
+import {JsonValidatorService} from "../../services/json-validator.service";
 
 @Component({
   selector: 'app-share',
   templateUrl: './share.component.html',
   styleUrls: ['./share.component.css'],
-  providers: [HttpClient, Ng2ImgMaxService, {provide :Router}]
+  providers: [HttpClient, Ng2ImgMaxService]
 })
 export class ShareComponent implements OnInit {
 
-  constructor(private dbNaryService: DbnaryService, private csvReader: CsvReaderService,
-              private indexedDBacess: IndexeddbaccessService, private printService: PrintService,
+  constructor(private dbNaryService: DbnaryService, private speakForYourselfParser: SpeakForYourselfParser,
+              public indexedDBacess: IndexeddbaccessService, private printService: PrintService,
               private router: Router, public getIconService: GeticonService,
-              public boardService: BoardService, public userToolBarService: UsertoolbarService) {
+              public boardService: BoardService, public userToolBarService: UsertoolbarService,
+              public proloquoParser: ProloquoParser, public jsonValidator: JsonValidatorService) {
   }
 
 
   ngOnInit() {
   }
 
+  /*open a new tab and display the grid in a "ready to print" format*/
   printToPDF() {
     this.userToolBarService.edit = false;
     this.printService.printDiv();
@@ -46,44 +49,28 @@ export class ShareComponent implements OnInit {
     return this.getIconService.getIconUrl(s);
   }
 
-  readCSV() {
-    this.boardService.board = this.csvReader.generateBoard();
-    this.indexedDBacess.update();
-    this.router.navigate(['']);
-    // this.trad(0);
+  /*read CSV file of csv reader and open it as a grid*/
+  parseAndCreateSpeak4YourselfGrid() {
+    this.speakForYourselfParser.createGridSpeak4YourselfCSV();
   }
 
-  async trad(index: number) {
-    const val = await this.dbNaryService.getTrad(this.boardService.board.ElementList[index].ElementForms[0].DisplayedText, 'EN', 'fra');
-    val.subscribe(
-      data => {
-        console.log(this.boardService.board.ElementList[index].ElementForms[0].DisplayedText);
-        if ((data as Traduction).results.bindings[0] !== undefined) {
-          this.boardService.board.ElementList[index].ElementForms[0].DisplayedText = (data as Traduction).results.bindings[0].tradword.value;
-          console.log(this.boardService.board.ElementList[index].ElementForms[0].DisplayedText);
-          this.indexedDBacess.update();
-        }
-        if (this.boardService.board.ElementList.length > index + 1) {
-          this.trad(index + 1);
-        }
-      },
-      error => {
-        console.log(error.error.text, error);
-        return '';
-      }
-    );
-
+  /*read CSV file of csv reader and open it as a grid*/
+  parseAndCreateProloquoGrid() {
+    this.proloquoParser.createGridFromProloquoCSVs()
   }
 
   /**
    * explore the zip file e containing only images and folders and create elements and images in the board
    * using the image and image name to respectively create imageUrl and element name and keep the same tree aspect
-   * @param e, an event containing a zip file
+   * @param zip
    */
-  exploreZip(zip) {
+  exploreZip(zip) { //TODO change the folderPath implementation
     const zipFolder: JSZip = new JSZip();
-    zipFolder.loadAsync(zip.files[0])
+    zipFolder.loadAsync(zip[0])
       .then(zipFiles => {
+        this.boardService.board.PageList = [];
+        this.boardService.board.ElementList = [];
+        this.boardService.board.ImageList = [];
         zipFiles.forEach(fileName => {
             if (fileName[fileName.length - 1] !== '/') {
               zipFolder.file(fileName).async('base64').then(content => {
@@ -112,11 +99,11 @@ export class ShareComponent implements OnInit {
 
                     let type;
                     if (folderPath.length === 0) {
-                      type = 'folder';
+                      type = new FolderGoTo(name);
                     } else {
                       type = 'button';
                     }
-                    this.createNewButton(name, imageURL, path, type);
+                    this.createNewButtonFromInfoInZIP(name, imageURL, path, type);
 
                   }
                 }
@@ -133,12 +120,13 @@ export class ShareComponent implements OnInit {
               splitName.forEach(s => {
                 path = path + '.' + s;
               });
-              this.createNewButton(name, imageURL, path, 'folder');
+              this.createNewButtonFromInfoInZIP(name, imageURL, path, new FolderGoTo(name));
             }
           }
         );
       });
 
+    this.indexedDBacess.update();
     this.router.navigate(['']);
 
   }
@@ -147,38 +135,50 @@ export class ShareComponent implements OnInit {
    * create and add a new element and a new image to the bard using information contained in parameters
    * @param name, the name of the new element
    * @param imageURL, the imageUrl of the nex element
-   * @param folder, the folder having to contain the new element
+   * @param path, the folder having to contain the new element
    * @param type, the type of the new element (button or folder)
    */
-  createNewButton(name, imageURL, folder, type) {
+  createNewButtonFromInfoInZIP(name, imageURL, path: string, type) {
+    let regex = /\./g;
+    let pathWithNoDot = path.replace(regex, '$');
+
+    let theID = pathWithNoDot + '$' + name + (type === 'button' ? 'button' : '');
     this.boardService.board.ElementList.push(
       {
-        ElementID: name,
-        ElementFolder: folder,
-        ElementType: type,
-        ElementPartOfSpeech: '',
-        ElementForms: [
+        ID: theID,
+        Type: type,
+        PartOfSpeech: '',
+        ElementFormsList: [
           {
             DisplayedText: name,
             VoiceText: name,
-            LexicInfos: []
+            LexicInfos: [{default: true}],
+            ImageID: theID,
           }
         ],
-        ImageID: folder + name,
-        InteractionsList: [],
+        InteractionsList: [{ID: 'click', ActionList: [{ID: 'display', Action: 'display'}]}],
         Color: 'lightgrey',
         BorderColor: 'black',
-        Visible: true
+        VisibilityLevel: 0
       });
 
     this.boardService.board.ImageList.push(
       {
-        ImageID: folder + name,
-        ImageLabel: name,
-        ImagePath: imageURL
+        ID: theID,
+        OriginalName: name,
+        Path: imageURL
       });
 
-    this.indexedDBacess.update(); // TODO alléger un peu l'appel
+    let pathTab = path.split('.');
+    pathTab = pathTab.filter(tab => tab.length > 0);
+    let folder = pathTab.length === 1 ? '#HOME' : pathWithNoDot;
+
+    let getPage = this.boardService.board.PageList.find(page => page.ID === folder);
+    if (getPage === null || getPage === undefined) {
+      this.boardService.board.PageList.push({ID: folder, Name: folder, ElementIDsList: []});
+      getPage = this.boardService.board.PageList.find(page => page.ID === folder);
+    }
+    getPage.ElementIDsList.push(theID);
   }
 
   /**
@@ -189,30 +189,43 @@ export class ShareComponent implements OnInit {
     const myFile = file[0];
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
-      this.boardService.board = JSON.parse(fileReader.result.toString());
-      this.boardService.board.ElementList.forEach(element => {
-        console.log(this.boardService.getLabel(element));
+      let tempBoard = JSON.parse(fileReader.result.toString());
+      tempBoard.ElementList.forEach(element => {
         this.checkAndUpdateElementDefaultForm(element);
       });
+
+      this.boardService.board = this.jsonValidator.getCheckedGrid(tempBoard);
       this.indexedDBacess.update();
       this.router.navigate(['']);
     };
     fileReader.readAsText(myFile);
   }
 
-  checkAndUpdateElementDefaultForm(element) {
-    const defaultform = element.ElementForms.find(form => {
+  /*check if a default form exists for the given element, otherwise create a new one with first displayed text*/
+  checkAndUpdateElementDefaultForm(element: GridElement) {
+    const defaultForm = element.ElementFormsList.find(form => {
       const newForm = form.LexicInfos.find(info => {
         return (info.default != null && info.default);
       });
       return (newForm != null);
     });
-    if (defaultform == null) {
-      element.ElementForms.push({
-        DisplayedText: element.ElementForms[0].DisplayedText,
-        VoiceText: element.ElementForms[0].VoiceText,
-        LexicInfos: [{default: true}]
+    if (defaultForm === null ) {
+      if (element.ElementFormsList[0] !== null && element.ElementFormsList[0] !== undefined) {
+      element.ElementFormsList.push({
+        DisplayedText: element.ElementFormsList[0].DisplayedText,
+        VoiceText: element.ElementFormsList[0].VoiceText,
+        LexicInfos: [{default: true}],
+        ImageID: element.ElementFormsList[0].ImageID
       });
+      } else {
+        console.log( 'DEFAULT FORM NOT FOUND FOR ' + element.ID);
+        element.ElementFormsList.push({
+          DisplayedText: element.ID,
+          VoiceText: element.ID,
+          LexicInfos: [{default: true}],
+          ImageID: element.ID
+        });
+      }
     }
   }
 

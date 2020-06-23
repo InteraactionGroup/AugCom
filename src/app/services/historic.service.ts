@@ -28,14 +28,14 @@ export class HistoricService {
 
   clearHistoric() {
     this.historic = [];
-    if (this.speechSynthesis !== null) {
+    if (this.speechSynthesis !== null && this.speechSynthesis !== undefined) {
       this.speechSynthesis.cancel();
     }
   }
 
   backHistoric() {
     this.historic.pop();
-    if (this.speechSynthesis !== null) {
+    if (this.speechSynthesis !== null && this.speechSynthesis !== undefined) {
       this.speechSynthesis.cancel();
     }
   }
@@ -44,7 +44,7 @@ export class HistoricService {
   playHistoric() {
     let text = '';
     for (const historicElement of this.historic) {
-      text = text + ' ' + historicElement.VignetteLabel;
+      text = text + ' ' + historicElement.Label;
     }
     this.say(text);
   }
@@ -54,18 +54,7 @@ export class HistoricService {
     const x = new SpeechSynthesisUtterance(text + ' ');
 
     /*checking if we can find the same voice*/
-    let newVoice = this.parametersService.languagesAvailaibles.find(voice => {
-      const res = this.parametersService.currentVoice.split('@');
-      return res[0] === voice.lang && res[1] === voice.name;
-    });
-
-    /*if we can't find the same voice checking if we can find the same lang*/
-    if (newVoice === undefined || newVoice === null) {
-      newVoice = this.parametersService.languagesAvailaibles.find(voice => {
-        const res = this.parametersService.currentVoice.split('@');
-        return res[0] === voice.lang
-      })
-    }
+    let newVoice = this.parametersService.getCurrentVoice();
 
     /*if we can't find the same lang don't change the voice*/
     if (newVoice !== undefined && newVoice !== null) {
@@ -75,5 +64,7 @@ export class HistoricService {
     this.speechSynthesis.resume();
     this.speechSynthesis.speak(x);
   }
+
+
 
 }
