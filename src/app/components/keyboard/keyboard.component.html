@@ -1,11 +1,6 @@
 <app-snap-bar></app-snap-bar>
 <app-usertoolbar></app-usertoolbar>
 <app-dialogbar></app-dialogbar>
-<!-- <app-layout [elements]=this.boardService.elementList></app-layout> -->
-
-
-
-
 
 <!-- edit settings toolbar displayed on top on keyboard when on edition mode -->
 <div class="editionSettings width-100" *ngIf="this.userToolBarService.edit">
@@ -60,68 +55,11 @@
   [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100vh - 4.5cm)':'calc(100vh - 3.5cm)'}">
 
   <!-- the wrapper displayed with elements containing pictogram and corresponding text -->
-  <div class="wrapper haveBackgroundImage height-width-100" [ngStyle]="{
-          'grid-template-columns': 'repeat('+(this.boardService.board.NumberOfCols)+', 1fr)',
-          'grid-template-rows': 'repeat(100, '+(100/(this.boardService.board.NumberOfRows))+'%)',
-          'background-image' : this.boardService.background
-        }" [dragula]="this.userToolBarService.edit ? 'VAMPIRE' :null">
+  <div class="wrapper haveBackgroundImage height-width-100">
 
     <!-- iterate among the list of element of the currentFolder -->
-    <ng-container *ngFor="let element of this.boardService.elementList">
 
-      <!-- display elementContainers with element having non empty type-->
-      <div id="{{element.ID}}" class="elementContainer floatLeft" *ngIf="element.Type!=='empty'">
-
-        <!-- an element composed of a pictogram and a corresponding text-->
-        <div class="element" [class.notsearched]="searchStarted()&&!isSearched(element)"
-          [class.searched]="searchStarted()&&isSearched(element)" [class.blurredElt]="element.ID==='#disable'"
-          (click)="this.edit(element)" (touchstart)="this.pointerDown(element,0)" (touchend)="this.pointerUp(element,0)"
-          (pointerdown)="this.pointerDown(element,1)" (pointerup)="this.pointerUp(element,1)" [ngStyle]="{'background-color': element.Color !== null ? element.Color : 'grey' ,
-          'border-color': element.BorderColor === null || element.BorderColor === undefined ? 'black' : element.BorderColor,
-          'box-shadow': this.getShadow(element) ,
-          'opacity': this.getOpacity(element),
-          'cursor': this.getCursor(element)}" [class.noImageElement]="this.boardService.getImgUrl(element) === '' ">
-
-          <div class="image haveBackgroundImage" [style.background-image]="this.boardService.getImgUrl(element)"></div>
-
-          <!--          <svg viewBox="0 0 30 30">-->
-          <!--            <text x="50%" y="50%" dominant-baseline="middle"  text-anchor="middle">{{this.boardService.getLabel(element)}}</text>-->
-          <!--          </svg>-->
-          <div class="adjustableText">
-            {{this.boardService.getLabel(element)}}
-          </div>
-
-        </div>
-
-        <!-- in edit mode this button is used to delete the associated element -->
-        <div class="deleteElement floatLeft" *ngIf="this.userToolBarService.edit && element.ID !== '#disable'"
-          (click)="this.delete(element)">
-          <div class="image haveBackgroundImage" [style.background-image]="this.getIcon('delete')">
-
-          </div>
-        </div>
-
-        <!-- in edit mode this button is used to select the associated element -->
-        <div class="selectCheckBox floatLeft" *ngIf="this.userToolBarService.edit && element.ID !== '#disable'"
-          (click)="this.select(element)">
-          <div class="image haveBackgroundImage"
-            [style.background-image]="this.editionService.isSelected(element)?this.getIcon('check'):null">
-
-          </div>
-        </div>
-
-        <!-- in edit mode this button is used to change the visibility of the associated element for 'babble' function-->
-        <div class="elementVisibility" *ngIf="this.userToolBarService.edit && element.ID !== '#disable'"
-          (click)="this.changeVisibility(element)">
-          <div class="image haveBackgroundImage"
-            [style.background-image]="this.isVisible(element) ? this.getIcon('hide') : this.getIcon('show')">
-
-          </div>
-        </div>
-
-      </div>
-
-    </ng-container>
+    <app-layout [elements]=this.boardService.elementList></app-layout>
 
 
     <!-- ng container checking if the add button have to be displayed -->

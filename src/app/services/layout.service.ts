@@ -42,6 +42,10 @@ export class LayoutService {
     this.layout.splice(this.layout.indexOf(item), 1);
   }
 
+  deleteAll(): void {
+    this.layout = [];
+  }
+
   setDraggable(b: boolean): void {
     this.options.draggable.enabled = b;
     this.options.resizable.enabled = b;

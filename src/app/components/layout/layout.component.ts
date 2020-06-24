@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, OnChanges } from "@angular/core";
 import { GridsterConfig } from "angular-gridster2";
 import { LayoutService } from "../../services/layout.service";
 import { GridElement } from "../../types";
@@ -8,15 +8,18 @@ import { GridElement } from "../../types";
   templateUrl: "./layout.component.html",
   styleUrls: ["./layout.component.css"],
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent implements OnInit, OnChanges {
   @Input() elements: GridElement[];
 
   constructor(public layoutService: LayoutService) {}
 
   ngOnInit(): void {
-    if (this.layout.length == 0 && this.elements !== undefined) {
-      for (const element of this.elements) this.layoutService.addItem(element);
-    }
+    // for (const element of this.elements) this.layoutService.addItem(element);
+  }
+
+  ngOnChanges(): void {
+    this.layoutService.deleteAll();
+    for (const element of this.elements) this.layoutService.addItem(element);
   }
 
   get options(): GridsterConfig {

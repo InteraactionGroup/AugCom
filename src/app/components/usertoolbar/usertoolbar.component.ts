@@ -93,5 +93,6 @@ export class UsertoolbarComponent implements OnInit {
     this.userToolBarService.unlock = !this.userToolBarService.unlock;
     this.userToolBarService.edit =
       this.userToolBarService.edit && this.userToolBarService.unlock;
+    this.layoutService.setDraggable(this.userToolBarService.edit);
   }
 }
