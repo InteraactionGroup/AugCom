@@ -20,6 +20,8 @@ import { Subscription } from "rxjs";
 import { PaletteService } from "../../services/palette.service";
 import { SearchService } from "../../services/search.service";
 import { Ng2ImgMaxService } from "ng2-img-max";
+import { LayoutService } from "src/app/services/layout.service";
+import { GridsterConfig } from "angular-gridster2";
 
 @Component({
   selector: "app-keyboard",
@@ -27,7 +29,7 @@ import { Ng2ImgMaxService } from "ng2-img-max";
   styleUrls: ["./keyboard.component.css"],
   providers: [DragulaService, Ng2ImgMaxService],
 })
-export class KeyboardComponent implements OnInit, OnChanges {
+export class KeyboardComponent implements OnInit {
   /**
    * the current pressTimer started when pressing an element and ending on release
    */
@@ -60,7 +62,8 @@ export class KeyboardComponent implements OnInit, OnChanges {
     public getIconService: GeticonService,
     public boardService: BoardService,
     public historicService: HistoricService,
-    public editionService: EditionService
+    public editionService: EditionService,
+    public layoutService: LayoutService
   ) {
     this.dragulaSubscription.add(
       this.dragulaService
@@ -85,17 +88,20 @@ export class KeyboardComponent implements OnInit, OnChanges {
     );
   }
 
+  get options(): GridsterConfig {
+    return this.layoutService.options;
+  }
+
+  get layout(): any[] {
+    return this.layoutService.layout;
+  }
+
   /**
    * execute the indexeddbaccessService init fucntion to get the information of the DB or to create new entries if there is no info
    */
   ngOnInit() {
     this.boardService.updateElementList();
     this.initDragAndDrop();
-    console.table(this.boardService.elementList);
-  }
-
-  ngOnChanges() {
-    console.log("coucou");
   }
 
   /**

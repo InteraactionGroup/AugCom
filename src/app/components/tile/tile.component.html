@@ -11,6 +11,7 @@
   'cursor': this.getCursor(element)}">
 
     <div class="image haveBackgroundImage" [style.background-image]="this.boardService.getImgUrl(element)"></div>
+
     <div class="adjustableText">
       {{this.boardService.getLabel(element)}}
     </div>
@@ -21,7 +22,6 @@
   <div class="deleteElement floatLeft" *ngIf="this.userToolBarService.edit && element.ID !== '#disable'"
     (click)="this.delete(element)">
     <div class="image haveBackgroundImage" [style.background-image]="this.getIcon('delete')">
-
     </div>
   </div>
 
@@ -30,7 +30,6 @@
     (click)="this.select(element)">
     <div class="image haveBackgroundImage"
       [style.background-image]="this.editionService.isSelected(element)?this.getIcon('check'):null">
-
     </div>
   </div>
 
@@ -39,7 +38,6 @@
     (click)="this.changeVisibility(element)">
     <div class="image haveBackgroundImage"
       [style.background-image]="this.isVisible(element) ? this.getIcon('hide') : this.getIcon('show')">
-
     </div>
   </div>
 

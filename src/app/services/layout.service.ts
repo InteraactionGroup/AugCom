@@ -17,7 +17,7 @@ export class LayoutService {
     },
     defaultItemCols: 1,
     defaultItemRows: 1,
-    displayGrid: "always",
+    margin: 5,
     minCols: 5,
     minRows: 6,
   };
