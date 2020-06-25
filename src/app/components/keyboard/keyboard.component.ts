@@ -50,6 +50,12 @@ export class KeyboardComponent implements OnInit {
   press = [false, false];
   release = [false, false];
 
+  /**
+   * cols and rows of grid
+   */
+  cols: number;
+  rows: number;
+
   // tslint:disable-next-line:max-line-length
   constructor(
     public dragulaService: DragulaService,
@@ -86,6 +92,22 @@ export class KeyboardComponent implements OnInit {
           this.boardService.board.ElementList = temp;
         })
     );
+    this.cols = this.layoutService.options.minCols;
+    this.rows = this.layoutService.options.minRows;
+  }
+
+  onKeyCols(event: any) {
+    if (+event.target.value >= 1) {
+      this.cols = +event.target.value;
+      this.layoutService.setCols(this.cols);
+    }
+  }
+
+  onKeyRows(event: any) {
+    if (+event.target.value >= 1) {
+      this.rows = +event.target.value;
+      this.layoutService.setRows(this.rows);
+    }
   }
 
   get options(): GridsterConfig {

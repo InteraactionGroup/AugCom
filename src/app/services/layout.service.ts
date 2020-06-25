@@ -20,6 +20,8 @@ export class LayoutService {
     margin: 5,
     minCols: 5,
     minRows: 6,
+    maxCols: 5,
+    maxRows: 6,
   };
 
   public layout: any[] = [];

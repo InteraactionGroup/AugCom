@@ -1,4 +1,11 @@
-import { Component, OnInit, Input } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+} from "@angular/core";
 import { HistoricService } from "../../services/historic.service";
 import { EditionService } from "../../services/edition.service";
 import { BoardService } from "../../services/board.service";
@@ -8,6 +15,8 @@ import { UsertoolbarService } from "../../services/usertoolbar.service";
 import { ParametersService } from "../../services/parameters.service";
 import { Router } from "@angular/router";
 import { SearchService } from "../../services/search.service";
+import { Observable, fromEvent, pipe } from "rxjs";
+import { delay, takeUntil, tap } from "rxjs/operators";
 
 @Component({
   selector: "app-tile",
