@@ -10,8 +10,8 @@ export class LayoutService {
     draggable: {
       enabled: false,
     },
-    pushItems: true,
-    swapItems: false,
+    pushItems: false,
+    swapItems: true,
     resizable: {
       enabled: false,
     },
