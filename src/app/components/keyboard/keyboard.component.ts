@@ -22,6 +22,7 @@ import { SearchService } from "../../services/search.service";
 import { Ng2ImgMaxService } from "ng2-img-max";
 import { LayoutService } from "src/app/services/layout.service";
 import { GridsterConfig } from "angular-gridster2";
+import {element} from "protractor";
 
 @Component({
   selector: "app-keyboard",
@@ -109,15 +110,6 @@ export class KeyboardComponent implements OnInit {
       this.layoutService.setRows(this.rows);
     }
   }
-
-  get options(): GridsterConfig {
-    return this.layoutService.options;
-  }
-
-  get layout(): any[] {
-    return this.layoutService.layout;
-  }
-
   /**
    * execute the indexeddbaccessService init fucntion to get the information of the DB or to create new entries if there is no info
    */

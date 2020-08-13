@@ -69,7 +69,6 @@
             }
           }
         },
-        "additionalProperties": false,
         "required": ["ID","Type","PartOfSpeech","Color","BorderColor","VisibilityLevel","ElementFormsList","InteractionsList"]
       }
     } ,

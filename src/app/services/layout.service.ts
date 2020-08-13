@@ -24,29 +24,7 @@ export class LayoutService {
     maxRows: 6,
   };
 
-  public layout: any[] = [];
-
   constructor() {}
-
-  addItem(element: GridElement): void {
-    this.layout.push({
-      gridsterItem: {
-        id: element.ID,
-        x: 0,
-        y: 0,
-      },
-      element,
-    });
-  }
-
-  deleteItem(id: string): void {
-    const item = this.layout.find((d) => d.gridsterItem.id === id);
-    this.layout.splice(this.layout.indexOf(item), 1);
-  }
-
-  deleteAll(): void {
-    this.layout = [];
-  }
 
   setDraggable(b: boolean): void {
     this.options.draggable.enabled = b;

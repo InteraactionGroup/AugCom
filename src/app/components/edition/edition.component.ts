@@ -209,7 +209,9 @@ export class EditionComponent implements OnInit {
         InteractionsList: this.editionService.interractionList ,
         Color: this.editionService.curentColor,
         BorderColor: this.editionService.curentBorderColor,
-        VisibilityLevel: 0
+        VisibilityLevel: 0,
+        x:0,
+        y:0
       });
 
     this.boardService.board.ImageList.push(

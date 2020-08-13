@@ -172,6 +172,8 @@ export class ShareComponent implements OnInit {
       Color: "lightgrey",
       BorderColor: "black",
       VisibilityLevel: 0,
+      x:0,
+      y:0
     });
 
     this.boardService.board.ImageList.push({
@@ -209,9 +211,7 @@ export class ShareComponent implements OnInit {
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
       let tempBoard = JSON.parse(fileReader.result.toString());
-      this.layoutService.deleteAll();
       tempBoard.ElementList.forEach((element) => {
-        this.layoutService.addItem(element);
         this.checkAndUpdateElementDefaultForm(element);
       });
 
