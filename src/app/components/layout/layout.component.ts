@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, OnChanges } from "@angular/core";
 import { GridsterConfig } from "angular-gridster2";
 import { LayoutService } from "../../services/layout.service";
-import { GridElement } from "../../types";
 import {BoardService} from "../../services/board.service";
 
 @Component({

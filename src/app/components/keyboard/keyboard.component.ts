@@ -15,20 +15,17 @@ import { UsertoolbarService } from "../../services/usertoolbar.service";
 import { IndexeddbaccessService } from "../../services/indexeddbaccess.service";
 import { ParametersService } from "../../services/parameters.service";
 import { Router } from "@angular/router";
-import { DragulaService } from "ng2-dragula";
 import { Subscription } from "rxjs";
 import { PaletteService } from "../../services/palette.service";
 import { SearchService } from "../../services/search.service";
 import { Ng2ImgMaxService } from "ng2-img-max";
 import { LayoutService } from "src/app/services/layout.service";
-import { GridsterConfig } from "angular-gridster2";
-import {element} from "protractor";
 
 @Component({
     selector: 'app-keyboard',
     templateUrl: './keyboard.component.html',
     styleUrls: ['./keyboard.component.css'],
-    providers: [DragulaService, Ng2ImgMaxService]
+    providers: [Ng2ImgMaxService]
 })
 export class KeyboardComponent implements OnInit {
   /**
@@ -43,11 +40,6 @@ export class KeyboardComponent implements OnInit {
   pressedElement: GridElement = null;
   down = 0;
 
-  /**
-   * the current pressed element
-   */
-  dragulaSubscription = new Subscription();
-
     press = [false, false];
     release = [false, false];
 
@@ -59,7 +51,6 @@ export class KeyboardComponent implements OnInit {
 
   // tslint:disable-next-line:max-line-length
   constructor(
-    public dragulaService: DragulaService,
     public searchService: SearchService,
     private paletteService: PaletteService,
     private router: Router,
@@ -72,27 +63,6 @@ export class KeyboardComponent implements OnInit {
     public editionService: EditionService,
     public layoutService: LayoutService
   ) {
-    this.dragulaSubscription.add(
-      this.dragulaService
-        .drop("VAMPIRE")
-        .subscribe(({ el, target, source, sibling }) => {
-          const temp = this.boardService.board.ElementList;
-
-          const i1 = temp.findIndex((elt) => elt.ID === el.id);
-          let i2 = temp.findIndex((elt) => elt.ID === sibling.id);
-
-          // unfortunately dagula is not really adapted to grid display:
-          // when we drag an element on an element after the draged one its ok ->
-          // but we drag it before it returns the element just after the sibling we want <-
-          i2 = i1 < i2 ? i2 - 1 : i2;
-
-          // also here if the element we drop on is the last element then findIndex will return -1
-          i2 = i2 >= 0 ? i2 : i2 + this.boardService.board.ElementList.length;
-
-          [temp[i2], temp[i1]] = [temp[i1], temp[i2]];
-          this.boardService.board.ElementList = temp;
-        })
-    );
     this.cols = this.layoutService.options.minCols;
     this.rows = this.layoutService.options.minRows;
   }
@@ -115,7 +85,6 @@ export class KeyboardComponent implements OnInit {
    */
   ngOnInit() {
     this.boardService.updateElementList();
-    this.initDragAndDrop();
   }
 
   /**
@@ -130,27 +99,6 @@ export class KeyboardComponent implements OnInit {
 
   searchStarted() {
     return this.searchService.searchedPath.length > 0;
-  }
-
-  /**
-   * Init the dragula Drag n Drop part
-   *
-   */
-  initDragAndDrop() {
-    if (!this.parametersService.dragNDropinit) {
-      this.dragulaService.createGroup("VAMPIRE", {
-        moves: (el, container, handle) => {
-          return !el.classList.contains("no-drag");
-        },
-        accepts: (el, target, source, sibling) => {
-          if (el.classList.contains("no-drag")) {
-            return false;
-          }
-          return sibling !== null;
-        },
-      });
-      this.parametersService.dragNDropinit = true;
-    }
   }
 
   /**

@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { GridElement } from "../types";
 import { GridsterConfig } from "angular-gridster2";
 
 @Injectable({
@@ -29,16 +28,22 @@ export class LayoutService {
   setDraggable(b: boolean): void {
     this.options.draggable.enabled = b;
     this.options.resizable.enabled = b;
-    this.options.api.optionsChanged();
+    this.refresh();
   }
 
   setCols(cols: number): void {
     this.options.minCols = this.options.maxCols = cols;
-    this.options.api.optionsChanged();
+    this.refresh();
   }
 
   setRows(rows: number): void {
     this.options.minRows = this.options.maxRows = rows;
-    this.options.api.optionsChanged();
+    this.refresh();
+  }
+
+  refresh(){
+    if(this.options.api != undefined) {
+      this.options.api.optionsChanged();
+    }
   }
 }

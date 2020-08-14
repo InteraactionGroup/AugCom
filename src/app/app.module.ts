@@ -15,7 +15,6 @@ import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from "../environments/environment";
 import { AppRoutingModule } from "./app-routing.module";
 import { SettingsComponent } from "./components/settings/settings.component";
-import { DragulaModule } from "ng2-dragula";
 import { SnapBarComponent } from "./components/snap-bar/snap-bar.component";
 import { AccountComponent } from "./components/account/account.component";
 import { AccountInformationComponent } from "./components/account-information/account-information.component";
@@ -35,7 +34,6 @@ import { ErrorOnEditComponent } from "./components/error-on-edit/error-on-edit.c
 import { PrintComponent } from "./components/print/print.component";
 import { TileComponent } from "./components/tile/tile.component";
 import { LayoutComponent } from "./components/layout/layout.component";
-import { GridComponent } from "./components/grid/grid.component";
 import { GridsterModule } from "angular-gridster2";
 
 @NgModule({
@@ -65,8 +63,7 @@ import { GridsterModule } from "angular-gridster2";
     ErrorOnEditComponent,
     PrintComponent,
     TileComponent,
-    LayoutComponent,
-    GridComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -77,11 +74,9 @@ import { GridsterModule } from "angular-gridster2";
       enabled: environment.production,
     }),
     AppRoutingModule,
-    DragulaModule,
-    DragulaModule.forRoot(),
     BrowserAnimationsModule,
-    GridsterModule,
+    GridsterModule
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -24,7 +24,7 @@ export class UsertoolbarComponent implements OnInit {
     public indexedDBacess: IndexeddbaccessService,
     public getIconService: GeticonService,
     public userToolBarService: UsertoolbarService,
-    private layoutService: LayoutService
+    public layoutService: LayoutService
   ) {}
 
   /*text to search in the searchBar*/
