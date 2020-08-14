@@ -14,6 +14,7 @@ import {Ng2ImgMaxService} from "ng2-img-max";
 import {FolderGoTo, GridElement} from "../../types";
 import {ProloquoParser} from "../../services/proloquoParser";
 import {JsonValidatorService} from "../../services/json-validator.service";
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-share',
@@ -27,7 +28,8 @@ export class ShareComponent implements OnInit {
               public indexedDBacess: IndexeddbaccessService, private printService: PrintService,
               private router: Router, public getIconService: GeticonService,
               public boardService: BoardService, public userToolBarService: UsertoolbarService,
-              public proloquoParser: ProloquoParser, public jsonValidator: JsonValidatorService) {
+              public proloquoParser: ProloquoParser, public jsonValidator: JsonValidatorService,
+              private multilinguism: MultilinguismService) {
   }
 
 

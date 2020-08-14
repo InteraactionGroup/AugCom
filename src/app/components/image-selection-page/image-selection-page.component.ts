@@ -5,6 +5,7 @@ import mullberryJson from "../../../assets/symbol-info.json";
 import arasaacJson from "../../../assets/arasaac-symbol-info.json";
 import arasaacColoredJson from "../../../assets/arasaac-color-symbol-info.json";
 import {ArasaacObject, MulBerryObject} from "../../libTypes";
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-image-selection-page',
@@ -21,7 +22,7 @@ export class ImageSelectionPageComponent implements OnInit {
   imageList: {lib,word}[];
 
 
-  constructor(public ng2ImgMaxService: Ng2ImgMaxService, public editionService: EditionService) {
+  constructor(private multilinguism: MultilinguismService, public ng2ImgMaxService: Ng2ImgMaxService, public editionService: EditionService) {
   }
 
   ngOnInit() {

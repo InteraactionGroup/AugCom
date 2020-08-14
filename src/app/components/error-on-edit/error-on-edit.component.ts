@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-error-on-edit',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ErrorOnEditComponent implements OnInit {
 
-  constructor() { }
+  constructor(private multilinguism: MultilinguismService) { }
 
   ngOnInit() {
   }

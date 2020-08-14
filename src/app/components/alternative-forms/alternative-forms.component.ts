@@ -9,6 +9,7 @@ import {Ng2ImgMaxService} from "ng2-img-max";
 import {DomSanitizer} from "@angular/platform-browser";
 import {ElementForm} from "../../types";
 import {BoardService} from "../../services/board.service";
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-alternative-forms',
@@ -18,7 +19,7 @@ import {BoardService} from "../../services/board.service";
 })
 export class AlternativeFormsComponent implements OnInit {
 
-  constructor(public ng2ImgMaxService: Ng2ImgMaxService, public boardService: BoardService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public editionService: EditionService) {
+  constructor(private multilinguism: MultilinguismService, public ng2ImgMaxService: Ng2ImgMaxService, public boardService: BoardService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public editionService: EditionService) {
   }
 
   ngOnInit() {

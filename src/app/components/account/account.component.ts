@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {GeticonService} from "../../services/geticon.service";
 import {Ng2ImgMaxService} from "ng2-img-max";
 import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-account',
@@ -12,19 +13,19 @@ export class AccountComponent implements OnInit {
 
   /*menu and submenus of the account settings*/
   menu: [string, string[]][] = [
-    ['Compte', ['Informations du compte', 'Gestion des sauvegardes']],
-    ['Apparence', ['Apparence générale', 'Gestion des palettes']],
-    ['Paramètres', []],
-    ['Langue', []],
-    ['Grammaire', []],
-    ['Partager', []],
-    ['Informations complémentaires', ['Actualités', 'Contacts']]
+    ['account', ['accountInfo', 'saveManagement']],
+    ['appearance', ['globalAppearance', 'paletteManagement']],
+    ['settings', []],
+    ['language', []],
+    ['grammar', []],
+    ['share', []],
+    ['complementaryInfo', ['actuality', 'contacts']]
   ];
 
   selectedMenu = 'Informations complémentaires';
   selectedSubMenu = 'Contacts';
 
-  constructor(public getIconService: GeticonService, public indexeddbaccessService: IndexeddbaccessService) {
+  constructor(private multilinguism: MultilinguismService, public getIconService: GeticonService, public indexeddbaccessService: IndexeddbaccessService) {
   }
 
   ngOnInit() {

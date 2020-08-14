@@ -13,6 +13,7 @@ import {Subscription} from 'rxjs';
 import {PaletteService} from '../../services/palette.service';
 import {SearchService} from '../../services/search.service';
 import {Ng2ImgMaxService} from "ng2-img-max";
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
     selector: 'app-keyboard',
@@ -48,7 +49,7 @@ export class KeyboardComponent implements OnInit {
     release = [false, false];
 
     // tslint:disable-next-line:max-line-length
-    constructor(public dragulaService: DragulaService, public searchService: SearchService, private paletteService: PaletteService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService) {
+    constructor(private multilinguism: MultilinguismService, public dragulaService: DragulaService, public searchService: SearchService, private paletteService: PaletteService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService) {
         this.dragulaSubscription.add(this.dragulaService.drop('VAMPIRE')
             .subscribe(({el, target, source, sibling}) => {
                 const temp = this.boardService.board.ElementList;

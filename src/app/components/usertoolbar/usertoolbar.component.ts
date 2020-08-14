@@ -7,6 +7,7 @@ import {ParametersService} from '../../services/parameters.service';
 import {SearchService} from '../../services/search.service';
 import {BoardService} from '../../services/board.service';
 import {Ng2ImgMaxService} from "ng2-img-max";
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-usertoolbar',
@@ -19,7 +20,7 @@ export class UsertoolbarComponent implements OnInit {
 
   constructor(public boardService: BoardService, public searchService: SearchService, private parametersService: ParametersService,
               private snapBarService: SnapBarService, public indexedDBacess: IndexeddbaccessService, public getIconService: GeticonService,
-              public userToolBarService: UsertoolbarService) {
+              public userToolBarService: UsertoolbarService, private multilinguism: MultilinguismService) {
 
   }
 

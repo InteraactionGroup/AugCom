@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ParametersService} from "../../services/parameters.service";
 import {Ng2ImgMaxService} from "ng2-img-max";
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-language',
@@ -9,7 +10,7 @@ import {Ng2ImgMaxService} from "ng2-img-max";
 })
 export class LanguageComponent implements OnInit {
 
-  constructor(public parametersService: ParametersService) {
+  constructor(private multilinguism: MultilinguismService, public parametersService: ParametersService) {
   }
 
   ngOnInit() {

@@ -4,6 +4,7 @@ import {GeticonService} from "../../services/geticon.service";
 import {DbnaryService} from "../../services/dbnary.service";
 import {HttpClient} from "@angular/common/http";
 import {BoardService} from "../../services/board.service";
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-information-edition-page',
@@ -13,7 +14,7 @@ import {BoardService} from "../../services/board.service";
 })
 export class InformationEditionPageComponent implements OnInit {
 
-  constructor(public dbnaryService: DbnaryService, public editionService: EditionService, public board: BoardService, public getIconService: GeticonService) {
+  constructor(public multilinguism: MultilinguismService,public dbnaryService: DbnaryService, public editionService: EditionService, public board: BoardService, public getIconService: GeticonService) {
   }
 
   ngOnInit() {

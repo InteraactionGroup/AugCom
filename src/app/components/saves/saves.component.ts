@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BoardService} from "../../services/board.service";
 import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 import {Ng2ImgMaxService} from "ng2-img-max";
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-saves',
@@ -11,7 +12,7 @@ import {Ng2ImgMaxService} from "ng2-img-max";
 })
 export class SavesComponent implements OnInit {
 
-  constructor(public boardService: BoardService, public indexeddbaccessService: IndexeddbaccessService) {
+  constructor(private multilinguism: MultilinguismService, public boardService: BoardService, public indexeddbaccessService: IndexeddbaccessService) {
   }
 
   ngOnInit() {
