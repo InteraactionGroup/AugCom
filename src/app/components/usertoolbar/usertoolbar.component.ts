@@ -28,9 +28,10 @@ export class UsertoolbarComponent implements OnInit {
   ) {}
 
   /*text to search in the searchBar*/
-  searchText = "";
+  searchText = '';
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   /*get size of the searched result under search bar, maximum size reached for 5 results*/
   getResultsHeight(size) {

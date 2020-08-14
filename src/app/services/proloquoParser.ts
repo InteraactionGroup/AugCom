@@ -224,7 +224,9 @@ export class ProloquoParser {
       ],
       InteractionsList: interList,
       x:0,
-      y:0
+      y:0,
+      rows: 1,
+      cols: 1
     };
   }
 

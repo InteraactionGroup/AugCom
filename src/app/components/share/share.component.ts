@@ -69,8 +69,7 @@ export class ShareComponent implements OnInit {
    * using the image and image name to respectively create imageUrl and element name and keep the same tree aspect
    * @param zip
    */
-  exploreZip(zip) {
-    //TODO change the folderPath implementation
+  exploreZip(zip) { //TODO change the folderPath implementation
     const zipFolder: JSZip = new JSZip();
     zipFolder.loadAsync(zip[0]).then((zipFiles) => {
       this.boardService.board.PageList = [];
@@ -104,41 +103,38 @@ export class ShareComponent implements OnInit {
                     path = path + "." + s;
                   });
 
-                  let type;
-                  if (folderPath.length === 0) {
-                    type = new FolderGoTo(name);
-                  } else {
-                    type = "button";
+                    let type;
+                    if (folderPath.length === 0) {
+                      type = new FolderGoTo(name);
+                    } else {
+                      type = 'button';
+                    }
+                    this.createNewButtonFromInfoInZIP(name, imageURL, path, type);
+
                   }
-                  this.createNewButtonFromInfoInZIP(name, imageURL, path, type);
                 }
+              });
+            } else {
+              const imageURL = 'assets/libs/mulberry-symbols/EN-symbols/computer_folder_open_,_to.svg';
+              let splitName = fileName.split('/');
+              const name = splitName[splitName.length - 2];
+              let path = '';
+              splitName = splitName.slice(0, splitName.length - 2);
+              if (splitName.length === 0) {
+                path = '.';
               }
-            });
-        } else {
-          const imageURL =
-            "assets/libs/mulberry-symbols/EN-symbols/computer_folder_open_,_to.svg";
-          let splitName = fileName.split("/");
-          const name = splitName[splitName.length - 2];
-          let path = "";
-          splitName = splitName.slice(0, splitName.length - 2);
-          if (splitName.length === 0) {
-            path = ".";
+              splitName.forEach(s => {
+                path = path + '.' + s;
+              });
+              this.createNewButtonFromInfoInZIP(name, imageURL, path, new FolderGoTo(name));
+            }
           }
-          splitName.forEach((s) => {
-            path = path + "." + s;
-          });
-          this.createNewButtonFromInfoInZIP(
-            name,
-            imageURL,
-            path,
-            new FolderGoTo(name)
-          );
-        }
+        );
       });
-    });
 
     this.indexedDBacess.update();
-    this.router.navigate([""]);
+    this.router.navigate(['']);
+
   }
 
   /**
@@ -150,54 +146,47 @@ export class ShareComponent implements OnInit {
    */
   createNewButtonFromInfoInZIP(name, imageURL, path: string, type) {
     let regex = /\./g;
-    let pathWithNoDot = path.replace(regex, "$");
+    let pathWithNoDot = path.replace(regex, '$');
 
-    let theID =
-      pathWithNoDot + "$" + name + (type === "button" ? "button" : "");
-    this.boardService.board.ElementList.push({
-      ID: theID,
-      Type: type,
-      PartOfSpeech: "",
-      ElementFormsList: [
-        {
-          DisplayedText: name,
-          VoiceText: name,
-          LexicInfos: [{ default: true }],
-          ImageID: theID,
-        },
-      ],
-      InteractionsList: [
-        { ID: "click", ActionList: [{ ID: "display", Action: "display" }] },
-      ],
-      Color: "lightgrey",
-      BorderColor: "black",
-      VisibilityLevel: 0,
-      x:0,
-      y:0
-    });
-
-    this.boardService.board.ImageList.push({
-      ID: theID,
-      OriginalName: name,
-      Path: imageURL,
-    });
-
-    let pathTab = path.split(".");
-    pathTab = pathTab.filter((tab) => tab.length > 0);
-    let folder = pathTab.length === 1 ? "#HOME" : pathWithNoDot;
-
-    let getPage = this.boardService.board.PageList.find(
-      (page) => page.ID === folder
-    );
-    if (getPage === null || getPage === undefined) {
-      this.boardService.board.PageList.push({
-        ID: folder,
-        Name: folder,
-        ElementIDsList: [],
+    let theID = pathWithNoDot + '$' + name + (type === 'button' ? 'button' : '');
+    this.boardService.board.ElementList.push(
+      {
+        ID: theID,
+        Type: type,
+        PartOfSpeech: '',
+        ElementFormsList: [
+          {
+            DisplayedText: name,
+            VoiceText: name,
+            LexicInfos: [{default: true}],
+            ImageID: theID,
+          }
+        ],
+        InteractionsList: [{ID: 'click', ActionList: [{ID: 'display', Action: 'display'}]}],
+        Color: 'lightgrey',
+        BorderColor: 'black',
+        VisibilityLevel: 0,
+        x:0,
+        y:0,
+        cols: 1,
+        rows: 1
       });
-      getPage = this.boardService.board.PageList.find(
-        (page) => page.ID === folder
-      );
+
+    this.boardService.board.ImageList.push(
+      {
+        ID: theID,
+        OriginalName: name,
+        Path: imageURL
+      });
+
+    let pathTab = path.split('.');
+    pathTab = pathTab.filter(tab => tab.length > 0);
+    let folder = pathTab.length === 1 ? '#HOME' : pathWithNoDot;
+
+    let getPage = this.boardService.board.PageList.find(page => page.ID === folder);
+    if (getPage === null || getPage === undefined) {
+      this.boardService.board.PageList.push({ID: folder, Name: folder, ElementIDsList: []});
+      getPage = this.boardService.board.PageList.find(page => page.ID === folder);
     }
     getPage.ElementIDsList.push(theID);
   }
@@ -211,43 +200,40 @@ export class ShareComponent implements OnInit {
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
       let tempBoard = JSON.parse(fileReader.result.toString());
-      tempBoard.ElementList.forEach((element) => {
+      tempBoard.ElementList.forEach(element => {
         this.checkAndUpdateElementDefaultForm(element);
       });
 
       this.boardService.board = this.jsonValidator.getCheckedGrid(tempBoard);
       this.indexedDBacess.update();
-      this.router.navigate([""]);
+      this.router.navigate(['']);
     };
     fileReader.readAsText(myFile);
   }
 
   /*check if a default form exists for the given element, otherwise create a new one with first displayed text*/
   checkAndUpdateElementDefaultForm(element: GridElement) {
-    const defaultForm = element.ElementFormsList.find((form) => {
-      const newForm = form.LexicInfos.find((info) => {
-        return info.default != null && info.default;
+    const defaultForm = element.ElementFormsList.find(form => {
+      const newForm = form.LexicInfos.find(info => {
+        return (info.default != null && info.default);
       });
       return newForm != null;
     });
-    if (defaultForm === null) {
-      if (
-        element.ElementFormsList[0] !== null &&
-        element.ElementFormsList[0] !== undefined
-      ) {
-        element.ElementFormsList.push({
-          DisplayedText: element.ElementFormsList[0].DisplayedText,
-          VoiceText: element.ElementFormsList[0].VoiceText,
-          LexicInfos: [{ default: true }],
-          ImageID: element.ElementFormsList[0].ImageID,
-        });
+    if (defaultForm === null ) {
+      if (element.ElementFormsList[0] !== null && element.ElementFormsList[0] !== undefined) {
+      element.ElementFormsList.push({
+        DisplayedText: element.ElementFormsList[0].DisplayedText,
+        VoiceText: element.ElementFormsList[0].VoiceText,
+        LexicInfos: [{default: true}],
+        ImageID: element.ElementFormsList[0].ImageID
+      });
       } else {
-        console.log("DEFAULT FORM NOT FOUND FOR " + element.ID);
+        console.log( 'DEFAULT FORM NOT FOUND FOR ' + element.ID);
         element.ElementFormsList.push({
           DisplayedText: element.ID,
           VoiceText: element.ID,
-          LexicInfos: [{ default: true }],
-          ImageID: element.ID,
+          LexicInfos: [{default: true}],
+          ImageID: element.ID
         });
       }
     }
@@ -265,7 +251,8 @@ export class ShareComponent implements OnInit {
    * @param data, the string text that have to be saved
    */
   downloadFile(data: string) {
-    const blob = new Blob([data], { type: "text/json" });
-    importedSaveAs(blob, "save.json");
+    const blob = new Blob([data], {type: 'text/json'});
+    importedSaveAs(blob, 'save.json');
   }
+
 }

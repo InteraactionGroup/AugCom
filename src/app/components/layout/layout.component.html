@@ -1,5 +1,5 @@
 <gridster [options]="options">
-  <gridster-item *ngFor=" let item of this.boardService.getTempList()" [item]="item">
+  <gridster-item *ngFor=" let item of this.boardService.elementList" [item]="item">
     <app-tile [element]=item></app-tile>
   </gridster-item>
 </gridster>

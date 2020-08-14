@@ -43,6 +43,8 @@ export class GridElement {
   VisibilityLevel: number;
   x: number;
   y: number;
+  cols: number;
+  rows: number;
 
   ElementFormsList: ElementForm[];
   InteractionsList: Interaction[];
@@ -61,6 +63,8 @@ export class GridElement {
     this.InteractionsList = interactionList;
     this.y = 0;
     this.x = 0;
+    this.rows =1;
+    this.cols = 1;
   }
 }
 

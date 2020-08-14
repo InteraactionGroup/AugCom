@@ -192,7 +192,6 @@ export class TileComponent implements OnInit {
             "." +
             (<FolderGoTo>element.Type).GoTo;
         }
-        this.boardService.updateElementList();
         // for errors
       } else {
         console.error(element.Type);
@@ -203,6 +202,8 @@ export class TileComponent implements OnInit {
         );
       }
     }
+
+    this.boardService.updateElementList();
   }
 
   /**

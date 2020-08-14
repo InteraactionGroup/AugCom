@@ -25,10 +25,10 @@ import { GridsterConfig } from "angular-gridster2";
 import {element} from "protractor";
 
 @Component({
-  selector: "app-keyboard",
-  templateUrl: "./keyboard.component.html",
-  styleUrls: ["./keyboard.component.css"],
-  providers: [DragulaService, Ng2ImgMaxService],
+    selector: 'app-keyboard',
+    templateUrl: './keyboard.component.html',
+    styleUrls: ['./keyboard.component.css'],
+    providers: [DragulaService, Ng2ImgMaxService]
 })
 export class KeyboardComponent implements OnInit {
   /**
@@ -48,8 +48,8 @@ export class KeyboardComponent implements OnInit {
    */
   dragulaSubscription = new Subscription();
 
-  press = [false, false];
-  release = [false, false];
+    press = [false, false];
+    release = [false, false];
 
   /**
    * cols and rows of grid
@@ -200,157 +200,130 @@ export class KeyboardComponent implements OnInit {
         ? "#d3d3d3"
         : element.Color);
 
-    s =
-      s +
-      " , " +
-      (isFolder ? "4px " : "0px ") +
-      (isFolder ? "-4px " : "0px ") +
-      (element.BorderColor === undefined || element.BorderColor == null
-        ? "black"
-        : element.BorderColor);
+    s = s + ' , ' +
+      (isFolder ? '4px ' : '0px ') +
+      (isFolder ? '-4px ' : '0px ') +
+      (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor);
     return s;
   }
 
-  /**
-   * update the current person and number information for verb terminations
-   * @param elementForm, an list of element forms
-   */
-  changePronomInfo(elementForm: ElementForm) {
-    const person = elementForm.LexicInfos.find(
-      (info) => info.person != null && info.person !== undefined
-    );
-    this.boardService.currentVerbTerminaison.currentPerson =
-      person != null && person !== undefined ? person.person : "thirdPerson";
+    /**
+     * update the current person and number information for verb terminations
+     * @param elementForm, an list of element forms
+     */
+    changePronomInfo(elementForm: ElementForm) {
+        const person = elementForm.LexicInfos.find(info => info.person != null && info.person !== undefined);
+        this.boardService.currentVerbTerminaison.currentPerson = (person != null && person !== undefined) ? person.person : 'thirdPerson';
 
-    const num = elementForm.LexicInfos.find(
-      (info) => info.number != null && info.number !== undefined
-    );
-    this.boardService.currentVerbTerminaison.currentNumber =
-      num != null && num !== undefined ? num.number : "";
-  }
-
-  /**
-   * update the current gender and number information for noun (and adj) terminations
-   * @param elementForm, an list of element forms
-   */
-  changeArticleInfo(elementForm: ElementForm) {
-    const gender = elementForm.LexicInfos.find(
-      (info) => info.gender != null && info.gender !== undefined
-    );
-    this.boardService.currentNounTerminaison.currentGender =
-      gender != null && gender !== undefined ? gender.gender : "";
-
-    const num = elementForm.LexicInfos.find(
-      (info) => info.number != null && info.number !== undefined
-    );
-    this.boardService.currentNounTerminaison.currentNumber =
-      num != null && num !== undefined ? num.number : "";
-  }
-
-  /**
-   * if not in edit mode
-   * process the pointerDown event triggered by 'element' and starts the longpress timer
-   * @param element, the element triggering the event
-   * @param num, number of the event triggering the action
-   */
-  pointerDown(element: GridElement, num) {
-    this.press[num] = false;
-    this.press[(num + 1) % 2] = false;
-    this.release[num] = true;
-    if (
-      !this.userToolBarService.edit &&
-      this.release[num] &&
-      !this.release[(num + 1) % 2]
-    ) {
-      if (this.down === 0) {
-        this.pressedElement = element;
-      } else {
-        window.clearTimeout(this.dblClickTimer);
-        if (this.pressedElement !== element && this.pressedElement != null) {
-          this.action(element, "click");
-        }
-      }
-      this.down = this.down + 1;
-      this.setLongPressTimer(element);
+        const num = elementForm.LexicInfos.find(info => info.number != null && info.number !== undefined);
+        this.boardService.currentVerbTerminaison.currentNumber = (num != null && num !== undefined) ? num.number : '';
     }
-  }
 
-  /**
-   * if not in edit mode
-   * process the pointerUp event triggered by 'element' and execute its corresponding normal click function
-   * if the element has not been longpressed yet
-   * @param element, the element triggering the event
-   * @param num, number of the event triggering the action
-   */
-  pointerUp(element: GridElement, num) {
-    this.release[num] = false;
-    this.release[(num + 1) % 2] = false;
-    this.press[num] = true;
-    if (
-      !this.userToolBarService.edit &&
-      this.press[num] &&
-      !this.press[(num + 1) % 2]
-    ) {
-      window.clearTimeout(this.pressTimer);
-      window.clearTimeout(this.dblClickTimer);
-      if (this.down === 1) {
-        if (this.pressedElement === element) {
-          this.setClickTimer(element);
-        } else {
-          this.down = 0;
-          this.pressedElement = null;
-        }
-      } else if (this.down > 1) {
-        if (this.pressedElement === element) {
-          this.action(element, "doubleClick");
-          this.pressedElement = null;
-          this.down = 0;
-        } else if (this.pressedElement != null) {
-          this.down = 1;
-          this.pressedElement = element;
-          this.setClickTimer(element);
-        }
-      }
+    /**
+     * update the current gender and number information for noun (and adj) terminations
+     * @param elementForm, an list of element forms
+     */
+    changeArticleInfo(elementForm: ElementForm) {
+        const gender = elementForm.LexicInfos.find(info => info.gender != null && info.gender !== undefined);
+        this.boardService.currentNounTerminaison.currentGender = (gender != null && gender !== undefined) ? gender.gender : '';
+
+        const num = elementForm.LexicInfos.find(info => info.number != null && info.number !== undefined);
+        this.boardService.currentNounTerminaison.currentNumber = (num != null && num !== undefined) ? num.number : '';
     }
-  }
 
-  setClickTimer(element) {
-    this.dblClickTimer = window.setTimeout(() => {
-      this.action(element, "click");
-      this.pressedElement = null;
-      this.down = 0;
-    }, this.parametersService.doubleClickTimeOut);
-  }
 
-  setLongPressTimer(element) {
-    this.pressTimer = window.setTimeout(() => {
-      this.action(element, "longPress");
-      this.pressedElement = null;
-      this.down = 0;
-    }, this.parametersService.longpressTimeOut);
-  }
+    /**
+     * if not in edit mode
+     * process the pointerDown event triggered by 'element' and starts the longpress timer
+     * @param element, the element triggering the event
+     * @param num, number of the event triggering the action
+     */
+    pointerDown(element: GridElement, num) {
+        this.press[num] = false;
+        this.press[(num + 1) % 2] = false;
+        this.release[num] = true;
+        if (!this.userToolBarService.edit && this.release[num] && !this.release[(num + 1) % 2]) {
+            if (this.down === 0) {
+                this.pressedElement = element;
+            } else {
+                window.clearTimeout(this.dblClickTimer);
+                if (this.pressedElement !== element && this.pressedElement != null) {
+                    this.action(element, 'click');
+                }
+            }
+            this.down = this.down + 1;
+            this.setLongPressTimer(element);
+        }
+    }
 
-  /**
-   * return the copy of the given 'intaractions' list
-   * @param interactions, an interaction list
-   * @return the copied interaction List
-   */
-  copyInteractions(
-    interactions: { InteractionID: string; ActionList: Action[] }[]
-  ) {
-    const tempInter = [];
-    interactions.forEach((inter) => {
-      const tempAction = [];
-      inter.ActionList.forEach((act) => {
-        tempAction.push({ ActionId: act.ID, Action: act.Action });
-      });
-      tempInter.push({
-        InteractionID: inter.InteractionID,
-        ActionList: tempAction,
-      });
-    });
-    return tempInter;
-  }
+    /**
+     * if not in edit mode
+     * process the pointerUp event triggered by 'element' and execute its corresponding normal click function
+     * if the element has not been longpressed yet
+     * @param element, the element triggering the event
+     * @param num, number of the event triggering the action
+     */
+    pointerUp(element: GridElement, num) {
+        this.release[num] = false;
+        this.release[(num + 1) % 2] = false;
+        this.press[num] = true;
+        if (!this.userToolBarService.edit && this.press[num] && !this.press[(num + 1) % 2]) {
+            window.clearTimeout(this.pressTimer);
+            window.clearTimeout(this.dblClickTimer);
+            if (this.down === 1) {
+                if (this.pressedElement === element) {
+                    this.setClickTimer(element);
+                } else {
+                    this.down = 0;
+                    this.pressedElement = null;
+                }
+
+            } else if (this.down > 1) {
+                if (this.pressedElement === element) {
+                    this.action(element, 'doubleClick');
+                    this.pressedElement = null;
+                    this.down = 0;
+                } else if (this.pressedElement != null) {
+                    this.down = 1;
+                    this.pressedElement = element;
+                    this.setClickTimer(element);
+                }
+            }
+        }
+    }
+
+    setClickTimer(element) {
+        this.dblClickTimer = window.setTimeout(() => {
+            this.action(element, 'click');
+            this.pressedElement = null;
+            this.down = 0;
+        }, this.parametersService.doubleClickTimeOut);
+    }
+
+    setLongPressTimer(element) {
+        this.pressTimer = window.setTimeout(() => {
+            this.action(element, 'longPress');
+            this.pressedElement = null;
+            this.down = 0;
+        }, this.parametersService.longpressTimeOut);
+    }
+
+    /**
+     * return the copy of the given 'intaractions' list
+     * @param interactions, an interaction list
+     * @return the copied interaction List
+     */
+    copyInteractions(interactions: { InteractionID: string, ActionList: Action[] }[]) {
+        const tempInter = [];
+        interactions.forEach(inter => {
+            const tempAction = [];
+            inter.ActionList.forEach(act => {
+                tempAction.push({ActionId: act.ID, Action: act.Action});
+            });
+            tempInter.push({InteractionID: inter.InteractionID, ActionList: tempAction});
+        });
+        return tempInter;
+    }
 
   action(element: GridElement, interaction: string) {
     if (
@@ -441,31 +414,28 @@ export class KeyboardComponent implements OnInit {
         // for errors
       } else {
         console.error(element.Type);
-        console.error(
-          "ElementType : " +
-            element.Type +
-            ' is not supported (supported ElementTypes are "button" or "folder")'
-        );
+        console.error('ElementType : ' + element.Type + ' is not supported (supported ElementTypes are "button" or "folder")');
       }
     }
   }
 
-  /**
-   * if we are in edit mode
-   * set the information of the element we want to modify with the current 'element' informations
-   * open the edition panel to modify the information of element 'element'
-   * @param element, the Element we want to edit
-   */
-  edit(element: GridElement) {
-    if (this.userToolBarService.edit) {
-      this.router.navigate(["/edit"]).then(() => {
-        this.editionService.clearEditionPane();
-        this.editionService.selectedElements.push(element);
-        this.editionService.ElementListener.next(element);
-        this.editionService.add = false;
-      });
+    /**
+     * if we are in edit mode
+     * set the information of the element we want to modify with the current 'element' informations
+     * open the edition panel to modify the information of element 'element'
+     * @param element, the Element we want to edit
+     */
+    edit(element: GridElement) {
+        if (this.userToolBarService.edit) {
+            this.router.navigate(['/edit']).then(() => {
+                    this.editionService.clearEditionPane();
+                    this.editionService.selectedElements.push(element);
+                    this.editionService.ElementListener.next(element);
+                    this.editionService.add = false;
+                }
+            );
+        }
     }
-  }
 
   addNewElement() {
     this.editionService.add = true;
@@ -508,64 +478,46 @@ export class KeyboardComponent implements OnInit {
     }
   }
 
-  /**
-   * compute the right opacity value for a given element
-   * @return a string corresponding to the opacity value of the element
-   * @param element, the element we compute the opacity
-   */
-  getOpacity(element: GridElement) {
-    const visible: boolean = this.isVisible(element);
-    return !this.userToolBarService.babble
-      ? this.userToolBarService.edit && !visible
-        ? "0.5"
-        : "1"
-      : visible
-      ? "1"
-      : this.userToolBarService.edit
-      ? "0.3"
-      : "0";
-  }
-
-  /**
-   * compute the right cursor value for a given element
-   * @return a string corresponding to the cursor value for the element
-   * @param element, the element we compute the cursor used when hover it
-   */
-  getCursor(element: GridElement) {
-    if (element.ID === "#disable") {
-      return "default";
-    } else if (
-      !this.userToolBarService.babble ||
-      this.isVisible(element) ||
-      this.userToolBarService.edit
-    ) {
-      return "pointer";
-    } else {
-      return "default";
+    /**
+     * compute the right opacity value for a given element
+     * @return a string corresponding to the opacity value of the element
+     * @param element, the element we compute the opacity
+     */
+    getOpacity(element: GridElement) {
+        const visible: boolean = this.isVisible(element);
+        return !this.userToolBarService.babble ?
+            (this.userToolBarService.edit && !visible ? '0.5' : '1') :
+            (visible ? '1' : this.userToolBarService.edit ? '0.3' : '0');
     }
-  }
 
-  /**
-   * if we are in edit mode
-   * open th edition panel in order to edit the selected elements
-   */
-  editAll() {
-    if (
-      this.userToolBarService.edit &&
-      this.editionService.selectedElements.length === 1
-    ) {
-      this.edit(this.editionService.selectedElements[0]);
-    } else if (
-      this.userToolBarService.edit &&
-      this.editionService.selectedElements.length > 1
-    ) {
-      this.router
-        .navigate(["/edit"])
-        .then(() => (this.editionService.add = false));
-    } else {
-      // do nothing
+    /**
+     * compute the right cursor value for a given element
+     * @return a string corresponding to the cursor value for the element
+     * @param element, the element we compute the cursor used when hover it
+     */
+    getCursor(element: GridElement) {
+        if (element.ID === '#disable') {
+            return 'default';
+        } else if ((!this.userToolBarService.babble) || this.isVisible(element) || (this.userToolBarService.edit)) {
+            return 'pointer';
+        } else {
+            return 'default';
+        }
     }
-  }
+
+    /**
+     * if we are in edit mode
+     * open th edition panel in order to edit the selected elements
+     */
+    editAll() {
+        if (this.userToolBarService.edit && this.editionService.selectedElements.length === 1) {
+            this.edit(this.editionService.selectedElements[0]);
+        } else if (this.userToolBarService.edit && this.editionService.selectedElements.length > 1) {
+            this.router.navigate(['/edit']).then(() => this.editionService.add = false);
+        } else {
+            // do nothing
+        }
+    }
 
   /**
    * if we are in edit mode

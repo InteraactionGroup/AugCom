@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
-import { Board } from "../data/ExempleOfBoard";
-import { GridElement, ElementForm, Grid } from "../types";
-import { DomSanitizer } from "@angular/platform-browser";
-import { EditionService } from "./edition.service";
-import { Ng2ImgMaxService } from "ng2-img-max";
+import {Injectable} from '@angular/core';
+import {Board} from '../data/ExempleOfBoard';
+import {GridElement, ElementForm, Grid} from '../types';
+import {DomSanitizer} from '@angular/platform-browser';
+import {EditionService} from './edition.service';
+import {Ng2ImgMaxService} from 'ng2-img-max';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class BoardService {
   constructor(
@@ -19,20 +19,14 @@ export class BoardService {
   }
 
   /*background url value for grid background image*/
-  background: any = "";
+  background: any = '';
 
   board: Grid;
-  currentPath = "#HOME";
+  currentPath = '#HOME';
 
   /*the current forms that verb and noun have to use to conjugate*/
-  currentVerbTerminaison: { currentPerson: string; currentNumber: string } = {
-    currentPerson: "",
-    currentNumber: "",
-  };
-  currentNounTerminaison: { currentGender: string; currentNumber: string } = {
-    currentGender: "",
-    currentNumber: "",
-  };
+  currentVerbTerminaison: { currentPerson: string, currentNumber: string } = {currentPerson: '', currentNumber: ''};
+  currentNounTerminaison: { currentGender: string, currentNumber: string } = {currentGender: '', currentNumber: ''};
 
   /*element that is displaying its alternative forms*/
   activatedElement = -1;
@@ -45,35 +39,35 @@ export class BoardService {
   elementList = [];
 
   getCurrentFolder() {
-    let path = this.currentPath.split(".");
-    if (path != null) {
-      return path[path.length - 1];
+    let path = this.currentPath.split('.');
+    if (path != null){
+      return path[path.length-1];
     } else {
-      return "#HOME";
+      return '#HOME';
     }
   }
 
   getCurrentTitle() {
-    let path = this.currentPath.split(".");
-    if (path !== null) {
-      let name = "";
+    let path = this.currentPath.split('.');
+    if (path !== null){
+      let name = '';
       let i = 0;
-      if (path.length >= 4) {
-        i = path.length - 3;
-        name = ".../";
+      if(path.length >= 4){
+        i = path.length-3;
+        name = '.../'
       }
-      for (i; i <= path.length - 1; i++) {
+      for(i; i <= path.length-1; i++){
         let id = path[i];
-        let associatedPage = this.board.PageList.find((page) => id === page.ID);
-        if (associatedPage !== null && associatedPage !== undefined) {
-          name = name + associatedPage.Name + "/";
+        let associatedPage = this.board.PageList.find(page => id === page.ID);
+        if(associatedPage !== null && associatedPage !== undefined){
+          name = name + associatedPage.Name + '/';
         } else {
-          name = name + "?/";
+          name = name + '?/';
         }
       }
       return name;
     }
-    return "Accueil";
+    return 'Accueil';
   }
 
   /*reset board with default Board value*/
@@ -108,10 +102,8 @@ export class BoardService {
       }
     }
 
-    if (element.PartOfSpeech === "-nom-" || element.PartOfSpeech === "-adj-") {
-      const nounElement = element.ElementFormsList.find((elt) =>
-        this.checkNounForms(elt)
-      );
+    if (element.PartOfSpeech === '-nom-' || element.PartOfSpeech === '-adj-') {
+      const nounElement = element.ElementFormsList.find(elt => this.checkNounForms(elt));
       if (nounElement != null) {
         return nounElement.DisplayedText;
       }
@@ -125,16 +117,14 @@ export class BoardService {
    * @return return the default label of the element
    */
   getDefaultLabel(element: GridElement) {
-    const defaultElement = element.ElementFormsList.find((elt) =>
-      this.checkDefault(elt)
-    );
+    const defaultElement = element.ElementFormsList.find(elt => this.checkDefault(elt));
     if (defaultElement != null) {
       return defaultElement.DisplayedText;
     } else {
       if (element.ElementFormsList.length > 0) {
         return element.ElementFormsList[0].DisplayedText;
       } else {
-        return "";
+        return '';
       }
     }
   }
@@ -173,26 +163,18 @@ export class BoardService {
    * @return true if elt gender and number information correspond to current gender and number of current Noun Termination
    */
   checkNounForms(elt: ElementForm): boolean {
-    let gender =
-      this.currentNounTerminaison.currentGender === "" ||
-      elt.LexicInfos.find(
-        (info) => info.gender != null && info.gender !== undefined
-      ) === undefined;
+    let gender = this.currentNounTerminaison.currentGender === '' ||
+      elt.LexicInfos.find(info => info.gender != null && info.gender !== undefined) === undefined;
     let n = false;
-    elt.LexicInfos.forEach((info) => {
-      if (
-        !gender &&
-        info.gender != null &&
-        info.gender === this.currentNounTerminaison.currentGender
-      ) {
+    elt.LexicInfos.forEach(info => {
+      if (!gender && info.gender != null
+        && info.gender === this.currentNounTerminaison.currentGender) {
+
         gender = true;
       }
 
-      if (
-        !n &&
-        info.number != null &&
-        info.number === this.currentNounTerminaison.currentNumber
-      ) {
+      if (!n && info.number != null
+        && info.number === this.currentNounTerminaison.currentNumber) {
         n = true;
       }
     });
@@ -259,21 +241,16 @@ export class BoardService {
       }
     });
 
-    let currentPage = this.board.PageList.find((page) => {
-      return page.ID === this.getCurrentFolder();
+    let currentPage = this.board.PageList.find(page => {
+      return page.ID === this.getCurrentFolder()
     });
 
-    if (currentPage !== null && currentPage !== undefined) {
-      currentPage.ElementIDsList = currentPage.ElementIDsList.filter((elt) => {
-        return (
-          this.editionService.sentencedToBeDeletedElement.findIndex(
-            (sentenced) => {
-              return sentenced.ID === elt;
-            }
-          ) === -1
-        );
-      });
+    if(currentPage !== null && currentPage !== undefined){
+      currentPage.ElementIDsList = currentPage.ElementIDsList.filter(elt => {
+        return this.editionService.sentencedToBeDeletedElement.findIndex( sentenced => {return sentenced.ID === elt}) === -1
+      })
     }
+
 
     this.board.ImageList = imageTemp;
     this.editionService.sentencedToBeDeletedElement = [];
@@ -282,59 +259,55 @@ export class BoardService {
   /*get sanitized image URL of an element*/
   getImgUrl(element: GridElement) {
     if (this.board.ImageList != null) {
-      if (element.ElementFormsList.length > 0) {
-        const path = this.board.ImageList.find(
-          (x) => x.ID === element.ElementFormsList[0].ImageID
-        );
+      if(element.ElementFormsList.length > 0) {
+        const path = this.board.ImageList.find(x => x.ID === element.ElementFormsList[0].ImageID);
         if (path !== null && path !== undefined) {
           const s = path.Path;
-          if (s.replace(/ /g, "") === "") {
-            return "";
+          if(s.replace( / /g ,'')===''){
+            return '';
           }
-          return this.sanitizer.bypassSecurityTrustStyle("url(" + s + ")");
+          return this.sanitizer.bypassSecurityTrustStyle('url(' + s + ')');
         } else {
-          return "";
+          return '';
         }
       } else {
-        return "";
+        return '';
       }
     } else {
-      return "";
+      return '';
     }
   }
 
   /*get normal image URL of an element (with no sanitizing)*/
   getSimpleImgUrl(element: GridElement) {
     if (this.board.ImageList != null) {
-      const path = this.board.ImageList.find(
-        (x) => x.ID === element.ElementFormsList[0].ImageID
-      );
+      const path = this.board.ImageList.find(x => x.ID === element.ElementFormsList[0].ImageID);
       if (path !== null && path !== undefined) {
         const s = path.Path;
-        if (s.replace(/ /g, "") === "") {
-          return "";
+        if(s.replace(/ /g, '') === ''){
+          return '';
         }
-        return "url(" + s + ")";
+        return 'url(' + s + ')';
       } else {
-        return "";
+        return '';
       }
     } else {
-      return "";
+      return '';
     }
   }
 
   /*go back to parent folder*/
   backToPreviousFolder() {
-    const path = this.currentPath.split(".");
-    let temp = "#HOME";
+    const path = this.currentPath.split('.');
+    let temp = '#HOME';
 
     const newPath = path.slice(1, path.length - 1);
-    newPath.forEach((value) => {
-      temp = temp + "." + value;
+    newPath.forEach(value => {
+      temp = temp + '.' + value;
     });
 
-    if (temp === "") {
-      temp = "#HOME";
+    if (temp === '') {
+      temp = '#HOME';
     }
 
     this.currentPath = temp;
@@ -364,19 +337,17 @@ export class BoardService {
    * depending on the current rows and columns values
    * @return a list of elements to display in the keyboard
    */
-  getNormalTempList() {
-    let currentPage = this.board.PageList.find((page) => {
-      return page.ID === this.getCurrentFolder();
+  getNormalTempList(): GridElement[]{
+    let currentPage = this.board.PageList.find(page => {
+      return page.ID === this.getCurrentFolder()
     });
 
     let tempList = [];
     if (currentPage !== null && currentPage !== undefined) {
       for (let i = 0; i < currentPage.ElementIDsList.length; i++) {
-        tempList.push(
-          this.board.ElementList.find((elt) => {
-            return elt.ID === currentPage.ElementIDsList[i];
-          })
-        );
+        tempList.push(this.board.ElementList.find(elt => {
+          return elt.ID === currentPage.ElementIDsList[i];
+        }));
       }
     }
     return tempList;
@@ -390,159 +361,91 @@ export class BoardService {
   activatedElementTempList() {
     this.fakeElementTempList = [];
     this.board.ImageList.push({
-      ID: "#back",
-      OriginalName: "#back",
-      Path: "assets/icons/retour.svg",
+      ID: '#back',
+      OriginalName: '#back',
+      Path: 'assets/icons/retour.svg'
     });
 
     const temporaryElementList: GridElement[] = [];
-    this.getNormalTempList().forEach((e) =>
-      temporaryElementList.push(this.copy(e))
-    );
+   // this.getNormalTempList().forEach(e => temporaryElementList.push(this.copy(e)));
     const index = this.activatedElement;
-    const max: number = Number(
-      Number(index) + 1 + Number(this.board.NumberOfCols) + 1
-    );
-    for (
-      let newElementIndex = Number(temporaryElementList.length);
-      newElementIndex < max;
-      newElementIndex = newElementIndex + 1
-    ) {
-      // fill with empty elements
-      temporaryElementList.push(
-        new GridElement(
-          "#disable",
-          "button",
-          "",
-          "transparent", // to delete later
-          "transparent", // to delete later
-          0,
-          [],
-          []
-        )
-      );
-    }
 
     let indexOfForm = 0;
-    const compElt = temporaryElementList[index];
-    let places = this.createPlaces(index);
+    const compElt = this.copy(this.getNormalTempList()[index]);
+    temporaryElementList.push( compElt);
+    let places = this.createPlaces(compElt.x, compElt.y, compElt.cols, compElt.rows);
     places = places.slice(0, compElt.ElementFormsList.length);
-    temporaryElementList.forEach((elt) => {
-      const tempIndex = temporaryElementList.indexOf(elt);
-      if (places.includes(tempIndex)) {
+    compElt.ElementFormsList.forEach(eltform => {
         if (compElt.ElementFormsList.length > indexOfForm) {
-          elt.ID = compElt.ID;
-          elt.Color = compElt.Color;
-          elt.BorderColor = compElt.BorderColor;
-          elt.Type = "button";
-          elt.ElementFormsList = [];
-          elt.VisibilityLevel = 0;
-          elt.PartOfSpeech = "" + compElt.PartOfSpeech;
-          elt.ElementFormsList.push({
-            DisplayedText: compElt.ElementFormsList[indexOfForm].DisplayedText,
-            VoiceText: compElt.ElementFormsList[indexOfForm].VoiceText,
-            LexicInfos: compElt.ElementFormsList[indexOfForm].LexicInfos,
-            ImageID: "" + compElt.ElementFormsList[indexOfForm].ImageID,
-          });
-          elt.InteractionsList = temporaryElementList[
-            index
-          ].InteractionsList.slice();
-          elt.InteractionsList.push({ ID: "backFromVariant", ActionList: [] });
+          let elt: GridElement = {
+            ID : compElt.ID,
+          Color : compElt.Color,
+          BorderColor : compElt.BorderColor,
+          Type : 'button',
+          VisibilityLevel : 0,
+          PartOfSpeech : '' + compElt.PartOfSpeech,
+          ElementFormsList :
+            [{
+              DisplayedText: eltform.DisplayedText,
+              VoiceText: eltform.VoiceText,
+              LexicInfos: eltform.LexicInfos,
+              ImageID: '' + eltform.ImageID
+            }],
+          InteractionsList : compElt.InteractionsList.slice(),
+          x : 0,
+          y : 0,
+            cols: 1,
+            rows: 1
+        };
+          if(places.length>indexOfForm){
+          elt.x = places[indexOfForm].x;
+            elt.y = places[indexOfForm].y;
+          }
+            elt.InteractionsList.push({ID: 'backFromVariant', ActionList: []});
+        temporaryElementList.push(this.copy(elt));
           indexOfForm = indexOfForm + 1;
         }
-      } else if (tempIndex !== index) {
-        elt.ID = "#disable";
-        elt.InteractionsList = [];
-      }
     });
 
-    temporaryElementList[index].Color = "#123548";
-    temporaryElementList[index].PartOfSpeech = "";
-    temporaryElementList[index].InteractionsList = [
-      { ID: "backFromVariant", ActionList: [] },
-    ];
-    temporaryElementList[index].ElementFormsList = [
-      {
-        DisplayedText: "back",
-        VoiceText: "back",
-        LexicInfos: [],
-        ImageID: "#back",
-      },
-    ];
+    compElt.Color = '#123548';
+    compElt.PartOfSpeech = '';
+    compElt.InteractionsList = [{ID: 'backFromVariant', ActionList: []}];
+    compElt.ElementFormsList = [{
+      DisplayedText: 'back',
+      VoiceText: 'back',
+      LexicInfos: [],
+      ImageID: '#back'
+    }];
+
 
     this.fakeElementTempList = temporaryElementList;
   }
 
+
   /**
    * return the available neighbor index of an element identified by index 'ind'
-   * @param ind, index of an element
+   * @param x
+   * @param y
    */
-  createPlaces(ind: number) {
-    const index: number = Number(ind);
+  createPlaces(x:number, y:number, cols:number, rows:number): {x:number, y:number}[] {
     const slider: number = Number(this.board.NumberOfCols);
     let places = [];
-
-    if (Math.trunc((index - 1) / slider) === Math.trunc(index / slider)) {
-      // gauche
-      places.push(index - 1);
+    for(let row = 0 ; row < rows + 2; row++){
+      let tempCoupleLeft = {x:x-1, y:0};
+      let tempCoupleRight = {x:x+cols, y:0};
+      tempCoupleLeft.y = y-1+row;
+      tempCoupleRight.y = y-1+row;
+      places.push(tempCoupleLeft);
+      places.push(tempCoupleRight);
     }
-    if (Math.trunc((index + 1) / slider) === Math.trunc(index / slider)) {
-      // droite
-      places.push(index + 1);
+    for(let col = 0; col < cols; col++){
+      let tempCoupleTop = {x:0, y:y-1};
+      let tempCoupleBottom = {x:0, y:y+rows};
+      tempCoupleTop.x = x+col;
+      tempCoupleBottom.x = x+col;
+      places.push(tempCoupleTop);
+      places.push(tempCoupleBottom);
     }
-
-    if (
-      Math.trunc((index - slider) / slider) ===
-      Math.trunc(index / slider) - 1
-    ) {
-      // haut
-      places.push(index - slider);
-    }
-
-    if (
-      Math.trunc((index - slider - 1) / slider) ===
-      Math.trunc(index / slider) - 1
-    ) {
-      // haut gauche
-      places.push(index - slider - 1);
-    }
-
-    if (
-      Math.trunc((index - slider + 1) / slider) ===
-      Math.trunc(index / slider) - 1
-    ) {
-      // haut droite
-      places.push(index - slider + 1);
-    }
-
-    if (
-      Math.trunc((index + slider) / slider) ===
-      Math.trunc(index / slider) + 1
-    ) {
-      // bas
-      places.push(index + slider);
-    }
-
-    if (
-      Math.trunc((index + slider - 1) / slider) ===
-      Math.trunc(index / slider) + 1
-    ) {
-      // bas gauche
-      places.push(index + slider - 1);
-    }
-
-    if (
-      Math.trunc((index + slider + 1) / slider) ===
-      Math.trunc(index / slider) + 1
-    ) {
-      // bas droite
-      places.push(index + slider + 1);
-    }
-
-    places = places.filter((val) => {
-      return val >= 0;
-    });
-
     return places;
   }
 
@@ -552,13 +455,21 @@ export class BoardService {
    * @return the copied element
    */
   copy(element: GridElement): GridElement {
+    console.log(element.ID + " " + element.x + " " + element.y);
     return {
+      BorderColor: element.BorderColor,
+      VisibilityLevel: element.VisibilityLevel,
       ID: element.ID,
       PartOfSpeech: element.PartOfSpeech,
       Type: element.Type,
       ElementFormsList: element.ElementFormsList.copyWithin(0, 0),
       InteractionsList: element.InteractionsList.copyWithin(0, 0),
       Color: element.Color,
-    } as GridElement;
+      x: element.x,
+      y: element.y,
+      cols: element.cols,
+      rows: element.rows
+    };
   }
+
 }

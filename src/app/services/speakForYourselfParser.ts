@@ -70,7 +70,9 @@ export class SpeakForYourselfParser {
         BorderColor: 'black',
         VisibilityLevel: 0,
         x:0,
-        y:0
+        y:0,
+        rows: 1,
+        cols: 1
       });
     });
 

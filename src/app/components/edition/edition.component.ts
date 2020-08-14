@@ -211,7 +211,9 @@ export class EditionComponent implements OnInit {
         BorderColor: this.editionService.curentBorderColor,
         VisibilityLevel: 0,
         x:0,
-        y:0
+        y:0,
+        cols: 1,
+        rows: 1
       });
 
     this.boardService.board.ImageList.push(

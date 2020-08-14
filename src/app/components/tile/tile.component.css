@@ -20,7 +20,8 @@
   min-height: 1cm;
   min-width: 1cm;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 5px);
+  margin-top: 5px;
   visibility: hidden;
 }
 
