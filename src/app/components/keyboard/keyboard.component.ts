@@ -1,159 +1,152 @@
-import {Component, OnInit} from '@angular/core';
-import {HistoricService} from '../../services/historic.service';
-import {EditionService} from '../../services/edition.service';
-import {BoardService} from '../../services/board.service';
-import {Action, GridElement, ElementForm, Vignette, FolderGoTo, Interaction} from '../../types';
-import {GeticonService} from '../../services/geticon.service';
-import {UsertoolbarService} from '../../services/usertoolbar.service';
-import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {ParametersService} from '../../services/parameters.service';
-import {Router} from '@angular/router';
-import {DragulaService} from 'ng2-dragula';
-import {Subscription} from 'rxjs';
-import {PaletteService} from '../../services/palette.service';
-import {SearchService} from '../../services/search.service';
-import {Ng2ImgMaxService} from "ng2-img-max";
+import { Component, OnInit, OnChanges } from "@angular/core";
+import { HistoricService } from "../../services/historic.service";
+import { EditionService } from "../../services/edition.service";
+import { BoardService } from "../../services/board.service";
+import {
+  Action,
+  GridElement,
+  ElementForm,
+  Vignette,
+  FolderGoTo,
+  Interaction,
+} from "../../types";
+import { GeticonService } from "../../services/geticon.service";
+import { UsertoolbarService } from "../../services/usertoolbar.service";
+import { IndexeddbaccessService } from "../../services/indexeddbaccess.service";
+import { ParametersService } from "../../services/parameters.service";
+import { Router } from "@angular/router";
+import { Subscription } from "rxjs";
+import { PaletteService } from "../../services/palette.service";
+import { SearchService } from "../../services/search.service";
+import { Ng2ImgMaxService } from "ng2-img-max";
+import { LayoutService } from "src/app/services/layout.service";
 
 @Component({
     selector: 'app-keyboard',
     templateUrl: './keyboard.component.html',
     styleUrls: ['./keyboard.component.css'],
-    providers: [DragulaService, Ng2ImgMaxService]
+    providers: [Ng2ImgMaxService]
 })
 export class KeyboardComponent implements OnInit {
+  /**
+   * the current pressTimer started when pressing an element and ending on release
+   */
+  pressTimer;
+  dblClickTimer;
 
-    /**
-     * the current pressTimer started when pressing an element and ending on release
-     */
-    pressTimer;
-    dblClickTimer;
-
-    /**
-     * element currently pressed
-     */
-    pressedElement: GridElement = null;
-    down = 0;
-
-    /**
-     * the current pressed element
-     */
-    dragulaSubscription = new Subscription();
+  /**
+   * element currently pressed
+   */
+  pressedElement: GridElement = null;
+  down = 0;
 
     press = [false, false];
     release = [false, false];
 
-    // tslint:disable-next-line:max-line-length
-    constructor(public dragulaService: DragulaService, public searchService: SearchService, private paletteService: PaletteService, private router: Router, public parametersService: ParametersService, public indexeddbaccessService: IndexeddbaccessService, public userToolBarService: UsertoolbarService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService, public editionService: EditionService) {
-        this.dragulaSubscription.add(this.dragulaService.drop('VAMPIRE')
-            .subscribe(({el, target, source, sibling}) => {
-                const temp = this.boardService.board.ElementList;
+  /**
+   * cols and rows of grid
+   */
+  cols: number;
+  rows: number;
 
-                const i1 = temp.findIndex(elt => elt.ID === el.id);
-                let i2 = temp.findIndex(elt => elt.ID === sibling.id);
+  // tslint:disable-next-line:max-line-length
+  constructor(
+    public searchService: SearchService,
+    private paletteService: PaletteService,
+    private router: Router,
+    public parametersService: ParametersService,
+    public indexeddbaccessService: IndexeddbaccessService,
+    public userToolBarService: UsertoolbarService,
+    public getIconService: GeticonService,
+    public boardService: BoardService,
+    public historicService: HistoricService,
+    public editionService: EditionService,
+    public layoutService: LayoutService
+  ) {
+    this.cols = this.layoutService.options.minCols;
+    this.rows = this.layoutService.options.minRows;
+  }
 
-                // unfortunately dagula is not really adapted to grid display:
-                // when we drag an element on an element after the draged one its ok ->
-                // but we drag it before it returns the element just after the sibling we want <-
-                i2 = (i1 < i2) ? (i2 - 1) : i2;
-
-                // also here if the element we drop on is the last element then findIndex will return -1
-                i2 = i2 >= 0 ? i2 : i2 + this.boardService.board.ElementList.length;
-
-                [temp[i2], temp[i1]] =
-                    [temp[i1], temp[i2]];
-                this.boardService.board.ElementList = temp;
-            })
-        );
-
+  onKeyCols(event: any) {
+    if (+event.target.value >= 1) {
+      this.cols = +event.target.value;
+      this.layoutService.setCols(this.cols);
     }
+  }
 
-    /**
-     * execute the indexeddbaccessService init fucntion to get the information of the DB or to create new entries if there is no info
-     */
-    ngOnInit() {
-      this.boardService.updateElementList();
-      this.initDragAndDrop();
+  onKeyRows(event: any) {
+    if (+event.target.value >= 1) {
+      this.rows = +event.target.value;
+      this.layoutService.setRows(this.rows);
     }
+  }
+  /**
+   * execute the indexeddbaccessService init fucntion to get the information of the DB or to create new entries if there is no info
+   */
+  ngOnInit() {
+    this.boardService.updateElementList();
+  }
 
-    /**
-     * Return true if the element is part of the search result
-     *
-     * @param  element, the element to test
-     * @return  true or false, depending if the element corresponds to the search result
-     */
-    isSearched(element: GridElement) {
-        return this.searchService.searchedPath.includes(element);
-    }
+  /**
+   * Return true if the element is part of the search result
+   *
+   * @param  element, the element to test
+   * @return  true or false, depending if the element corresponds to the search result
+   */
+  isSearched(element: GridElement) {
+    return this.searchService.searchedPath.includes(element);
+  }
 
-    searchStarted() {
-        return this.searchService.searchedPath.length > 0;
-    }
+  searchStarted() {
+    return this.searchService.searchedPath.length > 0;
+  }
 
+  /**
+   * used in edition mode in order to select all elements to edit
+   *
+   */
+  selectAll() {
+    this.editionService.selectAllElementsOf(
+      this.boardService.board.ElementList
+    );
+  }
 
-    /**
-     * Init the dragula Drag n Drop part
-     *
-     */
-    initDragAndDrop() {
-        if (!this.parametersService.dragNDropinit) {
-            this.dragulaService.createGroup('VAMPIRE', {
-                moves: (el, container, handle) => {
-                    return !el.classList.contains('no-drag');
-                },
-                accepts: (el, target, source, sibling) => {
-                    if (el.classList.contains('no-drag')) {
-                        return false;
-                    }
-                    return sibling !== null;
-                }
+  /**
+   * open the popup for the future element deletion
+   *
+   * @param  element, the element to delete
+   */
+  delete(element: GridElement) {
+    this.userToolBarService.popup = true;
+    this.editionService.delete(element);
+  }
 
-            });
-            this.parametersService.dragNDropinit = true;
-        }
-    }
+  /**
+   * used in edition mode in order to select a specific element
+   *
+   * @param  element, the element to select
+   */
+  select(element: GridElement) {
+    this.editionService.select(element);
+  }
 
-    /**
-     * used in edition mode in order to select all elements to edit
-     *
-     */
-    selectAll() {
-        this.editionService.selectAllElementsOf(this.boardService.board.ElementList);
-    }
+  /**
+   * Return the string corresponding to the value of a box-shadow css effect, used for create folder design effect
+   *
+   * @param  element, the element for which the shadow is beeing returned
+   * @return  the string corresponding to the box-shadow effect
+   */
+  getShadow(element: GridElement) {
+    let isFolder = (<FolderGoTo>element.Type).GoTo !== undefined;
 
-    /**
-     * open the popup for the future element deletion
-     *
-     * @param  element, the element to delete
-     */
-    delete(element: GridElement) {
-        this.userToolBarService.popup = true;
-        this.editionService.delete(element);
-    }
-
-    /**
-     * used in edition mode in order to select a specific element
-     *
-     * @param  element, the element to select
-     */
-    select(element: GridElement) {
-        this.editionService.select(element);
-    }
-
-    /**
-     * Return the string corresponding to the value of a box-shadow css effect, used for create folder design effect
-     *
-     * @param  element, the element for which the shadow is beeing returned
-     * @return  the string corresponding to the box-shadow effect
-     */
-    getShadow(element: GridElement) {
-
-    let isFolder = (<FolderGoTo> element.Type).GoTo !== undefined;
-
-    let s = (isFolder ? '3px ' : '0px ') +
-      (isFolder ? '-3px ' : '0px ') +
-      '0px ' +
-      (isFolder ? '-2px ' : '0px ')
-      + (element.Color === undefined || element.Color == null ? '#d3d3d3' : element.Color);
+    let s =
+      (isFolder ? "3px " : "0px ") +
+      (isFolder ? "-3px " : "0px ") +
+      "0px " +
+      (isFolder ? "-2px " : "0px ") +
+      (element.Color === undefined || element.Color == null
+        ? "#d3d3d3"
+        : element.Color);
 
     s = s + ' , ' +
       (isFolder ? '4px ' : '0px ') +
@@ -280,70 +273,90 @@ export class KeyboardComponent implements OnInit {
         return tempInter;
     }
 
+  action(element: GridElement, interaction: string) {
+    if (
+      element.Type !== "empty" &&
+      !(
+        !this.userToolBarService.edit &&
+        element.VisibilityLevel !== 0 &&
+        this.userToolBarService.babble
+      )
+    ) {
+      // for button
+      if (element.Type === "button") {
+        const prononcedText = this.boardService.getLabel(element);
+        const color = element.Color;
+        const borderColor = element.BorderColor;
+        const imgUrl = this.boardService.getImgUrl(element);
+        const vignette: Vignette = {
+          Label: prononcedText,
+          ImagePath: imgUrl,
+          Color: color,
+          BorderColor: borderColor,
+        };
+        let otherFormsDisplayed = false;
 
-    action(element: GridElement, interaction: string) {
-        if (element.Type !== 'empty' && !(!this.userToolBarService.edit && element.VisibilityLevel !== 0 && this.userToolBarService.babble)) {
+        // Depend on the interaction
+        element.InteractionsList.forEach((inter) => {
+          if (inter.ID === interaction) {
+            inter.ActionList.forEach((action) => {
+              if (action.ID === "pronomChangeInfo") {
+                this.changePronomInfo(element.ElementFormsList[0]);
+              } else if (action.ID === "display") {
+                this.historicService.push(vignette);
+              } else if (action.ID === "say") {
+                this.historicService.say("" + prononcedText);
+              } else if (
+                action.ID === "otherforms" &&
+                element.ElementFormsList.length > 1
+              ) {
+                otherFormsDisplayed = true;
+                this.boardService.activatedElement = this.boardService
+                  .getNormalTempList()
+                  .indexOf(element);
+                this.boardService.activatedElementTempList();
+                this.pressedElement = null;
+              }
+            });
+          } else if (!otherFormsDisplayed && inter.ID === "backFromVariant") {
+            this.boardService.activatedElement = -1;
+          }
+        });
 
-            // for button
-            if (element.Type === 'button') {
-
-                const prononcedText = this.boardService.getLabel(element);
-                const color = element.Color;
-                const borderColor = element.BorderColor;
-                const imgUrl = this.boardService.getImgUrl(element);
-                const vignette: Vignette = {
-                    Label: prononcedText,
-                    ImagePath: imgUrl,
-                    Color: color,
-                    BorderColor: borderColor
-                };
-                let otherFormsDisplayed = false;
-
-                // Depend on the interaction
-                element.InteractionsList.forEach(inter => {
-                    if (inter.ID === interaction) {
-                        inter.ActionList.forEach(action => {
-                            if (action.ID === 'pronomChangeInfo') {
-                                this.changePronomInfo(element.ElementFormsList[0]);
-                            } else if (action.ID === 'display') {
-                                this.historicService.push(vignette);
-                            } else if (action.ID === 'say') {
-                                this.historicService.say('' + prononcedText);
-                            } else if (action.ID === 'otherforms' && element.ElementFormsList.length > 1) {
-                                otherFormsDisplayed = true;
-                                this.boardService.activatedElement = this.boardService.getNormalTempList().indexOf(element);
-                                this.boardService.activatedElementTempList();
-                                this.pressedElement = null;
-                            }
-                        });
-                    } else if (!otherFormsDisplayed && inter.ID === 'backFromVariant') {
-                        this.boardService.activatedElement = -1;
-                    }
-                });
-
-                // Always executed
-                if (element.PartOfSpeech != null) {
-                    if (element.PartOfSpeech === ('article défini')) {
-                        this.changeArticleInfo(element.ElementFormsList[0]);
-                    } else if (element.PartOfSpeech === '-verb-') {
-                        this.boardService.resetVerbTerminaisons();
-                    } else if (element.PartOfSpeech === '-nom-') {
-                        this.changePronomInfo(element.ElementFormsList.find(eltF => (eltF.DisplayedText === this.boardService.getLabel(element))));
-                    }
-                }
+        // Always executed
+        if (element.PartOfSpeech != null) {
+          if (element.PartOfSpeech === "article défini") {
+            this.changeArticleInfo(element.ElementFormsList[0]);
+          } else if (element.PartOfSpeech === "-verb-") {
+            this.boardService.resetVerbTerminaisons();
+          } else if (element.PartOfSpeech === "-nom-") {
+            this.changePronomInfo(
+              element.ElementFormsList.find(
+                (eltF) =>
+                  eltF.DisplayedText === this.boardService.getLabel(element)
+              )
+            );
+          }
+        }
 
         // for folder
-      } else if ((<FolderGoTo> element.Type).GoTo !== undefined) {
-        let pathTab = this.boardService.currentPath.split('.');
+      } else if ((<FolderGoTo>element.Type).GoTo !== undefined) {
+        let pathTab = this.boardService.currentPath.split(".");
         if (pathTab.length >= 2) {
           if (pathTab[pathTab.length - 2] === (<FolderGoTo>element.Type).GoTo) {
             pathTab = pathTab.slice(0, length - 1);
-            this.boardService.currentPath = pathTab.join('.');
+            this.boardService.currentPath = pathTab.join(".");
           } else {
-            this.boardService.currentPath = this.boardService.currentPath + '.' + (<FolderGoTo> element.Type).GoTo;
+            this.boardService.currentPath =
+              this.boardService.currentPath +
+              "." +
+              (<FolderGoTo>element.Type).GoTo;
           }
-        }else {
-          this.boardService.currentPath = this.boardService.currentPath + '.' + (<FolderGoTo> element.Type).GoTo;
+        } else {
+          this.boardService.currentPath =
+            this.boardService.currentPath +
+            "." +
+            (<FolderGoTo>element.Type).GoTo;
         }
         this.boardService.updateElementList();
         // for errors
@@ -372,37 +385,46 @@ export class KeyboardComponent implements OnInit {
         }
     }
 
-    addNewElement() {
-        this.editionService.add = true;
-        this.editionService.clearEditionPane();
-        this.editionService.interractionList = [
-        {ID: 'click', ActionList: [ {ID: 'display', Action: 'display'},{ID: 'say', Action: 'say'}]},
-        {ID: 'longPress', ActionList: [{ID: 'otherforms', Action: 'otherforms'}]}
-      ];
-    }
+  addNewElement() {
+    this.editionService.add = true;
+    this.editionService.clearEditionPane();
+    this.editionService.interractionList = [
+      {
+        ID: "click",
+        ActionList: [
+          { ID: "display", Action: "display" },
+          { ID: "say", Action: "say" },
+        ],
+      },
+      {
+        ID: "longPress",
+        ActionList: [{ ID: "otherforms", Action: "otherforms" }],
+      },
+    ];
+  }
 
-    /**
-     * check if the current element is visible on the board
-     * @param element, the element to check
-     */
-    isVisible(element: GridElement) {
-        if (element.VisibilityLevel === undefined) {
-            element.VisibilityLevel = 0;
-        }
-        return element.VisibilityLevel === 0;
+  /**
+   * check if the current element is visible on the board
+   * @param element, the element to check
+   */
+  isVisible(element: GridElement) {
+    if (element.VisibilityLevel === undefined) {
+      element.VisibilityLevel = 0;
     }
+    return element.VisibilityLevel === 0;
+  }
 
-    /**
-     * change the current element visibility
-     * @param element, the element to change the visibility
-     */
-    changeVisibility(element: GridElement) {
-        if (element.VisibilityLevel === undefined) {
-            element.VisibilityLevel = 1;
-        } else {
-            element.VisibilityLevel = (element.VisibilityLevel + 1) % 2;
-        }
+  /**
+   * change the current element visibility
+   * @param element, the element to change the visibility
+   */
+  changeVisibility(element: GridElement) {
+    if (element.VisibilityLevel === undefined) {
+      element.VisibilityLevel = 1;
+    } else {
+      element.VisibilityLevel = (element.VisibilityLevel + 1) % 2;
     }
+  }
 
     /**
      * compute the right opacity value for a given element
@@ -445,26 +467,25 @@ export class KeyboardComponent implements OnInit {
         }
     }
 
-    /**
-     * if we are in edit mode
-     * set the information of the element we want to modify with the current 'element' informations
-     * open the edition panel to modify the information of element 'element'
-     */
-    deleteAll() {
-        if (this.userToolBarService.edit) {
-            this.editionService.selectedElements.forEach(elt => {
-                this.delete(elt);
-            });
-        }
+  /**
+   * if we are in edit mode
+   * set the information of the element we want to modify with the current 'element' informations
+   * open the edition panel to modify the information of element 'element'
+   */
+  deleteAll() {
+    if (this.userToolBarService.edit) {
+      this.editionService.selectedElements.forEach((elt) => {
+        this.delete(elt);
+      });
     }
+  }
 
-    /**
-     * return the icon url corresponding to the string s
-     * @param s, the string identifying the icon
-     * @return the icon url
-     */
-    getIcon(s: string) {
-        return this.getIconService.getIconUrl(s);
-    }
-
+  /**
+   * return the icon url corresponding to the string s
+   * @param s, the string identifying the icon
+   * @return the icon url
+   */
+  getIcon(s: string) {
+    return this.getIconService.getIconUrl(s);
+  }
 }

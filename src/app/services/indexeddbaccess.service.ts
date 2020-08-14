@@ -99,14 +99,14 @@ export class IndexeddbaccessService {
 
   createPaletteObject(db,transaction){
     db.createObjectStore('Palette', {autoIncrement: true});
-    console.log('palette loaded');
+    // console.log('palette loaded');
     const paletteStore =transaction.objectStore('Palette');
     paletteStore.add(this.paletteService.palettes);
   }
 
   createGridObject(db,transaction){
     db.createObjectStore('Grid', {autoIncrement: true});
-    console.log('save loaded');
+    // console.log('save loaded');
     const gridStore = transaction.objectStore('Grid');
     gridStore.add(this.boardService.board);
   }

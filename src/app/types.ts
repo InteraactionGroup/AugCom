@@ -41,13 +41,17 @@ export class GridElement {
   Color: string; // to delete later
   BorderColor: string; // to delete later
   VisibilityLevel: number;
+  x: number;
+  y: number;
+  cols: number;
+  rows: number;
 
   ElementFormsList: ElementForm[];
   InteractionsList: Interaction[];
 
 
   constructor(elementId: string, elementType , elementPartOfSpeech: string,
-              color: string, borderColor: string, visibilityLevel , elementsForms: ElementForm[], interactionList: Interaction[]) {
+              color: string, borderColor: string, visibilityLevel , elementsForms: ElementForm[], interactionList: Interaction[] ) {
 
     this.ID = elementId;
     this.Type = elementType;
@@ -57,6 +61,10 @@ export class GridElement {
     this.VisibilityLevel = visibilityLevel;
     this.ElementFormsList = elementsForms;
     this.InteractionsList = interactionList;
+    this.y = 0;
+    this.x = 0;
+    this.rows =1;
+    this.cols = 1;
   }
 }
 

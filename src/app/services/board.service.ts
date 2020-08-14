@@ -9,9 +9,11 @@ import {Ng2ImgMaxService} from 'ng2-img-max';
   providedIn: 'root',
 })
 export class BoardService {
-
-  constructor(public ng2ImgMaxService: Ng2ImgMaxService, public editionService: EditionService,
-              public sanitizer: DomSanitizer) {
+  constructor(
+    public ng2ImgMaxService: Ng2ImgMaxService,
+    public editionService: EditionService,
+    public sanitizer: DomSanitizer
+  ) {
     this.board = Board;
     this.updateElementList();
   }
@@ -77,10 +79,10 @@ export class BoardService {
   /*change background image of the grid*/
   updateBackground(file) {
     const reader = new FileReader();
-    this.ng2ImgMaxService.resize([file[0]], 1000, 1000).subscribe(result => {
+    this.ng2ImgMaxService.resize([file[0]], 1000, 1000).subscribe((result) => {
       reader.readAsDataURL(result);
       reader.onload = () => {
-        this.background = 'url(' + reader.result + ')';
+        this.background = "url(" + reader.result + ")";
       };
     });
   }
@@ -91,9 +93,10 @@ export class BoardService {
    * @return return the current label of the element
    */
   getLabel(element: GridElement) {
-
-    if (element.PartOfSpeech === '-verb-') {
-      const verbElement = element.ElementFormsList.find(elt => this.checkVerbForms(elt));
+    if (element.PartOfSpeech === "-verb-") {
+      const verbElement = element.ElementFormsList.find((elt) =>
+        this.checkVerbForms(elt)
+      );
       if (verbElement != null) {
         return verbElement.DisplayedText;
       }
@@ -134,14 +137,20 @@ export class BoardService {
   checkVerbForms(elt: ElementForm): boolean {
     let person = false;
     let n = false;
-    elt.LexicInfos.forEach(info => {
-      if (!person && info.person != null
-        && info.person === this.currentVerbTerminaison.currentPerson) {
+    elt.LexicInfos.forEach((info) => {
+      if (
+        !person &&
+        info.person != null &&
+        info.person === this.currentVerbTerminaison.currentPerson
+      ) {
         person = true;
       }
 
-      if (!n && info.number != null
-        && info.number === this.currentVerbTerminaison.currentNumber) {
+      if (
+        !n &&
+        info.number != null &&
+        info.number === this.currentVerbTerminaison.currentNumber
+      ) {
         n = true;
       }
     });
@@ -179,9 +188,8 @@ export class BoardService {
    */
   checkDefault(elt: ElementForm): boolean {
     let defaultVal = false;
-    elt.LexicInfos.forEach(info => {
-      if (info.default != null
-        && info.default === true) {
+    elt.LexicInfos.forEach((info) => {
+      if (info.default != null && info.default === true) {
         defaultVal = true;
       }
     });
@@ -191,12 +199,12 @@ export class BoardService {
   /*reset default end of word*/
   resetTerminaisons() {
     this.resetVerbTerminaisons();
-    this.currentNounTerminaison = {currentGender: '', currentNumber: ''};
+    this.currentNounTerminaison = { currentGender: "", currentNumber: "" };
   }
 
   /*reset default end of word for verbs*/
   resetVerbTerminaisons() {
-    this.currentVerbTerminaison = {currentPerson: '', currentNumber: ''};
+    this.currentVerbTerminaison = { currentPerson: "", currentNumber: "" };
   }
 
   /*delete the element that is sentenced to death*/
@@ -214,16 +222,20 @@ export class BoardService {
     //   }
     // );
 
-    this.board.ElementList = this.board.ElementList.filter(x => {
+    this.board.ElementList = this.board.ElementList.filter((x) => {
       let isCondamned = false;
-      this.editionService.sentencedToBeDeletedElement.forEach(condamnedElt => {
-        isCondamned = isCondamned || x === condamnedElt;
-      });
+      this.editionService.sentencedToBeDeletedElement.forEach(
+        (condamnedElt) => {
+          isCondamned = isCondamned || x === condamnedElt;
+        }
+      );
       return !isCondamned;
     });
 
-    this.board.ElementList.forEach(elt => {
-      const res = this.board.ImageList.find(img => img.ID === elt.ElementFormsList[0].ImageID);
+    this.board.ElementList.forEach((elt) => {
+      const res = this.board.ImageList.find(
+        (img) => img.ID === elt.ElementFormsList[0].ImageID
+      );
       if (res !== null && res !== undefined) {
         imageTemp.push(res);
       }
@@ -242,7 +254,6 @@ export class BoardService {
 
     this.board.ImageList = imageTemp;
     this.editionService.sentencedToBeDeletedElement = [];
-
   }
 
   /*get sanitized image URL of an element*/
@@ -326,7 +337,7 @@ export class BoardService {
    * depending on the current rows and columns values
    * @return a list of elements to display in the keyboard
    */
-  getNormalTempList() {
+  getNormalTempList(): GridElement[]{
     let currentPage = this.board.PageList.find(page => {
       return page.ID === this.getCurrentFolder()
     });
@@ -356,57 +367,50 @@ export class BoardService {
     });
 
     const temporaryElementList: GridElement[] = [];
-    this.getNormalTempList().forEach(e => temporaryElementList.push(this.copy(e)));
+   // this.getNormalTempList().forEach(e => temporaryElementList.push(this.copy(e)));
     const index = this.activatedElement;
-    const max: number = Number(Number(index) + 1 + Number(this.board.NumberOfCols) + 1);
-    for (let newElementIndex = Number(temporaryElementList.length); newElementIndex < max; newElementIndex = newElementIndex + 1) { // fill with empty elements
-      temporaryElementList.push(new GridElement(
-        '#disable',
-        'button',
-        '',
-        'transparent', // to delete later
-        'transparent', // to delete later
-        0,
-        [],
-        []));
-    }
 
     let indexOfForm = 0;
-    const compElt = temporaryElementList[index];
-    let places = this.createPlaces(index);
+    const compElt = this.copy(this.getNormalTempList()[index]);
+    temporaryElementList.push( compElt);
+    let places = this.createPlaces(compElt.x, compElt.y, compElt.cols, compElt.rows);
     places = places.slice(0, compElt.ElementFormsList.length);
-    temporaryElementList.forEach(elt => {
-      const tempIndex = temporaryElementList.indexOf(elt);
-      if (places.includes(tempIndex)) {
+    compElt.ElementFormsList.forEach(eltform => {
         if (compElt.ElementFormsList.length > indexOfForm) {
-          elt.ID = compElt.ID;
-          elt.Color = compElt.Color;
-          elt.BorderColor = compElt.BorderColor;
-          elt.Type = 'button';
-          elt.ElementFormsList = [];
-          elt.VisibilityLevel = 0;
-          elt.PartOfSpeech = '' + compElt.PartOfSpeech;
-          elt.ElementFormsList.push(
-            {
-              DisplayedText: compElt.ElementFormsList[indexOfForm].DisplayedText,
-              VoiceText: compElt.ElementFormsList[indexOfForm].VoiceText,
-              LexicInfos: compElt.ElementFormsList[indexOfForm].LexicInfos,
-              ImageID: '' + compElt.ElementFormsList[indexOfForm].ImageID
-            });
-          elt.InteractionsList = temporaryElementList[index].InteractionsList.slice();
-          elt.InteractionsList.push({ID: 'backFromVariant', ActionList: []});
+          let elt: GridElement = {
+            ID : compElt.ID,
+          Color : compElt.Color,
+          BorderColor : compElt.BorderColor,
+          Type : 'button',
+          VisibilityLevel : 0,
+          PartOfSpeech : '' + compElt.PartOfSpeech,
+          ElementFormsList :
+            [{
+              DisplayedText: eltform.DisplayedText,
+              VoiceText: eltform.VoiceText,
+              LexicInfos: eltform.LexicInfos,
+              ImageID: '' + eltform.ImageID
+            }],
+          InteractionsList : compElt.InteractionsList.slice(),
+          x : 0,
+          y : 0,
+            cols: 1,
+            rows: 1
+        };
+          if(places.length>indexOfForm){
+          elt.x = places[indexOfForm].x;
+            elt.y = places[indexOfForm].y;
+          }
+            elt.InteractionsList.push({ID: 'backFromVariant', ActionList: []});
+        temporaryElementList.push(this.copy(elt));
           indexOfForm = indexOfForm + 1;
         }
-      } else if (tempIndex !== index) {
-        elt.ID = '#disable';
-        elt.InteractionsList = [];
-      }
     });
 
-    temporaryElementList[index].Color = '#123548';
-    temporaryElementList[index].PartOfSpeech = '';
-    temporaryElementList[index].InteractionsList = [{ID: 'backFromVariant', ActionList: []}];
-    temporaryElementList[index].ElementFormsList = [{
+    compElt.Color = '#123548';
+    compElt.PartOfSpeech = '';
+    compElt.InteractionsList = [{ID: 'backFromVariant', ActionList: []}];
+    compElt.ElementFormsList = [{
       DisplayedText: 'back',
       VoiceText: 'back',
       LexicInfos: [],
@@ -420,48 +424,28 @@ export class BoardService {
 
   /**
    * return the available neighbor index of an element identified by index 'ind'
-   * @param ind, index of an element
+   * @param x
+   * @param y
    */
-  createPlaces(ind: number) {
-    const index: number = Number(ind);
+  createPlaces(x:number, y:number, cols:number, rows:number): {x:number, y:number}[] {
     const slider: number = Number(this.board.NumberOfCols);
     let places = [];
-
-    if (Math.trunc((index - 1) / slider) === Math.trunc(index / slider)) { // gauche
-      places.push(index - 1);
+    for(let row = 0 ; row < rows + 2; row++){
+      let tempCoupleLeft = {x:x-1, y:0};
+      let tempCoupleRight = {x:x+cols, y:0};
+      tempCoupleLeft.y = y-1+row;
+      tempCoupleRight.y = y-1+row;
+      places.push(tempCoupleLeft);
+      places.push(tempCoupleRight);
     }
-    if (Math.trunc((index + 1) / slider) === Math.trunc(index / slider)) { // droite
-      places.push(index + 1);
+    for(let col = 0; col < cols; col++){
+      let tempCoupleTop = {x:0, y:y-1};
+      let tempCoupleBottom = {x:0, y:y+rows};
+      tempCoupleTop.x = x+col;
+      tempCoupleBottom.x = x+col;
+      places.push(tempCoupleTop);
+      places.push(tempCoupleBottom);
     }
-
-    if (Math.trunc((index - slider) / slider) === Math.trunc(index / slider) - 1) { // haut
-      places.push(index - slider);
-    }
-
-    if (Math.trunc((index - slider - 1) / slider) === Math.trunc(index / slider) - 1) { // haut gauche
-      places.push(index - slider - 1);
-    }
-
-    if (Math.trunc((index - slider + 1) / slider) === Math.trunc(index / slider) - 1) { // haut droite
-      places.push(index - slider + 1);
-    }
-
-    if (Math.trunc((index + slider) / slider) === Math.trunc(index / slider) + 1) { // bas
-      places.push(index + slider);
-    }
-
-    if (Math.trunc((index + slider - 1) / slider) === Math.trunc(index / slider) + 1) { // bas gauche
-      places.push(index + slider - 1);
-    }
-
-    if (Math.trunc((index + slider + 1) / slider) === Math.trunc(index / slider) + 1) { // bas droite
-      places.push(index + slider + 1);
-    }
-
-    places = places.filter(val => {
-      return val >= 0
-    });
-
     return places;
   }
 
@@ -471,14 +455,21 @@ export class BoardService {
    * @return the copied element
    */
   copy(element: GridElement): GridElement {
+    console.log(element.ID + " " + element.x + " " + element.y);
     return {
+      BorderColor: element.BorderColor,
+      VisibilityLevel: element.VisibilityLevel,
       ID: element.ID,
       PartOfSpeech: element.PartOfSpeech,
       Type: element.Type,
       ElementFormsList: element.ElementFormsList.copyWithin(0, 0),
       InteractionsList: element.InteractionsList.copyWithin(0, 0),
-      Color: element.Color
-    } as GridElement;
+      Color: element.Color,
+      x: element.x,
+      y: element.y,
+      cols: element.cols,
+      rows: element.rows
+    };
   }
 
 }

@@ -9,7 +9,6 @@ export class ParametersService {
   doubleClickTimeOut = 200;
   interactionIDs = ['click', 'longPress', 'doubleClick'];
   currentVoice = '@';
-  dragNDropinit = false;
 
   languagesAvailaibles: SpeechSynthesisVoice[];
 
