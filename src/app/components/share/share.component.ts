@@ -36,7 +36,7 @@ export class ShareComponent implements OnInit {
     public proloquoParser: ProloquoParser,
     public jsonValidator: JsonValidatorService,
     private layoutService: LayoutService,
-    private multilinguism: MultilinguismService) {
+    public multilinguism: MultilinguismService) {
   }
   ngOnInit() {}
 

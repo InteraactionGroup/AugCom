@@ -31,14 +31,12 @@ describe('SettingsComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     const longPressInput = compiled.querySelector('#longPressTime');
     expect(longPressInput).not.toBe(null);
-    expect(longPressInput.parentElement.textContent).toContain('longPress value:');
   });
 
   it('should contain input for doubleClick', () => {
     const compiled = fixture.debugElement.nativeElement;
     const doubleClickInput = compiled.querySelector('#doubleClickTime');
     expect(doubleClickInput).not.toBe(null);
-    expect(doubleClickInput.parentElement.textContent).toContain('doubleClick value:');
   });
 
 });

@@ -31,8 +31,8 @@ describe('InformationEditionPageComponent', () => {
 
   it('should display right labels', () => {
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelectorAll('.label').item(0).textContent).toContain("Nom de l'élément:");
-    expect(compiled.querySelectorAll('.label').item(1).textContent).toContain("Type d'élément :");
+    expect(compiled.querySelectorAll('.label').item(0).textContent).toContain(component.multilinguism.translate('elementName'));
+    expect(compiled.querySelectorAll('.label').item(1).textContent).toContain(component.multilinguism.translate('elementType'));
   });
 
 

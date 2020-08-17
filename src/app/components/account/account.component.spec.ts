@@ -52,111 +52,111 @@ describe('AccountComponent', () => {
 
   it('should contain proper title', () => {
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.menu-title-container').firstChild.textContent).toContain('Paramètres');
+    expect(compiled.querySelector('.menu-title-container').firstChild.textContent).toContain(component.multilinguism.translate("settings"));
   });
 
   it('should contain proper titles in menu', () => {
     const compiled = fixture.debugElement.nativeElement;
     const menuString = compiled.querySelector('.menu-item-title-container').parentElement.parentElement.parentElement.textContent;
     component.menu.forEach(submenu => {
-      expect(menuString).toContain(submenu[0]);
+      expect(menuString).toContain(component.multilinguism.translate(submenu[0]));
       submenu[1].forEach(item => {
-        expect(menuString).toContain(item);
+        expect(menuString).toContain(component.multilinguism.translate(item));
       })
     });
   });
 
   it('should display app-saves when Gestion des sauvegardes is selected', () => {
     const compiled = fixture.debugElement.nativeElement;
-    component.selectSubMenu('Compte', 'Gestion des sauvegardes');
+    component.selectSubMenu('account', 'saveManagement');
     fixture.detectChanges();
     expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled,'app-saves');
   });
 
   it('should display app-language when Langue is selected', () => {
     const compiled = fixture.debugElement.nativeElement;
-    component.selectSubMenu('Langue', '');
+    component.selectSubMenu('language', '');
     fixture.detectChanges();
     expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled,'app-language');
   });
 
   it('should display app-palettes when Gestion des palettes is selected', () => {
     const compiled = fixture.debugElement.nativeElement;
-    component.selectSubMenu('Apparence', 'Gestion des palettes');
+    component.selectSubMenu('appearance', 'paletteManagement');
     fixture.detectChanges();
     expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled,'app-palettes');
   });
 
   it('should display app-share when Partager is selected', () => {
     const compiled = fixture.debugElement.nativeElement;
-    component.selectSubMenu('Partager', '');
+    component.selectSubMenu('share', '');
     fixture.detectChanges();
     expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled,'app-share');
   });
 
   it('should display app-settings when Paramètres is selected', () => {
     const compiled = fixture.debugElement.nativeElement;
-    component.selectSubMenu('Paramètres', '');
+    component.selectSubMenu('settings', '');
     fixture.detectChanges();
     expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled,'app-settings');
   });
 
   it('should display app-saves when Gestion des sauvegardes is clicked', () => {
     const compiled = fixture.debugElement.nativeElement;
-    clickElementOf(compiled, fixture, '.menu-item-title-container', 'Compte');
-    clickElementOf(compiled, fixture, '.sub-menu-item-title-container', 'Gestion des sauvegardes');
+    clickElementOf(compiled, fixture, '.menu-item-title-container', component.multilinguism.translate("account"));
+    clickElementOf(compiled, fixture, '.sub-menu-item-title-container', component.multilinguism.translate("saveManagement"));
     expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled,'app-saves');
   });
 
   it('should display app-language when Langue is clicked', () => {
     const compiled = fixture.debugElement.nativeElement;
-    clickElementOf(compiled, fixture, '.menu-item-title-container', 'Langue');
+    clickElementOf(compiled, fixture, '.menu-item-title-container', component.multilinguism.translate("language"));
     expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled,'app-language');
   });
 
   it('should display app-palettes when Gestion des palettes is clicked', () => {
     const compiled = fixture.debugElement.nativeElement;
-    clickElementOf(compiled, fixture, '.menu-item-title-container', 'Apparence');
-    clickElementOf(compiled, fixture, '.sub-menu-item-title-container', 'Gestion des palettes');
+    clickElementOf(compiled, fixture, '.menu-item-title-container', component.multilinguism.translate("appearance"));
+    clickElementOf(compiled, fixture, '.sub-menu-item-title-container', component.multilinguism.translate("paletteManagement"));
     expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled,'app-palettes');
   });
 
   it('should display app-share when Partager is clicked', () => {
     const compiled = fixture.debugElement.nativeElement;
-    clickElementOf(compiled, fixture, '.menu-item-title-container', 'Partager');
+    clickElementOf(compiled, fixture, '.menu-item-title-container', component.multilinguism.translate("share"));
     expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled,'app-share');
   });
 
   it('should display app-settings when Paramètres is clicked', () => {
     const compiled = fixture.debugElement.nativeElement;
-    clickElementOf(compiled, fixture, '.menu-item-title-container', 'Paramètres');
+    clickElementOf(compiled, fixture, '.menu-item-title-container', component.multilinguism.translate("settings"));
     expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled,'app-settings');
   });
 
   it('should select good menu empty submenu for a menu having no submenu', () => {
-    component.selectMenu('Langue');
-    expect(component.selectedMenu).toEqual('Langue');
+    component.selectMenu('language');
+    expect(component.selectedMenu).toEqual("language");
     expect(component.selectedSubMenu).toEqual('');
   });
 
   it('should select good menu and first submenu for a menu having submenus', () => {
-    component.selectMenu('Compte');
-    expect(component.selectedMenu).toEqual('Compte');
-    expect(component.selectedSubMenu).toEqual('Informations du compte');
+    component.selectMenu('account');
+    expect(component.selectedMenu).toEqual("account");
+    expect(component.selectedSubMenu).toEqual('accountInfo');
   });
 
   it('should select good menu and first submenu for a click on a menu having no submenu', () => {
     const compiled = fixture.debugElement.nativeElement;
-    clickElementOf(compiled, fixture, '.menu-item-title-container', 'Langue');
-    expect(component.selectedMenu).toEqual('Langue');
+    clickElementOf(compiled, fixture, '.menu-item-title-container', component.multilinguism.translate("language"));
+    expect(component.selectedMenu).toEqual("language");
     expect(component.selectedSubMenu).toEqual('');
   });
 
   it('should select good menu and first submenu for a click on a menu having submenus', () => {
     const compiled = fixture.debugElement.nativeElement;
-    clickElementOf(compiled, fixture, '.menu-item-title-container', 'Compte');
-    expect(component.selectedMenu).toEqual('Compte');
-    expect(component.selectedSubMenu).toEqual('Informations du compte');
+    clickElementOf(compiled, fixture, '.menu-item-title-container', component.multilinguism.translate("account"));
+    expect(component.selectedMenu).toEqual("account");
+    expect(component.selectedSubMenu).toEqual("accountInfo");
   });
 
 });

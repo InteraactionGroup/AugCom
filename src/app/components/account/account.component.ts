@@ -25,7 +25,7 @@ export class AccountComponent implements OnInit {
   selectedMenu = 'complementaryInfo';
   selectedSubMenu = 'contacts';
 
-  constructor(private multilinguism: MultilinguismService, public getIconService: GeticonService, public indexeddbaccessService: IndexeddbaccessService) {
+  constructor(public multilinguism: MultilinguismService, public getIconService: GeticonService, public indexeddbaccessService: IndexeddbaccessService) {
   }
 
   ngOnInit() {
