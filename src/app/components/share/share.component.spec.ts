@@ -37,12 +37,12 @@ describe('ShareComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     const allListElements = compiled.querySelectorAll('.listElement');
     expect(allListElements.length).toEqual(6);
-    expect(allListElements[0].textContent).toContain('Import Save');
-    expect(allListElements[1].textContent).toContain('Import Zip');
-    expect(allListElements[2].textContent).toContain('Export Save');
-    expect(allListElements[3].textContent).toContain('Export to PDF');
-    expect(allListElements[4].textContent).toContain('Import SPEAK4YOURSELF');
-    expect(allListElements[5].textContent).toContain('Import Proloquo');
+    expect(allListElements[0].textContent).toContain(component.multilinguism.translate('importSave'));
+    expect(allListElements[1].textContent).toContain(component.multilinguism.translate('importZip'));
+    expect(allListElements[2].textContent).toContain(component.multilinguism.translate('exportSave'));
+    expect(allListElements[3].textContent).toContain(component.multilinguism.translate('exportPDF'));
+    expect(allListElements[4].textContent).toContain(component.multilinguism.translate('importS4Y'));
+    expect(allListElements[5].textContent).toContain(component.multilinguism.translate('importProloquo'));
   });
 
 });

@@ -6,7 +6,7 @@
         <div class="image floatLeft haveBackgroundImage" [style.background-image]="this.getIcon('import')">
         </div>
         <div class="label floatLeft">
-          Import Save
+          {{this.multilinguism.translate("importSave")}}
         </div>
         <div class="inputField floatLeft">
           <input #file type="file" (change)="import(file.files)" onclick="this.value=null">
@@ -17,7 +17,7 @@
         <div class="image floatLeft haveBackgroundImage" [style.background-image]="this.getIcon('import')">
         </div>
         <div class="label floatLeft">
-          Import Zip
+          {{this.multilinguism.translate("importZip")}}
         </div>
         <div class="inputField floatLeft">
           <input #zip type="file" (change)="exploreZip(zip.files)">
@@ -29,7 +29,7 @@
         <div class="image floatLeft haveBackgroundImage" [style.background-image]="this.getIcon('export')">
         </div>
         <div class="label floatLeft">
-          Export Save
+          {{this.multilinguism.translate("exportSave")}}
         </div>
         <div class="inputField floatLeft">
           <input type="button" value="Export" (click)="export()">
@@ -40,7 +40,7 @@
         <div class="image floatLeft haveBackgroundImage" [style.background-image]="this.getIcon('pdf')">
         </div>
         <div class="label floatLeft">
-          Export to PDF
+          {{this.multilinguism.translate("exportPDF")}}
         </div>
         <div class="inputField floatLeft">
           <input type="button" value="Export" (click)="this.printToPDF()">
@@ -52,7 +52,7 @@
         <div class="image floatLeft haveBackgroundImage" [style.background-image]="this.getIcon('pdf')">
         </div>
         <div class="label floatLeft">
-          Import SPEAK4YOURSELF
+          {{this.multilinguism.translate("importS4Y")}}
         </div>
         <div class="inputField floatLeft">
           <input type="button" value="Import" (click)="parseAndCreateSpeak4YourselfGrid()">
@@ -63,7 +63,7 @@
         <div class="image floatLeft haveBackgroundImage" [style.background-image]="this.getIcon('pdf')">
         </div>
         <div class="label floatLeft">
-          Import Proloquo
+          {{this.multilinguism.translate("importProloquo")}}
         </div>
         <div class="inputField floatLeft">
           <input type="button" value="Import" (click)="parseAndCreateProloquoGrid()">

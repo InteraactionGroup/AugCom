@@ -20,6 +20,7 @@ import { PaletteService } from "../../services/palette.service";
 import { SearchService } from "../../services/search.service";
 import { Ng2ImgMaxService } from "ng2-img-max";
 import { LayoutService } from "src/app/services/layout.service";
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
     selector: 'app-keyboard',
@@ -61,7 +62,8 @@ export class KeyboardComponent implements OnInit {
     public boardService: BoardService,
     public historicService: HistoricService,
     public editionService: EditionService,
-    public layoutService: LayoutService
+    public layoutService: LayoutService,
+    public multilinguism: MultilinguismService
   ) {
     this.cols = this.layoutService.options.minCols;
     this.rows = this.layoutService.options.minRows;

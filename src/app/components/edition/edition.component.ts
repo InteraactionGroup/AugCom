@@ -10,6 +10,7 @@ import {PaletteService} from '../../services/palette.service';
 import {EditionService} from '../../services/edition.service';
 import {Ng2ImgMaxService} from "ng2-img-max";
 import {HttpClient} from "@angular/common/http";
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-edition',
@@ -20,7 +21,7 @@ import {HttpClient} from "@angular/common/http";
 export class EditionComponent implements OnInit {
 
   constructor(public editionService: EditionService, public  paletteService: PaletteService,
-              private router: Router,
+              private router: Router, private multilinguism: MultilinguismService,
               public indexedDBacess: IndexeddbaccessService,
               public sanitizer: DomSanitizer, public getIconService: GeticonService,
               public dbnaryService: DbnaryService, public boardService: BoardService) {

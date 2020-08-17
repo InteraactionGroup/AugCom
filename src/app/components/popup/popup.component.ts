@@ -4,6 +4,7 @@ import {BoardService} from '../../services/board.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {EditionService} from '../../services/edition.service';
 import {Ng2ImgMaxService} from "ng2-img-max";
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-popup',
@@ -17,11 +18,10 @@ export class PopupComponent implements OnInit {
   /**
    * strings for the beginning and end of the popup question
    */
-  questionBegin = 'Vous êtes sur le point de supprimer ';
-  questionEnd = 'la suppression ne peut pas être défaite.\n Continuer ?';
 
   constructor(public editionService: EditionService, public indexedDBacess: IndexeddbaccessService,
-              public boardService: BoardService, public userToolBarService: UsertoolbarService) {
+              public boardService: BoardService, public userToolBarService: UsertoolbarService,
+              private multilinguism: MultilinguismService) {
   }
 
   ngOnInit() {
@@ -59,9 +59,9 @@ export class PopupComponent implements OnInit {
    */
   getSentencedToDeleteElementStringValue() {
     if (this.editionService.sentencedToBeDeletedElement.length === 1) {
-      return 'l\'élément: "' + this.boardService.getDefaultLabel(this.editionService.sentencedToBeDeletedElement[0]) + '".\n';
+      return  this.multilinguism.translate("theElement") + ': "' + this.boardService.getDefaultLabel(this.editionService.sentencedToBeDeletedElement[0]) + '".\n';
     } else if (this.editionService.sentencedToBeDeletedElement.length >= 1) {
-      return 'plusieurs éléments. \n';
+      return this.multilinguism.translate("severalElements") + '\n';
     }
   }
 }

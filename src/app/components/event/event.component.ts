@@ -3,6 +3,7 @@ import {EditionService} from "../../services/edition.service";
 import {ParametersService} from "../../services/parameters.service";
 import {GeticonService} from "../../services/geticon.service";
 import {Interaction} from "../../types";
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-event',
@@ -10,7 +11,7 @@ import {Interaction} from "../../types";
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
-  constructor(public getIconService: GeticonService, public parametersService: ParametersService, public editionService: EditionService) {
+  constructor(private multilinguism: MultilinguismService, public getIconService: GeticonService, public parametersService: ParametersService, public editionService: EditionService) {
   }
 
   ngOnInit() {
@@ -36,17 +37,17 @@ export class EventComponent implements OnInit {
   getLabel(codeName: string) {
     switch (codeName) {
       case 'display':
-        return 'ajouter à la phrase';
+        return 'addToSentence';
       case'say':
-        return 'prononcer';
+        return 'pronounce';
       case 'otherforms':
-        return 'afficher les formes alternatives';
+        return 'displayAlternativeForms';
       case 'click' :
         return 'click';
       case'longPress':
-        return 'appui long';
+        return 'longPress';
       case 'doubleClick':
-        return 'double click';
+        return 'dblClick';
     }
 
   }

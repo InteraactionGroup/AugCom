@@ -115,3 +115,7 @@ export class Page {
   Name : string;
   ElementIDsList: string[];
 }
+
+export class Dictionnary {
+  dictionnary : { id: string, FR: string, EN: string }[]
+}

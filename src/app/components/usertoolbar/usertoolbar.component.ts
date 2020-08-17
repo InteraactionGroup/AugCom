@@ -8,13 +8,14 @@ import { SearchService } from "../../services/search.service";
 import { BoardService } from "../../services/board.service";
 import { Ng2ImgMaxService } from "ng2-img-max";
 import { LayoutService } from "../../services/layout.service";
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
-  selector: "app-usertoolbar",
-  templateUrl: "./usertoolbar.component.html",
-  styleUrls: ["./usertoolbar.component.css"],
-  providers: [Ng2ImgMaxService],
-})
+  selector: 'app-usertoolbar',
+  templateUrl: './usertoolbar.component.html',
+  styleUrls: ['./usertoolbar.component.css'],
+  providers: [Ng2ImgMaxService]
+ })
 export class UsertoolbarComponent implements OnInit {
   constructor(
     public boardService: BoardService,
@@ -24,7 +25,8 @@ export class UsertoolbarComponent implements OnInit {
     public indexedDBacess: IndexeddbaccessService,
     public getIconService: GeticonService,
     public userToolBarService: UsertoolbarService,
-    public layoutService: LayoutService
+    public layoutService: LayoutService,
+    private multilinguism: MultilinguismService
   ) {}
 
   /*text to search in the searchBar*/
@@ -36,20 +38,20 @@ export class UsertoolbarComponent implements OnInit {
   /*get size of the searched result under search bar, maximum size reached for 5 results*/
   getResultsHeight(size) {
     if (size >= 5) {
-      return "500%";
+      return '500%';
     } else {
-      return size * 100 + "%";
+      return (size * 100) + '%';
     }
   }
 
   /*get height of each result depending on the size of the bar (TODO we should change it to a fix value)*/
   getResultHeight(size) {
     if (size >= 5) {
-      return "20%";
+      return '20%';
     } else if (size === 0) {
-      return "0";
+      return '0';
     } else {
-      return 100 / size + "%";
+      return (100 / size) + '%';
     }
   }
 
@@ -71,7 +73,7 @@ export class UsertoolbarComponent implements OnInit {
       this.userToolBarService.switchEditValue();
       if (!this.userToolBarService.edit) {
         this.indexedDBacess.update();
-        console.log("info saved");
+        console.log('info saved');
       }
     } else {
       this.snapBarService.snap();
@@ -85,7 +87,7 @@ export class UsertoolbarComponent implements OnInit {
     if (!this.userToolBarService.search) {
       this.searchService.searchedPath = [];
       this.searchService.searchedWords = [];
-      this.searchText = "";
+      this.searchText = '';
     }
   }
 

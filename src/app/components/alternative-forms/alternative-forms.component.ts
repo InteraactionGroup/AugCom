@@ -9,6 +9,7 @@ import {Ng2ImgMaxService} from "ng2-img-max";
 import {DomSanitizer} from "@angular/platform-browser";
 import {ElementForm} from "../../types";
 import {BoardService} from "../../services/board.service";
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-alternative-forms',
@@ -18,7 +19,7 @@ import {BoardService} from "../../services/board.service";
 })
 export class AlternativeFormsComponent implements OnInit {
 
-  constructor(public ng2ImgMaxService: Ng2ImgMaxService, public boardService: BoardService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public editionService: EditionService) {
+  constructor(private multilinguism: MultilinguismService, public ng2ImgMaxService: Ng2ImgMaxService, public boardService: BoardService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public editionService: EditionService) {
   }
 
   ngOnInit() {
@@ -89,11 +90,11 @@ export class AlternativeFormsComponent implements OnInit {
   getTitle( s: string){
     switch(s){
       case 'name':
-        return this.currentMode==='modif'? 'Modifier le mot:': 'Choisir le mot:';
+        return this.currentMode==='modif'? 'modifyWord': 'chooseWord';
       case 'image':
-        return this.currentMode==='modif'? "Modifier l'image:": "Choisir l'image:";
+        return this.currentMode==='modif'? "modifyImage": "chooseImage";
       case 'table':
-        return this.currentMode==='addNew'? "Ajouter une variante du mot manuelement:": "";
+        return this.currentMode==='addNew'? "addWordVariantManually": "";
       default :
           return '';
     }
@@ -101,7 +102,7 @@ export class AlternativeFormsComponent implements OnInit {
 
   select(itemSelected){
     if (this.currentMode !== 'modif' || this.selectedItem !== itemSelected) {
-      this.currentMode = 'modif'
+      this.currentMode = 'modif';
       this.selectedItem = itemSelected;
       this.imageSelectionStarted=false;
       this.elementFormDisplayedWordField = itemSelected.DisplayedText;

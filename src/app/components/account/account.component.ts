@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {GeticonService} from "../../services/geticon.service";
 import {Ng2ImgMaxService} from "ng2-img-max";
 import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-account',
@@ -12,19 +13,19 @@ export class AccountComponent implements OnInit {
 
   /*menu and submenus of the account settings*/
   menu: [string, string[]][] = [
-    ['Compte', ['Informations du compte', 'Gestion des sauvegardes']],
-    ['Apparence', ['Apparence générale', 'Gestion des palettes']],
-    ['Paramètres', []],
-    ['Langue', []],
-    ['Grammaire', []],
-    ['Partager', []],
-    ['Informations complémentaires', ['Actualités', 'Contacts']]
+    ['account', ['accountInfo', 'saveManagement']],
+    ['appearance', ['globalAppearance', 'paletteManagement']],
+    ['settings', []],
+    ['language', []],
+    ['grammar', []],
+    ['share', []],
+    ['complementaryInfo', ['actuality', 'contacts']]
   ];
 
-  selectedMenu = 'Informations complémentaires';
-  selectedSubMenu = 'Contacts';
+  selectedMenu = 'complementaryInfo';
+  selectedSubMenu = 'contacts';
 
-  constructor(public getIconService: GeticonService, public indexeddbaccessService: IndexeddbaccessService) {
+  constructor(public multilinguism: MultilinguismService, public getIconService: GeticonService, public indexeddbaccessService: IndexeddbaccessService) {
   }
 
   ngOnInit() {
@@ -32,19 +33,21 @@ export class AccountComponent implements OnInit {
 
   /*list of menu that are not yet implemented and that are currently displaying the "a venir" page (=soon available)*/
   menuAVenir() {
-    return (this.selectedSubMenu === 'Actualités') ||
-      (this.selectedSubMenu === 'Informations du compte') ||
-      (this.selectedMenu === 'Grammaire') ||
-      (this.selectedSubMenu === 'Apparence générale') ||
-      (this.selectedSubMenu === 'Contacts');
+    return (this.selectedSubMenu === 'actuality') ||
+      (this.selectedSubMenu === 'accountInfo') ||
+      (this.selectedMenu === 'grammar') ||
+      (this.selectedSubMenu === 'globalAppearance') ||
+      (this.selectedSubMenu === 'contacts');
   }
 
   /*get title of the page currently displayed*/
   getMenuPageTitle() {
     if (this.selectedMenu === "") {
-      return "Paramètres"
+      return this.multilinguism.translate("settings")
     } else {
-      return "" + this.selectedMenu + (this.selectedSubMenu !== '' ? (" - " + this.selectedSubMenu) : '');
+      return "" +this.multilinguism.translate( this.selectedMenu) +
+        (this.selectedSubMenu !== '' ?
+          (" - " + this.multilinguism.translate(this.selectedSubMenu)) : '');
     }
   }
 

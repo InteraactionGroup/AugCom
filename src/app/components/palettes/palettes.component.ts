@@ -3,6 +3,7 @@ import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 import {GeticonService} from "../../services/geticon.service";
 import {PaletteService} from "../../services/palette.service";
 import {Ng2ImgMaxService} from "ng2-img-max";
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-palettes',
@@ -13,7 +14,7 @@ export class PalettesComponent implements OnInit {
 
   paletteCodamne = null;
 
-  constructor(public indexeddbaccessService: IndexeddbaccessService, private getIconService: GeticonService, public paletteService: PaletteService) {
+  constructor(private multilinguism: MultilinguismService, public indexeddbaccessService: IndexeddbaccessService, private getIconService: GeticonService, public paletteService: PaletteService) {
   }
 
   ngOnInit() {

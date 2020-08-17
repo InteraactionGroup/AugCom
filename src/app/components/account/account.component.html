@@ -7,7 +7,7 @@
 
         <div class="menu-title-container">
           <div>
-            Paramètres
+            {{this.multilinguism.translate("settings")}}
           </div>
         </div>
 
@@ -18,7 +18,7 @@
                    [class.selected]="selectedMenu===menus[0]"
                    (click)="this.selectMenu(menus[0])">
                 <div>
-                  {{menus[0]}}
+                  {{this.multilinguism.translate(menus[0])}}
                 </div>
               </div>
               <ng-container *ngFor="let submenu of menus[1]">
@@ -29,7 +29,7 @@
                          [class.selected]="selectedSubMenu===submenu && selectedMenu===menus[0]"
                          (click)="this.selectSubMenu(menus[0],submenu)">
                       <div>
-                        {{submenu}}
+                        {{this.multilinguism.translate(submenu)}}
                       </div>
                     </div>
                   </div>
@@ -59,22 +59,22 @@
             <ng-container *ngIf="this.menuAVenir()">
               <app-a-venir></app-a-venir>
             </ng-container>
-            <ng-container *ngIf="selectedSubMenu==='Gestion des sauvegardes'">
+            <ng-container *ngIf="selectedSubMenu==='saveManagement'">
               <app-saves></app-saves>
             </ng-container>
-            <ng-container *ngIf="selectedMenu==='Langue'">
+            <ng-container *ngIf="selectedMenu==='language'">
               <app-language></app-language>
             </ng-container>
-            <ng-container *ngIf="selectedSubMenu==='Gestion des palettes'">
+            <ng-container *ngIf="selectedSubMenu==='paletteManagement'">
               <app-palettes></app-palettes>
             </ng-container>
             <!--            <ng-container *ngIf="selectedSubMenu==='Contacts'">-->
             <!--              <app-contact></app-contact>-->
             <!--            </ng-container>-->
-            <ng-container *ngIf="selectedMenu==='Partager'">
+            <ng-container *ngIf="selectedMenu==='share'">
               <app-share></app-share>
             </ng-container>
-            <ng-container *ngIf="selectedMenu==='Paramètres'">
+            <ng-container *ngIf="selectedMenu==='settings'">
               <app-settings></app-settings>
             </ng-container>
           </div>

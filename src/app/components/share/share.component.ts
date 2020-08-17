@@ -1,26 +1,27 @@
-import { Component, OnInit } from "@angular/core";
-import { BoardService } from "../../services/board.service";
-import { UsertoolbarService } from "../../services/usertoolbar.service";
-import { GeticonService } from "../../services/geticon.service";
-import { saveAs as importedSaveAs } from "file-saver";
-import * as JSZip from "jszip";
-import { Router } from "@angular/router";
-import { PrintService } from "../../services/print.service";
-import { IndexeddbaccessService } from "../../services/indexeddbaccess.service";
-import { SpeakForYourselfParser } from "../../services/speakForYourselfParser";
-import { DbnaryService } from "../../services/dbnary.service";
-import { HttpClient } from "@angular/common/http";
-import { Ng2ImgMaxService } from "ng2-img-max";
-import { FolderGoTo, GridElement } from "../../types";
-import { ProloquoParser } from "../../services/proloquoParser";
-import { JsonValidatorService } from "../../services/json-validator.service";
+import {Component, OnInit} from '@angular/core';
+import {BoardService} from '../../services/board.service';
+import {UsertoolbarService} from '../../services/usertoolbar.service';
+import {GeticonService} from '../../services/geticon.service';
+import {saveAs as importedSaveAs} from 'file-saver';
+import * as JSZip from 'jszip';
+import {Router} from '@angular/router';
+import {PrintService} from '../../services/print.service';
+import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
+import {SpeakForYourselfParser} from '../../services/speakForYourselfParser';
+import {DbnaryService} from '../../services/dbnary.service';
+import {HttpClient} from "@angular/common/http";
+import {Ng2ImgMaxService} from "ng2-img-max";
+import {FolderGoTo, GridElement} from "../../types";
+import {ProloquoParser} from "../../services/proloquoParser";
+import {JsonValidatorService} from "../../services/json-validator.service";
+import {MultilinguismService} from "../../services/multilinguism.service";
 import { LayoutService } from "src/app/services/layout.service";
 
 @Component({
-  selector: "app-share",
-  templateUrl: "./share.component.html",
-  styleUrls: ["./share.component.css"],
-  providers: [HttpClient, Ng2ImgMaxService],
+  selector: 'app-share',
+  templateUrl: './share.component.html',
+  styleUrls: ['./share.component.css'],
+  providers: [HttpClient, Ng2ImgMaxService]
 })
 export class ShareComponent implements OnInit {
   constructor(
@@ -34,9 +35,9 @@ export class ShareComponent implements OnInit {
     public userToolBarService: UsertoolbarService,
     public proloquoParser: ProloquoParser,
     public jsonValidator: JsonValidatorService,
-    private layoutService: LayoutService
-  ) {}
-
+    private layoutService: LayoutService,
+    public multilinguism: MultilinguismService) {
+  }
   ngOnInit() {}
 
   /*open a new tab and display the grid in a "ready to print" format*/

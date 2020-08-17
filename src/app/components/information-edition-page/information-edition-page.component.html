@@ -3,32 +3,32 @@
   <div class="page">
 
     <div class="page-content">
-      <div class="tableTitle"> Modifier les informations:</div>
+      <div class="tableTitle"> {{multilinguism.translate("modifInfo")}}</div>
       <div class="element">
-        <label class="label" for="namefield">Nom de l'élément: </label>
+        <label class="label" for="namefield">{{multilinguism.translate("elementName")}}: </label>
         <input id="namefield" [(ngModel)]="this.editionService.name" class="input width-100"
-               placeholder="Entrez le nom de l'élément"
+               placeholder="{{multilinguism.translate('enterElementName')}}"
                type="text">
 
-        <label class="label" for="typefield">Type d'élément : </label>
+        <label class="label" for="typefield">{{multilinguism.translate("elementType")}} : </label>
         <form id="typefield" class="input width-100">
           <input [(ngModel)]="this.editionService.radioTypeFormat" checked id="radioButton" name="typeFormat"
                  type="radio"
                  value="button">
-          <label class="radio" for="radioButton">Bouton</label>
+          <label class="radio" for="radioButton">{{multilinguism.translate("button")}}</label>
           <input [(ngModel)]="this.editionService.radioTypeFormat" id="radioFolder" name="typeFormat" type="radio"
                  value="folder">
-          <label class="radio" for="radioFolder">Dossier</label>
+          <label class="radio" for="radioFolder">{{multilinguism.translate("folder")}}</label>
 
           <select  class="selectBox" [(ngModel)]="this.editionService.pageLink" *ngIf="this.editionService.radioTypeFormat=='folder'"
                    [ngModelOptions]="{standalone: true}">
-            <option value="@" selected >--choisissez une page--</option>
-            <option value="@NEW@">-créer une nouvelle page-</option>
+            <option value="@" selected >--{{multilinguism.translate("choosePage")}}--</option>
+            <option value="@NEW@">-{{multilinguism.translate("createNewPage")}}-</option>
             <ng-container *ngFor="let p of this.board.board.PageList">
               <option value="{{p.ID}}"> {{p.ID}} </option>
             </ng-container>
           </select>
-          <input type="text" [(ngModel)]="this.editionService.newPage" placeholder="ID de la nouvelle page"
+          <input type="text" [(ngModel)]="this.editionService.newPage" placeholder="{{multilinguism.translate('newPageID')}}"
                  *ngIf="this.editionService.radioTypeFormat=='folder' && this.editionService.pageLink === '@NEW@'"
                  [ngModelOptions]="{standalone: true}" >
 

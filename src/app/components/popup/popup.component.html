@@ -6,7 +6,7 @@
 
     <!-- display the popup question -->
     <div class="popupQuestion centerText">
-      {{this.questionBegin + this.getSentencedToDeleteElementStringValue() + this.questionEnd}}
+      {{this.multilinguism.translate("questionBegin") + this.getSentencedToDeleteElementStringValue() + this.multilinguism.translate("questionEnd")}}
     </div>
 
     <!-- popupButtons to answer the popup question -->
@@ -14,12 +14,12 @@
 
       <!-- answer 'no' to the popup question -->
       <div class="popupChoiceButton floatLeft centerText no" (click)="this.no()">
-        non, annuler
+        {{this.multilinguism.translate("noCancel")}}
       </div>
 
       <!-- answer 'yes' to the popup quesion -->
       <div class="popupChoiceButton floatLeft centerText yes" (click)="this.yes()">
-        oui, supprimer
+        {{this.multilinguism.translate("yesDelete")}}
       </div>
 
     </div>

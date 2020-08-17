@@ -42,7 +42,7 @@
         {{this.paletteService.getNextPaletteName()}}
       </div>
       <div (click)="this.saveNewPalette();" class="ok centerText">
-        Enregistrer
+        {{this.multilinguism.translate("save")}}
       </div>
       <div
         [ngStyle]="{'grid-template-rows': 'repeat(' + this.paletteService.rowNumber(this.paletteService.newTempPalette.colors.length+1) + ',30px)'}"
@@ -80,17 +80,17 @@
   <div *ngIf="this.paletteCodamne != null" class="popup">
     <div class="popupContainer">
       <div class="popupQuestion">
-        Vous êtes sur le point de supprimer une palette, voulez vous continuer ?
+        {{this.multilinguism.translate("paletteQuestion")}}
       </div>
 
       <div class="popupButtons">
 
         <div (click)="this.paletteCodamne = null" class="popupChoiceButton floatLeft no">
-          non, annuler
+          {{this.multilinguism.translate("noCancel")}}
         </div>
 
         <div (click)="this.deletePalette()" class="popupChoiceButton floatLeft yes">
-          oui, supprimer
+          {{this.multilinguism.translate("yesDelete")}}
         </div>
       </div>
 
