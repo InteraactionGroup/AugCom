@@ -18,7 +18,7 @@
                    [class.selected]="selectedMenu===menus[0]"
                    (click)="this.selectMenu(menus[0])">
                 <div>
-                  {{menus[0]}}
+                  {{this.multilinguism.translate(menus[0])}}
                 </div>
               </div>
               <ng-container *ngFor="let submenu of menus[1]">
@@ -29,7 +29,7 @@
                          [class.selected]="selectedSubMenu===submenu && selectedMenu===menus[0]"
                          (click)="this.selectSubMenu(menus[0],submenu)">
                       <div>
-                        {{submenu}}
+                        {{this.multilinguism.translate(submenu)}}
                       </div>
                     </div>
                   </div>

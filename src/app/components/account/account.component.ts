@@ -22,8 +22,8 @@ export class AccountComponent implements OnInit {
     ['complementaryInfo', ['actuality', 'contacts']]
   ];
 
-  selectedMenu = 'Informations complémentaires';
-  selectedSubMenu = 'Contacts';
+  selectedMenu = 'complementaryInfo';
+  selectedSubMenu = 'contacts';
 
   constructor(private multilinguism: MultilinguismService, public getIconService: GeticonService, public indexeddbaccessService: IndexeddbaccessService) {
   }
@@ -43,9 +43,11 @@ export class AccountComponent implements OnInit {
   /*get title of the page currently displayed*/
   getMenuPageTitle() {
     if (this.selectedMenu === "") {
-      return "Paramètres"
+      return this.multilinguism.translate("settings")
     } else {
-      return "" + this.selectedMenu + (this.selectedSubMenu !== '' ? (" - " + this.selectedSubMenu) : '');
+      return "" +this.multilinguism.translate( this.selectedMenu) +
+        (this.selectedSubMenu !== '' ?
+          (" - " + this.multilinguism.translate(this.selectedSubMenu)) : '');
     }
   }
 

@@ -11,7 +11,7 @@ export class MultilinguismService {
     this.dictionnary.dictionnary = multilinguism.dictionnary;
   }
 
-  language: string = 'FR';
+  language: string = 'EN';
   dictionnary : Dictionnary = new Dictionnary();
 
   translate( id: string){

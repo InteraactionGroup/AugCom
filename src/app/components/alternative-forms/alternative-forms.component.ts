@@ -90,11 +90,11 @@ export class AlternativeFormsComponent implements OnInit {
   getTitle( s: string){
     switch(s){
       case 'name':
-        return this.currentMode==='modif'? 'Modifier le mot:': 'Choisir le mot:';
+        return this.currentMode==='modif'? 'modifyWord': 'chooseWord';
       case 'image':
-        return this.currentMode==='modif'? "Modifier l'image:": "Choisir l'image:";
+        return this.currentMode==='modif'? "modifyImage": "chooseImage";
       case 'table':
-        return this.currentMode==='addNew'? "Ajouter une variante du mot manuelement:": "";
+        return this.currentMode==='addNew'? "addWordVariantManually": "";
       default :
           return '';
     }
@@ -102,7 +102,7 @@ export class AlternativeFormsComponent implements OnInit {
 
   select(itemSelected){
     if (this.currentMode !== 'modif' || this.selectedItem !== itemSelected) {
-      this.currentMode = 'modif'
+      this.currentMode = 'modif';
       this.selectedItem = itemSelected;
       this.imageSelectionStarted=false;
       this.elementFormDisplayedWordField = itemSelected.DisplayedText;
