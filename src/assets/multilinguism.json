@@ -96,12 +96,6 @@
     { "id" : "exportSave" , "FR" : "exporter une sauvegarde", "EN" : "export save" },
     { "id" : "exportPDF" , "FR" : "exporter en PDF", "EN" : "export PDF" },
     { "id" : "importS4Y" , "FR" : "importer Speak4Yourself", "EN" : "import Speak4Yourself" },
-    { "id" : "importProloquo" , "FR" : "importer Proloquo", "EN" : "import Proloquo" },
-    { "id" : "settings" , "FR" : "Paramètres", "EN" : "Settings" },
-    { "id" : "settings" , "FR" : "Paramètres", "EN" : "Settings" },
-    { "id" : "settings" , "FR" : "Paramètres", "EN" : "Settings" },
-    { "id" : "settings" , "FR" : "Paramètres", "EN" : "Settings" },
-    { "id" : "settings" , "FR" : "Paramètres", "EN" : "Settings" },
-    { "id" : "settings" , "FR" : "Paramètres", "EN" : "Settings" }
+    { "id" : "importProloquo" , "FR" : "importer Proloquo", "EN" : "import Proloquo" }
   ]
 }
