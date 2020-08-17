@@ -15,6 +15,7 @@ import {FolderGoTo, GridElement} from "../../types";
 import {ProloquoParser} from "../../services/proloquoParser";
 import {JsonValidatorService} from "../../services/json-validator.service";
 import {MultilinguismService} from "../../services/multilinguism.service";
+import { LayoutService } from "src/app/services/layout.service";
 
 @Component({
   selector: 'app-share',
@@ -23,18 +24,21 @@ import {MultilinguismService} from "../../services/multilinguism.service";
   providers: [HttpClient, Ng2ImgMaxService]
 })
 export class ShareComponent implements OnInit {
-
-  constructor(private dbNaryService: DbnaryService, private speakForYourselfParser: SpeakForYourselfParser,
-              public indexedDBacess: IndexeddbaccessService, private printService: PrintService,
-              private router: Router, public getIconService: GeticonService,
-              public boardService: BoardService, public userToolBarService: UsertoolbarService,
-              public proloquoParser: ProloquoParser, public jsonValidator: JsonValidatorService,
-              private multilinguism: MultilinguismService) {
+  constructor(
+    private dbNaryService: DbnaryService,
+    private speakForYourselfParser: SpeakForYourselfParser,
+    public indexedDBacess: IndexeddbaccessService,
+    private printService: PrintService,
+    private router: Router,
+    public getIconService: GeticonService,
+    public boardService: BoardService,
+    public userToolBarService: UsertoolbarService,
+    public proloquoParser: ProloquoParser,
+    public jsonValidator: JsonValidatorService,
+    private layoutService: LayoutService,
+    private multilinguism: MultilinguismService) {
   }
-
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   /*open a new tab and display the grid in a "ready to print" format*/
   printToPDF() {
@@ -58,7 +62,7 @@ export class ShareComponent implements OnInit {
 
   /*read CSV file of csv reader and open it as a grid*/
   parseAndCreateProloquoGrid() {
-    this.proloquoParser.createGridFromProloquoCSVs()
+    this.proloquoParser.createGridFromProloquoCSVs();
   }
 
   /**
@@ -68,36 +72,37 @@ export class ShareComponent implements OnInit {
    */
   exploreZip(zip) { //TODO change the folderPath implementation
     const zipFolder: JSZip = new JSZip();
-    zipFolder.loadAsync(zip[0])
-      .then(zipFiles => {
-        this.boardService.board.PageList = [];
-        this.boardService.board.ElementList = [];
-        this.boardService.board.ImageList = [];
-        zipFiles.forEach(fileName => {
-            if (fileName[fileName.length - 1] !== '/') {
-              zipFolder.file(fileName).async('base64').then(content => {
-                const split = fileName.split('.');
-                let fileType = split[split.length - 1];
+    zipFolder.loadAsync(zip[0]).then((zipFiles) => {
+      this.boardService.board.PageList = [];
+      this.boardService.board.ElementList = [];
+      this.boardService.board.ImageList = [];
+      zipFiles.forEach((fileName) => {
+        if (fileName[fileName.length - 1] !== "/") {
+          zipFolder
+            .file(fileName)
+            .async("base64")
+            .then((content) => {
+              const split = fileName.split(".");
+              let fileType = split[split.length - 1];
 
-                if (fileType !== null && fileType !== undefined) {
+              if (fileType !== null && fileType !== undefined) {
+                if (fileType === "svg") {
+                  fileType = "svg+xml";
+                }
+                const imageURL =
+                  "data:image/" + fileType + ";base64," + content;
 
-                  if (fileType === 'svg') {
-                    fileType = 'svg+xml';
-                  }
-                  const imageURL = 'data:image/' + fileType + ';base64,' + content;
+                const folder = split[split.length - 2];
+                if (folder !== null && folder !== undefined) {
+                  let folderPath = folder.split("/");
 
-                  const folder = split[split.length - 2];
-                  if (folder !== null && folder !== undefined) {
-                    let folderPath = folder.split('/');
+                  const name = folderPath[folderPath.length - 1];
 
-                    const name = folderPath[folderPath.length - 1];
-
-                    let path = '';
-                    folderPath = folderPath.slice(0, folderPath.length - 1);
-                    folderPath.forEach(s => {
-                      path = path + '.' + s;
-                    });
-
+                  let path = "";
+                  folderPath = folderPath.slice(0, folderPath.length - 1);
+                  folderPath.forEach((s) => {
+                    path = path + "." + s;
+                  });
 
                     let type;
                     if (folderPath.length === 0) {
@@ -161,7 +166,11 @@ export class ShareComponent implements OnInit {
         InteractionsList: [{ID: 'click', ActionList: [{ID: 'display', Action: 'display'}]}],
         Color: 'lightgrey',
         BorderColor: 'black',
-        VisibilityLevel: 0
+        VisibilityLevel: 0,
+        x:0,
+        y:0,
+        cols: 1,
+        rows: 1
       });
 
     this.boardService.board.ImageList.push(
@@ -209,7 +218,7 @@ export class ShareComponent implements OnInit {
       const newForm = form.LexicInfos.find(info => {
         return (info.default != null && info.default);
       });
-      return (newForm != null);
+      return newForm != null;
     });
     if (defaultForm === null ) {
       if (element.ElementFormsList[0] !== null && element.ElementFormsList[0] !== undefined) {

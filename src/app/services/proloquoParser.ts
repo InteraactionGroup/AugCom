@@ -222,7 +222,11 @@ export class ProloquoParser {
           ImageID: word.wordID
         }
       ],
-      InteractionsList: interList
+      InteractionsList: interList,
+      x:0,
+      y:0,
+      rows: 1,
+      cols: 1
     };
   }
 

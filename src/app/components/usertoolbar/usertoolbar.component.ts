@@ -1,12 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {UsertoolbarService} from '../../services/usertoolbar.service';
-import {GeticonService} from '../../services/geticon.service';
-import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {SnapBarService} from '../../services/snap-bar.service';
-import {ParametersService} from '../../services/parameters.service';
-import {SearchService} from '../../services/search.service';
-import {BoardService} from '../../services/board.service';
-import {Ng2ImgMaxService} from "ng2-img-max";
+import { Component, OnInit } from "@angular/core";
+import { UsertoolbarService } from "../../services/usertoolbar.service";
+import { GeticonService } from "../../services/geticon.service";
+import { IndexeddbaccessService } from "../../services/indexeddbaccess.service";
+import { SnapBarService } from "../../services/snap-bar.service";
+import { ParametersService } from "../../services/parameters.service";
+import { SearchService } from "../../services/search.service";
+import { BoardService } from "../../services/board.service";
+import { Ng2ImgMaxService } from "ng2-img-max";
+import { LayoutService } from "../../services/layout.service";
 import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
@@ -16,13 +17,17 @@ import {MultilinguismService} from "../../services/multilinguism.service";
   providers: [Ng2ImgMaxService]
  })
 export class UsertoolbarComponent implements OnInit {
-
-
-  constructor(public boardService: BoardService, public searchService: SearchService, private parametersService: ParametersService,
-              private snapBarService: SnapBarService, public indexedDBacess: IndexeddbaccessService, public getIconService: GeticonService,
-              public userToolBarService: UsertoolbarService, private multilinguism: MultilinguismService) {
-
-  }
+  constructor(
+    public boardService: BoardService,
+    public searchService: SearchService,
+    private parametersService: ParametersService,
+    private snapBarService: SnapBarService,
+    public indexedDBacess: IndexeddbaccessService,
+    public getIconService: GeticonService,
+    public userToolBarService: UsertoolbarService,
+    public layoutService: LayoutService,
+    private multilinguism: MultilinguismService
+  ) {}
 
   /*text to search in the searchBar*/
   searchText = '';
@@ -73,6 +78,7 @@ export class UsertoolbarComponent implements OnInit {
     } else {
       this.snapBarService.snap();
     }
+    this.layoutService.setDraggable(this.userToolBarService.edit);
   }
 
   /*open search bar*/
@@ -88,7 +94,8 @@ export class UsertoolbarComponent implements OnInit {
   /*lock or unlock the usertoolbar (and close the edit service if we lock)*/
   setLock() {
     this.userToolBarService.unlock = !this.userToolBarService.unlock;
-    this.userToolBarService.edit = this.userToolBarService.edit && this.userToolBarService.unlock;
+    this.userToolBarService.edit =
+      this.userToolBarService.edit && this.userToolBarService.unlock;
+    this.layoutService.setDraggable(this.userToolBarService.edit);
   }
-
 }

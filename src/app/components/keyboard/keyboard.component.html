@@ -7,7 +7,8 @@
 
   <!-- checkbox used to select all the elements in edition mode -->
   <div class="selectCheckBox floatLeft" (click)="this.selectAll()">
-    <div class="image haveBackgroundImage" [style.background-image]="this.editionService.selectAll?this.getIcon('check'):null">
+    <div class="image haveBackgroundImage"
+      [style.background-image]="this.editionService.selectAll?this.getIcon('check'):null">
 
     </div>
   </div>
@@ -36,87 +37,31 @@
       </div>
     </label>
     <input #file type="file" accept='image/*' id='editBckButton'
-           (change)="this.boardService.updateBackground( file.files )">
+      (change)="this.boardService.updateBackground( file.files )">
   </div>
 
   <!-- input fields for column and row size, have to be changed with a button number incrementer -->
   <div class="gridSettings">
-    <input class="inputSize floatLeft centerText" type="text" [(ngModel)]="this.boardService.board.NumberOfCols">
+    <input class="inputSize floatLeft centerText" value={{this.cols}} type="number" min="1" [(ngModel)]="this.boardService.board.NumberOfCols"
+      (change)="onKeyCols($event)">
     <div class="x floatLeft">
       x
     </div>
-    <input class="inputSize floatLeft centerText" type="text" [(ngModel)]="this.boardService.board.NumberOfRows">
+    <input class="inputSize floatLeft centerText" value={{this.rows}} type="number" min="1" [(ngModel)]="this.boardService.board.NumberOfRows"
+      (change)="onKeyRows($event)">
   </div>
 </div>
 
 <!-- the keyboard containing the element wrapper -->
-<div class="keyboard width-100" [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100vh - 4.5cm)':'calc(100vh - 3.5cm)'}">
+<div class="keyboard width-100"
+  [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100vh - 4.5cm)':'calc(100vh - 3.5cm)'}">
 
   <!-- the wrapper displayed with elements containing pictogram and corresponding text -->
-  <div class="wrapper haveBackgroundImage height-width-100"
-       [ngStyle]="{
-          'grid-template-columns': 'repeat('+(this.boardService.board.NumberOfCols)+', 1fr)',
-          'grid-template-rows': 'repeat(100, '+(100/(this.boardService.board.NumberOfRows))+'%)',
-          'background-image' : this.boardService.background
-        }"
-       [dragula]="this.userToolBarService.edit ? 'VAMPIRE' :null">
+  <div class="wrapper haveBackgroundImage height-width-100">
 
     <!-- iterate among the list of element of the currentFolder -->
-    <ng-container *ngFor="let element of this.getTempList()">
 
-      <!-- display elementContainers with element having non empty type-->
-      <div id="{{element.ID}}" class="elementContainer floatLeft" *ngIf="element.Type!=='empty'">
-
-        <!-- an element composed of a pictogram and a corresponding text-->
-        <div class="element" [class.notsearched]="searchStarted()&&!isSearched(element)"
-             [class.searched]="searchStarted()&&isSearched(element)"
-             [class.blurredElt]="element.ID==='#disable'" (click)="this.edit(element)"
-             (touchstart)="this.pointerDown(element,0)" (touchend)="this.pointerUp(element,0)"
-             (pointerdown)="this.pointerDown(element,1)" (pointerup)="this.pointerUp(element,1)" [ngStyle]="{'background-color': element.Color !== null ? element.Color : 'grey' ,
-          'border-color': element.BorderColor === null || element.BorderColor === undefined ? 'black' : element.BorderColor,
-          'box-shadow': this.getShadow(element) ,
-          'opacity': this.getOpacity(element),
-          'cursor': this.getCursor(element)}"
-        [class.noImageElement]="this.boardService.getImgUrl(element) === '' "
-        >
-
-          <div class="image haveBackgroundImage" [style.background-image]="this.boardService.getImgUrl(element)"></div>
-
-<!--          <svg viewBox="0 0 30 30">-->
-<!--            <text x="50%" y="50%" dominant-baseline="middle"  text-anchor="middle">{{this.boardService.getLabel(element)}}</text>-->
-<!--          </svg>-->
-          <div class="adjustableText" >
-          {{this.boardService.getLabel(element)}}
-          </div>
-
-        </div>
-
-        <!-- in edit mode this button is used to delete the associated element -->
-        <div class="deleteElement floatLeft" *ngIf="this.userToolBarService.edit && element.ID !== '#disable'" (click)="this.delete(element)">
-          <div class="image haveBackgroundImage" [style.background-image]="this.getIcon('delete')">
-
-          </div>
-        </div>
-
-        <!-- in edit mode this button is used to select the associated element -->
-        <div class="selectCheckBox floatLeft" *ngIf="this.userToolBarService.edit && element.ID !== '#disable'" (click)="this.select(element)">
-          <div class="image haveBackgroundImage"
-               [style.background-image]="this.editionService.isSelected(element)?this.getIcon('check'):null">
-
-          </div>
-        </div>
-
-        <!-- in edit mode this button is used to change the visibility of the associated element for 'babble' function-->
-        <div class="elementVisibility" *ngIf="this.userToolBarService.edit && element.ID !== '#disable'" (click)="this.changeVisibility(element)">
-          <div class="image haveBackgroundImage"
-               [style.background-image]="this.isVisible(element) ? this.getIcon('hide') : this.getIcon('show')">
-
-          </div>
-        </div>
-
-      </div>
-
-    </ng-container>
+    <app-layout></app-layout>
 
 
     <!-- ng container checking if the add button have to be displayed -->
@@ -130,15 +75,14 @@
           <div class="elementContainer floatLeft no-drag add height-width-100">
 
             <!-- add button element -->
-            <div class="element" (click)="this.addNewElement()"
-                 [ngStyle]="{'background-color': 'rgb(125,125,125)'}">
+            <div class="element" (click)="this.addNewElement()" [ngStyle]="{'background-color': 'rgb(125,125,125)'}">
 
               <div class="image haveBackgroundImage" [style.background-image]="this.getIcon('add')">
 
               </div>
 
-              <div class="adjustableText" >
-               ajouter
+              <div class="adjustableText">
+                ajouter
               </div>
 
             </div>
