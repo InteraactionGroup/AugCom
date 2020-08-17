@@ -47,8 +47,8 @@
         <ng-container *ngFor="let b of this.imageList ">
 
           <div class="pictoImg haveBackgroundImage"
-               [ngStyle]="{'background-image':'url(assets/libs/mulberry-symbols/EN-symbols/'+b+'.svg)'}"
-               (click)="previewMullberry(b)"></div>
+               [ngStyle]="{'background-image': this.getThumbnailPreviewLibrary(b)}"
+               (click)="this.previewLibrary(b)"></div>
         </ng-container>
       </div>
     </div>

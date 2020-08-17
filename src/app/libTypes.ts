@@ -9,3 +9,10 @@ export class MulBerryObject {
   rated: number;
   tags: string;
 }
+
+/**
+ * the description of a mulberry element from the mulberry library
+ */
+export class ArasaacObject {
+  wordList: string[];
+}
