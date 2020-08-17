@@ -63,7 +63,7 @@
             <ng-container *ngIf="this.currentMode !== ''" >
             <div class="floatLeft" style="margin-left: 10px; width: calc(50% - 10px)">
 
-              <div  [class.tableTitle]="this.currentMode === 'addNew'"> {{this.multilinguism.translate(getTitle('table'))}}</div>
+              <div  [class.tableTitle]="this.currentMode === 'addNew'"> {{this.multilinguism.translate(getTitle('table'))}}:</div>
                 <div [class.elementVariantAddNew]="this.currentMode === 'addNew'">
 
               <div class="tableTitle"> {{this.multilinguism.translate(getTitle('name'))}}: </div>
@@ -80,7 +80,7 @@
                 </div>
               </div>
 
-              <div class="tableTitle"> {{getTitle('image')}}</div>
+              <div class="tableTitle"> {{this.multilinguism.translate(getTitle('image'))}}:</div>
               <div class="variantContainer">
                 <div class="elementVariant">
                 <label class="label" for="imagefromfile">{{this.multilinguism.translate("fromFile")}}: </label>
@@ -89,13 +89,13 @@
                 <label class="label" for="imagefromURL">{{this.multilinguism.translate("fromURL")}}: </label>
                 <div class="inputURL">
                   <input class="searchField" type="search" id="imagefromURL" #text
-                         placeholder="Entrez l'URL d'une image">
+                         placeholder="{{this.multilinguism.translate('enterImageURL')}}">
                   <input class="searchURL" type="button" value="Ok" (click)="previewWithURL(text.value)">
                 </div>
                 <label class="label" for="imagefromLib">{{this.multilinguism.translate("fromLibrary")}} </label>
                 <div class="input">
                   <input #search class="searchField" type="search" id="imagefromLib"
-                         placeholder="Cherchez un mot (ENG)">
+                         placeholder="{{this.multilinguism.translate('searchForWord')}}">
                   <input class="searchLib" type="button" value="search" (click)="searchInLib(search.value)">
                 </div>
                 </div>
@@ -109,7 +109,7 @@
                        (click)="previewMullberry(b)"></div>
                 </ng-container>
               </div>
-              <input id="saveAlternativeFormModifButton" type="button" value="enregistrer les modifications" (click)="saveCurrentElementForm()">
+              <input id="saveAlternativeFormModifButton" type="button" value="{{this.multilinguism.translate('saveModif')}}" (click)="saveCurrentElementForm()">
             </div>
             </div>
             </ng-container>
@@ -126,7 +126,7 @@
               <div class="elementVariant">
                 <label class="label" for="wordToSearch">{{this.multilinguism.translate("lookingForVariantsOnline")}}: </label>
                 <div class="width-100">
-                  <input id="wordToSearch" #wordToSearch class="inputText floatLeft" type="text" placeholder="Entrez un mot"
+                  <input id="wordToSearch" #wordToSearch class="inputText floatLeft" type="text" placeholder="{{this.multilinguism.translate('enterWord')}}:"
                          value="{{this.editionService.name}}">
                   <input (click)="getWordList(wordToSearch.value)" class="search floatLeft" type="button" value="search">
                 </div>

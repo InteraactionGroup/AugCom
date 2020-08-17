@@ -33,11 +33,11 @@ export class AccountComponent implements OnInit {
 
   /*list of menu that are not yet implemented and that are currently displaying the "a venir" page (=soon available)*/
   menuAVenir() {
-    return (this.selectedSubMenu === 'Actualités') ||
-      (this.selectedSubMenu === 'Informations du compte') ||
-      (this.selectedMenu === 'Grammaire') ||
-      (this.selectedSubMenu === 'Apparence générale') ||
-      (this.selectedSubMenu === 'Contacts');
+    return (this.selectedSubMenu === 'actuality') ||
+      (this.selectedSubMenu === 'accountInfo') ||
+      (this.selectedMenu === 'grammar') ||
+      (this.selectedSubMenu === 'globalAppearance') ||
+      (this.selectedSubMenu === 'contacts');
   }
 
   /*get title of the page currently displayed*/

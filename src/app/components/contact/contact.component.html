@@ -6,29 +6,29 @@
       <div>
 
         <div class="formItem width-100">
-          <label class="floatLeft" for="name">Votre nom
-            <span title="Ce champ est obligatoire.">*</span>:
+          <label class="floatLeft" for="name">{{this.multilinguism.translate('yourName')}}
+            <span title="{{this.multilinguism.translate('mandatoryField')}}.">*</span>:
           </label>
           <input type="text" id="name" name="user_name" value="" class="formText width-100 floatLeft required">
         </div>
 
         <div class="formItem width-100">
-          <label class="floatLeft" for="mail">Votre adresse de courriel
-            <span title="Ce champ est obligatoire.">*</span>:
+          <label class="floatLeft" for="mail">{{this.multilinguism.translate('yourEmail')}}
+            <span title="{{this.multilinguism.translate('mandatoryField')}}.">*</span>:
           </label>
           <input type="text" id="mail" name="user_mail" value="" class="formText width-100 floatLeft required">
         </div>
 
         <div class="formItem width-100">
-          <label class="floatLeft" for="subject">Sujet
-            <span title="Ce champ est obligatoire.">*</span>:
+          <label class="floatLeft" for="subject">{{this.multilinguism.translate('subject')}}
+            <span title="{{this.multilinguism.translate('mandatoryField')}}.">*</span>:
           </label>
           <input type="text" id="subject" name="user_subject" value="" class="formText width-100 floatLeft required">
         </div>
 
         <div class="formItem width-100">
-          <label class="floatLeft" for="message">Message
-            <span title="Ce champ est obligatoire.">*</span>:
+          <label class="floatLeft" for="message">{{this.multilinguism.translate('message')}}
+            <span title="{{this.multilinguism.translate('mandatoryField')}}.">*</span>:
           </label>
           <div class="height-width-100 required">
             <textarea id="message" name="user_message"></textarea>

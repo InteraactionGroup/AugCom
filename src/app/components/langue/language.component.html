@@ -1,8 +1,8 @@
 <div class="height-width-100">
   <div class="languageSelection">
-    <label for="lang">Sortie vocale: </label>
+    <label for="lang">{{this.multilinguism.translate("vocalOutput")}}: </label>
     <select id="lang" [(ngModel)]="this.parametersService.currentVoice" class="variantListBox">
-      <option value="@">--choisissez une langue--</option>
+      <option value="@">--{{this.multilinguism.translate("chooseLanguage")}}--</option>
       <ng-container *ngFor="let l of this.parametersService.languagesAvailaibles">
         <option value="{{l.lang + '@' + l.name}}">{{l.name + ' (' + l.lang + ')'}}</option>
       </ng-container>

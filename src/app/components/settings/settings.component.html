@@ -1,15 +1,15 @@
 <div class="settings height-width-100">
   <div class="settings-page">
     <div class="settings-item">
-      <label for="longPressTime">longPress value:</label>
+      <label for="longPressTime">{{this.multilinguism.translate("longPressValue")}}:</label>
       <input id="longPressTime" type="text" [(ngModel)]="this.parametersService.longpressTimeOut"
-             placeholder="enter a value">
+             placeholder="{{this.multilinguism.translate('enterValue')}}">
     </div>
 
     <div class="settings-item">
-      <label for="doubleClickTime">doubleClick value:</label>
+      <label for="doubleClickTime">{{this.multilinguism.translate("dblClickValue")}}:</label>
       <input id="doubleClickTime" type="text" [(ngModel)]="this.parametersService.doubleClickTimeOut"
-             placeholder="enter a value">
+             placeholder="{{this.multilinguism.translate('enterValue')}}">
     </div>
   </div>
 </div>

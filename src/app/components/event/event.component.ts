@@ -37,17 +37,17 @@ export class EventComponent implements OnInit {
   getLabel(codeName: string) {
     switch (codeName) {
       case 'display':
-        return 'ajouter à la phrase';
+        return 'addToSentence';
       case'say':
-        return 'prononcer';
+        return 'pronounce';
       case 'otherforms':
-        return 'afficher les formes alternatives';
+        return 'displayAlternativeForms';
       case 'click' :
         return 'click';
       case'longPress':
-        return 'appui long';
+        return 'longPress';
       case 'doubleClick':
-        return 'double click';
+        return 'dblClick';
     }
 
   }
