@@ -62,7 +62,8 @@ export class KeyboardComponent implements OnInit {
     public boardService: BoardService,
     public historicService: HistoricService,
     public editionService: EditionService,
-    public layoutService: LayoutService
+    public layoutService: LayoutService,
+    public multilinguism: MultilinguismService
   ) {
     this.cols = this.layoutService.options.minCols;
     this.rows = this.layoutService.options.minRows;
