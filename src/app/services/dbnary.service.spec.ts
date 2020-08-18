@@ -1,8 +1,8 @@
 import {TestBed} from '@angular/core/testing';
 
 import {DbnaryService} from './dbnary.service';
-import {FormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 describe('DbnaryService', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -10,7 +10,7 @@ describe('DbnaryService', () => {
   }));
 
   it('should be created', () => {
-    const service: DbnaryService = TestBed.get(DbnaryService);
+    const service: DbnaryService = TestBed.inject(DbnaryService);
     expect(service).toBeTruthy();
   });
 });

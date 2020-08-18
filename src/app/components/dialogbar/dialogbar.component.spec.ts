@@ -1,10 +1,10 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {DialogbarComponent} from './dialogbar.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
-import {FormsModule} from "@angular/forms";
-import {Ng2ImgMaxModule} from "ng2-img-max";
-import {Vignette} from "../../types";
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {Ng2ImgMaxModule} from 'ng2-img-max';
+import {Vignette} from '../../types';
 
 function addVignette(component: any) {
   component.historicService.historic.push(new Vignette());

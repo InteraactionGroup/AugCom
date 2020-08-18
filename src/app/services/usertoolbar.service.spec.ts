@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 
 import {UsertoolbarService} from './usertoolbar.service';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 
 describe('UsertoolbarService', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -9,7 +9,7 @@ describe('UsertoolbarService', () => {
   }));
 
   it('should be created', () => {
-    const service: UsertoolbarService = TestBed.get(UsertoolbarService);
+    const service: UsertoolbarService = TestBed.inject(UsertoolbarService);
     expect(service).toBeTruthy();
   });
 });

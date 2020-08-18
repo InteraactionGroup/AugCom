@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 
 import {SnapBarService} from './snap-bar.service';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 
 describe('SnapBarService', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -9,7 +9,7 @@ describe('SnapBarService', () => {
   }));
 
   it('should be created', () => {
-    const service: SnapBarService = TestBed.get(SnapBarService);
+    const service: SnapBarService = TestBed.inject(SnapBarService);
     expect(service).toBeTruthy();
   });
 });

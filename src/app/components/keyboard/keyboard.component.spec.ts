@@ -1,11 +1,11 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {KeyboardComponent} from './keyboard.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
-import {FormsModule} from "@angular/forms";
-import {Ng2ImgMaxModule} from "ng2-img-max";
-import {Router} from "@angular/router";
-import {Grid, GridElement} from "../../types";
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {Ng2ImgMaxModule} from 'ng2-img-max';
+import {Router} from '@angular/router';
+
 describe('KeyboardComponent', () => {
   let component: KeyboardComponent;
   let fixture: ComponentFixture<KeyboardComponent>;
@@ -14,7 +14,11 @@ describe('KeyboardComponent', () => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [FormsModule, Ng2ImgMaxModule],
-      providers: [ { provide: Router, useClass: class { navigate = jasmine.createSpy("navigate"); } }],
+      providers: [{
+        provide: Router, useClass: class {
+          navigate = jasmine.createSpy('navigate');
+        }
+      }],
       declarations: [KeyboardComponent]
     })
       .compileComponents();
@@ -40,7 +44,7 @@ describe('KeyboardComponent', () => {
 
   it('should display home page and its elements', () => {
     const compiled = fixture.debugElement.nativeElement;
-    component.boardService.currentPath='#HOME';
+    component.boardService.currentPath = '#HOME';
     fixture.detectChanges();
     expect(compiled.querySelector('.add')).toBe(null);
     expect(compiled.querySelector('.editionSettings')).toBe(null);
@@ -49,7 +53,7 @@ describe('KeyboardComponent', () => {
   it('should display edit functions ', () => {
     const compiled = fixture.debugElement.nativeElement;
     component.userToolBarService.edit = true;
-    component.boardService.currentPath='#HOME';
+    component.boardService.currentPath = '#HOME';
     fixture.detectChanges();
     expect(compiled.querySelectorAll('.element').length).toEqual(1);
     expect(compiled.querySelector('.add')).not.toBe(null);
@@ -58,7 +62,7 @@ describe('KeyboardComponent', () => {
 
   it('should add clicked element having display action on click to historic', () => {
     const compiled = fixture.debugElement.nativeElement;
-    component.boardService.currentPath='#HOME';
+    component.boardService.currentPath = '#HOME';
     fixture.detectChanges();
     component.action(component.boardService.board.ElementList[0], 'click');
     fixture.detectChanges();

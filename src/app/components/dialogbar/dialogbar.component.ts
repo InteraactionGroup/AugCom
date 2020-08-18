@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {HistoricService} from '../../services/historic.service';
 import {GeticonService} from '../../services/geticon.service';
 import {BoardService} from '../../services/board.service';
-import {Ng2ImgMaxService} from "ng2-img-max";
-import {MultilinguismService} from "../../services/multilinguism.service";
+import {Ng2ImgMaxService} from 'ng2-img-max';
+import {MultilinguismService} from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-dialogbar',
@@ -13,7 +13,10 @@ import {MultilinguismService} from "../../services/multilinguism.service";
 })
 export class DialogbarComponent implements OnInit {
 
-  constructor(private multilinguism: MultilinguismService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService) {
+  constructor(private multilinguism: MultilinguismService,
+              public getIconService: GeticonService,
+              public boardService: BoardService,
+              public historicService: HistoricService) {
   }
 
   ngOnInit() {

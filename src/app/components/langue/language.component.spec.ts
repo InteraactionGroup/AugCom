@@ -1,8 +1,8 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {LanguageComponent} from './language.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
-import {FormsModule} from "@angular/forms";
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {FormsModule} from '@angular/forms';
 
 describe('LanguageComponent', () => {
   let component: LanguageComponent;

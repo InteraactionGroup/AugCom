@@ -1,8 +1,8 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {EventComponent} from './event.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
-import {FormsModule} from "@angular/forms";
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {FormsModule} from '@angular/forms';
 
 describe('EventComponent', () => {
   let component: EventComponent;
@@ -31,8 +31,8 @@ describe('EventComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     component.editionService.interractionList = [];
 
-    let actionID = ['display', 'say', 'otherforms'];
-    let interactionID = ['click', 'longPress', 'doubleClick'];
+    const actionID = ['display', 'say', 'otherforms'];
+    const interactionID = ['click', 'longPress', 'doubleClick'];
 
     interactionID.forEach(interaction => {
       expect(component.editionService.interractionList.findIndex(i => {

@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 
 import {HistoricService} from './historic.service';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 
 describe('HistoricService', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -9,7 +9,7 @@ describe('HistoricService', () => {
   }));
 
   it('should be created', () => {
-    const service: HistoricService = TestBed.get(HistoricService);
+    const service: HistoricService = TestBed.inject(HistoricService);
     expect(service).toBeTruthy();
   });
 });

@@ -1,13 +1,13 @@
 import {async, TestBed} from '@angular/core/testing';
 import {AppComponent} from './app.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {KeyboardComponent} from "./components/keyboard/keyboard.component";
-import {ShareComponent} from "./components/share/share.component";
-import {EditionComponent} from "./components/edition/edition.component";
-import {SettingsComponent} from "./components/settings/settings.component";
-import {AccountComponent} from "./components/account/account.component";
-import {RouterTestingModule} from "@angular/router/testing";
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {KeyboardComponent} from './components/keyboard/keyboard.component';
+import {ShareComponent} from './components/share/share.component';
+import {EditionComponent} from './components/edition/edition.component';
+import {SettingsComponent} from './components/settings/settings.component';
+import {AccountComponent} from './components/account/account.component';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {

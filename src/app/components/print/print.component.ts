@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {BoardService} from "../../services/board.service";
-import {GridElement} from "../../types";
-import {augmentIndexHtml} from "@angular-devkit/build-angular/src/angular-cli-files/utilities/index-file/augment-index-html";
-import {MultilinguismService} from "../../services/multilinguism.service";
+import {Component, OnInit} from '@angular/core';
+import {BoardService} from '../../services/board.service';
+import {MultilinguismService} from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-print',
@@ -11,12 +9,13 @@ import {MultilinguismService} from "../../services/multilinguism.service";
 })
 export class PrintComponent implements OnInit {
 
-  constructor(public boardService: BoardService, private multilinguism: MultilinguismService) { }
+  constructor(public boardService: BoardService, private multilinguism: MultilinguismService) {
+  }
 
   ngOnInit() {
   }
 
-  thenPrint(){
+  thenPrint() {
     window.print();
   }
 }

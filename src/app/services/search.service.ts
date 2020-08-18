@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BoardService} from './board.service';
-import {FolderGoTo, GridElement} from "../types";
+import {FolderGoTo, GridElement} from '../types';
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +17,12 @@ export class SearchService {
     this.searchedWords = [];
     this.searchedPath = [];
     if (searchedText !== '') {
-      this.searchedWords = this.boardService.board.ElementList.filter( elt => {
-        let tempList = elt.ElementFormsList.filter( eltformlist => {
+      this.searchedWords = this.boardService.board.ElementList.filter(elt => {
+        const tempList = elt.ElementFormsList.filter(eltformlist => {
           return eltformlist.DisplayedText.toLowerCase().includes(searchedText.toLowerCase())
         });
         if (tempList !== null) {
-          return tempList.length>0;
+          return tempList.length > 0;
         }
         return false;
       })
@@ -38,14 +38,14 @@ export class SearchService {
   }
 
   recursiveSearch(children: GridElement[]) {
-    let parents: GridElement[] = [];
+    const parents: GridElement[] = [];
     children.forEach(elt => {
-      this.boardService.board.PageList.forEach( page => {
-        if(page.ElementIDsList.includes(elt.ID)){
-          let tempElt = this.boardService.board.ElementList.find( newelt => {
-            return (<FolderGoTo>newelt.Type).GoTo === page.ID;
+      this.boardService.board.PageList.forEach(page => {
+        if (page.ElementIDsList.includes(elt.ID)) {
+          const tempElt = this.boardService.board.ElementList.find(newelt => {
+            return (newelt.Type as FolderGoTo).GoTo === page.ID;
           });
-          if(tempElt != null && tempElt != undefined){
+          if (tempElt != null && tempElt !== undefined) {
             if (!parents.includes(tempElt) && !this.searchedPath.includes(tempElt)) {
               parents.push(tempElt);
             }
@@ -56,7 +56,9 @@ export class SearchService {
 
     this.searchedPath = this.searchedPath.concat(children);
 
-    if(parents.length > 0){this.recursiveSearch(parents);}
+    if (parents.length > 0) {
+      this.recursiveSearch(parents);
+    }
 
   }
 

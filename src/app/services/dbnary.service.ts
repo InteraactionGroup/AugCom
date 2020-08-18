@@ -125,6 +125,7 @@ export class DbnaryService {
     });
     this.searchStarted = 0;
   }
+
   /*return true if the given verb is present of indicative */
   isIndicativePresent(verb): boolean {
     return (

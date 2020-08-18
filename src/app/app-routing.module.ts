@@ -6,8 +6,8 @@ import {EditionComponent} from './components/edition/edition.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SettingsComponent} from './components/settings/settings.component';
 import {AccountComponent} from './components/account/account.component';
-import {BrowserModule} from "@angular/platform-browser";
-import {PrintComponent} from "./components/print/print.component";
+import {BrowserModule} from '@angular/platform-browser';
+import {PrintComponent} from './components/print/print.component';
 
 
 const routes: Routes = [

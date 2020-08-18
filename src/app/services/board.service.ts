@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Board} from '../data/ExempleOfBoard';
-import {GridElement, ElementForm, Grid} from '../types';
+import {ElementForm, Grid, GridElement} from '../types';
 import {DomSanitizer} from '@angular/platform-browser';
 import {EditionService} from './edition.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
@@ -39,27 +39,27 @@ export class BoardService {
   elementList = [];
 
   getCurrentFolder() {
-    let path = this.currentPath.split('.');
-    if (path != null){
-      return path[path.length-1];
+    const path = this.currentPath.split('.');
+    if (path != null) {
+      return path[path.length - 1];
     } else {
       return '#HOME';
     }
   }
 
   getCurrentTitle() {
-    let path = this.currentPath.split('.');
-    if (path !== null){
+    const path = this.currentPath.split('.');
+    if (path !== null) {
       let name = '';
       let i = 0;
-      if(path.length >= 4){
-        i = path.length-3;
+      if (path.length >= 4) {
+        i = path.length - 3;
         name = '.../'
       }
-      for(i; i <= path.length-1; i++){
-        let id = path[i];
-        let associatedPage = this.board.PageList.find(page => id === page.ID);
-        if(associatedPage !== null && associatedPage !== undefined){
+      for (i; i <= path.length - 1; i++) {
+        const id = path[i];
+        const associatedPage = this.board.PageList.find(page => id === page.ID);
+        if (associatedPage !== null && associatedPage !== undefined) {
           name = name + associatedPage.Name + '/';
         } else {
           name = name + '?/';
@@ -82,7 +82,7 @@ export class BoardService {
     this.ng2ImgMaxService.resize([file[0]], 1000, 1000).subscribe((result) => {
       reader.readAsDataURL(result);
       reader.onload = () => {
-        this.background = "url(" + reader.result + ")";
+        this.background = 'url(' + reader.result + ')';
       };
     });
   }
@@ -93,7 +93,7 @@ export class BoardService {
    * @return return the current label of the element
    */
   getLabel(element: GridElement) {
-    if (element.PartOfSpeech === "-verb-") {
+    if (element.PartOfSpeech === '-verb-') {
       const verbElement = element.ElementFormsList.find((elt) =>
         this.checkVerbForms(elt)
       );
@@ -199,19 +199,19 @@ export class BoardService {
   /*reset default end of word*/
   resetTerminaisons() {
     this.resetVerbTerminaisons();
-    this.currentNounTerminaison = { currentGender: "", currentNumber: "" };
+    this.currentNounTerminaison = {currentGender: '', currentNumber: ''};
   }
 
   /*reset default end of word for verbs*/
   resetVerbTerminaisons() {
-    this.currentVerbTerminaison = { currentPerson: "", currentNumber: "" };
+    this.currentVerbTerminaison = {currentPerson: '', currentNumber: ''};
   }
 
   /*delete the element that is sentenced to death*/
   executer() {
     const imageTemp = [];
 
-    //TODO
+    // TODO
     // this.board.ElementList = this.board.ElementList.filter(x => {
     //     let isChildrenOfCondamnedElt = false;
     //     this.editionService.sentencedTodDeleteElement.forEach(condamnedElt => {
@@ -241,13 +241,15 @@ export class BoardService {
       }
     });
 
-    let currentPage = this.board.PageList.find(page => {
+    const currentPage = this.board.PageList.find(page => {
       return page.ID === this.getCurrentFolder()
     });
 
-    if(currentPage !== null && currentPage !== undefined){
+    if (currentPage !== null && currentPage !== undefined) {
       currentPage.ElementIDsList = currentPage.ElementIDsList.filter(elt => {
-        return this.editionService.sentencedToBeDeletedElement.findIndex( sentenced => {return sentenced.ID === elt}) === -1
+        return this.editionService.sentencedToBeDeletedElement.findIndex(sentenced => {
+          return sentenced.ID === elt
+        }) === -1
       })
     }
 
@@ -259,11 +261,11 @@ export class BoardService {
   /*get sanitized image URL of an element*/
   getImgUrl(element: GridElement) {
     if (this.board.ImageList != null) {
-      if(element.ElementFormsList.length > 0) {
+      if (element.ElementFormsList.length > 0) {
         const path = this.board.ImageList.find(x => x.ID === element.ElementFormsList[0].ImageID);
         if (path !== null && path !== undefined) {
           const s = path.Path;
-          if(s.replace( / /g ,'')===''){
+          if (s.replace(/ /g, '') === '') {
             return '';
           }
           return this.sanitizer.bypassSecurityTrustStyle('url(\'' + s + '\')');
@@ -284,7 +286,7 @@ export class BoardService {
       const path = this.board.ImageList.find(x => x.ID === element.ElementFormsList[0].ImageID);
       if (path !== null && path !== undefined) {
         const s = path.Path;
-        if(s.replace(/ /g, '') === ''){
+        if (s.replace(/ /g, '') === '') {
           return '';
         }
         return 'url(\'' + s + '\')';
@@ -337,16 +339,16 @@ export class BoardService {
    * depending on the current rows and columns values
    * @return a list of elements to display in the keyboard
    */
-  getNormalTempList(): GridElement[]{
-    let currentPage = this.board.PageList.find(page => {
+  getNormalTempList(): GridElement[] {
+    const currentPage = this.board.PageList.find(page => {
       return page.ID === this.getCurrentFolder()
     });
 
-    let tempList = [];
+    const tempList = [];
     if (currentPage !== null && currentPage !== undefined) {
-      for (let i = 0; i < currentPage.ElementIDsList.length; i++) {
+      for (const id of currentPage.ElementIDsList) {
         tempList.push(this.board.ElementList.find(elt => {
-          return elt.ID === currentPage.ElementIDsList[i];
+          return elt.ID === id;
         }));
       }
     }
@@ -367,44 +369,44 @@ export class BoardService {
     });
 
     const temporaryElementList: GridElement[] = [];
-   // this.getNormalTempList().forEach(e => temporaryElementList.push(this.copy(e)));
+    // this.getNormalTempList().forEach(e => temporaryElementList.push(this.copy(e)));
     const index = this.activatedElement;
 
     let indexOfForm = 0;
     const compElt = this.copy(this.getNormalTempList()[index]);
-    temporaryElementList.push( compElt);
+    temporaryElementList.push(compElt);
     let places = this.createPlaces(compElt.x, compElt.y, compElt.cols, compElt.rows);
     places = places.slice(0, compElt.ElementFormsList.length);
     compElt.ElementFormsList.forEach(eltform => {
-        if (compElt.ElementFormsList.length > indexOfForm) {
-          let elt: GridElement = {
-            ID : compElt.ID,
-          Color : compElt.Color,
-          BorderColor : compElt.BorderColor,
-          Type : 'button',
-          VisibilityLevel : 0,
-          PartOfSpeech : '' + compElt.PartOfSpeech,
-          ElementFormsList :
+      if (compElt.ElementFormsList.length > indexOfForm) {
+        const elt: GridElement = {
+          ID: compElt.ID,
+          Color: compElt.Color,
+          BorderColor: compElt.BorderColor,
+          Type: 'button',
+          VisibilityLevel: 0,
+          PartOfSpeech: '' + compElt.PartOfSpeech,
+          ElementFormsList:
             [{
               DisplayedText: eltform.DisplayedText,
               VoiceText: eltform.VoiceText,
               LexicInfos: eltform.LexicInfos,
               ImageID: '' + eltform.ImageID
             }],
-          InteractionsList : compElt.InteractionsList.slice(),
-          x : 0,
-          y : 0,
-            cols: 1,
-            rows: 1
+          InteractionsList: compElt.InteractionsList.slice(),
+          x: 0,
+          y: 0,
+          cols: 1,
+          rows: 1
         };
-          if(places.length>indexOfForm){
+        if (places.length > indexOfForm) {
           elt.x = places[indexOfForm].x;
-            elt.y = places[indexOfForm].y;
-          }
-            elt.InteractionsList.push({ID: 'backFromVariant', ActionList: []});
-        temporaryElementList.push(this.copy(elt));
-          indexOfForm = indexOfForm + 1;
+          elt.y = places[indexOfForm].y;
         }
+        elt.InteractionsList.push({ID: 'backFromVariant', ActionList: []});
+        temporaryElementList.push(this.copy(elt));
+        indexOfForm = indexOfForm + 1;
+      }
     });
 
     compElt.Color = '#123548';
@@ -424,25 +426,27 @@ export class BoardService {
 
   /**
    * return the available neighbor index of an element identified by index 'ind'
-   * @param x
-   * @param y
+   * @param x the x origin of the element we want neighbor
+   * @param y the y origin of the element we want neighbor
+   * @param cols the width of the element we want neighbor
+   * @param rows the height of the element we want neighbor
    */
-  createPlaces(x:number, y:number, cols:number, rows:number): {x:number, y:number}[] {
+  createPlaces(x: number, y: number, cols: number, rows: number): { x: number, y: number }[] {
     const slider: number = Number(this.board.NumberOfCols);
-    let places = [];
-    for(let row = 0 ; row < rows + 2; row++){
-      let tempCoupleLeft = {x:x-1, y:0};
-      let tempCoupleRight = {x:x+cols, y:0};
-      tempCoupleLeft.y = y-1+row;
-      tempCoupleRight.y = y-1+row;
+    const places = [];
+    for (let row = 0; row < rows + 2; row++) {
+      const tempCoupleLeft = {x: x - 1, y: 0};
+      const tempCoupleRight = {x: x + cols, y: 0};
+      tempCoupleLeft.y = y - 1 + row;
+      tempCoupleRight.y = y - 1 + row;
       places.push(tempCoupleLeft);
       places.push(tempCoupleRight);
     }
-    for(let col = 0; col < cols; col++){
-      let tempCoupleTop = {x:0, y:y-1};
-      let tempCoupleBottom = {x:0, y:y+rows};
-      tempCoupleTop.x = x+col;
-      tempCoupleBottom.x = x+col;
+    for (let col = 0; col < cols; col++) {
+      const tempCoupleTop = {x: 0, y: y - 1};
+      const tempCoupleBottom = {x: 0, y: y + rows};
+      tempCoupleTop.x = x + col;
+      tempCoupleBottom.x = x + col;
       places.push(tempCoupleTop);
       places.push(tempCoupleBottom);
     }
@@ -455,7 +459,7 @@ export class BoardService {
    * @return the copied element
    */
   copy(element: GridElement): GridElement {
-    console.log(element.ID + " " + element.x + " " + element.y);
+    console.log(element.ID + ' ' + element.x + ' ' + element.y);
     return {
       BorderColor: element.BorderColor,
       VisibilityLevel: element.VisibilityLevel,

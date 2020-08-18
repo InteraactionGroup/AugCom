@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import multilinguism from '../../assets/multilinguism.json'
-import {Dictionnary} from "../types";
+import {Dictionnary} from '../types';
 
 @Injectable({
   providedIn: 'root'
@@ -11,22 +11,22 @@ export class MultilinguismService {
     this.dictionnary.dictionnary = multilinguism.dictionnary;
   }
 
-  language: string = 'FR';
-  dictionnary : Dictionnary = new Dictionnary();
+  language = 'FR';
+  dictionnary: Dictionnary = new Dictionnary();
 
-  translate( id: string){
+  translate(id: string) {
     return this.translateIn(id, this.language);
   }
 
-  translateIn( id: string, lang: string){
-    let translatedEntry = this.dictionnary.dictionnary.find( entry => {
+  translateIn(id: string, lang: string) {
+    const translatedEntry = this.dictionnary.dictionnary.find(entry => {
       return entry.id === id;
     });
 
-    if(translatedEntry !== null && translatedEntry !== undefined){
+    if (translatedEntry !== null && translatedEntry !== undefined) {
       return translatedEntry[lang];
     }
-   return'[UNTRANSLATED] ' + id;
+    return '[UNTRANSLATED] ' + id;
   }
 
 }

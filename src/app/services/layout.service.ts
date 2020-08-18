@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import { GridsterConfig } from "angular-gridster2";
+import {Injectable} from '@angular/core';
+import {GridsterConfig} from 'angular-gridster2';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class LayoutService {
   public options: GridsterConfig = {
@@ -23,7 +23,8 @@ export class LayoutService {
     maxRows: 6,
   };
 
-  constructor() {}
+  constructor() {
+  }
 
   setDraggable(b: boolean): void {
     this.options.draggable.enabled = b;
@@ -41,8 +42,8 @@ export class LayoutService {
     this.refresh();
   }
 
-  refresh(){
-    if(this.options.api != undefined) {
+  refresh() {
+    if (this.options.api !== undefined) {
       this.options.api.optionsChanged();
     }
   }

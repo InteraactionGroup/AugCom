@@ -3,14 +3,14 @@ import {DbnaryService} from '../../services/dbnary.service';
 import {BoardService} from '../../services/board.service';
 import {GeticonService} from '../../services/geticon.service';
 import {DomSanitizer} from '@angular/platform-browser';
-import {GridElement, Page, FolderGoTo} from '../../types';
+import {FolderGoTo, GridElement, Page} from '../../types';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {Router} from '@angular/router';
 import {PaletteService} from '../../services/palette.service';
 import {EditionService} from '../../services/edition.service';
-import {Ng2ImgMaxService} from "ng2-img-max";
-import {HttpClient} from "@angular/common/http";
-import {MultilinguismService} from "../../services/multilinguism.service";
+import {Ng2ImgMaxService} from 'ng2-img-max';
+import {HttpClient} from '@angular/common/http';
+import {MultilinguismService} from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-edition',
@@ -73,8 +73,8 @@ export class EditionComponent implements OnInit {
    *
    */
   save() {
-    if (this.editionService.currentEditPage !== "") {
-      this.editionService.currentEditPage = ""
+    if (this.editionService.currentEditPage !== '') {
+      this.editionService.currentEditPage = ''
     } else {
       if (this.editionService.add) {
         this.createNewButton();
@@ -129,21 +129,21 @@ export class EditionComponent implements OnInit {
     });
   }
 
-  returnTypeOf ( elementID ) {
-    if ( this.editionService.radioTypeFormat === 'folder') {
-      if( this.editionService.pageLink ===  '@' ) {
+  returnTypeOf(elementID) {
+    if (this.editionService.radioTypeFormat === 'folder') {
+      if (this.editionService.pageLink === '@') {
         return new FolderGoTo(elementID);
-      } else if (this.editionService.pageLink ===  '@NEW@') {
-          if ( this.editionService.newPage.replace(/ /g, '') == "") {
-            return new FolderGoTo(elementID)
-          }else {
-            this.boardService.board.PageList.push({
-              ID: this.editionService.newPage,
-              Name : this.editionService.newPage.replace(/_/g, ' ').toUpperCase(),
-              ElementIDsList: [],
-            });
-            return new FolderGoTo(this.editionService.newPage);
-          }
+      } else if (this.editionService.pageLink === '@NEW@') {
+        if (this.editionService.newPage.replace(/ /g, '') === '') {
+          return new FolderGoTo(elementID)
+        } else {
+          this.boardService.board.PageList.push({
+            ID: this.editionService.newPage,
+            Name: this.editionService.newPage.replace(/_/g, ' ').toUpperCase(),
+            ElementIDsList: [],
+          });
+          return new FolderGoTo(this.editionService.newPage);
+        }
       } else {
         return new FolderGoTo(this.editionService.pageLink);
       }
@@ -159,7 +159,7 @@ export class EditionComponent implements OnInit {
   modifyButton() {
     if (this.editionService.selectedElements[0] != null && this.editionService.selectedElements[0] !== undefined) {
       const element: GridElement = this.editionService.selectedElements[0];
-      element.Type = this.returnTypeOf (element.ID);
+      element.Type = this.returnTypeOf(element.ID);
       element.Color = this.editionService.curentColor;
       element.BorderColor = this.editionService.curentBorderColor;
       element.InteractionsList = Object.assign([], this.editionService.interractionList);
@@ -172,10 +172,10 @@ export class EditionComponent implements OnInit {
         img => img.ID !== this.editionService.getDefaultForm(element.ElementFormsList).ImageID);
 
       this.boardService.board.ImageList.push({
-          ID: this.editionService.getDefaultForm(element.ElementFormsList).ImageID,
-          OriginalName: this.editionService.name,
-          Path: this.editionService.imageURL
-        });
+        ID: this.editionService.getDefaultForm(element.ElementFormsList).ImageID,
+        OriginalName: this.editionService.name,
+        Path: this.editionService.imageURL
+      });
     }
   }
 
@@ -207,12 +207,12 @@ export class EditionComponent implements OnInit {
         Type: this.returnTypeOf(tempId),
         PartOfSpeech: this.editionService.classe,
         ElementFormsList: elementFormsList,
-        InteractionsList: this.editionService.interractionList ,
+        InteractionsList: this.editionService.interractionList,
         Color: this.editionService.curentColor,
         BorderColor: this.editionService.curentBorderColor,
         VisibilityLevel: 0,
-        x:0,
-        y:0,
+        x: 0,
+        y: 0,
         cols: 1,
         rows: 1
       });
@@ -224,22 +224,24 @@ export class EditionComponent implements OnInit {
         Path: this.editionService.imageURL
       });
 
-    let currentPage: Page = this.getCurrentPage();
+    const currentPage: Page = this.getCurrentPage();
     currentPage.ElementIDsList.push(tempId);
     this.boardService.board.PageList.push(currentPage);
   }
 
   getCurrentPage(): Page {
-    let currentPage = this.boardService.board.PageList.find(page =>{ return page.ID === this.boardService.getCurrentFolder()});
-    if(currentPage===null || currentPage===undefined){
+    let currentPage = this.boardService.board.PageList.find(page => {
+      return page.ID === this.boardService.getCurrentFolder()
+    });
+    if (currentPage === null || currentPage === undefined) {
       currentPage = this.createAndGetNewPage();
     }
     return currentPage;
   }
 
-  createAndGetNewPage(): Page{
-    let name = this.boardService.getCurrentFolder();
-   return  {ID: name, Name:name, ElementIDsList: []};
+  createAndGetNewPage(): Page {
+    const name = this.boardService.getCurrentFolder();
+    return {ID: name, Name: name, ElementIDsList: []};
   }
 
   /**
@@ -254,7 +256,7 @@ export class EditionComponent implements OnInit {
       this.editionService.curentColor = elementToModif.Color;
       this.editionService.curentBorderColor = elementToModif.BorderColor;
       this.editionService.radioTypeFormat = elementToModif.Type === 'button' ? 'button' : 'folder';
-      this.editionService.pageLink = elementToModif.Type === 'button' ? '@' : (<FolderGoTo> elementToModif.Type).GoTo;
+      this.editionService.pageLink = elementToModif.Type === 'button' ? '@' : (elementToModif.Type as FolderGoTo).GoTo;
       const imageToModif = this.boardService.board.ImageList.find(x => x.ID === elementToModif.ElementFormsList[0].ImageID);
       if (imageToModif != null && imageToModif !== undefined) {
         this.editionService.imageURL = imageToModif.Path;
@@ -262,14 +264,14 @@ export class EditionComponent implements OnInit {
         this.editionService.imageURL = '';
       }
 
-      if(elementToModif.ElementFormsList!=null && elementToModif.ElementFormsList!=undefined) {
+      if (elementToModif.ElementFormsList != null && elementToModif.ElementFormsList !== undefined) {
         this.editionService.variantList = Object.assign([], elementToModif.ElementFormsList);
       } else {
-        this.editionService.variantList =[];
+        this.editionService.variantList = [];
       }
 
 
-      if(elementToModif.InteractionsList!=null && elementToModif.InteractionsList!=undefined) {
+      if (elementToModif.InteractionsList != null && elementToModif.InteractionsList !== undefined) {
         this.editionService.interractionList = Object.assign([], elementToModif.InteractionsList);
       } else {
         this.editionService.interractionList = [];
@@ -286,7 +288,7 @@ export class EditionComponent implements OnInit {
   }
 
   /*return true if the page for alternative forms is the currentEditPage*/
-  isDisplayed(page:string) {
+  isDisplayed(page: string) {
     return this.editionService.currentEditPage === page;
   }
 

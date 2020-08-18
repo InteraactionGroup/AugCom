@@ -1,9 +1,9 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {PopupComponent} from './popup.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
-import {FormsModule} from "@angular/forms";
-import {Ng2ImgMaxModule} from "ng2-img-max";
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {Ng2ImgMaxModule} from 'ng2-img-max';
 
 describe('PopupComponent', () => {
   let component: PopupComponent;
@@ -28,6 +28,6 @@ describe('PopupComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  //TODO add tests
+  // TODO add tests
 
 });

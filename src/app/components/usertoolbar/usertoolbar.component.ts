@@ -1,21 +1,21 @@
-import { Component, OnInit } from "@angular/core";
-import { UsertoolbarService } from "../../services/usertoolbar.service";
-import { GeticonService } from "../../services/geticon.service";
-import { IndexeddbaccessService } from "../../services/indexeddbaccess.service";
-import { SnapBarService } from "../../services/snap-bar.service";
-import { ParametersService } from "../../services/parameters.service";
-import { SearchService } from "../../services/search.service";
-import { BoardService } from "../../services/board.service";
-import { Ng2ImgMaxService } from "ng2-img-max";
-import { LayoutService } from "../../services/layout.service";
-import {MultilinguismService} from "../../services/multilinguism.service";
+import {Component, OnInit} from '@angular/core';
+import {UsertoolbarService} from '../../services/usertoolbar.service';
+import {GeticonService} from '../../services/geticon.service';
+import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
+import {SnapBarService} from '../../services/snap-bar.service';
+import {ParametersService} from '../../services/parameters.service';
+import {SearchService} from '../../services/search.service';
+import {BoardService} from '../../services/board.service';
+import {Ng2ImgMaxService} from 'ng2-img-max';
+import {LayoutService} from '../../services/layout.service';
+import {MultilinguismService} from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-usertoolbar',
   templateUrl: './usertoolbar.component.html',
   styleUrls: ['./usertoolbar.component.css'],
   providers: [Ng2ImgMaxService]
- })
+})
 export class UsertoolbarComponent implements OnInit {
   constructor(
     public boardService: BoardService,
@@ -27,7 +27,8 @@ export class UsertoolbarComponent implements OnInit {
     public userToolBarService: UsertoolbarService,
     public layoutService: LayoutService,
     private multilinguism: MultilinguismService
-  ) {}
+  ) {
+  }
 
   /*text to search in the searchBar*/
   searchText = '';

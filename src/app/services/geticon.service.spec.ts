@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 
 import {GeticonService} from './geticon.service';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 
 describe('GeticonService', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -9,7 +9,7 @@ describe('GeticonService', () => {
   }));
 
   it('should be created', () => {
-    const service: GeticonService = TestBed.get(GeticonService);
+    const service: GeticonService = TestBed.inject(GeticonService);
     expect(service).toBeTruthy();
   });
 });

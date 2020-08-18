@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BoardService} from './board.service';
 import {FolderGoTo, GridElement} from '../types';
-import {IndexeddbaccessService} from "./indexeddbaccess.service";
 
 @Injectable({
   providedIn: 'root'
@@ -28,28 +27,28 @@ export class PrintService {
 
   }
 
- recEventSettingFunction(wind){
-   wind.document.getElementById('print').onclick = () => {
-     wind.document.getElementById('print').hidden =true;
-     wind.print();
-     //wind.close();
-     wind.document.body.innerHTML = this.buttonHTML + wind.document.body.innerHTML;
-     this.recEventSettingFunction(wind);
-   }
- }
+  recEventSettingFunction(wind) {
+    wind.document.getElementById('print').onclick = () => {
+      wind.document.getElementById('print').hidden = true;
+      wind.print();
+      // wind.close();
+      wind.document.body.innerHTML = this.buttonHTML + wind.document.body.innerHTML;
+      this.recEventSettingFunction(wind);
+    }
+  }
 
   getAllHTML() {
     let tempHTML = this.buttonHTML;
 
-    this.boardService.board.PageList.forEach(p => {
-      let tempList = [];
-      if (p !== null && p !== undefined) {
-        for (let i = 0; i < p.ElementIDsList.length; i++) {
+    this.boardService.board.PageList.forEach(page => {
+      const tempList = [];
+      if (page !== null && page !== undefined) {
+        for (const id of page.ElementIDsList) {
           tempList.push(this.boardService.board.ElementList.find(elt => {
-            return elt.ID === p.ElementIDsList[i];
+            return elt.ID === id;
           }));
         }
-        tempHTML = tempHTML + this.getHTML(p.ID, tempList);
+        tempHTML = tempHTML + this.getHTML(page.ID, tempList);
       }
     });
 
@@ -58,12 +57,12 @@ export class PrintService {
 
   getHTML(id, elementList: any[]) {
     let temp = '';
-    let numberOfPages = Math.ceil(elementList.length / (this.boardService.board.NumberOfCols * this.boardService.board.NumberOfRows));
+    const numberOfPages = Math.ceil(elementList.length / (this.boardService.board.NumberOfCols * this.boardService.board.NumberOfRows));
     for (let i = 0; i < numberOfPages; i++) {
-      let beginning = i * (this.boardService.board.NumberOfCols * this.boardService.board.NumberOfRows);
-      let ending = (i + 1) * (this.boardService.board.NumberOfCols * this.boardService.board.NumberOfRows);
+      const beginning = i * (this.boardService.board.NumberOfCols * this.boardService.board.NumberOfRows);
+      const ending = (i + 1) * (this.boardService.board.NumberOfCols * this.boardService.board.NumberOfRows);
       temp = temp +
-        this.wrapperBegin(id + '- page ' + <number>(<number>i + <number>1)) +
+        this.wrapperBegin(id + '- page ' + (((i as number) + (1 as number)) as number)) +
         this.innerHTML(elementList.slice(beginning, ending)) +
         this.wrapperEnd();
     }
@@ -77,7 +76,7 @@ export class PrintService {
   }
 
   getShadow(element: GridElement) {
-    if ((<FolderGoTo> element.Type).GoTo !== undefined) {
+    if ((element.Type as FolderGoTo).GoTo !== undefined) {
       let s = '; box-shadow: 3px -3px 0px -2px ' + (element.Color === undefined || element.Color == null ? '#d3d3d3' : element.Color);
       s = s + ' , 4px -4px ' + (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor);
       return s;
@@ -95,7 +94,7 @@ export class PrintService {
 
         innerValue = innerValue +
           '<div class="elementContainer">' +
-          '<div class="' + (url === '' ? "element noImageElement" : "element") + '" style="background-color:' + element.Color + '; border-color:' + element.BorderColor + this.getShadow(element) + '">\n' +
+          '<div class="' + (url === '' ? 'element noImageElement' : 'element') + '" style="background-color:' + element.Color + '; border-color:' + element.BorderColor + this.getShadow(element) + '">\n' +
           '<div class="image" style="background-image: ' + url + '"></div>\n' +
           '<div class="adjustableText">\n' +
           this.boardService.getLabel(element) +
@@ -113,11 +112,11 @@ export class PrintService {
       '</div>';
   }
 
-  getCSSPrint(){
+  getCSSPrint() {
     return '@media print {\n' +
       '  body * {\n' +
       '    visibility: hidden;\n' +
-      ' height: 0; \n'+
+      ' height: 0; \n' +
       '  }\n' +
       '  .section-to-print, .section-to-print * {\n' +
       '    visibility: visible;\n' +
@@ -127,7 +126,7 @@ export class PrintService {
       '  height: 100%;\n' +
       '  width: 100%;\n' +
       '  overflow: visible;\n' +
-      '}\n'+
+      '}\n' +
       '}'
   }
 

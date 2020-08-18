@@ -1,10 +1,10 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {InformationEditionPageComponent} from './information-edition-page.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
-import {FormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
-import {Ng2ImgMaxModule} from "ng2-img-max";
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import {Ng2ImgMaxModule} from 'ng2-img-max';
 
 describe('InformationEditionPageComponent', () => {
   let component: InformationEditionPageComponent;

@@ -15,11 +15,11 @@ export class ParametersService {
   constructor() {
     this.languagesAvailaibles = [];
     this.printVoicesList().then(r => {
-      let voice = this.getCurrentVoice();
+      const voice = this.getCurrentVoice();
       if (voice !== undefined && voice !== null) {
-        this.currentVoice = "" + voice.lang + "@" + voice.name;
+        this.currentVoice = '' + voice.lang + '@' + voice.name;
       } else {
-        this.currentVoice = "@";
+        this.currentVoice = '@';
       }
     });
   }

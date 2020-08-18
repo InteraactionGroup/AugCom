@@ -54,7 +54,7 @@ export class HistoricService {
     const x = new SpeechSynthesisUtterance(text + ' ');
 
     /*checking if we can find the same voice*/
-    let newVoice = this.parametersService.getCurrentVoice();
+    const newVoice = this.parametersService.getCurrentVoice();
 
     /*if we can't find the same lang don't change the voice*/
     if (newVoice !== undefined && newVoice !== null) {
@@ -64,7 +64,6 @@ export class HistoricService {
     this.speechSynthesis.resume();
     this.speechSynthesis.speak(x);
   }
-
 
 
 }

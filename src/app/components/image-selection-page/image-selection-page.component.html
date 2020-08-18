@@ -28,7 +28,8 @@
       <div class="tableTitle"> {{this.multilinguism.translate("modifyImage")}}:</div>
       <div class="element">
         <label class="label" for="imagefromfile">{{this.multilinguism.translate("fromFile")}}: </label>
-        <input #file (change)="previewFile(file.files)" onclick="this.value=null" accept='image/*' class="input" type="file" id="imagefromfile">
+        <input #file (change)="previewFile(file.files)" onclick="this.value=null" accept='image/*' class="input"
+               type="file" id="imagefromfile">
         <label class="label" for="imagefromURL">{{this.multilinguism.translate("fromURL")}}: </label>
         <div class="inputURL">
           <input class="searchField" type="search" id="imagefromURL" #text

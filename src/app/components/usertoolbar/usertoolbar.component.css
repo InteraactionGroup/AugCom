@@ -176,21 +176,21 @@
   background-color: indianred;
 }
 
-.titleContainer{
+.titleContainer {
   position: absolute;
   height: 100%;
-  margin-left:calc(50% - 6cm);
-  width:9cm;
+  margin-left: calc(50% - 6cm);
+  width: 9cm;
   opacity: 1;
 }
 
-.titleSVG{
+.titleSVG {
   height: 1.5cm;
   width: 100%;
   float: left;
 }
 
-.width0{
+.width0 {
   width: 0;
   opacity: 0;
   transition: width 5s;

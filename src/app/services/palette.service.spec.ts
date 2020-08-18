@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 
 import {PaletteService} from './palette.service';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 
 describe('PaletteService', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -9,7 +9,7 @@ describe('PaletteService', () => {
   }));
 
   it('should be created', () => {
-    const service: PaletteService = TestBed.get(PaletteService);
+    const service: PaletteService = TestBed.inject(PaletteService);
     expect(service).toBeTruthy();
   });
 });

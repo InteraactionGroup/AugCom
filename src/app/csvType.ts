@@ -6,7 +6,7 @@ export class CSVRecord {
   public id: number;
 }
 
-export class wordsCSV {
+export class WordsCSV {
   public mot: string;
   public ligne: number;
   public colonne: number;
@@ -14,17 +14,17 @@ export class wordsCSV {
   public wordID: string;
 }
 
-export class buttonLinksCSV {
+export class ButtonLinksCSV {
   public from: string;
   public to: string;
 }
 
-export class pageLinksCSV {
+export class PageLinksCSV {
   public from: string;
   public to: string;
 }
 
-export class backLinksCSV {
+export class BackLinksCSV {
   public from: string;
   public backID : string;
   public to: string;

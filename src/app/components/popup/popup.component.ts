@@ -3,8 +3,8 @@ import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {BoardService} from '../../services/board.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {EditionService} from '../../services/edition.service';
-import {Ng2ImgMaxService} from "ng2-img-max";
-import {MultilinguismService} from "../../services/multilinguism.service";
+import {Ng2ImgMaxService} from 'ng2-img-max';
+import {MultilinguismService} from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-popup',
@@ -59,9 +59,10 @@ export class PopupComponent implements OnInit {
    */
   getSentencedToDeleteElementStringValue() {
     if (this.editionService.sentencedToBeDeletedElement.length === 1) {
-      return  this.multilinguism.translate("theElement") + ': "' + this.boardService.getDefaultLabel(this.editionService.sentencedToBeDeletedElement[0]) + '".\n';
+      return this.multilinguism.translate('theElement') + ': "' +
+        this.boardService.getDefaultLabel(this.editionService.sentencedToBeDeletedElement[0]) + '".\n';
     } else if (this.editionService.sentencedToBeDeletedElement.length >= 1) {
-      return this.multilinguism.translate("severalElements") + '\n';
+      return this.multilinguism.translate('severalElements') + '\n';
     }
   }
 }

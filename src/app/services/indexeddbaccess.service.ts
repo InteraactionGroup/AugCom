@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BoardService} from './board.service';
 import {PaletteService} from './palette.service';
-import {JsonValidatorService} from "./json-validator.service";
+import {JsonValidatorService} from './json-validator.service';
 
 @Injectable({
   providedIn: 'root'
@@ -89,22 +89,22 @@ export class IndexeddbaccessService {
       const db = event.target.result;
       const transaction = event.target.transaction;
 
-      this.createPaletteObject(db,transaction);
-      this.createGridObject(db,transaction)
+      this.createPaletteObject(db, transaction);
+      this.createGridObject(db, transaction);
 
       this.boardService.updateElementList();
 
     };
   }
 
-  createPaletteObject(db,transaction){
+  createPaletteObject(db, transaction) {
     db.createObjectStore('Palette', {autoIncrement: true});
     // console.log('palette loaded');
-    const paletteStore =transaction.objectStore('Palette');
+    const paletteStore = transaction.objectStore('Palette');
     paletteStore.add(this.paletteService.palettes);
   }
 
-  createGridObject(db,transaction){
+  createGridObject(db, transaction) {
     db.createObjectStore('Grid', {autoIncrement: true});
     // console.log('save loaded');
     const gridStore = transaction.objectStore('Grid');

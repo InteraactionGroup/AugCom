@@ -1,15 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {EditionService} from "../../services/edition.service";
-import {DbnaryService} from "../../services/dbnary.service";
-import {GeticonService} from "../../services/geticon.service";
-import {HttpClient} from "@angular/common/http";
-import mullberryJson from "../../../assets/symbol-info.json";
-import {MulBerryObject} from "../../libTypes";
-import {Ng2ImgMaxService} from "ng2-img-max";
-import {DomSanitizer} from "@angular/platform-browser";
-import {ElementForm} from "../../types";
-import {BoardService} from "../../services/board.service";
-import {MultilinguismService} from "../../services/multilinguism.service";
+import {EditionService} from '../../services/edition.service';
+import {DbnaryService} from '../../services/dbnary.service';
+import {GeticonService} from '../../services/geticon.service';
+import {HttpClient} from '@angular/common/http';
+import mullberryJson from '../../../assets/symbol-info.json';
+import {MulBerryObject} from '../../libTypes';
+import {Ng2ImgMaxService} from 'ng2-img-max';
+import {ElementForm} from '../../types';
+import {BoardService} from '../../services/board.service';
+import {MultilinguismService} from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-alternative-forms',
@@ -19,52 +18,61 @@ import {MultilinguismService} from "../../services/multilinguism.service";
 })
 export class AlternativeFormsComponent implements OnInit {
 
-  constructor(private multilinguism: MultilinguismService, public ng2ImgMaxService: Ng2ImgMaxService, public boardService: BoardService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public editionService: EditionService) {
+  constructor(private multilinguism: MultilinguismService,
+              public ng2ImgMaxService: Ng2ImgMaxService,
+              public boardService: BoardService,
+              public getIconService: GeticonService,
+              public dbnaryService: DbnaryService,
+              public editionService: EditionService) {
   }
+
+  imageList = [];
+  elementFormNameImageURL: any = '';
+  elementFormDisplayedWordField = '';
+  elementFormPronouncedWordField = '';
+  selectedItem: ElementForm = null;
+  currentMode = '';
+  imageSelectionStarted = false;
 
   ngOnInit() {
   }
 
-  imageList=[];
-  elementFormNameImageURL: any ='';
-  elementFormDisplayedWordField='';
-  elementFormPronouncedWordField='';
-  selectedItem: ElementForm = null;
-  currentMode = '';
-  imageSelectionStarted=false;
-
-  saveCurrentElementForm(){
-  if (this.currentMode === 'modif' && this.selectedItem !== null) {
-    this.selectedItem.DisplayedText = this.elementFormDisplayedWordField;
-    this.selectedItem.VoiceText = this.elementFormPronouncedWordField;
-    if (this.elementFormNameImageURL !== '') {
-    this.selectedItem.ImageID = this.getNewCreatedImageName();
-    } else {
-      this.selectedItem.ImageID = '';
+  saveCurrentElementForm() {
+    if (this.currentMode === 'modif' && this.selectedItem !== null) {
+      this.selectedItem.DisplayedText = this.elementFormDisplayedWordField;
+      this.selectedItem.VoiceText = this.elementFormPronouncedWordField;
+      if (this.elementFormNameImageURL !== '') {
+        this.selectedItem.ImageID = this.getNewCreatedImageName();
+      } else {
+        this.selectedItem.ImageID = '';
+      }
+    } else if (this.currentMode === 'addNew') {
+      const newElementForm: ElementForm = new ElementForm();
+      newElementForm.DisplayedText = this.elementFormDisplayedWordField;
+      newElementForm.VoiceText = this.elementFormPronouncedWordField;
+      if (this.elementFormNameImageURL !== '') {
+        newElementForm.ImageID = this.getNewCreatedImageName();
+      } else {
+        newElementForm.ImageID = '';
+      }
+      newElementForm.LexicInfos = [];
+      this.editionService.variantList.push(newElementForm);
     }
-  } else if (this.currentMode === 'addNew'){
-    let newElementForm : ElementForm = new ElementForm();
-    newElementForm.DisplayedText = this.elementFormDisplayedWordField;
-    newElementForm.VoiceText = this.elementFormPronouncedWordField;
-    if (this.elementFormNameImageURL !== '') {
-      newElementForm.ImageID = this.getNewCreatedImageName();
-    } else {
-      newElementForm.ImageID = '';
-    }
-    newElementForm.LexicInfos = [];
-    this.editionService.variantList.push(newElementForm);
-  }
     this.currentMode = '';
-    this.elementFormNameImageURL= '';
+    this.elementFormNameImageURL = '';
   }
 
-  deleteElementForm( elementForm : ElementForm){
-    this.editionService.variantList = this.editionService.variantList.filter( elt => {return elt !== elementForm});
+  deleteElementForm(elementForm: ElementForm) {
+    this.editionService.variantList = this.editionService.variantList.filter(elt => {
+      return elt !== elementForm
+    });
   }
 
-  getNewCreatedImageName(){
+  getNewCreatedImageName() {
     let i = 0;
-    while(-1 !== this.boardService.board.ImageList.findIndex( img => {return img.ID === (this.elementFormDisplayedWordField + i)})){
+    while (-1 !== this.boardService.board.ImageList.findIndex(img => {
+      return img.ID === (this.elementFormDisplayedWordField + i)
+    })) {
       i++;
     }
     this.boardService.board.ImageList.push({
@@ -75,38 +83,38 @@ export class AlternativeFormsComponent implements OnInit {
     return this.elementFormDisplayedWordField + i;
   }
 
-  selectNewForm(){
+  selectNewForm() {
     if (this.currentMode !== 'addNew') {
       this.currentMode = 'addNew';
       this.selectedItem = new ElementForm();
     } else {
-      this.elementFormNameImageURL ='';
-      this.elementFormDisplayedWordField='';
-      this.elementFormPronouncedWordField='';
+      this.elementFormNameImageURL = '';
+      this.elementFormDisplayedWordField = '';
+      this.elementFormPronouncedWordField = '';
       this.currentMode = '';
     }
   }
 
-  getTitle( s: string){
-    switch(s){
+  getTitle(s: string) {
+    switch (s) {
       case 'name':
-        return this.currentMode==='modif'? 'modifyWord': 'chooseWord';
+        return this.currentMode === 'modif' ? 'modifyWord' : 'chooseWord';
       case 'image':
-        return this.currentMode==='modif'? "modifyImage": "chooseImage";
+        return this.currentMode === 'modif' ? 'modifyImage' : 'chooseImage';
       case 'table':
-        return this.currentMode==='addNew'? "addWordVariantManually": "";
+        return this.currentMode === 'addNew' ? 'addWordVariantManually' : '';
       default :
-          return '';
+        return '';
     }
   }
 
-  select(itemSelected){
+  select(itemSelected) {
     if (this.currentMode !== 'modif' || this.selectedItem !== itemSelected) {
       this.currentMode = 'modif';
       this.selectedItem = itemSelected;
-      this.imageSelectionStarted=false;
+      this.imageSelectionStarted = false;
       this.elementFormDisplayedWordField = itemSelected.DisplayedText;
-      this.elementFormPronouncedWordField= itemSelected.VoiceText;
+      this.elementFormPronouncedWordField = itemSelected.VoiceText;
     } else {
       this.currentMode = '';
     }
@@ -124,14 +132,14 @@ export class AlternativeFormsComponent implements OnInit {
     this.dbnaryService.getWords(classe);
   }
 
-  getVariantListExceptDefault(){
-    if(this.editionService.add) {
-      let defaultForm = this.editionService.getDefaultFormIfExists(this.editionService.variantList);
+  getVariantListExceptDefault() {
+    if (this.editionService.add) {
+      const defaultForm = this.editionService.getDefaultFormIfExists(this.editionService.variantList);
       return this.editionService.variantList.filter(variant => {
         return variant !== defaultForm
       });
     } else {
-      let defaultForm = this.editionService.getDefaultForm(this.editionService.variantList);
+      const defaultForm = this.editionService.getDefaultForm(this.editionService.variantList);
       return this.editionService.variantList.filter(variant => {
         return variant !== defaultForm
       });
@@ -175,7 +183,7 @@ export class AlternativeFormsComponent implements OnInit {
    * @param file, a file element
    */
   previewFile(file) {
-    this.imageSelectionStarted=true;
+    this.imageSelectionStarted = true;
     this.elementFormNameImageURL = 'assets/icons/load.gif';
     if (file === null) {
       return;
@@ -193,7 +201,7 @@ export class AlternativeFormsComponent implements OnInit {
       reader.readAsDataURL(result);
       reader.onload = () => {
         this.elementFormNameImageURL = reader.result;
-        //this.choseImage = false;
+        // this.choseImage = false;
       };
     }, () => {
       reader.readAsDataURL(file[0]);
@@ -208,13 +216,12 @@ export class AlternativeFormsComponent implements OnInit {
     console.log(this.selectedItem.DisplayedText)
   }
 
-  getSanitizeURL(elementForm: ElementForm){
-    if( elementForm !== this.selectedItem ||
+  getSanitizeURL(elementForm: ElementForm) {
+    if (elementForm !== this.selectedItem ||
       !this.imageSelectionStarted ||
-      this.elementFormNameImageURL===null ||
-      this.elementFormNameImageURL==='')
-    {
-      let elementImage = this.boardService.board.ImageList.find(image => {
+      this.elementFormNameImageURL === null ||
+      this.elementFormNameImageURL === '') {
+      const elementImage = this.boardService.board.ImageList.find(image => {
         return image.ID === elementForm.ImageID
       });
       if (elementImage !== null && elementImage !== undefined) {
@@ -226,7 +233,7 @@ export class AlternativeFormsComponent implements OnInit {
     }
   }
 
-  getPreviewURL(){
+  getPreviewURL() {
     return 'url(' + this.elementFormNameImageURL + ')';
   }
 
@@ -236,9 +243,9 @@ export class AlternativeFormsComponent implements OnInit {
    * @param t, the new imageUrl
    */
   previewWithURL(t) {
-    this.imageSelectionStarted=true;
+    this.imageSelectionStarted = true;
     this.elementFormNameImageURL = t;
-    //this.choseImage = false;
+    // this.choseImage = false;
   }
 
   /**
@@ -247,7 +254,7 @@ export class AlternativeFormsComponent implements OnInit {
    * @param t, the string short name of the image of the mulberry library image
    */
   previewMullberry(t: string) {
-    this.imageSelectionStarted=true;
+    this.imageSelectionStarted = true;
     this.previewWithURL('assets/libs/mulberry-symbols/EN-symbols/' + t + '.svg');
   }
 

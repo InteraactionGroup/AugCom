@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import {ElementForm, GridElement, Interaction} from '../types';
-import {PaletteService} from "./palette.service";
+import {PaletteService} from './palette.service';
 
 @Injectable({
   providedIn: 'root'
@@ -67,8 +67,8 @@ export class EditionService {
 
   curentBorderColor = 'black';
 
-  pageLink: string = '@';
-  newPage : string = '';
+  pageLink = '@';
+  newPage = '';
 
   selectedPalette = this.paletteService.defaultPalette;
 
@@ -77,7 +77,9 @@ export class EditionService {
 
   /* get the default name of an element */
   getDefaultForm(elementFormList: ElementForm[]): ElementForm {
-    const index = elementFormList.findIndex(form => form.LexicInfos.findIndex(info => {return info.default}) !== -1);
+    const index = elementFormList.findIndex(form => form.LexicInfos.findIndex(info => {
+      return info.default
+    }) !== -1);
     if (index !== -1) {
       return elementFormList[index];
     }
@@ -85,7 +87,9 @@ export class EditionService {
   }
 
   getDefaultFormIfExists(elementFormList: ElementForm[]): ElementForm {
-    const index = elementFormList.findIndex(form => form.LexicInfos.findIndex(info => {return info.default}) !== -1);
+    const index = elementFormList.findIndex(form => form.LexicInfos.findIndex(info => {
+      return info.default
+    }) !== -1);
     if (index !== -1) {
       return elementFormList[index];
     }
@@ -93,23 +97,22 @@ export class EditionService {
   }
 
 
-
-  clearEditionPane(){
-   this.ElementListener = new Subject<GridElement>();
-   this.selectedElements = [];
-   this.selectAll = false;
-   this.sentencedToBeDeletedElement = [];
-   this.classe = '';
-   this.name = '';
-   this.interractionList = [];
-   this.variantList = [];
-   this.imageURL = '';
-   this.radioTypeFormat = 'button';
-   this.currentEditPage = 'Informations';
-   this.colorPicked = null;
-   this.curentColor = '#d3d3d3';
-   this.curentBorderColor = 'black';
-   this.selectedPalette = this.paletteService.defaultPalette;
+  clearEditionPane() {
+    this.ElementListener = new Subject<GridElement>();
+    this.selectedElements = [];
+    this.selectAll = false;
+    this.sentencedToBeDeletedElement = [];
+    this.classe = '';
+    this.name = '';
+    this.interractionList = [];
+    this.variantList = [];
+    this.imageURL = '';
+    this.radioTypeFormat = 'button';
+    this.currentEditPage = 'Informations';
+    this.colorPicked = null;
+    this.curentColor = '#d3d3d3';
+    this.curentBorderColor = 'black';
+    this.selectedPalette = this.paletteService.defaultPalette;
   }
 
   selectAllElementsOf(elementList) {

@@ -1,12 +1,12 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {EditionComponent} from './edition.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
-import {FormsModule} from "@angular/forms";
-import {Ng2ImgMaxModule} from "ng2-img-max";
-import {HttpClientModule} from "@angular/common/http";
-import {Router} from "@angular/router";
-import {Grid, GridElement} from "../../types";
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {Ng2ImgMaxModule} from 'ng2-img-max';
+import {HttpClientModule} from '@angular/common/http';
+import {Router} from '@angular/router';
+import {Grid, GridElement} from '../../types';
 
 function newBoard(component: any) {
   component.boardService.board = new Grid(
@@ -63,7 +63,7 @@ function clickElementOf(compiled: any, fixture: any, selector: any, textIncluded
 }
 
 function expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled: any, openElementName: any) {
-  let tabNameList = ['app-event', 'app-alternative-forms', 'app-image-selection-page', 'app-information-edition-page'];
+  const tabNameList = ['app-event', 'app-alternative-forms', 'app-image-selection-page', 'app-information-edition-page'];
   tabNameList.forEach(tabName => {
     if (tabName === openElementName) {
       expect(compiled.querySelector(tabName)).not.toBe(null);
@@ -83,7 +83,7 @@ describe('EditionComponent', () => {
       imports: [FormsModule, Ng2ImgMaxModule, HttpClientModule],
       providers: [{
         provide: Router, useClass: class {
-          navigate = jasmine.createSpy("navigate");
+          navigate = jasmine.createSpy('navigate');
         }
       }],
       declarations: [EditionComponent]
@@ -129,7 +129,7 @@ describe('EditionComponent', () => {
 
   it('should add element to save', () => {
     const compiled = fixture.debugElement.nativeElement;
-    component.editionService.currentEditPage = "";
+    component.editionService.currentEditPage = '';
     component.editionService.add = true;
     component.editionService.name = 'test';
     component.editionService.curentBorderColor = 'black';
@@ -149,7 +149,7 @@ describe('EditionComponent', () => {
 
   it('should modify an element of save', () => {
     const compiled = fixture.debugElement.nativeElement;
-    component.editionService.currentEditPage = "";
+    component.editionService.currentEditPage = '';
 
     newBoard(component);
     fixture.detectChanges();
@@ -176,7 +176,7 @@ describe('EditionComponent', () => {
 
   it('should not modify an element of save if there was no modif on edition panel', () => {
     const compiled = fixture.debugElement.nativeElement;
-    component.editionService.currentEditPage = "";
+    component.editionService.currentEditPage = '';
 
     newBoard(component);
     fixture.detectChanges();
@@ -200,7 +200,7 @@ describe('EditionComponent', () => {
 
   it('should modify multiple element of save but not their name', () => {
     const compiled = fixture.debugElement.nativeElement;
-    component.editionService.currentEditPage = "";
+    component.editionService.currentEditPage = '';
 
     newBoard(component);
     addElementToBoard(component);
@@ -234,7 +234,7 @@ describe('EditionComponent', () => {
 
   it('should not modify multiple element of save if they have not been modify in edition panel', () => {
     const compiled = fixture.debugElement.nativeElement;
-    component.editionService.currentEditPage = "";
+    component.editionService.currentEditPage = '';
 
     newBoard(component);
     addElementToBoard(component);
@@ -267,7 +267,7 @@ describe('EditionComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     clickElementOf(compiled, fixture, '.menu-item-title-container', 'Apparence');
     component.editionService.colorPicked = 'inside';
-    component.editionService.selectedPalette='22 magic colors';
+    component.editionService.selectedPalette = '22 magic colors';
     fixture.detectChanges();
 
     compiled.querySelector('.color').click();
@@ -283,7 +283,7 @@ describe('EditionComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     clickElementOf(compiled, fixture, '.menu-item-title-container', 'Apparence');
     component.editionService.colorPicked = 'border';
-    component.editionService.selectedPalette='22 magic colors';
+    component.editionService.selectedPalette = '22 magic colors';
     fixture.detectChanges();
 
     compiled.querySelector('.color').click();
