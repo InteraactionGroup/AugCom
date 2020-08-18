@@ -4,6 +4,7 @@ import {GeticonService} from '../../services/geticon.service';
 import {HttpClient} from '@angular/common/http';
 import {BoardService} from '../../services/board.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
+import {FunctionsService} from '../../services/functions.service';
 
 @Component({
   selector: 'app-information-edition-page',
@@ -16,6 +17,7 @@ export class InformationEditionPageComponent implements OnInit {
   constructor(public multilinguism: MultilinguismService,
               public editionService: EditionService,
               public board: BoardService,
+              public functionsService: FunctionsService,
               public getIconService: GeticonService) {
   }
 

@@ -19,14 +19,14 @@
   </div>
 
   <!-- in edit mode this button is used to delete the associated element -->
-  <div class="deleteElement floatLeft" *ngIf="this.userToolBarService.edit && element.ID !== '#disable'"
+  <div class="deleteElement floatLeft" *ngIf="this.userToolBarService.edit && element.ID !== '#disable' && element.dragEnabled!==false && element.resizeEnabled!==false"
        (click)="this.delete(element)">
     <div class="image haveBackgroundImage" [style.background-image]="this.getIcon('delete')">
     </div>
   </div>
 
   <!-- in edit mode this button is used to select the associated element -->
-  <div class="selectCheckBox floatLeft" *ngIf="this.userToolBarService.edit && element.ID !== '#disable'"
+  <div class="selectCheckBox floatLeft" *ngIf="this.userToolBarService.edit && element.ID !== '#disable' && element.dragEnabled!==false && element.resizeEnabled!==false"
        (click)="this.select(element)">
     <div class="image haveBackgroundImage"
          [style.background-image]="this.editionService.isSelected(element)?this.getIcon('check'):null">
@@ -34,7 +34,7 @@
   </div>
 
   <!-- in edit mode this button is used to change the visibility of the associated element for 'babble' function-->
-  <div class="elementVisibility" *ngIf="this.userToolBarService.edit && element.ID !== '#disable'"
+  <div class="elementVisibility" *ngIf="this.userToolBarService.edit && element.ID !== '#disable' && element.dragEnabled!==false && element.resizeEnabled!==false"
        (click)="this.changeVisibility(element)">
     <div class="image haveBackgroundImage"
          [style.background-image]="this.isVisible(element) ? this.getIcon('hide') : this.getIcon('show')">

@@ -172,7 +172,8 @@ export class ShareComponent implements OnInit {
         x: 0,
         y: 0,
         cols: 1,
-        rows: 1
+        rows: 1,
+        dragAndResizeEnabled: true
       });
 
     this.boardService.board.ImageList.push(

@@ -397,7 +397,8 @@ export class BoardService {
           x: 0,
           y: 0,
           cols: 1,
-          rows: 1
+          rows: 1,
+          dragAndResizeEnabled: true
         };
         if (places.length > indexOfForm) {
           elt.x = places[indexOfForm].x;
@@ -472,7 +473,8 @@ export class BoardService {
       x: element.x,
       y: element.y,
       cols: element.cols,
-      rows: element.rows
+      rows: element.rows,
+      dragAndResizeEnabled: true
     };
   }
 

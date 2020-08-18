@@ -49,6 +49,8 @@ export class GridElement {
   ElementFormsList: ElementForm[];
   InteractionsList: Interaction[];
 
+  dragAndResizeEnabled: boolean;
+
 
   constructor(elementId: string, elementType , elementPartOfSpeech: string,
               color: string, borderColor: string, visibilityLevel , elementsForms: ElementForm[], interactionList: Interaction[] ) {
@@ -65,6 +67,7 @@ export class GridElement {
     this.x = 0;
     this.rows =1;
     this.cols = 1;
+    this.dragAndResizeEnabled = true;
   }
 }
 

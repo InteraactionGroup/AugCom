@@ -58,7 +58,8 @@
             }
           ]
         }
-      ]
+      ],
+      "dragAndResizeEnabled": false
     },
     {
       "ID": "fruits",

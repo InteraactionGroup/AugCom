@@ -19,6 +19,9 @@
           <input [(ngModel)]="this.editionService.radioTypeFormat" id="radioFolder" name="typeFormat" type="radio"
                  value="folder">
           <label class="radio" for="radioFolder">{{multilinguism.translate("folder")}}</label>
+          <input [(ngModel)]="this.editionService.radioTypeFormat" id="radioFunction" name="typeFormat" type="radio"
+                 value="function">
+          <label class="radio" for="radioFunction">{{multilinguism.translate("function")}}</label>
 
           <select class="selectBox" [(ngModel)]="this.editionService.pageLink"
                   *ngIf="this.editionService.radioTypeFormat=='folder'"
@@ -33,6 +36,15 @@
                  placeholder="{{multilinguism.translate('newPageID')}}"
                  *ngIf="this.editionService.radioTypeFormat=='folder' && this.editionService.pageLink === '@NEW@'"
                  [ngModelOptions]="{standalone: true}">
+
+          <select class="selectBox" [(ngModel)]="this.functionsService.selectedFunction"
+                  *ngIf="this.editionService.radioTypeFormat=='function'"
+                  [ngModelOptions]="{standalone: true}">
+            <option value="@" selected>--{{multilinguism.translate("chooseFunction")}}--</option>
+            <ng-container *ngFor="let p of this.functionsService.functionList">
+              <option value="{{p}}"> {{p}} </option>
+            </ng-container>
+          </select>
 
         </form>
       </div>

@@ -4,6 +4,7 @@ import {ParametersService} from '../../services/parameters.service';
 import {GeticonService} from '../../services/geticon.service';
 import {Interaction} from '../../types';
 import {MultilinguismService} from '../../services/multilinguism.service';
+import {FunctionsService} from '../../services/functions.service';
 
 @Component({
   selector: 'app-event',
@@ -14,6 +15,7 @@ export class EventComponent implements OnInit {
   constructor(private multilinguism: MultilinguismService,
               public getIconService: GeticonService,
               public parametersService: ParametersService,
+              public functionService: FunctionsService,
               public editionService: EditionService) {
   }
 
@@ -51,6 +53,8 @@ export class EventComponent implements OnInit {
         return 'longPress';
       case 'doubleClick':
         return 'dblClick';
+      default :
+        return codeName;
     }
 
   }
