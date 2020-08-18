@@ -56,7 +56,7 @@ export class AccountComponent implements OnInit {
       // this.selectedMenu = '';
     } else {
       this.selectSubMenu(menuSelected, '');
-      let menuElement = this.menu.find(elt => {
+      const menuElement = this.menu.find(elt => {
         return elt[0] === menuSelected;
       });
       if (menuElement !== null && menuElement[1].length > 0) {

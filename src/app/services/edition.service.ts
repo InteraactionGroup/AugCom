@@ -67,8 +67,8 @@ export class EditionService {
 
   curentBorderColor = 'black';
 
-  pageLink: string = '@';
-  newPage: string = '';
+  pageLink = '@';
+  newPage = '';
 
   selectedPalette = this.paletteService.defaultPalette;
 

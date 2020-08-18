@@ -47,13 +47,13 @@ export class SpeakForYourselfParser {
         });
       }
 
-      let isFolder = this.elementIsFolder(element);
+      const isFolder = this.elementIsFolder(element);
 
-      let parentPage = grille.PageList.find(page => {
+      const parentPage = grille.PageList.find(page => {
         return page.ID === element.page
       });
       if (parentPage !== null && parentPage !== undefined) {
-        let index = (element.ligne - 1) * 15 + (element.colonne - 1);
+        const index = (element.ligne - 1) * 15 + (element.colonne - 1);
         parentPage.ElementIDsList[index] = element.mot + (isFolder ? '' : 'button');
       }
 

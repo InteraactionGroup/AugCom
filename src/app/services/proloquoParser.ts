@@ -25,26 +25,26 @@ export class ProloquoParser {
   public createGridFromProloquoCSVs(): void {
     /*WORD CSV DATA*/
     this.http.get('assets/libs/proloquo/proloquoMots.csv', {responseType: 'text'}).subscribe(wordData => {
-      let csvRecordsArray = (<string>wordData).split(/\r\n|\n/);
-      let headersRow = this.getHeaderArray(csvRecordsArray);
+      const csvRecordsArray = (wordData as string).split(/\r\n|\n/);
+      const headersRow = this.getHeaderArray(csvRecordsArray);
       this.getDataRecordsArrayFromWordsCSV(csvRecordsArray, headersRow.length);
 
       /*PAGE CSV DATA*/
       this.http.get('assets/libs/proloquo/proloquoPageLinks.csv', {responseType: 'text'}).subscribe(pageData => {
-        let csvRecordsArray = (<string>pageData).split(/\r\n|\n/);
-        let headersRow = this.getHeaderArray(csvRecordsArray);
+        const csvRecordsArray = (pageData as string).split(/\r\n|\n/);
+        const headersRow = this.getHeaderArray(csvRecordsArray);
         this.getDataRecordsArrayFromPageLinksCSV(csvRecordsArray, headersRow.length);
 
         /*BUTTON CSV DATA*/
         this.http.get('assets/libs/proloquo/proloquoButtonLinks.csv', {responseType: 'text'}).subscribe(buttonData => {
-          let csvRecordsArray = (<string>buttonData).split(/\r\n|\n/);
-          let headersRow = this.getHeaderArray(csvRecordsArray);
+          const csvRecordsArray = (buttonData as string).split(/\r\n|\n/);
+          const headersRow = this.getHeaderArray(csvRecordsArray);
           this.getDataRecordsArrayFromButtonLinksCSV(csvRecordsArray, headersRow.length);
 
           /*BACK CSV DATA*/
           this.http.get('assets/libs/proloquo/proloquoBackLinks.csv', {responseType: 'text'}).subscribe(backData => {
-            let csvRecordsArray = (<string>backData).split(/\r\n|\n/);
-            let headersRow = this.getHeaderArray(csvRecordsArray);
+            const csvRecordsArray = (backData as string).split(/\r\n|\n/);
+            const headersRow = this.getHeaderArray(csvRecordsArray);
             this.getDataRecordsArrayFromBackLinksCSV(csvRecordsArray, headersRow.length);
 
             this.boardService.board = this.jsonValidator.getCheckedGrid(this.createGrid());
@@ -58,9 +58,9 @@ export class ProloquoParser {
 
   getDataRecordsArrayFromWordsCSV(csvRecordsArray: any, headerLength: any) {
     for (let i = 1; i < csvRecordsArray.length; i++) {
-      let curruntRecord = (<string>csvRecordsArray[i]).split(',');
+      const curruntRecord = (csvRecordsArray[i] as string).split(',');
       if (curruntRecord.length == headerLength) {
-        let csvRecord: wordsCSV = new wordsCSV();
+        const csvRecord: wordsCSV = new wordsCSV();
         csvRecord.mot = curruntRecord[0].trim();
         csvRecord.ligne = Number(curruntRecord[1].trim());
         csvRecord.colonne = Number(curruntRecord[2].trim());
@@ -73,9 +73,9 @@ export class ProloquoParser {
 
   getDataRecordsArrayFromPageLinksCSV(csvRecordsArray: any, headerLength: any) {
     for (let i = 1; i < csvRecordsArray.length; i++) {
-      let curruntRecord = (<string>csvRecordsArray[i]).split(',');
+      const curruntRecord = (csvRecordsArray[i] as string).split(',');
       if (curruntRecord.length == headerLength) {
-        let csvRecord: pageLinksCSV = new pageLinksCSV();
+        const csvRecord: pageLinksCSV = new pageLinksCSV();
         csvRecord.from = curruntRecord[0].trim();
         csvRecord.to = curruntRecord[1].trim();
         this.pageLinks.push(csvRecord);
@@ -85,9 +85,9 @@ export class ProloquoParser {
 
   getDataRecordsArrayFromButtonLinksCSV(csvRecordsArray: any, headerLength: any) {
     for (let i = 1; i < csvRecordsArray.length; i++) {
-      let curruntRecord = (<string>csvRecordsArray[i]).split(',');
+      const curruntRecord = (csvRecordsArray[i] as string).split(',');
       if (curruntRecord.length == headerLength) {
-        let csvRecord: buttonLinksCSV = new buttonLinksCSV();
+        const csvRecord: buttonLinksCSV = new buttonLinksCSV();
         csvRecord.from = curruntRecord[0].trim();
         csvRecord.to = curruntRecord[1].trim();
         this.buttonLinks.push(csvRecord);
@@ -97,9 +97,9 @@ export class ProloquoParser {
 
   getDataRecordsArrayFromBackLinksCSV(csvRecordsArray: any, headerLength: any) {
     for (let i = 1; i < csvRecordsArray.length; i++) {
-      let curruntRecord = (<string>csvRecordsArray[i]).split(',');
+      const curruntRecord = (csvRecordsArray[i] as string).split(',');
       if (curruntRecord.length == headerLength) {
-        let csvRecord: backLinksCSV = new backLinksCSV();
+        const csvRecord: backLinksCSV = new backLinksCSV();
         csvRecord.from = curruntRecord[0].trim();
         csvRecord.backID = curruntRecord[1].trim();
         csvRecord.to = curruntRecord[2].trim();
@@ -109,8 +109,8 @@ export class ProloquoParser {
   }
 
   getHeaderArray(csvRecordsArr: any) {
-    let headers = (<string>csvRecordsArr[0]).split(',');
-    let headerArray = [];
+    const headers = (csvRecordsArr[0] as string).split(',');
+    const headerArray = [];
     for (let i = 0; i < headers.length; i++) {
       headerArray.push(headers[i]);
     }
@@ -118,8 +118,8 @@ export class ProloquoParser {
   }
 
   createGrid() {
-    let tempElement: GridElement[] = [];
-    let tempPage: Page[] = [];
+    const tempElement: GridElement[] = [];
+    const tempPage: Page[] = [];
 
     this.setUpTempPage(tempPage);
 
@@ -140,9 +140,9 @@ export class ProloquoParser {
         }
       }
 
-      let idOfWord = this.setUpID(word, getType);
+      const idOfWord = this.setUpID(word, getType);
 
-      let getParentPage = tempPage.find(page => {
+      const getParentPage = tempPage.find(page => {
         return page.ID === word.page
       });
       if (getParentPage !== null && getParentPage !== undefined) {
@@ -169,7 +169,7 @@ export class ProloquoParser {
     });
 
     tempElement.forEach(elt => {
-      if (elt.Type !== 'button' && elt.Type !== 'empty' && (<FolderGoTo>elt.Type).GoTo === null && (<FolderGoTo>elt.Type).GoTo === undefined) {
+      if (elt.Type !== 'button' && elt.Type !== 'empty' && (elt.Type as FolderGoTo).GoTo === null && (elt.Type as FolderGoTo).GoTo === undefined) {
         console.log('ID: ' + elt.ID + '  Type:' + elt.Type);
       }
     });
@@ -191,19 +191,19 @@ export class ProloquoParser {
       if (tempPage.findIndex(page => page.ID === word.page) === -1) {
         let name = word.page;
 
-        let pageLink = this.pageLinks.find(pageLink => pageLink.to === word.page);
+        const pageLink = this.pageLinks.find(pageLink => pageLink.to === word.page);
 
         if (pageLink !== undefined && pageLink !== null) {
-          let word = this.words.find(word => word.wordID === pageLink.from);
+          const word = this.words.find(word => word.wordID === pageLink.from);
           if (word !== undefined && word !== null) {
             name = word.mot;
           }
         } else {
 
-          let buttonLink = this.buttonLinks.find(buttonLink => buttonLink.to === word.page);
+          const buttonLink = this.buttonLinks.find(buttonLink => buttonLink.to === word.page);
 
           if (buttonLink !== undefined && buttonLink !== null) {
-            let word = this.words.find(word => word.wordID === buttonLink.from);
+            const word = this.words.find(word => word.wordID === buttonLink.from);
             if (word !== undefined && word !== null) {
               name = word.mot;
             }
@@ -250,7 +250,7 @@ export class ProloquoParser {
   }
 
   setUpHomeID(tempPage: Page[]) {
-    let homePage = tempPage.find(page => page.ID === 'accueil');
+    const homePage = tempPage.find(page => page.ID === 'accueil');
     homePage.ID = '#HOME';
     homePage.Name = 'ACCUEIL';
   }
@@ -268,7 +268,7 @@ export class ProloquoParser {
   }
 
   getColor(wordID: string) {
-    let name = wordID.split('@%')[0];
+    const name = wordID.split('@%')[0];
     switch (name) {
       case 'fermer' :
         return 'darkgray';

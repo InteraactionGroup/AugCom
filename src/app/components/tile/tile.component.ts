@@ -168,23 +168,23 @@ export class TileComponent implements OnInit {
         }
 
         // for folder
-      } else if ((<FolderGoTo>element.Type).GoTo !== undefined) {
+      } else if ((element.Type as FolderGoTo).GoTo !== undefined) {
         let pathTab = this.boardService.currentPath.split('.');
         if (pathTab.length >= 2) {
-          if (pathTab[pathTab.length - 2] === (<FolderGoTo>element.Type).GoTo) {
+          if (pathTab[pathTab.length - 2] === (element.Type as FolderGoTo).GoTo) {
             pathTab = pathTab.slice(0, length - 1);
             this.boardService.currentPath = pathTab.join('.');
           } else {
             this.boardService.currentPath =
               this.boardService.currentPath +
               '.' +
-              (<FolderGoTo>element.Type).GoTo;
+              (element.Type as FolderGoTo).GoTo;
           }
         } else {
           this.boardService.currentPath =
             this.boardService.currentPath +
             '.' +
-            (<FolderGoTo>element.Type).GoTo;
+            (element.Type as FolderGoTo).GoTo;
         }
         // for errors
       } else {
@@ -305,7 +305,7 @@ export class TileComponent implements OnInit {
    * @return  the string corresponding to the box-shadow effect
    */
   getShadow(element: GridElement) {
-    let isFolder = (<FolderGoTo>element.Type).GoTo !== undefined;
+    const isFolder = (element.Type as FolderGoTo).GoTo !== undefined;
 
     let s =
       (isFolder ? '3px ' : '0px ') +

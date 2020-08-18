@@ -13,17 +13,17 @@ export class JsonValidatorService {
   }
 
   getCheckedGrid(dataToValidate): Grid {
-    var ajv = new Ajv(); // options can be passed, e.g. {allErrors: true}
-    var validate = ajv.compile(schema);
-    var valid = validate(dataToValidate);
+    const ajv = new Ajv(); // options can be passed, e.g. {allErrors: true}
+    const validate = ajv.compile(schema);
+    const valid = validate(dataToValidate);
     if (!valid) {
       console.log('ERROR WHEN PARSING THE GRID:');
       console.log(validate.errors);
       console.log('DEFAULT GRID USED INSTEAD');
-      return <Grid>defaultGrid;
+      return defaultGrid as Grid;
     } else {
       // console.log("PARSING SUCCESSFUL");
-      return <Grid>dataToValidate;
+      return dataToValidate as Grid;
     }
   }
 

@@ -11,7 +11,7 @@ export class MultilinguismService {
     this.dictionnary.dictionnary = multilinguism.dictionnary;
   }
 
-  language: string = 'FR';
+  language = 'FR';
   dictionnary: Dictionnary = new Dictionnary();
 
   translate(id: string) {
@@ -19,7 +19,7 @@ export class MultilinguismService {
   }
 
   translateIn(id: string, lang: string) {
-    let translatedEntry = this.dictionnary.dictionnary.find(entry => {
+    const translatedEntry = this.dictionnary.dictionnary.find(entry => {
       return entry.id === id;
     });
 

@@ -21,9 +21,6 @@ export class AlternativeFormsComponent implements OnInit {
   constructor(private multilinguism: MultilinguismService, public ng2ImgMaxService: Ng2ImgMaxService, public boardService: BoardService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public editionService: EditionService) {
   }
 
-  ngOnInit() {
-  }
-
   imageList = [];
   elementFormNameImageURL: any = '';
   elementFormDisplayedWordField = '';
@@ -31,6 +28,9 @@ export class AlternativeFormsComponent implements OnInit {
   selectedItem: ElementForm = null;
   currentMode = '';
   imageSelectionStarted = false;
+
+  ngOnInit() {
+  }
 
   saveCurrentElementForm() {
     if (this.currentMode === 'modif' && this.selectedItem !== null) {
@@ -42,7 +42,7 @@ export class AlternativeFormsComponent implements OnInit {
         this.selectedItem.ImageID = '';
       }
     } else if (this.currentMode === 'addNew') {
-      let newElementForm: ElementForm = new ElementForm();
+      const newElementForm: ElementForm = new ElementForm();
       newElementForm.DisplayedText = this.elementFormDisplayedWordField;
       newElementForm.VoiceText = this.elementFormPronouncedWordField;
       if (this.elementFormNameImageURL !== '') {
@@ -129,12 +129,12 @@ export class AlternativeFormsComponent implements OnInit {
 
   getVariantListExceptDefault() {
     if (this.editionService.add) {
-      let defaultForm = this.editionService.getDefaultFormIfExists(this.editionService.variantList);
+      const defaultForm = this.editionService.getDefaultFormIfExists(this.editionService.variantList);
       return this.editionService.variantList.filter(variant => {
         return variant !== defaultForm
       });
     } else {
-      let defaultForm = this.editionService.getDefaultForm(this.editionService.variantList);
+      const defaultForm = this.editionService.getDefaultForm(this.editionService.variantList);
       return this.editionService.variantList.filter(variant => {
         return variant !== defaultForm
       });
@@ -196,7 +196,7 @@ export class AlternativeFormsComponent implements OnInit {
       reader.readAsDataURL(result);
       reader.onload = () => {
         this.elementFormNameImageURL = reader.result;
-        //this.choseImage = false;
+        // this.choseImage = false;
       };
     }, () => {
       reader.readAsDataURL(file[0]);
@@ -216,7 +216,7 @@ export class AlternativeFormsComponent implements OnInit {
       !this.imageSelectionStarted ||
       this.elementFormNameImageURL === null ||
       this.elementFormNameImageURL === '') {
-      let elementImage = this.boardService.board.ImageList.find(image => {
+      const elementImage = this.boardService.board.ImageList.find(image => {
         return image.ID === elementForm.ImageID
       });
       if (elementImage !== null && elementImage !== undefined) {
@@ -240,7 +240,7 @@ export class AlternativeFormsComponent implements OnInit {
   previewWithURL(t) {
     this.imageSelectionStarted = true;
     this.elementFormNameImageURL = t;
-    //this.choseImage = false;
+    // this.choseImage = false;
   }
 
   /**

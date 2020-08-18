@@ -18,7 +18,7 @@ export class SearchService {
     this.searchedPath = [];
     if (searchedText !== '') {
       this.searchedWords = this.boardService.board.ElementList.filter(elt => {
-        let tempList = elt.ElementFormsList.filter(eltformlist => {
+        const tempList = elt.ElementFormsList.filter(eltformlist => {
           return eltformlist.DisplayedText.toLowerCase().includes(searchedText.toLowerCase())
         });
         if (tempList !== null) {
@@ -38,12 +38,12 @@ export class SearchService {
   }
 
   recursiveSearch(children: GridElement[]) {
-    let parents: GridElement[] = [];
+    const parents: GridElement[] = [];
     children.forEach(elt => {
       this.boardService.board.PageList.forEach(page => {
         if (page.ElementIDsList.includes(elt.ID)) {
-          let tempElt = this.boardService.board.ElementList.find(newelt => {
-            return (<FolderGoTo>newelt.Type).GoTo === page.ID;
+          const tempElt = this.boardService.board.ElementList.find(newelt => {
+            return (newelt.Type as FolderGoTo).GoTo === page.ID;
           });
           if (tempElt != null && tempElt != undefined) {
             if (!parents.includes(tempElt) && !this.searchedPath.includes(tempElt)) {

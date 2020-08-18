@@ -17,7 +17,7 @@ function clickElementOf(compiled: any, fixture: any, selector: any, textIncluded
 }
 
 function expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled: any, openElementName: any) {
-  let tabNameList = ['app-saves', 'app-language', 'app-palettes', 'app-share', 'app-settings'];
+  const tabNameList = ['app-saves', 'app-language', 'app-palettes', 'app-share', 'app-settings'];
   tabNameList.forEach(tabName => {
     if (tabName === openElementName) {
       expect(compiled.querySelector(tabName)).not.toBe(null);

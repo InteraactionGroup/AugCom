@@ -39,7 +39,7 @@ export class BoardService {
   elementList = [];
 
   getCurrentFolder() {
-    let path = this.currentPath.split('.');
+    const path = this.currentPath.split('.');
     if (path != null) {
       return path[path.length - 1];
     } else {
@@ -48,7 +48,7 @@ export class BoardService {
   }
 
   getCurrentTitle() {
-    let path = this.currentPath.split('.');
+    const path = this.currentPath.split('.');
     if (path !== null) {
       let name = '';
       let i = 0;
@@ -57,8 +57,8 @@ export class BoardService {
         name = '.../'
       }
       for (i; i <= path.length - 1; i++) {
-        let id = path[i];
-        let associatedPage = this.board.PageList.find(page => id === page.ID);
+        const id = path[i];
+        const associatedPage = this.board.PageList.find(page => id === page.ID);
         if (associatedPage !== null && associatedPage !== undefined) {
           name = name + associatedPage.Name + '/';
         } else {
@@ -211,7 +211,7 @@ export class BoardService {
   executer() {
     const imageTemp = [];
 
-    //TODO
+    // TODO
     // this.board.ElementList = this.board.ElementList.filter(x => {
     //     let isChildrenOfCondamnedElt = false;
     //     this.editionService.sentencedTodDeleteElement.forEach(condamnedElt => {
@@ -241,7 +241,7 @@ export class BoardService {
       }
     });
 
-    let currentPage = this.board.PageList.find(page => {
+    const currentPage = this.board.PageList.find(page => {
       return page.ID === this.getCurrentFolder()
     });
 
@@ -340,11 +340,11 @@ export class BoardService {
    * @return a list of elements to display in the keyboard
    */
   getNormalTempList(): GridElement[] {
-    let currentPage = this.board.PageList.find(page => {
+    const currentPage = this.board.PageList.find(page => {
       return page.ID === this.getCurrentFolder()
     });
 
-    let tempList = [];
+    const tempList = [];
     if (currentPage !== null && currentPage !== undefined) {
       for (let i = 0; i < currentPage.ElementIDsList.length; i++) {
         tempList.push(this.board.ElementList.find(elt => {
@@ -379,7 +379,7 @@ export class BoardService {
     places = places.slice(0, compElt.ElementFormsList.length);
     compElt.ElementFormsList.forEach(eltform => {
       if (compElt.ElementFormsList.length > indexOfForm) {
-        let elt: GridElement = {
+        const elt: GridElement = {
           ID: compElt.ID,
           Color: compElt.Color,
           BorderColor: compElt.BorderColor,
@@ -431,18 +431,18 @@ export class BoardService {
    */
   createPlaces(x: number, y: number, cols: number, rows: number): { x: number, y: number }[] {
     const slider: number = Number(this.board.NumberOfCols);
-    let places = [];
+    const places = [];
     for (let row = 0; row < rows + 2; row++) {
-      let tempCoupleLeft = {x: x - 1, y: 0};
-      let tempCoupleRight = {x: x + cols, y: 0};
+      const tempCoupleLeft = {x: x - 1, y: 0};
+      const tempCoupleRight = {x: x + cols, y: 0};
       tempCoupleLeft.y = y - 1 + row;
       tempCoupleRight.y = y - 1 + row;
       places.push(tempCoupleLeft);
       places.push(tempCoupleRight);
     }
     for (let col = 0; col < cols; col++) {
-      let tempCoupleTop = {x: 0, y: y - 1};
-      let tempCoupleBottom = {x: 0, y: y + rows};
+      const tempCoupleTop = {x: 0, y: y - 1};
+      const tempCoupleBottom = {x: 0, y: y + rows};
       tempCoupleTop.x = x + col;
       tempCoupleBottom.x = x + col;
       places.push(tempCoupleTop);

@@ -31,8 +31,8 @@ describe('EventComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     component.editionService.interractionList = [];
 
-    let actionID = ['display', 'say', 'otherforms'];
-    let interactionID = ['click', 'longPress', 'doubleClick'];
+    const actionID = ['display', 'say', 'otherforms'];
+    const interactionID = ['click', 'longPress', 'doubleClick'];
 
     interactionID.forEach(interaction => {
       expect(component.editionService.interractionList.findIndex(i => {

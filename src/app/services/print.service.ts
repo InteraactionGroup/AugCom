@@ -31,7 +31,7 @@ export class PrintService {
     wind.document.getElementById('print').onclick = () => {
       wind.document.getElementById('print').hidden = true;
       wind.print();
-      //wind.close();
+      // wind.close();
       wind.document.body.innerHTML = this.buttonHTML + wind.document.body.innerHTML;
       this.recEventSettingFunction(wind);
     }
@@ -41,7 +41,7 @@ export class PrintService {
     let tempHTML = this.buttonHTML;
 
     this.boardService.board.PageList.forEach(p => {
-      let tempList = [];
+      const tempList = [];
       if (p !== null && p !== undefined) {
         for (let i = 0; i < p.ElementIDsList.length; i++) {
           tempList.push(this.boardService.board.ElementList.find(elt => {
@@ -57,12 +57,12 @@ export class PrintService {
 
   getHTML(id, elementList: any[]) {
     let temp = '';
-    let numberOfPages = Math.ceil(elementList.length / (this.boardService.board.NumberOfCols * this.boardService.board.NumberOfRows));
+    const numberOfPages = Math.ceil(elementList.length / (this.boardService.board.NumberOfCols * this.boardService.board.NumberOfRows));
     for (let i = 0; i < numberOfPages; i++) {
-      let beginning = i * (this.boardService.board.NumberOfCols * this.boardService.board.NumberOfRows);
-      let ending = (i + 1) * (this.boardService.board.NumberOfCols * this.boardService.board.NumberOfRows);
+      const beginning = i * (this.boardService.board.NumberOfCols * this.boardService.board.NumberOfRows);
+      const ending = (i + 1) * (this.boardService.board.NumberOfCols * this.boardService.board.NumberOfRows);
       temp = temp +
-        this.wrapperBegin(id + '- page ' + <number>(<number>i + <number>1)) +
+        this.wrapperBegin(id + '- page ' + (((i as number) + (1 as number)) as number)) +
         this.innerHTML(elementList.slice(beginning, ending)) +
         this.wrapperEnd();
     }
@@ -76,7 +76,7 @@ export class PrintService {
   }
 
   getShadow(element: GridElement) {
-    if ((<FolderGoTo>element.Type).GoTo !== undefined) {
+    if ((element.Type as FolderGoTo).GoTo !== undefined) {
       let s = '; box-shadow: 3px -3px 0px -2px ' + (element.Color === undefined || element.Color == null ? '#d3d3d3' : element.Color);
       s = s + ' , 4px -4px ' + (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor);
       return s;

@@ -19,7 +19,7 @@ function updateModifications(component: any) {
 }
 
 function createElement(component: any, id: any, numberOfElementForms: number) {
-  let elementForms: ElementForm[] = [];
+  const elementForms: ElementForm[] = [];
   for (let i = 0; i < numberOfElementForms; i++) {
     elementForms.push({
       DisplayedText: id + i,
@@ -162,7 +162,7 @@ describe('AlternativeFormsComponent', () => {
     fixture.detectChanges();
     expect(component.editionService.variantList[1].DisplayedText).toEqual('newDisplayedWordTest');
     expect(component.editionService.variantList[1].VoiceText).toEqual('newPronouncedWordTest');
-    let relatedImage = component.boardService.board.ImageList.find(image => {
+    const relatedImage = component.boardService.board.ImageList.find(image => {
       return image.Path === 'assets/libs/mulberry-symbols/En-symbols/test.svg'
     });
     expect(component.editionService.variantList[1].ImageID).toEqual(relatedImage.ID);

@@ -33,7 +33,7 @@ describe('SavesComponent', () => {
 
   it('should revert save to default value', () => {
     const compiled = fixture.debugElement.nativeElement;
-    let prevLength = component.boardService.board.ElementList.length;
+    const prevLength = component.boardService.board.ElementList.length;
     component.boardService.board.ElementList.push(new GridElement(
       '',
       '',

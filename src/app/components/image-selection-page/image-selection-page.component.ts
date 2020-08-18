@@ -49,7 +49,7 @@ export class ImageSelectionPageComponent implements OnInit {
       reader.readAsDataURL(result);
       reader.onload = () => {
         this.editionService.imageURL = reader.result;
-        //this.choseImage = false;
+        // this.choseImage = false;
       };
     }, () => {
       reader.readAsDataURL(file[0]);
@@ -77,7 +77,7 @@ export class ImageSelectionPageComponent implements OnInit {
    */
   previewWithURL(t) {
     this.editionService.imageURL = t;
-    //this.choseImage = false;
+    // this.choseImage = false;
   }
 
   /**

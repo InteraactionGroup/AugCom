@@ -72,7 +72,7 @@ export class ShareComponent implements OnInit {
    * using the image and image name to respectively create imageUrl and element name and keep the same tree aspect
    * @param zip
    */
-  exploreZip(zip) { //TODO change the folderPath implementation
+  exploreZip(zip) { // TODO change the folderPath implementation
     const zipFolder: JSZip = new JSZip();
     zipFolder.loadAsync(zip[0]).then((zipFiles) => {
       this.boardService.board.PageList = [];
@@ -148,10 +148,10 @@ export class ShareComponent implements OnInit {
    * @param type, the type of the new element (button or folder)
    */
   createNewButtonFromInfoInZIP(name, imageURL, path: string, type) {
-    let regex = /\./g;
-    let pathWithNoDot = path.replace(regex, '$');
+    const regex = /\./g;
+    const pathWithNoDot = path.replace(regex, '$');
 
-    let theID = pathWithNoDot + '$' + name + (type === 'button' ? 'button' : '');
+    const theID = pathWithNoDot + '$' + name + (type === 'button' ? 'button' : '');
     this.boardService.board.ElementList.push(
       {
         ID: theID,
@@ -184,7 +184,7 @@ export class ShareComponent implements OnInit {
 
     let pathTab = path.split('.');
     pathTab = pathTab.filter(tab => tab.length > 0);
-    let folder = pathTab.length === 1 ? '#HOME' : pathWithNoDot;
+    const folder = pathTab.length === 1 ? '#HOME' : pathWithNoDot;
 
     let getPage = this.boardService.board.PageList.find(page => page.ID === folder);
     if (getPage === null || getPage === undefined) {
@@ -202,7 +202,7 @@ export class ShareComponent implements OnInit {
     const myFile = file[0];
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
-      let tempBoard = JSON.parse(fileReader.result.toString());
+      const tempBoard = JSON.parse(fileReader.result.toString());
       tempBoard.ElementList.forEach(element => {
         this.checkAndUpdateElementDefaultForm(element);
       });

@@ -224,7 +224,7 @@ export class EditionComponent implements OnInit {
         Path: this.editionService.imageURL
       });
 
-    let currentPage: Page = this.getCurrentPage();
+    const currentPage: Page = this.getCurrentPage();
     currentPage.ElementIDsList.push(tempId);
     this.boardService.board.PageList.push(currentPage);
   }
@@ -240,7 +240,7 @@ export class EditionComponent implements OnInit {
   }
 
   createAndGetNewPage(): Page {
-    let name = this.boardService.getCurrentFolder();
+    const name = this.boardService.getCurrentFolder();
     return {ID: name, Name: name, ElementIDsList: []};
   }
 
@@ -256,7 +256,7 @@ export class EditionComponent implements OnInit {
       this.editionService.curentColor = elementToModif.Color;
       this.editionService.curentBorderColor = elementToModif.BorderColor;
       this.editionService.radioTypeFormat = elementToModif.Type === 'button' ? 'button' : 'folder';
-      this.editionService.pageLink = elementToModif.Type === 'button' ? '@' : (<FolderGoTo>elementToModif.Type).GoTo;
+      this.editionService.pageLink = elementToModif.Type === 'button' ? '@' : (elementToModif.Type as FolderGoTo).GoTo;
       const imageToModif = this.boardService.board.ImageList.find(x => x.ID === elementToModif.ElementFormsList[0].ImageID);
       if (imageToModif != null && imageToModif !== undefined) {
         this.editionService.imageURL = imageToModif.Path;
