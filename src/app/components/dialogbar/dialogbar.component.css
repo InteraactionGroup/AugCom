@@ -104,7 +104,7 @@
   align-items: center;
 }
 
-.dialogBar .textBar .elementContainer .noImageElement{
+.dialogBar .textBar .elementContainer .noImageElement {
   grid-template-rows: 40% 20%;
 }
 

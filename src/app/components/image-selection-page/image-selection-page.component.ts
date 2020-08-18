@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {EditionService} from "../../services/edition.service";
-import {Ng2ImgMaxService} from "ng2-img-max";
-import mullberryJson from "../../../assets/symbol-info.json";
-import arasaacJson from "../../../assets/arasaac-symbol-info.json";
-import arasaacColoredJson from "../../../assets/arasaac-color-symbol-info.json";
-import {ArasaacObject, MulBerryObject} from "../../libTypes";
-import {MultilinguismService} from "../../services/multilinguism.service";
+import {EditionService} from '../../services/edition.service';
+import {Ng2ImgMaxService} from 'ng2-img-max';
+import mullberryJson from '../../../assets/symbol-info.json';
+import arasaacJson from '../../../assets/arasaac-symbol-info.json';
+import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
+import {ArasaacObject, MulBerryObject} from '../../libTypes';
+import {MultilinguismService} from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-image-selection-page',
@@ -19,7 +19,7 @@ export class ImageSelectionPageComponent implements OnInit {
    * the current list of images related to the chose image library search section
    * (the image list resulting in the research in the mullbery library)
    */
-  imageList: {lib,word}[];
+  imageList: { lib, word }[];
 
 
   constructor(private multilinguism: MultilinguismService, public ng2ImgMaxService: Ng2ImgMaxService, public editionService: EditionService) {
@@ -60,13 +60,13 @@ export class ImageSelectionPageComponent implements OnInit {
     });
   }
 
-  getThumbnailPreviewLibrary(elt: {lib,word}){
-    if(elt.lib === 'mulberry'){
-      return 'url(\'assets/libs/mulberry-symbols/EN-symbols/'+elt.word+'.svg\')';
-    }else if (elt.lib === 'arasaacNB'){
-      return 'url(\'assets/libs/FR_Noir_et_blanc_pictogrammes/'+elt.word+'.png\')';
-    }else if (elt.lib === 'arasaacColor'){
-      return 'url(\'assets/libs/FR_Pictogrammes_couleur/'+elt.word+'.png\')';
+  getThumbnailPreviewLibrary(elt: { lib, word }) {
+    if (elt.lib === 'mulberry') {
+      return 'url(\'assets/libs/mulberry-symbols/EN-symbols/' + elt.word + '.svg\')';
+    } else if (elt.lib === 'arasaacNB') {
+      return 'url(\'assets/libs/FR_Noir_et_blanc_pictogrammes/' + elt.word + '.png\')';
+    } else if (elt.lib === 'arasaacColor') {
+      return 'url(\'assets/libs/FR_Pictogrammes_couleur/' + elt.word + '.png\')';
     }
   }
 
@@ -90,7 +90,7 @@ export class ImageSelectionPageComponent implements OnInit {
   }
 
   previewArasaac(t: string, isColored: boolean) {
-    if(isColored){
+    if (isColored) {
       this.previewWithURL('assets/libs/FR_Pictogrammes_couleur/' + t + '.png');
     } else {
       console.log('assets/libs/FR_Noir_et_blanc_pictogrammes/' + t + '.png');
@@ -98,17 +98,17 @@ export class ImageSelectionPageComponent implements OnInit {
     }
   }
 
-  previewLibrary(elt: {lib,word}){
-    if(elt.lib === 'mulberry'){
+  previewLibrary(elt: { lib, word }) {
+    if (elt.lib === 'mulberry') {
       this.previewMullberry(elt.word);
-    }else if (elt.lib === 'arasaacNB'){
-      this.previewArasaac(elt.word,false);
-    } else if (elt.lib === 'arasaacColor'){
-      this.previewArasaac(elt.word,true);
+    } else if (elt.lib === 'arasaacNB') {
+      this.previewArasaac(elt.word, false);
+    } else if (elt.lib === 'arasaacColor') {
+      this.previewArasaac(elt.word, true);
     }
   }
 
-  cleanString(t:string){
+  cleanString(t: string) {
     return t.replace(/'/g, '\\\'');
   }
 
@@ -130,26 +130,26 @@ export class ImageSelectionPageComponent implements OnInit {
     (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
       if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase())) {
         const url = word;
-        tempList.push({lib:"arasaacNB", word:this.cleanString(url)});
+        tempList.push({lib: 'arasaacNB', word: this.cleanString(url)});
       }
     }, this);
 
     (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
       if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase())) {
         const url = word;
-        tempList.push({lib:"arasaacColor", word:this.cleanString(url)});
+        tempList.push({lib: 'arasaacColor', word: this.cleanString(url)});
       }
     }, this);
 
     (mullberryJson as unknown as MulBerryObject[]).forEach(value => {
       if (text !== null && text !== '' && value.symbol.toLowerCase().includes(text.toLocaleLowerCase())) {
         const url = value.symbol;
-        tempList.push({lib:"mulberry", word:this.cleanString(url)});
+        tempList.push({lib: 'mulberry', word: this.cleanString(url)});
       }
     }, this);
 
-    tempList = tempList.sort((a: {lib,word}, b: {lib,word}) => {
-        return a.word.length - b.word.length;
+    tempList = tempList.sort((a: { lib, word }, b: { lib, word }) => {
+      return a.word.length - b.word.length;
     });
 
     this.imageList = tempList.slice(0, 100);

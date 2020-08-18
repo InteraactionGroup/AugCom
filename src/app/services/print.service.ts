@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BoardService} from './board.service';
 import {FolderGoTo, GridElement} from '../types';
-import {IndexeddbaccessService} from "./indexeddbaccess.service";
 
 @Injectable({
   providedIn: 'root'
@@ -28,15 +27,15 @@ export class PrintService {
 
   }
 
- recEventSettingFunction(wind){
-   wind.document.getElementById('print').onclick = () => {
-     wind.document.getElementById('print').hidden =true;
-     wind.print();
-     //wind.close();
-     wind.document.body.innerHTML = this.buttonHTML + wind.document.body.innerHTML;
-     this.recEventSettingFunction(wind);
-   }
- }
+  recEventSettingFunction(wind) {
+    wind.document.getElementById('print').onclick = () => {
+      wind.document.getElementById('print').hidden = true;
+      wind.print();
+      //wind.close();
+      wind.document.body.innerHTML = this.buttonHTML + wind.document.body.innerHTML;
+      this.recEventSettingFunction(wind);
+    }
+  }
 
   getAllHTML() {
     let tempHTML = this.buttonHTML;
@@ -77,7 +76,7 @@ export class PrintService {
   }
 
   getShadow(element: GridElement) {
-    if ((<FolderGoTo> element.Type).GoTo !== undefined) {
+    if ((<FolderGoTo>element.Type).GoTo !== undefined) {
       let s = '; box-shadow: 3px -3px 0px -2px ' + (element.Color === undefined || element.Color == null ? '#d3d3d3' : element.Color);
       s = s + ' , 4px -4px ' + (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor);
       return s;
@@ -95,7 +94,7 @@ export class PrintService {
 
         innerValue = innerValue +
           '<div class="elementContainer">' +
-          '<div class="' + (url === '' ? "element noImageElement" : "element") + '" style="background-color:' + element.Color + '; border-color:' + element.BorderColor + this.getShadow(element) + '">\n' +
+          '<div class="' + (url === '' ? 'element noImageElement' : 'element') + '" style="background-color:' + element.Color + '; border-color:' + element.BorderColor + this.getShadow(element) + '">\n' +
           '<div class="image" style="background-image: ' + url + '"></div>\n' +
           '<div class="adjustableText">\n' +
           this.boardService.getLabel(element) +
@@ -113,11 +112,11 @@ export class PrintService {
       '</div>';
   }
 
-  getCSSPrint(){
+  getCSSPrint() {
     return '@media print {\n' +
       '  body * {\n' +
       '    visibility: hidden;\n' +
-      ' height: 0; \n'+
+      ' height: 0; \n' +
       '  }\n' +
       '  .section-to-print, .section-to-print * {\n' +
       '    visibility: visible;\n' +
@@ -127,7 +126,7 @@ export class PrintService {
       '  height: 100%;\n' +
       '  width: 100%;\n' +
       '  overflow: visible;\n' +
-      '}\n'+
+      '}\n' +
       '}'
   }
 

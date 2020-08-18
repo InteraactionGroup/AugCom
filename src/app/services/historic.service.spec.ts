@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 
 import {HistoricService} from './historic.service';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 
 describe('HistoricService', () => {
   beforeEach(() => TestBed.configureTestingModule({

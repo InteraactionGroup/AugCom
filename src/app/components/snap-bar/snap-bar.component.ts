@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SnapBarService} from '../../services/snap-bar.service';
-import {Ng2ImgMaxService} from "ng2-img-max";
-import {MultilinguismService} from "../../services/multilinguism.service";
+import {MultilinguismService} from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-snap-bar',

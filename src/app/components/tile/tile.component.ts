@@ -1,27 +1,18 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ViewChild,
-  ElementRef,
-  AfterViewInit,
-} from "@angular/core";
-import { HistoricService } from "../../services/historic.service";
-import { EditionService } from "../../services/edition.service";
-import { BoardService } from "../../services/board.service";
-import { GridElement, ElementForm, Vignette, FolderGoTo } from "../../types";
-import { GeticonService } from "../../services/geticon.service";
-import { UsertoolbarService } from "../../services/usertoolbar.service";
-import { ParametersService } from "../../services/parameters.service";
-import { Router } from "@angular/router";
-import { SearchService } from "../../services/search.service";
-import { Observable, fromEvent, pipe } from "rxjs";
-import { delay, takeUntil, tap } from "rxjs/operators";
+import {Component, Input, OnInit,} from '@angular/core';
+import {HistoricService} from '../../services/historic.service';
+import {EditionService} from '../../services/edition.service';
+import {BoardService} from '../../services/board.service';
+import {ElementForm, FolderGoTo, GridElement, Vignette} from '../../types';
+import {GeticonService} from '../../services/geticon.service';
+import {UsertoolbarService} from '../../services/usertoolbar.service';
+import {ParametersService} from '../../services/parameters.service';
+import {Router} from '@angular/router';
+import {SearchService} from '../../services/search.service';
 
 @Component({
-  selector: "app-tile",
-  templateUrl: "./tile.component.html",
-  styleUrls: ["./tile.component.css"]
+  selector: 'app-tile',
+  templateUrl: './tile.component.html',
+  styleUrls: ['./tile.component.css']
 })
 export class TileComponent implements OnInit {
   @Input() element: GridElement;
@@ -52,13 +43,15 @@ export class TileComponent implements OnInit {
     private historicService: HistoricService,
     private parametersService: ParametersService,
     private getIconService: GeticonService
-  ) {}
+  ) {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   setLongPressTimer(element) {
     this.pressTimer = window.setTimeout(() => {
-      this.action(element, "longPress");
+      this.action(element, 'longPress');
       this.pressedElement = null;
       this.down = 0;
     }, this.parametersService.longpressTimeOut);
@@ -66,11 +59,12 @@ export class TileComponent implements OnInit {
 
   setClickTimer(element) {
     this.dblClickTimer = window.setTimeout(() => {
-      this.action(element, "click");
+      this.action(element, 'click');
       this.pressedElement = null;
       this.down = 0;
     }, this.parametersService.doubleClickTimeOut);
   }
+
   /**
    * update the current person and number information for verb terminations
    * @param elementForm, an list of element forms
@@ -80,13 +74,13 @@ export class TileComponent implements OnInit {
       (info) => info.person != null && info.person !== undefined
     );
     this.boardService.currentVerbTerminaison.currentPerson =
-      person != null && person !== undefined ? person.person : "thirdPerson";
+      person != null && person !== undefined ? person.person : 'thirdPerson';
 
     const num = elementForm.LexicInfos.find(
       (info) => info.number != null && info.number !== undefined
     );
     this.boardService.currentVerbTerminaison.currentNumber =
-      num != null && num !== undefined ? num.number : "";
+      num != null && num !== undefined ? num.number : '';
   }
 
   /**
@@ -98,18 +92,18 @@ export class TileComponent implements OnInit {
       (info) => info.gender != null && info.gender !== undefined
     );
     this.boardService.currentNounTerminaison.currentGender =
-      gender != null && gender !== undefined ? gender.gender : "";
+      gender != null && gender !== undefined ? gender.gender : '';
 
     const num = elementForm.LexicInfos.find(
       (info) => info.number != null && info.number !== undefined
     );
     this.boardService.currentNounTerminaison.currentNumber =
-      num != null && num !== undefined ? num.number : "";
+      num != null && num !== undefined ? num.number : '';
   }
 
   action(element: GridElement, interaction: string) {
     if (
-      element.Type !== "empty" &&
+      element.Type !== 'empty' &&
       !(
         !this.userToolBarService.edit &&
         element.VisibilityLevel !== 0 &&
@@ -117,7 +111,7 @@ export class TileComponent implements OnInit {
       )
     ) {
       // for button
-      if (element.Type === "button") {
+      if (element.Type === 'button') {
         const prononcedText = this.boardService.getLabel(element);
         const color = element.Color;
         const borderColor = element.BorderColor;
@@ -134,14 +128,14 @@ export class TileComponent implements OnInit {
         element.InteractionsList.forEach((inter) => {
           if (inter.ID === interaction) {
             inter.ActionList.forEach((action) => {
-              if (action.ID === "pronomChangeInfo") {
+              if (action.ID === 'pronomChangeInfo') {
                 this.changePronomInfo(element.ElementFormsList[0]);
-              } else if (action.ID === "display") {
+              } else if (action.ID === 'display') {
                 this.historicService.push(vignette);
-              } else if (action.ID === "say") {
-                this.historicService.say("" + prononcedText);
+              } else if (action.ID === 'say') {
+                this.historicService.say('' + prononcedText);
               } else if (
-                action.ID === "otherforms" &&
+                action.ID === 'otherforms' &&
                 element.ElementFormsList.length > 1
               ) {
                 otherFormsDisplayed = true;
@@ -152,18 +146,18 @@ export class TileComponent implements OnInit {
                 this.pressedElement = null;
               }
             });
-          } else if (!otherFormsDisplayed && inter.ID === "backFromVariant") {
+          } else if (!otherFormsDisplayed && inter.ID === 'backFromVariant') {
             this.boardService.activatedElement = -1;
           }
         });
 
         // Always executed
         if (element.PartOfSpeech != null) {
-          if (element.PartOfSpeech === "article défini") {
+          if (element.PartOfSpeech === 'article défini') {
             this.changeArticleInfo(element.ElementFormsList[0]);
-          } else if (element.PartOfSpeech === "-verb-") {
+          } else if (element.PartOfSpeech === '-verb-') {
             this.boardService.resetVerbTerminaisons();
-          } else if (element.PartOfSpeech === "-nom-") {
+          } else if (element.PartOfSpeech === '-nom-') {
             this.changePronomInfo(
               element.ElementFormsList.find(
                 (eltF) =>
@@ -175,30 +169,30 @@ export class TileComponent implements OnInit {
 
         // for folder
       } else if ((<FolderGoTo>element.Type).GoTo !== undefined) {
-        let pathTab = this.boardService.currentPath.split(".");
+        let pathTab = this.boardService.currentPath.split('.');
         if (pathTab.length >= 2) {
           if (pathTab[pathTab.length - 2] === (<FolderGoTo>element.Type).GoTo) {
             pathTab = pathTab.slice(0, length - 1);
-            this.boardService.currentPath = pathTab.join(".");
+            this.boardService.currentPath = pathTab.join('.');
           } else {
             this.boardService.currentPath =
               this.boardService.currentPath +
-              "." +
+              '.' +
               (<FolderGoTo>element.Type).GoTo;
           }
         } else {
           this.boardService.currentPath =
             this.boardService.currentPath +
-            "." +
+            '.' +
             (<FolderGoTo>element.Type).GoTo;
         }
         // for errors
       } else {
         console.error(element.Type);
         console.error(
-          "ElementType : " +
-            element.Type +
-            ' is not supported (supported ElementTypes are "button" or "folder")'
+          'ElementType : ' +
+          element.Type +
+          ' is not supported (supported ElementTypes are "button" or "folder")'
         );
       }
     }
@@ -228,7 +222,7 @@ export class TileComponent implements OnInit {
    */
   edit(element: GridElement) {
     if (this.userToolBarService.edit) {
-      this.router.navigate(["/edit"]).then(() => {
+      this.router.navigate(['/edit']).then(() => {
         this.editionService.clearEditionPane();
         this.editionService.selectedElements.push(element);
         this.editionService.ElementListener.next(element);
@@ -257,7 +251,7 @@ export class TileComponent implements OnInit {
       } else {
         window.clearTimeout(this.dblClickTimer);
         if (this.pressedElement !== element && this.pressedElement != null) {
-          this.action(element, "click");
+          this.action(element, 'click');
         }
       }
       this.down = this.down + 1;
@@ -292,7 +286,7 @@ export class TileComponent implements OnInit {
         }
       } else if (this.down > 1) {
         if (this.pressedElement === element) {
-          this.action(element, "doubleClick");
+          this.action(element, 'doubleClick');
           this.pressedElement = null;
           this.down = 0;
         } else if (this.pressedElement != null) {
@@ -314,21 +308,21 @@ export class TileComponent implements OnInit {
     let isFolder = (<FolderGoTo>element.Type).GoTo !== undefined;
 
     let s =
-      (isFolder ? "3px " : "0px ") +
-      (isFolder ? "-3px " : "0px ") +
-      "0px " +
-      (isFolder ? "-2px " : "0px ") +
+      (isFolder ? '3px ' : '0px ') +
+      (isFolder ? '-3px ' : '0px ') +
+      '0px ' +
+      (isFolder ? '-2px ' : '0px ') +
       (element.Color === undefined || element.Color == null
-        ? "#d3d3d3"
+        ? '#d3d3d3'
         : element.Color);
 
     s =
       s +
-      " , " +
-      (isFolder ? "4px " : "0px ") +
-      (isFolder ? "-4px " : "0px ") +
+      ' , ' +
+      (isFolder ? '4px ' : '0px ') +
+      (isFolder ? '-4px ' : '0px ') +
       (element.BorderColor === undefined || element.BorderColor == null
-        ? "black"
+        ? 'black'
         : element.BorderColor);
     return s;
   }
@@ -353,13 +347,13 @@ export class TileComponent implements OnInit {
     const visible: boolean = this.isVisible(element);
     return !this.userToolBarService.babble
       ? this.userToolBarService.edit && !visible
-        ? "0.5"
-        : "1"
+        ? '0.5'
+        : '1'
       : visible
-      ? "1"
-      : this.userToolBarService.edit
-      ? "0.3"
-      : "0";
+        ? '1'
+        : this.userToolBarService.edit
+          ? '0.3'
+          : '0';
   }
 
   /**
@@ -368,16 +362,16 @@ export class TileComponent implements OnInit {
    * @param element, the element we compute the cursor used when hover it
    */
   getCursor(element: GridElement) {
-    if (element.ID === "#disable") {
-      return "default";
+    if (element.ID === '#disable') {
+      return 'default';
     } else if (
       !this.userToolBarService.babble ||
       this.isVisible(element) ||
       this.userToolBarService.edit
     ) {
-      return "pointer";
+      return 'pointer';
     } else {
-      return "default";
+      return 'default';
     }
   }
 

@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {GeticonService} from "../../services/geticon.service";
-import {Ng2ImgMaxService} from "ng2-img-max";
-import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
-import {MultilinguismService} from "../../services/multilinguism.service";
+import {GeticonService} from '../../services/geticon.service';
+import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
+import {MultilinguismService} from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-account',
@@ -42,12 +41,12 @@ export class AccountComponent implements OnInit {
 
   /*get title of the page currently displayed*/
   getMenuPageTitle() {
-    if (this.selectedMenu === "") {
-      return this.multilinguism.translate("settings")
+    if (this.selectedMenu === '') {
+      return this.multilinguism.translate('settings')
     } else {
-      return "" +this.multilinguism.translate( this.selectedMenu) +
+      return '' + this.multilinguism.translate(this.selectedMenu) +
         (this.selectedSubMenu !== '' ?
-          (" - " + this.multilinguism.translate(this.selectedSubMenu)) : '');
+          (' - ' + this.multilinguism.translate(this.selectedSubMenu)) : '');
     }
   }
 
@@ -56,12 +55,12 @@ export class AccountComponent implements OnInit {
     if (this.selectedMenu === menuSelected) {
       // this.selectedMenu = '';
     } else {
-      this.selectSubMenu(menuSelected,'');
+      this.selectSubMenu(menuSelected, '');
       let menuElement = this.menu.find(elt => {
         return elt[0] === menuSelected;
       });
       if (menuElement !== null && menuElement[1].length > 0) {
-        this.selectSubMenu(menuSelected,menuElement[1][0]);
+        this.selectSubMenu(menuSelected, menuElement[1][0]);
       }
     }
   }

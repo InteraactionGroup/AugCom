@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {EditionService} from "../../services/edition.service";
-import {ParametersService} from "../../services/parameters.service";
-import {GeticonService} from "../../services/geticon.service";
-import {Interaction} from "../../types";
-import {MultilinguismService} from "../../services/multilinguism.service";
+import {EditionService} from '../../services/edition.service';
+import {ParametersService} from '../../services/parameters.service';
+import {GeticonService} from '../../services/geticon.service';
+import {Interaction} from '../../types';
+import {MultilinguismService} from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-event',
@@ -58,7 +58,7 @@ export class EventComponent implements OnInit {
    * @param interractionId
    * @param actionId, the string identifying an action
    */
-  addOrRemoveToInteraction(interactionId , actionId: string) {
+  addOrRemoveToInteraction(interactionId, actionId: string) {
     const partOfCurrentInter = this.isPartOfTheInteraction(interactionId, actionId);
 
     const currentInterraction: Interaction = this.editionService.interractionList.find(interaction => interaction.ID === interactionId);

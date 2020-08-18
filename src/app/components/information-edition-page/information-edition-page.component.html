@@ -20,17 +20,19 @@
                  value="folder">
           <label class="radio" for="radioFolder">{{multilinguism.translate("folder")}}</label>
 
-          <select  class="selectBox" [(ngModel)]="this.editionService.pageLink" *ngIf="this.editionService.radioTypeFormat=='folder'"
-                   [ngModelOptions]="{standalone: true}">
-            <option value="@" selected >--{{multilinguism.translate("choosePage")}}--</option>
+          <select class="selectBox" [(ngModel)]="this.editionService.pageLink"
+                  *ngIf="this.editionService.radioTypeFormat=='folder'"
+                  [ngModelOptions]="{standalone: true}">
+            <option value="@" selected>--{{multilinguism.translate("choosePage")}}--</option>
             <option value="@NEW@">-{{multilinguism.translate("createNewPage")}}-</option>
             <ng-container *ngFor="let p of this.board.board.PageList">
               <option value="{{p.ID}}"> {{p.ID}} </option>
             </ng-container>
           </select>
-          <input type="text" [(ngModel)]="this.editionService.newPage" placeholder="{{multilinguism.translate('newPageID')}}"
+          <input type="text" [(ngModel)]="this.editionService.newPage"
+                 placeholder="{{multilinguism.translate('newPageID')}}"
                  *ngIf="this.editionService.radioTypeFormat=='folder' && this.editionService.pageLink === '@NEW@'"
-                 [ngModelOptions]="{standalone: true}" >
+                 [ngModelOptions]="{standalone: true}">
 
         </form>
       </div>

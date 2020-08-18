@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 
 import {EditionService} from './edition.service';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 
 describe('EditionService', () => {
   beforeEach(() => TestBed.configureTestingModule({

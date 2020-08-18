@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ErrorOnEditComponent } from './error-on-edit.component';
+import {ErrorOnEditComponent} from './error-on-edit.component';
 
 describe('ErrorOnEditComponent', () => {
   let component: ErrorOnEditComponent;
@@ -8,9 +8,9 @@ describe('ErrorOnEditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ErrorOnEditComponent ]
+      declarations: [ErrorOnEditComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

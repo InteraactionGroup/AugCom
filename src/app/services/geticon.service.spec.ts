@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 
 import {GeticonService} from './geticon.service';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 
 describe('GeticonService', () => {
   beforeEach(() => TestBed.configureTestingModule({

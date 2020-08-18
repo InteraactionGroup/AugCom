@@ -17,9 +17,9 @@ export class ParametersService {
     this.printVoicesList().then(r => {
       let voice = this.getCurrentVoice();
       if (voice !== undefined && voice !== null) {
-        this.currentVoice = "" + voice.lang + "@" + voice.name;
+        this.currentVoice = '' + voice.lang + '@' + voice.name;
       } else {
-        this.currentVoice = "@";
+        this.currentVoice = '@';
       }
     });
   }

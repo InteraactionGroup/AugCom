@@ -156,7 +156,7 @@
   border: black solid 1px;
 }
 
-.table{
+.table {
   width: 90%;
   margin-left: 5%;
   display: grid;
@@ -179,7 +179,7 @@
   filter: drop-shadow(0 0 20px white) saturate(150%) brightness(95%);
 }
 
-.elementContainer{
+.elementContainer {
   width: 100%;
   margin-bottom: -30px;
 }
@@ -207,7 +207,7 @@
 .addButton {
   border-color: black;
   background-color: dimgray;
-  opacity:0.5;
+  opacity: 0.5;
 }
 
 .addButton:hover {

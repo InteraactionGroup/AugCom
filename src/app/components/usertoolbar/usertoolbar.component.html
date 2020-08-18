@@ -34,7 +34,8 @@
 
   <div class="button floatRight" id="babbleButton" *ngIf="this.userToolBarService.unlock"
        (click)="this.userToolBarService.babble = !this.userToolBarService.babble">
-    <div class="image width-100" [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.babble?'hide':'show')}">
+    <div class="image width-100"
+         [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.babble?'hide':'show')}">
     </div>
   </div>
 
@@ -48,7 +49,7 @@
 
   <div class="button floatLeft" id="backButton"
        (click)="this.boardService.backToPreviousFolder()"
-  [ngStyle]="{'opacity': (this.boardService.getCurrentFolder() !== '#HOME' && this.boardService.activatedElement==-1) ? '1' : '0.5'}">
+       [ngStyle]="{'opacity': (this.boardService.getCurrentFolder() !== '#HOME' && this.boardService.activatedElement==-1) ? '1' : '0.5'}">
     <div class="image width-100"
          [ngStyle]="{'background-image':this.getIcon('retour')}">
     </div>
@@ -56,7 +57,8 @@
 
   <div class="buttonLeftLeft floatLeft" [class.buttonLeftLeftBig]="this.userToolBarService.search"
        *ngIf="this.userToolBarService.unlock">
-    <div class="image width-100" [ngStyle]="{'background-image': this.userToolBarService.search? '' : this.getIcon('search') }">
+    <div class="image width-100"
+         [ngStyle]="{'background-image': this.userToolBarService.search? '' : this.getIcon('search') }">
       <input #searchedText type="text" [(ngModel)]="this.searchText"
              (input)="this.searchService.searchFor(searchedText.value)" class="searchBar"
              *ngIf="this.userToolBarService.search">
@@ -65,7 +67,8 @@
         <div class="searchResult width-100" (click)="this.searchService.search(res.ID)"
              *ngFor="let res of this.searchService.searchedWords"
              [ngStyle]="{'height': this.getResultHeight(this.searchService.searchedWords.length)}">
-          <div class="searchImage haveBackgroundImage floatLeft" [style.background-image]="this.boardService.getImgUrl(res)"></div>
+          <div class="searchImage haveBackgroundImage floatLeft"
+               [style.background-image]="this.boardService.getImgUrl(res)"></div>
           <div class="searchLabel floatLeft"> {{this.boardService.getDefaultLabel(res)}} </div>
         </div>
       </div>

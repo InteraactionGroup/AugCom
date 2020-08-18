@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Ng2ImgMaxService} from "ng2-img-max";
-import {MultilinguismService} from "../../services/multilinguism.service";
+import {Ng2ImgMaxService} from 'ng2-img-max';
+import {MultilinguismService} from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-account-information',
@@ -10,7 +10,7 @@ import {MultilinguismService} from "../../services/multilinguism.service";
 })
 export class AccountInformationComponent implements OnInit {
 
-  default = "https://www.shareicon.net/data/2016/09/01/822739_user_512x512.png";
+  default = 'https://www.shareicon.net/data/2016/09/01/822739_user_512x512.png';
   profilePicture: any = this.default;
 
   constructor(private multilinguism: MultilinguismService, public ng2ImgMaxService: Ng2ImgMaxService) {

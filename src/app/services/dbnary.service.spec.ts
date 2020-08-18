@@ -1,8 +1,8 @@
 import {TestBed} from '@angular/core/testing';
 
 import {DbnaryService} from './dbnary.service';
-import {FormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 describe('DbnaryService', () => {
   beforeEach(() => TestBed.configureTestingModule({

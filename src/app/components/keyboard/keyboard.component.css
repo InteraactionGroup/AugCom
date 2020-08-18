@@ -191,7 +191,7 @@
   align-items: center;
 }
 
-.keyboard .wrapper .elementContainer .noImageElement{
+.keyboard .wrapper .elementContainer .noImageElement {
   grid-template-rows: 40% 20%;
 }
 
@@ -219,7 +219,7 @@
   height: fit-content;
   align-items: center;
   vertical-align: middle;
-  overflow-wrap: break-word ;
+  overflow-wrap: break-word;
   word-break: break-all;
 }
 

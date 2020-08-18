@@ -1,9 +1,9 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {PalettesComponent} from './palettes.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
-import {FormsModule} from "@angular/forms";
-import {Ng2ImgMaxModule} from "ng2-img-max";
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {Ng2ImgMaxModule} from 'ng2-img-max';
 
 describe('PalettesComponent', () => {
   let component: PalettesComponent;
@@ -32,7 +32,7 @@ describe('PalettesComponent', () => {
   it('should display all basic palettes labels', () => {
     const compiled = fixture.debugElement.nativeElement;
     let paletteLabels = compiled.querySelectorAll('.palette-item');
-    for(let i = 0; i <component.paletteService.palettes.length; i++) {
+    for (let i = 0; i < component.paletteService.palettes.length; i++) {
       expect(paletteLabels[i].firstChild.textContent).toContain(component.paletteService.palettes[i].name);
       expect(paletteLabels[i].querySelectorAll('.color').length).toEqual(component.paletteService.palettes[i].colors.length);
     }
@@ -48,7 +48,7 @@ describe('PalettesComponent', () => {
     compiled.querySelector('.yes').click();
     fixture.detectChanges();
     expect(originalLength).toEqual(compiled.querySelectorAll('.palette-item').length + 1);
-    compiled.querySelectorAll('.palette-item').forEach( palette => {
+    compiled.querySelectorAll('.palette-item').forEach(palette => {
       expect(palette.querySelector('.paletteLabel').textContent).not.toContain(labelOfRemovedItem);
     })
   });
@@ -67,7 +67,7 @@ describe('PalettesComponent', () => {
   it('should create a new palette', () => {
     const compiled = fixture.debugElement.nativeElement;
     let originalLength = compiled.querySelectorAll('.palette-item').length;
-    expect(component.paletteService.palettes[(originalLength+1)-1]).toBe(undefined);
+    expect(component.paletteService.palettes[(originalLength + 1) - 1]).toBe(undefined);
 
     compiled.querySelector('.addButtonPaletteContainer').click();
     fixture.detectChanges();
@@ -81,9 +81,9 @@ describe('PalettesComponent', () => {
     fixture.detectChanges();
 
     let newLength = compiled.querySelectorAll('.palette-item').length;
-    expect(originalLength + 1).toEqual( newLength);
-    expect(component.paletteService.palettes[newLength-1]).not.toBe(undefined);
-    expect(component.paletteService.palettes[newLength-1].colors.length).toEqual(3);
+    expect(originalLength + 1).toEqual(newLength);
+    expect(component.paletteService.palettes[newLength - 1]).not.toBe(undefined);
+    expect(component.paletteService.palettes[newLength - 1].colors.length).toEqual(3);
   });
 
 });

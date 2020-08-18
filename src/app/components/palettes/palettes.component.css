@@ -118,7 +118,7 @@
   font-weight: 600;
 }
 
- .paletteAddLabel {
+.paletteAddLabel {
   height: 20px;
   width: calc(100% - 105px);
   background-color: #d1d5da;
@@ -131,7 +131,7 @@
   padding-bottom: 2px;
 }
 
- .paletteLabel {
+.paletteLabel {
   height: 20px;
   background-color: #d1d5da;
   margin-bottom: 2px;
@@ -145,41 +145,41 @@
   border-radius: 3px 3px 0 0;
 }
 
- .palette {
+.palette {
   width: calc(100% - 50px);
   height: fit-content;
   display: grid;
   grid-template-columns: repeat(10, 10%);
 }
 
- .supprPalette {
+.supprPalette {
   width: 50px;
   background-color: #f4f4f4;
   cursor: pointer;
 }
 
- .supprPalette:hover {
+.supprPalette:hover {
   background-color: #eef4f9;
 }
 
- .supprPalette .icon {
+.supprPalette .icon {
   height: 20px;
 }
 
- .palette .color {
+.palette .color {
   height: 95%;
   width: 95%;
   margin: auto;
 }
 
- .palette .realcolor {
+.palette .realcolor {
   box-sizing: border-box;
   border-width: 2px;
   border-style: solid;
   border-color: black;
 }
 
- .palette .realcolor:hover {
+.palette .realcolor:hover {
   height: 100%;
   width: 100%;
   border-width: 4px;

@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
-import {GeticonService} from "../../services/geticon.service";
-import {PaletteService} from "../../services/palette.service";
-import {Ng2ImgMaxService} from "ng2-img-max";
-import {MultilinguismService} from "../../services/multilinguism.service";
+import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
+import {GeticonService} from '../../services/geticon.service';
+import {PaletteService} from '../../services/palette.service';
+import {MultilinguismService} from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-palettes',

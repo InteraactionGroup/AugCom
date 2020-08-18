@@ -9,13 +9,13 @@ import {PrintService} from '../../services/print.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {SpeakForYourselfParser} from '../../services/speakForYourselfParser';
 import {DbnaryService} from '../../services/dbnary.service';
-import {HttpClient} from "@angular/common/http";
-import {Ng2ImgMaxService} from "ng2-img-max";
-import {FolderGoTo, GridElement} from "../../types";
-import {ProloquoParser} from "../../services/proloquoParser";
-import {JsonValidatorService} from "../../services/json-validator.service";
-import {MultilinguismService} from "../../services/multilinguism.service";
-import { LayoutService } from "src/app/services/layout.service";
+import {HttpClient} from '@angular/common/http';
+import {Ng2ImgMaxService} from 'ng2-img-max';
+import {FolderGoTo, GridElement} from '../../types';
+import {ProloquoParser} from '../../services/proloquoParser';
+import {JsonValidatorService} from '../../services/json-validator.service';
+import {MultilinguismService} from '../../services/multilinguism.service';
+import {LayoutService} from 'src/app/services/layout.service';
 
 @Component({
   selector: 'app-share',
@@ -38,7 +38,9 @@ export class ShareComponent implements OnInit {
     private layoutService: LayoutService,
     public multilinguism: MultilinguismService) {
   }
-  ngOnInit() {}
+
+  ngOnInit() {
+  }
 
   /*open a new tab and display the grid in a "ready to print" format*/
   printToPDF() {
@@ -77,32 +79,32 @@ export class ShareComponent implements OnInit {
       this.boardService.board.ElementList = [];
       this.boardService.board.ImageList = [];
       zipFiles.forEach((fileName) => {
-        if (fileName[fileName.length - 1] !== "/") {
-          zipFolder
-            .file(fileName)
-            .async("base64")
-            .then((content) => {
-              const split = fileName.split(".");
-              let fileType = split[split.length - 1];
+          if (fileName[fileName.length - 1] !== '/') {
+            zipFolder
+              .file(fileName)
+              .async('base64')
+              .then((content) => {
+                const split = fileName.split('.');
+                let fileType = split[split.length - 1];
 
-              if (fileType !== null && fileType !== undefined) {
-                if (fileType === "svg") {
-                  fileType = "svg+xml";
-                }
-                const imageURL =
-                  "data:image/" + fileType + ";base64," + content;
+                if (fileType !== null && fileType !== undefined) {
+                  if (fileType === 'svg') {
+                    fileType = 'svg+xml';
+                  }
+                  const imageURL =
+                    'data:image/' + fileType + ';base64,' + content;
 
-                const folder = split[split.length - 2];
-                if (folder !== null && folder !== undefined) {
-                  let folderPath = folder.split("/");
+                  const folder = split[split.length - 2];
+                  if (folder !== null && folder !== undefined) {
+                    let folderPath = folder.split('/');
 
-                  const name = folderPath[folderPath.length - 1];
+                    const name = folderPath[folderPath.length - 1];
 
-                  let path = "";
-                  folderPath = folderPath.slice(0, folderPath.length - 1);
-                  folderPath.forEach((s) => {
-                    path = path + "." + s;
-                  });
+                    let path = '';
+                    folderPath = folderPath.slice(0, folderPath.length - 1);
+                    folderPath.forEach((s) => {
+                      path = path + '.' + s;
+                    });
 
                     let type;
                     if (folderPath.length === 0) {
@@ -115,23 +117,23 @@ export class ShareComponent implements OnInit {
                   }
                 }
               });
-            } else {
-              const imageURL = 'assets/libs/mulberry-symbols/EN-symbols/computer_folder_open_,_to.svg';
-              let splitName = fileName.split('/');
-              const name = splitName[splitName.length - 2];
-              let path = '';
-              splitName = splitName.slice(0, splitName.length - 2);
-              if (splitName.length === 0) {
-                path = '.';
-              }
-              splitName.forEach(s => {
-                path = path + '.' + s;
-              });
-              this.createNewButtonFromInfoInZIP(name, imageURL, path, new FolderGoTo(name));
+          } else {
+            const imageURL = 'assets/libs/mulberry-symbols/EN-symbols/computer_folder_open_,_to.svg';
+            let splitName = fileName.split('/');
+            const name = splitName[splitName.length - 2];
+            let path = '';
+            splitName = splitName.slice(0, splitName.length - 2);
+            if (splitName.length === 0) {
+              path = '.';
             }
+            splitName.forEach(s => {
+              path = path + '.' + s;
+            });
+            this.createNewButtonFromInfoInZIP(name, imageURL, path, new FolderGoTo(name));
           }
-        );
-      });
+        }
+      );
+    });
 
     this.indexedDBacess.update();
     this.router.navigate(['']);
@@ -167,8 +169,8 @@ export class ShareComponent implements OnInit {
         Color: 'lightgrey',
         BorderColor: 'black',
         VisibilityLevel: 0,
-        x:0,
-        y:0,
+        x: 0,
+        y: 0,
         cols: 1,
         rows: 1
       });
@@ -220,16 +222,16 @@ export class ShareComponent implements OnInit {
       });
       return newForm != null;
     });
-    if (defaultForm === null ) {
+    if (defaultForm === null) {
       if (element.ElementFormsList[0] !== null && element.ElementFormsList[0] !== undefined) {
-      element.ElementFormsList.push({
-        DisplayedText: element.ElementFormsList[0].DisplayedText,
-        VoiceText: element.ElementFormsList[0].VoiceText,
-        LexicInfos: [{default: true}],
-        ImageID: element.ElementFormsList[0].ImageID
-      });
+        element.ElementFormsList.push({
+          DisplayedText: element.ElementFormsList[0].DisplayedText,
+          VoiceText: element.ElementFormsList[0].VoiceText,
+          LexicInfos: [{default: true}],
+          ImageID: element.ElementFormsList[0].ImageID
+        });
       } else {
-        console.log( 'DEFAULT FORM NOT FOUND FOR ' + element.ID);
+        console.log('DEFAULT FORM NOT FOUND FOR ' + element.ID);
         element.ElementFormsList.push({
           DisplayedText: element.ID,
           VoiceText: element.ID,

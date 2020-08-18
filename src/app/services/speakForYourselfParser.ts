@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import jsonSpeak4Yourself from '../../assets/csvjson.json';
 import {CSVRecord} from '../csvType';
 import {FolderGoTo, Grid, GridElement} from '../types';
-import {IndexeddbaccessService} from "./indexeddbaccess.service";
-import {Router} from "@angular/router";
-import {BoardService} from "./board.service";
-import {JsonValidatorService} from "./json-validator.service";
+import {IndexeddbaccessService} from './indexeddbaccess.service';
+import {Router} from '@angular/router';
+import {BoardService} from './board.service';
+import {JsonValidatorService} from './json-validator.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +15,11 @@ export class SpeakForYourselfParser {
   speak4Yourself: CSVRecord[];
 
   constructor(public indexedDBacess: IndexeddbaccessService, public jsonValidator: JsonValidatorService,
-              private router: Router,  public boardService: BoardService) {
+              private router: Router, public boardService: BoardService) {
     this.speak4Yourself = jsonSpeak4Yourself;
   }
 
-  createGridSpeak4YourselfCSV(){
+  createGridSpeak4YourselfCSV() {
     this.boardService.board = this.jsonValidator.getCheckedGrid(this.createGrid());
     this.indexedDBacess.update();
     this.router.navigate(['']);
@@ -37,19 +37,24 @@ export class SpeakForYourselfParser {
         element.page = '#HOME';
       }
 
-      if(grille.PageList.findIndex(page => {return page.ID === element.page}) === -1){
-       grille.PageList.push({
-        ID: element.page,
-         Name: element.page,
-        ElementIDsList: []
-      });}
+      if (grille.PageList.findIndex(page => {
+        return page.ID === element.page
+      }) === -1) {
+        grille.PageList.push({
+          ID: element.page,
+          Name: element.page,
+          ElementIDsList: []
+        });
+      }
 
       let isFolder = this.elementIsFolder(element);
 
-      let parentPage = grille.PageList.find(page => {return page.ID === element.page});
-      if (parentPage !== null && parentPage !== undefined){
+      let parentPage = grille.PageList.find(page => {
+        return page.ID === element.page
+      });
+      if (parentPage !== null && parentPage !== undefined) {
         let index = (element.ligne - 1) * 15 + (element.colonne - 1);
-        parentPage.ElementIDsList[index]=element.mot + (isFolder ? '' : 'button');
+        parentPage.ElementIDsList[index] = element.mot + (isFolder ? '' : 'button');
       }
 
       grille.ElementList.push({
@@ -69,17 +74,17 @@ export class SpeakForYourselfParser {
         Color: isFolder ? '#fda728' : '#fde498',
         BorderColor: 'black',
         VisibilityLevel: 0,
-        x:0,
-        y:0,
+        x: 0,
+        y: 0,
         rows: 1,
         cols: 1
       });
     });
 
-    grille.PageList.forEach( page => {
-      for(let i = 0; i < page.ElementIDsList.length; i++){
-        if (page.ElementIDsList[i] === undefined || page.ElementIDsList[i] === null){
-          page.ElementIDsList[i]= '#disable';
+    grille.PageList.forEach(page => {
+      for (let i = 0; i < page.ElementIDsList.length; i++) {
+        if (page.ElementIDsList[i] === undefined || page.ElementIDsList[i] === null) {
+          page.ElementIDsList[i] = '#disable';
         }
       }
     });

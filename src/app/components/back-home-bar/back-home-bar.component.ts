@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {GeticonService} from "../../services/geticon.service";
-import {EditionService} from "../../services/edition.service";
-import {MultilinguismService} from "../../services/multilinguism.service";
+import {GeticonService} from '../../services/geticon.service';
+import {EditionService} from '../../services/edition.service';
+import {MultilinguismService} from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-back-home-bar',
