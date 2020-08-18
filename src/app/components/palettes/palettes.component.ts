@@ -13,7 +13,10 @@ export class PalettesComponent implements OnInit {
 
   paletteCodamne = null;
 
-  constructor(private multilinguism: MultilinguismService, public indexeddbaccessService: IndexeddbaccessService, private getIconService: GeticonService, public paletteService: PaletteService) {
+  constructor(private multilinguism: MultilinguismService,
+              public indexeddbaccessService: IndexeddbaccessService,
+              private getIconService: GeticonService,
+              public paletteService: PaletteService) {
   }
 
   ngOnInit() {

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {backLinksCSV, buttonLinksCSV, pageLinksCSV, wordsCSV} from '../csvType';
+import {BackLinksCSV, ButtonLinksCSV, PageLinksCSV, WordsCSV} from '../csvType';
 import {FolderGoTo, Grid, GridElement, Interaction, Page} from '../types';
 import {BoardService} from './board.service';
 import {IndexeddbaccessService} from './indexeddbaccess.service';
@@ -13,39 +13,43 @@ import {JsonValidatorService} from './json-validator.service';
 })
 export class ProloquoParser {
 
-  constructor(private http: HttpClient, public boardService: BoardService, public indexedDBacess: IndexeddbaccessService, private printService: PrintService,
-              private router: Router, public jsonValidator: JsonValidatorService) {
+  constructor(private http: HttpClient,
+              public boardService: BoardService,
+              public indexedDBacess: IndexeddbaccessService,
+              private printService: PrintService,
+              private router: Router,
+              public jsonValidator: JsonValidatorService) {
   }
 
-  public words: wordsCSV[] = [];
-  public pageLinks: pageLinksCSV[] = [];
-  public buttonLinks: buttonLinksCSV[] = [];
-  public backLinks: backLinksCSV[] = [];
+  public words: WordsCSV[] = [];
+  public pageLinks: PageLinksCSV[] = [];
+  public buttonLinks: ButtonLinksCSV[] = [];
+  public backLinks: BackLinksCSV[] = [];
 
   public createGridFromProloquoCSVs(): void {
     /*WORD CSV DATA*/
     this.http.get('assets/libs/proloquo/proloquoMots.csv', {responseType: 'text'}).subscribe(wordData => {
-      const csvRecordsArray = (wordData as string).split(/\r\n|\n/);
-      const headersRow = this.getHeaderArray(csvRecordsArray);
-      this.getDataRecordsArrayFromWordsCSV(csvRecordsArray, headersRow.length);
+      const csvWordRecordsArray = (wordData as string).split(/\r\n|\n/);
+      const headerWord = this.getHeaderArray(csvWordRecordsArray);
+      this.getDataRecordsArrayFromWordsCSV(csvWordRecordsArray, headerWord.length);
 
       /*PAGE CSV DATA*/
       this.http.get('assets/libs/proloquo/proloquoPageLinks.csv', {responseType: 'text'}).subscribe(pageData => {
-        const csvRecordsArray = (pageData as string).split(/\r\n|\n/);
-        const headersRow = this.getHeaderArray(csvRecordsArray);
-        this.getDataRecordsArrayFromPageLinksCSV(csvRecordsArray, headersRow.length);
+        const csvPageRecordsArray = (pageData as string).split(/\r\n|\n/);
+        const headerPage = this.getHeaderArray(csvPageRecordsArray);
+        this.getDataRecordsArrayFromPageLinksCSV(csvPageRecordsArray, headerPage.length);
 
         /*BUTTON CSV DATA*/
         this.http.get('assets/libs/proloquo/proloquoButtonLinks.csv', {responseType: 'text'}).subscribe(buttonData => {
-          const csvRecordsArray = (buttonData as string).split(/\r\n|\n/);
-          const headersRow = this.getHeaderArray(csvRecordsArray);
-          this.getDataRecordsArrayFromButtonLinksCSV(csvRecordsArray, headersRow.length);
+          const csvButtonRecordsArray = (buttonData as string).split(/\r\n|\n/);
+          const headerButton = this.getHeaderArray(csvButtonRecordsArray);
+          this.getDataRecordsArrayFromButtonLinksCSV(csvButtonRecordsArray, headerButton.length);
 
           /*BACK CSV DATA*/
           this.http.get('assets/libs/proloquo/proloquoBackLinks.csv', {responseType: 'text'}).subscribe(backData => {
-            const csvRecordsArray = (backData as string).split(/\r\n|\n/);
-            const headersRow = this.getHeaderArray(csvRecordsArray);
-            this.getDataRecordsArrayFromBackLinksCSV(csvRecordsArray, headersRow.length);
+            const csvBackRecordsArray = (backData as string).split(/\r\n|\n/);
+            const headerBack = this.getHeaderArray(csvBackRecordsArray);
+            this.getDataRecordsArrayFromBackLinksCSV(csvBackRecordsArray, headerBack.length);
 
             this.boardService.board = this.jsonValidator.getCheckedGrid(this.createGrid());
             this.indexedDBacess.update();
@@ -59,8 +63,8 @@ export class ProloquoParser {
   getDataRecordsArrayFromWordsCSV(csvRecordsArray: any, headerLength: any) {
     for (let i = 1; i < csvRecordsArray.length; i++) {
       const curruntRecord = (csvRecordsArray[i] as string).split(',');
-      if (curruntRecord.length == headerLength) {
-        const csvRecord: wordsCSV = new wordsCSV();
+      if (curruntRecord.length === headerLength) {
+        const csvRecord: WordsCSV = new WordsCSV();
         csvRecord.mot = curruntRecord[0].trim();
         csvRecord.ligne = Number(curruntRecord[1].trim());
         csvRecord.colonne = Number(curruntRecord[2].trim());
@@ -74,8 +78,8 @@ export class ProloquoParser {
   getDataRecordsArrayFromPageLinksCSV(csvRecordsArray: any, headerLength: any) {
     for (let i = 1; i < csvRecordsArray.length; i++) {
       const curruntRecord = (csvRecordsArray[i] as string).split(',');
-      if (curruntRecord.length == headerLength) {
-        const csvRecord: pageLinksCSV = new pageLinksCSV();
+      if (curruntRecord.length === headerLength) {
+        const csvRecord: PageLinksCSV = new PageLinksCSV();
         csvRecord.from = curruntRecord[0].trim();
         csvRecord.to = curruntRecord[1].trim();
         this.pageLinks.push(csvRecord);
@@ -86,8 +90,8 @@ export class ProloquoParser {
   getDataRecordsArrayFromButtonLinksCSV(csvRecordsArray: any, headerLength: any) {
     for (let i = 1; i < csvRecordsArray.length; i++) {
       const curruntRecord = (csvRecordsArray[i] as string).split(',');
-      if (curruntRecord.length == headerLength) {
-        const csvRecord: buttonLinksCSV = new buttonLinksCSV();
+      if (curruntRecord.length === headerLength) {
+        const csvRecord: ButtonLinksCSV = new ButtonLinksCSV();
         csvRecord.from = curruntRecord[0].trim();
         csvRecord.to = curruntRecord[1].trim();
         this.buttonLinks.push(csvRecord);
@@ -98,8 +102,8 @@ export class ProloquoParser {
   getDataRecordsArrayFromBackLinksCSV(csvRecordsArray: any, headerLength: any) {
     for (let i = 1; i < csvRecordsArray.length; i++) {
       const curruntRecord = (csvRecordsArray[i] as string).split(',');
-      if (curruntRecord.length == headerLength) {
-        const csvRecord: backLinksCSV = new backLinksCSV();
+      if (curruntRecord.length === headerLength) {
+        const csvRecord: BackLinksCSV = new BackLinksCSV();
         csvRecord.from = curruntRecord[0].trim();
         csvRecord.backID = curruntRecord[1].trim();
         csvRecord.to = curruntRecord[2].trim();
@@ -111,8 +115,8 @@ export class ProloquoParser {
   getHeaderArray(csvRecordsArr: any) {
     const headers = (csvRecordsArr[0] as string).split(',');
     const headerArray = [];
-    for (let i = 0; i < headers.length; i++) {
-      headerArray.push(headers[i]);
+    for (const header of headers) {
+      headerArray.push(header);
     }
     return headerArray;
   }
@@ -169,7 +173,10 @@ export class ProloquoParser {
     });
 
     tempElement.forEach(elt => {
-      if (elt.Type !== 'button' && elt.Type !== 'empty' && (elt.Type as FolderGoTo).GoTo === null && (elt.Type as FolderGoTo).GoTo === undefined) {
+      if (elt.Type !== 'button' &&
+        elt.Type !== 'empty' &&
+        (elt.Type as FolderGoTo).GoTo === null &&
+        (elt.Type as FolderGoTo).GoTo === undefined) {
         console.log('ID: ' + elt.ID + '  Type:' + elt.Type);
       }
     });
@@ -191,21 +198,21 @@ export class ProloquoParser {
       if (tempPage.findIndex(page => page.ID === word.page) === -1) {
         let name = word.page;
 
-        const pageLink = this.pageLinks.find(pageLink => pageLink.to === word.page);
+        const pageLinkToWordPage = this.pageLinks.find(pageLinkOfpageLinks => pageLinkOfpageLinks.to === word.page);
 
-        if (pageLink !== undefined && pageLink !== null) {
-          const word = this.words.find(word => word.wordID === pageLink.from);
-          if (word !== undefined && word !== null) {
-            name = word.mot;
+        if (pageLinkToWordPage !== undefined && pageLinkToWordPage !== null) {
+          const wordFrom = this.words.find(wordOfwords => wordOfwords.wordID === pageLinkToWordPage.from);
+          if (wordFrom !== undefined && wordFrom !== null) {
+            name = wordFrom.mot;
           }
         } else {
 
-          const buttonLink = this.buttonLinks.find(buttonLink => buttonLink.to === word.page);
+          const buttonLink = this.buttonLinks.find(buttonLinkOfbuttonLinks => buttonLinkOfbuttonLinks.to === word.page);
 
           if (buttonLink !== undefined && buttonLink !== null) {
-            const word = this.words.find(word => word.wordID === buttonLink.from);
-            if (word !== undefined && word !== null) {
-              name = word.mot;
+            const wordFrom = this.words.find(wordOfwords => wordOfwords.wordID === buttonLink.from);
+            if (wordFrom !== undefined && wordFrom !== null) {
+              name = wordFrom.mot;
             }
           }
         }

@@ -43,7 +43,7 @@ export class LayoutService {
   }
 
   refresh() {
-    if (this.options.api != undefined) {
+    if (this.options.api !== undefined) {
       this.options.api.optionsChanged();
     }
   }

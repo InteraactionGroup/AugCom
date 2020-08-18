@@ -10,7 +10,7 @@ describe('IndexeddbaccessService', () => {
   }));
 
   it('should be created', () => {
-    const service: IndexeddbaccessService = TestBed.get(IndexeddbaccessService);
+    const service: IndexeddbaccessService = TestBed.inject(IndexeddbaccessService);
     expect(service).toBeTruthy();
   });
 });

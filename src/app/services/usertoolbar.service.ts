@@ -37,7 +37,7 @@ export class UsertoolbarService {
   public title = 'Title';
 
   fullScreen() {
-    if (document.fullscreen || (document as any).webkitIsFullScreen || (document as any).mozFullScreen) {
+    if (document.fullscreenElement !== null || (document as any).webkitIsFullScreen || (document as any).mozFullScreen) {
       if (document.exitFullscreen) {
         document.exitFullscreen();
       } else if ((document as any).webkitExitFullscreen) {

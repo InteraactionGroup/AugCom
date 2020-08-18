@@ -10,7 +10,7 @@ describe('DbnaryService', () => {
   }));
 
   it('should be created', () => {
-    const service: DbnaryService = TestBed.get(DbnaryService);
+    const service: DbnaryService = TestBed.inject(DbnaryService);
     expect(service).toBeTruthy();
   });
 });

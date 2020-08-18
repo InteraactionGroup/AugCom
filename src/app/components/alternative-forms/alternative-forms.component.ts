@@ -18,7 +18,12 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 })
 export class AlternativeFormsComponent implements OnInit {
 
-  constructor(private multilinguism: MultilinguismService, public ng2ImgMaxService: Ng2ImgMaxService, public boardService: BoardService, public getIconService: GeticonService, public dbnaryService: DbnaryService, public editionService: EditionService) {
+  constructor(private multilinguism: MultilinguismService,
+              public ng2ImgMaxService: Ng2ImgMaxService,
+              public boardService: BoardService,
+              public getIconService: GeticonService,
+              public dbnaryService: DbnaryService,
+              public editionService: EditionService) {
   }
 
   imageList = [];

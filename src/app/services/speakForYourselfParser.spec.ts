@@ -17,7 +17,7 @@ describe('Speak4YourselfService', () => {
   }));
 
   it('should be created', () => {
-    const service: SpeakForYourselfParser = TestBed.get(SpeakForYourselfParser);
+    const service: SpeakForYourselfParser = TestBed.inject(SpeakForYourselfParser);
     expect(service).toBeTruthy();
   });
 });

@@ -134,7 +134,7 @@ export class EditionComponent implements OnInit {
       if (this.editionService.pageLink === '@') {
         return new FolderGoTo(elementID);
       } else if (this.editionService.pageLink === '@NEW@') {
-        if (this.editionService.newPage.replace(/ /g, '') == '') {
+        if (this.editionService.newPage.replace(/ /g, '') === '') {
           return new FolderGoTo(elementID)
         } else {
           this.boardService.board.PageList.push({
@@ -264,14 +264,14 @@ export class EditionComponent implements OnInit {
         this.editionService.imageURL = '';
       }
 
-      if (elementToModif.ElementFormsList != null && elementToModif.ElementFormsList != undefined) {
+      if (elementToModif.ElementFormsList != null && elementToModif.ElementFormsList !== undefined) {
         this.editionService.variantList = Object.assign([], elementToModif.ElementFormsList);
       } else {
         this.editionService.variantList = [];
       }
 
 
-      if (elementToModif.InteractionsList != null && elementToModif.InteractionsList != undefined) {
+      if (elementToModif.InteractionsList != null && elementToModif.InteractionsList !== undefined) {
         this.editionService.interractionList = Object.assign([], elementToModif.InteractionsList);
       } else {
         this.editionService.interractionList = [];

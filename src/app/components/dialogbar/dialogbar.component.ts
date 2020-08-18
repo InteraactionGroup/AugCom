@@ -13,7 +13,10 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 })
 export class DialogbarComponent implements OnInit {
 
-  constructor(private multilinguism: MultilinguismService, public getIconService: GeticonService, public boardService: BoardService, public historicService: HistoricService) {
+  constructor(private multilinguism: MultilinguismService,
+              public getIconService: GeticonService,
+              public boardService: BoardService,
+              public historicService: HistoricService) {
   }
 
   ngOnInit() {

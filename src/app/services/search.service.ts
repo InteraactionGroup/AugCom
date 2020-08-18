@@ -45,7 +45,7 @@ export class SearchService {
           const tempElt = this.boardService.board.ElementList.find(newelt => {
             return (newelt.Type as FolderGoTo).GoTo === page.ID;
           });
-          if (tempElt != null && tempElt != undefined) {
+          if (tempElt != null && tempElt !== undefined) {
             if (!parents.includes(tempElt) && !this.searchedPath.includes(tempElt)) {
               parents.push(tempElt);
             }

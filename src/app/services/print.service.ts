@@ -40,15 +40,15 @@ export class PrintService {
   getAllHTML() {
     let tempHTML = this.buttonHTML;
 
-    this.boardService.board.PageList.forEach(p => {
+    this.boardService.board.PageList.forEach(page => {
       const tempList = [];
-      if (p !== null && p !== undefined) {
-        for (let i = 0; i < p.ElementIDsList.length; i++) {
+      if (page !== null && page !== undefined) {
+        for (const id of page.ElementIDsList) {
           tempList.push(this.boardService.board.ElementList.find(elt => {
-            return elt.ID === p.ElementIDsList[i];
+            return elt.ID === id;
           }));
         }
-        tempHTML = tempHTML + this.getHTML(p.ID, tempList);
+        tempHTML = tempHTML + this.getHTML(page.ID, tempList);
       }
     });
 

@@ -346,9 +346,9 @@ export class BoardService {
 
     const tempList = [];
     if (currentPage !== null && currentPage !== undefined) {
-      for (let i = 0; i < currentPage.ElementIDsList.length; i++) {
+      for (const id of currentPage.ElementIDsList) {
         tempList.push(this.board.ElementList.find(elt => {
-          return elt.ID === currentPage.ElementIDsList[i];
+          return elt.ID === id;
         }));
       }
     }
@@ -426,8 +426,10 @@ export class BoardService {
 
   /**
    * return the available neighbor index of an element identified by index 'ind'
-   * @param x
-   * @param y
+   * @param x the x origin of the element we want neighbor
+   * @param y the y origin of the element we want neighbor
+   * @param cols the width of the element we want neighbor
+   * @param rows the height of the element we want neighbor
    */
   createPlaces(x: number, y: number, cols: number, rows: number): { x: number, y: number }[] {
     const slider: number = Number(this.board.NumberOfCols);

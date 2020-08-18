@@ -9,7 +9,7 @@ describe('SnapBarService', () => {
   }));
 
   it('should be created', () => {
-    const service: SnapBarService = TestBed.get(SnapBarService);
+    const service: SnapBarService = TestBed.inject(SnapBarService);
     expect(service).toBeTruthy();
   });
 });

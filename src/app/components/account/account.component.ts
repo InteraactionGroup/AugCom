@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {GeticonService} from '../../services/geticon.service';
-import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
 
 @Component({
@@ -24,7 +23,8 @@ export class AccountComponent implements OnInit {
   selectedMenu = 'complementaryInfo';
   selectedSubMenu = 'contacts';
 
-  constructor(public multilinguism: MultilinguismService, public getIconService: GeticonService, public indexeddbaccessService: IndexeddbaccessService) {
+  constructor(public multilinguism: MultilinguismService,
+              public getIconService: GeticonService) {
   }
 
   ngOnInit() {

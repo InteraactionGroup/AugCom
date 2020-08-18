@@ -9,7 +9,7 @@ describe('PaletteService', () => {
   }));
 
   it('should be created', () => {
-    const service: PaletteService = TestBed.get(PaletteService);
+    const service: PaletteService = TestBed.inject(PaletteService);
     expect(service).toBeTruthy();
   });
 });

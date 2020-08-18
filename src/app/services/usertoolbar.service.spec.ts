@@ -9,7 +9,7 @@ describe('UsertoolbarService', () => {
   }));
 
   it('should be created', () => {
-    const service: UsertoolbarService = TestBed.get(UsertoolbarService);
+    const service: UsertoolbarService = TestBed.inject(UsertoolbarService);
     expect(service).toBeTruthy();
   });
 });

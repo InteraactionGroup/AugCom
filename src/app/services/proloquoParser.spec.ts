@@ -17,7 +17,7 @@ describe('ProloquoParserService', () => {
   }));
 
   it('should be created', () => {
-    const service: ProloquoParser = TestBed.get(ProloquoParser);
+    const service: ProloquoParser = TestBed.inject(ProloquoParser);
     expect(service).toBeTruthy();
   });
 });

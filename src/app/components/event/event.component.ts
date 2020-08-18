@@ -11,7 +11,10 @@ import {MultilinguismService} from '../../services/multilinguism.service';
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
-  constructor(private multilinguism: MultilinguismService, public getIconService: GeticonService, public parametersService: ParametersService, public editionService: EditionService) {
+  constructor(private multilinguism: MultilinguismService,
+              public getIconService: GeticonService,
+              public parametersService: ParametersService,
+              public editionService: EditionService) {
   }
 
   ngOnInit() {
@@ -20,7 +23,7 @@ export class EventComponent implements OnInit {
   /**
    * Return true if the action identified by actionId exists in the current interaction
    * return false otherwise
-   * @param interactionId
+   * @param interactionId the string identifying the interaction
    * @param actionId, the string identifying an action
    * @return true if the action identified by actionId exists in the current interaction, false otherwise
    */
@@ -55,7 +58,7 @@ export class EventComponent implements OnInit {
   /**
    * Add the action identified by the actionId to the current interaction if it doesn't contain it already,
    * otherwise it delete it from the current interaction
-   * @param interractionId
+   * @param interractionId the string identifying the interaction
    * @param actionId, the string identifying an action
    */
   addOrRemoveToInteraction(interactionId, actionId: string) {

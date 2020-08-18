@@ -70,7 +70,7 @@ export class ShareComponent implements OnInit {
   /**
    * explore the zip file e containing only images and folders and create elements and images in the board
    * using the image and image name to respectively create imageUrl and element name and keep the same tree aspect
-   * @param zip
+   * @param zip the zip file returned by the file explorer
    */
   exploreZip(zip) { // TODO change the folderPath implementation
     const zipFolder: JSZip = new JSZip();
@@ -196,7 +196,7 @@ export class ShareComponent implements OnInit {
 
   /**
    * import and set the current information contained in the file of event e into the board
-   * @param file
+   * @param file the file returned by the explorer
    */
   import(file) {
     const myFile = file[0];

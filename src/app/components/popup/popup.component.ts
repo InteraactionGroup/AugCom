@@ -59,7 +59,8 @@ export class PopupComponent implements OnInit {
    */
   getSentencedToDeleteElementStringValue() {
     if (this.editionService.sentencedToBeDeletedElement.length === 1) {
-      return this.multilinguism.translate('theElement') + ': "' + this.boardService.getDefaultLabel(this.editionService.sentencedToBeDeletedElement[0]) + '".\n';
+      return this.multilinguism.translate('theElement') + ': "' +
+        this.boardService.getDefaultLabel(this.editionService.sentencedToBeDeletedElement[0]) + '".\n';
     } else if (this.editionService.sentencedToBeDeletedElement.length >= 1) {
       return this.multilinguism.translate('severalElements') + '\n';
     }

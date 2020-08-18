@@ -12,7 +12,9 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 })
 export class SavesComponent implements OnInit {
 
-  constructor(private multilinguism: MultilinguismService, public boardService: BoardService, public indexeddbaccessService: IndexeddbaccessService) {
+  constructor(private multilinguism: MultilinguismService,
+              public boardService: BoardService,
+              public indexeddbaccessService: IndexeddbaccessService) {
   }
 
   ngOnInit() {

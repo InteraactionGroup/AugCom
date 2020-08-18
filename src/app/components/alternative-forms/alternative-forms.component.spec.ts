@@ -10,7 +10,7 @@ import {ElementForm, GridElement} from '../../types';
 function updateModifications(component: any) {
   if (component.editionService.selectedElements.length === 1) {
     const elementToModif: GridElement = component.editionService.selectedElements[0];
-    if (elementToModif.ElementFormsList != null && elementToModif.ElementFormsList != undefined) {
+    if (elementToModif.ElementFormsList != null && elementToModif.ElementFormsList !== undefined) {
       component.editionService.variantList = Object.assign([], elementToModif.ElementFormsList);
     } else {
       component.editionService.variantList = [];
@@ -134,7 +134,7 @@ describe('AlternativeFormsComponent', () => {
     expect(compiled.querySelectorAll('.elementContainer').length).toEqual(10);
   });
 
-  it('should create the first new variant if addButton and enregistrer les modifications button are pressed and there was no variant before', () => {
+  it('should create the first new variant if addButton and saveModif button are pressed and there was no variant before', () => {
     const compiled = fixture.debugElement.nativeElement;
     component.editionService.selectedElements = [];
     createElements(component, 1, 1);
