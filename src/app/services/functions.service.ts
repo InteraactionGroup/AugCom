@@ -35,13 +35,13 @@ export class FunctionsService {
       'back',
       'backHome',
 
-      'backToPreviousPage',
-      'backHome',
+      /*
       'changeGenre',
       'changeNumber',
       'changePerson',
       'changeTime',
-      'changeLevel')
+      'changeLevel'*/
+    )
   }
 
 

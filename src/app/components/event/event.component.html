@@ -32,7 +32,7 @@
                       [ngModelOptions]="{standalone: true}">
                 <option value="@" selected>--{{multilinguism.translate("chooseFunction")}}--</option>
                 <ng-container *ngFor="let fun of this.functionService.functionList">
-                  <option value="{{fun}}"> {{fun}} </option>
+                  <option value="{{fun}}"> {{this.multilinguism.translate(this.getLabel(fun))}} </option>
                 </ng-container>
               </select>
 
