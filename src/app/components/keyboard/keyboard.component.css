@@ -70,7 +70,8 @@
 }
 
 .editionSettings .gridSettings .inputSize {
-  width: 40%;
+  width: 25%;
+  text-align: end;
   height: 80%;
   margin: 0 0 0 0;
   padding: 0 0 0 0;

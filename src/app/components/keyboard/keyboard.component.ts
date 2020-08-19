@@ -41,6 +41,7 @@ export class KeyboardComponent implements OnInit {
    */
   cols: number;
   rows: number;
+  gap: number;
 
   // tslint:disable-next-line:max-line-length
   constructor(
@@ -59,6 +60,7 @@ export class KeyboardComponent implements OnInit {
   ) {
     this.cols = this.layoutService.options.minCols;
     this.rows = this.layoutService.options.minRows;
+    this.gap = this.layoutService.options.margin;
   }
 
   onKeyCols(event: any) {
@@ -72,6 +74,13 @@ export class KeyboardComponent implements OnInit {
     if (+event.target.value >= 1) {
       this.rows = +event.target.value;
       this.layoutService.setRows(this.rows);
+    }
+  }
+
+  onKeyGap(event: any) {
+    if (+event.target.value >= 1) {
+      this.gap = +event.target.value;
+      this.layoutService.setGap(this.gap);
     }
   }
 

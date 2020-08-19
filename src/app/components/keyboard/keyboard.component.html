@@ -51,6 +51,11 @@
     <input class="inputSize floatLeft centerText" value={{this.rows}} type="number" min="1"
            [(ngModel)]="this.boardService.board.NumberOfRows"
            (change)="onKeyRows($event)">
+    <div class="x floatLeft">
+      +
+    </div>
+    <input class="inputSize floatLeft centerText" value={{this.gap}} type="number" min="0"
+           (change)="onKeyGap($event)">
   </div>
 </div>
 

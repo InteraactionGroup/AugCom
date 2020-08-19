@@ -43,6 +43,11 @@ export class LayoutService {
     this.refresh();
   }
 
+  setGap(gap: number): void {
+    this.options.margin = gap;
+    this.refresh();
+  }
+
   refresh() {
     if (this.options.api !== undefined) {
       this.options.api.optionsChanged();
