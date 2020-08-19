@@ -328,6 +328,24 @@ export class TileComponent implements OnInit {
     return s;
   }
 
+  getWidth(element: GridElement) {
+    const isFolder = (element.Type as FolderGoTo).GoTo !== undefined;
+    const s = isFolder ? 'calc(100% - 5px)' : '100%';
+    return s;
+  }
+
+  getHeight(element: GridElement) {
+    const isFolder = (element.Type as FolderGoTo).GoTo !== undefined;
+    const s = isFolder ? 'calc(100% - 5px)' : '100%';
+    return s;
+  }
+
+  getMarginTop(element: GridElement) {
+    const isFolder = (element.Type as FolderGoTo).GoTo !== undefined;
+    const s = isFolder ? '5px' : '0';
+    return s;
+  }
+
   /**
    * check if the current element is visible on the board
    * @param element, the element to check

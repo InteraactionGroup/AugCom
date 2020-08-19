@@ -20,7 +20,7 @@ export class LayoutService {
     minCols: 5,
     minRows: 6,
     maxCols: 5,
-    maxRows: 6,
+    maxRows: 6
   };
 
   constructor() {
@@ -29,6 +29,7 @@ export class LayoutService {
   setDraggable(b: boolean): void {
     this.options.draggable.enabled = b;
     this.options.resizable.enabled = b;
+    this.options.displayGrid = b ?'always' : 'none';
     this.refresh();
   }
 

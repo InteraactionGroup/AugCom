@@ -77,14 +77,14 @@
           <div class="elementContainer floatLeft no-drag add height-width-100">
 
             <!-- add button element -->
-            <div class="element" (click)="this.addNewElement()" [ngStyle]="{'background-color': 'rgb(125,125,125)'}">
+            <div class="add" (click)="this.addNewElement()">
 
               <div class="image haveBackgroundImage" [style.background-image]="this.getIcon('add')">
 
               </div>
 
               <div class="adjustableText">
-                ajouter
+                {{this.multilinguism.translate("add")}}
               </div>
 
             </div>
