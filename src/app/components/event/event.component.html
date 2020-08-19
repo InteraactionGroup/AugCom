@@ -5,30 +5,30 @@
         {{this.multilinguism.translate("modifyInteractions")}}:
       </div>
       <div class="element ">
-          <ng-container *ngFor="let interID of this.functionService.interactionIDs">
+          <ng-container *ngFor="let inter of this.functionService.interactionIDs">
             <div class="tableEvent">
           <div class="event centerText height-width-100 floatLeft">
 <!--            <div class="icon haveBackgroundImage" [ngStyle]="{'background-image':this.getIcon(actionID)}">-->
 <!--            </div>-->
-            {{this.multilinguism.translate(this.getLabel(interID.ID))}}
+            {{this.multilinguism.translate(this.getLabel(inter.ID))}}
           </div>
               <ng-container *ngFor="let actionID of this.functionService.functionList">
-                <ng-container *ngIf="this.isPartOfTheInteraction(interID.ID,actionID)">
+                <ng-container *ngIf="this.isPartOfTheInteraction(inter.ID,actionID)">
                 <div class="leftTabLabel">
                 <label style="margin-left: 5px">{{this.multilinguism.translate(this.getLabel(actionID))}}</label>
-                <input style="margin-right: 5px" type="button" value="x">
+                <input style="margin-right: 5px" type="button" value="x" (click)="removeFromInteraction(inter.ID,actionID)">
                 </div>
                 </ng-container>
               </ng-container>
-              <ng-container *ngFor="let actionID of interID.ActionList">
+              <ng-container *ngFor="let action of inter.ActionList">
                   <div class="leftTabLabel">
-                    <label style="margin-left: 5px">{{this.multilinguism.translate(this.getLabel(actionID.ID))}}</label>
-                    <input style="margin-right: 5px" type="button" value="x">
+                    <label style="margin-left: 5px">{{this.multilinguism.translate(this.getLabel(action.ID))}}</label>
+                    <input style="margin-right: 5px" type="button" value="x" (click)="inter.ActionList = removeFrom(action,inter.ActionList)">
                   </div>
               </ng-container>
-              <input type="button" value="+" *ngIf="!interID.plus" (click)="interID.plus=true">
-              <select class="selectBox"  [(ngModel)]="this.functionService.selectedFunction" (change)="this.functionService.selectFunction2(interID)"
-                      *ngIf="interID.plus"
+              <input type="button" value="+" *ngIf="!inter.plus" (click)="inter.plus=true">
+              <select class="selectBox"  [(ngModel)]="this.functionService.selectedFunction" (change)="this.functionService.selectFunction2(inter)"
+                      *ngIf="inter.plus"
                       [ngModelOptions]="{standalone: true}">
                 <option value="@" selected>--{{multilinguism.translate("chooseFunction")}}--</option>
                 <ng-container *ngFor="let fun of this.functionService.functionList">
