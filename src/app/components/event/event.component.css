@@ -46,3 +46,41 @@
   margin-top: 5px;
   background-color: white;
 }
+
+.remove {
+  margin-right: 5px;
+  background-color: transparent;
+  border-color: transparent;
+  color: red;
+  cursor: pointer;
+  border-radius: 0;
+  border-width: 0;
+}
+
+.remove:hover{
+  background-color: mistyrose;
+  border-radius: 0;
+  border-width: 0;
+}
+
+.remove:active{
+  background-color: #FFC5C3;
+  border-radius: 0;
+  border-width: 0;
+}
+
+.buttonAdd{
+  border-width: 0;
+  background-color: lightgrey;
+}
+
+.buttonAdd:hover{
+  border-width: 0;
+  background-color: grey;
+  cursor: pointer;
+}
+
+.buttonAdd:active{
+  border-width: 0;
+  background-color: dimgrey;
+}

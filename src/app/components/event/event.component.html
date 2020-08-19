@@ -16,17 +16,17 @@
                 <ng-container *ngIf="this.isPartOfTheInteraction(inter.ID,actionID)">
                 <div class="leftTabLabel">
                 <label style="margin-left: 5px">{{this.multilinguism.translate(this.getLabel(actionID))}}</label>
-                <input style="margin-right: 5px" type="button" value="x" (click)="removeFromInteraction(inter.ID,actionID)">
+                <input class="remove" type="button" value="x" (click)="removeFromInteraction(inter.ID,actionID)">
                 </div>
                 </ng-container>
               </ng-container>
               <ng-container *ngFor="let action of inter.ActionList">
                   <div class="leftTabLabel">
                     <label style="margin-left: 5px">{{this.multilinguism.translate(this.getLabel(action.ID))}}</label>
-                    <input style="margin-right: 5px" type="button" value="x" (click)="inter.ActionList = removeFrom(action,inter.ActionList)">
+                    <input class="remove" type="button" value="x" (click)="inter.ActionList = removeFrom(action,inter.ActionList)">
                   </div>
               </ng-container>
-              <input type="button" value="+" *ngIf="!inter.plus" (click)="inter.plus=true">
+              <input type="button" class="buttonAdd" value="+" *ngIf="!inter.plus" (click)="inter.plus=true">
               <select class="selectBox"  [(ngModel)]="this.functionService.selectedFunction" (change)="this.functionService.selectFunction2(inter)"
                       *ngIf="inter.plus"
                       [ngModelOptions]="{standalone: true}">
