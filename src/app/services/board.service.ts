@@ -316,6 +316,11 @@ export class BoardService {
     this.updateElementList();
   }
 
+  backHome(){
+    this.currentPath = '#HOME';
+    this.updateElementList();
+  }
+
   updateElementList() {
     this.elementList = this.getTempList();
   }

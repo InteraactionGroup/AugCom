@@ -32,6 +32,9 @@ export class FunctionsService {
       'display',
       'say',
       'otherforms',
+      'back',
+      'backHome',
+
       'backToPreviousPage',
       'backHome',
       'changeGenre',

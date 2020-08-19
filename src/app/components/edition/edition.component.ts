@@ -57,6 +57,7 @@ export class EditionComponent implements OnInit {
     this.dbnaryService.wordList = [];
     this.dbnaryService.typeList = [];
     this.editionService.selectedElements = [];
+    this.functionsService.reset();
   }
 
   /**
@@ -176,8 +177,6 @@ export class EditionComponent implements OnInit {
             ActionList: interaction.ActionList
           });
         }
-
-
       }
       element.InteractionsList = Object.assign([], this.editionService.interractionList);
       element.ElementFormsList = Object.assign([], this.editionService.variantList);
@@ -217,6 +216,20 @@ export class EditionComponent implements OnInit {
     );
 
     const elementFormsList = Object.assign([], this.editionService.variantList);
+
+    for( const interaction of this.functionsService.interactionIDs) {
+      const temp: Interaction = this.editionService.interractionList.find(inter => { return inter.ID === interaction.ID });
+      if ( temp !== null && temp !== undefined ) {
+        interaction.ActionList.forEach( act => {
+          temp.ActionList.push(act);
+        });
+      } else {
+        this.editionService.interractionList.push({
+          ID: interaction.ID,
+          ActionList: interaction.ActionList
+        });
+      }
+    }
 
     this.boardService.board.ElementList.push(
       {

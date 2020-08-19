@@ -134,18 +134,19 @@ export class TileComponent implements OnInit {
                 this.historicService.push(vignette);
               } else if (action.ID === 'say') {
                 this.historicService.say('' + prononcedText);
-              } else if (
-                action.ID === 'otherforms' &&
-                element.ElementFormsList.length > 1
-              ) {
+              } else if (action.ID === 'otherforms' && element.ElementFormsList.length > 1 ) {
                 otherFormsDisplayed = true;
                 this.boardService.activatedElement = this.boardService
                   .getNormalTempList()
                   .indexOf(element);
                 this.boardService.activatedElementTempList();
                 this.pressedElement = null;
-              }  else if (!otherFormsDisplayed && action.ID === 'backFromVariant') {
+              } else if (action.ID === 'backFromVariant' && !otherFormsDisplayed) {
                 this.boardService.activatedElement = -1;
+              } else if (action.ID === 'back'){
+                this.boardService.backToPreviousFolder();
+              }else if (action.ID === 'backHome'){
+                this.boardService.backHome();
               }
             });
           }
