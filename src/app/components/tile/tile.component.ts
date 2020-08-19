@@ -144,10 +144,10 @@ export class TileComponent implements OnInit {
                   .indexOf(element);
                 this.boardService.activatedElementTempList();
                 this.pressedElement = null;
+              }  else if (!otherFormsDisplayed && action.ID === 'backFromVariant') {
+                this.boardService.activatedElement = -1;
               }
             });
-          } else if (!otherFormsDisplayed && inter.ID === 'backFromVariant') {
-            this.boardService.activatedElement = -1;
           }
         });
 

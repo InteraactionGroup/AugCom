@@ -73,10 +73,10 @@ export class EventComponent implements OnInit {
     if ((currentInterraction === null || currentInterraction === undefined) && !partOfCurrentInter) {
       this.editionService.interractionList.push({
         ID: interactionId,
-        ActionList: [{ID: actionId, Action: actionId}]
+        ActionList: [{ID: actionId, Options: []}]
       });
     } else if (!partOfCurrentInter) {
-      currentInterraction.ActionList.push({ID: actionId, Action: actionId});
+      currentInterraction.ActionList.push({ID: actionId, Options: []});
     } else if (partOfCurrentInter) {
       currentInterraction.ActionList = currentInterraction.ActionList.filter(x => x.ID !== actionId);
     }

@@ -91,7 +91,7 @@ export class Image {
 }
 
 export class Interaction {
-  ID: 'click' | 'longPress' | 'doubleClick' | 'backFromVariant';
+  ID: string; // 'click' | 'longPress' | 'doubleClick';
   ActionList: Action[];
 }
 
@@ -100,7 +100,7 @@ export class Interaction {
  */
 export class Action {
   ID: string;
-  Action: string;
+  Options: string[];
 }
 
 /**
@@ -119,6 +119,6 @@ export class Page {
   ElementIDsList: string[];
 }
 
-export class Dictionnary {
-  dictionnary : { id: string, FR: string, EN: string }[]
+export class Dictionary {
+  dictionary : { id: string, FR: string, EN: string }[]
 }

@@ -404,7 +404,7 @@ export class BoardService {
           elt.x = places[indexOfForm].x;
           elt.y = places[indexOfForm].y;
         }
-        elt.InteractionsList.push({ID: 'backFromVariant', ActionList: []});
+        elt.InteractionsList.push({ID: 'click', ActionList: [{ID: 'backFromVariant', Options: []}]});
         temporaryElementList.push(this.copy(elt));
         indexOfForm = indexOfForm + 1;
       }
@@ -412,7 +412,7 @@ export class BoardService {
 
     compElt.Color = '#123548';
     compElt.PartOfSpeech = '';
-    compElt.InteractionsList = [{ID: 'backFromVariant', ActionList: []}];
+    compElt.InteractionsList = [{ID: 'click', ActionList: [{ID: 'backFromVariant', Options: []}]}];
     compElt.ElementFormsList = [{
       DisplayedText: 'back',
       VoiceText: 'back',

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {Action} from '../types';
 
 @Injectable({
   providedIn: 'root'
@@ -6,17 +7,24 @@ import { Injectable } from '@angular/core';
 export class FunctionsService {
 
 
-  interactionIDs = [
-    {id:'click',plus:false,actionList:['display',
-        'say',]},
-    {id:'longPress',plus:false,actionList:['say']},
-    {id:'doubleClick',plus:false,actionList:['otherforms']}];
+  interactionIDs: {ID: string, plus: boolean, ActionList: Action[]}[] = [
+    {ID:'click',plus:false,ActionList:[]},
+    {ID:'longPress',plus:false,ActionList:[]},
+    {ID:'doubleClick',plus:false,ActionList:[]}];
 
   functionList: string[] = [];
   selectedFunction = '@';
 
   constructor() {
     this.initFunctionList();
+    this.reset();
+  }
+
+  reset(){
+    this.interactionIDs = [
+      {ID:'click',plus:false,ActionList:[]},
+      {ID:'longPress',plus:false,ActionList:[]},
+      {ID:'doubleClick',plus:false,ActionList:[]}];
   }
 
   initFunctionList(){
@@ -33,14 +41,10 @@ export class FunctionsService {
       'changeLevel')
   }
 
-  selectFunction(interId: {id:string,plus:boolean,actionList:string[]} , p:string){
-    console.log(p);
-    interId.actionList.push(p);
-  }
 
-  selectFunction2(interId: {id:string,plus:boolean,actionList:string[]}){
+  selectFunction2(interId: {ID:string,plus:boolean,ActionList:Action[]}){
     console.log(this.selectedFunction);
-    interId.actionList.push(this.selectedFunction);
+    interId.ActionList.push({ID: this.selectedFunction, Options :[]});
     interId.plus = false;
     this.selectedFunction = '@'
   }

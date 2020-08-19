@@ -10,21 +10,29 @@
           <div class="event centerText height-width-100 floatLeft">
 <!--            <div class="icon haveBackgroundImage" [ngStyle]="{'background-image':this.getIcon(actionID)}">-->
 <!--            </div>-->
-            {{this.multilinguism.translate(this.getLabel(interID.id))}}
+            {{this.multilinguism.translate(this.getLabel(interID.ID))}}
           </div>
-              <ng-container *ngFor="let actionID of interID.actionList">
+              <ng-container *ngFor="let actionID of this.functionService.functionList">
+                <ng-container *ngIf="this.isPartOfTheInteraction(interID.ID,actionID)">
                 <div class="leftTabLabel">
                 <label style="margin-left: 5px">{{this.multilinguism.translate(this.getLabel(actionID))}}</label>
                 <input style="margin-right: 5px" type="button" value="x">
                 </div>
+                </ng-container>
+              </ng-container>
+              <ng-container *ngFor="let actionID of interID.ActionList">
+                  <div class="leftTabLabel">
+                    <label style="margin-left: 5px">{{this.multilinguism.translate(this.getLabel(actionID.ID))}}</label>
+                    <input style="margin-right: 5px" type="button" value="x">
+                  </div>
               </ng-container>
               <input type="button" value="+" *ngIf="!interID.plus" (click)="interID.plus=true">
               <select class="selectBox"  [(ngModel)]="this.functionService.selectedFunction" (change)="this.functionService.selectFunction2(interID)"
                       *ngIf="interID.plus"
                       [ngModelOptions]="{standalone: true}">
                 <option value="@" selected>--{{multilinguism.translate("chooseFunction")}}--</option>
-                <ng-container *ngFor="let p of this.functionService.functionList">
-                  <option value="{{p}}" (select)="this.functionService.selectFunction(interID,p)"> {{p}} </option>
+                <ng-container *ngFor="let fun of this.functionService.functionList">
+                  <option value="{{fun}}"> {{fun}} </option>
                 </ng-container>
               </select>
 

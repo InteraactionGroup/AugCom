@@ -165,7 +165,7 @@ export class ShareComponent implements OnInit {
             ImageID: theID,
           }
         ],
-        InteractionsList: [{ID: 'click', ActionList: [{ID: 'display', Action: 'display'}]}],
+        InteractionsList: [{ID: 'click', ActionList: [{ID: 'display', Options: []}]}],
         Color: 'lightgrey',
         BorderColor: 'black',
         VisibilityLevel: 0,
