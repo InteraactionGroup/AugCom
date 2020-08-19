@@ -110,4 +110,14 @@ export class EventComponent implements OnInit {
     return actionList.filter( actionOfTheList => {return actionOfTheList !== action})
 }
 
+plusOn(inter:  {ID: string, plus: boolean, ActionList: Action[]}){
+  this.functionService.interactionIDs.forEach( interaction => {
+    if(interaction.ID === inter.ID) {
+      interaction.plus = true;
+    } else {
+      interaction.plus = false;
+    }
+  });
+}
+
 }

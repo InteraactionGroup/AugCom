@@ -26,7 +26,7 @@
                     <input class="remove" type="button" value="x" (click)="inter.ActionList = removeFrom(action,inter.ActionList)">
                   </div>
               </ng-container>
-              <input type="button" class="buttonAdd" value="+" *ngIf="!inter.plus" (click)="inter.plus=true">
+              <input type="button" class="buttonAdd" value="+" *ngIf="!inter.plus" (click)="plusOn(inter)">
               <select class="selectBox"  [(ngModel)]="this.functionService.selectedFunction" (change)="this.functionService.selectFunction2(inter)"
                       *ngIf="inter.plus"
                       [ngModelOptions]="{standalone: true}">
