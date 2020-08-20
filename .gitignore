@@ -44,3 +44,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+.src/assets/libs/FR_Pictogrammes_couleur/
+.src/assets/libs/FR_Noir_et_blanc_pictogrammes/
+

@@ -1,5 +1,5 @@
 {
-  "dictionnary" : [
+  "dictionary" : [
     { "id" : "back" , "FR" : "retour", "EN" : "back" },
     { "id" : "modifInfo" , "FR" : "Modifier les informations:", "EN" : "Modify the information:" },
     { "id" : "soon" , "FR" : "à venir...", "EN" : "available soon..." },
