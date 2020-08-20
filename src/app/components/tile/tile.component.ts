@@ -134,20 +134,21 @@ export class TileComponent implements OnInit {
                 this.historicService.push(vignette);
               } else if (action.ID === 'say') {
                 this.historicService.say('' + prononcedText);
-              } else if (
-                action.ID === 'otherforms' &&
-                element.ElementFormsList.length > 1
-              ) {
+              } else if (action.ID === 'otherforms' && element.ElementFormsList.length > 1 ) {
                 otherFormsDisplayed = true;
                 this.boardService.activatedElement = this.boardService
                   .getNormalTempList()
                   .indexOf(element);
                 this.boardService.activatedElementTempList();
                 this.pressedElement = null;
+              } else if (action.ID === 'backFromVariant' && !otherFormsDisplayed) {
+                this.boardService.activatedElement = -1;
+              } else if (action.ID === 'back'){
+                this.boardService.backToPreviousFolder();
+              }else if (action.ID === 'backHome'){
+                this.boardService.backHome();
               }
             });
-          } else if (!otherFormsDisplayed && inter.ID === 'backFromVariant') {
-            this.boardService.activatedElement = -1;
           }
         });
 
@@ -324,6 +325,24 @@ export class TileComponent implements OnInit {
       (element.BorderColor === undefined || element.BorderColor == null
         ? 'black'
         : element.BorderColor);
+    return s;
+  }
+
+  getWidth(element: GridElement) {
+    const isFolder = (element.Type as FolderGoTo).GoTo !== undefined;
+    const s = isFolder ? 'calc(100% - 5px)' : '100%';
+    return s;
+  }
+
+  getHeight(element: GridElement) {
+    const isFolder = (element.Type as FolderGoTo).GoTo !== undefined;
+    const s = isFolder ? 'calc(100% - 5px)' : '100%';
+    return s;
+  }
+
+  getMarginTop(element: GridElement) {
+    const isFolder = (element.Type as FolderGoTo).GoTo !== undefined;
+    const s = isFolder ? '5px' : '0';
     return s;
   }
 

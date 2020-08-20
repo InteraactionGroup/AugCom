@@ -225,7 +225,7 @@ export class ProloquoParser {
   setUpNewGridElement(idOfWord, type, word) {
 
     const interList: Interaction[] = [
-      {ID: 'click', ActionList: [{ID: 'display', Action: 'display'}, {ID: 'say', Action: 'say'}]}
+      {ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}
     ];
 
     return {
@@ -242,7 +242,8 @@ export class ProloquoParser {
       x: 0,
       y: 0,
       rows: 1,
-      cols: 1
+      cols: 1,
+      dragAndResizeEnabled: true
     };
   }
 

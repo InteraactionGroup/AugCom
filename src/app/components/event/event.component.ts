@@ -2,8 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {EditionService} from '../../services/edition.service';
 import {ParametersService} from '../../services/parameters.service';
 import {GeticonService} from '../../services/geticon.service';
-import {Interaction} from '../../types';
+import {Action, Interaction} from '../../types';
 import {MultilinguismService} from '../../services/multilinguism.service';
+import {FunctionsService} from '../../services/functions.service';
 
 @Component({
   selector: 'app-event',
@@ -14,6 +15,7 @@ export class EventComponent implements OnInit {
   constructor(private multilinguism: MultilinguismService,
               public getIconService: GeticonService,
               public parametersService: ParametersService,
+              public functionService: FunctionsService,
               public editionService: EditionService) {
   }
 
@@ -51,6 +53,8 @@ export class EventComponent implements OnInit {
         return 'longPress';
       case 'doubleClick':
         return 'dblClick';
+      default :
+        return codeName;
     }
 
   }
@@ -58,25 +62,39 @@ export class EventComponent implements OnInit {
   /**
    * Add the action identified by the actionId to the current interaction if it doesn't contain it already,
    * otherwise it delete it from the current interaction
-   * @param interractionId the string identifying the interaction
+   * @param interactionId the string identifying the interaction
    * @param actionId, the string identifying an action
    */
-  addOrRemoveToInteraction(interactionId, actionId: string) {
+  addOrRemoveToInteraction(interactionId: string, actionId: string) {
     const partOfCurrentInter = this.isPartOfTheInteraction(interactionId, actionId);
 
-    const currentInterraction: Interaction = this.editionService.interractionList.find(interaction => interaction.ID === interactionId);
-
-    if ((currentInterraction === null || currentInterraction === undefined) && !partOfCurrentInter) {
-      this.editionService.interractionList.push({
-        ID: interactionId,
-        ActionList: [{ID: actionId, Action: actionId}]
-      });
-    } else if (!partOfCurrentInter) {
-      currentInterraction.ActionList.push({ID: actionId, Action: actionId});
-    } else if (partOfCurrentInter) {
-      currentInterraction.ActionList = currentInterraction.ActionList.filter(x => x.ID !== actionId);
+    if(!partOfCurrentInter){
+      this.addToInteraction(interactionId,actionId);
+    }
+     else if (partOfCurrentInter) {
+      this.removeFromInteraction(interactionId, actionId);
     }
 
+  }
+
+  addToInteraction(interactionId: string, actionId: string) {
+    const currentInterraction: Interaction = this.editionService.interractionList.find(interaction => interaction.ID === interactionId);
+
+    if ((currentInterraction === null || currentInterraction === undefined)) {
+      this.editionService.interractionList.push({
+        ID: interactionId,
+        ActionList: [{ID: actionId, Options: []}]
+      });
+    } else {
+      currentInterraction.ActionList.push({ID: actionId, Options: []});
+    }
+  }
+
+  removeFromInteraction(interactionId: string, actionId: string) {
+    const currentInterraction: Interaction = this.editionService.interractionList.find(interaction => interaction.ID === interactionId);
+    if ((currentInterraction !== null || currentInterraction !== undefined)) {
+      currentInterraction.ActionList = currentInterraction.ActionList.filter(x => x.ID !== actionId);
+    }
   }
 
   /**
@@ -87,5 +105,19 @@ export class EventComponent implements OnInit {
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
   }
+
+  removeFrom(action: Action, actionList: Action[]): Action[] {
+    return actionList.filter( actionOfTheList => {return actionOfTheList !== action})
+}
+
+plusOn(inter:  {ID: string, plus: boolean, ActionList: Action[]}){
+  this.functionService.interactionIDs.forEach( interaction => {
+    if(interaction.ID === inter.ID) {
+      interaction.plus = true;
+    } else {
+      interaction.plus = false;
+    }
+  });
+}
 
 }

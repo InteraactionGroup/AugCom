@@ -3,7 +3,7 @@ import {DbnaryService} from '../../services/dbnary.service';
 import {BoardService} from '../../services/board.service';
 import {GeticonService} from '../../services/geticon.service';
 import {DomSanitizer} from '@angular/platform-browser';
-import {FolderGoTo, GridElement, Page} from '../../types';
+import {Action, FolderGoTo, GridElement, Interaction, Page} from '../../types';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {Router} from '@angular/router';
 import {PaletteService} from '../../services/palette.service';
@@ -11,6 +11,7 @@ import {EditionService} from '../../services/edition.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
 import {HttpClient} from '@angular/common/http';
 import {MultilinguismService} from '../../services/multilinguism.service';
+import {FunctionsService} from '../../services/functions.service';
 
 @Component({
   selector: 'app-edition',
@@ -22,7 +23,7 @@ export class EditionComponent implements OnInit {
 
   constructor(public editionService: EditionService, public  paletteService: PaletteService,
               private router: Router, private multilinguism: MultilinguismService,
-              public indexedDBacess: IndexeddbaccessService,
+              public indexedDBacess: IndexeddbaccessService, public functionsService: FunctionsService,
               public sanitizer: DomSanitizer, public getIconService: GeticonService,
               public dbnaryService: DbnaryService, public boardService: BoardService) {
 
@@ -56,6 +57,7 @@ export class EditionComponent implements OnInit {
     this.dbnaryService.wordList = [];
     this.dbnaryService.typeList = [];
     this.editionService.selectedElements = [];
+    this.functionsService.reset();
   }
 
   /**
@@ -162,6 +164,20 @@ export class EditionComponent implements OnInit {
       element.Type = this.returnTypeOf(element.ID);
       element.Color = this.editionService.curentColor;
       element.BorderColor = this.editionService.curentBorderColor;
+
+      for( const interaction of this.functionsService.interactionIDs) {
+        const temp: Interaction = this.editionService.interractionList.find(inter => { return inter.ID === interaction.ID });
+        if ( temp !== null && temp !== undefined ) {
+          interaction.ActionList.forEach( act => {
+            temp.ActionList.push(act);
+          });
+        } else {
+          this.editionService.interractionList.push({
+            ID: interaction.ID,
+            ActionList: interaction.ActionList
+          });
+        }
+      }
       element.InteractionsList = Object.assign([], this.editionService.interractionList);
       element.ElementFormsList = Object.assign([], this.editionService.variantList);
       this.editionService.getDefaultForm(element.ElementFormsList).DisplayedText = this.editionService.name;
@@ -201,6 +217,20 @@ export class EditionComponent implements OnInit {
 
     const elementFormsList = Object.assign([], this.editionService.variantList);
 
+    for( const interaction of this.functionsService.interactionIDs) {
+      const temp: Interaction = this.editionService.interractionList.find(inter => { return inter.ID === interaction.ID });
+      if ( temp !== null && temp !== undefined ) {
+        interaction.ActionList.forEach( act => {
+          temp.ActionList.push(act);
+        });
+      } else {
+        this.editionService.interractionList.push({
+          ID: interaction.ID,
+          ActionList: interaction.ActionList
+        });
+      }
+    }
+
     this.boardService.board.ElementList.push(
       {
         ID: tempId,
@@ -214,7 +244,8 @@ export class EditionComponent implements OnInit {
         x: 0,
         y: 0,
         cols: 1,
-        rows: 1
+        rows: 1,
+        dragAndResizeEnabled: true
       });
 
     this.boardService.board.ImageList.push(

@@ -165,14 +165,15 @@ export class ShareComponent implements OnInit {
             ImageID: theID,
           }
         ],
-        InteractionsList: [{ID: 'click', ActionList: [{ID: 'display', Action: 'display'}]}],
+        InteractionsList: [{ID: 'click', ActionList: [{ID: 'display', Options: []}]}],
         Color: 'lightgrey',
         BorderColor: 'black',
         VisibilityLevel: 0,
         x: 0,
         y: 0,
         cols: 1,
-        rows: 1
+        rows: 1,
+        dragAndResizeEnabled: true
       });
 
     this.boardService.board.ImageList.push(

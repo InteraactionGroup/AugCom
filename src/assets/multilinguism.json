@@ -1,5 +1,5 @@
 {
-  "dictionnary" : [
+  "dictionary" : [
     { "id" : "back" , "FR" : "retour", "EN" : "back" },
     { "id" : "modifInfo" , "FR" : "Modifier les informations:", "EN" : "Modify the information:" },
     { "id" : "soon" , "FR" : "à venir...", "EN" : "available soon..." },
@@ -96,6 +96,8 @@
     { "id" : "exportSave" , "FR" : "exporter une sauvegarde", "EN" : "export save" },
     { "id" : "exportPDF" , "FR" : "exporter en PDF", "EN" : "export PDF" },
     { "id" : "importS4Y" , "FR" : "importer Speak4Yourself", "EN" : "import Speak4Yourself" },
-    { "id" : "importProloquo" , "FR" : "importer Proloquo", "EN" : "import Proloquo" }
+    { "id" : "importProloquo" , "FR" : "importer Proloquo", "EN" : "import Proloquo" },
+    { "id" : "function" , "FR" : "Fonction", "EN" : "Function" },
+    { "id" : "chooseFunction",  "FR" : "Choisissez une fonction", "EN" : "Choose a function" }
   ]
 }

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import multilinguism from '../../assets/multilinguism.json'
-import {Dictionnary} from '../types';
+import {Dictionary} from '../types';
 
 @Injectable({
   providedIn: 'root'
@@ -8,18 +8,18 @@ import {Dictionnary} from '../types';
 export class MultilinguismService {
 
   constructor() {
-    this.dictionnary.dictionnary = multilinguism.dictionnary;
+    this.dictionary.dictionary = multilinguism.dictionary;
   }
 
   language = 'FR';
-  dictionnary: Dictionnary = new Dictionnary();
+  dictionary: Dictionary = new Dictionary();
 
   translate(id: string) {
     return this.translateIn(id, this.language);
   }
 
   translateIn(id: string, lang: string) {
-    const translatedEntry = this.dictionnary.dictionnary.find(entry => {
+    const translatedEntry = this.dictionary.dictionary.find(entry => {
       return entry.id === id;
     });
 

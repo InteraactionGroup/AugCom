@@ -55,8 +55,7 @@ describe('KeyboardComponent', () => {
     component.userToolBarService.edit = true;
     component.boardService.currentPath = '#HOME';
     fixture.detectChanges();
-    expect(compiled.querySelectorAll('.element').length).toEqual(1);
-    expect(compiled.querySelector('.add')).not.toBe(null);
+    expect(compiled.querySelectorAll('.add').length).toEqual(1);
     expect(compiled.querySelector('.editionSettings')).not.toBe(null);
   });
 

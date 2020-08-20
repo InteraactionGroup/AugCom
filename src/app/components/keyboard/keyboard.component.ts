@@ -41,6 +41,7 @@ export class KeyboardComponent implements OnInit {
    */
   cols: number;
   rows: number;
+  gap: number;
 
   // tslint:disable-next-line:max-line-length
   constructor(
@@ -59,6 +60,7 @@ export class KeyboardComponent implements OnInit {
   ) {
     this.cols = this.layoutService.options.minCols;
     this.rows = this.layoutService.options.minRows;
+    this.gap = this.layoutService.options.margin;
   }
 
   onKeyCols(event: any) {
@@ -72,6 +74,13 @@ export class KeyboardComponent implements OnInit {
     if (+event.target.value >= 1) {
       this.rows = +event.target.value;
       this.layoutService.setRows(this.rows);
+    }
+  }
+
+  onKeyGap(event: any) {
+    if (+event.target.value >= 1) {
+      this.gap = +event.target.value;
+      this.layoutService.setGap(this.gap);
     }
   }
 
@@ -261,7 +270,7 @@ export class KeyboardComponent implements OnInit {
     interactions.forEach(inter => {
       const tempAction = [];
       inter.ActionList.forEach(act => {
-        tempAction.push({ActionId: act.ID, Action: act.Action});
+        tempAction.push({ActionId: act.ID, Action: act.Options});
       });
       tempInter.push({InteractionID: inter.InteractionID, ActionList: tempAction});
     });
@@ -311,10 +320,10 @@ export class KeyboardComponent implements OnInit {
                   .indexOf(element);
                 this.boardService.activatedElementTempList();
                 this.pressedElement = null;
+              } else if (!otherFormsDisplayed && action.ID === 'backFromVariant') {
+                this.boardService.activatedElement = -1;
               }
             });
-          } else if (!otherFormsDisplayed && inter.ID === 'backFromVariant') {
-            this.boardService.activatedElement = -1;
           }
         });
 
@@ -387,13 +396,13 @@ export class KeyboardComponent implements OnInit {
       {
         ID: 'click',
         ActionList: [
-          {ID: 'display', Action: 'display'},
-          {ID: 'say', Action: 'say'},
+          {ID: 'display', Options: []},
+          {ID: 'say', Options: []},
         ],
       },
       {
         ID: 'longPress',
-        ActionList: [{ID: 'otherforms', Action: 'otherforms'}],
+        ActionList: [{ID: 'otherforms', Options: []}],
       },
     ];
   }

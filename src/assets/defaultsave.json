@@ -50,21 +50,23 @@
           "ActionList": [
             {
               "ID": "display",
-              "Action": "display"
+              "Options": []
             },
             {
               "ID": "say",
-              "Action": "say"
+              "Options": []
             }
           ]
         }
-      ]
+      ],
+      "dragAndResizeEnabled": false
     },
     {
       "ID": "fruits",
       "Type": {
         "GoTo": "fruits"
       },
+      "dragAndResizeEnabled" : true,
       "PartOfSpeech": "",
       "ElementFormsList": [
         {
@@ -84,11 +86,11 @@
           "ActionList": [
             {
               "ID": "display",
-              "Action": "display"
+              "Options": []
             },
             {
               "ID": "say",
-              "Action": "say"
+              "Options": []
             }
           ]
         },
@@ -97,7 +99,7 @@
           "ActionList": [
             {
               "ID": "otherforms",
-              "Action": "otherforms"
+              "Options": []
             }
           ]
         }
@@ -111,6 +113,7 @@
       "Type": {
         "GoTo": "lieux"
       },
+      "dragAndResizeEnabled" : true,
       "PartOfSpeech": "",
       "ElementFormsList": [
         {
@@ -130,11 +133,11 @@
           "ActionList": [
             {
               "ID": "display",
-              "Action": "display"
+              "Options": []
             },
             {
               "ID": "say",
-              "Action": "say"
+              "Options": []
             }
           ]
         },
@@ -143,7 +146,7 @@
           "ActionList": [
             {
               "ID": "otherforms",
-              "Action": "otherforms"
+              "Options": []
             }
           ]
         }
@@ -155,6 +158,7 @@
     {
       "ID": "non",
       "Type": "button",
+      "dragAndResizeEnabled" : true,
       "PartOfSpeech": "",
       "ElementFormsList": [
         {
@@ -174,11 +178,11 @@
           "ActionList": [
             {
               "ID": "display",
-              "Action": "display"
+              "Options": []
             },
             {
               "ID": "say",
-              "Action": "say"
+              "Options": []
             }
           ]
         },
@@ -187,7 +191,7 @@
           "ActionList": [
             {
               "ID": "otherforms",
-              "Action": "otherforms"
+              "Options": []
             }
           ]
         }
@@ -199,6 +203,7 @@
     {
       "ID": "vous",
       "Type": "button",
+      "dragAndResizeEnabled" : true,
       "PartOfSpeech": "",
       "ElementFormsList": [
         {
@@ -218,11 +223,11 @@
           "ActionList": [
             {
               "ID": "display",
-              "Action": "display"
+              "Options": []
             },
             {
               "ID": "say",
-              "Action": "say"
+              "Options": []
             }
           ]
         },
@@ -231,7 +236,7 @@
           "ActionList": [
             {
               "ID": "otherforms",
-              "Action": "otherforms"
+              "Options": []
             }
           ]
         }
@@ -243,6 +248,7 @@
     {
       "ID": "banane",
       "Type": "button",
+      "dragAndResizeEnabled" : true,
       "PartOfSpeech": "",
       "ElementFormsList": [
         {
@@ -262,11 +268,11 @@
           "ActionList": [
             {
               "ID": "display",
-              "Action": "display"
+              "Options": []
             },
             {
               "ID": "say",
-              "Action": "say"
+              "Options": []
             }
           ]
         },
@@ -275,7 +281,7 @@
           "ActionList": [
             {
               "ID": "otherforms",
-              "Action": "otherforms"
+              "Options": []
             }
           ]
         }
@@ -287,6 +293,7 @@
     {
       "ID": "pomme",
       "Type": "button",
+      "dragAndResizeEnabled" : true,
       "PartOfSpeech": "",
       "ElementFormsList": [
         {
@@ -306,11 +313,11 @@
           "ActionList": [
             {
               "ID": "display",
-              "Action": "display"
+              "Options": []
             },
             {
               "ID": "say",
-              "Action": "say"
+              "Options": []
             }
           ]
         },
@@ -319,7 +326,7 @@
           "ActionList": [
             {
               "ID": "otherforms",
-              "Action": "otherforms"
+              "Options": []
             }
           ]
         }
@@ -333,6 +340,7 @@
       "Type": {
         "GoTo": "dedans"
       },
+      "dragAndResizeEnabled" : true,
       "PartOfSpeech": "",
       "ElementFormsList": [
         {
@@ -352,11 +360,11 @@
           "ActionList": [
             {
               "ID": "display",
-              "Action": "display"
+              "Options": []
             },
             {
               "ID": "say",
-              "Action": "say"
+              "Options": []
             }
           ]
         },
@@ -365,7 +373,7 @@
           "ActionList": [
             {
               "ID": "otherforms",
-              "Action": "otherforms"
+              "Options": []
             }
           ]
         }
@@ -379,6 +387,7 @@
       "Type": {
         "GoTo": "dehors"
       },
+      "dragAndResizeEnabled" : true,
       "PartOfSpeech": "",
       "ElementFormsList": [
         {
@@ -398,11 +407,11 @@
           "ActionList": [
             {
               "ID": "display",
-              "Action": "display"
+              "Options": []
             },
             {
               "ID": "say",
-              "Action": "say"
+              "Options": []
             }
           ]
         },
@@ -411,7 +420,7 @@
           "ActionList": [
             {
               "ID": "otherforms",
-              "Action": "otherforms"
+              "Options": []
             }
           ]
         }
@@ -423,6 +432,7 @@
     {
       "ID": "salle à manger",
       "Type": "button",
+      "dragAndResizeEnabled" : true,
       "PartOfSpeech": "",
       "ElementFormsList": [
         {
@@ -442,11 +452,11 @@
           "ActionList": [
             {
               "ID": "display",
-              "Action": "display"
+              "Options": []
             },
             {
               "ID": "say",
-              "Action": "say"
+              "Options": []
             }
           ]
         },
@@ -455,7 +465,7 @@
           "ActionList": [
             {
               "ID": "otherforms",
-              "Action": "otherforms"
+              "Options": []
             }
           ]
         }
@@ -467,6 +477,7 @@
     {
       "ID": "chambre",
       "Type": "button",
+      "dragAndResizeEnabled" : true,
       "PartOfSpeech": "",
       "ElementFormsList": [
         {
@@ -486,11 +497,11 @@
           "ActionList": [
             {
               "ID": "display",
-              "Action": "display"
+              "Options": []
             },
             {
               "ID": "say",
-              "Action": "say"
+              "Options": []
             }
           ]
         },
@@ -499,7 +510,7 @@
           "ActionList": [
             {
               "ID": "otherforms",
-              "Action": "otherforms"
+              "Options": []
             }
           ]
         }
@@ -511,6 +522,7 @@
     {
       "ID": "école",
       "Type": "button",
+      "dragAndResizeEnabled" : true,
       "PartOfSpeech": "",
       "ElementFormsList": [
         {
@@ -530,11 +542,11 @@
           "ActionList": [
             {
               "ID": "display",
-              "Action": "display"
+              "Options": []
             },
             {
               "ID": "say",
-              "Action": "say"
+              "Options": []
             }
           ]
         },
@@ -543,7 +555,7 @@
           "ActionList": [
             {
               "ID": "otherforms",
-              "Action": "otherforms"
+              "Options": []
             }
           ]
         }
@@ -555,6 +567,7 @@
     {
       "ID": "chez mamie",
       "Type": "button",
+      "dragAndResizeEnabled" : true,
       "PartOfSpeech": "",
       "ElementFormsList": [
         {
@@ -574,11 +587,11 @@
           "ActionList": [
             {
               "ID": "display",
-              "Action": "display"
+              "Options": []
             },
             {
               "ID": "say",
-              "Action": "say"
+              "Options": []
             }
           ]
         },
@@ -587,7 +600,7 @@
           "ActionList": [
             {
               "ID": "otherforms",
-              "Action": "otherforms"
+              "Options": []
             }
           ]
         }

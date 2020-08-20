@@ -33,13 +33,17 @@
   padding: 10px;
   width: 70%;
   font-weight: 600;
-  background-color: dimgray;
+  background-color: lightgrey;
   border-radius: 5px;
   margin-left: calc(15% - 10px);
 }
 
 .edition .save:hover {
   background-color: grey;
+}
+
+.edition .save:active {
+  background-color: dimgrey;
 }
 
 .edition .leftEdition .button {
@@ -112,7 +116,17 @@
   left: 0;
   width: 6px;
   content: "";
-  background-color: #d1d5da;
+  background-color: lightgrey;
+}
+
+.menu-item-title-container:active:before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 6px;
+  content: "";
+  background-color: grey;
 }
 
 .menu-item-title-container.selected:before {
@@ -122,7 +136,7 @@
   left: 0;
   width: 6px;
   content: "";
-  background-color: #d1d5da;
+  background-color: lightgrey;
 }
 
 .menu-item-title-container:hover {

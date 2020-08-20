@@ -69,7 +69,7 @@ export class SpeakForYourselfParser {
         }],
         InteractionsList: [{
           ID: 'click',
-          ActionList: [{ID: 'say', Action: 'say'}, {ID: 'display', Action: 'display'}]
+          ActionList: [{ID: 'say', Options: []}, {ID: 'display', Options: []}]
         }],
         Color: isFolder ? '#fda728' : '#fde498',
         BorderColor: 'black',
@@ -77,7 +77,8 @@ export class SpeakForYourselfParser {
         x: 0,
         y: 0,
         rows: 1,
-        cols: 1
+        cols: 1,
+        dragAndResizeEnabled: true
       });
     });
 

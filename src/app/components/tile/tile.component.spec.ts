@@ -35,14 +35,14 @@ describe('TileComponent', () => {
       '',
       'yellow',
       'orange',
-      0,
+      1,
       [{
         DisplayedText: 'testBeforeModif',
         VoiceText: 'testBeforeModif',
         LexicInfos: [{default: true}],
         ImageID: ''
       }],
-      [{ID: 'click', ActionList: [{ID: 'display', Action: 'display'}]}]);
+      [{ID: 'click', ActionList: [{ID: 'display', Options: []}]}]);
     fixture.detectChanges();
   });
 
@@ -68,4 +68,5 @@ describe('TileComponent', () => {
     fixture.detectChanges();
     expect(compiled.querySelectorAll('.element').length).toBeGreaterThan(0);
   });
+
 });

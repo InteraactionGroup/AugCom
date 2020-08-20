@@ -316,6 +316,11 @@ export class BoardService {
     this.updateElementList();
   }
 
+  backHome(){
+    this.currentPath = '#HOME';
+    this.updateElementList();
+  }
+
   updateElementList() {
     this.elementList = this.getTempList();
   }
@@ -397,13 +402,14 @@ export class BoardService {
           x: 0,
           y: 0,
           cols: 1,
-          rows: 1
+          rows: 1,
+          dragAndResizeEnabled: true
         };
         if (places.length > indexOfForm) {
           elt.x = places[indexOfForm].x;
           elt.y = places[indexOfForm].y;
         }
-        elt.InteractionsList.push({ID: 'backFromVariant', ActionList: []});
+        elt.InteractionsList.push({ID: 'click', ActionList: [{ID: 'backFromVariant', Options: []}]});
         temporaryElementList.push(this.copy(elt));
         indexOfForm = indexOfForm + 1;
       }
@@ -411,7 +417,7 @@ export class BoardService {
 
     compElt.Color = '#123548';
     compElt.PartOfSpeech = '';
-    compElt.InteractionsList = [{ID: 'backFromVariant', ActionList: []}];
+    compElt.InteractionsList = [{ID: 'click', ActionList: [{ID: 'backFromVariant', Options: []}]}];
     compElt.ElementFormsList = [{
       DisplayedText: 'back',
       VoiceText: 'back',
@@ -472,7 +478,8 @@ export class BoardService {
       x: element.x,
       y: element.y,
       cols: element.cols,
-      rows: element.rows
+      rows: element.rows,
+      dragAndResizeEnabled: true
     };
   }
 

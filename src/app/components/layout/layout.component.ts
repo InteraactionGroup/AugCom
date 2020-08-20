@@ -19,4 +19,13 @@ export class LayoutComponent implements OnInit {
   get options(): GridsterConfig {
     return this.layoutService.options;
   }
+
+  convertToGridsterItem( item: any ) {
+    const convertedItem = item;
+    if(item.dragAndResizeEnabled === false) {
+      convertedItem.dragEnabled = false;
+      convertedItem.resizeEnabled = false;
+    }
+    return convertedItem;
+  }
 }
