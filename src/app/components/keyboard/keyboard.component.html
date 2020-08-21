@@ -60,7 +60,7 @@
 
 <!-- the keyboard containing the element wrapper -->
 <div class="keyboard width-100"
-     [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100vh - 4.5cm)':'calc(100vh - 3.5cm)'}">
+     [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100vh - 75px - 50px - 1.5cm - 50px )':'calc(100vh - 75px - 1.5cm)'}">
 
   <!-- the wrapper displayed with elements containing pictogram and corresponding text -->
   <div class="wrapper haveBackgroundImage height-width-100">
@@ -69,41 +69,41 @@
 
     <app-layout></app-layout>
 
-
-    <!-- ng container checking if the add button have to be displayed -->
-    <ng-container *ngIf="this.userToolBarService.edit">
-
-      <!-- nav link to the edit route-->
-      <nav class="no-drag">
-        <a routerLink="/edit" class="no-drag">
-
-          <!-- elementContainer for the add button element-->
-          <div class="elementContainer floatLeft no-drag height-width-100">
-
-            <!-- add button element -->
-            <div class="add" (click)="this.addNewElement()">
-
-              <div class="image haveBackgroundImage" [style.background-image]="this.getIcon('add')">
-
-              </div>
-
-              <div class="adjustableText">
-                {{this.multilinguism.translate("add")}}
-              </div>
-
-            </div>
-
-          </div>
-
-        </a>
-
-      </nav>
-
-    </ng-container>
-
   </div>
   <app-snap-bar></app-snap-bar>
 </div>
+
+
+<!-- ng container checking if the add button have to be displayed -->
+<ng-container *ngIf="this.userToolBarService.edit">
+
+  <!-- nav link to the edit route-->
+  <nav class="no-drag" style="height: 50px">
+    <a routerLink="/edit" class="no-drag">
+
+      <!-- elementContainer for the add button element-->
+      <div class="elementContainer floatLeft no-drag height-width-100">
+
+        <!-- add button element -->
+        <div class="add" (click)="this.addNewElement()">
+
+          <div class="image haveBackgroundImage" [style.background-image]="this.getIcon('add')">
+
+          </div>
+
+          <div class="adjustableText">
+            {{this.multilinguism.translate("add")}}
+          </div>
+
+        </div>
+
+      </div>
+
+    </a>
+
+  </nav>
+
+</ng-container>
 
 
 <app-usertoolbar></app-usertoolbar>
