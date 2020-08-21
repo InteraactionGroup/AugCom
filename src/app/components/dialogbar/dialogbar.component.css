@@ -1,50 +1,16 @@
-@media (max-width: 7cm) {
+
   .dialogBar {
-    height: 14vw;
-    min-height: 1cm;
-    width: 100vw;
-    min-width: 7cm;
-    visibility: visible;
-    background-color: seagreen;
-  }
-
-  .dialogBar .button {
-    cursor: pointer;
-    float: right;
-    height: 14vw;
-    min-height: 1cm;
-    width: 14vw;
-    min-width: 1cm;
-    visibility: hidden;
-  }
-
-  .dialogBar .textBar {
-    width: 55vw;
-    height: 96%;
-    min-height: 1cm;
-    min-width: calc(100vw - 3.2cm);
-    transform: translateY(2%);
-    margin-left: 0.2%;
-    background-color: lightgrey;
-    visibility: visible;
-    border-radius: 5px;
-  }
-}
-
-@media (min-width: 7cm) {
-  .dialogBar {
-    height: 2cm;
-    min-height: 1cm;
+    height: 75px;
     width: 100%;
     visibility: hidden;
+    display: grid;
+    grid-template-columns: 1fr 75px 75px 75px;
   }
 
   .dialogBar .button {
     cursor: pointer;
-    height: 2cm;
-    min-height: 1cm;
-    width: 2cm;
-    min-width: 1cm;
+    height: 100%;
+    width: 100%;
     visibility: hidden;
   }
 
@@ -61,17 +27,16 @@
     transform-origin: right top;
   }
 
-}
 
 .dialogBar .button .image:hover {
   background-color: darkgrey;
 }
 
 .dialogBar .button .image {
-  height: 80%;
-  width: 80%;
-  transform: translateY(10%);
-  margin-left: 10%;
+  height: calc(100% - 10px);
+  width: calc(100% - 10px);
+  margin-top: 5px;
+  margin-right: 5px;
   background-color: lightgrey;
   border-radius: 25%;
   visibility: visible;

@@ -10,14 +10,6 @@
     </ng-container>
   </div>
 
-  <nav>
-    <a routerLink="/account">
-      <div class="button floatRight" id="accountButton">
-        <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('account')}">
-        </div>
-      </div>
-    </a>
-  </nav>
 
   <div class="button floatRight" id="lockUnlockButton" (click)="this.setLock()">
     <div class="image width-100" [class.imageSelected]="this.userToolBarService.unlock"
@@ -25,6 +17,14 @@
     </div>
   </div>
 
+  <nav *ngIf="this.userToolBarService.unlock">
+    <a routerLink="/account">
+      <div class="button floatRight" id="accountButton">
+        <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('account')}">
+        </div>
+      </div>
+    </a>
+  </nav>
 
   <div class="button floatRight" id="editButton" *ngIf="this.userToolBarService.unlock" (click)="this.edit()">
     <div class="image width-100" [class.noConnection]="!this.userToolBarService.isConnected"
