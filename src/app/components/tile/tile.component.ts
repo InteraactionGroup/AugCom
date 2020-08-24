@@ -9,6 +9,7 @@ import {ParametersService} from '../../services/parameters.service';
 import {Router} from '@angular/router';
 import {SearchService} from '../../services/search.service';
 import {LayoutService} from '../../services/layout.service';
+import {StyleService} from '../../services/style.service';
 
 @Component({
   selector: 'app-tile',
@@ -44,7 +45,8 @@ export class TileComponent implements OnInit {
     private historicService: HistoricService,
     private parametersService: ParametersService,
     private getIconService: GeticonService,
-    public layoutService: LayoutService
+    public layoutService: LayoutService,
+    public styleService: StyleService
   ) {
   }
 
@@ -395,6 +397,35 @@ export class TileComponent implements OnInit {
       return 'pointer';
     } else {
       return 'default';
+    }
+  }
+
+
+  getGridTemplateRows(){
+    if(this.styleService.imageAndTextVisibility === 'default'){
+      if(this.styleService.pictoImagePosition === 'up') {
+        return '75% 25%';
+      } else if (this.styleService.pictoImagePosition === 'down'){
+        return '25% 75%';
+      }else if (this.styleService.pictoImagePosition === 'left' || this.styleService.pictoImagePosition === 'right'){
+        return '100%';
+      }
+    } else {
+      return '100%';
+    }
+  }
+
+  getGridTemplateColumns(){
+    if(this.styleService.imageAndTextVisibility === 'default') {
+      if (this.styleService.pictoImagePosition === 'up' || this.styleService.pictoImagePosition === 'down') {
+        return '100%'
+      } else if (this.styleService.pictoImagePosition === 'left') {
+        return '60% 40%'
+      } else if (this.styleService.pictoImagePosition === 'right') {
+        return '40% 60%'
+      }
+    } else {
+      return '100%';
     }
   }
 

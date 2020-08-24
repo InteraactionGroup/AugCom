@@ -7,6 +7,10 @@ export class StyleService {
 
   constructor() { }
 
+  imageAndTextVisibility = 'default'; // can be 'default' 'imageOnly' and 'textOnly'
+
+  pictoImagePosition = 'right'; // can take 'down', 'left', 'right' if imageAndTextVisibiliy is 'default'
+
   updateStyle(color1: string, color2: string, color3: string, color4: string){
     const root = document.getElementById('main');
     root.style.setProperty('--main-bg-color1', color1);

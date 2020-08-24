@@ -90,7 +90,6 @@
   box-sizing: border-box;
   overflow: hidden;
   display: grid;
-  grid-template-rows: 75% 25%;
   align-items: center;
 }
 

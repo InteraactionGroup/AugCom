@@ -1,6 +1,7 @@
 <!-- display elementContainers with element having non empty type-->
 <div id="{{element.ID}}" class="elementContainer floatLeft" *ngIf="element.Type!=='empty'">
   <!-- an element composed of a pictogram and a corresponding text-->
+
   <div class="element" [class.notsearched]="searchStarted()&&!isSearched(element)"
        (click)="this.select(element)"
        [class.searched]="searchStarted()&&isSearched(element)" [class.blurredElt]="element.ID==='#disable'"
@@ -13,11 +14,20 @@
         'width': this.getWidth(element),
         'height': this.getHeight(element),
         'margin-top': this.getMarginTop(element),
-        'cursor': this.getCursor(element)}">
+        'cursor': this.getCursor(element),
+        'grid-template-rows': this.getGridTemplateRows(),
+        'grid-template-columns': this.getGridTemplateColumns()}">
 
-    <div class="image haveBackgroundImage" [style.background-image]="this.boardService.getImgUrl(element)"></div>
+    <div *ngIf="styleService.imageAndTextVisibility==='default'
+    && ( styleService.pictoImagePosition==='down' || styleService.pictoImagePosition==='right')" class="adjustableText">
+      {{this.boardService.getLabel(element)}}
+    </div>
 
-    <div class="adjustableText">
+    <div *ngIf="styleService.imageAndTextVisibility!='textOnly'" class="image haveBackgroundImage" [style.background-image]="this.boardService.getImgUrl(element)"></div>
+
+    <div *ngIf="
+    (styleService.imageAndTextVisibility==='default' && ( styleService.pictoImagePosition==='up' || styleService.pictoImagePosition==='left' )) ||
+    (styleService.imageAndTextVisibility==='textOnly')" class="adjustableText">
       {{this.boardService.getLabel(element)}}
     </div>
 
