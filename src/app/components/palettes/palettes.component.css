@@ -44,14 +44,14 @@
   width: 95%;
   box-sizing: border-box;
   margin: auto;
-  background-color: #f4f4f4;
-  color: #586069;
+  background-color: var(--main-bg-color1);
+  color: var(--main-bg-color4);
   font-weight: 600;
   border-radius: 3px;
 }
 
 .addPalette .palette .moreColor:hover {
-  background-color: #eef4f9;
+  background-color: var(--main-bg-color2);
 
 }
 
@@ -103,10 +103,13 @@
   margin-left: auto;
   margin-right: auto;
   width: 50%;
-  background-color: #d1d5da;
+  background-color: var(--main-bg-color1);
   border-radius: 3px;
   height: 30px;
-  transition: all 0.3s ease-in-out;
+}
+
+.addButtonPaletteContainer:hover{
+  background-color: var(--main-bg-color2);
 }
 
 .addPalette .addButtonPalette {
@@ -114,15 +117,15 @@
   margin-left: auto;
   transform: translateY(25%);
   height: 25px;
-  color: #586069;
+  color: var(--main-bg-color4);
   font-weight: 600;
 }
 
 .paletteAddLabel {
   height: 20px;
   width: calc(100% - 105px);
-  background-color: #d1d5da;
-  color: #586069;
+  background-color: var(--main-bg-color1);
+  color: var(--main-bg-color4);
   font-size: 18px;
   font-weight: 600;;
   border-radius: 3px 0 0 0;
@@ -133,10 +136,10 @@
 
 .paletteLabel {
   height: 20px;
-  background-color: #d1d5da;
+  background-color: var(--main-bg-color1);
   margin-bottom: 2px;
   line-height: 20px;
-  color: #586069;
+  color:var(--main-bg-color4);
   font-size: 18px;
   font-weight: 600;
   padding-left: 5px;
@@ -154,12 +157,12 @@
 
 .supprPalette {
   width: 50px;
-  background-color: #f4f4f4;
+  background-color: var(--main-bg-color1);
   cursor: pointer;
 }
 
 .supprPalette:hover {
-  background-color: #eef4f9;
+  background-color: var(--main-bg-color2);
 }
 
 .supprPalette .icon {

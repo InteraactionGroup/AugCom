@@ -34,8 +34,8 @@
   position: relative !important;
   margin-bottom: 15px;
   list-style: none;
-  background-color: #fff;
-  border: 1px solid #d1d5da;
+  background-color: var(--main-bg-color0);
+  border: 1px solid var(--main-bg-color2);
   border-radius: 3px;
   display: block;
 }
@@ -45,10 +45,10 @@
   padding: 8px 10px;
   margin-top: 0;
   line-height: 20px;
-  color: #586069;
+  color: var(--main-bg-color4);
   list-style: none;
-  background-color: #d1d5da;
-  border: 1px solid #d1d5da;
+  background-color: var(--main-bg-color2);
+  border: 1px solid var(--main-bg-color2);
   font-size: 18px;
   font-weight: 600;
 }
@@ -60,8 +60,8 @@
   color: black;
   text-decoration: none;
   list-style: none;
-  background-color: #f4f4f4;
-  border: 1px solid #d1d5da;
+  background-color: var(--main-bg-color0);
+  border: 1px solid var(--main-bg-color2);
   font-size: 14px;
 }
 
@@ -73,15 +73,15 @@
   left: 0;
   width: 6px;
   content: "";
-  background-color: #d1d5da;
+  background-color: var(--main-bg-color2);
 }
 
 .menu-item-title-container:hover {
-  background-color: #eef4f9;
+  background-color: var(--main-bg-color1);
 }
 
 .menu-item-title-container.selected {
-  background-color: #eef4f9;
+  background-color: var(--main-bg-color1);
   font-weight: 600;
 }
 
@@ -92,15 +92,15 @@
   color: black;
   text-decoration: none;
   list-style: none;
-  background-color: #fff;
-  border: 1px solid #d1d5da;
+  background-color: var(--main-bg-color0);
+  border: 1px solid var(--main-bg-color2);
   font-size: 12px;
   transition-property: padding, height, border-bottom-width;
   transition: 0.2s ease-in-out, 0.1s step-end font-size;
 }
 
 .sub-menu-item-title-container:hover {
-  background-color: #eef4f9;
+  background-color: var(--main-bg-color1);
 }
 
 .sub-menu-item-title-container:hover:before {
@@ -111,7 +111,7 @@
   width: 10px;
   content: "";
   border-radius: 0 50% 50% 0;
-  background-color: #d1d5da;
+  background-color: var(--main-bg-color2);
 }
 
 .sub-menu-item-title-container:hover:after {
@@ -122,11 +122,11 @@
   width: 10px;
   content: "";
   border-radius: 50% 0 0 50%;
-  background-color: #d1d5da;
+  background-color: var(--main-bg-color2);
 }
 
 .sub-menu-item-title-container.selected {
-  background-color: #eef4f9;
+  background-color: var(--main-bg-color1);
   font-weight: 600;
 }
 
@@ -138,7 +138,7 @@
   width: 10px;
   content: "";
   border-radius: 0 50% 50% 0;
-  background-color: #d1d5da;
+  background-color: var(--main-bg-color2);
 }
 
 .sub-menu-item-title-container.closed {
@@ -158,7 +158,7 @@
   width: 10px;
   content: "";
   border-radius: 50% 0 0 50%;
-  background-color: #d1d5da;
+  background-color: var(--main-bg-color2);
 }
 
 .menu-page-container {

@@ -78,8 +78,8 @@
   margin-left: 10px;
   margin-bottom: 10px;
   list-style: none;
-  background-color: #fff;
-  border: 1px solid #d1d5da;
+  background-color:var(--main-bg-color0);
+  border: 1px solid var(--main-bg-color2);
   border-radius: 3px;
   display: block;
 }
@@ -89,10 +89,10 @@
   padding: 8px 10px;
   margin-top: 0;
   line-height: 20px;
-  color: #586069;
+  color: var(--main-bg-color4);
   list-style: none;
-  background-color: #d1d5da;
-  border: 1px solid #d1d5da;
+  background-color: var(--main-bg-color2);
+  border: 1px solid var(--main-bg-color2);
   font-size: 18px;
   font-weight: 600;
 }
@@ -104,8 +104,8 @@
   color: black;
   text-decoration: none;
   list-style: none;
-  background-color: #f4f4f4;
-  border: 1px solid #d1d5da;
+  background-color: var(--main-bg-color0);
+  border: 1px solid var(--main-bg-color2);
   font-size: 14px;
 }
 
@@ -136,15 +136,15 @@
   left: 0;
   width: 6px;
   content: "";
-  background-color: var(--main-bg-color1);
+  background-color: var(--main-bg-color3);
 }
 
 .menu-item-title-container:hover {
-  background-color: #eef4f9;
+  background-color: var(--main-bg-color1);
 }
 
 .menu-item-title-container.selected {
-  background-color: #eef4f9;
+  background-color: var(--main-bg-color1);
   font-weight: 600;
 }
 

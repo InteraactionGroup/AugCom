@@ -19,7 +19,7 @@
   height: 160px;
   position: relative;
   width: 160px;
-  background-color: #fff;
+  background-color: var(--main-bg-color0);
   border: 6px solid #d1d5da;
   word-wrap: break-word;
   margin: 0;
