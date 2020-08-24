@@ -166,7 +166,7 @@ export class ShareComponent implements OnInit {
           }
         ],
         InteractionsList: [{ID: 'click', ActionList: [{ID: 'display', Options: []}]}],
-        Color: 'lightgrey',
+        Color: 'var(--main-bg-color1)',
         BorderColor: 'black',
         VisibilityLevel: 0,
         x: 0,
@@ -189,7 +189,13 @@ export class ShareComponent implements OnInit {
 
     let getPage = this.boardService.board.PageList.find(page => page.ID === folder);
     if (getPage === null || getPage === undefined) {
-      this.boardService.board.PageList.push({ID: folder, Name: folder, ElementIDsList: []});
+      this.boardService.board.PageList.push(
+        {ID: folder,
+          Name: folder,
+          ElementIDsList: [] ,
+          NumberOfCols: undefined,
+          NumberOfRows: undefined
+        });
       getPage = this.boardService.board.PageList.find(page => page.ID === folder);
     }
     getPage.ElementIDsList.push(theID);

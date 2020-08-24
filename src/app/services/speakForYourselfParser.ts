@@ -43,7 +43,9 @@ export class SpeakForYourselfParser {
         grille.PageList.push({
           ID: element.page,
           Name: element.page,
-          ElementIDsList: []
+          ElementIDsList: [],
+          NumberOfCols: undefined,
+          NumberOfRows: undefined
         });
       }
 

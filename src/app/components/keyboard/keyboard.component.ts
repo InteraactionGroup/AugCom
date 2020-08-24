@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HistoricService} from '../../services/historic.service';
 import {EditionService} from '../../services/edition.service';
 import {BoardService} from '../../services/board.service';
-import {Action, ElementForm, FolderGoTo, GridElement, Vignette,} from '../../types';
+import {Action, ElementForm, FolderGoTo, GridElement, Page, Vignette,} from '../../types';
 import {GeticonService} from '../../services/geticon.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
@@ -58,22 +58,38 @@ export class KeyboardComponent implements OnInit {
     public layoutService: LayoutService,
     public multilinguism: MultilinguismService
   ) {
-    this.cols = this.layoutService.options.minCols;
-    this.rows = this.layoutService.options.minRows;
     this.gap = this.layoutService.options.margin;
   }
 
   onKeyCols(event: any) {
     if (+event.target.value >= 1) {
-      this.cols = +event.target.value;
-      this.layoutService.setCols(this.cols);
+      const currentPage: Page = this.boardService.currentPage();
+      if(currentPage!== null && currentPage !==undefined){
+        if(currentPage.NumberOfCols === undefined){
+          currentPage.NumberOfCols = 0;
+        }
+        currentPage.NumberOfCols = +event.target.value;
+        this.layoutService.setCols( currentPage.NumberOfCols);
+      } else {
+        this.boardService.board.NumberOfCols = +event.target.value;
+        this.layoutService.setCols(this.boardService.board.NumberOfCols);
+      }
     }
   }
 
   onKeyRows(event: any) {
     if (+event.target.value >= 1) {
-      this.rows = +event.target.value;
-      this.layoutService.setRows(this.rows);
+      const currentPage: Page = this.boardService.currentPage();
+      if(currentPage!== null && currentPage !==undefined){
+        if(currentPage.NumberOfRows === undefined) {
+          currentPage.NumberOfRows = 0;
+        }
+        currentPage.NumberOfRows = +event.target.value;
+        this.layoutService.setRows( currentPage.NumberOfRows);
+      } else {
+        this.boardService.board.NumberOfRows = +event.target.value;
+        this.layoutService.setRows(this.boardService.board.NumberOfRows);
+      }
     }
   }
 

@@ -41,14 +41,12 @@
 
   <!-- input fields for column and row size, have to be changed with a button number incrementer -->
   <div class="gridSettings">
-    <input class="inputSize floatLeft centerText" value={{this.cols}} type="number" min="1"
-           [(ngModel)]="this.boardService.board.NumberOfCols"
+    <input class="inputSize floatLeft centerText" value="{{this.boardService.board.NumberOfCols}}" type="number" min="1"
            (change)="onKeyCols($event)">
     <div class="x floatLeft">
       x
     </div>
-    <input class="inputSize floatLeft centerText" value={{this.rows}} type="number" min="1"
-           [(ngModel)]="this.boardService.board.NumberOfRows"
+    <input class="inputSize floatLeft centerText" value="{{this.boardService.board.NumberOfRows}}" type="number" min="1"
            (change)="onKeyRows($event)">
     <div class="x floatLeft">
       +

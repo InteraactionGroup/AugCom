@@ -4,7 +4,7 @@
   left: 25%;
   height: 50%;
   width: 50%;
-  background-color: dimgrey;
+  background-color: var(--main-bg-color4);
 }
 
 .popup .popupContainer {
@@ -12,7 +12,7 @@
   width: 96%;
   margin-left: 2%;
   transform: translateY(2.5%);
-  background-color: grey;
+  background-color: var(--main-bg-color3);
 }
 
 .popup .popupContainer .popupQuestion {

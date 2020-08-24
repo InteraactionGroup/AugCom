@@ -27,7 +27,7 @@
   margin-top: -2px;
   height: 10px;
   width: 10px;
-  background-color: lightgrey;
+  background-color: var(--main-bg-color1);
   box-sizing: border-box;
   border-width: 1px;
   border-style: solid;
@@ -96,7 +96,7 @@
 }
 
 .addPalette .palette .color:hover .colorbox {
-  border-color: lightgrey;
+  border-color: var(--main-bg-color1);
 }
 
 .addButtonPaletteContainer {
@@ -184,7 +184,7 @@
   width: 100%;
   border-width: 4px;
   border-style: solid;
-  border-color: lightgrey;
+  border-color: var(--main-bg-color1);
 }
 
 
@@ -194,7 +194,7 @@
   left: 25%;
   height: 50%;
   width: 50%;
-  background-color: dimgrey;
+  background-color: var(--main-bg-color4);
 }
 
 .popup .popupContainer {
@@ -202,7 +202,7 @@
   width: 96%;
   margin-left: 2%;
   transform: translateY(2.5%);
-  background-color: grey;
+  background-color: var(--main-bg-color3);
 }
 
 .popup .popupContainer .popupQuestion {

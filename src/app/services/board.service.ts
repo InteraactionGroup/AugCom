@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Board} from '../data/ExempleOfBoard';
-import {ElementForm, Grid, GridElement} from '../types';
+import {ElementForm, Grid, GridElement, Page} from '../types';
 import {DomSanitizer} from '@angular/platform-browser';
 import {EditionService} from './edition.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
+import {LayoutService} from './layout.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,7 @@ export class BoardService {
   constructor(
     public ng2ImgMaxService: Ng2ImgMaxService,
     public editionService: EditionService,
+    public layoutService: LayoutService,
     public sanitizer: DomSanitizer
   ) {
     this.board = Board;
@@ -313,12 +315,32 @@ export class BoardService {
     }
 
     this.currentPath = temp;
+
+
+   this.updateGridSize()
+
     this.updateElementList();
   }
 
   backHome(){
     this.currentPath = '#HOME';
     this.updateElementList();
+  }
+
+  updateGridSize(){
+    const currentPage: Page = this.currentPage();
+
+    if(currentPage.NumberOfRows !== undefined){
+      this.layoutService.setRows( currentPage.NumberOfRows);
+    } else {
+      this.layoutService.setRows(this.board.NumberOfRows);
+    }
+
+    if(currentPage.NumberOfCols !== undefined){
+      this.layoutService.setCols( currentPage.NumberOfCols);
+    } else {
+      this.layoutService.setCols(this.board.NumberOfCols);
+    }
   }
 
   updateElementList() {
@@ -358,6 +380,13 @@ export class BoardService {
       }
     }
     return tempList;
+  }
+
+  currentPage(){
+    const currentPage = this.board.PageList.find(page => {
+      return page.ID === this.getCurrentFolder()
+    });
+  return currentPage;
   }
 
   /**

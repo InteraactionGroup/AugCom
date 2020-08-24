@@ -10,10 +10,10 @@
 
 .editionSettings {
   height: 50px;
-  background-color: grey;
+  background-color: var(--main-bg-color3);
   margin: 0 0 0 0;
   padding: 5px 0;
-  border-bottom: 1px solid lightgrey;
+  border-bottom: 1px solid var(--main-bg-color1);
 }
 
 
@@ -36,7 +36,7 @@
 
 .editionSettings .editSettingsButton {
   margin-left: 10px;
-  background-color: lightgrey;
+  background-color: var(--main-bg-color1);
   height: 40px;
   width: 40px;
   /*margin-top: 0.1cm;*/
@@ -45,7 +45,7 @@
 }
 
 .editionSettings .editSettingsButton:hover {
-  background-color: dimgrey;
+  background-color: var(--main-bg-color4);
 }
 
 .editionSettings .editSettingsButton input {
@@ -97,7 +97,7 @@
  .elementContainer {
   min-height: 1cm;
   min-width: 1cm;
-  background-color: grey;
+  background-color: var(--main-bg-color3);
 }
 
 
@@ -116,7 +116,7 @@
   display: grid;
   grid-template-rows: 50% 50%;
   align-items: center;
-  background-color: lightgrey;
+  background-color: var(--main-bg-color1);
   color: black;
   border-width: 0;
   border-color: transparent;
@@ -189,7 +189,7 @@
   appearance: none;
   width: 98%;
   height: 20px;
-  background: grey;
+  background: var(--main-bg-color3);
   outline: none;
   -webkit-transition: .2s;
   border-radius: 15px;

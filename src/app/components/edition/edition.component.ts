@@ -143,6 +143,8 @@ export class EditionComponent implements OnInit {
             ID: this.editionService.newPage,
             Name: this.editionService.newPage.replace(/_/g, ' ').toUpperCase(),
             ElementIDsList: [],
+            NumberOfCols: undefined,
+            NumberOfRows: undefined
           });
           return new FolderGoTo(this.editionService.newPage);
         }
@@ -272,7 +274,12 @@ export class EditionComponent implements OnInit {
 
   createAndGetNewPage(): Page {
     const name = this.boardService.getCurrentFolder();
-    return {ID: name, Name: name, ElementIDsList: []};
+    return {
+      ID: name,
+      Name: name,
+      ElementIDsList: [],
+      NumberOfCols: undefined,
+      NumberOfRows: undefined};
   }
 
   /**

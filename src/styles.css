@@ -63,3 +63,23 @@ body {
   padding-left: 10px;
   width: calc(100% - 10px);
 }
+
+gridster .gridster-column,
+gridster .gridster-row,
+gridster-item {
+  transition: unset !important;
+}
+
+/*:root {*/
+/*  --main-bg-color1: lightgrey;*/
+/*  --main-bg-color2: darkgrey;*/
+/*  --main-bg-color3: grey;*/
+/*  --main-bg-color4: dimgrey;*/
+/*}*/
+
+/*:root {*/
+/*  --main-bg-color1: pink;*/
+/*  --main-bg-color2: lightpink;*/
+/*  --main-bg-color3: hotpink;*/
+/*  --main-bg-color4: deeppink;*/
+/*}*/

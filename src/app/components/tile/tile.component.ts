@@ -2,13 +2,14 @@ import {Component, Input, OnInit,} from '@angular/core';
 import {HistoricService} from '../../services/historic.service';
 import {EditionService} from '../../services/edition.service';
 import {BoardService} from '../../services/board.service';
-import {ElementForm, FolderGoTo, GridElement, Vignette} from '../../types';
+import {ElementForm, FolderGoTo, GridElement, Page, Vignette} from '../../types';
 import {GeticonService} from '../../services/geticon.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {ParametersService} from '../../services/parameters.service';
 import {Router} from '@angular/router';
 import {SearchService} from '../../services/search.service';
 import {KeyboardSliderService} from '../../services/keyboard-slider.service';
+import {LayoutService} from '../../services/layout.service';
 
 @Component({
   selector: 'app-tile',
@@ -44,7 +45,8 @@ export class TileComponent implements OnInit {
     private historicService: HistoricService,
     private parametersService: ParametersService,
     private getIconService: GeticonService,
-    private keyboardSlider: KeyboardSliderService
+    private keyboardSlider: KeyboardSliderService,
+    public layoutService: LayoutService
   ) {
   }
 
@@ -188,6 +190,8 @@ export class TileComponent implements OnInit {
             '.' +
             (element.Type as FolderGoTo).GoTo;
         }
+        this.boardService.updateGridSize();
+
         // for errors
       } else {
         console.error(element.Type);

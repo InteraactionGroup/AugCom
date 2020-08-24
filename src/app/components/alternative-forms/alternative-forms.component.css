@@ -206,7 +206,7 @@
 
 .addButton {
   border-color: black;
-  background-color: dimgray;
+  background-color: var(--main-bg-color4);
   opacity: 0.5;
 }
 

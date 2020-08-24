@@ -18,7 +18,7 @@
   height: 90%;
   width: 90%;
   margin-left: 5%;
-  background: linear-gradient(transparent, lightgrey 100%);
+  background: linear-gradient(transparent, var(--main-bg-color1) 100%);
 }
 
 .share .sharePanel .shareSection .listElement .image {

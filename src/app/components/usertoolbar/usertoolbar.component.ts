@@ -9,6 +9,7 @@ import {BoardService} from '../../services/board.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
 import {LayoutService} from '../../services/layout.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
+import {StyleService} from '../../services/style.service';
 
 @Component({
   selector: 'app-usertoolbar',
@@ -26,7 +27,8 @@ export class UsertoolbarComponent implements OnInit {
     public getIconService: GeticonService,
     public userToolBarService: UsertoolbarService,
     public layoutService: LayoutService,
-    private multilinguism: MultilinguismService
+    private multilinguism: MultilinguismService,
+    public styleService: StyleService
   ) {
   }
 
@@ -70,6 +72,7 @@ export class UsertoolbarComponent implements OnInit {
    * otherwise close the edit panel and save the modified information into he indexedDB
    */
   edit() {
+
     if (this.userToolBarService.isConnected) {
       this.userToolBarService.switchEditValue();
       if (!this.userToolBarService.edit) {
@@ -80,6 +83,15 @@ export class UsertoolbarComponent implements OnInit {
       this.snapBarService.snap();
     }
     this.layoutService.setDraggable(this.userToolBarService.edit);
+
+
+    // let interval;
+    //
+    // interval = setInterval(() => { // waiting for the edit animation to end
+    //   this.layoutService.refresh();
+    //   clearInterval(interval);
+    // },600);
+
   }
 
   /*open search bar*/

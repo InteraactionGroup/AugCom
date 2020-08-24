@@ -117,6 +117,8 @@ export class Page {
   ID: string;
   Name : string;
   ElementIDsList: string[];
+  NumberOfCols: number;
+  NumberOfRows: number;
 }
 
 export class Dictionary {
