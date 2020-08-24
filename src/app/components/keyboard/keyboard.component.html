@@ -59,7 +59,7 @@
 </div>
 
 <!-- the keyboard containing the element wrapper -->
-<div class="keyboard width-100"
+<div id="keyboard" class="keyboard width-100"
      [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100vh - 75px - 50px - 1.5cm - 50px )':'calc(100vh - 75px - 1.5cm)'}">
 
   <!-- the wrapper displayed with elements containing pictogram and corresponding text -->
@@ -78,7 +78,8 @@
 <ng-container *ngIf="this.userToolBarService.edit">
 
   <!-- nav link to the edit route-->
-  <nav class="no-drag" style="height: 50px">
+  <nav class="no-drag" style="height: 50px; position: absolute; width: 100%; transition: bottom 0.5s; bottom : 1.5cm" >
+<!--       [ngStyle]="{'bottom': this.userToolBarService.edit ? 'calc(50% + 1.5cm)' :'1.5cm'}">-->
     <a routerLink="/edit" class="no-drag">
 
       <!-- elementContainer for the add button element-->
@@ -105,5 +106,7 @@
 
 </ng-container>
 
+<!--*ngIf="!this.userToolBarService.edit"-->
+<app-usertoolbar ></app-usertoolbar>
 
-<app-usertoolbar></app-usertoolbar>
+<!--<app-edition [ngStyle]="{'position': 'absolute', 'top': this.userToolBarService.edit ? 'calc( 50% - 1.5cm )' :'100%'}" style="width: 100%; transition: top 0.5s"></app-edition>-->

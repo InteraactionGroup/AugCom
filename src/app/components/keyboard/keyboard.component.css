@@ -1,10 +1,11 @@
 .keyboard {
-  height: calc(100vh - 3.5cm);
   -webkit-user-select: none !important;
   -moz-user-select: none !important;
   -ms-user-select: none !important;
   user-select: none !important;
-
+  transition: height 0.5s;
+  overflow-y: auto;
+  height: calc(100vh - 75px - 1.5cm);
 }
 
 .editionSettings {
@@ -85,6 +86,7 @@
 }
 
 .keyboard .wrapper {
+  height: 100%;
   display: grid;
   overflow-y: auto;
   overflow-x: hidden;

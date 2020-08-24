@@ -3,9 +3,12 @@
   min-height: 1cm;
   max-height: 14vw;
   min-width: 7cm;
-  background-color: grey;
-  position: relative;
+  background-color: lightgrey;
+  position: absolute;
   z-index: 2;
+  bottom: 0;
+  transition: bottom 0.5s;
+  bottom: 0;
 }
 
 .usertoolbar .button {

@@ -1,3 +1,30 @@
 gridster-item {
-  background: none;
+  visibility: hidden;
+}
+
+gridster.fit {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.borderEdit{
+  visibility: visible;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  animation: mymove ease-in-out 1s infinite alternate;
+  pointer-events: none;
+  border-radius: 15px;
+}
+
+.borderEdit:hover{
+}
+
+@keyframes mymove {
+  from {background-color: transparent;
+    box-shadow: 0 200px 100px -100px yellow inset;}
+  to {
+    background-color: yellow;
+    box-shadow: 0 100px 200px -100px transparent inset;}
 }

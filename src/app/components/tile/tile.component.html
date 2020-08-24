@@ -2,21 +2,18 @@
 <div id="{{element.ID}}" class="elementContainer floatLeft" *ngIf="element.Type!=='empty'">
   <!-- an element composed of a pictogram and a corresponding text-->
   <div class="element" [class.notsearched]="searchStarted()&&!isSearched(element)"
-       [class.searched]="searchStarted()&&isSearched(element)" [class.blurredElt]="element.ID==='#disable'"
-       (dblclick)="this.edit(element)"
-       (touchstart)="this.pointerDown(element,0)"
-       (touchend)="this.pointerUp(element,0)"
-       (pointerdown)="this.pointerDown(element,1)"
-       (pointerup)="this.pointerUp(element,1)"
        (click)="this.select(element)"
-       [ngStyle]="{'background-color': element.Color !== null ? element.Color : 'grey' ,
-  'border-color': element.BorderColor === null || element.BorderColor === undefined ? 'black' : element.BorderColor,
-  'box-shadow': this.getShadow(element) ,
-  'opacity': this.getOpacity(element),
-  'width': this.getWidth(element),
-  'height': this.getHeight(element),
-  'margin-top': this.getMarginTop(element),
-  'cursor': this.getCursor(element)}">
+       [class.searched]="searchStarted()&&isSearched(element)" [class.blurredElt]="element.ID==='#disable'"
+       (dblclick)="this.edit(element)" (touchstart)="this.pointerDown(element,0)" (touchend)="this.pointerUp(element,0)"
+       (pointerdown)="this.pointerDown(element,1)" (pointerup)="this.pointerUp(element,1)" [ngStyle]="{
+        'background-color': element.Color !== null ? element.Color : 'grey' ,
+        'border-color': element.BorderColor === null || element.BorderColor === undefined ? 'black' : element.BorderColor,
+        'box-shadow': this.getShadow(element) ,
+        'opacity': this.getOpacity(element),
+        'width': this.getWidth(element),
+        'height': this.getHeight(element),
+        'margin-top': this.getMarginTop(element),
+        'cursor': this.getCursor(element)}">
 
     <div class="image haveBackgroundImage" [style.background-image]="this.boardService.getImgUrl(element)"></div>
 
@@ -34,8 +31,8 @@
   </div>
 
   <!-- in edit mode this button is used to select the associated element -->
-  <div class="selectCheckBox floatLeft" *ngIf="this.userToolBarService.edit && element.ID !== '#disable'  && element.dragAndResizeEnabled!==false"
-       (click)="this.select(element)" >
+  <div class="selectCheckBox floatLeft" *ngIf="this.userToolBarService.edit && this.editionService.isSelected(element) && element.ID !== '#disable'  && element.dragAndResizeEnabled!==false"
+       >
     <div class="image haveBackgroundImage"
          [style.background-image]="this.editionService.isSelected(element)?this.getIcon('check'):null">
     </div>

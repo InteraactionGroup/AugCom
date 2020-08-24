@@ -8,6 +8,7 @@ import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {ParametersService} from '../../services/parameters.service';
 import {Router} from '@angular/router';
 import {SearchService} from '../../services/search.service';
+import {KeyboardSliderService} from '../../services/keyboard-slider.service';
 
 @Component({
   selector: 'app-tile',
@@ -42,12 +43,12 @@ export class TileComponent implements OnInit {
     public boardService: BoardService,
     private historicService: HistoricService,
     private parametersService: ParametersService,
-    private getIconService: GeticonService
+    private getIconService: GeticonService,
+    private keyboardSlider: KeyboardSliderService
   ) {
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   setLongPressTimer(element) {
     this.pressTimer = window.setTimeout(() => {
@@ -222,6 +223,7 @@ export class TileComponent implements OnInit {
    * @param element, the Element we want to edit
    */
   edit(element: GridElement) {
+    console.log('double click on ' + element.ID);
     if (this.userToolBarService.edit) {
       this.router.navigate(['/edit']).then(() => {
         this.editionService.clearEditionPane();
@@ -410,7 +412,9 @@ export class TileComponent implements OnInit {
    * @param  element, the element to select
    */
   select(element: GridElement) {
-    this.editionService.select(element);
+    if(this.userToolBarService.edit && element.dragAndResizeEnabled!==false) {
+      this.editionService.select(element);
+    }
   }
 
   /**

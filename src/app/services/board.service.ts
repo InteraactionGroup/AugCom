@@ -36,7 +36,7 @@ export class BoardService {
    */
   fakeElementTempList = [];
 
-  elementList = [];
+  elementList: GridElement[] = [];
 
   getCurrentFolder() {
     const path = this.currentPath.split('.');
