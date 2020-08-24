@@ -8,7 +8,6 @@ import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {ParametersService} from '../../services/parameters.service';
 import {Router} from '@angular/router';
 import {SearchService} from '../../services/search.service';
-import {KeyboardSliderService} from '../../services/keyboard-slider.service';
 import {LayoutService} from '../../services/layout.service';
 
 @Component({
@@ -45,7 +44,6 @@ export class TileComponent implements OnInit {
     private historicService: HistoricService,
     private parametersService: ParametersService,
     private getIconService: GeticonService,
-    private keyboardSlider: KeyboardSliderService,
     public layoutService: LayoutService
   ) {
   }
