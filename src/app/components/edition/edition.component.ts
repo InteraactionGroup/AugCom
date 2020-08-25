@@ -147,7 +147,8 @@ export class EditionComponent implements OnInit {
             Name: this.editionService.newPage.replace(/_/g, ' ').toUpperCase(),
             ElementIDsList: [],
             NumberOfCols: undefined,
-            NumberOfRows: undefined
+            NumberOfRows: undefined,
+            GapSize: undefined
           });
           return new FolderGoTo(this.editionService.newPage);
         }
@@ -271,7 +272,8 @@ export class EditionComponent implements OnInit {
       Name: name,
       ElementIDsList: [],
       NumberOfCols: undefined,
-      NumberOfRows: undefined};
+      NumberOfRows: undefined,
+      GapSize: undefined};
   }
 
   /**

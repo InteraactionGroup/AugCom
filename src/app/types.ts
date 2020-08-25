@@ -6,6 +6,7 @@ export class Grid {
   Type: 'Grid';
   NumberOfCols: number;
   NumberOfRows: number;
+  GapSize: number;
 
   ElementList: GridElement[];
   ImageList: Image[];
@@ -120,6 +121,7 @@ export class Page {
   ElementIDsList: string[];
   NumberOfCols: number;
   NumberOfRows: number;
+  GapSize: number;
   BackgroundColor: string
 }
 

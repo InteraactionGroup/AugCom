@@ -318,9 +318,6 @@ export class BoardService {
 
     this.currentPath = temp;
 
-
-   this.updateGridSize()
-
     this.updateElementList();
   }
 
@@ -329,24 +326,9 @@ export class BoardService {
     this.updateElementList();
   }
 
-  updateGridSize(){
-    const currentPage: Page = this.currentPage();
-
-    if(currentPage.NumberOfRows !== undefined){
-      this.layoutService.setRows( currentPage.NumberOfRows);
-    } else {
-      this.layoutService.setRows(this.board.NumberOfRows);
-    }
-
-    if(currentPage.NumberOfCols !== undefined){
-      this.layoutService.setCols( currentPage.NumberOfCols);
-    } else {
-      this.layoutService.setCols(this.board.NumberOfCols);
-    }
-  }
-
   updateElementList() {
     this.elementList = this.getTempList();
+    this.layoutService.refreshAll(this.getNumberOfCols(),this.getNumberOfRows(),this.getGapSize());
   }
 
   /**
@@ -500,4 +482,44 @@ export class BoardService {
     return tempGridElement;
   }
 
+
+
+  getNumberOfCols(): number{
+    const currentPage: Page = this.currentPage();
+    if(currentPage!== null && currentPage !==undefined){
+      if(currentPage.NumberOfCols !== undefined){
+        return currentPage.NumberOfCols;
+      } else {
+        return this.board.NumberOfCols;
+      }
+    } else {
+      return this.board.NumberOfCols;
+    }
+  }
+
+  getNumberOfRows(): number{
+    const currentPage: Page = this.currentPage();
+    if(currentPage!== null && currentPage !==undefined){
+      if(currentPage.NumberOfRows !== undefined){
+        return currentPage.NumberOfRows;
+      } else {
+        return this.board.NumberOfRows;
+      }
+    } else {
+      return this.board.NumberOfRows;
+    }
+  }
+
+  getGapSize(): number{
+    const currentPage: Page = this.currentPage();
+    if(currentPage!== null && currentPage !==undefined){
+      if(currentPage.GapSize !== undefined){
+        return currentPage.GapSize;
+      } else {
+        return this.board.GapSize;
+      }
+    } else {
+      return this.board.GapSize;
+    }
+  }
 }

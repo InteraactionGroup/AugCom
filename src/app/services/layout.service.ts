@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {GridsterConfig} from 'angular-gridster2';
+import {BoardService} from './board.service';
 
 @Injectable({
   providedIn: 'root',
@@ -23,8 +24,7 @@ export class LayoutService {
     maxRows: 6
   };
 
-  constructor() {
-  }
+  constructor() {}
 
   setDraggable(b: boolean): void {
     this.options.draggable.enabled = b;
@@ -33,19 +33,13 @@ export class LayoutService {
     this.refresh();
   }
 
-  setCols(cols: number): void {
-    this.options.minCols = this.options.maxCols = cols;
-    this.refresh();
-  }
-
-  setRows(rows: number): void {
+  refreshAll(cols,rows,gap){
+    if (this.options.api !== undefined) {
+    this.options.minCols = this.options.maxCols = cols ;
     this.options.minRows = this.options.maxRows = rows;
-    this.refresh();
-  }
-
-  setGap(gap: number): void {
     this.options.margin = gap;
-    this.refresh();
+      this.options.api.optionsChanged();
+    }
   }
 
   refresh() {

@@ -192,7 +192,7 @@ export class TileComponent implements OnInit {
             '.' +
             (element.Type as FolderGoTo).GoTo;
         }
-        this.boardService.updateGridSize();
+        this.layoutService.refresh();
 
         // for errors
       } else {

@@ -270,6 +270,7 @@ export class ProloquoParser {
       Type: 'Grid',
       NumberOfCols: 8,
       NumberOfRows: 4,
+      GapSize: 5,
       ElementList: tempElement,
       ImageList: [],
       PageList: tempPage

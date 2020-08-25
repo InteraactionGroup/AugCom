@@ -185,7 +185,8 @@ export class ShareComponent implements OnInit {
           Name: folder,
           ElementIDsList: [] ,
           NumberOfCols: undefined,
-          NumberOfRows: undefined
+          NumberOfRows: undefined,
+          GapSize: undefined
         });
       getPage = this.boardService.board.PageList.find(page => page.ID === folder);
     }

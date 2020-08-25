@@ -46,7 +46,8 @@ export class SpeakForYourselfParser {
           Name: element.page,
           ElementIDsList: [],
           NumberOfCols: undefined,
-          NumberOfRows: undefined
+          NumberOfRows: undefined,
+          GapSize: undefined,
         });
       }
 

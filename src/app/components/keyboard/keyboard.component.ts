@@ -42,7 +42,6 @@ export class KeyboardComponent implements OnInit {
    */
   cols: number;
   rows: number;
-  gap: number;
 
   // tslint:disable-next-line:max-line-length
   constructor(
@@ -60,7 +59,6 @@ export class KeyboardComponent implements OnInit {
     public multilinguism: MultilinguismService,
     public gridElementService: GridElementService
   ) {
-    this.gap = this.layoutService.options.margin;
   }
 
   onKeyCols(event: any) {
@@ -71,11 +69,10 @@ export class KeyboardComponent implements OnInit {
           currentPage.NumberOfCols = 0;
         }
         currentPage.NumberOfCols = +event.target.value;
-        this.layoutService.setCols( currentPage.NumberOfCols);
       } else {
         this.boardService.board.NumberOfCols = +event.target.value;
-        this.layoutService.setCols(this.boardService.board.NumberOfCols);
       }
+      this.layoutService.refreshAll(this.boardService.getNumberOfCols(),this.boardService.getNumberOfRows(),this.boardService.getGapSize());
     }
   }
 
@@ -87,18 +84,25 @@ export class KeyboardComponent implements OnInit {
           currentPage.NumberOfRows = 0;
         }
         currentPage.NumberOfRows = +event.target.value;
-        this.layoutService.setRows( currentPage.NumberOfRows);
       } else {
         this.boardService.board.NumberOfRows = +event.target.value;
-        this.layoutService.setRows(this.boardService.board.NumberOfRows);
       }
+      this.layoutService.refreshAll(this.boardService.getNumberOfCols(),this.boardService.getNumberOfRows(),this.boardService.getGapSize());
     }
   }
 
   onKeyGap(event: any) {
     if (+event.target.value >= 1) {
-      this.gap = +event.target.value;
-      this.layoutService.setGap(this.gap);
+      const currentPage: Page = this.boardService.currentPage();
+      if(currentPage!== null && currentPage !==undefined){
+        if(currentPage.GapSize === undefined) {
+          currentPage.GapSize = 0;
+        }
+        currentPage.GapSize = +event.target.value;
+      } else {
+        this.boardService.board.GapSize = +event.target.value;
+      }
+      this.layoutService.refreshAll(this.boardService.getNumberOfCols(),this.boardService.getNumberOfRows(),this.boardService.getGapSize());
     }
   }
 

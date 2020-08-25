@@ -41,17 +41,17 @@
 
   <!-- input fields for column and row size, have to be changed with a button number incrementer -->
   <div class="gridSettings">
-    <input class="inputSize floatLeft centerText" value="{{this.boardService.board.NumberOfCols}}" type="number" min="1"
+    <input class="inputSize floatLeft centerText" value="{{this.boardService.getNumberOfCols()}}" type="number" min="1"
            (change)="onKeyCols($event)">
     <div class="x floatLeft">
       x
     </div>
-    <input class="inputSize floatLeft centerText" value="{{this.boardService.board.NumberOfRows}}" type="number" min="1"
+    <input class="inputSize floatLeft centerText" value="{{this.boardService.getNumberOfRows()}}" type="number" min="1"
            (change)="onKeyRows($event)">
     <div class="x floatLeft">
       +
     </div>
-    <input class="inputSize floatLeft centerText" value={{this.gap}} type="number" min="0"
+    <input class="inputSize floatLeft centerText" value="{{this.boardService.getGapSize()}}" type="number" min="0"
            (change)="onKeyGap($event)">
   </div>
 </div>
