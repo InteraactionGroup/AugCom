@@ -70,6 +70,13 @@ export class UsertoolbarComponent implements OnInit {
     return this.getIconService.getIconUrl(s);
   }
 
+
+  translate(){
+    this.multilinguism.language = (this.multilinguism.language === 'FR' ? 'EN' : 'FR');
+    console.log(this.multilinguism.language)
+  }
+
+
   /**
    * open the edit panel if not open,
    * otherwise close the edit panel and save the modified information into he indexedDB
@@ -79,6 +86,7 @@ export class UsertoolbarComponent implements OnInit {
     if (this.userToolBarService.isConnected) {
       this.userToolBarService.switchEditValue();
       if (!this.userToolBarService.edit) {
+        this.editionService.clearEditionPane();
         this.indexedDBacess.update();
         console.log('info saved');
       }
