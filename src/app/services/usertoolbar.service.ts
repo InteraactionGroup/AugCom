@@ -36,6 +36,8 @@ export class UsertoolbarService {
 
   public title = 'Title';
 
+  public titleDisplayValue = 'default'; // can be 'default, 'imageOnly' and 'textOnly'
+
   fullScreen() {
     if (document.fullscreenElement !== null || (document as any).webkitIsFullScreen || (document as any).mozFullScreen) {
       if (document.exitFullscreen) {
