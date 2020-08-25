@@ -4,10 +4,14 @@
   <div class="titleContainer floatLeft"
        [class.width0]="this.userToolBarService.search">
     <ng-container *ngIf="!this.userToolBarService.search">
-      <svg class="titleSVG" viewBox="0 0 110 60">
-        <text x="50%" y="50%" dominant-baseline="middle"
-              text-anchor="middle">{{this.boardService.getCurrentTitle()}}</text>
-      </svg>
+      <div class="titleandimage">
+        <div class="haveBackgroundImage" style="height: 90%; width:90%"  [style.background-image]="this.getCurrentPageImage()">
+
+        </div>
+        <div >
+          {{this.boardService.getCurrentTitle()}}
+        </div>
+      </div>
     </ng-container>
   </div>
 

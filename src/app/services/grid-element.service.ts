@@ -8,11 +8,19 @@ export class GridElementService {
 
   constructor() { }
 
+  DEFAULT_STYLE_BACKGROUNDCOLOR_VALUE = 'lightgrey';
+  DEFAULT_STYLE_BORDERCOLOR_VALUE = 'black';
+  DEFAULT_STYLE_TEXTCOLOR_VALUE = 'black';
+  DEFAULT_STYLE_VALUE = new Style(
+    this.DEFAULT_STYLE_BACKGROUNDCOLOR_VALUE,
+    this.DEFAULT_STYLE_BORDERCOLOR_VALUE,
+    this.DEFAULT_STYLE_TEXTCOLOR_VALUE);
+
   getStyle(element: GridElement) : Style {
     if ((element.style as Style).BackgroundColor !== undefined){
       return (element.style as Style);
     } else {
-      return new Style('lightgrey','black','black');
+      return this.DEFAULT_STYLE_VALUE;
     }
   }
 
@@ -20,7 +28,10 @@ export class GridElementService {
     if ((element.style as Style).BackgroundColor !== undefined){
       (element.style as Style).BackgroundColor = backgroundColor;
     } else {
-      element.style = new Style(backgroundColor,'black','black');
+      element.style = new Style(
+        backgroundColor,
+        this.DEFAULT_STYLE_BORDERCOLOR_VALUE,
+        this.DEFAULT_STYLE_TEXTCOLOR_VALUE);
     }
   }
 
@@ -28,7 +39,10 @@ export class GridElementService {
     if ((element.style as Style).BackgroundColor !== undefined){
       (element.style as Style).BorderColor = borderColor;
     } else {
-      element.style = new Style('lighgrey',borderColor,'black');
+      element.style = new Style(
+        this.DEFAULT_STYLE_BACKGROUNDCOLOR_VALUE,
+        borderColor,
+        this.DEFAULT_STYLE_TEXTCOLOR_VALUE);
     }
   }
 
@@ -36,7 +50,10 @@ export class GridElementService {
     if ((element.style as Style).BackgroundColor !== undefined){
       (element.style as Style).TextColor = textColor;
     } else {
-      element.style = new Style('lightgrey','black',textColor);
+      element.style = new Style(
+        this.DEFAULT_STYLE_BACKGROUNDCOLOR_VALUE,
+        this.DEFAULT_STYLE_BORDERCOLOR_VALUE,
+        textColor);
     }
   }
 

@@ -54,6 +54,25 @@
   transition: width 1s;
 }
 
+.titleandimage{
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  align-items: center;
+  grid-gap: 5px;
+}
+
+.adjustableText {
+  text-align: center;
+  width: 100%;
+  height: fit-content;
+  align-items: center;
+  vertical-align: middle;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
 .usertoolbar .button .image:hover, .usertoolbar .buttonLeftLeft .image:hover, .usertoolbar .buttonLeftRight .image:hover {
   background-color: var(--main-bg-color2);
 }

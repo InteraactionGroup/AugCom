@@ -10,6 +10,8 @@ import {Ng2ImgMaxService} from 'ng2-img-max';
 import {LayoutService} from '../../services/layout.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
 import {StyleService} from '../../services/style.service';
+import {FolderGoTo} from '../../types';
+import {EditionService} from '../../services/edition.service';
 
 @Component({
   selector: 'app-usertoolbar',
@@ -28,7 +30,8 @@ export class UsertoolbarComponent implements OnInit {
     public userToolBarService: UsertoolbarService,
     public layoutService: LayoutService,
     private multilinguism: MultilinguismService,
-    public styleService: StyleService
+    public styleService: StyleService,
+    public editionService: EditionService
   ) {
   }
 
@@ -110,5 +113,20 @@ export class UsertoolbarComponent implements OnInit {
     this.userToolBarService.edit =
       this.userToolBarService.edit && this.userToolBarService.unlock;
     this.layoutService.setDraggable(this.userToolBarService.edit);
+  }
+
+  getCurrentPageImage() {
+    const currentFolder = this.boardService.getCurrentFolder();
+    if (currentFolder === '#HOME') {
+      return this.getIcon('home');
+    } else {
+      const tempelt = this.boardService.board.ElementList.find(elt => {
+        return (elt.Type as FolderGoTo).GoTo === currentFolder});
+      if (tempelt !== null && tempelt !== undefined) {
+        return this.boardService.getImgUrl(tempelt);
+      } else {
+        return this.getIcon('home');
+      }
+    }
   }
 }
