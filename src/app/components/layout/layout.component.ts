@@ -29,4 +29,31 @@ export class LayoutComponent implements OnInit {
     }
     return convertedItem;
   }
+
+  getPageBackgroundColorValue(): string{
+    const currentPage = this.boardService.board.PageList.find(page => {
+      return page.ID === this.boardService.getCurrentFolder()
+    });
+    if (currentPage !== null && currentPage !== undefined) {
+      if (currentPage.BackgroundColor === undefined || currentPage.BackgroundColor === null || currentPage.BackgroundColor === 'default' ){
+        return this.getGridBackgroundColorValue();
+      } else {
+        return currentPage.BackgroundColor;
+      }
+    } else {
+      return this.getGridBackgroundColorValue();
+    }
+  }
+
+  getGridBackgroundColorValue() : string{
+    if (
+      this.boardService.board.BackgroundColor === undefined ||
+      this.boardService.board.BackgroundColor === null ||
+      this.boardService.board.BackgroundColor === 'default' ){
+      return 'grey'
+    } else {
+      return this.boardService.board.BackgroundColor;
+    }
+  }
+
 }

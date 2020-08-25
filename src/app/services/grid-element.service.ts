@@ -12,11 +12,7 @@ export class GridElementService {
     if ((element.style as Style).BackgroundColor !== undefined){
       return (element.style as Style);
     } else {
-      return {
-        BackgroundColor: 'lightgrey',
-        BorderColor: 'black',
-        TextColor: 'black'
-      };
+      return new Style('lightgrey','black','black');
     }
   }
 
@@ -24,11 +20,7 @@ export class GridElementService {
     if ((element.style as Style).BackgroundColor !== undefined){
       (element.style as Style).BackgroundColor = backgroundColor;
     } else {
-      element.style = {
-        BackgroundColor: backgroundColor,
-        BorderColor: 'black',
-        TextColor: 'black'
-      };
+      element.style = new Style(backgroundColor,'black','black');
     }
   }
 
@@ -36,11 +28,7 @@ export class GridElementService {
     if ((element.style as Style).BackgroundColor !== undefined){
       (element.style as Style).BorderColor = borderColor;
     } else {
-      element.style = {
-        BackgroundColor: 'lighgrey',
-        BorderColor: borderColor,
-        TextColor: 'black'
-      };
+      element.style = new Style('lighgrey',borderColor,'black');
     }
   }
 
@@ -48,11 +36,7 @@ export class GridElementService {
     if ((element.style as Style).BackgroundColor !== undefined){
       (element.style as Style).TextColor = textColor;
     } else {
-      element.style = {
-        BackgroundColor: 'lightgrey',
-        BorderColor: 'black',
-        TextColor: textColor,
-      };
+      element.style = new Style('lightgrey','black',textColor);
     }
   }
 

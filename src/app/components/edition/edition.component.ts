@@ -142,6 +142,7 @@ export class EditionComponent implements OnInit {
           return new FolderGoTo(elementID)
         } else {
           this.boardService.board.PageList.push({
+            BackgroundColor: 'default',
             ID: this.editionService.newPage,
             Name: this.editionService.newPage.replace(/_/g, ' ').toUpperCase(),
             ElementIDsList: [],
@@ -265,6 +266,7 @@ export class EditionComponent implements OnInit {
   createAndGetNewPage(): Page {
     const name = this.boardService.getCurrentFolder();
     return {
+      BackgroundColor: 'default',
       ID: name,
       Name: name,
       ElementIDsList: [],

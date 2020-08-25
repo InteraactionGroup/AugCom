@@ -179,7 +179,9 @@ export class ShareComponent implements OnInit {
     let getPage = this.boardService.board.PageList.find(page => page.ID === folder);
     if (getPage === null || getPage === undefined) {
       this.boardService.board.PageList.push(
-        {ID: folder,
+        {
+          BackgroundColor: 'default',
+          ID: folder,
           Name: folder,
           ElementIDsList: [] ,
           NumberOfCols: undefined,

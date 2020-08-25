@@ -11,6 +11,8 @@ export class Grid {
   ImageList: Image[];
   PageList: Page[];
 
+  BackgroundColor: string;
+
   constructor(gridId, gridType, gridCol, gridRow, elemList, imageList, pageList) {
     this.ID = gridId;
     this.Type = gridType;
@@ -58,7 +60,7 @@ export class GridElement {
     this.ID = elementId;
     this.Type = elementType;
     this.PartOfSpeech = elementPartOfSpeech;
-    this.style = {BackgroundColor: color, BorderColor: borderColor, TextColor: 'black'};
+    this.style = new Style(color, borderColor, 'black');
     this.VisibilityLevel = visibilityLevel;
     this.ElementFormsList = elementsForms;
     this.InteractionsList = interactionList;
@@ -118,6 +120,7 @@ export class Page {
   ElementIDsList: string[];
   NumberOfCols: number;
   NumberOfRows: number;
+  BackgroundColor: string
 }
 
 export class Dictionary {
@@ -126,7 +129,18 @@ export class Dictionary {
 
 
 export class Style {
-  BackgroundColor: string
+  BackgroundColor: string;
   BorderColor: string;
+  BorderWidth: string;
+  BorderRadius: string;
   TextColor: string;
+
+  constructor(backgroundColor: string, borderColor: string, textColor: string){
+    this.BackgroundColor = backgroundColor;
+    this.BorderColor = borderColor;
+    this.TextColor = textColor;
+    this.BorderRadius = '10px';
+    this.BorderWidth = '3px';
+  }
+
 }

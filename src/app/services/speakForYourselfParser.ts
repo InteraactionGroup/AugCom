@@ -41,6 +41,7 @@ export class SpeakForYourselfParser {
         return page.ID === element.page
       }) === -1) {
         grille.PageList.push({
+          BackgroundColor: 'default',
           ID: element.page,
           Name: element.page,
           ElementIDsList: [],

@@ -265,6 +265,7 @@ export class ProloquoParser {
 
   setUpNewGrid(tempElement, tempPage): Grid {
     return {
+      BackgroundColor: 'default',
       ID: 'ProloquoGrid',
       Type: 'Grid',
       NumberOfCols: 8,

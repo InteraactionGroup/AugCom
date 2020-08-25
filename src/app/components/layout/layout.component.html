@@ -1,4 +1,4 @@
-<gridster [options]="options">
+<gridster [ngStyle]="{'background-color': this.getPageBackgroundColorValue()}" [options]="options">
   <gridster-item *ngFor=" let item of this.boardService.elementList" [item]=convertToGridsterItem(item) >
     <app-tile [element]=item></app-tile>
   </gridster-item>

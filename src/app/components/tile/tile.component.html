@@ -15,6 +15,8 @@
         'height': this.getHeight(element),
         'margin-top': this.getMarginTop(element),
         'cursor': this.getCursor(element),
+        'border-width': this.gridElementService.getStyle(element).BorderWidth === null || this.gridElementService.getStyle(element).BorderWidth === undefined ? '3px' : this.gridElementService.getStyle(element).BorderWidth,
+        'border-radius': this.gridElementService.getStyle(element).BorderRadius === null || this.gridElementService.getStyle(element).BorderRadius === undefined ? '3px' : this.gridElementService.getStyle(element).BorderRadius,
         'grid-template-rows': this.getGridTemplateRows(),
         'grid-template-columns': this.getGridTemplateColumns()}">
 
