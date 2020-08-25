@@ -143,8 +143,8 @@ describe('EditionComponent', () => {
 
     expect(component.boardService.board.ElementList.length).toBe(2);
     expect(component.boardService.board.ElementList[1].ElementFormsList[0].DisplayedText).toBe('test');
-    expect(component.boardService.board.ElementList[1].BorderColor).toBe('black');
-    expect(component.boardService.board.ElementList[1].Color).toBe('white');
+    expect(component.gridElementService.getStyle(component.boardService.board.ElementList[1]).BorderColor).toBe('black');
+    expect(component.gridElementService.getStyle(component.boardService.board.ElementList[1]).BackgroundColor).toBe('white');
   });
 
   it('should modify an element of save', () => {
@@ -170,8 +170,8 @@ describe('EditionComponent', () => {
 
     expect(component.boardService.board.ElementList.length).toBe(1);
     expect(component.boardService.board.ElementList[0].ElementFormsList[0].DisplayedText).toBe('test');
-    expect(component.boardService.board.ElementList[0].BorderColor).toBe('black');
-    expect(component.boardService.board.ElementList[0].Color).toBe('white');
+    expect(component.gridElementService.getStyle(component.boardService.board.ElementList[0]).BorderColor).toBe('black');
+    expect(component.gridElementService.getStyle(component.boardService.board.ElementList[0]).BackgroundColor).toBe('white');
   });
 
   it('should not modify an element of save if there was no modif on edition panel', () => {
@@ -194,8 +194,8 @@ describe('EditionComponent', () => {
 
     expect(component.boardService.board.ElementList.length).toBe(1);
     expect(component.boardService.board.ElementList[0].ElementFormsList[0].DisplayedText).toBe('testBeforeModif');
-    expect(component.boardService.board.ElementList[0].BorderColor).toBe('orange');
-    expect(component.boardService.board.ElementList[0].Color).toBe('yellow');
+    expect(component.gridElementService.getStyle(component.boardService.board.ElementList[0]).BorderColor).toBe('orange');
+    expect(component.gridElementService.getStyle(component.boardService.board.ElementList[0]).BackgroundColor).toBe('yellow');
   });
 
   it('should modify multiple element of save but not their name', () => {
@@ -223,13 +223,13 @@ describe('EditionComponent', () => {
     expect(component.boardService.board.ElementList.length).toBe(2);
 
     expect(component.boardService.board.ElementList[0].ElementFormsList[0].DisplayedText).toBe('testBeforeModif');
-    expect(component.boardService.board.ElementList[0].BorderColor).toBe('black');
-    expect(component.boardService.board.ElementList[0].Color).toBe('white');
+    expect(component.gridElementService.getStyle(component.boardService.board.ElementList[0]).BorderColor).toBe('black');
+    expect(component.gridElementService.getStyle(component.boardService.board.ElementList[0]).BackgroundColor).toBe('white');
 
 
     expect(component.boardService.board.ElementList[1].ElementFormsList[0].DisplayedText).toBe('test2BeforeModif');
-    expect(component.boardService.board.ElementList[1].BorderColor).toBe('black');
-    expect(component.boardService.board.ElementList[1].Color).toBe('white');
+    expect(component.gridElementService.getStyle(component.boardService.board.ElementList[1]).BorderColor).toBe('black');
+    expect(component.gridElementService.getStyle(component.boardService.board.ElementList[1]).BackgroundColor).toBe('white');
   });
 
   it('should not modify multiple element of save if they have not been modify in edition panel', () => {
@@ -254,13 +254,13 @@ describe('EditionComponent', () => {
     expect(component.boardService.board.ElementList.length).toBe(2);
 
     expect(component.boardService.board.ElementList[0].ElementFormsList[0].DisplayedText).toBe('testBeforeModif');
-    expect(component.boardService.board.ElementList[0].BorderColor).toBe('orange');
-    expect(component.boardService.board.ElementList[0].Color).toBe('yellow');
+    expect(component.gridElementService.getStyle(component.boardService.board.ElementList[0]).BorderColor).toBe('orange');
+    expect(component.gridElementService.getStyle(component.boardService.board.ElementList[0]).BackgroundColor).toBe('yellow');
 
 
     expect(component.boardService.board.ElementList[1].ElementFormsList[0].DisplayedText).toBe('test2BeforeModif');
-    expect(component.boardService.board.ElementList[1].BorderColor).toBe('green');
-    expect(component.boardService.board.ElementList[1].Color).toBe('red');
+    expect(component.gridElementService.getStyle(component.boardService.board.ElementList[1]).BorderColor).toBe('green');
+    expect(component.gridElementService.getStyle(component.boardService.board.ElementList[1]).BackgroundColor).toBe('red');
   });
 
   it('should change the color value when a color is selected', () => {

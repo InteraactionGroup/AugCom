@@ -3,7 +3,7 @@ import {DbnaryService} from '../../services/dbnary.service';
 import {BoardService} from '../../services/board.service';
 import {GeticonService} from '../../services/geticon.service';
 import {DomSanitizer} from '@angular/platform-browser';
-import {Action, FolderGoTo, GridElement, Interaction, Page} from '../../types';
+import {Action, ElementForm, FolderGoTo, GridElement, Interaction, Page} from '../../types';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {Router} from '@angular/router';
 import {PaletteService} from '../../services/palette.service';
@@ -12,6 +12,7 @@ import {Ng2ImgMaxService} from 'ng2-img-max';
 import {HttpClient} from '@angular/common/http';
 import {MultilinguismService} from '../../services/multilinguism.service';
 import {FunctionsService} from '../../services/functions.service';
+import {GridElementService} from '../../services/grid-element.service';
 
 @Component({
   selector: 'app-edition',
@@ -25,7 +26,8 @@ export class EditionComponent implements OnInit {
               private router: Router, private multilinguism: MultilinguismService,
               public indexedDBacess: IndexeddbaccessService, public functionsService: FunctionsService,
               public sanitizer: DomSanitizer, public getIconService: GeticonService,
-              public dbnaryService: DbnaryService, public boardService: BoardService) {
+              public dbnaryService: DbnaryService, public boardService: BoardService,
+              public  gridElementService: GridElementService) {
 
   }
 
@@ -97,10 +99,10 @@ export class EditionComponent implements OnInit {
     this.editionService.selectedElements.forEach(elt => {
 
       if (this.editionService.curentColor !== '#d3d3d3') {
-        elt.Color = this.editionService.curentColor;
+        this.gridElementService.setBackgroundColor(elt, this.editionService.curentColor);
       }
       if (this.editionService.curentBorderColor !== '#d3d3d3') {
-        elt.BorderColor = this.editionService.curentBorderColor;
+        this.gridElementService.setBorderColor(elt, this.editionService.curentBorderColor);
       }
 
       if (this.editionService.name !== this.editionService.DEFAULT_MULTPLE_NAME) { // todo there is probably a cleaner way to do it
@@ -164,8 +166,8 @@ export class EditionComponent implements OnInit {
     if (this.editionService.selectedElements[0] != null && this.editionService.selectedElements[0] !== undefined) {
       const element: GridElement = this.editionService.selectedElements[0];
       element.Type = this.returnTypeOf(element.ID);
-      element.Color = this.editionService.curentColor;
-      element.BorderColor = this.editionService.curentBorderColor;
+      this.gridElementService.setBackgroundColor(element, this.editionService.curentColor);
+      this.gridElementService.setBorderColor(element, this.editionService.curentBorderColor);
 
       for( const interaction of this.functionsService.interactionIDs) {
         const temp: Interaction = this.editionService.interractionList.find(inter => { return inter.ID === interaction.ID });
@@ -234,21 +236,9 @@ export class EditionComponent implements OnInit {
     }
 
     this.boardService.board.ElementList.push(
-      {
-        ID: tempId,
-        Type: this.returnTypeOf(tempId),
-        PartOfSpeech: this.editionService.classe,
-        ElementFormsList: elementFormsList,
-        InteractionsList: this.editionService.interractionList,
-        Color: this.editionService.curentColor,
-        BorderColor: this.editionService.curentBorderColor,
-        VisibilityLevel: 0,
-        x: 0,
-        y: 0,
-        cols: 1,
-        rows: 1,
-        dragAndResizeEnabled: true
-      });
+      new GridElement(tempId, this.returnTypeOf(tempId), this.editionService.classe,
+        this.editionService.curentColor, this.editionService.curentBorderColor,  0, elementFormsList,this.editionService.interractionList)
+    );
 
     this.boardService.board.ImageList.push(
       {
@@ -291,8 +281,8 @@ export class EditionComponent implements OnInit {
     if (this.editionService.selectedElements.length === 1) {
       const elementToModif: GridElement = this.editionService.selectedElements[0];
       this.editionService.name = this.editionService.getDefaultForm(elementToModif.ElementFormsList).DisplayedText;
-      this.editionService.curentColor = elementToModif.Color;
-      this.editionService.curentBorderColor = elementToModif.BorderColor;
+      this.editionService.curentColor = this.gridElementService.getStyle(elementToModif).BackgroundColor;
+      this.editionService.curentBorderColor = this.gridElementService.getStyle(elementToModif).BorderColor;
       this.editionService.radioTypeFormat = elementToModif.Type === 'button' ? 'button' : 'folder';
       this.editionService.pageLink = elementToModif.Type === 'button' ? '@' : (elementToModif.Type as FolderGoTo).GoTo;
       const imageToModif = this.boardService.board.ImageList.find(x => x.ID === elementToModif.ElementFormsList[0].ImageID);

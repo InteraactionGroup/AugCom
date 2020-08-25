@@ -5,6 +5,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {EditionService} from './edition.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
 import {LayoutService} from './layout.service';
+import {GridElementService} from './grid-element.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,8 @@ export class BoardService {
     public ng2ImgMaxService: Ng2ImgMaxService,
     public editionService: EditionService,
     public layoutService: LayoutService,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
+    public gridElementService: GridElementService
   ) {
     this.board = Board;
     this.updateElementList();
@@ -413,27 +415,21 @@ export class BoardService {
     places = places.slice(0, compElt.ElementFormsList.length);
     compElt.ElementFormsList.forEach(eltform => {
       if (compElt.ElementFormsList.length > indexOfForm) {
-        const elt: GridElement = {
-          ID: compElt.ID,
-          Color: compElt.Color,
-          BorderColor: compElt.BorderColor,
-          Type: 'button',
-          VisibilityLevel: 0,
-          PartOfSpeech: '' + compElt.PartOfSpeech,
-          ElementFormsList:
+        const elt: GridElement = new GridElement(
+          compElt.ID,
+          'button',
+           '' + compElt.PartOfSpeech,
+          this.gridElementService.getStyle(compElt).BackgroundColor,
+          this.gridElementService.getStyle(compElt).BorderColor,
+          0,
             [{
               DisplayedText: eltform.DisplayedText,
               VoiceText: eltform.VoiceText,
               LexicInfos: eltform.LexicInfos,
               ImageID: '' + eltform.ImageID
             }],
-          InteractionsList: compElt.InteractionsList.slice(),
-          x: 0,
-          y: 0,
-          cols: 1,
-          rows: 1,
-          dragAndResizeEnabled: true
-        };
+           compElt.InteractionsList.slice()
+      );
         if (places.length > indexOfForm) {
           elt.x = places[indexOfForm].x;
           elt.y = places[indexOfForm].y;
@@ -444,7 +440,7 @@ export class BoardService {
       }
     });
 
-    compElt.Color = '#123548';
+    this.gridElementService.setBackgroundColor(compElt, '#123548');
     compElt.PartOfSpeech = '';
     compElt.InteractionsList = [{ID: 'click', ActionList: [{ID: 'backFromVariant', Options: []}]}];
     compElt.ElementFormsList = [{
@@ -495,21 +491,13 @@ export class BoardService {
    */
   copy(element: GridElement): GridElement {
     console.log(element.ID + ' ' + element.x + ' ' + element.y);
-    return {
-      BorderColor: element.BorderColor,
-      VisibilityLevel: element.VisibilityLevel,
-      ID: element.ID,
-      PartOfSpeech: element.PartOfSpeech,
-      Type: element.Type,
-      ElementFormsList: element.ElementFormsList.copyWithin(0, 0),
-      InteractionsList: element.InteractionsList.copyWithin(0, 0),
-      Color: element.Color,
-      x: element.x,
-      y: element.y,
-      cols: element.cols,
-      rows: element.rows,
-      dragAndResizeEnabled: true
-    };
+    const tempGridElement = new GridElement(element.ID, element.Type, element.PartOfSpeech,
+      this.gridElementService.getStyle(element).BackgroundColor, this.gridElementService.getStyle(element).BorderColor
+      ,element.VisibilityLevel,
+      element.ElementFormsList.copyWithin(0, 0), element.InteractionsList.copyWithin(0, 0));
+    this.gridElementService.setCoordinates(tempGridElement, element.x, element.y);
+    this.gridElementService.setSize(tempGridElement, element.cols, element.rows);
+    return tempGridElement;
   }
 
 }

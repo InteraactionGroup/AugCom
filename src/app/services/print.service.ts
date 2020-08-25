@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BoardService} from './board.service';
 import {FolderGoTo, GridElement} from '../types';
+import {GridElementService} from './grid-element.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import {FolderGoTo, GridElement} from '../types';
 export class PrintService {
 
 
-  constructor(public boardService: BoardService) {
+  constructor(public boardService: BoardService, public gridElementService: GridElementService) {
   }
 
   urlList: any[] = [];
@@ -77,8 +78,14 @@ export class PrintService {
 
   getShadow(element: GridElement) {
     if ((element.Type as FolderGoTo).GoTo !== undefined) {
-      let s = '; box-shadow: 3px -3px 0px -2px ' + (element.Color === undefined || element.Color == null ? '#d3d3d3' : element.Color);
-      s = s + ' , 4px -4px ' + (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor);
+      let s = '; box-shadow: 3px -3px 0px -2px '
+        + (this.gridElementService.getStyle(element).BackgroundColor === undefined ||
+        this.gridElementService.getStyle(element).BackgroundColor == null ?
+          '#d3d3d3' : this.gridElementService.getStyle(element).BackgroundColor);
+      s = s + ' , 4px -4px '
+        + (this.gridElementService.getStyle(element).BorderColor === undefined ||
+        this.gridElementService.getStyle(element).BorderColor == null ?
+          'black' : this.gridElementService.getStyle(element).BorderColor);
       return s;
     } else {
       return '';
@@ -94,7 +101,9 @@ export class PrintService {
 
         innerValue = innerValue +
           '<div class="elementContainer">' +
-          '<div class="' + (url === '' ? 'element noImageElement' : 'element') + '" style="background-color:' + element.Color + '; border-color:' + element.BorderColor + this.getShadow(element) + '">\n' +
+          '<div class="' + (url === '' ? 'element noImageElement' : 'element')
+          + '" style="background-color:' + this.gridElementService.getStyle(element).BackgroundColor
+          + '; border-color:' + this.gridElementService.getStyle(element).BorderColor + this.getShadow(element) + '">\n' +
           '<div class="image" style="background-image: ' + url + '"></div>\n' +
           '<div class="adjustableText">\n' +
           this.boardService.getLabel(element) +

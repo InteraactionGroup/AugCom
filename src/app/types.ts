@@ -38,13 +38,13 @@ export class GridElement {
   ID: string;
   Type: 'empty' | 'button' |  FolderGoTo;
   PartOfSpeech: string;
-  Color: string; // to delete later
-  BorderColor: string; // to delete later
   VisibilityLevel: number;
   x: number;
   y: number;
   cols: number;
   rows: number;
+
+  style: {id: string} | Style;
 
   ElementFormsList: ElementForm[];
   InteractionsList: Interaction[];
@@ -58,8 +58,7 @@ export class GridElement {
     this.ID = elementId;
     this.Type = elementType;
     this.PartOfSpeech = elementPartOfSpeech;
-    this.Color = color;
-    this.BorderColor = borderColor;
+    this.style = {BackgroundColor: color, BorderColor: borderColor, TextColor: 'black'};
     this.VisibilityLevel = visibilityLevel;
     this.ElementFormsList = elementsForms;
     this.InteractionsList = interactionList;
@@ -123,4 +122,11 @@ export class Page {
 
 export class Dictionary {
   dictionary : { id: string, FR: string, EN: string }[]
+}
+
+
+export class Style {
+  BackgroundColor: string
+  BorderColor: string;
+  TextColor: string;
 }

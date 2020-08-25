@@ -7,8 +7,8 @@
        [class.searched]="searchStarted()&&isSearched(element)" [class.blurredElt]="element.ID==='#disable'"
        (dblclick)="this.edit(element)" (touchstart)="this.pointerDown(element,0)" (touchend)="this.pointerUp(element,0)"
        (pointerdown)="this.pointerDown(element,1)" (pointerup)="this.pointerUp(element,1)" [ngStyle]="{
-        'background-color': element.Color !== null ? element.Color : 'var(--main-bg-color3)' ,
-        'border-color': element.BorderColor === null || element.BorderColor === undefined ? 'black' : element.BorderColor,
+        'background-color': this.gridElementService.getStyle(element).BackgroundColor !== null ? this.gridElementService.getStyle(element).BackgroundColor : 'var(--main-bg-color3)' ,
+        'border-color': this.gridElementService.getStyle(element).BorderColor === null || this.gridElementService.getStyle(element).BorderColor === undefined ? 'black' : this.gridElementService.getStyle(element).BorderColor,
         'box-shadow': this.getShadow(element) ,
         'opacity': this.getOpacity(element),
         'width': this.getWidth(element),

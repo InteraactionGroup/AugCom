@@ -59,29 +59,26 @@ export class SpeakForYourselfParser {
         parentPage.ElementIDsList[index] = element.mot + (isFolder ? '' : 'button');
       }
 
-      grille.ElementList.push({
-        ID: element.mot + (isFolder ? '' : 'button'),
-        Type: isFolder ? new FolderGoTo(element.mot) : 'button',
-        PartOfSpeech: '',
-        ElementFormsList: [{
-          DisplayedText: element.mot,
-          VoiceText: element.mot,
-          LexicInfos: [{default: true}],
-          ImageID: ''
-        }],
-        InteractionsList: [{
-          ID: 'click',
-          ActionList: [{ID: 'say', Options: []}, {ID: 'display', Options: []}]
-        }],
-        Color: isFolder ? '#fda728' : '#fde498',
-        BorderColor: 'black',
-        VisibilityLevel: 0,
-        x: 0,
-        y: 0,
-        rows: 1,
-        cols: 1,
-        dragAndResizeEnabled: true
-      });
+      grille.ElementList.push(
+        new GridElement(
+          element.mot + (isFolder ? '' : 'button'),
+          isFolder ? new FolderGoTo(element.mot) : 'button',
+          '',
+          isFolder ? '#fda728' : '#fde498',
+          'black',
+          0,
+          [{
+            DisplayedText: element.mot,
+            VoiceText: element.mot,
+            LexicInfos: [{default: true}],
+            ImageID: ''
+          }],
+          [{
+            ID: 'click',
+            ActionList: [{ID: 'say', Options: []}, {ID: 'display', Options: []}]
+          }]
+        )
+        );
     });
 
     grille.PageList.forEach(page => {

@@ -153,28 +153,17 @@ export class ShareComponent implements OnInit {
 
     const theID = pathWithNoDot + '$' + name + (type === 'button' ? 'button' : '');
     this.boardService.board.ElementList.push(
-      {
-        ID: theID,
-        Type: type,
-        PartOfSpeech: '',
-        ElementFormsList: [
+      new GridElement(theID,type,'','var(--main-bg-color1)','black'
+      ,0,
+        [
           {
             DisplayedText: name,
             VoiceText: name,
             LexicInfos: [{default: true}],
             ImageID: theID,
           }
-        ],
-        InteractionsList: [{ID: 'click', ActionList: [{ID: 'display', Options: []}]}],
-        Color: 'var(--main-bg-color1)',
-        BorderColor: 'black',
-        VisibilityLevel: 0,
-        x: 0,
-        y: 0,
-        cols: 1,
-        rows: 1,
-        dragAndResizeEnabled: true
-      });
+        ],[{ID: 'click', ActionList: [{ID: 'display', Options: []}]}])
+    );
 
     this.boardService.board.ImageList.push(
       {

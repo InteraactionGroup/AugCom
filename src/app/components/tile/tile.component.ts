@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 import {SearchService} from '../../services/search.service';
 import {LayoutService} from '../../services/layout.service';
 import {StyleService} from '../../services/style.service';
+import {GridElementService} from '../../services/grid-element.service';
 
 @Component({
   selector: 'app-tile',
@@ -46,7 +47,8 @@ export class TileComponent implements OnInit {
     private parametersService: ParametersService,
     private getIconService: GeticonService,
     public layoutService: LayoutService,
-    public styleService: StyleService
+    public styleService: StyleService,
+    public gridElementService: GridElementService
   ) {
   }
 
@@ -116,8 +118,8 @@ export class TileComponent implements OnInit {
       // for button
       if (element.Type === 'button') {
         const prononcedText = this.boardService.getLabel(element);
-        const color = element.Color;
-        const borderColor = element.BorderColor;
+        const color = this.gridElementService.getStyle(element).BackgroundColor;
+        const borderColor = this.gridElementService.getStyle(element).BorderColor;
         const imgUrl = this.boardService.getImgUrl(element);
         const vignette: Vignette = {
           Label: prononcedText,
@@ -319,18 +321,19 @@ export class TileComponent implements OnInit {
       (isFolder ? '-3px ' : '0px ') +
       '0px ' +
       (isFolder ? '-2px ' : '0px ') +
-      (element.Color === undefined || element.Color == null
+      (this.gridElementService.getStyle(element).BackgroundColor === undefined
+      || this.gridElementService.getStyle(element).BackgroundColor == null
         ? '#d3d3d3'
-        : element.Color);
+        : this.gridElementService.getStyle(element).BackgroundColor);
 
     s =
       s +
       ' , ' +
       (isFolder ? '4px ' : '0px ') +
       (isFolder ? '-4px ' : '0px ') +
-      (element.BorderColor === undefined || element.BorderColor == null
+      (this.gridElementService.getStyle(element).BorderColor === undefined || this.gridElementService.getStyle(element).BorderColor == null
         ? 'black'
-        : element.BorderColor);
+        : this.gridElementService.getStyle(element).BorderColor);
     return s;
   }
 

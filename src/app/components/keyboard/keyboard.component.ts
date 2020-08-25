@@ -13,6 +13,7 @@ import {SearchService} from '../../services/search.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
 import {LayoutService} from 'src/app/services/layout.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
+import {GridElementService} from '../../services/grid-element.service';
 
 @Component({
   selector: 'app-keyboard',
@@ -56,7 +57,8 @@ export class KeyboardComponent implements OnInit {
     public historicService: HistoricService,
     public editionService: EditionService,
     public layoutService: LayoutService,
-    public multilinguism: MultilinguismService
+    public multilinguism: MultilinguismService,
+    public gridElementService: GridElementService
   ) {
     this.gap = this.layoutService.options.margin;
   }
@@ -164,14 +166,16 @@ export class KeyboardComponent implements OnInit {
       (isFolder ? '-3px ' : '0px ') +
       '0px ' +
       (isFolder ? '-2px ' : '0px ') +
-      (element.Color === undefined || element.Color == null
+      (this.gridElementService.getStyle(element).BackgroundColor === undefined ||
+      this.gridElementService.getStyle(element).BackgroundColor == null
         ? '#d3d3d3'
-        : element.Color);
+        : this.gridElementService.getStyle(element).BackgroundColor);
 
     s = s + ' , ' +
       (isFolder ? '4px ' : '0px ') +
       (isFolder ? '-4px ' : '0px ') +
-      (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor);
+      (this.gridElementService.getStyle(element).BorderColor === undefined ||
+      this.gridElementService.getStyle(element).BorderColor == null ? 'black' : this.gridElementService.getStyle(element).BorderColor);
     return s;
   }
 
@@ -305,8 +309,8 @@ export class KeyboardComponent implements OnInit {
       // for button
       if (element.Type === 'button') {
         const prononcedText = this.boardService.getLabel(element);
-        const color = element.Color;
-        const borderColor = element.BorderColor;
+        const color = this.gridElementService.getStyle(element).BackgroundColor;
+        const borderColor = this.gridElementService.getStyle(element).BorderColor;
         const imgUrl = this.boardService.getImgUrl(element);
         const vignette: Vignette = {
           Label: prononcedText,
