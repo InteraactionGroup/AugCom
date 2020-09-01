@@ -210,3 +210,10 @@
 .menu-page-content::-webkit-scrollbar {
   display: none;
 }
+
+
+.test{
+  font-size: 90%;
+  margin-left: 20px;
+  background-color: #d1d5da;
+}

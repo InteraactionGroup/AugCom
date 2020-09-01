@@ -3,7 +3,7 @@
   -moz-user-select: none !important;
   -ms-user-select: none !important;
   user-select: none !important;
-  transition: height 0.5s;
+  /*transition: height 0.5s;*/
   overflow-y: auto;
   height: calc(100vh - 75px - 1.5cm);
 }
