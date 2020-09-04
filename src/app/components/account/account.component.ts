@@ -115,11 +115,30 @@ export class AccountComponent implements OnInit {
   selectedMenu = 'complementaryInfo';
   selectedSubMenu = 'contacts';
 
+  selectedNewMenu = 'Généralités sur l\'application';
+
   constructor(public multilinguism: MultilinguismService,
               public getIconService: GeticonService) {
   }
 
 
+
+  getMovingSelectorIndex(){
+    switch (this.selectedNewMenu) {
+      case 'Généralités sur l\'application' : return '0';
+      case 'Généralites sur la barre de phrase' : return '25%';
+      case 'Généralités sur les grilles' : return '50%';
+      case 'Généralités sur les pictogrammes' : return '75%';
+    }
+  }
+
+  selectNewMenu(menu){
+    this.selectedNewMenu = (menu as any[]) [0];
+  }
+
+  isSelectedMenu(menu){
+    return menu[0] === this.selectedNewMenu;
+  }
 
   containsArray(menu) {
     if(typeof menu === 'string'){

@@ -44,33 +44,6 @@
       </div>
     </div>
 
-<!--    <ng-container *ngFor="let menus1 of newMenu">-->
-<!--      <div class="test" *ngIf="containsArray(menus1)">-->
-<!--        {{menus1[0]}}-->
-<!--        <ng-container *ngFor="let menus2 of menus1.slice(1)">-->
-<!--          <div class="test" *ngIf="containsArray(menus2)">-->
-<!--            {{menus2[0]}}-->
-
-<!--            <ng-container *ngFor="let menus3 of menus2.slice(1)">-->
-<!--              <div class="test" *ngIf="containsArray(menus3)">-->
-<!--               {{menus3[0]}}-->
-
-<!--                <ng-container *ngFor="let menus4 of menus3.slice(1)">-->
-<!--                  <div class="test" *ngIf="containsArray(menus4)">-->
-<!--                   {{menus4[0]}}-->
-
-<!--                    <ng-container *ngFor="let menus5 of menus4.slice(1)">-->
-<!--                      <div class="test">{{menus5[0]}}</div>-->
-
-<!--                    </ng-container>-->
-<!--                  </div>-->
-<!--                </ng-container>-->
-<!--              </div>-->
-<!--            </ng-container>-->
-<!--          </div>-->
-<!--        </ng-container>-->
-<!--      </div>-->
-<!--    </ng-container>-->
 
     <div class="menu-page-container">
       <div class="menu-page">
@@ -86,7 +59,50 @@
             <!--              <app-account-information></app-account-information>-->
             <!--            </ng-container>-->
             <ng-container *ngIf="this.menuAVenir()">
-              <app-a-venir></app-a-venir>
+              <!--              <app-a-venir></app-a-venir>-->
+
+              <div style="width: 100%; height: 100%">
+                <div class="movingSelector" [ngStyle]="{'left' : this.getMovingSelectorIndex() }"></div>
+                <div style="position: relative;top: 0;left: 0;margin-top: -50px;">
+                  <div class="menuelt" *ngFor="let menu of newMenu" (click)="selectNewMenu(menu)"> {{menu[0]}}</div>
+                </div>
+                <div class="mainTest">
+                  <div class="mainTestTable">
+
+                    <ng-container *ngFor="let menus1 of newMenu">
+
+                      <div class="" *ngIf="containsArray(menus1) && isSelectedMenu(menus1)">
+                        <hr class="hrs">
+                        <ng-container *ngFor="let menus2 of menus1.slice(1)">
+                          <ng-container *ngIf="containsArray(menus2)">
+                            <div class="title">{{menus2[0]}}</div>
+
+                            <ng-container *ngFor="let menus3 of menus2.slice(1)">
+                              <ng-container *ngIf="containsArray(menus3)">
+                                <div class="test modifiable">{{menus3[0]}}</div>
+
+                                <ng-container *ngFor="let menus4 of menus3.slice(1)">
+                                  <ng-container *ngIf="containsArray(menus4)">
+                                    <div class="test modifiable">{{menus4[0]}}</div>
+
+                                    <ng-container *ngFor="let menus5 of menus4.slice(1)">
+                                      <div class="test modifiable">{{menus5[0]}}</div>
+
+                                    </ng-container>
+                                  </ng-container>
+                                </ng-container>
+                              </ng-container>
+                            </ng-container>
+                            <hr class="hrs">
+                          </ng-container>
+                        </ng-container>
+                      </div>
+
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+
             </ng-container>
             <ng-container *ngIf="selectedSubMenu==='saveManagement'">
               <app-saves></app-saves>

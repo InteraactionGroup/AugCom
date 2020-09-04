@@ -211,9 +211,61 @@
   display: none;
 }
 
+.title{
+  font-size: 90%;
+  margin-bottom: 5px;
+}
 
 .test{
-  font-size: 90%;
-  margin-left: 20px;
-  background-color: #d1d5da;
+  font-size: 80%;
+  padding-left: 20px;
+}
+
+.modifiable{
+  background-color: white;
+  margin: 2px;
+}
+
+.hrs{
+  border: 2px double lightgrey;
+  color: lightgrey;
+  background-color: lightgrey;
+  overflow: visible;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.mainTest{
+  height: calc(100% - 50px);
+  background-color: rgba(211, 211, 211, 0.51);;
+  border: 6px solid lightgrey ;
+  overflow-y: scroll;
+}
+
+.mainTestTable{
+  height: fit-content;
+  width: 100%;
+}
+
+.menuelt{
+  cursor: pointer;
+  width: calc(25% - 1px);
+  height: 50px;
+  display: inline-grid;
+  background-color: rgba(211, 211, 211, 0.51);
+  /*border: 2px solid black;*/
+  margin-right: 1px;
+  z-index: 1;
+  border-radius: 10px 10px 0 0
+}
+
+.movingSelector{
+  position: relative;
+  width: 25%;
+  height: 50px;
+  left: 0;
+  z-index: 0;
+  border-radius: 10px 10px 0 0;
+  background-color: lightgrey;
+  transition: left ease-in-out 0.2s;
 }
