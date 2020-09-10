@@ -56,10 +56,9 @@ describe('TileComponent', () => {
     component.userToolBarService.edit = true;
     component.boardService.currentPath = '#HOME';
     fixture.detectChanges();
-    expect(compiled.querySelectorAll('.element').length).toBeGreaterThan(0);
-    expect(compiled.querySelectorAll('.deleteElement').length).toBeGreaterThan(0);
-    expect(compiled.querySelectorAll('.selectCheckBox').length).toBeGreaterThan(0);
-    expect(compiled.querySelectorAll('.elementVisibility').length).toBeGreaterThan(0);
+    expect(compiled.querySelectorAll('.element').length).toEqual(1);
+    expect(compiled.querySelectorAll('.deleteElement').length).toEqual(1);
+    expect(compiled.querySelectorAll('.elementVisibility').length).toEqual(1);
   });
 
   it('should display home page and its elements', () => {
