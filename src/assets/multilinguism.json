@@ -101,6 +101,7 @@
     { "id" : "chooseFunction",  "FR" : "Choisissez une fonction", "EN" : "Choose a function" },
     { "id" : "interactions",  "FR" : "Interactions", "EN" : "Interactions" },
     { "id" : "otherForms",  "FR" : "Autres Formes", "EN" : "Other Forms" },
-    { "id" : "information",  "FR" : "Informations", "EN" : "Information" }
+    { "id" : "information",  "FR" : "Informations", "EN" : "Information" },
+    { "id" : "applicationLanguage",  "FR" : "Langue de l'application", "EN" : "Application Language" }
   ]
 }

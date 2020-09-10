@@ -4,4 +4,10 @@
   --main-bg-color2: darkgrey;
   --main-bg-color3: grey;
   --main-bg-color4: dimgrey;
+  --main-font: Arial, sans-serif;
+  --main-picto-font: Arial, sans-serif;
+}
+
+*{
+  font-family: var(--main-font)
 }

@@ -1,0 +1,58 @@
+<div class="width-100">
+
+  <div> Thème Général</div>
+  <div style="display: grid; grid-template-columns: max-content 20px">
+
+<!--    <div> Color 0:</div>-->
+<!--    <div class="newColor">-->
+<!--      <div class="mainColorPicker" [ngStyle]="{'background-color': 'var(&#45;&#45;main-bg-color0)'}"></div>-->
+<!--      <input [(ngModel)]="color0" class="colorPicker height-width-100" type="color"-->
+<!--             (input)="styleService.updateStyleColor0(color0)">-->
+<!--    </div>-->
+
+    <div> Color 1:</div>
+    <div class="newColor">
+      <div class="mainColorPicker" [ngStyle]="{'background-color': 'var(--main-bg-color1)'}"></div>
+      <input [(ngModel)]="color1" class="colorPicker height-width-100" type="color"
+             (input)="styleService.updateStyleColor1(color1)">
+    </div>
+
+    <div> Color 2:</div>
+    <div class="newColor">
+      <div class="mainColorPicker" [ngStyle]="{'background-color': 'var(--main-bg-color2)'}"></div>
+      <input [(ngModel)]="color2" class="colorPicker height-width-100" type="color"
+             (input)="styleService.updateStyleColor2(color2)">
+    </div>
+
+    <div> Color 3:</div>
+    <div class="newColor">
+      <div class="mainColorPicker" [ngStyle]="{'background-color': 'var(--main-bg-color3)'}"></div>
+      <input [(ngModel)]="color3" class="colorPicker height-width-100" type="color"
+             (input)="styleService.updateStyleColor3(color3)">
+    </div>
+
+    <div> Color 4:</div>
+    <div class="newColor">
+      <div class="mainColorPicker" [ngStyle]="{'background-color': 'var(--main-bg-color4)'}"></div>
+      <input [(ngModel)]="color4" class="colorPicker height-width-100" type="color"
+             (input)="styleService.updateStyleColor4(color4)">
+    </div>
+  </div>
+
+  <div> Style de police</div>
+
+  <div style="display: grid; grid-template-columns: 1fr  1fr">
+    <div class="languageSelection">
+      <label for="lang2">Choissez la police:</label>
+      <select [ngStyle]="{'font-family': option.value}" #option id="lang2" (input)="styleService.updateFont(option.value)" class="variantListBox">
+        <option value="Arial" style="font-family: Arial,sans-serif">Arial </option>
+        <option value="Karumbi" style="font-family: Karumbi ,sans-serif">Karumbi</option>
+        <option value="Chilanka" style="font-family: Chilanka,sans-serif"> Chilanka</option>
+      </select>
+    </div>
+  </div>
+
+  <div> Gestion des icones</div>
+
+</div>
+

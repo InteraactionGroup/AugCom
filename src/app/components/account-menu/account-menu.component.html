@@ -1,0 +1,84 @@
+<div class="height-width-100">
+
+  <div class="movingSelector" [ngStyle]="{'left' : this.getMovingSelectorIndex() }"></div>
+
+  <div style="position: relative;top: 0;left: 0;margin-top: -50px; background-color: transparent">
+    <div class="menuelt" *ngFor="let menu of newMenu" (click)="selectNewMenu(menu)"> {{menu[0]}}</div>
+  </div>
+
+  <div class="mainTest">
+
+    <div class="mainTestTable">
+
+      <ng-container *ngFor="let menus1 of newMenu">
+
+        <div class="" *ngIf="containsArray(menus1) && isSelectedMenu(menus1)">
+          <hr class="hrs">
+          <ng-container *ngFor="let menus2 of menus1.slice(1)">
+            <ng-container *ngIf="containsArray(menus2)">
+              <div class="title" (click)="selectedSection=menus2[0]" >{{menus2[0]}}</div>
+
+              <ng-container *ngFor="let menus3 of menus2.slice(1)">
+                <ng-container *ngIf="containsArray(menus3)">
+                  <div class="test modifiable"  (click)="selectedSection=menus3[0]">{{menus3[0]}}</div>
+
+                  <ng-container *ngFor="let menus4 of menus3.slice(1)">
+                    <ng-container *ngIf="containsArray(menus4)">
+                      <div class="test modifiable"  (click)="selectedSection=menus4[0]">{{menus4[0]}}</div>
+
+                      <ng-container *ngFor="let menus5 of menus4.slice(1)">
+                        <div class="test modifiable"  (click)="selectedSection=menus5[0]">{{menus5[0]}}</div>
+
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+              <hr class="hrs">
+            </ng-container>
+          </ng-container>
+        </div>
+
+      </ng-container>
+    </div>
+
+    <div class="menuContext">
+      <div class="menuContextTitle">{{this.selectedSection}}</div>
+      <div style="overflow-y: auto; width: 100%; height: 100%">
+      <ng-container *ngIf="isSelectedSection('gestion des palettes')">
+      <app-palettes></app-palettes>
+      </ng-container>
+
+      <ng-container *ngIf="isSelectedSection('Partager')">
+        <app-share></app-share>
+      </ng-container>
+
+        <ng-container *ngIf="isSelectedSection('Interaction')">
+          <app-settings></app-settings>
+        </ng-container>
+
+        <ng-container *ngIf="isSelectedSection('Langues')">
+          <app-language></app-language>
+        </ng-container>
+
+        <ng-container *ngIf="isSelectedSection('Theme de l\'application')">
+          <app-application-theme></app-application-theme>
+        </ng-container>
+
+        <ng-container *ngIf="isSelectedSection('Gestion des icones')">
+          <app-icons-management></app-icons-management>
+        </ng-container>
+
+        <ng-container *ngIf="isSelectedSection('Titre de la page')">
+          <app-page-title-management></app-page-title-management>
+        </ng-container>
+
+        <ng-container *ngIf="isSelectedSection('Format de la grille')">
+          <app-grid-format-management></app-grid-format-management>
+        </ng-container>
+
+      </div>
+    </div>
+
+  </div>
+</div>

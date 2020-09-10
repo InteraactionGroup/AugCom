@@ -22,133 +22,16 @@ export class AccountComponent implements OnInit {
 
 
 
-  newMenu = [
-    ['Généralités sur l\'application',
-      ['Apparence générale',
-        ['Theme de l\'application',
-          ['Theme général'],
-          ['Style de police'],
-          ['Gestion des icones']
-        ],
-        ['gestion des palettes']
-      ],
-      ['Interaction',
-        ['délais max pour doubleclick'],
-        ['temps de pression min pour longpress']],
-      ['Langues',
-        ['langue de l\'appli'],
-        ['langue de la synthèse vocale']
-      ],
-      ['Partager',
-        ['importer/exporter sauvegarde'],
-        ['importer zip'],
-        ['exporter PDF'],
-        ['importer S4Y, P2G, ...']
-      ]
-    ],
-    ['Généralites sur la barre de phrase',
-      ['Paramètres de la phrase',
-        ['affichage de la phrase'],
-        ['définir click sur la phrase']
-      ],
-      ['Apparence de la phrase',
-        ['visibilité texte et image'],
-        ['taille des picto'],
-        ['taille de la barre'],
-        ['afficher ou cacher la barre']
-      ],
-      ['Boutons de la phrase',
-        ['réordonner les boutons'],
-        ['afficher/cacher bouton partager'],
-        ['afficher/cacher effacer dernier'],
-        ['afficher/cacher effacer tout'],
-        ['afficher/cacher prononcer la phrase']
-      ]
-    ]
-    ,
-    ['Généralités sur les grilles',
-      ['Titre de la page',
-        ['nom/picto ou les deux'],
-        ['chemin absolu ou juste nom de la page']],
-      ['Format de la grille',
-        ['taille de la grille'],
-        ['espace entre les picto'],
-        ['thème du fond']
-      ]
-    ],
-    ['Généralités sur les pictogrammes',
-      ['Style du texte'],
-      ['Style du pictogramme',
-        ['afficher l\'image le texte ou les deux'],
-        ['position de l\'image par rapport au texte'],
-        ['pictogramme de base',
-          ['couleur principale'],
-          ['texte',
-            ['couleur'],
-            ['police'],
-            ['taille']
-          ],
-          ['bordures',
-            ['couleur des bords'],
-            ['modifier les angles'],
-            ['taille des bords']
-          ]
-        ],
-        ['pictogramme répertoire',
-          ['style du répertoire'],
-          ['couleur principale'],
-          ['texte',
-            ['couleur'],
-            ['police'],
-            ['taille']
-          ],
-          ['bordures',
-            ['couleur des bords'],
-            ['modifier les angles'],
-            ['taille des bords']
-          ]
-        ]
-      ]
-    ]
-  ];
 
   selectedMenu = 'complementaryInfo';
   selectedSubMenu = 'contacts';
 
-  selectedNewMenu = 'Généralités sur l\'application';
 
   constructor(public multilinguism: MultilinguismService,
               public getIconService: GeticonService) {
   }
 
 
-
-  getMovingSelectorIndex(){
-    switch (this.selectedNewMenu) {
-      case 'Généralités sur l\'application' : return '0';
-      case 'Généralites sur la barre de phrase' : return '25%';
-      case 'Généralités sur les grilles' : return '50%';
-      case 'Généralités sur les pictogrammes' : return '75%';
-    }
-  }
-
-  selectNewMenu(menu){
-    this.selectedNewMenu = (menu as any[]) [0];
-  }
-
-  isSelectedMenu(menu){
-    return menu[0] === this.selectedNewMenu;
-  }
-
-  containsArray(menu) {
-    if(typeof menu === 'string'){
-      return false;
-    }
-    // if((menu as any[]).length > 1){
-    //   return !(typeof menu[1] === 'string');
-    // }
-      return true;
-  }
 
   ngOnInit() {
   }

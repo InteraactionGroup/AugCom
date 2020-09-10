@@ -6,6 +6,8 @@ import {EditionService} from './edition.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
 import {LayoutService} from './layout.service';
 import {GridElementService} from './grid-element.service';
+import {UsertoolbarService} from './usertoolbar.service';
+import {MultilinguismService} from './multilinguism.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +18,9 @@ export class BoardService {
     public editionService: EditionService,
     public layoutService: LayoutService,
     public sanitizer: DomSanitizer,
-    public gridElementService: GridElementService
+    public gridElementService: GridElementService,
+    public usertoolbarService: UsertoolbarService,
+    public multilinguismService: MultilinguismService
   ) {
     this.board = Board;
     this.updateElementList();
@@ -69,9 +73,13 @@ export class BoardService {
           name = name + '?/';
         }
       }
+      if(this.usertoolbarService.titleFormat === 'nameOnly' ){
+        const nameSplited = name.split('/');
+        name = nameSplited.length>=2 ? nameSplited[nameSplited.length-2] : name;
+      }
       return name;
     }
-    return 'Accueil';
+    return this.multilinguismService.language=== 'FR' ? 'Accueil' : 'Home';
   }
 
   /*reset board with default Board value*/

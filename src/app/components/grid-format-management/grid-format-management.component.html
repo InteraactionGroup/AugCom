@@ -1,0 +1,14 @@
+
+<div> Style de police</div>
+
+<div style="display: grid; grid-template-columns: 1fr  1fr">
+  <div class="languageSelection">
+    <label for="lang2">Choissez la police:</label>
+    <select [ngStyle]="{'font-family': option.value}" #option id="lang2"  [(ngModel)]="this.styleService.pictogramTextStyle" class="variantListBox">
+      <option value="default" style="font-family: Arial,sans-serif"> Default Style, same as application </option>
+      <option value="Arial" style="font-family: Arial,sans-serif">Arial </option>
+      <option value="Karumbi" style="font-family: Karumbi ,sans-serif">Karumbi</option>
+      <option value="Chilanka" style="font-family: Chilanka,sans-serif"> Chilanka</option>
+    </select>
+  </div>
+</div>

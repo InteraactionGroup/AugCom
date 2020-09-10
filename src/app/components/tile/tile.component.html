@@ -19,7 +19,8 @@
         'border-width': this.gridElementService.getStyle(element).BorderWidth === null || this.gridElementService.getStyle(element).BorderWidth === undefined ? '3px' : this.gridElementService.getStyle(element).BorderWidth,
         'border-radius': this.gridElementService.getStyle(element).BorderRadius === null || this.gridElementService.getStyle(element).BorderRadius === undefined ? '3px' : this.gridElementService.getStyle(element).BorderRadius,
         'grid-template-rows': this.getGridTemplateRows(),
-        'grid-template-columns': this.getGridTemplateColumns()}">
+        'grid-template-columns': this.getGridTemplateColumns(),
+        'font-family': this.styleService.pictogramTextStyle === 'default'  ? 'var(--main-font)' : this.styleService.pictogramTextStyle+', sans serif'}">
 
     <div *ngIf="styleService.imageAndTextVisibility==='default'
     && ( styleService.pictoImagePosition==='down' || styleService.pictoImagePosition==='right')" class="adjustableText">

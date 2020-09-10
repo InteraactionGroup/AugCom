@@ -35,6 +35,11 @@ import { PrintComponent } from './components/print/print.component';
 import { TileComponent } from './components/tile/tile.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { GridsterModule } from 'angular-gridster2';
+import { AccountMenuComponent } from './components/account-menu/account-menu.component';
+import { ApplicationThemeComponent } from './components/application-theme/application-theme.component';
+import { IconsManagementComponent } from './components/icons-management/icons-management.component';
+import { PageTitleManagementComponent } from './components/page-title-management/page-title-management.component';
+import { GridFormatManagementComponent } from './components/grid-format-management/grid-format-management.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +68,12 @@ import { GridsterModule } from 'angular-gridster2';
     ErrorOnEditComponent,
     PrintComponent,
     TileComponent,
-    LayoutComponent
+    LayoutComponent,
+    AccountMenuComponent,
+    ApplicationThemeComponent,
+    IconsManagementComponent,
+    PageTitleManagementComponent,
+    GridFormatManagementComponent
   ],
   imports: [
     BrowserModule,

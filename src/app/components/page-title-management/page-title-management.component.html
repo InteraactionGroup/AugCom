@@ -1,0 +1,22 @@
+<div class="height-width-100">
+
+  <div style="display: grid; grid-template-columns: 1fr  1fr">
+    <div style="  margin: 20px ;width: fit-content;">
+      <label for="titleDisplay">Choissez l'affichage du titre:</label>
+      <select  id="titleDisplay" class="variantListBox" [(ngModel)]="usertoolbarService.titleDisplayValue">
+        <option value="default" >default </option>
+        <option value="imageOnly" >imageOnly </option>
+        <option value="textOnly" >textOnly </option>
+      </select>
+    </div>
+
+
+    <div style="  margin: 20px ;width: fit-content;">
+  <label for="titleFormat">Choissez l'affichage du titre:</label>
+  <select  id="titleFormat" class="variantListBox" [(ngModel)]="usertoolbarService.titleFormat">
+    <option value="default" >default </option>
+    <option value="nameOnly" >nameOnly </option>
+  </select>
+    </div>
+
+</div>
