@@ -1,16 +1,23 @@
 {
   "ID": "gridExample",
   "Type": "Grid",
-  "NumberOfCols": 4,
-  "NumberOfRows": 4,
+  "NumberOfCols": 5,
+  "NumberOfRows": 2,
+  "GapSize" : 5,
   "ElementList": [
     {
+      "style": {
+        "BackgroundColor": "lightgrey",
+        "BorderColor": "black",
+        "TextColor": "black",
+        "BorderWidth": "3px",
+        "BorderRadius": "10px"
+      },
       "ID": "moi",
       "Type": "button",
       "PartOfSpeech": "",
-      "Color": "#42d4f4",
-      "BorderColor": "#469990",
       "VisibilityLevel": 0,
+      "dragAndResizeEnabled": true,
       "ElementFormsList": [
         {
           "DisplayedText": "moi",
@@ -58,8 +65,7 @@
             }
           ]
         }
-      ],
-      "dragAndResizeEnabled": false
+      ]
     },
     {
       "ID": "fruits",
@@ -104,8 +110,13 @@
           ]
         }
       ],
-      "Color": "#a9a9a9",
-      "BorderColor": "#000000",
+      "style": {
+        "BackgroundColor": "lightgrey",
+        "BorderColor": "black",
+        "TextColor": "black",
+        "BorderWidth": "3px",
+        "BorderRadius": "10px"
+      },
       "VisibilityLevel": 0
     },
     {
@@ -151,8 +162,13 @@
           ]
         }
       ],
-      "Color": "#a9a9a9",
-      "BorderColor": "black",
+      "style": {
+        "BackgroundColor": "lightgrey",
+        "BorderColor": "black",
+        "TextColor": "black",
+        "BorderWidth": "3px",
+        "BorderRadius": "10px"
+      },
       "VisibilityLevel": 0
     },
     {
@@ -196,8 +212,13 @@
           ]
         }
       ],
-      "Color": "#fabebe",
-      "BorderColor": "#e6194B",
+      "style": {
+        "BackgroundColor": "lightgrey",
+        "BorderColor": "black",
+        "TextColor": "black",
+        "BorderWidth": "3px",
+        "BorderRadius": "10px"
+      },
       "VisibilityLevel": 0
     },
     {
@@ -241,8 +262,13 @@
           ]
         }
       ],
-      "Color": "#42d4f4",
-      "BorderColor": "#469990",
+      "style": {
+        "BackgroundColor": "lightgrey",
+        "BorderColor": "black",
+        "TextColor": "black",
+        "BorderWidth": "3px",
+        "BorderRadius": "10px"
+      },
       "VisibilityLevel": 0
     },
     {
@@ -286,8 +312,13 @@
           ]
         }
       ],
-      "Color": "#fffac8",
-      "BorderColor": "#ffe119",
+      "style": {
+        "BackgroundColor": "lightyellow",
+        "BorderColor": "yellow",
+        "TextColor": "yellow",
+        "BorderWidth": "10px",
+        "BorderRadius": "100px"
+      },
       "VisibilityLevel": 0
     },
     {
@@ -331,8 +362,13 @@
           ]
         }
       ],
-      "Color": "#aaffc3",
-      "BorderColor": "#3cb44b",
+      "style": {
+        "BackgroundColor": "lightgrey",
+        "BorderColor": "black",
+        "TextColor": "black",
+        "BorderWidth": "3px",
+        "BorderRadius": "10px"
+      },
       "VisibilityLevel": 0
     },
     {
@@ -378,8 +414,13 @@
           ]
         }
       ],
-      "Color": "#d3d3d3",
-      "BorderColor": "black",
+      "style": {
+        "BackgroundColor": "lightgrey",
+        "BorderColor": "black",
+        "TextColor": "black",
+        "BorderWidth": "3px",
+        "BorderRadius": "10px"
+      },
       "VisibilityLevel": 0
     },
     {
@@ -425,8 +466,13 @@
           ]
         }
       ],
-      "Color": "#d3d3d3",
-      "BorderColor": "black",
+      "style": {
+        "BackgroundColor": "lightgrey",
+        "BorderColor": "black",
+        "TextColor": "black",
+        "BorderWidth": "3px",
+        "BorderRadius": "10px"
+      },
       "VisibilityLevel": 0
     },
     {
@@ -470,8 +516,13 @@
           ]
         }
       ],
-      "Color": "#ffd8b1",
-      "BorderColor": "#f58231",
+      "style": {
+        "BackgroundColor": "lightgrey",
+        "BorderColor": "black",
+        "TextColor": "black",
+        "BorderWidth": "3px",
+        "BorderRadius": "10px"
+      },
       "VisibilityLevel": 0
     },
     {
@@ -515,8 +566,13 @@
           ]
         }
       ],
-      "Color": "#ffd8b1",
-      "BorderColor": "#f58231",
+      "style": {
+        "BackgroundColor": "lightgrey",
+        "BorderColor": "black",
+        "TextColor": "black",
+        "BorderWidth": "3px",
+        "BorderRadius": "10px"
+      },
       "VisibilityLevel": 0
     },
     {
@@ -560,8 +616,13 @@
           ]
         }
       ],
-      "Color": "#d3d3d3",
-      "BorderColor": "#a9a9a9",
+      "style": {
+        "BackgroundColor": "lightgrey",
+        "BorderColor": "black",
+        "TextColor": "black",
+        "BorderWidth": "3px",
+        "BorderRadius": "10px"
+      },
       "VisibilityLevel": 0
     },
     {
@@ -605,8 +666,13 @@
           ]
         }
       ],
-      "Color": "#d3d3d3",
-      "BorderColor": "#a9a9a9",
+      "style": {
+        "BackgroundColor": "lightgrey",
+        "BorderColor": "black",
+        "TextColor": "black",
+        "BorderWidth": "3px",
+        "BorderRadius": "10px"
+      },
       "VisibilityLevel": 0
     }
   ],
@@ -695,7 +761,10 @@
       "ElementIDsList": [
         "banane",
         "pomme"
-      ]
+      ],
+      "BackgroundColor": "lightyellow",
+      "NumberOfCols": 2,
+      "NumberOfRows": 1
     },
     {
       "ID": "lieux",

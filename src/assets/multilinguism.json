@@ -98,6 +98,9 @@
     { "id" : "importS4Y" , "FR" : "importer Speak4Yourself", "EN" : "import Speak4Yourself" },
     { "id" : "importProloquo" , "FR" : "importer Proloquo", "EN" : "import Proloquo" },
     { "id" : "function" , "FR" : "Fonction", "EN" : "Function" },
-    { "id" : "chooseFunction",  "FR" : "Choisissez une fonction", "EN" : "Choose a function" }
+    { "id" : "chooseFunction",  "FR" : "Choisissez une fonction", "EN" : "Choose a function" },
+    { "id" : "interactions",  "FR" : "Interactions", "EN" : "Interactions" },
+    { "id" : "otherForms",  "FR" : "Autres Formes", "EN" : "Other Forms" },
+    { "id" : "information",  "FR" : "Informations", "EN" : "Information" }
   ]
 }

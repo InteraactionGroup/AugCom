@@ -30,8 +30,21 @@
                       ]
                   },
           "PartOfSpeech": { "type": "string" },
-          "Color": { "type": "string" },
-          "BorderColor": { "type": "string" },
+          "style": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "BackgroundColor": { "type": "string" },
+                  "BorderColor": { "type": "string" },
+                  "TextColor": { "type": "string" }
+                }
+              }
+            ]
+          },
           "VisibilityLevel": { "type": "number", "multipleOf": 1.0 , "minimum": 0, "maximum" : 3},
           "ElementFormsList":  {"type": "array",
             "items": {
@@ -57,10 +70,10 @@
                     "type": "object",
                     "properties": {
                       "ID": { "type": "string" },
-                      "Action": { "type": "string" }
+                      "Options": { "type": "array" }
                     },
                     "additionalProperties": false,
-                    "required": ["ID", "Action"]
+                    "required": ["ID", "Options"]
                   }
                 }
               },
@@ -69,7 +82,7 @@
             }
           }
         },
-        "required": ["ID","Type","PartOfSpeech","Color","BorderColor","VisibilityLevel","ElementFormsList","InteractionsList"]
+        "required": ["ID","Type","PartOfSpeech","style","VisibilityLevel","ElementFormsList","InteractionsList"]
       }
     } ,
     "ImageList":{
@@ -93,13 +106,13 @@
           "Name" : { "type": "string" },
           "ElementIDsList": {"type": "array",
             "items": {"type": "string" }
-          }
+          },
+          "NumberOfCols": { "type":"number" },
+          "NumberOfRows": { "type":"number" }
         },
-        "additionalProperties": false,
         "required": ["ID","Name","ElementIDsList"]
       }
     }
   },
-  "additionalProperties": false,
   "required": ["ID","Type","NumberOfCols","NumberOfRows","ElementList","ImageList","PageList"]
 }
