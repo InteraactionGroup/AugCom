@@ -1,14 +1,26 @@
+<div> Dimensions de la grille</div>
 
-<div> Style de police</div>
+<div style="  margin: 20px ;width: fit-content; display: grid; grid-template-columns: max-content max-content ">
+  <label for="col" >Choississez le nombre de colonnes:</label>
+    <input id="col" value="{{this.boardService.getNumberOfCols()}}" type="number" min="1"
+           (change)="onKeyCols($event)">
 
-<div style="display: grid; grid-template-columns: 1fr  1fr">
-  <div class="languageSelection">
-    <label for="lang2">Choissez la police:</label>
-    <select [ngStyle]="{'font-family': option.value}" #option id="lang2"  [(ngModel)]="this.styleService.pictogramTextStyle" class="variantListBox">
-      <option value="default" style="font-family: Arial,sans-serif"> Default Style, same as application </option>
-      <option value="Arial" style="font-family: Arial,sans-serif">Arial </option>
-      <option value="Karumbi" style="font-family: Karumbi ,sans-serif">Karumbi</option>
-      <option value="Chilanka" style="font-family: Chilanka,sans-serif"> Chilanka</option>
-    </select>
+    <label for="row" >Choississez le nombre de colonnes:</label>
+    <input id="row"  value="{{this.boardService.getNumberOfRows()}}" type="number" min="1"
+           (change)="onKeyRows($event)">
+
+    <label for="gap" >Choississez l'écart entre les pictogrammes:</label>
+    <input id="gap"  value="{{this.boardService.getGapSize()}}" type="number" min="0"
+           (change)="onKeyGap($event)">
+</div>
+
+
+<div> Thème de fond </div>
+
+<div style=" margin: 20px ;width: fit-content; display: grid; grid-template-columns: max-content 20px ">
+  <div> Choisissez le couleur:</div>
+  <div class="newColor">
+    <div class="mainColorPicker" [ngStyle]="{'background-color': this.boardService.getGridBackgroundColorValue() }"></div>
+    <input  class="colorPicker height-width-100" type="color" [(ngModel)]="this.boardService.board.BackgroundColor">
   </div>
 </div>

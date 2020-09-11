@@ -40,6 +40,7 @@ import { ApplicationThemeComponent } from './components/application-theme/applic
 import { IconsManagementComponent } from './components/icons-management/icons-management.component';
 import { PageTitleManagementComponent } from './components/page-title-management/page-title-management.component';
 import { GridFormatManagementComponent } from './components/grid-format-management/grid-format-management.component';
+import { PictogramStyleComponent } from './components/pictogram-style/pictogram-style.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { GridFormatManagementComponent } from './components/grid-format-manageme
     ApplicationThemeComponent,
     IconsManagementComponent,
     PageTitleManagementComponent,
-    GridFormatManagementComponent
+    GridFormatManagementComponent,
+    PictogramStyleComponent
   ],
   imports: [
     BrowserModule,

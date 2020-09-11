@@ -8,7 +8,7 @@ export class StyleService {
   constructor() { }
 
   imageAndTextVisibility = 'default'; // can be 'default' 'imageOnly' and 'textOnly'
-  pictoImagePosition = 'right'; // can take 'down', 'left', 'right' if imageAndTextVisibiliy is 'default'
+  pictoImagePosition = 'down'; // can take 'down', 'left', 'right' if imageAndTextVisibiliy is 'default'
 
   pictogramTextStyle = 'default'; // default is taking the font style of the application while other styles applyies only to pictograms
 

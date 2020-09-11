@@ -530,4 +530,16 @@ export class BoardService {
       return this.board.GapSize;
     }
   }
+
+  public getGridBackgroundColorValue() : string{
+    if (
+      this.board.BackgroundColor === undefined ||
+      this.board.BackgroundColor === null ||
+      this.board.BackgroundColor === 'default' ){
+      return 'grey'
+    } else {
+      return this.board.BackgroundColor;
+    }
+  }
+
 }

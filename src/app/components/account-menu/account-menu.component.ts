@@ -10,19 +10,22 @@ export class AccountMenuComponent implements OnInit {
 
   newMenu = [
     ['Application',
-      ['Apparence générale',
-        ['Theme de l\'application',
-          // ['Theme général'],
-          // ['Style de police'],
-          ['Gestion des icones']
-        ],
-        ['gestion des palettes']
-      ],
+      // ['Apparence générale',
+      //   ['Theme de l\'application',
+      //     // ['Theme général'],
+      //     // ['Style de police'],
+      //     ['Gestion des icones']
+      //   ],
+      //   ['gestion des palettes']
+      // ],
+      ['Theme de l\'application'],
+      ['Gestion des icones'],
+      ['gestion des palettes'],
       ['Interaction'// ,
         // ['délais max pour doubleclick'],
         // ['temps de pression min pour longpress']
       ],
-      ['Langues' //,
+      ['Langues' // ,
         // ['langue de l\'appli'],
         // ['langue de la synthèse vocale']
       ],
@@ -58,17 +61,14 @@ export class AccountMenuComponent implements OnInit {
         // ['nom/picto ou les deux'],
         // ['chemin absolu ou juste nom de la page']
       ],
-      ['Format de la grille',
-        ['taille de la grille'],
-        ['espace entre les picto'],
-        ['thème du fond']
+      ['Format de la grille' // ,
+        // ['taille de la grille'],
+        // ['espace entre les picto'],
+        // ['thème du fond']
       ]
     ],
     ['Pictogrammes',
-      ['Style du texte'],
       ['Style du pictogramme',
-        ['afficher l\'image le texte ou les deux'],
-        ['position de l\'image par rapport au texte'],
         ['pictogramme de base',
           ['couleur principale'],
           ['texte',
@@ -81,9 +81,13 @@ export class AccountMenuComponent implements OnInit {
             ['modifier les angles'],
             ['taille des bords']
           ]
-        ],
-        ['pictogramme répertoire',
-          ['style du répertoire'],
+        ]
+      ],
+      ['Style du pictogramme repertoire',
+        ['style du répertoire'],
+        ['afficher l\'image le texte ou les deux'],
+        ['position de l\'image par rapport au texte'],
+        ['pictogramme de base',
           ['couleur principale'],
           ['texte',
             ['couleur'],

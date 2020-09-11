@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {StyleService} from '../../services/style.service';
+import {Page} from '../../types';
+import {BoardService} from '../../services/board.service';
+import {LayoutService} from '../../services/layout.service';
 
 @Component({
   selector: 'app-grid-format-management',
@@ -8,9 +11,31 @@ import {StyleService} from '../../services/style.service';
 })
 export class GridFormatManagementComponent implements OnInit {
 
-  constructor(public styleService: StyleService) { }
+  constructor(public styleService: StyleService, public  boardService: BoardService, public layoutService: LayoutService) {
+  }
 
   ngOnInit(): void {
+  }
+
+  onKeyCols(event: any) {
+    if (+event.target.value >= 1) {
+      this.boardService.board.NumberOfCols = +event.target.value;
+      this.layoutService.refreshAll(this.boardService.getNumberOfCols(),this.boardService.getNumberOfRows(),this.boardService.getGapSize());
+    }
+  }
+
+  onKeyRows(event: any) {
+    if (+event.target.value >= 1) {
+      this.boardService.board.NumberOfRows = +event.target.value;
+      this.layoutService.refreshAll(this.boardService.getNumberOfCols(),this.boardService.getNumberOfRows(),this.boardService.getGapSize());
+    }
+  }
+
+  onKeyGap(event: any) {
+    if (+event.target.value >= 1) {
+      this.boardService.board.GapSize = +event.target.value;
+      this.layoutService.refreshAll(this.boardService.getNumberOfCols(),this.boardService.getNumberOfRows(),this.boardService.getGapSize());
+    }
   }
 
 }
