@@ -20,18 +20,25 @@
         'border-radius': this.gridElementService.getStyle(element).BorderRadius === null || this.gridElementService.getStyle(element).BorderRadius === undefined ? '3px' : this.gridElementService.getStyle(element).BorderRadius,
         'grid-template-rows': this.getGridTemplateRows(),
         'grid-template-columns': this.getGridTemplateColumns(),
-        'font-family': this.styleService.pictogramTextStyle === 'default'  ? 'var(--main-font)' : this.styleService.pictogramTextStyle+', sans serif'}">
+        'font-family': this.getFontFamily()}">
 
-    <div *ngIf="styleService.imageAndTextVisibility==='default'
-    && ( styleService.pictoImagePosition==='down' || styleService.pictoImagePosition==='right')" class="adjustableText">
+    <div *ngIf="
+    (!isFolder(element) && styleService.imageAndTextVisibilityPicto==='default' && ( styleService.imagePositionPicto==='down' || styleService.imagePositionPicto==='right')) ||
+(isFolder(element) && styleService.imageAndTextVisibilityRepo==='default' && ( styleService.imagePositionRepo==='down' || styleService.imagePositionRepo==='right'))"
+         class="adjustableText">
       {{this.boardService.getLabel(element)}}
     </div>
 
-    <div *ngIf="styleService.imageAndTextVisibility!='textOnly'" class="image haveBackgroundImage" [style.background-image]="this.boardService.getImgUrl(element)"></div>
+    <div *ngIf="(!isFolder(element) && styleService.imageAndTextVisibilityPicto!='textOnly') ||
+    (isFolder(element) && styleService.imageAndTextVisibilityRepo!='textOnly')"
+         class="image haveBackgroundImage" [style.background-image]="this.boardService.getImgUrl(element)"></div>
 
-    <div *ngIf="
-    (styleService.imageAndTextVisibility==='default' && ( styleService.pictoImagePosition==='up' || styleService.pictoImagePosition==='left' )) ||
-    (styleService.imageAndTextVisibility==='textOnly')" class="adjustableText">
+    <div *ngIf=" (!isFolder(element) &&
+    ((styleService.imageAndTextVisibilityPicto==='default' && ( styleService.imagePositionPicto==='up' || styleService.imagePositionPicto==='left' )) ||
+    (styleService.imageAndTextVisibilityPicto==='textOnly'))) ||
+      (isFolder(element) &&
+    ((styleService.imageAndTextVisibilityRepo==='default' && ( styleService.imagePositionRepo==='up' || styleService.imagePositionRepo==='left' )) ||
+    (styleService.imageAndTextVisibilityRepo==='textOnly')))" class="adjustableText">
       {{this.boardService.getLabel(element)}}
     </div>
 

@@ -6,7 +6,7 @@
 
   <div style=" margin: 20px ;width: fit-content;">
     <label for="imageAndTextVisibility">Choissez le style de pictograme:</label>
-    <select  id="imageAndTextVisibility" class="variantListBox" [(ngModel)]="styleService.imageAndTextVisibility">
+    <select  id="imageAndTextVisibility" class="variantListBox" [(ngModel)]="styleService.imageAndTextVisibilityPicto">
       <option value="default" >default </option>
       <option value="imageOnly" >imageOnly </option>
       <option value="textOnly" >textOnly </option>
@@ -15,7 +15,7 @@
 
   <div style=" margin: 20px ;width: fit-content;">
     <label for="pictoImagePosition">Choissez la position de l'image du pictograme:</label>
-    <select [disabled]="styleService.imageAndTextVisibility !== 'default'" id="pictoImagePosition" class="variantListBox" [(ngModel)]="styleService.pictoImagePosition">
+    <select [disabled]="styleService.imageAndTextVisibilityPicto !== 'default'" id="pictoImagePosition" class="variantListBox" [(ngModel)]="styleService.imagePositionPicto">
       <option value="up" >up </option>
       <option value="down" >down </option>
       <option value="right" >right </option>
@@ -26,7 +26,7 @@
 
 <div style="  margin: 20px ;width: fit-content; display: grid; grid-template-columns: max-content max-content ">
   <label for="lang2">Choissez la police:</label>
-  <select [ngStyle]="{'font-family': option.value}" #option id="lang2"  [(ngModel)]="this.styleService.pictogramTextStyle" class="variantListBox">
+  <select [ngStyle]="{'font-family': option.value}" #option id="lang2" [(ngModel)]="this.styleService.textStylePicto" class="variantListBox">
     <option value="default" style="font-family: Arial,sans-serif"> Default Style, same as application </option>
     <option value="Arial" style="font-family: Arial,sans-serif">Arial </option>
     <option value="Karumbi" style="font-family: Karumbi ,sans-serif">Karumbi</option>
@@ -50,7 +50,7 @@
 
   <div style=" margin: 20px ;width: fit-content;">
     <label for="imageAndTextVisibility_R">Choissez le style de pictograme:</label>
-    <select  id="imageAndTextVisibility_R" class="variantListBox" [(ngModel)]="styleService.imageAndTextVisibility">
+    <select  id="imageAndTextVisibility_R" class="variantListBox" [(ngModel)]="styleService.imageAndTextVisibilityRepo">
       <option value="default" >default </option>
       <option value="imageOnly" >imageOnly </option>
       <option value="textOnly" >textOnly </option>
@@ -59,7 +59,7 @@
 
   <div style=" margin: 20px ;width: fit-content;">
     <label for="pictoImagePosition_R">Choissez la position de l'image du pictograme:</label>
-    <select [disabled]="styleService.imageAndTextVisibility !== 'default'" id="pictoImagePosition_R" class="variantListBox" [(ngModel)]="styleService.pictoImagePosition">
+    <select [disabled]="styleService.imageAndTextVisibilityRepo !== 'default'" id="pictoImagePosition_R" class="variantListBox" [(ngModel)]="styleService.imagePositionRepo">
       <option value="up" >up </option>
       <option value="down" >down </option>
       <option value="right" >right </option>
@@ -70,7 +70,7 @@
 
   <div style="  margin: 20px ;width: fit-content; display: grid; grid-template-columns: max-content max-content ">
     <label for="lang2_R">Choissez la police:</label>
-    <select [ngStyle]="{'font-family': option.value}" #option id="lang2_R"  [(ngModel)]="this.styleService.pictogramTextStyle" class="variantListBox">
+    <select [ngStyle]="{'font-family': option2.value}" #option2 id="lang2_R" [(ngModel)]="this.styleService.textStyleRepo" class="variantListBox">
       <option value="default" style="font-family: Arial,sans-serif"> Default Style, same as application </option>
       <option value="Arial" style="font-family: Arial,sans-serif">Arial </option>
       <option value="Karumbi" style="font-family: Karumbi ,sans-serif">Karumbi</option>

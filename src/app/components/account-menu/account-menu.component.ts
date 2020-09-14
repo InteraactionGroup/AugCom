@@ -68,39 +68,39 @@ export class AccountMenuComponent implements OnInit {
       ]
     ],
     ['Pictogrammes',
-      ['Style du pictogramme',
-        ['pictogramme de base',
-          ['couleur principale'],
-          ['texte',
-            ['couleur'],
-            ['police'],
-            ['taille']
-          ],
-          ['bordures',
-            ['couleur des bords'],
-            ['modifier les angles'],
-            ['taille des bords']
-          ]
-        ]
-      ],
-      ['Style du pictogramme repertoire',
-        ['style du répertoire'],
-        ['afficher l\'image le texte ou les deux'],
-        ['position de l\'image par rapport au texte'],
-        ['pictogramme de base',
-          ['couleur principale'],
-          ['texte',
-            ['couleur'],
-            ['police'],
-            ['taille']
-          ],
-          ['bordures',
-            ['couleur des bords'],
-            ['modifier les angles'],
-            ['taille des bords']
-          ]
-        ]
-      ]
+      ['Style du pictogramme'// ,
+        // ['pictogramme de base',
+        //   ['couleur principale'],
+        //   ['texte',
+        //     ['couleur'],
+        //     ['police'],
+        //     ['taille']
+        //   ],
+        //   ['bordures',
+        //     ['couleur des bords'],
+        //     ['modifier les angles'],
+        //     ['taille des bords']
+        //   ]
+        // ]
+      ] // ,
+      // ['Style du pictogramme repertoire'// ,
+      //   // ['style du répertoire'],
+      //   // ['afficher l\'image le texte ou les deux'],
+      //   // ['position de l\'image par rapport au texte'],
+      //   // ['pictogramme de base',
+      //   //   // ['couleur principale'],
+      //   //   // ['texte',
+      //   //   //   ['couleur'],
+      //   //   //   ['police'],
+      //   //   //   ['taille']
+      //   //   // ],
+      //   //   // ['bordures',
+      //   //   //   ['couleur des bords'],
+      //   //   //   ['modifier les angles'],
+      //   //   //   ['taille des bords']
+      //   //   // ]
+      //   // ]
+      // ]
     ]
   ];
 

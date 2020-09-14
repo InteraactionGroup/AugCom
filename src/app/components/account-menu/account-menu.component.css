@@ -1,8 +1,17 @@
 
 .title{
   font-size: 90%;
-  margin-bottom: 5px;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 2px;
 }
+
+.title:hover{
+  background-color: var(--main-bg-color1);
+}
+.title:active{
+   background-color: var(--main-bg-color2);
+ }
 
 .test{
   font-size: 80%;
@@ -15,12 +24,12 @@
 }
 
 .hrs{
-  border: 2px double var(--main-bg-color1);
+  /*border: 2px double var(--main-bg-color1);*/
+  width: calc(100% - 6px);
+  margin: 0 0 0 3px;
   color: var(--main-bg-color1);
   background-color: var(--main-bg-color1);
   overflow: visible;
-  margin-top: 10px;
-  margin-bottom: 5px;
 }
 
 .mainTest{

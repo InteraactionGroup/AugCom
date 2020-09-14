@@ -313,8 +313,14 @@ export class TileComponent implements OnInit {
    * @param  element, the element for which the shadow is beeing returned
    * @return  the string corresponding to the box-shadow effect
    */
+
+  isFolder(element : GridElement ){
+    return (element.Type as FolderGoTo).GoTo !== undefined;
+  }
+
+
   getShadow(element: GridElement) {
-    const isFolder = (element.Type as FolderGoTo).GoTo !== undefined;
+    const isFolder = this.isFolder(element);
 
     let s =
       (isFolder ? '3px ' : '0px ') +
@@ -338,19 +344,19 @@ export class TileComponent implements OnInit {
   }
 
   getWidth(element: GridElement) {
-    const isFolder = (element.Type as FolderGoTo).GoTo !== undefined;
+    const isFolder = this.isFolder(element);
     const s = isFolder ? 'calc(100% - 5px)' : '100%';
     return s;
   }
 
   getHeight(element: GridElement) {
-    const isFolder = (element.Type as FolderGoTo).GoTo !== undefined;
+    const isFolder = this.isFolder(element);
     const s = isFolder ? 'calc(100% - 5px)' : '100%';
     return s;
   }
 
   getMarginTop(element: GridElement) {
-    const isFolder = (element.Type as FolderGoTo).GoTo !== undefined;
+    const isFolder = this.isFolder(element);
     const s = isFolder ? '5px' : '0';
     return s;
   }
@@ -405,12 +411,12 @@ export class TileComponent implements OnInit {
 
 
   getGridTemplateRows(){
-    if(this.styleService.imageAndTextVisibility === 'default'){
-      if(this.styleService.pictoImagePosition === 'up') {
+    if(this.styleService.imageAndTextVisibilityPicto === 'default'){
+      if(this.styleService.imagePositionPicto === 'up') {
         return '75% 25%';
-      } else if (this.styleService.pictoImagePosition === 'down'){
+      } else if (this.styleService.imagePositionPicto === 'down'){
         return '25% 75%';
-      }else if (this.styleService.pictoImagePosition === 'left' || this.styleService.pictoImagePosition === 'right'){
+      }else if (this.styleService.imagePositionPicto === 'left' || this.styleService.imagePositionPicto === 'right'){
         return '100%';
       }
     } else {
@@ -419,16 +425,39 @@ export class TileComponent implements OnInit {
   }
 
   getGridTemplateColumns(){
-    if(this.styleService.imageAndTextVisibility === 'default') {
-      if (this.styleService.pictoImagePosition === 'up' || this.styleService.pictoImagePosition === 'down') {
-        return '100%'
-      } else if (this.styleService.pictoImagePosition === 'left') {
-        return '60% 40%'
-      } else if (this.styleService.pictoImagePosition === 'right') {
-        return '40% 60%'
+    if(!this.isFolder(this.element)){
+      if(this.styleService.imageAndTextVisibilityPicto === 'default') {
+        if (this.styleService.imagePositionPicto === 'up' || this.styleService.imagePositionPicto === 'down') {
+          return '100%'
+        } else if (this.styleService.imagePositionPicto === 'left') {
+          return '60% 40%'
+        } else if (this.styleService.imagePositionPicto === 'right') {
+          return '40% 60%'
+        }
+      } else {
+        return '100%';
       }
+    }
+    if(this.isFolder(this.element)){
+      if(this.styleService.imageAndTextVisibilityRepo === 'default') {
+        if (this.styleService.imagePositionRepo === 'up' || this.styleService.imagePositionRepo === 'down') {
+          return '100%'
+        } else if (this.styleService.imagePositionRepo === 'left') {
+          return '60% 40%'
+        } else if (this.styleService.imagePositionRepo === 'right') {
+          return '40% 60%'
+        }
+      } else {
+        return '100%';
+      }
+    }
+  }
+
+  getFontFamily(){
+    if(this.isFolder(this.element)){
+      return this.styleService.textStyleRepo === 'default' ? 'var(--main-font)' : this.styleService.textStyleRepo + ', sans serif';
     } else {
-      return '100%';
+     return this.styleService.textStylePicto === 'default' ? 'var(--main-font)' : this.styleService.textStylePicto + ', sans serif';
     }
   }
 

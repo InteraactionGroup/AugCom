@@ -7,10 +7,13 @@ export class StyleService {
 
   constructor() { }
 
-  imageAndTextVisibility = 'default'; // can be 'default' 'imageOnly' and 'textOnly'
-  pictoImagePosition = 'down'; // can take 'down', 'left', 'right' if imageAndTextVisibiliy is 'default'
+  imageAndTextVisibilityPicto = 'default'; // can be 'default' 'imageOnly' and 'textOnly'
+  imagePositionPicto = 'down'; // can take 'down', 'left', 'right' if imageAndTextVisibiliy is 'default'
+  textStylePicto = 'default'; // default is taking the font style of the application while other styles applyies only to pictograms
 
-  pictogramTextStyle = 'default'; // default is taking the font style of the application while other styles applyies only to pictograms
+  imageAndTextVisibilityRepo = 'default'; // can be 'default' 'imageOnly' and 'textOnly'
+  imagePositionRepo = 'down'; // can take 'down', 'left', 'right' if imageAndTextVisibiliy is 'default'
+  textStyleRepo = 'default'; // default is taking the font style of the application while other styles applyies only to pictograms
 
   updateStyle(color1: string, color2: string, color3: string, color4: string){
     const root = document.getElementById('main');
