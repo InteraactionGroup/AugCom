@@ -12,6 +12,7 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 import {StyleService} from '../../services/style.service';
 import {FolderGoTo} from '../../types';
 import {EditionService} from '../../services/edition.service';
+import {DwellCursorService} from "../../services/dwell-cursor.service";
 
 @Component({
   selector: 'app-usertoolbar',
@@ -31,12 +32,14 @@ export class UsertoolbarComponent implements OnInit {
     public layoutService: LayoutService,
     private multilinguism: MultilinguismService,
     public styleService: StyleService,
-    public editionService: EditionService
+    public editionService: EditionService,
+    private dwellCursorService: DwellCursorService
   ) {
   }
 
   /*text to search in the searchBar*/
   searchText = '';
+  dwellTimer;
 
   ngOnInit() {
   }
@@ -103,6 +106,18 @@ export class UsertoolbarComponent implements OnInit {
     //   clearInterval(interval);
     // },600);
 
+  }
+
+  exit() {
+    this.dwellCursorService.stop()
+    window.clearTimeout(this.dwellTimer);
+  }
+
+  enter() {
+    this.dwellCursorService.playToMax(this.dwellCursorService.DWELL_TIME_VALUE)
+    this.dwellTimer = window.setTimeout(() => {
+      this.boardService.backToPreviousFolder();
+    }, this.dwellCursorService.DWELL_TIME_VALUE);
   }
 
   /*open search bar*/

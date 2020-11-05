@@ -1,0 +1,26 @@
+.cursor {
+  z-index: 99999999999999999;
+  width: 20px;
+  height: 20px;
+  border: 1px solid white;
+  border-radius: 50%;
+  position: absolute;
+  transition-duration: 200ms;
+  pointer-events: none;
+}
+
+progress {
+  width: 40px;
+}
+
+p {
+  color: white;
+  font-family: 'arial';
+  text-align: center;
+  margin-top: 50px;
+  font-size: 1.4em;
+}
+
+a {
+  color: teal;
+}

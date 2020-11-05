@@ -11,6 +11,8 @@ import {SearchService} from '../../services/search.service';
 import {LayoutService} from '../../services/layout.service';
 import {StyleService} from '../../services/style.service';
 import {GridElementService} from '../../services/grid-element.service';
+import {DwellCursorComponent} from "../dwell-cursor/dwell-cursor.component";
+import {DwellCursorService} from "../../services/dwell-cursor.service";
 
 @Component({
   selector: 'app-tile',
@@ -23,6 +25,7 @@ export class TileComponent implements OnInit {
    * the current pressTimer started when pressing an element and ending on release
    */
   pressTimer;
+  dwellTimer;
   dblClickTimer;
 
   /**
@@ -48,7 +51,8 @@ export class TileComponent implements OnInit {
     private getIconService: GeticonService,
     public layoutService: LayoutService,
     public styleService: StyleService,
-    public gridElementService: GridElementService
+    public gridElementService: GridElementService,
+    private dwellCursorService : DwellCursorService
   ) {
   }
 
@@ -60,6 +64,18 @@ export class TileComponent implements OnInit {
       this.pressedElement = null;
       this.down = 0;
     }, this.parametersService.longpressTimeOut);
+  }
+
+  exit() {
+    this.dwellCursorService.stop()
+    window.clearTimeout(this.dwellTimer);
+  }
+
+  enter(element) {
+    this.dwellCursorService.playToMax(this.dwellCursorService.DWELL_TIME_VALUE)
+    this.dwellTimer = window.setTimeout(() => {
+      this.action(element, 'click');
+    }, this.dwellCursorService.DWELL_TIME_VALUE);
   }
 
   setClickTimer(element) {

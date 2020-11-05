@@ -41,6 +41,7 @@ import { IconsManagementComponent } from './components/icons-management/icons-ma
 import { PageTitleManagementComponent } from './components/page-title-management/page-title-management.component';
 import { GridFormatManagementComponent } from './components/grid-format-management/grid-format-management.component';
 import { PictogramStyleComponent } from './components/pictogram-style/pictogram-style.component';
+import { DwellCursorComponent } from './components/dwell-cursor/dwell-cursor.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { PictogramStyleComponent } from './components/pictogram-style/pictogram-
     IconsManagementComponent,
     PageTitleManagementComponent,
     GridFormatManagementComponent,
-    PictogramStyleComponent
+    PictogramStyleComponent,
+    DwellCursorComponent
   ],
   imports: [
     BrowserModule,

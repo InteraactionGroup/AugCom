@@ -4,6 +4,8 @@
 
   <div class="element" [class.notsearched]="searchStarted()&&!isSearched(element)"
        (click)="this.select(element)"
+       (pointerenter)="enter(element)"
+       (pointerleave)="exit()"
        [class.searched]="searchStarted()&&isSearched(element)" [class.blurredElt]="element.ID==='#disable'"
        (dblclick)="this.edit(element)" (touchstart)="this.pointerDown(element,0)" (touchend)="this.pointerUp(element,0)"
        (pointerdown)="this.pointerDown(element,1)" (pointerup)="this.pointerUp(element,1)" [ngStyle]="{
