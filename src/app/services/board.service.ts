@@ -8,6 +8,7 @@ import {LayoutService} from './layout.service';
 import {GridElementService} from './grid-element.service';
 import {UsertoolbarService} from './usertoolbar.service';
 import {MultilinguismService} from './multilinguism.service';
+import {ConfigurationService} from "./configuration.service";
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,7 @@ export class BoardService {
     public sanitizer: DomSanitizer,
     public gridElementService: GridElementService,
     public usertoolbarService: UsertoolbarService,
-    public multilinguismService: MultilinguismService
+    public configurationService: ConfigurationService
   ) {
     this.board = Board;
     this.updateElementList();
@@ -79,7 +80,7 @@ export class BoardService {
       }
       return name;
     }
-    return this.multilinguismService.language=== 'FR' ? 'Accueil' : 'Home';
+    return this.configurationService.language=== 'FR' ? 'Accueil' : 'Home';
   }
 
   /*reset board with default Board value*/

@@ -6,6 +6,14 @@
   border-radius: 2px;
 }
 
+.titleSelected{
+  font-size: 90%;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 2px;
+  background-color: var(--main-bg-color1);
+}
+
 .title:hover{
   background-color: var(--main-bg-color1);
 }
@@ -47,19 +55,27 @@
 
 .menuelt{
   cursor: pointer;
-  width: calc(25% - 1px);
+  /*width: calc(25% - 1px);*/
+  width: calc(33% - 1px);
   height: 50px;
   display: inline-grid;
   background-color: rgba(211, 211, 211, 0.51);
   /*border: 2px solid black;*/
   margin-right: 1px;
   z-index: 1;
-  border-radius: 10px 10px 0 0
+  border-radius: 10px 10px 0 0;
+  text-align: center;
+}
+
+.menueltlabel{
+  margin: auto;
+  text-align: center;
 }
 
 .movingSelector{
   position: relative;
-  width: 25%;
+  /*width: 25%;*/
+  width: 33%;
   height: 50px;
   left: 0;
   z-index: 0;
@@ -74,10 +90,16 @@
   border-left:  4px solid var(--main-bg-color1);
   display: grid;
   grid-template-rows: 50px 1fr;
+  overflow: hidden;
 }
 
 .menuContextTitle{
   background-color: var(--main-bg-color1);
   width: 100%;
   height: 100%;
+  display: inline-grid;
+}
+
+.menuContextTitleText{
+  margin: auto auto auto 5px;
 }

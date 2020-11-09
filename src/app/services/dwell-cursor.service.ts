@@ -5,8 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class DwellCursorService {
 
-  public DWELL_TIME_VALUE = 500;
-
   public visible = false;
   public started = false;
   public maxValue = 0;

@@ -11,7 +11,9 @@ import {UsertoolbarService} from '../../services/usertoolbar.service';
 })
 export class BackHomeBarComponent implements OnInit {
 
-  constructor(private multilinguism: MultilinguismService, private getIconService: GeticonService, private editionService: EditionService, private userToolBarService: UsertoolbarService) {
+  constructor(private multilinguism: MultilinguismService,
+              private getIconService: GeticonService,
+              private editionService: EditionService) {
   }
 
   ngOnInit() {

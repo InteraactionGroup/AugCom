@@ -14,6 +14,7 @@ import {Ng2ImgMaxService} from 'ng2-img-max';
 import {LayoutService} from 'src/app/services/layout.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
 import {GridElementService} from '../../services/grid-element.service';
+import {ConfigurationService} from "../../services/configuration.service";
 
 @Component({
   selector: 'app-keyboard',
@@ -57,7 +58,8 @@ export class KeyboardComponent implements OnInit {
     public editionService: EditionService,
     public layoutService: LayoutService,
     public multilinguism: MultilinguismService,
-    public gridElementService: GridElementService
+    public gridElementService: GridElementService,
+    public configurationService: ConfigurationService
   ) {
   }
 
@@ -273,7 +275,7 @@ export class KeyboardComponent implements OnInit {
       this.action(element, 'click');
       this.pressedElement = null;
       this.down = 0;
-    }, this.parametersService.doubleClickTimeOut);
+    }, this.configurationService.doubleClickTimeOut);
   }
 
   setLongPressTimer(element) {
@@ -281,7 +283,7 @@ export class KeyboardComponent implements OnInit {
       this.action(element, 'longPress');
       this.pressedElement = null;
       this.down = 0;
-    }, this.parametersService.longpressTimeOut);
+    }, this.configurationService.longpressTimeOut);
   }
 
   /**

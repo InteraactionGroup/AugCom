@@ -13,6 +13,7 @@ import {StyleService} from '../../services/style.service';
 import {GridElementService} from '../../services/grid-element.service';
 import {DwellCursorComponent} from "../dwell-cursor/dwell-cursor.component";
 import {DwellCursorService} from "../../services/dwell-cursor.service";
+import {ConfigurationService} from "../../services/configuration.service";
 
 @Component({
   selector: 'app-tile',
@@ -52,7 +53,8 @@ export class TileComponent implements OnInit {
     public layoutService: LayoutService,
     public styleService: StyleService,
     public gridElementService: GridElementService,
-    private dwellCursorService : DwellCursorService
+    private dwellCursorService : DwellCursorService,
+    public configurationService: ConfigurationService
   ) {
   }
 
@@ -63,19 +65,23 @@ export class TileComponent implements OnInit {
       this.action(element, 'longPress');
       this.pressedElement = null;
       this.down = 0;
-    }, this.parametersService.longpressTimeOut);
+    }, this.configurationService.longpressTimeOut);
   }
 
   exit() {
-    this.dwellCursorService.stop()
-    window.clearTimeout(this.dwellTimer);
+    if(this.configurationService.dwellTimeActivated) {
+      this.dwellCursorService.stop()
+      window.clearTimeout(this.dwellTimer);
+    }
   }
 
   enter(element) {
-    this.dwellCursorService.playToMax(this.dwellCursorService.DWELL_TIME_VALUE)
-    this.dwellTimer = window.setTimeout(() => {
-      this.action(element, 'click');
-    }, this.dwellCursorService.DWELL_TIME_VALUE);
+    if(this.configurationService.dwellTimeActivated) {
+      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE)
+      this.dwellTimer = window.setTimeout(() => {
+        this.action(element, 'click');
+      }, this.configurationService.DWELL_TIME_VALUE);
+    }
   }
 
   setClickTimer(element) {
@@ -83,7 +89,7 @@ export class TileComponent implements OnInit {
       this.action(element, 'click');
       this.pressedElement = null;
       this.down = 0;
-    }, this.parametersService.doubleClickTimeOut);
+    }, this.configurationService.doubleClickTimeOut);
   }
 
   /**
@@ -427,12 +433,12 @@ export class TileComponent implements OnInit {
 
 
   getGridTemplateRows(){
-    if(this.styleService.imageAndTextVisibilityPicto === 'default'){
-      if(this.styleService.imagePositionPicto === 'up') {
+    if(this.configurationService.imageAndTextVisibilityPicto === 'default'){
+      if(this.configurationService.imagePositionPicto === 'up') {
         return '75% 25%';
-      } else if (this.styleService.imagePositionPicto === 'down'){
+      } else if (this.configurationService.imagePositionPicto === 'down'){
         return '25% 75%';
-      }else if (this.styleService.imagePositionPicto === 'left' || this.styleService.imagePositionPicto === 'right'){
+      }else if (this.configurationService.imagePositionPicto === 'left' || this.configurationService.imagePositionPicto === 'right'){
         return '100%';
       }
     } else {
@@ -442,12 +448,12 @@ export class TileComponent implements OnInit {
 
   getGridTemplateColumns(){
     if(!this.isFolder(this.element)){
-      if(this.styleService.imageAndTextVisibilityPicto === 'default') {
-        if (this.styleService.imagePositionPicto === 'up' || this.styleService.imagePositionPicto === 'down') {
+      if(this.configurationService.imageAndTextVisibilityPicto === 'default') {
+        if (this.configurationService.imagePositionPicto === 'up' || this.configurationService.imagePositionPicto === 'down') {
           return '100%'
-        } else if (this.styleService.imagePositionPicto === 'left') {
+        } else if (this.configurationService.imagePositionPicto === 'left') {
           return '60% 40%'
-        } else if (this.styleService.imagePositionPicto === 'right') {
+        } else if (this.configurationService.imagePositionPicto === 'right') {
           return '40% 60%'
         }
       } else {
@@ -455,12 +461,12 @@ export class TileComponent implements OnInit {
       }
     }
     if(this.isFolder(this.element)){
-      if(this.styleService.imageAndTextVisibilityRepo === 'default') {
-        if (this.styleService.imagePositionRepo === 'up' || this.styleService.imagePositionRepo === 'down') {
+      if(this.configurationService.imageAndTextVisibilityRepo === 'default') {
+        if (this.configurationService.imagePositionRepo === 'up' || this.configurationService.imagePositionRepo === 'down') {
           return '100%'
-        } else if (this.styleService.imagePositionRepo === 'left') {
+        } else if (this.configurationService.imagePositionRepo === 'left') {
           return '60% 40%'
-        } else if (this.styleService.imagePositionRepo === 'right') {
+        } else if (this.configurationService.imagePositionRepo === 'right') {
           return '40% 60%'
         }
       } else {
@@ -471,9 +477,9 @@ export class TileComponent implements OnInit {
 
   getFontFamily(){
     if(this.isFolder(this.element)){
-      return this.styleService.textStyleRepo === 'default' ? 'var(--main-font)' : this.styleService.textStyleRepo + ', sans serif';
+      return this.configurationService.textStyleRepo === 'default' ? 'var(--main-font)' : this.configurationService.textStyleRepo + ', sans serif';
     } else {
-     return this.styleService.textStylePicto === 'default' ? 'var(--main-font)' : this.styleService.textStylePicto + ', sans serif';
+     return this.configurationService.textStylePicto === 'default' ? 'var(--main-font)' : this.configurationService.textStylePicto + ', sans serif';
     }
   }
 

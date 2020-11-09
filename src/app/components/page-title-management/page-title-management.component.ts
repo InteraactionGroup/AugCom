@@ -9,7 +9,7 @@ import {UsertoolbarService} from '../../services/usertoolbar.service';
 })
 export class PageTitleManagementComponent implements OnInit {
 
-  constructor(public styleService: StyleService, public  usertoolbarService: UsertoolbarService) { }
+  constructor(public  usertoolbarService: UsertoolbarService) { }
 
   ngOnInit(): void {
   }

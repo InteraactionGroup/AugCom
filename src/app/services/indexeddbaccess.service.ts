@@ -10,7 +10,6 @@ export class IndexeddbaccessService {
 
   openRequest;
 
-
   constructor(public paletteService: PaletteService, public boardService: BoardService, public jsonValidator: JsonValidatorService) {
     this.init();
   }
@@ -51,7 +50,6 @@ export class IndexeddbaccessService {
       };
     };
   }
-
 
   // INITIALISATION
   init() {

@@ -1,26 +1,19 @@
 import { Injectable } from '@angular/core';
 import {GridElement, Style} from '../types';
+import {ConfigurationService} from "./configuration.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GridElementService {
 
-  constructor() { }
-
-  DEFAULT_STYLE_BACKGROUNDCOLOR_VALUE = 'lightgrey';
-  DEFAULT_STYLE_BORDERCOLOR_VALUE = 'black';
-  DEFAULT_STYLE_TEXTCOLOR_VALUE = 'black';
-  DEFAULT_STYLE_VALUE = new Style(
-    this.DEFAULT_STYLE_BACKGROUNDCOLOR_VALUE,
-    this.DEFAULT_STYLE_BORDERCOLOR_VALUE,
-    this.DEFAULT_STYLE_TEXTCOLOR_VALUE);
+  constructor(public configurationService: ConfigurationService) { }
 
   getStyle(element: GridElement) : Style {
     if ((element.style as Style).BackgroundColor !== undefined){
       return (element.style as Style);
     } else {
-      return this.DEFAULT_STYLE_VALUE;
+      return this.configurationService.getDefaultStyle();
     }
   }
 
@@ -30,8 +23,8 @@ export class GridElementService {
     } else {
       element.style = new Style(
         backgroundColor,
-        this.DEFAULT_STYLE_BORDERCOLOR_VALUE,
-        this.DEFAULT_STYLE_TEXTCOLOR_VALUE);
+        this.configurationService.DEFAULT_STYLE_BORDERCOLOR_VALUE,
+        this.configurationService.DEFAULT_STYLE_TEXTCOLOR_VALUE);
     }
   }
 
@@ -40,9 +33,9 @@ export class GridElementService {
       (element.style as Style).BorderColor = borderColor;
     } else {
       element.style = new Style(
-        this.DEFAULT_STYLE_BACKGROUNDCOLOR_VALUE,
+        this.configurationService.DEFAULT_STYLE_BACKGROUNDCOLOR_VALUE,
         borderColor,
-        this.DEFAULT_STYLE_TEXTCOLOR_VALUE);
+        this.configurationService.DEFAULT_STYLE_TEXTCOLOR_VALUE);
     }
   }
 
@@ -51,8 +44,8 @@ export class GridElementService {
       (element.style as Style).TextColor = textColor;
     } else {
       element.style = new Style(
-        this.DEFAULT_STYLE_BACKGROUNDCOLOR_VALUE,
-        this.DEFAULT_STYLE_BORDERCOLOR_VALUE,
+        this.configurationService.DEFAULT_STYLE_BACKGROUNDCOLOR_VALUE,
+        this.configurationService.DEFAULT_STYLE_BORDERCOLOR_VALUE,
         textColor);
     }
   }

@@ -3,7 +3,11 @@
   <div class="movingSelector" [ngStyle]="{'left' : this.getMovingSelectorIndex() }"></div>
 
   <div style="position: relative;top: 0;left: 0;margin-top: -50px; background-color: transparent">
-    <div class="menuelt" *ngFor="let menu of newMenu" (click)="selectNewMenu(menu)"> {{menu[0]}}</div>
+    <div class="menuelt" *ngFor="let menu of newMenu" (click)="selectNewMenu(menu)">
+      <div class="menueltlabel">
+        {{menu[0]}}
+      </div>
+    </div>
   </div>
 
   <div class="mainTest">
@@ -16,7 +20,7 @@
           <hr class="hrs">
           <ng-container *ngFor="let menus2 of menus1.slice(1)">
             <ng-container *ngIf="containsArray(menus2)">
-              <div class="title" (click)="selectedSection=menus2[0]" >{{menus2[0]}}</div>
+              <div class="title" [class.titleSelected]="selectedSection===menus2[0]" (click)="selectedSection=menus2[0]" >{{menus2[0]}}</div>
 
               <ng-container *ngFor="let menus3 of menus2.slice(1)">
                 <ng-container *ngIf="containsArray(menus3)">
@@ -43,7 +47,11 @@
     </div>
 
     <div class="menuContext">
-      <div class="menuContextTitle">{{this.selectedSection}}</div>
+      <div class="menuContextTitle">
+        <div class="menuContextTitleText">
+          {{this.selectedSection}}
+        </div>
+      </div>
       <div style="overflow-y: auto; width: 100%; height: 100%">
       <ng-container *ngIf="isSelectedSection('gestion des palettes')">
       <app-palettes></app-palettes>

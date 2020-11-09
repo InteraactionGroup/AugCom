@@ -25,22 +25,22 @@
         'font-family': this.getFontFamily()}">
 
     <div *ngIf="
-    (!isFolder(element) && styleService.imageAndTextVisibilityPicto==='default' && ( styleService.imagePositionPicto==='down' || styleService.imagePositionPicto==='right')) ||
-(isFolder(element) && styleService.imageAndTextVisibilityRepo==='default' && ( styleService.imagePositionRepo==='down' || styleService.imagePositionRepo==='right'))"
+    (!isFolder(element) && configurationService.imageAndTextVisibilityPicto==='default' && ( configurationService.imagePositionPicto==='down' || configurationService.imagePositionPicto==='right')) ||
+(isFolder(element) && configurationService.imageAndTextVisibilityRepo==='default' && ( configurationService.imagePositionRepo==='down' || configurationService.imagePositionRepo==='right'))"
          class="adjustableText">
       {{this.boardService.getLabel(element)}}
     </div>
 
-    <div *ngIf="(!isFolder(element) && styleService.imageAndTextVisibilityPicto!='textOnly') ||
-    (isFolder(element) && styleService.imageAndTextVisibilityRepo!='textOnly')"
+    <div *ngIf="(!isFolder(element) && configurationService.imageAndTextVisibilityPicto!='textOnly') ||
+    (isFolder(element) && configurationService.imageAndTextVisibilityRepo!='textOnly')"
          class="image haveBackgroundImage" [style.background-image]="this.boardService.getImgUrl(element)"></div>
 
     <div *ngIf=" (!isFolder(element) &&
-    ((styleService.imageAndTextVisibilityPicto==='default' && ( styleService.imagePositionPicto==='up' || styleService.imagePositionPicto==='left' )) ||
-    (styleService.imageAndTextVisibilityPicto==='textOnly'))) ||
+    ((configurationService.imageAndTextVisibilityPicto==='default' && ( configurationService.imagePositionPicto==='up' || configurationService.imagePositionPicto==='left' )) ||
+    (configurationService.imageAndTextVisibilityPicto==='textOnly'))) ||
       (isFolder(element) &&
-    ((styleService.imageAndTextVisibilityRepo==='default' && ( styleService.imagePositionRepo==='up' || styleService.imagePositionRepo==='left' )) ||
-    (styleService.imageAndTextVisibilityRepo==='textOnly')))" class="adjustableText">
+    ((configurationService.imageAndTextVisibilityRepo==='default' && ( configurationService.imagePositionRepo==='up' || configurationService.imagePositionRepo==='left' )) ||
+    (configurationService.imageAndTextVisibilityRepo==='textOnly')))" class="adjustableText">
       {{this.boardService.getLabel(element)}}
     </div>
 

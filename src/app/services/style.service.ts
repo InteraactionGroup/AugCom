@@ -7,14 +7,6 @@ export class StyleService {
 
   constructor() { }
 
-  imageAndTextVisibilityPicto = 'default'; // can be 'default' 'imageOnly' and 'textOnly'
-  imagePositionPicto = 'down'; // can take 'down', 'left', 'right' if imageAndTextVisibiliy is 'default'
-  textStylePicto = 'default'; // default is taking the font style of the application while other styles applyies only to pictograms
-
-  imageAndTextVisibilityRepo = 'default'; // can be 'default' 'imageOnly' and 'textOnly'
-  imagePositionRepo = 'down'; // can take 'down', 'left', 'right' if imageAndTextVisibiliy is 'default'
-  textStyleRepo = 'default'; // default is taking the font style of the application while other styles applyies only to pictograms
-
   updateStyle(color1: string, color2: string, color3: string, color4: string){
     const root = document.getElementById('main');
     root.style.setProperty('--main-bg-color1', color1);

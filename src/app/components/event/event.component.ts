@@ -14,7 +14,6 @@ import {FunctionsService} from '../../services/functions.service';
 export class EventComponent implements OnInit {
   constructor(private multilinguism: MultilinguismService,
               public getIconService: GeticonService,
-              public parametersService: ParametersService,
               public functionService: FunctionsService,
               public editionService: EditionService) {
   }

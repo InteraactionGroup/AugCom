@@ -5,6 +5,8 @@ import {BoardService} from '../../services/board.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
 import {MultilinguismService} from '../../services/multilinguism.service';
 import {DwellCursorService} from "../../services/dwell-cursor.service";
+import {UsertoolbarService} from "../../services/usertoolbar.service";
+import {ConfigurationService} from "../../services/configuration.service";
 
 @Component({
   selector: 'app-dialogbar',
@@ -14,11 +16,11 @@ import {DwellCursorService} from "../../services/dwell-cursor.service";
 })
 export class DialogbarComponent implements OnInit {
 
-  constructor(private multilinguism: MultilinguismService,
-              public getIconService: GeticonService,
+  constructor(public getIconService: GeticonService,
               public boardService: BoardService,
               public historicService: HistoricService,
-              public dwellCursorService: DwellCursorService) {
+              public dwellCursorService: DwellCursorService,
+              public configurationService: ConfigurationService) {
   }
 
   ngOnInit() {
@@ -46,34 +48,44 @@ export class DialogbarComponent implements OnInit {
   }
 
   exit() {
-    this.dwellCursorService.stop();
-    window.clearTimeout(this.dwellTimer);
+    if(this.configurationService.dwellTimeActivated) {
+      this.dwellCursorService.stop();
+      window.clearTimeout(this.dwellTimer);
+    }
   }
 
   enterAndClear() {
-    this.dwellCursorService.playToMax(this.dwellCursorService.DWELL_TIME_VALUE);
-    this.dwellTimer = window.setTimeout(() => {
-      this.clear();
-    }, this.dwellCursorService.DWELL_TIME_VALUE);
+    if(this.configurationService.dwellTimeActivated) {
+      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE);
+      this.dwellTimer = window.setTimeout(() => {
+        this.clear();
+      }, this.configurationService.DWELL_TIME_VALUE);
+    }
   }
 
   enterAndPlay() {
-    this.dwellCursorService.playToMax(this.dwellCursorService.DWELL_TIME_VALUE);
-    this.dwellTimer = window.setTimeout(() => {
-      this.historicService.playHistoric();
-    }, this.dwellCursorService.DWELL_TIME_VALUE);
+      if(this.configurationService.dwellTimeActivated) {
+        this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE);
+        this.dwellTimer = window.setTimeout(() => {
+          this.historicService.playHistoric();
+        }, this.configurationService.DWELL_TIME_VALUE);
+      }
   }
   enterAndBack() {
-    this.dwellCursorService.playToMax(this.dwellCursorService.DWELL_TIME_VALUE);
-    this.dwellTimer = window.setTimeout(() => {
-      this.historicService.backHistoric();
-    }, this.dwellCursorService.DWELL_TIME_VALUE);
+        if(this.configurationService.dwellTimeActivated) {
+          this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE);
+          this.dwellTimer = window.setTimeout(() => {
+            this.historicService.backHistoric();
+          }, this.configurationService.DWELL_TIME_VALUE);
+        }
   }
   enterToSay(text) {
-    this.dwellCursorService.playToMax(this.dwellCursorService.DWELL_TIME_VALUE);
-    this.dwellTimer = window.setTimeout(() => {
-      this.historicService.say(text);
-    }, this.dwellCursorService.DWELL_TIME_VALUE);
+          if(this.configurationService.dwellTimeActivated) {
+            this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE);
+            this.dwellTimer = window.setTimeout(() => {
+              this.historicService.say(text);
+            }, this.configurationService.DWELL_TIME_VALUE);
+          }
   }
 
 }

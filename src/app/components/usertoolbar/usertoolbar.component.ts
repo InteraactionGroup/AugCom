@@ -13,6 +13,7 @@ import {StyleService} from '../../services/style.service';
 import {FolderGoTo} from '../../types';
 import {EditionService} from '../../services/edition.service';
 import {DwellCursorService} from "../../services/dwell-cursor.service";
+import {ConfigurationService} from "../../services/configuration.service";
 
 @Component({
   selector: 'app-usertoolbar',
@@ -31,9 +32,9 @@ export class UsertoolbarComponent implements OnInit {
     public userToolBarService: UsertoolbarService,
     public layoutService: LayoutService,
     private multilinguism: MultilinguismService,
-    public styleService: StyleService,
     public editionService: EditionService,
-    private dwellCursorService: DwellCursorService
+    private dwellCursorService: DwellCursorService,
+    public configurationService: ConfigurationService
   ) {
   }
 
@@ -75,8 +76,8 @@ export class UsertoolbarComponent implements OnInit {
 
 
   translate(){
-    this.multilinguism.language = (this.multilinguism.language === 'FR' ? 'EN' : 'FR');
-    console.log(this.multilinguism.language)
+    this.configurationService.language = (this.configurationService.language === 'FR' ? 'EN' : 'FR');
+    console.log(this.configurationService.language)
   }
 
 
@@ -109,15 +110,19 @@ export class UsertoolbarComponent implements OnInit {
   }
 
   exit() {
-    this.dwellCursorService.stop()
-    window.clearTimeout(this.dwellTimer);
+    if(this.configurationService.dwellTimeActivated) {
+      this.dwellCursorService.stop();
+      window.clearTimeout(this.dwellTimer);
+    }
   }
 
   enter() {
-    this.dwellCursorService.playToMax(this.dwellCursorService.DWELL_TIME_VALUE)
-    this.dwellTimer = window.setTimeout(() => {
-      this.boardService.backToPreviousFolder();
-    }, this.dwellCursorService.DWELL_TIME_VALUE);
+    if(this.configurationService.dwellTimeActivated) {
+      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE)
+      this.dwellTimer = window.setTimeout(() => {
+        this.boardService.backToPreviousFolder();
+      }, this.configurationService.DWELL_TIME_VALUE);
+    }
   }
 
   /*open search bar*/

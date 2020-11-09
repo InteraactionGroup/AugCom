@@ -8,7 +8,6 @@ import {GridElementService} from './grid-element.service';
 })
 export class PrintService {
 
-
   constructor(public boardService: BoardService, public gridElementService: GridElementService) {
   }
 

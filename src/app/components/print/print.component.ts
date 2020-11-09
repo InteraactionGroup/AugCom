@@ -9,7 +9,7 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 })
 export class PrintComponent implements OnInit {
 
-  constructor(public boardService: BoardService, private multilinguism: MultilinguismService) {
+  constructor(public boardService: BoardService) {
   }
 
   ngOnInit() {

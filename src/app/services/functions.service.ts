@@ -6,7 +6,6 @@ import {Action} from '../types';
 })
 export class FunctionsService {
 
-
   interactionIDs: {ID: string, plus: boolean, ActionList: Action[]}[] = [
     {ID:'click',plus:false,ActionList:[]},
     {ID:'longPress',plus:false,ActionList:[]},

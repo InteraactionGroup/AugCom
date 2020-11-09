@@ -7,7 +7,6 @@ import {ParametersService} from './parameters.service';
 })
 export class HistoricService {
 
-
   public historic: Vignette[] = [];
   public speechSynthesis: SpeechSynthesis;
   public volume = 1.0;

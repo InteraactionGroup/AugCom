@@ -1,24 +1,21 @@
 import {Injectable} from '@angular/core';
+import {ConfigurationService} from "./configuration.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ParametersService {
 
-  longpressTimeOut = 1000;
-  doubleClickTimeOut = 200;
-  currentVoice = '@';
-
   languagesAvailaibles: SpeechSynthesisVoice[];
 
-  constructor() {
+  constructor(public configurationService: ConfigurationService) {
     this.languagesAvailaibles = [];
     this.printVoicesList().then(r => {
       const voice = this.getCurrentVoice();
       if (voice !== undefined && voice !== null) {
-        this.currentVoice = '' + voice.lang + '@' + voice.name;
+        this.configurationService.currentVoice = '' + voice.lang + '@' + voice.name;
       } else {
-        this.currentVoice = '@';
+        this.configurationService.currentVoice = '@';
       }
     });
   }
@@ -45,14 +42,14 @@ export class ParametersService {
 
   getCurrentVoice() {
     let currentVoice = this.languagesAvailaibles.find(voice => {
-      const res = this.currentVoice.split('@');
+      const res = this.configurationService.currentVoice.split('@');
       return res[0] === voice.lang && res[1] === voice.name;
     });
 
     /*if we can't find the same voice checking if we can find the same lang*/
     if (currentVoice === undefined || currentVoice === null) {
       currentVoice = this.languagesAvailaibles.find(voice => {
-        const res = this.currentVoice.split('@');
+        const res = this.configurationService.currentVoice.split('@');
         return res[0] === voice.lang
       })
     }

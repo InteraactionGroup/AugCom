@@ -8,7 +8,6 @@ import {PaletteService} from './palette.service';
 })
 export class EditionService {
 
-
   public add = false;
 
   public ElementListener = new Subject<GridElement>();
