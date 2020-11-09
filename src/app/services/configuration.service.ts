@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Style} from "../types";
 
 @Injectable({
@@ -23,9 +23,10 @@ export class ConfigurationService {
   dwellTimeActivated = false;
   currentVoice = '@';
 
-  constructor() { }
+  constructor() {
+  }
 
-  public getDefaultStyle(){
+  public getDefaultStyle() {
     return new Style(
       this.DEFAULT_STYLE_BACKGROUNDCOLOR_VALUE,
       this.DEFAULT_STYLE_BORDERCOLOR_VALUE,

@@ -26,7 +26,7 @@ export class PageLinksCSV {
 
 export class BackLinksCSV {
   public from: string;
-  public backID : string;
+  public backID: string;
   public to: string;
 }
 

@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ParametersService} from '../../services/parameters.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
 import {GeticonService} from '../../services/geticon.service';
-import {UsertoolbarService} from "../../services/usertoolbar.service";
 import {ConfigurationService} from "../../services/configuration.service";
 
 @Component({
@@ -21,7 +20,7 @@ export class LanguageComponent implements OnInit {
   ngOnInit() {
   }
 
-  translate(){
+  translate() {
     this.configurationService.language = (this.configurationService.language === 'FR' ? 'EN' : 'FR');
     console.log(this.configurationService.language)
   }

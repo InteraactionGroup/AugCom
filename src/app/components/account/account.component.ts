@@ -21,8 +21,6 @@ export class AccountComponent implements OnInit {
   ];
 
 
-
-
   selectedMenu = 'complementaryInfo';
   selectedSubMenu = 'contacts';
 
@@ -30,7 +28,6 @@ export class AccountComponent implements OnInit {
   constructor(public multilinguism: MultilinguismService,
               public getIconService: GeticonService) {
   }
-
 
 
   ngOnInit() {

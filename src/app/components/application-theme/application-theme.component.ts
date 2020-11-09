@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {StyleService} from '../../services/style.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class ApplicationThemeComponent implements OnInit {
   color3;
   color4;
 
-  constructor( public styleService: StyleService) {
+  constructor(public styleService: StyleService) {
 
     const root = document.getElementById('main');
     this.color0 = root.style.getPropertyValue('--main-bg-color0');

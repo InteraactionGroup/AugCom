@@ -3,7 +3,7 @@ import {DbnaryService} from '../../services/dbnary.service';
 import {BoardService} from '../../services/board.service';
 import {GeticonService} from '../../services/geticon.service';
 import {DomSanitizer} from '@angular/platform-browser';
-import {Action, ElementForm, FolderGoTo, GridElement, Interaction, Page} from '../../types';
+import {FolderGoTo, GridElement, Interaction, Page} from '../../types';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {Router} from '@angular/router';
 import {PaletteService} from '../../services/palette.service';
@@ -171,10 +171,12 @@ export class EditionComponent implements OnInit {
       this.gridElementService.setBackgroundColor(element, this.editionService.curentColor);
       this.gridElementService.setBorderColor(element, this.editionService.curentBorderColor);
 
-      for( const interaction of this.functionsService.interactionIDs) {
-        const temp: Interaction = this.editionService.interractionList.find(inter => { return inter.ID === interaction.ID });
-        if ( temp !== null && temp !== undefined ) {
-          interaction.ActionList.forEach( act => {
+      for (const interaction of this.functionsService.interactionIDs) {
+        const temp: Interaction = this.editionService.interractionList.find(inter => {
+          return inter.ID === interaction.ID
+        });
+        if (temp !== null && temp !== undefined) {
+          interaction.ActionList.forEach(act => {
             temp.ActionList.push(act);
           });
         } else {
@@ -223,10 +225,12 @@ export class EditionComponent implements OnInit {
 
     const elementFormsList = Object.assign([], this.editionService.variantList);
 
-    for( const interaction of this.functionsService.interactionIDs) {
-      const temp: Interaction = this.editionService.interractionList.find(inter => { return inter.ID === interaction.ID });
-      if ( temp !== null && temp !== undefined ) {
-        interaction.ActionList.forEach( act => {
+    for (const interaction of this.functionsService.interactionIDs) {
+      const temp: Interaction = this.editionService.interractionList.find(inter => {
+        return inter.ID === interaction.ID
+      });
+      if (temp !== null && temp !== undefined) {
+        interaction.ActionList.forEach(act => {
           temp.ActionList.push(act);
         });
       } else {
@@ -239,7 +243,7 @@ export class EditionComponent implements OnInit {
 
     this.boardService.board.ElementList.push(
       new GridElement(tempId, this.returnTypeOf(tempId), this.editionService.classe,
-        this.editionService.curentColor, this.editionService.curentBorderColor,  0, elementFormsList,this.editionService.interractionList)
+        this.editionService.curentColor, this.editionService.curentBorderColor, 0, elementFormsList, this.editionService.interractionList)
     );
 
     this.boardService.board.ImageList.push(
@@ -273,7 +277,8 @@ export class EditionComponent implements OnInit {
       ElementIDsList: [],
       NumberOfCols: undefined,
       NumberOfRows: undefined,
-      GapSize: undefined};
+      GapSize: undefined
+    };
   }
 
   /**

@@ -66,45 +66,45 @@ export class KeyboardComponent implements OnInit {
   onKeyCols(event: any) {
     if (+event.target.value >= 1) {
       const currentPage: Page = this.boardService.currentPage();
-      if(currentPage!== null && currentPage !==undefined){
-        if(currentPage.NumberOfCols === undefined){
+      if (currentPage !== null && currentPage !== undefined) {
+        if (currentPage.NumberOfCols === undefined) {
           currentPage.NumberOfCols = 0;
         }
         currentPage.NumberOfCols = +event.target.value;
       } else {
         this.boardService.board.NumberOfCols = +event.target.value;
       }
-      this.layoutService.refreshAll(this.boardService.getNumberOfCols(),this.boardService.getNumberOfRows(),this.boardService.getGapSize());
+      this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
     }
   }
 
   onKeyRows(event: any) {
     if (+event.target.value >= 1) {
       const currentPage: Page = this.boardService.currentPage();
-      if(currentPage!== null && currentPage !==undefined){
-        if(currentPage.NumberOfRows === undefined) {
+      if (currentPage !== null && currentPage !== undefined) {
+        if (currentPage.NumberOfRows === undefined) {
           currentPage.NumberOfRows = 0;
         }
         currentPage.NumberOfRows = +event.target.value;
       } else {
         this.boardService.board.NumberOfRows = +event.target.value;
       }
-      this.layoutService.refreshAll(this.boardService.getNumberOfCols(),this.boardService.getNumberOfRows(),this.boardService.getGapSize());
+      this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
     }
   }
 
   onKeyGap(event: any) {
     if (+event.target.value >= 1) {
       const currentPage: Page = this.boardService.currentPage();
-      if(currentPage!== null && currentPage !==undefined){
-        if(currentPage.GapSize === undefined) {
+      if (currentPage !== null && currentPage !== undefined) {
+        if (currentPage.GapSize === undefined) {
           currentPage.GapSize = 0;
         }
         currentPage.GapSize = +event.target.value;
       } else {
         this.boardService.board.GapSize = +event.target.value;
       }
-      this.layoutService.refreshAll(this.boardService.getNumberOfCols(),this.boardService.getNumberOfRows(),this.boardService.getGapSize());
+      this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
     }
   }
 

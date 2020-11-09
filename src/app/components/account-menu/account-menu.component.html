@@ -20,18 +20,19 @@
           <hr class="hrs">
           <ng-container *ngFor="let menus2 of menus1.slice(1)">
             <ng-container *ngIf="containsArray(menus2)">
-              <div class="title" [class.titleSelected]="selectedSection===menus2[0]" (click)="selectedSection=menus2[0]" >{{menus2[0]}}</div>
+              <div class="title" [class.titleSelected]="selectedSection===menus2[0]"
+                   (click)="selectedSection=menus2[0]">{{menus2[0]}}</div>
 
               <ng-container *ngFor="let menus3 of menus2.slice(1)">
                 <ng-container *ngIf="containsArray(menus3)">
-                  <div class="test modifiable"  (click)="selectedSection=menus3[0]">{{menus3[0]}}</div>
+                  <div class="test modifiable" (click)="selectedSection=menus3[0]">{{menus3[0]}}</div>
 
                   <ng-container *ngFor="let menus4 of menus3.slice(1)">
                     <ng-container *ngIf="containsArray(menus4)">
-                      <div class="test modifiable"  (click)="selectedSection=menus4[0]">{{menus4[0]}}</div>
+                      <div class="test modifiable" (click)="selectedSection=menus4[0]">{{menus4[0]}}</div>
 
                       <ng-container *ngFor="let menus5 of menus4.slice(1)">
-                        <div class="test modifiable"  (click)="selectedSection=menus5[0]">{{menus5[0]}}</div>
+                        <div class="test modifiable" (click)="selectedSection=menus5[0]">{{menus5[0]}}</div>
 
                       </ng-container>
                     </ng-container>
@@ -53,13 +54,13 @@
         </div>
       </div>
       <div style="overflow-y: auto; width: 100%; height: 100%">
-      <ng-container *ngIf="isSelectedSection('gestion des palettes')">
-      <app-palettes></app-palettes>
-      </ng-container>
+        <ng-container *ngIf="isSelectedSection('gestion des palettes')">
+          <app-palettes></app-palettes>
+        </ng-container>
 
-      <ng-container *ngIf="isSelectedSection('Partager')">
-        <app-share></app-share>
-      </ng-container>
+        <ng-container *ngIf="isSelectedSection('Partager')">
+          <app-share></app-share>
+        </ng-container>
 
         <ng-container *ngIf="isSelectedSection('Interaction')">
           <app-settings></app-settings>

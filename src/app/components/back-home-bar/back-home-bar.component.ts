@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {GeticonService} from '../../services/geticon.service';
 import {EditionService} from '../../services/edition.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
-import {UsertoolbarService} from '../../services/usertoolbar.service';
 
 @Component({
   selector: 'app-back-home-bar',

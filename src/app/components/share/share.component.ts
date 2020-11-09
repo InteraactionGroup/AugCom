@@ -153,8 +153,8 @@ export class ShareComponent implements OnInit {
 
     const theID = pathWithNoDot + '$' + name + (type === 'button' ? 'button' : '');
     this.boardService.board.ElementList.push(
-      new GridElement(theID,type,'','var(--main-bg-color1)','black'
-      ,0,
+      new GridElement(theID, type, '', 'var(--main-bg-color1)', 'black'
+        , 0,
         [
           {
             DisplayedText: name,
@@ -162,7 +162,7 @@ export class ShareComponent implements OnInit {
             LexicInfos: [{default: true}],
             ImageID: theID,
           }
-        ],[{ID: 'click', ActionList: [{ID: 'display', Options: []}]}])
+        ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}]}])
     );
 
     this.boardService.board.ImageList.push(
@@ -183,7 +183,7 @@ export class ShareComponent implements OnInit {
           BackgroundColor: 'default',
           ID: folder,
           Name: folder,
-          ElementIDsList: [] ,
+          ElementIDsList: [],
           NumberOfCols: undefined,
           NumberOfRows: undefined,
           GapSize: undefined

@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { DwellCursorService } from './dwell-cursor.service';
+import {DwellCursorService} from './dwell-cursor.service';
 
 describe('DwellCursorService', () => {
   let service: DwellCursorService;

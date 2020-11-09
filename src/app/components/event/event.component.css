@@ -57,30 +57,30 @@
   border-width: 0;
 }
 
-.remove:hover{
+.remove:hover {
   background-color: mistyrose;
   border-radius: 0;
   border-width: 0;
 }
 
-.remove:active{
+.remove:active {
   background-color: #FFC5C3;
   border-radius: 0;
   border-width: 0;
 }
 
-.buttonAdd{
+.buttonAdd {
   border-width: 0;
   background-color: var(--main-bg-color1);
 }
 
-.buttonAdd:hover{
+.buttonAdd:hover {
   border-width: 0;
   background-color: var(--main-bg-color3);
   cursor: pointer;
 }
 
-.buttonAdd:active{
+.buttonAdd:active {
   border-width: 0;
   background-color: var(--main-bg-color4);
 }

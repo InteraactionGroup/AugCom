@@ -80,7 +80,7 @@ export class SpeakForYourselfParser {
             ActionList: [{ID: 'say', Options: []}, {ID: 'display', Options: []}]
           }]
         )
-        );
+      );
     });
 
     grille.PageList.forEach(page => {

@@ -39,7 +39,7 @@ export class FolderGoTo {
  */
 export class GridElement {
   ID: string;
-  Type: 'empty' | 'button' |  FolderGoTo;
+  Type: 'empty' | 'button' | FolderGoTo;
   PartOfSpeech: string;
   VisibilityLevel: number;
   x: number;
@@ -47,7 +47,7 @@ export class GridElement {
   cols: number;
   rows: number;
 
-  style: {id: string} | Style;
+  style: { id: string } | Style;
 
   ElementFormsList: ElementForm[];
   InteractionsList: Interaction[];
@@ -55,8 +55,8 @@ export class GridElement {
   dragAndResizeEnabled: boolean;
 
 
-  constructor(elementId: string, elementType , elementPartOfSpeech: string,
-              color: string, borderColor: string, visibilityLevel , elementsForms: ElementForm[], interactionList: Interaction[] ) {
+  constructor(elementId: string, elementType, elementPartOfSpeech: string,
+              color: string, borderColor: string, visibilityLevel, elementsForms: ElementForm[], interactionList: Interaction[]) {
 
     this.ID = elementId;
     this.Type = elementType;
@@ -67,7 +67,7 @@ export class GridElement {
     this.InteractionsList = interactionList;
     this.y = 0;
     this.x = 0;
-    this.rows =1;
+    this.rows = 1;
     this.cols = 1;
     this.dragAndResizeEnabled = true;
   }
@@ -117,7 +117,7 @@ export class ElementForm {
 
 export class Page {
   ID: string;
-  Name : string;
+  Name: string;
   ElementIDsList: string[];
   NumberOfCols: number;
   NumberOfRows: number;
@@ -126,7 +126,7 @@ export class Page {
 }
 
 export class Dictionary {
-  dictionary : { id: string, FR: string, EN: string }[]
+  dictionary: { id: string, FR: string, EN: string }[]
 }
 
 export class Style {
@@ -136,7 +136,7 @@ export class Style {
   BorderRadius: string;
   TextColor: string;
 
-  constructor(backgroundColor: string, borderColor: string, textColor: string){
+  constructor(backgroundColor: string, borderColor: string, textColor: string) {
     this.BackgroundColor = backgroundColor;
     this.BorderColor = borderColor;
     this.TextColor = textColor;

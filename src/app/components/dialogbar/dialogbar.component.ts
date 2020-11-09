@@ -3,9 +3,7 @@ import {HistoricService} from '../../services/historic.service';
 import {GeticonService} from '../../services/geticon.service';
 import {BoardService} from '../../services/board.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
-import {MultilinguismService} from '../../services/multilinguism.service';
 import {DwellCursorService} from "../../services/dwell-cursor.service";
-import {UsertoolbarService} from "../../services/usertoolbar.service";
 import {ConfigurationService} from "../../services/configuration.service";
 
 @Component({
@@ -48,14 +46,14 @@ export class DialogbarComponent implements OnInit {
   }
 
   exit() {
-    if(this.configurationService.dwellTimeActivated) {
+    if (this.configurationService.dwellTimeActivated) {
       this.dwellCursorService.stop();
       window.clearTimeout(this.dwellTimer);
     }
   }
 
   enterAndClear() {
-    if(this.configurationService.dwellTimeActivated) {
+    if (this.configurationService.dwellTimeActivated) {
       this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE);
       this.dwellTimer = window.setTimeout(() => {
         this.clear();
@@ -64,28 +62,30 @@ export class DialogbarComponent implements OnInit {
   }
 
   enterAndPlay() {
-      if(this.configurationService.dwellTimeActivated) {
-        this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE);
-        this.dwellTimer = window.setTimeout(() => {
-          this.historicService.playHistoric();
-        }, this.configurationService.DWELL_TIME_VALUE);
-      }
+    if (this.configurationService.dwellTimeActivated) {
+      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE);
+      this.dwellTimer = window.setTimeout(() => {
+        this.historicService.playHistoric();
+      }, this.configurationService.DWELL_TIME_VALUE);
+    }
   }
+
   enterAndBack() {
-        if(this.configurationService.dwellTimeActivated) {
-          this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE);
-          this.dwellTimer = window.setTimeout(() => {
-            this.historicService.backHistoric();
-          }, this.configurationService.DWELL_TIME_VALUE);
-        }
+    if (this.configurationService.dwellTimeActivated) {
+      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE);
+      this.dwellTimer = window.setTimeout(() => {
+        this.historicService.backHistoric();
+      }, this.configurationService.DWELL_TIME_VALUE);
+    }
   }
+
   enterToSay(text) {
-          if(this.configurationService.dwellTimeActivated) {
-            this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE);
-            this.dwellTimer = window.setTimeout(() => {
-              this.historicService.say(text);
-            }, this.configurationService.DWELL_TIME_VALUE);
-          }
+    if (this.configurationService.dwellTimeActivated) {
+      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE);
+      this.dwellTimer = window.setTimeout(() => {
+        this.historicService.say(text);
+      }, this.configurationService.DWELL_TIME_VALUE);
+    }
   }
 
 }

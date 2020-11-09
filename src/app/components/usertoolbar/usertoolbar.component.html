@@ -1,11 +1,13 @@
-<div class="usertoolbar width-100" >
-<!--     [ngStyle]="{'bottom': this.userToolBarService.edit ? '50%' :'0'}">-->
+<div class="usertoolbar width-100">
+  <!--     [ngStyle]="{'bottom': this.userToolBarService.edit ? '50%' :'0'}">-->
 
   <div class="titleContainer floatLeft"
        [class.width0]="this.userToolBarService.search">
     <ng-container *ngIf="!this.userToolBarService.search">
-      <div class="titleandimage" [ngStyle]="{'grid-template-columns': this.userToolBarService.titleDisplayValue === 'default' ? '50px 1fr' : '100%'}">
-        <div  *ngIf="this.userToolBarService.titleDisplayValue!=='textOnly'" class="haveBackgroundImage" style="height: 90%; width:90%"  [style.background-image]="this.getCurrentPageImage()">
+      <div class="titleandimage"
+           [ngStyle]="{'grid-template-columns': this.userToolBarService.titleDisplayValue === 'default' ? '50px 1fr' : '100%'}">
+        <div *ngIf="this.userToolBarService.titleDisplayValue!=='textOnly'" class="haveBackgroundImage"
+             style="height: 90%; width:90%" [style.background-image]="this.getCurrentPageImage()">
 
         </div>
         <div *ngIf="this.userToolBarService.titleDisplayValue!=='imageOnly'">

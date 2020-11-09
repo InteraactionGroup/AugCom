@@ -108,7 +108,7 @@
   height: 30px;
 }
 
-.addButtonPaletteContainer:hover{
+.addButtonPaletteContainer:hover {
   background-color: var(--main-bg-color2);
 }
 
@@ -139,7 +139,7 @@
   background-color: var(--main-bg-color1);
   margin-bottom: 2px;
   line-height: 20px;
-  color:var(--main-bg-color4);
+  color: var(--main-bg-color4);
   font-size: 18px;
   font-weight: 600;
   padding-left: 5px;

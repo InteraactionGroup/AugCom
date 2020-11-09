@@ -2,7 +2,7 @@ import {Component, Input, OnInit,} from '@angular/core';
 import {HistoricService} from '../../services/historic.service';
 import {EditionService} from '../../services/edition.service';
 import {BoardService} from '../../services/board.service';
-import {ElementForm, FolderGoTo, GridElement, Page, Vignette} from '../../types';
+import {ElementForm, FolderGoTo, GridElement, Vignette} from '../../types';
 import {GeticonService} from '../../services/geticon.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {ParametersService} from '../../services/parameters.service';
@@ -11,7 +11,6 @@ import {SearchService} from '../../services/search.service';
 import {LayoutService} from '../../services/layout.service';
 import {StyleService} from '../../services/style.service';
 import {GridElementService} from '../../services/grid-element.service';
-import {DwellCursorComponent} from "../dwell-cursor/dwell-cursor.component";
 import {DwellCursorService} from "../../services/dwell-cursor.service";
 import {ConfigurationService} from "../../services/configuration.service";
 
@@ -53,12 +52,13 @@ export class TileComponent implements OnInit {
     public layoutService: LayoutService,
     public styleService: StyleService,
     public gridElementService: GridElementService,
-    private dwellCursorService : DwellCursorService,
+    private dwellCursorService: DwellCursorService,
     public configurationService: ConfigurationService
   ) {
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   setLongPressTimer(element) {
     this.pressTimer = window.setTimeout(() => {
@@ -69,15 +69,15 @@ export class TileComponent implements OnInit {
   }
 
   exit() {
-    if(this.configurationService.dwellTimeActivated) {
-      this.dwellCursorService.stop()
+    if (this.configurationService.dwellTimeActivated) {
+      this.dwellCursorService.stop();
       window.clearTimeout(this.dwellTimer);
     }
   }
 
   enter(element) {
-    if(this.configurationService.dwellTimeActivated) {
-      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE)
+    if (this.configurationService.dwellTimeActivated) {
+      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE);
       this.dwellTimer = window.setTimeout(() => {
         this.action(element, 'click');
       }, this.configurationService.DWELL_TIME_VALUE);
@@ -161,7 +161,7 @@ export class TileComponent implements OnInit {
                 this.historicService.push(vignette);
               } else if (action.ID === 'say') {
                 this.historicService.say('' + prononcedText);
-              } else if (action.ID === 'otherforms' && element.ElementFormsList.length > 1 ) {
+              } else if (action.ID === 'otherforms' && element.ElementFormsList.length > 1) {
                 otherFormsDisplayed = true;
                 this.boardService.activatedElement = this.boardService
                   .getNormalTempList()
@@ -170,9 +170,9 @@ export class TileComponent implements OnInit {
                 this.pressedElement = null;
               } else if (action.ID === 'backFromVariant' && !otherFormsDisplayed) {
                 this.boardService.activatedElement = -1;
-              } else if (action.ID === 'back'){
+              } else if (action.ID === 'back') {
                 this.boardService.backToPreviousFolder();
-              }else if (action.ID === 'backHome'){
+              } else if (action.ID === 'backHome') {
                 this.boardService.backHome();
               }
             });
@@ -336,7 +336,7 @@ export class TileComponent implements OnInit {
    * @return  the string corresponding to the box-shadow effect
    */
 
-  isFolder(element : GridElement ){
+  isFolder(element: GridElement) {
     return (element.Type as FolderGoTo).GoTo !== undefined;
   }
 
@@ -432,13 +432,13 @@ export class TileComponent implements OnInit {
   }
 
 
-  getGridTemplateRows(){
-    if(this.configurationService.imageAndTextVisibilityPicto === 'default'){
-      if(this.configurationService.imagePositionPicto === 'up') {
+  getGridTemplateRows() {
+    if (this.configurationService.imageAndTextVisibilityPicto === 'default') {
+      if (this.configurationService.imagePositionPicto === 'up') {
         return '75% 25%';
-      } else if (this.configurationService.imagePositionPicto === 'down'){
+      } else if (this.configurationService.imagePositionPicto === 'down') {
         return '25% 75%';
-      }else if (this.configurationService.imagePositionPicto === 'left' || this.configurationService.imagePositionPicto === 'right'){
+      } else if (this.configurationService.imagePositionPicto === 'left' || this.configurationService.imagePositionPicto === 'right') {
         return '100%';
       }
     } else {
@@ -446,9 +446,9 @@ export class TileComponent implements OnInit {
     }
   }
 
-  getGridTemplateColumns(){
-    if(!this.isFolder(this.element)){
-      if(this.configurationService.imageAndTextVisibilityPicto === 'default') {
+  getGridTemplateColumns() {
+    if (!this.isFolder(this.element)) {
+      if (this.configurationService.imageAndTextVisibilityPicto === 'default') {
         if (this.configurationService.imagePositionPicto === 'up' || this.configurationService.imagePositionPicto === 'down') {
           return '100%'
         } else if (this.configurationService.imagePositionPicto === 'left') {
@@ -460,8 +460,8 @@ export class TileComponent implements OnInit {
         return '100%';
       }
     }
-    if(this.isFolder(this.element)){
-      if(this.configurationService.imageAndTextVisibilityRepo === 'default') {
+    if (this.isFolder(this.element)) {
+      if (this.configurationService.imageAndTextVisibilityRepo === 'default') {
         if (this.configurationService.imagePositionRepo === 'up' || this.configurationService.imagePositionRepo === 'down') {
           return '100%'
         } else if (this.configurationService.imagePositionRepo === 'left') {
@@ -475,11 +475,11 @@ export class TileComponent implements OnInit {
     }
   }
 
-  getFontFamily(){
-    if(this.isFolder(this.element)){
+  getFontFamily() {
+    if (this.isFolder(this.element)) {
       return this.configurationService.textStyleRepo === 'default' ? 'var(--main-font)' : this.configurationService.textStyleRepo + ', sans serif';
     } else {
-     return this.configurationService.textStylePicto === 'default' ? 'var(--main-font)' : this.configurationService.textStylePicto + ', sans serif';
+      return this.configurationService.textStylePicto === 'default' ? 'var(--main-font)' : this.configurationService.textStylePicto + ', sans serif';
     }
   }
 
@@ -499,7 +499,7 @@ export class TileComponent implements OnInit {
    * @param  element, the element to select
    */
   select(element: GridElement) {
-    if(this.userToolBarService.edit && element.dragAndResizeEnabled!==false) {
+    if (this.userToolBarService.edit && element.dragAndResizeEnabled !== false) {
       this.editionService.select(element);
     }
   }

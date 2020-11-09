@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {StyleService} from '../../services/style.service';
 import {ConfigurationService} from "../../services/configuration.service";
 
@@ -10,7 +10,8 @@ import {ConfigurationService} from "../../services/configuration.service";
 export class PictogramStyleComponent implements OnInit {
 
   constructor(public styleService: StyleService,
-              public configurationService: ConfigurationService) { }
+              public configurationService: ConfigurationService) {
+  }
 
   ngOnInit(): void {
   }

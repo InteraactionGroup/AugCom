@@ -21,21 +21,21 @@ export class LayoutComponent implements OnInit {
     return this.layoutService.options;
   }
 
-  convertToGridsterItem( item: any ) {
+  convertToGridsterItem(item: any) {
     const convertedItem = item;
-    if(item.dragAndResizeEnabled === false) {
+    if (item.dragAndResizeEnabled === false) {
       convertedItem.dragEnabled = false;
       convertedItem.resizeEnabled = false;
     }
     return convertedItem;
   }
 
-  getPageBackgroundColorValue(): string{
+  getPageBackgroundColorValue(): string {
     const currentPage = this.boardService.board.PageList.find(page => {
       return page.ID === this.boardService.getCurrentFolder()
     });
     if (currentPage !== null && currentPage !== undefined) {
-      if (currentPage.BackgroundColor === undefined || currentPage.BackgroundColor === null || currentPage.BackgroundColor === 'default' ){
+      if (currentPage.BackgroundColor === undefined || currentPage.BackgroundColor === null || currentPage.BackgroundColor === 'default') {
         return this.boardService.getGridBackgroundColorValue();
       } else {
         return currentPage.BackgroundColor;
@@ -44,7 +44,6 @@ export class LayoutComponent implements OnInit {
       return this.boardService.getGridBackgroundColorValue();
     }
   }
-
 
 
 }

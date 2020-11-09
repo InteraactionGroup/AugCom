@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {ParametersService} from '../../services/parameters.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
 import {ConfigurationService} from "../../services/configuration.service";
 

@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {ChildrenOutletContexts, RouterModule, Routes} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {KeyboardComponent} from './components/keyboard/keyboard.component';
 import {ShareComponent} from './components/share/share.component';
 import {EditionComponent} from './components/edition/edition.component';
@@ -21,7 +21,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [BrowserModule,  BrowserAnimationsModule, RouterModule.forRoot(routes, {useHash: true})],
+  imports: [BrowserModule, BrowserAnimationsModule, RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 

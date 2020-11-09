@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {StyleService} from '../../services/style.service';
+import {Component, OnInit} from '@angular/core';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 
 @Component({
@@ -9,7 +8,8 @@ import {UsertoolbarService} from '../../services/usertoolbar.service';
 })
 export class PageTitleManagementComponent implements OnInit {
 
-  constructor(public  usertoolbarService: UsertoolbarService) { }
+  constructor(public  usertoolbarService: UsertoolbarService) {
+  }
 
   ngOnInit(): void {
   }

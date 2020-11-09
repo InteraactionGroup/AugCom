@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StyleService {
 
-  constructor() { }
+  constructor() {
+  }
 
-  updateStyle(color1: string, color2: string, color3: string, color4: string){
+  updateStyle(color1: string, color2: string, color3: string, color4: string) {
     const root = document.getElementById('main');
     root.style.setProperty('--main-bg-color1', color1);
     root.style.setProperty('--main-bg-color2', color2);
@@ -15,30 +16,32 @@ export class StyleService {
     root.style.setProperty('--main-bg-color4', color4);
   }
 
-  updateStyleColor0(color0: string){
+  updateStyleColor0(color0: string) {
     const root = document.getElementById('main');
     root.style.setProperty('--main-bg-color0', color0);
   }
 
-  updateStyleColor1(color1: string){
+  updateStyleColor1(color1: string) {
     const root = document.getElementById('main');
     root.style.setProperty('--main-bg-color1', color1);
   }
 
-  updateStyleColor2(color2: string){
+  updateStyleColor2(color2: string) {
     const root = document.getElementById('main');
     root.style.setProperty('--main-bg-color2', color2);
   }
-  updateStyleColor3(color3: string){
+
+  updateStyleColor3(color3: string) {
     const root = document.getElementById('main');
     root.style.setProperty('--main-bg-color3', color3);
   }
-  updateStyleColor4(color4: string){
+
+  updateStyleColor4(color4: string) {
     const root = document.getElementById('main');
     root.style.setProperty('--main-bg-color4', color4);
   }
 
-  updateFont(font: string){
+  updateFont(font: string) {
     const root = document.getElementById('main');
     root.style.setProperty('--main-font', font);
   }

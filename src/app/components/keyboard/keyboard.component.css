@@ -94,7 +94,7 @@
   grid-template-rows: 1fr;
 }
 
- .elementContainer {
+.elementContainer {
   min-height: 1cm;
   min-width: 1cm;
   background-color: var(--main-bg-color3);
@@ -126,7 +126,7 @@
   grid-template-rows: 40% 20%;
 }
 
- .elementContainer .add .image {
+.elementContainer .add .image {
   height: calc(100% - 5px);
   margin-top: 5px;
   visibility: visible;
@@ -166,7 +166,7 @@
   filter: drop-shadow(0 0 20px yellow) saturate(300%)
 }
 
- .elementContainer .searched {
+.elementContainer .searched {
   filter: drop-shadow(0 0 20px yellow) saturate(300%)
 }
 

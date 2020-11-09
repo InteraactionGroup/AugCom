@@ -94,7 +94,6 @@
 }
 
 
-
 .elementContainer .noImageElement {
   grid-template-rows: 40% 20%;
 }
@@ -155,7 +154,7 @@
   opacity: 0;
 }
 
-.borderEdit{
+.borderEdit {
   visibility: visible;
   position: absolute;
   width: 100%;
@@ -167,11 +166,14 @@
 }
 
 @keyframes mymove {
-  from {background-color: transparent;
-    box-shadow: 0 200px 100px -100px yellow inset;}
+  from {
+    background-color: transparent;
+    box-shadow: 0 200px 100px -100px yellow inset;
+  }
   to {
     background-color: yellow;
-    box-shadow: 0 100px 200px -100px transparent inset;}
+    box-shadow: 0 100px 200px -100px transparent inset;
+  }
 }
 
 

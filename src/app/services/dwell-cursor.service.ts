@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -39,12 +39,12 @@ export class DwellCursorService {
   }
 
   public setInterval() {
-    this.timeout  = setInterval(() => {
+    this.timeout = setInterval(() => {
       this.currentValue = new Date().getTime() - this.countDownDate;
-      if(this.currentValue>=this.maxValue){
+      if (this.currentValue >= this.maxValue) {
         this.started = false;
       }
-    },10);
+    }, 10);
   }
 
 }

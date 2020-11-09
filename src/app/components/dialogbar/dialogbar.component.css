@@ -1,31 +1,31 @@
 
-  .dialogBar {
-    height: 75px;
-    width: 100%;
-    visibility: hidden;
-    display: grid;
-    grid-template-columns: 1fr 75px 75px 75px;
-  }
+.dialogBar {
+  height: 75px;
+  width: 100%;
+  visibility: hidden;
+  display: grid;
+  grid-template-columns: 1fr 75px 75px 75px;
+}
 
-  .dialogBar .button {
-    cursor: pointer;
-    height: 100%;
-    width: 100%;
-    visibility: hidden;
-  }
+.dialogBar .button {
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+  visibility: hidden;
+}
 
-  .dialogBar .textBar {
-    display: flex;
-    overflow-x: auto;
-    width: calc(100vw - 6.2cm);
-    height: 96%;
-    transform: translateY(2%);
-    margin-left: 0.2%;
-    background-color: var(--main-bg-color1);
-    visibility: visible;
-    border-radius: 5px;
-    transform-origin: right top;
-  }
+.dialogBar .textBar {
+  display: flex;
+  overflow-x: auto;
+  width: calc(100vw - 6.2cm);
+  height: 96%;
+  transform: translateY(2%);
+  margin-left: 0.2%;
+  background-color: var(--main-bg-color1);
+  visibility: visible;
+  border-radius: 5px;
+  transform-origin: right top;
+}
 
 
 .dialogBar .button .image:hover {

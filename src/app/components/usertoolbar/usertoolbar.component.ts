@@ -9,7 +9,6 @@ import {BoardService} from '../../services/board.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
 import {LayoutService} from '../../services/layout.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
-import {StyleService} from '../../services/style.service';
 import {FolderGoTo} from '../../types';
 import {EditionService} from '../../services/edition.service';
 import {DwellCursorService} from "../../services/dwell-cursor.service";
@@ -75,7 +74,7 @@ export class UsertoolbarComponent implements OnInit {
   }
 
 
-  translate(){
+  translate() {
     this.configurationService.language = (this.configurationService.language === 'FR' ? 'EN' : 'FR');
     console.log(this.configurationService.language)
   }
@@ -110,15 +109,15 @@ export class UsertoolbarComponent implements OnInit {
   }
 
   exit() {
-    if(this.configurationService.dwellTimeActivated) {
+    if (this.configurationService.dwellTimeActivated) {
       this.dwellCursorService.stop();
       window.clearTimeout(this.dwellTimer);
     }
   }
 
   enter() {
-    if(this.configurationService.dwellTimeActivated) {
-      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE)
+    if (this.configurationService.dwellTimeActivated) {
+      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE);
       this.dwellTimer = window.setTimeout(() => {
         this.boardService.backToPreviousFolder();
       }, this.configurationService.DWELL_TIME_VALUE);
@@ -149,7 +148,8 @@ export class UsertoolbarComponent implements OnInit {
       return this.getIcon('home');
     } else {
       const tempelt = this.boardService.board.ElementList.find(elt => {
-        return (elt.Type as FolderGoTo).GoTo === currentFolder});
+        return (elt.Type as FolderGoTo).GoTo === currentFolder
+      });
       if (tempelt !== null && tempelt !== undefined) {
         return this.boardService.getImgUrl(tempelt);
       } else {

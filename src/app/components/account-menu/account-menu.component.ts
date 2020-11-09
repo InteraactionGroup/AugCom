@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-account-menu',
@@ -89,39 +89,42 @@ export class AccountMenuComponent implements OnInit {
   selectedNewMenu = 'Application';
   selectedSection = 'Theme de l\'application';
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
 
-
-  getMovingSelectorIndex(){
+  getMovingSelectorIndex() {
     switch (this.selectedNewMenu) {
-      case 'Application' : return '0';
+      case 'Application' :
+        return '0';
       // case 'Barre de phrase' : return '25%';
       // case 'Grilles' : return '50%';
       // case 'Pictogrammes' : return '75%';
-       case 'Grilles' : return '33%';
-       case 'Pictogrammes' : return '66%';
+      case 'Grilles' :
+        return '33%';
+      case 'Pictogrammes' :
+        return '66%';
     }
   }
 
-  selectNewMenu(menu){
+  selectNewMenu(menu) {
     this.selectedNewMenu = (menu as any[]) [0];
     this.selectedSection = (menu as any[]) [1][0];
   }
 
-  isSelectedMenu(menu){
+  isSelectedMenu(menu) {
     return menu[0] === this.selectedNewMenu;
   }
 
-  isSelectedSection(section){
+  isSelectedSection(section) {
     return section === this.selectedSection;
   }
 
   containsArray(menu) {
-    if(typeof menu === 'string'){
+    if (typeof menu === 'string') {
       return false;
     }
     // if((menu as any[]).length > 1){

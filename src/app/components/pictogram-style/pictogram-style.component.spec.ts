@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PictogramStyleComponent } from './pictogram-style.component';
+import {PictogramStyleComponent} from './pictogram-style.component';
 
 describe('PictogramStyleComponent', () => {
   let component: PictogramStyleComponent;
@@ -8,9 +8,9 @@ describe('PictogramStyleComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PictogramStyleComponent ]
+      declarations: [PictogramStyleComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
