@@ -102,6 +102,18 @@
     { "id" : "interactions",  "FR" : "Interactions", "EN" : "Interactions" },
     { "id" : "otherForms",  "FR" : "Autres Formes", "EN" : "Other Forms" },
     { "id" : "information",  "FR" : "Informations", "EN" : "Information" },
-    { "id" : "applicationLanguage",  "FR" : "Langue de l'application", "EN" : "Application Language" }
+    { "id" : "applicationLanguage",  "FR" : "Langue de l'application", "EN" : "Application Language" },
+    { "id" : "Application",  "FR" : "Application", "EN" : "App" },
+    { "id" : "ApplicationTheme",  "FR" : "Thème de l'application", "EN" : "App theme" },
+    { "id" : "Grids",  "FR" : "Grilles", "EN" : "Grids" },
+    { "id" : "PageTitle",  "FR" : "Titre de la page", "EN" : "Page Title" },
+    { "id" : "GridFormat",  "FR" : "Format de la grille", "EN" : "Grid format" },
+    { "id" : "Pictograms",  "FR" : "Pictogrammes", "EN" : "Pictograms" },
+    { "id" : "PictogramStyle",  "FR" : "Style du pictogramme", "EN" : "Pictogram style" },
+    { "id" : "IconsManagement",  "FR" : "Gestion des icones", "EN" : "Icons management" },
+    { "id" : "Color",  "FR" : "Couleur", "EN" : "Color" },
+    { "id" : "FontStyle",  "FR" : "Style de police", "EN" : "Font style" },
+    { "id" : "GeneralTheme",  "FR" : "Thème Général", "EN" : "General Theme" },
+    { "id" : "ChooseFont",  "FR" : "Choisissez la police", "EN" : "Choose the font" }
   ]
 }

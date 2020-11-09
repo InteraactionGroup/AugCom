@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-account-menu',
@@ -8,14 +9,14 @@ import {Component, OnInit} from '@angular/core';
 export class AccountMenuComponent implements OnInit {
 
 
-  newMenu = [
+  newMenu: [string, string[]][] = [
     ['Application',
-      ['Theme de l\'application'],
+      ['ApplicationTheme',
       // ['Gestion des icones'],
-      ['gestion des palettes'],
-      ['Interaction'],
-      ['Langues'],
-      ['Partager']
+      'paletteManagement',
+      'interactions',
+      'language',
+      'share']
     ],
     // ['Barre de phrase',
     //   ['Paramètres de la phrase',
@@ -37,19 +38,19 @@ export class AccountMenuComponent implements OnInit {
     //   ]
     // ]
     // ,
-    ['Grilles',
-      ['Titre de la page'// ,
+    ['Grids',
+      ['PageTitle'// ,
         // ['nom/picto ou les deux'],
         // ['chemin absolu ou juste nom de la page']
-      ],
-      ['Format de la grille' // ,
+      ,
+      'GridFormat' // ,
         // ['taille de la grille'],
         // ['espace entre les picto'],
         // ['thème du fond']
       ]
     ],
-    ['Pictogrammes',
-      ['Style du pictogramme'// ,
+    ['Pictograms',
+      ['PictogramStyle'// ,
         // ['pictogramme de base',
         //   ['couleur principale'],
         //   ['texte',
@@ -87,14 +88,13 @@ export class AccountMenuComponent implements OnInit {
 
 
   selectedNewMenu = 'Application';
-  selectedSection = 'Theme de l\'application';
+  selectedSection = 'ApplicationTheme';
 
-  constructor() {
+  constructor(public multilinguismService: MultilinguismService) {
   }
 
   ngOnInit(): void {
   }
-
 
   getMovingSelectorIndex() {
     switch (this.selectedNewMenu) {
@@ -103,9 +103,9 @@ export class AccountMenuComponent implements OnInit {
       // case 'Barre de phrase' : return '25%';
       // case 'Grilles' : return '50%';
       // case 'Pictogrammes' : return '75%';
-      case 'Grilles' :
+      case 'Grids' :
         return '33%';
-      case 'Pictogrammes' :
+      case 'Pictograms' :
         return '66%';
     }
   }
@@ -113,6 +113,7 @@ export class AccountMenuComponent implements OnInit {
   selectNewMenu(menu) {
     this.selectedNewMenu = (menu as any[]) [0];
     this.selectedSection = (menu as any[]) [1][0];
+    console.log(menu);
   }
 
   isSelectedMenu(menu) {
@@ -121,16 +122,6 @@ export class AccountMenuComponent implements OnInit {
 
   isSelectedSection(section) {
     return section === this.selectedSection;
-  }
-
-  containsArray(menu) {
-    if (typeof menu === 'string') {
-      return false;
-    }
-    // if((menu as any[]).length > 1){
-    //   return !(typeof menu[1] === 'string');
-    // }
-    return true;
   }
 
 }

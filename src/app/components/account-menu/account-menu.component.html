@@ -5,7 +5,7 @@
   <div style="position: relative;top: 0;left: 0;margin-top: -50px; background-color: transparent">
     <div class="menuelt" *ngFor="let menu of newMenu" (click)="selectNewMenu(menu)">
       <div class="menueltlabel">
-        {{menu[0]}}
+        {{this.multilinguismService.translate(menu[0])}}
       </div>
     </div>
   </div>
@@ -14,34 +14,17 @@
 
     <div class="mainTestTable">
 
-      <ng-container *ngFor="let menus1 of newMenu">
+      <ng-container *ngFor="let menu of newMenu">
 
-        <div class="" *ngIf="containsArray(menus1) && isSelectedMenu(menus1)">
+        <div class="" *ngIf="isSelectedMenu(menu)">
           <hr class="hrs">
-          <ng-container *ngFor="let menus2 of menus1.slice(1)">
-            <ng-container *ngIf="containsArray(menus2)">
-              <div class="title" [class.titleSelected]="selectedSection===menus2[0]"
-                   (click)="selectedSection=menus2[0]">{{menus2[0]}}</div>
-
-              <ng-container *ngFor="let menus3 of menus2.slice(1)">
-                <ng-container *ngIf="containsArray(menus3)">
-                  <div class="test modifiable" (click)="selectedSection=menus3[0]">{{menus3[0]}}</div>
-
-                  <ng-container *ngFor="let menus4 of menus3.slice(1)">
-                    <ng-container *ngIf="containsArray(menus4)">
-                      <div class="test modifiable" (click)="selectedSection=menus4[0]">{{menus4[0]}}</div>
-
-                      <ng-container *ngFor="let menus5 of menus4.slice(1)">
-                        <div class="test modifiable" (click)="selectedSection=menus5[0]">{{menus5[0]}}</div>
-
-                      </ng-container>
-                    </ng-container>
-                  </ng-container>
-                </ng-container>
-              </ng-container>
+          <ng-container *ngFor="let menu2 of menu[1]">
+              <div class="title" [class.titleSelected]="selectedSection===menu2"
+                   (click)="selectedSection=menu2">
+                {{this.multilinguismService.translate(menu2)}}
+              </div>
               <hr class="hrs">
             </ng-container>
-          </ng-container>
         </div>
 
       </ng-container>
@@ -50,43 +33,44 @@
     <div class="menuContext">
       <div class="menuContextTitle">
         <div class="menuContextTitleText">
-          {{this.selectedSection}}
+          {{this.multilinguismService.translate(this.selectedSection)}}
         </div>
       </div>
-      <div style="overflow-y: auto; width: 100%; height: 100%">
-        <ng-container *ngIf="isSelectedSection('gestion des palettes')">
+      <hr class="hrs">
+      <div style="width: 100%; height: 100%">
+        <ng-container *ngIf="isSelectedSection('paletteManagement')">
           <app-palettes></app-palettes>
         </ng-container>
 
-        <ng-container *ngIf="isSelectedSection('Partager')">
+        <ng-container *ngIf="isSelectedSection('share')">
           <app-share></app-share>
         </ng-container>
 
-        <ng-container *ngIf="isSelectedSection('Interaction')">
+        <ng-container *ngIf="isSelectedSection('interactions')">
           <app-settings></app-settings>
         </ng-container>
 
-        <ng-container *ngIf="isSelectedSection('Langues')">
+        <ng-container *ngIf="isSelectedSection('language')">
           <app-language></app-language>
         </ng-container>
 
-        <ng-container *ngIf="isSelectedSection('Theme de l\'application')">
+        <ng-container *ngIf="isSelectedSection('ApplicationTheme')">
           <app-application-theme></app-application-theme>
         </ng-container>
 
-        <ng-container *ngIf="isSelectedSection('Gestion des icones')">
+        <ng-container *ngIf="isSelectedSection('IconsManagement')">
           <app-icons-management></app-icons-management>
         </ng-container>
 
-        <ng-container *ngIf="isSelectedSection('Titre de la page')">
+        <ng-container *ngIf="isSelectedSection('PageTitle')">
           <app-page-title-management></app-page-title-management>
         </ng-container>
 
-        <ng-container *ngIf="isSelectedSection('Format de la grille')">
+        <ng-container *ngIf="isSelectedSection('GridFormat')">
           <app-grid-format-management></app-grid-format-management>
         </ng-container>
 
-        <ng-container *ngIf="isSelectedSection('Style du pictogramme')">
+        <ng-container *ngIf="isSelectedSection('PictogramStyle')">
           <app-pictogram-style></app-pictogram-style>
         </ng-container>
 

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {StyleService} from '../../services/style.service';
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-application-theme',
@@ -14,7 +15,8 @@ export class ApplicationThemeComponent implements OnInit {
   color3;
   color4;
 
-  constructor(public styleService: StyleService) {
+  constructor(public styleService: StyleService,
+              public multilinguismService: MultilinguismService) {
 
     const root = document.getElementById('main');
     this.color0 = root.style.getPropertyValue('--main-bg-color0');
