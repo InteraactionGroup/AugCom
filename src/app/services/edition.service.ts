@@ -52,7 +52,7 @@ export class EditionService {
   radioTypeFormat = 'button';
 
 
-  menu: string[] = ['information', 'appearance', 'grammar', 'otherForms', 'interactions'];
+  menu: string[] = ['information', 'appearance'/*, 'grammar'*/, 'otherForms', 'interactions'];
 
   currentEditPage = 'information';
 

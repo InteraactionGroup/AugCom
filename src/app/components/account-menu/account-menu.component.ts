@@ -113,7 +113,6 @@ export class AccountMenuComponent implements OnInit {
   selectNewMenu(menu) {
     this.selectedNewMenu = (menu as any[]) [0];
     this.selectedSection = (menu as any[]) [1][0];
-    console.log(menu);
   }
 
   isSelectedMenu(menu) {
