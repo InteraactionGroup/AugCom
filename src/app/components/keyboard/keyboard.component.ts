@@ -275,7 +275,7 @@ export class KeyboardComponent implements OnInit {
       this.action(element, 'click');
       this.pressedElement = null;
       this.down = 0;
-    }, this.configurationService.doubleClickTimeOut);
+    }, this.configurationService.DOUBLE_CLICK_TIMEOUT_VALUE);
   }
 
   setLongPressTimer(element) {
@@ -283,7 +283,7 @@ export class KeyboardComponent implements OnInit {
       this.action(element, 'longPress');
       this.pressedElement = null;
       this.down = 0;
-    }, this.configurationService.longpressTimeOut);
+    }, this.configurationService.LONGPRESS_TIMEOUT_VALUE);
   }
 
   /**

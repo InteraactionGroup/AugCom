@@ -25,22 +25,26 @@
         'font-family': this.getFontFamily()}">
 
     <div *ngIf="
-    (!isFolder(element) && configurationService.imageAndTextVisibilityPicto==='default' && ( configurationService.imagePositionPicto==='down' || configurationService.imagePositionPicto==='right')) ||
-(isFolder(element) && configurationService.imageAndTextVisibilityRepo==='default' && ( configurationService.imagePositionRepo==='down' || configurationService.imagePositionRepo==='right'))"
+    (!isFolder(element) && configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE==='default' &&
+    ( configurationService.PICTO_IMAGE_POSITION_VALUE==='down' || configurationService.PICTO_IMAGE_POSITION_VALUE==='right')) ||
+    (isFolder(element) && configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE==='default' &&
+    ( configurationService.REPO_IMAGE_POSITION_VALUE==='down' || configurationService.REPO_IMAGE_POSITION_VALUE==='right'))"
          class="adjustableText">
       {{this.boardService.getLabel(element)}}
     </div>
 
-    <div *ngIf="(!isFolder(element) && configurationService.imageAndTextVisibilityPicto!='textOnly') ||
-    (isFolder(element) && configurationService.imageAndTextVisibilityRepo!='textOnly')"
+    <div *ngIf="(!isFolder(element) && configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE!='textOnly') ||
+    (isFolder(element) && configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE!='textOnly')"
          class="image haveBackgroundImage" [style.background-image]="this.boardService.getImgUrl(element)"></div>
 
     <div *ngIf=" (!isFolder(element) &&
-    ((configurationService.imageAndTextVisibilityPicto==='default' && ( configurationService.imagePositionPicto==='up' || configurationService.imagePositionPicto==='left' )) ||
-    (configurationService.imageAndTextVisibilityPicto==='textOnly'))) ||
-      (isFolder(element) &&
-    ((configurationService.imageAndTextVisibilityRepo==='default' && ( configurationService.imagePositionRepo==='up' || configurationService.imagePositionRepo==='left' )) ||
-    (configurationService.imageAndTextVisibilityRepo==='textOnly')))" class="adjustableText">
+    ((configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE==='default' &&
+    ( configurationService.PICTO_IMAGE_POSITION_VALUE==='up' || configurationService.PICTO_IMAGE_POSITION_VALUE==='left' )) ||
+    (configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE==='textOnly'))) ||
+    (isFolder(element) &&
+    ((configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE==='default' &&
+    ( configurationService.REPO_IMAGE_POSITION_VALUE==='up' || configurationService.REPO_IMAGE_POSITION_VALUE==='left' )) ||
+    (configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE==='textOnly')))" class="adjustableText">
       {{this.boardService.getLabel(element)}}
     </div>
 

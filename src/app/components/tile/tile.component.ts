@@ -65,22 +65,22 @@ export class TileComponent implements OnInit {
       this.action(element, 'longPress');
       this.pressedElement = null;
       this.down = 0;
-    }, this.configurationService.longpressTimeOut);
+    }, this.configurationService.LONGPRESS_TIMEOUT_VALUE);
   }
 
   exit() {
-    if (this.configurationService.dwellTimeActivated) {
+    if (this.configurationService.DWELL_TIME_ENABLED) {
       this.dwellCursorService.stop();
       window.clearTimeout(this.dwellTimer);
     }
   }
 
   enter(element) {
-    if (this.configurationService.dwellTimeActivated) {
-      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE);
+    if (this.configurationService.DWELL_TIME_ENABLED) {
+      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_TIMEOUT_VALUE);
       this.dwellTimer = window.setTimeout(() => {
         this.action(element, 'click');
-      }, this.configurationService.DWELL_TIME_VALUE);
+      }, this.configurationService.DWELL_TIME_TIMEOUT_VALUE);
     }
   }
 
@@ -89,7 +89,7 @@ export class TileComponent implements OnInit {
       this.action(element, 'click');
       this.pressedElement = null;
       this.down = 0;
-    }, this.configurationService.doubleClickTimeOut);
+    }, this.configurationService.DOUBLE_CLICK_TIMEOUT_VALUE);
   }
 
   /**
@@ -433,27 +433,41 @@ export class TileComponent implements OnInit {
 
 
   getGridTemplateRows() {
-    if (this.configurationService.imageAndTextVisibilityPicto === 'default') {
-      if (this.configurationService.imagePositionPicto === 'up') {
-        return '75% 25%';
-      } else if (this.configurationService.imagePositionPicto === 'down') {
-        return '25% 75%';
-      } else if (this.configurationService.imagePositionPicto === 'left' || this.configurationService.imagePositionPicto === 'right') {
+    if (!this.isFolder(this.element)) {
+      if (this.configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default') {
+        if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'up') {
+          return '75% 25%';
+        } else if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'down') {
+          return '25% 75%';
+        } else if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'left' || this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'right') {
+          return '100%';
+        }
+      } else {
         return '100%';
       }
     } else {
-      return '100%';
+      if (this.configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default') {
+        if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'up') {
+          return '75% 25%';
+        } else if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'down') {
+          return '25% 75%';
+        } else if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'left' || this.configurationService.REPO_IMAGE_POSITION_VALUE === 'right') {
+          return '100%';
+        }
+      } else {
+        return '100%';
+      }
     }
   }
 
   getGridTemplateColumns() {
     if (!this.isFolder(this.element)) {
-      if (this.configurationService.imageAndTextVisibilityPicto === 'default') {
-        if (this.configurationService.imagePositionPicto === 'up' || this.configurationService.imagePositionPicto === 'down') {
+      if (this.configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default') {
+        if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'up' || this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'down') {
           return '100%'
-        } else if (this.configurationService.imagePositionPicto === 'left') {
+        } else if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'left') {
           return '60% 40%'
-        } else if (this.configurationService.imagePositionPicto === 'right') {
+        } else if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'right') {
           return '40% 60%'
         }
       } else {
@@ -461,12 +475,12 @@ export class TileComponent implements OnInit {
       }
     }
     if (this.isFolder(this.element)) {
-      if (this.configurationService.imageAndTextVisibilityRepo === 'default') {
-        if (this.configurationService.imagePositionRepo === 'up' || this.configurationService.imagePositionRepo === 'down') {
+      if (this.configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default') {
+        if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'up' || this.configurationService.REPO_IMAGE_POSITION_VALUE === 'down') {
           return '100%'
-        } else if (this.configurationService.imagePositionRepo === 'left') {
+        } else if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'left') {
           return '60% 40%'
-        } else if (this.configurationService.imagePositionRepo === 'right') {
+        } else if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'right') {
           return '40% 60%'
         }
       } else {
@@ -477,9 +491,9 @@ export class TileComponent implements OnInit {
 
   getFontFamily() {
     if (this.isFolder(this.element)) {
-      return this.configurationService.textStyleRepo === 'default' ? 'var(--main-font)' : this.configurationService.textStyleRepo + ', sans serif';
+      return this.configurationService.REPO_TEXT_STYLE_VALUE === 'default' ? 'var(--main-font)' : this.configurationService.REPO_TEXT_STYLE_VALUE + ', sans serif';
     } else {
-      return this.configurationService.textStylePicto === 'default' ? 'var(--main-font)' : this.configurationService.textStylePicto + ', sans serif';
+      return this.configurationService.PICTO_TEXT_STYLE_VALUE === 'default' ? 'var(--main-font)' : this.configurationService.PICTO_TEXT_STYLE_VALUE + ', sans serif';
     }
   }
 

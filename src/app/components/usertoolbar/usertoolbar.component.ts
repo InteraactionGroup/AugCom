@@ -75,8 +75,8 @@ export class UsertoolbarComponent implements OnInit {
 
 
   translate() {
-    this.configurationService.language = (this.configurationService.language === 'FR' ? 'EN' : 'FR');
-    console.log(this.configurationService.language)
+    this.configurationService.LANGUAGE_VALUE = (this.configurationService.LANGUAGE_VALUE === 'FR' ? 'EN' : 'FR');
+    console.log(this.configurationService.LANGUAGE_VALUE)
   }
 
 
@@ -109,18 +109,18 @@ export class UsertoolbarComponent implements OnInit {
   }
 
   exit() {
-    if (this.configurationService.dwellTimeActivated) {
+    if (this.configurationService.DWELL_TIME_ENABLED) {
       this.dwellCursorService.stop();
       window.clearTimeout(this.dwellTimer);
     }
   }
 
   enter() {
-    if (this.configurationService.dwellTimeActivated) {
-      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE);
+    if (this.configurationService.DWELL_TIME_ENABLED) {
+      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_TIMEOUT_VALUE);
       this.dwellTimer = window.setTimeout(() => {
         this.boardService.backToPreviousFolder();
-      }, this.configurationService.DWELL_TIME_VALUE);
+      }, this.configurationService.DWELL_TIME_TIMEOUT_VALUE);
     }
   }
 

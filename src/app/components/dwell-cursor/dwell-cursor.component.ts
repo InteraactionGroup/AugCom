@@ -19,7 +19,7 @@ export class DwellCursorComponent implements OnInit {
   ngOnInit(): void {
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', e => {
-      if (this.configurationService.dwellTimeActivated) {
+      if (this.configurationService.DWELL_TIME_ENABLED) {
         cursor.setAttribute("style", "top: " + (e.pageY - 10) + "px; left: " + (e.pageX - 10) + "px;opacity:" + this.getCursorOpacity())
       }
     });
@@ -27,7 +27,7 @@ export class DwellCursorComponent implements OnInit {
   }
 
   public getCursorOpacity() {
-    return (this.configurationService.dwellTimeActivated && this.dwellCursorService.visible && this.dwellCursorService.started) ? '1' : '0'
+    return (this.configurationService.DWELL_TIME_ENABLED && this.dwellCursorService.visible && this.dwellCursorService.started) ? '1' : '0'
   }
 
 }

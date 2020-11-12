@@ -13,9 +13,9 @@ export class ParametersService {
     this.printVoicesList().then(r => {
       const voice = this.getCurrentVoice();
       if (voice !== undefined && voice !== null) {
-        this.configurationService.currentVoice = '' + voice.lang + '@' + voice.name;
+        this.configurationService.CURRENT_VOICE_VALUE = '' + voice.lang + '@' + voice.name;
       } else {
-        this.configurationService.currentVoice = '@';
+        this.configurationService.CURRENT_VOICE_VALUE = '@';
       }
     });
   }
@@ -42,14 +42,14 @@ export class ParametersService {
 
   getCurrentVoice() {
     let currentVoice = this.languagesAvailaibles.find(voice => {
-      const res = this.configurationService.currentVoice.split('@');
+      const res = this.configurationService.CURRENT_VOICE_VALUE.split('@');
       return res[0] === voice.lang && res[1] === voice.name;
     });
 
     /*if we can't find the same voice checking if we can find the same lang*/
     if (currentVoice === undefined || currentVoice === null) {
       currentVoice = this.languagesAvailaibles.find(voice => {
-        const res = this.configurationService.currentVoice.split('@');
+        const res = this.configurationService.CURRENT_VOICE_VALUE.split('@');
         return res[0] === voice.lang
       })
     }

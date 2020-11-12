@@ -114,6 +114,7 @@
     { "id" : "Color",  "FR" : "Couleur", "EN" : "Color" },
     { "id" : "FontStyle",  "FR" : "Style de police", "EN" : "Font style" },
     { "id" : "GeneralTheme",  "FR" : "Thème Général", "EN" : "General Theme" },
-    { "id" : "ChooseFont",  "FR" : "Choisissez la police", "EN" : "Choose the font" }
+    { "id" : "ChooseFont",  "FR" : "Choisissez la police", "EN" : "Choose the font" },
+    { "id" : "dwellTime",  "FR" : "Activer le temps de fixation", "EN" : "Activate the dwell-time" }
   ]
 }

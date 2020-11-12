@@ -15,7 +15,7 @@ export class MultilinguismService {
   dictionary: Dictionary = new Dictionary();
 
   translate(id: string) {
-    return this.translateIn(id, this.configurationService.language);
+    return this.translateIn(id, this.configurationService.LANGUAGE_VALUE);
   }
 
   translateIn(id: string, lang: string) {

@@ -46,45 +46,45 @@ export class DialogbarComponent implements OnInit {
   }
 
   exit() {
-    if (this.configurationService.dwellTimeActivated) {
+    if (this.configurationService.DWELL_TIME_ENABLED) {
       this.dwellCursorService.stop();
       window.clearTimeout(this.dwellTimer);
     }
   }
 
   enterAndClear() {
-    if (this.configurationService.dwellTimeActivated) {
-      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE);
+    if (this.configurationService.DWELL_TIME_ENABLED) {
+      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_TIMEOUT_VALUE);
       this.dwellTimer = window.setTimeout(() => {
         this.clear();
-      }, this.configurationService.DWELL_TIME_VALUE);
+      }, this.configurationService.DWELL_TIME_TIMEOUT_VALUE);
     }
   }
 
   enterAndPlay() {
-    if (this.configurationService.dwellTimeActivated) {
-      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE);
+    if (this.configurationService.DWELL_TIME_ENABLED) {
+      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_TIMEOUT_VALUE);
       this.dwellTimer = window.setTimeout(() => {
         this.historicService.playHistoric();
-      }, this.configurationService.DWELL_TIME_VALUE);
+      }, this.configurationService.DWELL_TIME_TIMEOUT_VALUE);
     }
   }
 
   enterAndBack() {
-    if (this.configurationService.dwellTimeActivated) {
-      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE);
+    if (this.configurationService.DWELL_TIME_ENABLED) {
+      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_TIMEOUT_VALUE);
       this.dwellTimer = window.setTimeout(() => {
         this.historicService.backHistoric();
-      }, this.configurationService.DWELL_TIME_VALUE);
+      }, this.configurationService.DWELL_TIME_TIMEOUT_VALUE);
     }
   }
 
   enterToSay(text) {
-    if (this.configurationService.dwellTimeActivated) {
-      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_VALUE);
+    if (this.configurationService.DWELL_TIME_ENABLED) {
+      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_TIMEOUT_VALUE);
       this.dwellTimer = window.setTimeout(() => {
         this.historicService.say(text);
-      }, this.configurationService.DWELL_TIME_VALUE);
+      }, this.configurationService.DWELL_TIME_TIMEOUT_VALUE);
     }
   }
 

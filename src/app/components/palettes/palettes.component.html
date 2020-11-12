@@ -1,7 +1,7 @@
 <div class="height-width-100">
   <div class=palettesContainer>
     <ng-container *ngFor="let palette of this.paletteService.palettes">
-      <div class="palette-item width-100">
+      <div class="palette-item">
         <div class="paletteLabel width-100 floatLeft">
           {{palette.name}}
         </div>
@@ -37,7 +37,7 @@
       </div>
     </div>
 
-    <div *ngIf="this.paletteService.newpalette" class="palette-item width-100">
+    <div *ngIf="this.paletteService.newpalette" class="palette-item">
       <div class="paletteAddLabel floatLeft">
         {{this.paletteService.getNextPaletteName()}}
       </div>

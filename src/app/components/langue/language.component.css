@@ -2,8 +2,8 @@
 .languageSelection {
   margin: 20px;
   width: fit-content;
-  display: grid;
-  grid-template-columns: 1fr  1fr;
+  /*display: grid;*/
+  /*grid-template-columns: 1fr  1fr;*/
 }
 
 label {

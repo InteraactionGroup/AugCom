@@ -1,6 +1,8 @@
 
 .palette-item {
   display: inline-block;
+  margin: 10px;
+  width: calc(100% - 20px);
 }
 
 .addPalette {

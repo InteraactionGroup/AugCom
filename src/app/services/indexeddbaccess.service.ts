@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {BoardService} from './board.service';
 import {PaletteService} from './palette.service';
 import {JsonValidatorService} from './json-validator.service';
+import {ConfigurationService} from "./configuration.service";
+import {StyleService} from "./style.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,11 @@ export class IndexeddbaccessService {
 
   openRequest;
 
-  constructor(public paletteService: PaletteService, public boardService: BoardService, public jsonValidator: JsonValidatorService) {
+  constructor(public paletteService: PaletteService,
+              public boardService: BoardService,
+              public jsonValidator: JsonValidatorService,
+              public configurationService: ConfigurationService,
+              public styleService: StyleService) {
     this.init();
   }
 
@@ -48,6 +54,14 @@ export class IndexeddbaccessService {
       storePaletteRequest.onsuccess = () => {
         paletteObjectStore.put(this.paletteService.palettes, 1);
       };
+
+      // UPDATE THE CONFIGURATION
+      const configStore = db.transaction(['Configuration'], 'readwrite');
+      const configObjectStore = configStore.objectStore('Configuration');
+      const storeConfigRequest = configObjectStore.get(1);
+      storeConfigRequest.onsuccess = () => {
+        configObjectStore.put(this.configurationService.getConfiguration(), 1);
+      };
     };
   }
 
@@ -79,6 +93,11 @@ export class IndexeddbaccessService {
       paletteStore.onsuccess = e => {
         this.paletteService.palettes = paletteStore.result;
       };
+
+      const configStore = db.transaction(['Configuration']).objectStore('Configuration').get(1);
+      configStore.onsuccess = e => {
+        this.configurationService.setConfiguration(configStore.result);
+      };
     };
 
     this.openRequest.onupgradeneeded = event => {
@@ -89,6 +108,7 @@ export class IndexeddbaccessService {
 
       this.createPaletteObject(db, transaction);
       this.createGridObject(db, transaction);
+      this.createConfigurationObject(db, transaction);
 
       this.boardService.updateElementList();
 
@@ -107,5 +127,12 @@ export class IndexeddbaccessService {
     // console.log('save loaded');
     const gridStore = transaction.objectStore('Grid');
     gridStore.add(this.boardService.board);
+  }
+
+  createConfigurationObject(db, transaction) {
+    db.createObjectStore('Configuration', {autoIncrement: true});
+    // console.log('save loaded');
+    const configurationStore = transaction.objectStore('Configuration');
+    configurationStore.add(this.configurationService.getConfiguration());
   }
 }

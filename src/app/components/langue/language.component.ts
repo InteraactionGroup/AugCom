@@ -21,8 +21,8 @@ export class LanguageComponent implements OnInit {
   }
 
   translate() {
-    this.configurationService.language = (this.configurationService.language === 'FR' ? 'EN' : 'FR');
-    console.log(this.configurationService.language)
+    this.configurationService.LANGUAGE_VALUE = (this.configurationService.LANGUAGE_VALUE === 'FR' ? 'EN' : 'FR');
+    console.log(this.configurationService.LANGUAGE_VALUE)
   }
 
 

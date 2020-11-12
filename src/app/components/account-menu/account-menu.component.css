@@ -62,12 +62,14 @@
   width: calc(33% - 1px);
   height: 50px;
   display: inline-grid;
-  background-color: rgba(211, 211, 211, 0.51);
   /*border: 2px solid black;*/
   margin-right: 1px;
   z-index: 1;
   border-radius: 10px 10px 0 0;
   text-align: center;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--main-bg-color1);
 }
 
 .menueltlabel {

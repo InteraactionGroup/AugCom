@@ -79,7 +79,7 @@ export class BoardService {
       }
       return name;
     }
-    return this.configurationService.language === 'FR' ? 'Accueil' : 'Home';
+    return this.configurationService.LANGUAGE_VALUE === 'FR' ? 'Accueil' : 'Home';
   }
 
   /*reset board with default Board value*/
