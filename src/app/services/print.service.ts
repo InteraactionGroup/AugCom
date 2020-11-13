@@ -98,8 +98,14 @@ export class PrintService {
         const url = this.boardService.getSimpleImgUrl(element);
         this.urlList.push(url);
 
+        let row = (element.rows === null || element.rows === undefined) ? '' :
+          'grid-row-start:' + (element.y + 1) + ';grid-row-end:'+ ( element.y + 1 + element.rows) + '; '  ;
+        let column = (element.cols === null || element.cols === undefined) ? '' :
+          'grid-column-start:' + (element.x + 1) + ';grid-column-end:'+ ( element.x + 1 + element.cols) + '; '   ;
+        let span =  (row === '' && column === '') ? '' : 'style="' + row + column +'" ';
+
         innerValue = innerValue +
-          '<div class="elementContainer">' +
+          '<div class="elementContainer"' + span + '>' +
           '<div class="' + (url === '' ? 'element noImageElement' : 'element')
           + '" style="background-color:' + this.gridElementService.getStyle(element).BackgroundColor
           + '; border-color:' + this.gridElementService.getStyle(element).BorderColor + this.getShadow(element) + '">\n' +

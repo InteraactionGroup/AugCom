@@ -431,60 +431,104 @@ export class TileComponent implements OnInit {
     }
   }
 
+  displayImage(element) {
+    return (
+      (!this.isFolder(element) && this.configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE !== 'textOnly') ||
+      (this.isFolder(element) && this.configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE !== 'textOnly')
+    );
+  }
+
+  displayTopLabel(element) {
+    return (
+      (!this.isFolder(element) && this.configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default' &&
+        (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'down' || this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'right')
+      ) ||
+      (this.isFolder(element) && this.configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default' &&
+        (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'down' || this.configurationService.REPO_IMAGE_POSITION_VALUE === 'right')
+      )
+    );
+  }
+
+  displayBottomLabel(element) {
+    return (
+      (!this.isFolder(element) &&
+        (
+          (this.configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default' &&
+            (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'up' || this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'left')) ||
+          (this.configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'textOnly')
+        )
+      ) ||
+      (this.isFolder(element) &&
+        (
+          (this.configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default' &&
+            (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'up' || this.configurationService.REPO_IMAGE_POSITION_VALUE === 'left')) ||
+          (this.configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'textOnly')
+        )
+      )
+    );
+  }
 
   getGridTemplateRows() {
-    if (!this.isFolder(this.element)) {
-      if (this.configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default') {
-        if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'up') {
-          return '75% 25%';
-        } else if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'down') {
-          return '25% 75%';
-        } else if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'left' || this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'right') {
-          return '100%';
-        }
-      } else {
-        return '100%';
-      }
+    if(this.boardService.getImgUrl(this.element) == ''){
+      return '100%';
     } else {
-      if (this.configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default') {
-        if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'up') {
-          return '75% 25%';
-        } else if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'down') {
-          return '25% 75%';
-        } else if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'left' || this.configurationService.REPO_IMAGE_POSITION_VALUE === 'right') {
+      if (!this.isFolder(this.element)) {
+        if (this.configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default') {
+          if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'up') {
+            return '75% 25%';
+          } else if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'down') {
+            return '25% 75%';
+          } else if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'left' || this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'right') {
+            return '100%';
+          }
+        } else {
           return '100%';
         }
       } else {
-        return '100%';
+        if (this.configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default') {
+          if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'up') {
+            return '75% 25%';
+          } else if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'down') {
+            return '25% 75%';
+          } else if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'left' || this.configurationService.REPO_IMAGE_POSITION_VALUE === 'right') {
+            return '100%';
+          }
+        } else {
+          return '100%';
+        }
       }
     }
   }
 
   getGridTemplateColumns() {
-    if (!this.isFolder(this.element)) {
-      if (this.configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default') {
-        if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'up' || this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'down') {
-          return '100%'
-        } else if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'left') {
-          return '60% 40%'
-        } else if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'right') {
-          return '40% 60%'
+    if(this.boardService.getImgUrl(this.element) == ''){
+      return '100%';
+    } else {
+      if (!this.isFolder(this.element)) {
+        if (this.configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default') {
+          if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'up' || this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'down') {
+            return '100%'
+          } else if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'left') {
+            return '60% 40%'
+          } else if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'right') {
+            return '40% 60%'
+          }
+        } else {
+          return '100%';
         }
-      } else {
-        return '100%';
       }
-    }
-    if (this.isFolder(this.element)) {
-      if (this.configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default') {
-        if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'up' || this.configurationService.REPO_IMAGE_POSITION_VALUE === 'down') {
-          return '100%'
-        } else if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'left') {
-          return '60% 40%'
-        } else if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'right') {
-          return '40% 60%'
+      if (this.isFolder(this.element)) {
+        if (this.configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default') {
+          if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'up' || this.configurationService.REPO_IMAGE_POSITION_VALUE === 'down') {
+            return '100%'
+          } else if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'left') {
+            return '60% 40%'
+          } else if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'right') {
+            return '40% 60%'
+          }
+        } else {
+          return '100%';
         }
-      } else {
-        return '100%';
       }
     }
   }

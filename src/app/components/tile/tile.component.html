@@ -6,9 +6,14 @@
        (click)="this.select(element)"
        (pointerenter)="enter(element)"
        (pointerleave)="exit()"
-       [class.searched]="searchStarted()&&isSearched(element)" [class.blurredElt]="element.ID==='#disable'"
-       (dblclick)="this.edit(element)" (touchstart)="this.pointerDown(element,0)" (touchend)="this.pointerUp(element,0)"
-       (pointerdown)="this.pointerDown(element,1)" (pointerup)="this.pointerUp(element,1)" [ngStyle]="{
+       [class.searched]="searchStarted()&&isSearched(element)"
+       [class.blurredElt]="element.ID==='#disable'"
+       (dblclick)="this.edit(element)"
+       (touchstart)="this.pointerDown(element,0)"
+       (touchend)="this.pointerUp(element,0)"
+       (pointerdown)="this.pointerDown(element,1)"
+       (pointerup)="this.pointerUp(element,1)"
+       [ngStyle]="{
         'background-color': this.gridElementService.getStyle(element).BackgroundColor !== null ? this.gridElementService.getStyle(element).BackgroundColor : 'var(--main-bg-color3)' ,
         'border-color': this.gridElementService.getStyle(element).BorderColor === null || this.gridElementService.getStyle(element).BorderColor === undefined ? 'black' : this.gridElementService.getStyle(element).BorderColor,
         'box-shadow': this.getShadow(element) ,
@@ -24,27 +29,15 @@
         'grid-template-columns': this.getGridTemplateColumns(),
         'font-family': this.getFontFamily()}">
 
-    <div *ngIf="
-    (!isFolder(element) && configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE==='default' &&
-    ( configurationService.PICTO_IMAGE_POSITION_VALUE==='down' || configurationService.PICTO_IMAGE_POSITION_VALUE==='right')) ||
-    (isFolder(element) && configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE==='default' &&
-    ( configurationService.REPO_IMAGE_POSITION_VALUE==='down' || configurationService.REPO_IMAGE_POSITION_VALUE==='right'))"
+    <div *ngIf="displayTopLabel(element)"
          class="adjustableText">
       {{this.boardService.getLabel(element)}}
     </div>
 
-    <div *ngIf="(!isFolder(element) && configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE!='textOnly') ||
-    (isFolder(element) && configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE!='textOnly')"
+    <div *ngIf="displayImage(element)"
          class="image haveBackgroundImage" [style.background-image]="this.boardService.getImgUrl(element)"></div>
 
-    <div *ngIf=" (!isFolder(element) &&
-    ((configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE==='default' &&
-    ( configurationService.PICTO_IMAGE_POSITION_VALUE==='up' || configurationService.PICTO_IMAGE_POSITION_VALUE==='left' )) ||
-    (configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE==='textOnly'))) ||
-    (isFolder(element) &&
-    ((configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE==='default' &&
-    ( configurationService.REPO_IMAGE_POSITION_VALUE==='up' || configurationService.REPO_IMAGE_POSITION_VALUE==='left' )) ||
-    (configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE==='textOnly')))" class="adjustableText">
+    <div *ngIf="displayBottomLabel(element)" class="adjustableText">
       {{this.boardService.getLabel(element)}}
     </div>
 
