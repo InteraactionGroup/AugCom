@@ -15,7 +15,8 @@
 
   <div style=" margin: 20px ;width: fit-content;">
     <label for="pictoImagePosition">Choissez la position de l'image du pictograme:</label>
-    <select [disabled]="configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE !== 'default'" id="pictoImagePosition"
+    <select [disabled]="configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE !== 'default'"
+            id="pictoImagePosition"
             class="variantListBox" [(ngModel)]="configurationService.PICTO_IMAGE_POSITION_VALUE">
       <option value="up">up</option>
       <option value="down">down</option>
@@ -40,14 +41,14 @@
   <div> Organisation des pictogrammes répertoire: (à implémenter)</div>
 
 
-<!--  <div style=" margin: 20px ;width: fit-content;">-->
-<!--    <label for="design">Desgin du répertoire:</label>-->
-<!--    <select id="design" class="variantListBox">-->
-<!--      <option value="default"> default</option>-->
-<!--      <option value="normal"> normal</option>-->
-<!--      <option value="folder"> folder</option>-->
-<!--    </select>-->
-<!--  </div>-->
+  <!--  <div style=" margin: 20px ;width: fit-content;">-->
+  <!--    <label for="design">Desgin du répertoire:</label>-->
+  <!--    <select id="design" class="variantListBox">-->
+  <!--      <option value="default"> default</option>-->
+  <!--      <option value="normal"> normal</option>-->
+  <!--      <option value="folder"> folder</option>-->
+  <!--    </select>-->
+  <!--  </div>-->
 
 
   <div style=" margin: 20px ;width: fit-content;">
@@ -62,7 +63,8 @@
 
   <div style=" margin: 20px ;width: fit-content;">
     <label for="pictoImagePosition_R">Choissez la position de l'image du pictograme:</label>
-    <select [disabled]="configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE !== 'default'" id="pictoImagePosition_R"
+    <select [disabled]="configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE !== 'default'"
+            id="pictoImagePosition_R"
             class="variantListBox" [(ngModel)]="configurationService.REPO_IMAGE_POSITION_VALUE">
       <option value="up">up</option>
       <option value="down">down</option>

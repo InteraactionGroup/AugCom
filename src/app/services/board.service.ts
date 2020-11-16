@@ -517,6 +517,30 @@ export class BoardService {
     }
   }
 
+  getNumberOfColsForPage(page: Page): number {
+    if (page !== null && page !== undefined) {
+      if (page.NumberOfCols !== undefined) {
+        return page.NumberOfCols;
+      } else {
+        return this.board.NumberOfCols;
+      }
+    } else {
+      return this.board.NumberOfCols;
+    }
+  }
+
+  getNumberOfRowsForPage(page: Page): number {
+    if (page !== null && page !== undefined) {
+      if (page.NumberOfRows !== undefined) {
+        return page.NumberOfRows;
+      } else {
+        return this.board.NumberOfRows;
+      }
+    } else {
+      return this.board.NumberOfRows;
+    }
+  }
+
   getGapSize(): number {
     const currentPage: Page = this.currentPage();
     if (currentPage !== null && currentPage !== undefined) {

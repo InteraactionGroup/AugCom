@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BoardService} from './board.service';
-import {FolderGoTo, GridElement} from '../types';
+import {FolderGoTo, GridElement, Page} from '../types';
 import {GridElementService} from './grid-element.service';
 
 @Injectable({
@@ -48,31 +48,41 @@ export class PrintService {
             return elt.ID === id;
           }));
         }
-        tempHTML = tempHTML + this.getHTML(page.ID, tempList);
+        tempHTML = tempHTML + this.getHTML(page, tempList);
       }
     });
 
     return tempHTML;
   }
 
-  getHTML(id, elementList: any[]) {
+  getHTML(page: Page, elementList: any[]) {
+    let numberOfCols = this.boardService.getNumberOfColsForPage(page);
+    let numberOfRows = this.boardService.getNumberOfRowsForPage(page);
+
     let temp = '';
-    const numberOfPages = Math.ceil(elementList.length / (this.boardService.board.NumberOfCols * this.boardService.board.NumberOfRows));
+    const numberOfPages = Math.ceil(elementList.length / (numberOfCols * numberOfRows));
     for (let i = 0; i < numberOfPages; i++) {
-      const beginning = i * (this.boardService.board.NumberOfCols * this.boardService.board.NumberOfRows);
-      const ending = (i + 1) * (this.boardService.board.NumberOfCols * this.boardService.board.NumberOfRows);
+      const beginning = i * (numberOfCols * numberOfRows);
+      const ending = (i + 1) * (numberOfCols * numberOfRows);
       temp = temp +
-        this.wrapperBegin(id + '- page ' + (((i as number) + (1 as number)) as number)) +
+        this.wrapperBegin(page,i) +
         this.innerHTML(elementList.slice(beginning, ending)) +
         this.wrapperEnd();
     }
     return temp;
   }
 
-  wrapperBegin(id) {
+  wrapperBegin(page: Page, i: number) {
+    let numberOfCols = this.boardService.getNumberOfColsForPage(page);
+    let numberOfRows = this.boardService.getNumberOfRowsForPage(page);
+    let id = page.ID + '- page ' + (((i as number) + (1 as number)) as number);
+
     return '<div class="id section-to-print">' + id + '</div>\n' +
       '<div class="keyboard section-to-print" id="' + id + '">\n' +
-      '<div class="wrapper height-width-100">\n';
+      '<div class="wrapper height-width-100"' +
+      'style="grid-template-columns: repeat(' + numberOfCols +
+      ', 1fr) ;grid-template-rows: repeat(100, ' +
+      (100 / numberOfRows) + '%) ;"' + '>\n';
   }
 
   getShadow(element: GridElement) {
@@ -168,8 +178,6 @@ export class PrintService {
       '  background-repeat: no-repeat;\n' +
       '  background-position: center;\n' +
       '  visibility: visible;\n' +
-      'grid-template-columns: repeat(' + (this.boardService.board.NumberOfCols) + ', 1fr) ; \n' +
-      'grid-template-rows: repeat(100, ' + (100 / (this.boardService.board.NumberOfRows)) + '%) ; \n' +
       'background-image : ' + this.boardService.background +
       '}\n' +
       '\n' +

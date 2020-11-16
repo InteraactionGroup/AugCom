@@ -469,7 +469,7 @@ export class TileComponent implements OnInit {
   }
 
   getGridTemplateRows() {
-    if(this.boardService.getImgUrl(this.element) == ''){
+    if (this.boardService.getImgUrl(this.element) == '') {
       return '100%';
     } else {
       if (!this.isFolder(this.element)) {
@@ -501,7 +501,7 @@ export class TileComponent implements OnInit {
   }
 
   getGridTemplateColumns() {
-    if(this.boardService.getImgUrl(this.element) == ''){
+    if (this.boardService.getImgUrl(this.element) == '') {
       return '100%';
     } else {
       if (!this.isFolder(this.element)) {

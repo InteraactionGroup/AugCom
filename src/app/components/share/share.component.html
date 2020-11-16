@@ -4,7 +4,7 @@
 
       <div class="import listElement">
         <div class="label floatLeft">
-          {{this.multilinguism.translate("importSave")+":"}}
+          {{this.multilinguism.translate("importSave") + ":"}}
         </div>
         <div class="inputField floatLeft">
           <input #file type="file" (change)="import(file.files)" onclick="this.value=null">
@@ -13,7 +13,7 @@
 
       <div class="import listElement">
         <div class="label floatLeft">
-          {{this.multilinguism.translate("importZip")+":"}}
+          {{this.multilinguism.translate("importZip") + ":"}}
         </div>
         <div class="inputField floatLeft">
           <input #zip type="file" (change)="exploreZip(zip.files)">
@@ -23,7 +23,7 @@
 
       <div class="export listElement">
         <div class="label floatLeft">
-          {{this.multilinguism.translate("exportSave")+":"}}
+          {{this.multilinguism.translate("exportSave") + ":"}}
         </div>
         <div class="inputField floatLeft">
           <input type="button" value="Export" (click)="export()">
@@ -32,7 +32,7 @@
 
       <div class="exportTo listElement">
         <div class="label floatLeft">
-          {{this.multilinguism.translate("exportPDF")+":"}}
+          {{this.multilinguism.translate("exportPDF") + ":"}}
         </div>
         <div class="inputField floatLeft">
           <input type="button" value="Export" (click)="this.printToPDF()">
@@ -42,7 +42,7 @@
 
       <div class="exportTo listElement">
         <div class="label floatLeft">
-          {{this.multilinguism.translate("importS4Y")+":"}}
+          {{this.multilinguism.translate("importS4Y") + ":"}}
         </div>
         <div class="inputField floatLeft">
           <input type="button" value="Import" (click)="parseAndCreateSpeak4YourselfGrid()">
@@ -51,7 +51,7 @@
 
       <div class="exportTo listElement">
         <div class="label floatLeft">
-          {{this.multilinguism.translate("importProloquo")+":"}}
+          {{this.multilinguism.translate("importProloquo") + ":"}}
         </div>
         <div class="inputField floatLeft">
           <input type="button" value="Import" (click)="parseAndCreateProloquoGrid()">

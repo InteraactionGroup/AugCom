@@ -12,11 +12,11 @@ export class AccountMenuComponent implements OnInit {
   newMenu: [string, string[]][] = [
     ['Application',
       ['ApplicationTheme',
-      // ['Gestion des icones'],
-      'paletteManagement',
-      'interactions',
-      'language',
-      'share']
+        // ['Gestion des icones'],
+        'paletteManagement',
+        'interactions',
+        'language',
+        'share']
     ],
     // ['Barre de phrase',
     //   ['Paramètres de la phrase',
@@ -42,8 +42,8 @@ export class AccountMenuComponent implements OnInit {
       ['PageTitle'// ,
         // ['nom/picto ou les deux'],
         // ['chemin absolu ou juste nom de la page']
-      ,
-      'GridFormat' // ,
+        ,
+        'GridFormat' // ,
         // ['taille de la grille'],
         // ['espace entre les picto'],
         // ['thème du fond']

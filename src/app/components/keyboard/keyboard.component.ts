@@ -61,6 +61,7 @@ export class KeyboardComponent implements OnInit {
     public gridElementService: GridElementService,
     public configurationService: ConfigurationService
   ) {
+    this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
   }
 
   onKeyCols(event: any) {
@@ -113,6 +114,7 @@ export class KeyboardComponent implements OnInit {
    */
   ngOnInit() {
     this.boardService.updateElementList();
+    this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
   }
 
   /**

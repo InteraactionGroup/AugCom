@@ -85,6 +85,7 @@ export class UsertoolbarComponent implements OnInit {
    * otherwise close the edit panel and save the modified information into he indexedDB
    */
   edit() {
+    this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
 
     if (this.userToolBarService.isConnected) {
       this.userToolBarService.switchEditValue();

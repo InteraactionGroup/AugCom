@@ -22,7 +22,8 @@
               <div class="deleteElement" (click)="deleteElementForm(b)">
                 <div class="image haveBackgroundImage" [style.background-image]="this.getIcon('delete')"></div>
               </div>
-              <div class="element" style="margin-top: -30px;" [class.inModification]="b===this.selectedItem" (click)="select(b)"
+              <div class="element" style="margin-top: -30px;" [class.inModification]="b===this.selectedItem"
+                   (click)="select(b)"
                    [ngStyle]="{'background-color': this.editionService.curentColor ,
                     'border-color': this.editionService.curentBorderColor}">
 
