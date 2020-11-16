@@ -10,7 +10,7 @@
 }
 
 .addPalette .palette {
-  width: calc(100% - 50px);
+  width: 100%;
   height: fit-content;
   display: grid;
   grid-template-columns: repeat(10, 10%);
@@ -148,10 +148,11 @@
   padding-top: 2px;
   padding-bottom: 2px;
   border-radius: 3px 3px 0 0;
+  width: calc(100% - 50px);
 }
 
 .palette {
-  width: calc(100% - 50px);
+  width: 100%;
   height: fit-content;
   display: grid;
   grid-template-columns: repeat(10, 10%);
@@ -159,16 +160,18 @@
 
 .supprPalette {
   width: 50px;
-  background-color: var(--main-bg-color1);
+  height: 20px;
+  background-color: indianred;
   cursor: pointer;
 }
 
 .supprPalette:hover {
-  background-color: var(--main-bg-color2);
+  background-color: darkred;
 }
 
 .supprPalette .icon {
-  height: 20px;
+  height: 15px;
+  margin: 2.5px;
 }
 
 .palette .color {
@@ -199,50 +202,51 @@
   left: 25%;
   height: 50%;
   width: 50%;
-  background-color: var(--main-bg-color4);
+  background-color: var(--main-bg-color1);
+  border: var(--main-bg-color4) 5px solid;
+  display: grid;
+  grid-template-rows: 2fr 1fr;
+  border-radius: 10px;
 }
 
-.popup .popupContainer {
-  height: 96%;
-  width: 96%;
-  margin-left: 2%;
-  transform: translateY(2.5%);
-  background-color: var(--main-bg-color3);
+.popup .popupQuestion {
+  width: calc(100% - 50px);
+  display: inline-grid;
+  align-items: center;
+  margin-left: 25px;
+  align-content: center;
+  text-align: center;
 }
 
-.popup .popupContainer .popupQuestion {
-  width: 70%;
-  height: 20%;
-  margin-left: 15%;
-  transform: translateY(100%);
+.popup .popupButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
-.popup .popupContainer .popupButtons {
-  width: 70%;
-  height: 30%;
-  margin-left: 15%;
-  transform: translateY(100%);
-}
-
-.popup .popupContainer .popupButtons .popupChoiceButton {
-  width: 30%;
-  margin-left: 10%;
-  margin-right: 10%;
-  height: 100%;
+.popup .popupButtons .popupChoiceButton {
+  width: 40%;
+  margin-left: 30%;
+  height: 60px;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+  display: grid;
+  grid-template-rows: 2fr 2fr;
+  cursor: pointer;
 }
 
 .yes {
-  background-color: darkseagreen;
+background-color: darkseagreen;
 }
 
 .yes:hover {
-  background-color: darkgreen;
+background-color: darkgreen;
 }
 
 .no {
-  background-color: indianred;
+background-color: indianred;
 }
 
 .no:hover {
-  background-color: darkred;
+background-color: darkred;
 }

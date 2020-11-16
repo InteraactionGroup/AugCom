@@ -1,29 +1,25 @@
 <!-- popup used for various question -->
+<div class="mainPopUp">
 <div class="popup" *ngIf="this.userToolBarService.popup">
 
-  <!-- container for the popup display -->
-  <div class="popupContainer">
-
-    <!-- display the popup question -->
-    <div class="popupQuestion centerText">
-      {{this.multilinguism.translate("questionBegin") + this.getSentencedToDeleteElementStringValue() + this.multilinguism.translate("questionEnd")}}
+    <div class="popupQuestion" style="font-size: larger;">
+      <div> {{this.multilinguism.translate("questionBegin") +
+      this.getSentencedToDeleteElementStringValue() +
+      this.multilinguism.translate("questionEnd")}}</div>
+      <div>{{this.multilinguism.translate("continue")}}</div>
     </div>
 
-    <!-- popupButtons to answer the popup question -->
     <div class="popupButtons">
-
-      <!-- answer 'no' to the popup question -->
-      <div class="popupChoiceButton floatLeft centerText no" (click)="this.no()">
-        {{this.multilinguism.translate("noCancel")}}
+      <div (click)="this.no()" class="popupChoiceButton floatLeft no">
+        <div style="font-size: larger;">{{this.multilinguism.translate("No")}}</div>
+        <div>{{this.multilinguism.translate("Cancel")}}</div>
       </div>
 
-      <!-- answer 'yes' to the popup quesion -->
-      <div class="popupChoiceButton floatLeft centerText yes" (click)="this.yes()">
-        {{this.multilinguism.translate("yesDelete")}}
+      <div (click)="this.yes()" class="popupChoiceButton floatLeft yes">
+        <div style="font-size: larger;">{{this.multilinguism.translate("Yes")}}</div>
+        <div>{{this.multilinguism.translate("Delete")}}</div>
       </div>
-
     </div>
 
-  </div>
-
+</div>
 </div>

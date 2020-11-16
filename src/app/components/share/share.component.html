@@ -1,63 +1,49 @@
-<div class="share height-width-100">
+<div class="share width-100">
   <div class="sharePanel">
-    <div class="shareSection height-width-100">
 
-      <div class="import listElement">
-        <div class="label floatLeft">
-          {{this.multilinguism.translate("importSave") + ":"}}
-        </div>
-        <div class="inputField floatLeft">
-          <input #file type="file" (change)="import(file.files)" onclick="this.value=null">
-        </div>
-      </div>
-
-      <div class="import listElement">
-        <div class="label floatLeft">
-          {{this.multilinguism.translate("importZip") + ":"}}
-        </div>
-        <div class="inputField floatLeft">
-          <input #zip type="file" (change)="exploreZip(zip.files)">
-        </div>
-      </div>
-
-
-      <div class="export listElement">
-        <div class="label floatLeft">
-          {{this.multilinguism.translate("exportSave") + ":"}}
-        </div>
-        <div class="inputField floatLeft">
-          <input type="button" value="Export" (click)="export()">
-        </div>
-      </div>
-
-      <div class="exportTo listElement">
-        <div class="label floatLeft">
-          {{this.multilinguism.translate("exportPDF") + ":"}}
-        </div>
-        <div class="inputField floatLeft">
-          <input type="button" value="Export" (click)="this.printToPDF()">
-        </div>
-      </div>
-
-
-      <div class="exportTo listElement">
-        <div class="label floatLeft">
-          {{this.multilinguism.translate("importS4Y") + ":"}}
-        </div>
-        <div class="inputField floatLeft">
-          <input type="button" value="Import" (click)="parseAndCreateSpeak4YourselfGrid()">
-        </div>
-      </div>
-
-      <div class="exportTo listElement">
-        <div class="label floatLeft">
-          {{this.multilinguism.translate("importProloquo") + ":"}}
-        </div>
-        <div class="inputField floatLeft">
-          <input type="button" value="Import" (click)="parseAndCreateProloquoGrid()">
-        </div>
-      </div>
-
+    <div class="import listElement">
+      <label>
+        {{this.multilinguism.translate("importSave") + ":"}}
+      </label>
+      <input #file type="file" (change)="import(file.files)" onclick="this.value=null">
     </div>
+
+    <!--      <div>-->
+    <!--        <label class="floatLeft">-->
+    <!--          {{this.multilinguism.translate("importZip") + ":"}}-->
+    <!--        </label>-->
+    <!--        <input #zip type="file" (change)="exploreZip(zip.files)">-->
+    <!--      </div>-->
+
+    <div class="export listElement">
+      <label>
+        {{this.multilinguism.translate("exportSave") + ":"}}
+      </label>
+      <input type="button" value="Export" (click)="export()">
+    </div>
+
+    <div class="exportTo listElement">
+      <label>
+        {{this.multilinguism.translate("exportPDF") + ":"}}
+      </label>
+      <input type="button" value="Export" (click)="this.printToPDF()">
+    </div>
+
+    <!--      <div>-->
+    <!--        <label class="floatLeft">-->
+    <!--          {{this.multilinguism.translate("importS4Y") + ":"}}-->
+    <!--        </label>-->
+    <!--        <input type="button" value="Import" (click)="parseAndCreateSpeak4YourselfGrid()">-->
+    <!--      </div>-->
+
+    <!--      <div>-->
+    <!--        <label class="floatLeft">-->
+    <!--          {{this.multilinguism.translate("importProloquo") + ":"}}-->
+    <!--        </label>-->
+    <!--        <input type="button" value="Import" (click)="parseAndCreateProloquoGrid()">-->
+    <!--      </div>-->
+
+    <app-saves></app-saves>
+
   </div>
 </div>
