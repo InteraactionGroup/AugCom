@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MultilinguismService} from "../../services/multilinguism.service";
+import {GeticonService} from "../../services/geticon.service";
 
 @Component({
   selector: 'app-account-menu',
@@ -90,7 +91,8 @@ export class AccountMenuComponent implements OnInit {
   selectedNewMenu = 'Application';
   selectedSection = 'ApplicationTheme';
 
-  constructor(public multilinguismService: MultilinguismService) {
+  constructor(public multilinguismService: MultilinguismService,
+              public getIconService: GeticonService) {
   }
 
   ngOnInit(): void {

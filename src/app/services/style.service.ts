@@ -10,41 +10,55 @@ export class StyleService {
 
   updateStyle(color0: string, color1: string, color2: string, color3: string, color4: string) {
     const root = document.getElementById('main');
-    root.style.setProperty('--main-bg-color1', color0);
-    root.style.setProperty('--main-bg-color1', color1);
-    root.style.setProperty('--main-bg-color2', color2);
-    root.style.setProperty('--main-bg-color3', color3);
-    root.style.setProperty('--main-bg-color4', color4);
+    if (root !== null) {
+      root.style.setProperty('--main-bg-color1', color0);
+      root.style.setProperty('--main-bg-color1', color1);
+      root.style.setProperty('--main-bg-color2', color2);
+      root.style.setProperty('--main-bg-color3', color3);
+      root.style.setProperty('--main-bg-color4', color4);
+    }
   }
 
   updateStyleColor0(color0: string) {
     const root = document.getElementById('main');
-    root.style.setProperty('--main-bg-color0', color0);
+    if (root !== null) {
+      root.style.setProperty('--main-bg-color0', color0);
+    }
   }
 
   updateStyleColor1(color1: string) {
     const root = document.getElementById('main');
-    root.style.setProperty('--main-bg-color1', color1);
+    if (root !== null) {
+      root.style.setProperty('--main-bg-color1', color1);
+    }
   }
 
   updateStyleColor2(color2: string) {
     const root = document.getElementById('main');
-    root.style.setProperty('--main-bg-color2', color2);
+    if (root !== null) {
+      root.style.setProperty('--main-bg-color2', color2);
+    }
   }
 
   updateStyleColor3(color3: string) {
     const root = document.getElementById('main');
-    root.style.setProperty('--main-bg-color3', color3);
+    if (root !== null) {
+      root.style.setProperty('--main-bg-color3', color3);
+    }
   }
 
   updateStyleColor4(color4: string) {
     const root = document.getElementById('main');
-    root.style.setProperty('--main-bg-color4', color4);
+    if (root !== null) {
+      root.style.setProperty('--main-bg-color4', color4);
+    }
   }
 
   updateFont(font: string) {
     const root = document.getElementById('main');
-    root.style.setProperty('--main-font', font);
+    if (root !== null) {
+      root.style.setProperty('--main-font', font);
+    }
   }
 
 

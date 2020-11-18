@@ -37,16 +37,25 @@ describe('ShareComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should create the 5 different options components', () => {
+  // it('should create the 5 different options components', () => {
+  //   const compiled = fixture.debugElement.nativeElement;
+  //   const allListElements = compiled.querySelectorAll('.listElement');
+  //   expect(allListElements.length).toEqual(3/*6*/);
+  //   expect(allListElements[0].textContent).toContain(component.multilinguism.translate('importSave'));
+  //   expect(allListElements[1].textContent).toContain(component.multilinguism.translate('importZip'));
+  //   expect(allListElements[2].textContent).toContain(component.multilinguism.translate('exportSave'));
+  //   expect(allListElements[3].textContent).toContain(component.multilinguism.translate('exportPDF'));
+  //   expect(allListElements[4].textContent).toContain(component.multilinguism.translate('importS4Y'));
+  //   expect(allListElements[5].textContent).toContain(component.multilinguism.translate('importProloquo'));
+  // });
+
+  it('should create the 3 different options components', () => {
     const compiled = fixture.debugElement.nativeElement;
     const allListElements = compiled.querySelectorAll('.listElement');
-    expect(allListElements.length).toEqual(6);
+    expect(allListElements.length).toEqual(3/*6*/);
     expect(allListElements[0].textContent).toContain(component.multilinguism.translate('importSave'));
-    expect(allListElements[1].textContent).toContain(component.multilinguism.translate('importZip'));
-    expect(allListElements[2].textContent).toContain(component.multilinguism.translate('exportSave'));
-    expect(allListElements[3].textContent).toContain(component.multilinguism.translate('exportPDF'));
-    expect(allListElements[4].textContent).toContain(component.multilinguism.translate('importS4Y'));
-    expect(allListElements[5].textContent).toContain(component.multilinguism.translate('importProloquo'));
+    expect(allListElements[1].textContent).toContain(component.multilinguism.translate('exportSave'));
+    expect(allListElements[2].textContent).toContain(component.multilinguism.translate('exportPDF'));
   });
 
 });
