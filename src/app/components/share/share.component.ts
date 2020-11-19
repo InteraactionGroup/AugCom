@@ -25,17 +25,15 @@ import {LayoutService} from 'src/app/services/layout.service';
 })
 export class ShareComponent implements OnInit {
   constructor(
-    private dbNaryService: DbnaryService,
-    private speakForYourselfParser: SpeakForYourselfParser,
+    public speakForYourselfParser: SpeakForYourselfParser,
     public indexedDBacess: IndexeddbaccessService,
-    private printService: PrintService,
-    private router: Router,
+    public printService: PrintService,
+    public router: Router,
     public getIconService: GeticonService,
     public boardService: BoardService,
     public userToolBarService: UsertoolbarService,
     public proloquoParser: ProloquoParser,
     public jsonValidator: JsonValidatorService,
-    private layoutService: LayoutService,
     public multilinguism: MultilinguismService) {
   }
 

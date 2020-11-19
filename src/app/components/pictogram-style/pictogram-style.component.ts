@@ -10,8 +10,7 @@ import {MultilinguismService} from "../../services/multilinguism.service";
 })
 export class PictogramStyleComponent implements OnInit {
 
-  constructor(public styleService: StyleService,
-              public configurationService: ConfigurationService,
+  constructor(public configurationService: ConfigurationService,
               public multilinguismService: MultilinguismService) {
   }
 

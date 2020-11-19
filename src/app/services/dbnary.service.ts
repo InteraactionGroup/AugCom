@@ -13,7 +13,7 @@ export class DbnaryService {
   public typeList = [];
   searchStarted = 0;
 
-  constructor(private http: HttpClient) {
+  constructor(public http: HttpClient) {
   }
 
   /*1 opens display variant 2 open wordlist*/

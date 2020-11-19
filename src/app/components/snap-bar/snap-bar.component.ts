@@ -9,7 +9,7 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 })
 export class SnapBarComponent implements OnInit {
 
-  constructor(private multilinguism: MultilinguismService, public snapBarService: SnapBarService) {
+  constructor(public snapBarService: SnapBarService) {
   }
 
   ngOnInit() {

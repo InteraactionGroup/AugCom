@@ -23,7 +23,7 @@ import {GridElementService} from '../../services/grid-element.service';
 export class EditionComponent implements OnInit {
 
   constructor(public editionService: EditionService, public  paletteService: PaletteService,
-              private router: Router, private multilinguism: MultilinguismService,
+              public router: Router, public multilinguism: MultilinguismService,
               public indexedDBacess: IndexeddbaccessService, public functionsService: FunctionsService,
               public sanitizer: DomSanitizer, public getIconService: GeticonService,
               public dbnaryService: DbnaryService, public boardService: BoardService,

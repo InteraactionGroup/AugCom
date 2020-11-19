@@ -11,7 +11,7 @@ export class HistoricService {
   public speechSynthesis: SpeechSynthesis;
   public volume = 1.0;
 
-  constructor(private parametersService: ParametersService) {
+  constructor(public parametersService: ParametersService) {
   }
 
   isHistoricLengthMoreThan10(): boolean {

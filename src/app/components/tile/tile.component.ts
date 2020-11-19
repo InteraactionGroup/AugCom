@@ -41,18 +41,16 @@ export class TileComponent implements OnInit {
   release = [false, false];
 
   constructor(
-    private searchService: SearchService,
+    public searchService: SearchService,
     public userToolBarService: UsertoolbarService,
-    private router: Router,
+    public router: Router,
     public editionService: EditionService,
     public boardService: BoardService,
-    private historicService: HistoricService,
-    private parametersService: ParametersService,
-    private getIconService: GeticonService,
+    public historicService: HistoricService,
+    public getIconService: GeticonService,
     public layoutService: LayoutService,
-    public styleService: StyleService,
     public gridElementService: GridElementService,
-    private dwellCursorService: DwellCursorService,
+    public dwellCursorService: DwellCursorService,
     public configurationService: ConfigurationService
   ) {
   }

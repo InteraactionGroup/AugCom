@@ -15,8 +15,7 @@ export class IndexeddbaccessService {
   constructor(public paletteService: PaletteService,
               public boardService: BoardService,
               public jsonValidator: JsonValidatorService,
-              public configurationService: ConfigurationService,
-              public styleService: StyleService) {
+              public configurationService: ConfigurationService) {
     this.init();
   }
 

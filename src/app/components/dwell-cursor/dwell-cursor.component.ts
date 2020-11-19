@@ -11,7 +11,6 @@ import {ConfigurationService} from "../../services/configuration.service";
 export class DwellCursorComponent implements OnInit {
 
   constructor(public dwellCursorService: DwellCursorService,
-              public  parametersService: ParametersService,
               public configurationService: ConfigurationService) {
 
   }

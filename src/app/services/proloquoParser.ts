@@ -13,11 +13,10 @@ import {JsonValidatorService} from './json-validator.service';
 })
 export class ProloquoParser {
 
-  constructor(private http: HttpClient,
+  constructor(public http: HttpClient,
               public boardService: BoardService,
               public indexedDBacess: IndexeddbaccessService,
-              private printService: PrintService,
-              private router: Router,
+              public router: Router,
               public jsonValidator: JsonValidatorService) {
   }
 

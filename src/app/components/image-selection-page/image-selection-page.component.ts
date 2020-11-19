@@ -22,7 +22,7 @@ export class ImageSelectionPageComponent implements OnInit {
   imageList: { lib, word }[];
 
 
-  constructor(private multilinguism: MultilinguismService,
+  constructor(public multilinguism: MultilinguismService,
               public ng2ImgMaxService: Ng2ImgMaxService,
               public editionService: EditionService) {
   }

@@ -21,7 +21,7 @@ export class PopupComponent implements OnInit {
 
   constructor(public editionService: EditionService, public indexedDBacess: IndexeddbaccessService,
               public boardService: BoardService, public userToolBarService: UsertoolbarService,
-              private multilinguism: MultilinguismService) {
+              public multilinguism: MultilinguismService) {
   }
 
   ngOnInit() {

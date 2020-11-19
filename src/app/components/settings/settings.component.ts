@@ -9,7 +9,7 @@ import {ConfigurationService} from "../../services/configuration.service";
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(private multilinguism: MultilinguismService,
+  constructor(public multilinguism: MultilinguismService,
               public configurationService: ConfigurationService) {
   }
 

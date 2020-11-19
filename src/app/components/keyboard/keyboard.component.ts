@@ -47,9 +47,7 @@ export class KeyboardComponent implements OnInit {
   // tslint:disable-next-line:max-line-length
   constructor(
     public searchService: SearchService,
-    private paletteService: PaletteService,
-    private router: Router,
-    public parametersService: ParametersService,
+    public router: Router,
     public indexeddbaccessService: IndexeddbaccessService,
     public userToolBarService: UsertoolbarService,
     public getIconService: GeticonService,

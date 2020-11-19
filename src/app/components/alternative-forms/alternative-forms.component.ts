@@ -18,7 +18,7 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 })
 export class AlternativeFormsComponent implements OnInit {
 
-  constructor(private multilinguism: MultilinguismService,
+  constructor(public multilinguism: MultilinguismService,
               public ng2ImgMaxService: Ng2ImgMaxService,
               public boardService: BoardService,
               public getIconService: GeticonService,

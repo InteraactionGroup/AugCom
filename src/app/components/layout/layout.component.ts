@@ -11,7 +11,7 @@ import {EditionService} from '../../services/edition.service';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor(private boardService: BoardService, public layoutService: LayoutService, public editionService: EditionService) {
+  constructor(public boardService: BoardService, public layoutService: LayoutService, public editionService: EditionService) {
   }
 
   ngOnInit(): void {

@@ -12,7 +12,7 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 })
 export class SavesComponent implements OnInit {
 
-  constructor(private multilinguism: MultilinguismService,
+  constructor(public multilinguism: MultilinguismService,
               public boardService: BoardService,
               public indexeddbaccessService: IndexeddbaccessService) {
   }

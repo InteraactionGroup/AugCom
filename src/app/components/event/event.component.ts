@@ -11,7 +11,7 @@ import {FunctionsService} from '../../services/functions.service';
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
-  constructor(private multilinguism: MultilinguismService,
+  constructor(public multilinguism: MultilinguismService,
               public getIconService: GeticonService,
               public functionService: FunctionsService,
               public editionService: EditionService) {

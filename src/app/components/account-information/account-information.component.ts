@@ -13,7 +13,7 @@ export class AccountInformationComponent implements OnInit {
   default = 'https://www.shareicon.net/data/2016/09/01/822739_user_512x512.png';
   profilePicture: any = this.default;
 
-  constructor(private multilinguism: MultilinguismService, public ng2ImgMaxService: Ng2ImgMaxService) {
+  constructor(public multilinguism: MultilinguismService, public ng2ImgMaxService: Ng2ImgMaxService) {
   }
 
   ngOnInit() {

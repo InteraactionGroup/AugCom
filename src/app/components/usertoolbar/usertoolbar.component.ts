@@ -24,15 +24,14 @@ export class UsertoolbarComponent implements OnInit {
   constructor(
     public boardService: BoardService,
     public searchService: SearchService,
-    private parametersService: ParametersService,
-    private snapBarService: SnapBarService,
+    public snapBarService: SnapBarService,
     public indexedDBacess: IndexeddbaccessService,
     public getIconService: GeticonService,
     public userToolBarService: UsertoolbarService,
     public layoutService: LayoutService,
-    private multilinguism: MultilinguismService,
+    public multilinguism: MultilinguismService,
     public editionService: EditionService,
-    private dwellCursorService: DwellCursorService,
+    public dwellCursorService: DwellCursorService,
     public configurationService: ConfigurationService
   ) {
   }
@@ -98,14 +97,6 @@ export class UsertoolbarComponent implements OnInit {
       this.snapBarService.snap();
     }
     this.layoutService.setDraggable(this.userToolBarService.edit);
-
-
-    // let interval;
-    //
-    // interval = setInterval(() => { // waiting for the edit animation to end
-    //   this.layoutService.refresh();
-    //   clearInterval(interval);
-    // },600);
 
   }
 

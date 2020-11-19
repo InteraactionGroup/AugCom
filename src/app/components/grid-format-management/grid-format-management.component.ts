@@ -11,8 +11,7 @@ import {MultilinguismService} from "../../services/multilinguism.service";
 })
 export class GridFormatManagementComponent implements OnInit {
 
-  constructor(public styleService: StyleService,
-              public  boardService: BoardService,
+  constructor(public  boardService: BoardService,
               public layoutService: LayoutService,
               public multilinguismService: MultilinguismService) {
   }
