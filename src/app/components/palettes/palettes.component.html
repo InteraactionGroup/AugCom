@@ -5,7 +5,7 @@
         <div class="paletteLabel width-100 floatLeft">
           {{palette.name}}
         </div>
-        <div (click)="this.paletteCodamne = palette"
+        <div (click)="this.paletteService.paletteCodamne = palette"
              class="supprPalette floatLeft">
           <div [style.background-image]="this.getIcon('delete')"
                class="icon haveBackgroundImage">
@@ -72,7 +72,8 @@
     </div>
   </div>
 
-  <div *ngIf="this.paletteCodamne != null" class="popup">
+  <div class="mainPopUp" *ngIf="this.paletteService.paletteCodamne != null">
+  <div class="popup">
 
       <div class="popupQuestion" style="font-size: larger;">
         <div>{{this.multilinguism.translate("paletteQuestion")}}</div>
@@ -80,7 +81,7 @@
       </div>
 
       <div class="popupButtons">
-        <div (click)="this.paletteCodamne = null" class="popupChoiceButton floatLeft no">
+        <div (click)="this.paletteService.paletteCodamne = null" class="popupChoiceButton floatLeft no">
           <div style="font-size: larger;">{{this.multilinguism.translate("No")}}</div>
           <div>{{this.multilinguism.translate("Cancel")}}</div>
         </div>
@@ -90,6 +91,6 @@
           <div>{{this.multilinguism.translate("Delete")}}</div>
         </div>
       </div>
-
-    </div>
+  </div>
+  </div>
 </div>

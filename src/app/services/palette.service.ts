@@ -5,6 +5,9 @@ import {Injectable} from '@angular/core';
 })
 export class PaletteService {
 
+
+  public paletteCodamne = null;
+
   defaultPalette = '22 magic colors';
   palettes: { name: string, colors: string[] }[];
   DEFAULTPALETTELIST = [

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {RouterOutlet} from "@angular/router";
 import {UsertoolbarService} from "../../services/usertoolbar.service";
 import {slideInAnimation} from "../../animations";
+import {PaletteService} from "../../services/palette.service";
 
 @Component({
   selector: 'app-main',
