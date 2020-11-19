@@ -1,6 +1,6 @@
 <div class="width-100">
   <div style="  margin: 20px ;width: fit-content;">
-    <label for="titleDisplay">Choissez l'affichage du titre:</label>
+    <label for="titleDisplay">{{this.multilinguismService.translate("chooseTitleDisplay")}}:</label>
     <select id="titleDisplay" class="variantListBox" [(ngModel)]="usertoolbarService.titleDisplayValue">
       <option value="default">default</option>
       <option value="imageOnly">imageOnly</option>
@@ -10,7 +10,7 @@
 
 
   <div style="  margin: 20px ;width: fit-content;">
-    <label for="titleFormat">Choissez le format du titre:</label>
+    <label for="titleFormat">{{this.multilinguismService.translate("chooseTitleFormat")}}:</label>
     <select [disabled]="usertoolbarService.titleDisplayValue==='imageOnly'" id="titleFormat" class="variantListBox"
             [(ngModel)]="usertoolbarService.titleFormat">
       <option value="default">default</option>

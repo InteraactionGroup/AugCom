@@ -107,7 +107,7 @@
     { "id" : "interactions",  "FR" : "Interactions", "EN" : "Interactions" },
     { "id" : "otherForms",  "FR" : "Autres Formes", "EN" : "Other Forms" },
     { "id" : "information",  "FR" : "Informations", "EN" : "Information" },
-    { "id" : "applicationLanguage",  "FR" : "Langue de l'application", "EN" : "Application Language" },
+    { "id" : "applicationLanguage",  "FR" : "Langue de l'application", "EN" : "App Language" },
     { "id" : "Application",  "FR" : "Application", "EN" : "App" },
     { "id" : "ApplicationTheme",  "FR" : "Thème de l'application", "EN" : "App theme" },
     { "id" : "Grids",  "FR" : "Grilles", "EN" : "Grids" },
@@ -120,6 +120,20 @@
     { "id" : "FontStyle",  "FR" : "Style de police", "EN" : "Font style" },
     { "id" : "GeneralTheme",  "FR" : "Thème Général", "EN" : "General Theme" },
     { "id" : "ChooseFont",  "FR" : "Choisissez la police", "EN" : "Choose the font" },
-    { "id" : "dwellTime",  "FR" : "Activer le temps de fixation", "EN" : "Activate the dwell-time" }
+    { "id" : "dwellTime",  "FR" : "Activer le temps de fixation", "EN" : "Activate the dwell-time" },
+    { "id" : "chooseTitleDisplay",  "FR" : "Choisissez l'affichage du titre", "EN" : "Choose title display" },
+    { "id" : "chooseTitleFormat",  "FR" : "Choisissez le format du titre", "EN" : "Choose title format" },
+    { "id" : "chooseNumberOfColumns",  "FR" : "Choisissez le nombre de colonnes", "EN" : "Choose the number of columns" },
+    { "id" : "chooseNumberOfLines",  "FR" : "Choisissez le nombre de lignes", "EN" : "Choose the number of rows" },
+    { "id" : "chooseGapBetweenPictograms",  "FR" : "Choisissez l'écart entre les pictogrammes'", "EN" : "Choose the gap between pictograms" },
+    { "id" : "gridDimensions",  "FR" : "Dimensions de la grille", "EN" : "Grid dimensions" },
+    { "id" : "backgroundTheme",  "FR" : "Thème du fond", "EN" : "Background theme" },
+    { "id" : "chooseTheColor",  "FR" : "Choisissez la couleur", "EN" : "Choose the color" },
+    { "id" : "pictogramsManagement",  "FR" : "Organisation des pictogrammes", "EN" : "Pictograms management" },
+    { "id" : "choosePictogramStyle",  "FR" : "Choissez le style de pictogramme", "EN" : "Choose the pictogram style" },
+    { "id" : "chooseImagePositionOfPicrogram",  "FR" : "Choissez la position de l'image du pictogramme", "EN" : "Choose the image position of the pictogram" },
+    { "id" : "chooseTheFont",  "FR" : "Choissez la police", "EN" : "Choose the font" },
+    { "id" : "pictogramDirectoryManagement",  "FR" : "Organisation des pictogrammes-répertoire", "EN" : "Pictograms-Directory management" },
+    { "id" : "defaultSyleSameAsApp",  "FR" : "Style par défault (celui de l'application)", "EN" : "Default Style (same as the app)" }
   ]
 }

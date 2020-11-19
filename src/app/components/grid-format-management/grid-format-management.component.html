@@ -1,24 +1,24 @@
-<div> Dimensions de la grille</div>
+<div>{{this.multilinguismService.translate("gridDimensions")}}</div>
 
 <div style="  margin: 20px ;width: fit-content; display: grid; grid-template-columns: max-content max-content ">
-  <label for="col">Choississez le nombre de colonnes:</label>
+  <label for="col">{{this.multilinguismService.translate("chooseNumberOfColumns")}}:</label>
   <input id="col" value="{{this.boardService.getNumberOfCols()}}" type="number" min="1"
          (change)="onKeyCols($event)">
 
-  <label for="row">Choississez le nombre de colonnes:</label>
+  <label for="row">{{this.multilinguismService.translate("chooseNumberOfLines")}}:</label>
   <input id="row" value="{{this.boardService.getNumberOfRows()}}" type="number" min="1"
          (change)="onKeyRows($event)">
 
-  <label for="gap">Choississez l'écart entre les pictogrammes:</label>
+  <label for="gap">{{this.multilinguismService.translate("chooseGapBetweenPictograms")}}:</label>
   <input id="gap" value="{{this.boardService.getGapSize()}}" type="number" min="0"
          (change)="onKeyGap($event)">
 </div>
 
 
-<div> Thème de fond</div>
+<div>{{this.multilinguismService.translate("backgroundTheme")}}</div>
 
 <div style=" margin: 20px ;width: fit-content; display: grid; grid-template-columns: max-content 20px ">
-  <div> Choisissez le couleur:</div>
+  <div>{{this.multilinguismService.translate("chooseTheColor")}}:</div>
   <div class="newColor">
     <div class="mainColorPicker"
          [ngStyle]="{'background-color': this.boardService.getGridBackgroundColorValue() }"></div>
