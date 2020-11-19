@@ -60,7 +60,6 @@ describe('KeyboardComponent', () => {
   });
 
   it('should add clicked element having display action on click to historic', () => {
-    const compiled = fixture.debugElement.nativeElement;
     component.boardService.currentPath = '#HOME';
     fixture.detectChanges();
     component.action(component.boardService.board.ElementList[0], 'click');

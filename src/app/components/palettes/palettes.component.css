@@ -1,6 +1,8 @@
 
 .palette-item {
   display: inline-block;
+  margin: 10px;
+  width: calc(100% - 20px);
 }
 
 .addPalette {
@@ -8,7 +10,7 @@
 }
 
 .addPalette .palette {
-  width: calc(100% - 50px);
+  width: 100%;
   height: fit-content;
   display: grid;
   grid-template-columns: repeat(10, 10%);
@@ -27,7 +29,7 @@
   margin-top: -2px;
   height: 10px;
   width: 10px;
-  background-color: lightgrey;
+  background-color: var(--main-bg-color1);
   box-sizing: border-box;
   border-width: 1px;
   border-style: solid;
@@ -44,14 +46,14 @@
   width: 95%;
   box-sizing: border-box;
   margin: auto;
-  background-color: #f4f4f4;
-  color: #586069;
+  background-color: var(--main-bg-color1);
+  color: var(--main-bg-color4);
   font-weight: 600;
   border-radius: 3px;
 }
 
 .addPalette .palette .moreColor:hover {
-  background-color: #eef4f9;
+  background-color: var(--main-bg-color2);
 
 }
 
@@ -96,17 +98,20 @@
 }
 
 .addPalette .palette .color:hover .colorbox {
-  border-color: lightgrey;
+  border-color: var(--main-bg-color1);
 }
 
 .addButtonPaletteContainer {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
-  background-color: #d1d5da;
+  background-color: var(--main-bg-color1);
   border-radius: 3px;
   height: 30px;
-  transition: all 0.3s ease-in-out;
+}
+
+.addButtonPaletteContainer:hover {
+  background-color: var(--main-bg-color2);
 }
 
 .addPalette .addButtonPalette {
@@ -114,15 +119,15 @@
   margin-left: auto;
   transform: translateY(25%);
   height: 25px;
-  color: #586069;
+  color: var(--main-bg-color4);
   font-weight: 600;
 }
 
 .paletteAddLabel {
   height: 20px;
   width: calc(100% - 105px);
-  background-color: #d1d5da;
-  color: #586069;
+  background-color: var(--main-bg-color1);
+  color: var(--main-bg-color4);
   font-size: 18px;
   font-weight: 600;;
   border-radius: 3px 0 0 0;
@@ -133,20 +138,21 @@
 
 .paletteLabel {
   height: 20px;
-  background-color: #d1d5da;
+  background-color: var(--main-bg-color1);
   margin-bottom: 2px;
   line-height: 20px;
-  color: #586069;
+  color: var(--main-bg-color4);
   font-size: 18px;
   font-weight: 600;
   padding-left: 5px;
   padding-top: 2px;
   padding-bottom: 2px;
   border-radius: 3px 3px 0 0;
+  width: calc(100% - 50px);
 }
 
 .palette {
-  width: calc(100% - 50px);
+  width: 100%;
   height: fit-content;
   display: grid;
   grid-template-columns: repeat(10, 10%);
@@ -154,16 +160,18 @@
 
 .supprPalette {
   width: 50px;
-  background-color: #f4f4f4;
+  height: 20px;
+  background-color: indianred;
   cursor: pointer;
 }
 
 .supprPalette:hover {
-  background-color: #eef4f9;
+  background-color: darkred;
 }
 
 .supprPalette .icon {
-  height: 20px;
+  height: 15px;
+  margin: 2.5px;
 }
 
 .palette .color {
@@ -184,7 +192,7 @@
   width: 100%;
   border-width: 4px;
   border-style: solid;
-  border-color: lightgrey;
+  border-color: var(--main-bg-color1);
 }
 
 
@@ -194,50 +202,59 @@
   left: 25%;
   height: 50%;
   width: 50%;
-  background-color: dimgrey;
+  border: 5px solid tan;
+  background-color: wheat;
+  display: grid;
+  grid-template-rows: 2fr 1fr;
+  border-radius: 10px;
 }
 
-.popup .popupContainer {
-  height: 96%;
-  width: 96%;
-  margin-left: 2%;
-  transform: translateY(2.5%);
-  background-color: grey;
+.popup .popupQuestion {
+  width: calc(100% - 50px);
+  display: inline-grid;
+  align-items: center;
+  margin-left: 25px;
+  align-content: center;
+  text-align: center;
 }
 
-.popup .popupContainer .popupQuestion {
-  width: 70%;
-  height: 20%;
-  margin-left: 15%;
-  transform: translateY(100%);
+.popup .popupButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
-.popup .popupContainer .popupButtons {
-  width: 70%;
-  height: 30%;
-  margin-left: 15%;
-  transform: translateY(100%);
-}
-
-.popup .popupContainer .popupButtons .popupChoiceButton {
-  width: 30%;
-  margin-left: 10%;
-  margin-right: 10%;
-  height: 100%;
+.popup .popupButtons .popupChoiceButton {
+  width: 40%;
+  margin-left: 30%;
+  height: 60px;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+  display: grid;
+  grid-template-rows: 2fr 2fr;
+  cursor: pointer;
 }
 
 .yes {
-  background-color: darkseagreen;
+background-color: darkseagreen;
 }
 
 .yes:hover {
-  background-color: darkgreen;
+background-color: darkgreen;
 }
 
 .no {
-  background-color: indianred;
+background-color: indianred;
 }
 
 .no:hover {
-  background-color: darkred;
+background-color: darkred;
+}
+
+.mainPopUp{
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
 }

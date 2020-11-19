@@ -1,15 +1,19 @@
 /**
  * A Grid (aka Board)
  */
+
 export class Grid {
   ID: string;
   Type: 'Grid';
   NumberOfCols: number;
   NumberOfRows: number;
+  GapSize: number;
 
   ElementList: GridElement[];
   ImageList: Image[];
   PageList: Page[];
+
+  BackgroundColor: string;
 
   constructor(gridId, gridType, gridCol, gridRow, elemList, imageList, pageList) {
     this.ID = gridId;
@@ -36,15 +40,15 @@ export class FolderGoTo {
  */
 export class GridElement {
   ID: string;
-  Type: 'empty' | 'button' |  FolderGoTo;
+  Type: 'empty' | 'button' | FolderGoTo;
   PartOfSpeech: string;
-  Color: string; // to delete later
-  BorderColor: string; // to delete later
   VisibilityLevel: number;
   x: number;
   y: number;
   cols: number;
   rows: number;
+
+  style: { id: string } | Style;
 
   ElementFormsList: ElementForm[];
   InteractionsList: Interaction[];
@@ -52,20 +56,19 @@ export class GridElement {
   dragAndResizeEnabled: boolean;
 
 
-  constructor(elementId: string, elementType , elementPartOfSpeech: string,
-              color: string, borderColor: string, visibilityLevel , elementsForms: ElementForm[], interactionList: Interaction[] ) {
+  constructor(elementId: string, elementType, elementPartOfSpeech: string,
+              color: string, borderColor: string, visibilityLevel, elementsForms: ElementForm[], interactionList: Interaction[]) {
 
     this.ID = elementId;
     this.Type = elementType;
     this.PartOfSpeech = elementPartOfSpeech;
-    this.Color = color;
-    this.BorderColor = borderColor;
+    this.style = new Style(color, borderColor, 'black');
     this.VisibilityLevel = visibilityLevel;
     this.ElementFormsList = elementsForms;
     this.InteractionsList = interactionList;
     this.y = 0;
     this.x = 0;
-    this.rows =1;
+    this.rows = 1;
     this.cols = 1;
     this.dragAndResizeEnabled = true;
   }
@@ -115,10 +118,54 @@ export class ElementForm {
 
 export class Page {
   ID: string;
-  Name : string;
+  Name: string;
   ElementIDsList: string[];
+  NumberOfCols: number;
+  NumberOfRows: number;
+  GapSize: number;
+  BackgroundColor: string
 }
 
 export class Dictionary {
-  dictionary : { id: string, FR: string, EN: string }[]
+  dictionary: { id: string, FR: string, EN: string }[]
+}
+
+export class Style {
+  BackgroundColor: string;
+  BorderColor: string;
+  BorderWidth: string;
+  BorderRadius: string;
+  TextColor: string;
+
+  constructor(backgroundColor: string, borderColor: string, textColor: string) {
+    this.BackgroundColor = backgroundColor;
+    this.BorderColor = borderColor;
+    this.TextColor = textColor;
+    this.BorderRadius = '10px';
+    this.BorderWidth = '3px';
+  }
+
+}
+
+export class Configuration {
+  'DWELL_TIME_ENABLED' : boolean;
+  'PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE' : string;
+  'PICTO_IMAGE_POSITION_VALUE' : string;
+  'PICTO_TEXT_STYLE_VALUE' : string;
+  'REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE' : string;
+  'REPO_IMAGE_POSITION_VALUE' : string;
+  'REPO_TEXT_STYLE_VALUE' : string;
+  'LANGUAGE_VALUE' : string;
+  'DEFAULT_STYLE_BACKGROUNDCOLOR_VALUE' : string;
+  'DEFAULT_STYLE_BORDERCOLOR_VALUE' : string;
+  'DEFAULT_STYLE_TEXTCOLOR_VALUE' : string;
+  'DWELL_TIME_TIMEOUT_VALUE' : number;
+  'LONGPRESS_TIMEOUT_VALUE' : number;
+  'DOUBLE_CLICK_TIMEOUT_VALUE' : number;
+  'CURRENT_VOICE_VALUE' : string;
+  'MAIN_COLOR_0_VALUE' : string;
+  'MAIN_COLOR_1_VALUE' : string;
+  'MAIN_COLOR_2_VALUE' : string;
+  'MAIN_COLOR_3_VALUE' : string;
+  'MAIN_COLOR_4_VALUE' : string;
 }

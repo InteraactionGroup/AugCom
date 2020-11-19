@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HistoricService} from '../../services/historic.service';
 import {EditionService} from '../../services/edition.service';
 import {BoardService} from '../../services/board.service';
-import {Action, ElementForm, FolderGoTo, GridElement, Vignette,} from '../../types';
+import {Action, ElementForm, FolderGoTo, GridElement, Page, Vignette,} from '../../types';
 import {GeticonService} from '../../services/geticon.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
@@ -13,6 +13,8 @@ import {SearchService} from '../../services/search.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
 import {LayoutService} from 'src/app/services/layout.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
+import {GridElementService} from '../../services/grid-element.service';
+import {ConfigurationService} from "../../services/configuration.service";
 
 @Component({
   selector: 'app-keyboard',
@@ -41,7 +43,6 @@ export class KeyboardComponent implements OnInit {
    */
   cols: number;
   rows: number;
-  gap: number;
 
   // tslint:disable-next-line:max-line-length
   constructor(
@@ -56,31 +57,55 @@ export class KeyboardComponent implements OnInit {
     public historicService: HistoricService,
     public editionService: EditionService,
     public layoutService: LayoutService,
-    public multilinguism: MultilinguismService
+    public multilinguism: MultilinguismService,
+    public gridElementService: GridElementService,
+    public configurationService: ConfigurationService
   ) {
-    this.cols = this.layoutService.options.minCols;
-    this.rows = this.layoutService.options.minRows;
-    this.gap = this.layoutService.options.margin;
+    this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
   }
 
   onKeyCols(event: any) {
     if (+event.target.value >= 1) {
-      this.cols = +event.target.value;
-      this.layoutService.setCols(this.cols);
+      const currentPage: Page = this.boardService.currentPage();
+      if (currentPage !== null && currentPage !== undefined) {
+        if (currentPage.NumberOfCols === undefined) {
+          currentPage.NumberOfCols = 0;
+        }
+        currentPage.NumberOfCols = +event.target.value;
+      } else {
+        this.boardService.board.NumberOfCols = +event.target.value;
+      }
+      this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
     }
   }
 
   onKeyRows(event: any) {
     if (+event.target.value >= 1) {
-      this.rows = +event.target.value;
-      this.layoutService.setRows(this.rows);
+      const currentPage: Page = this.boardService.currentPage();
+      if (currentPage !== null && currentPage !== undefined) {
+        if (currentPage.NumberOfRows === undefined) {
+          currentPage.NumberOfRows = 0;
+        }
+        currentPage.NumberOfRows = +event.target.value;
+      } else {
+        this.boardService.board.NumberOfRows = +event.target.value;
+      }
+      this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
     }
   }
 
   onKeyGap(event: any) {
     if (+event.target.value >= 1) {
-      this.gap = +event.target.value;
-      this.layoutService.setGap(this.gap);
+      const currentPage: Page = this.boardService.currentPage();
+      if (currentPage !== null && currentPage !== undefined) {
+        if (currentPage.GapSize === undefined) {
+          currentPage.GapSize = 0;
+        }
+        currentPage.GapSize = +event.target.value;
+      } else {
+        this.boardService.board.GapSize = +event.target.value;
+      }
+      this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
     }
   }
 
@@ -89,6 +114,7 @@ export class KeyboardComponent implements OnInit {
    */
   ngOnInit() {
     this.boardService.updateElementList();
+    this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
   }
 
   /**
@@ -148,14 +174,16 @@ export class KeyboardComponent implements OnInit {
       (isFolder ? '-3px ' : '0px ') +
       '0px ' +
       (isFolder ? '-2px ' : '0px ') +
-      (element.Color === undefined || element.Color == null
+      (this.gridElementService.getStyle(element).BackgroundColor === undefined ||
+      this.gridElementService.getStyle(element).BackgroundColor == null
         ? '#d3d3d3'
-        : element.Color);
+        : this.gridElementService.getStyle(element).BackgroundColor);
 
     s = s + ' , ' +
       (isFolder ? '4px ' : '0px ') +
       (isFolder ? '-4px ' : '0px ') +
-      (element.BorderColor === undefined || element.BorderColor == null ? 'black' : element.BorderColor);
+      (this.gridElementService.getStyle(element).BorderColor === undefined ||
+      this.gridElementService.getStyle(element).BorderColor == null ? 'black' : this.gridElementService.getStyle(element).BorderColor);
     return s;
   }
 
@@ -249,7 +277,7 @@ export class KeyboardComponent implements OnInit {
       this.action(element, 'click');
       this.pressedElement = null;
       this.down = 0;
-    }, this.parametersService.doubleClickTimeOut);
+    }, this.configurationService.DOUBLE_CLICK_TIMEOUT_VALUE);
   }
 
   setLongPressTimer(element) {
@@ -257,7 +285,7 @@ export class KeyboardComponent implements OnInit {
       this.action(element, 'longPress');
       this.pressedElement = null;
       this.down = 0;
-    }, this.parametersService.longpressTimeOut);
+    }, this.configurationService.LONGPRESS_TIMEOUT_VALUE);
   }
 
   /**
@@ -289,8 +317,8 @@ export class KeyboardComponent implements OnInit {
       // for button
       if (element.Type === 'button') {
         const prononcedText = this.boardService.getLabel(element);
-        const color = element.Color;
-        const borderColor = element.BorderColor;
+        const color = this.gridElementService.getStyle(element).BackgroundColor;
+        const borderColor = this.gridElementService.getStyle(element).BorderColor;
         const imgUrl = this.boardService.getImgUrl(element);
         const vignette: Vignette = {
           Label: prononcedText,

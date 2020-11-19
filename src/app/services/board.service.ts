@@ -1,9 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Board} from '../data/ExempleOfBoard';
-import {ElementForm, Grid, GridElement} from '../types';
+import {ElementForm, Grid, GridElement, Page} from '../types';
 import {DomSanitizer} from '@angular/platform-browser';
 import {EditionService} from './edition.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
+import {LayoutService} from './layout.service';
+import {GridElementService} from './grid-element.service';
+import {UsertoolbarService} from './usertoolbar.service';
+import {ConfigurationService} from "./configuration.service";
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +16,11 @@ export class BoardService {
   constructor(
     public ng2ImgMaxService: Ng2ImgMaxService,
     public editionService: EditionService,
-    public sanitizer: DomSanitizer
+    public layoutService: LayoutService,
+    public sanitizer: DomSanitizer,
+    public gridElementService: GridElementService,
+    public usertoolbarService: UsertoolbarService,
+    public configurationService: ConfigurationService
   ) {
     this.board = Board;
     this.updateElementList();
@@ -36,7 +44,7 @@ export class BoardService {
    */
   fakeElementTempList = [];
 
-  elementList = [];
+  elementList: GridElement[] = [];
 
   getCurrentFolder() {
     const path = this.currentPath.split('.');
@@ -65,9 +73,13 @@ export class BoardService {
           name = name + '?/';
         }
       }
+      if (this.usertoolbarService.titleFormat === 'nameOnly') {
+        const nameSplited = name.split('/');
+        name = nameSplited.length >= 2 ? nameSplited[nameSplited.length - 2] : name;
+      }
       return name;
     }
-    return 'Accueil';
+    return this.configurationService.LANGUAGE_VALUE === 'FR' ? 'Accueil' : 'Home';
   }
 
   /*reset board with default Board value*/
@@ -313,16 +325,18 @@ export class BoardService {
     }
 
     this.currentPath = temp;
+
     this.updateElementList();
   }
 
-  backHome(){
+  backHome() {
     this.currentPath = '#HOME';
     this.updateElementList();
   }
 
   updateElementList() {
     this.elementList = this.getTempList();
+    this.layoutService.refreshAll(this.getNumberOfCols(), this.getNumberOfRows(), this.getGapSize());
   }
 
   /**
@@ -360,6 +374,13 @@ export class BoardService {
     return tempList;
   }
 
+  currentPage() {
+    const currentPage = this.board.PageList.find(page => {
+      return page.ID === this.getCurrentFolder()
+    });
+    return currentPage;
+  }
+
   /**
    * process the different functions when the element identified by the index activatedElement want to display
    * its variant forms.
@@ -384,27 +405,21 @@ export class BoardService {
     places = places.slice(0, compElt.ElementFormsList.length);
     compElt.ElementFormsList.forEach(eltform => {
       if (compElt.ElementFormsList.length > indexOfForm) {
-        const elt: GridElement = {
-          ID: compElt.ID,
-          Color: compElt.Color,
-          BorderColor: compElt.BorderColor,
-          Type: 'button',
-          VisibilityLevel: 0,
-          PartOfSpeech: '' + compElt.PartOfSpeech,
-          ElementFormsList:
-            [{
-              DisplayedText: eltform.DisplayedText,
-              VoiceText: eltform.VoiceText,
-              LexicInfos: eltform.LexicInfos,
-              ImageID: '' + eltform.ImageID
-            }],
-          InteractionsList: compElt.InteractionsList.slice(),
-          x: 0,
-          y: 0,
-          cols: 1,
-          rows: 1,
-          dragAndResizeEnabled: true
-        };
+        const elt: GridElement = new GridElement(
+          compElt.ID,
+          'button',
+          '' + compElt.PartOfSpeech,
+          this.gridElementService.getStyle(compElt).BackgroundColor,
+          this.gridElementService.getStyle(compElt).BorderColor,
+          0,
+          [{
+            DisplayedText: eltform.DisplayedText,
+            VoiceText: eltform.VoiceText,
+            LexicInfos: eltform.LexicInfos,
+            ImageID: '' + eltform.ImageID
+          }],
+          compElt.InteractionsList.slice()
+        );
         if (places.length > indexOfForm) {
           elt.x = places[indexOfForm].x;
           elt.y = places[indexOfForm].y;
@@ -415,7 +430,7 @@ export class BoardService {
       }
     });
 
-    compElt.Color = '#123548';
+    this.gridElementService.setBackgroundColor(compElt, '#123548');
     compElt.PartOfSpeech = '';
     compElt.InteractionsList = [{ID: 'click', ActionList: [{ID: 'backFromVariant', Options: []}]}];
     compElt.ElementFormsList = [{
@@ -466,21 +481,88 @@ export class BoardService {
    */
   copy(element: GridElement): GridElement {
     console.log(element.ID + ' ' + element.x + ' ' + element.y);
-    return {
-      BorderColor: element.BorderColor,
-      VisibilityLevel: element.VisibilityLevel,
-      ID: element.ID,
-      PartOfSpeech: element.PartOfSpeech,
-      Type: element.Type,
-      ElementFormsList: element.ElementFormsList.copyWithin(0, 0),
-      InteractionsList: element.InteractionsList.copyWithin(0, 0),
-      Color: element.Color,
-      x: element.x,
-      y: element.y,
-      cols: element.cols,
-      rows: element.rows,
-      dragAndResizeEnabled: true
-    };
+    const tempGridElement = new GridElement(element.ID, element.Type, element.PartOfSpeech,
+      this.gridElementService.getStyle(element).BackgroundColor, this.gridElementService.getStyle(element).BorderColor
+      , element.VisibilityLevel,
+      element.ElementFormsList.copyWithin(0, 0), element.InteractionsList.copyWithin(0, 0));
+    this.gridElementService.setCoordinates(tempGridElement, element.x, element.y);
+    this.gridElementService.setSize(tempGridElement, element.cols, element.rows);
+    return tempGridElement;
+  }
+
+
+  getNumberOfCols(): number {
+    const currentPage: Page = this.currentPage();
+    if (currentPage !== null && currentPage !== undefined) {
+      if (currentPage.NumberOfCols !== undefined) {
+        return currentPage.NumberOfCols;
+      } else {
+        return this.board.NumberOfCols;
+      }
+    } else {
+      return this.board.NumberOfCols;
+    }
+  }
+
+  getNumberOfRows(): number {
+    const currentPage: Page = this.currentPage();
+    if (currentPage !== null && currentPage !== undefined) {
+      if (currentPage.NumberOfRows !== undefined) {
+        return currentPage.NumberOfRows;
+      } else {
+        return this.board.NumberOfRows;
+      }
+    } else {
+      return this.board.NumberOfRows;
+    }
+  }
+
+  getNumberOfColsForPage(page: Page): number {
+    if (page !== null && page !== undefined) {
+      if (page.NumberOfCols !== undefined) {
+        return page.NumberOfCols;
+      } else {
+        return this.board.NumberOfCols;
+      }
+    } else {
+      return this.board.NumberOfCols;
+    }
+  }
+
+  getNumberOfRowsForPage(page: Page): number {
+    if (page !== null && page !== undefined) {
+      if (page.NumberOfRows !== undefined) {
+        return page.NumberOfRows;
+      } else {
+        return this.board.NumberOfRows;
+      }
+    } else {
+      return this.board.NumberOfRows;
+    }
+  }
+
+  getGapSize(): number {
+    const currentPage: Page = this.currentPage();
+    if (currentPage !== null && currentPage !== undefined) {
+      if (currentPage.GapSize !== undefined) {
+        return currentPage.GapSize;
+      } else {
+        return this.board.GapSize;
+      }
+    } else {
+      return this.board.GapSize;
+    }
+  }
+
+  public getGridBackgroundColorValue(): string {
+    if (
+      this.board.BackgroundColor === undefined ||
+      this.board.BackgroundColor === null ||
+      this.board.BackgroundColor === 'default') {
+      return 'grey'
+    } else {
+      return this.board.BackgroundColor;
+    }
   }
 
 }

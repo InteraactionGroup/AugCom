@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {EditionService} from '../../services/edition.service';
-import {ParametersService} from '../../services/parameters.service';
 import {GeticonService} from '../../services/geticon.service';
 import {Action, Interaction} from '../../types';
 import {MultilinguismService} from '../../services/multilinguism.service';
@@ -14,7 +13,6 @@ import {FunctionsService} from '../../services/functions.service';
 export class EventComponent implements OnInit {
   constructor(private multilinguism: MultilinguismService,
               public getIconService: GeticonService,
-              public parametersService: ParametersService,
               public functionService: FunctionsService,
               public editionService: EditionService) {
   }
@@ -68,10 +66,9 @@ export class EventComponent implements OnInit {
   addOrRemoveToInteraction(interactionId: string, actionId: string) {
     const partOfCurrentInter = this.isPartOfTheInteraction(interactionId, actionId);
 
-    if(!partOfCurrentInter){
-      this.addToInteraction(interactionId,actionId);
-    }
-     else if (partOfCurrentInter) {
+    if (!partOfCurrentInter) {
+      this.addToInteraction(interactionId, actionId);
+    } else if (partOfCurrentInter) {
       this.removeFromInteraction(interactionId, actionId);
     }
 
@@ -107,17 +104,19 @@ export class EventComponent implements OnInit {
   }
 
   removeFrom(action: Action, actionList: Action[]): Action[] {
-    return actionList.filter( actionOfTheList => {return actionOfTheList !== action})
-}
+    return actionList.filter(actionOfTheList => {
+      return actionOfTheList !== action
+    })
+  }
 
-plusOn(inter:  {ID: string, plus: boolean, ActionList: Action[]}){
-  this.functionService.interactionIDs.forEach( interaction => {
-    if(interaction.ID === inter.ID) {
-      interaction.plus = true;
-    } else {
-      interaction.plus = false;
-    }
-  });
-}
+  plusOn(inter: { ID: string, plus: boolean, ActionList: Action[] }) {
+    this.functionService.interactionIDs.forEach(interaction => {
+      if (interaction.ID === inter.ID) {
+        interaction.plus = true;
+      } else {
+        interaction.plus = false;
+      }
+    });
+  }
 
 }

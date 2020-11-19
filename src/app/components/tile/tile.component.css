@@ -1,19 +1,3 @@
-.selectCheckBox {
-  height: 0.8cm;
-  width: 0.8cm;
-  margin-left: 10px;
-  border: deepskyblue 3px solid;
-  background-color: rgba(255, 255, 255, 0.8);
-  box-sizing: border-box;
-  border-radius: 25%;
-}
-
-.selectCheckBox .image {
-  width: 80%;
-  height: 80%;
-  margin-left: 10%;
-  transform: translateY(10%);
-}
 
 .elementContainer {
   min-height: 1cm;
@@ -26,12 +10,14 @@
 .elementContainer .selectCheckBox {
   position: relative;
   float: right;
-  height: 30px;
-  width: 30px;
-  border: deepskyblue 3px solid;
-  background-color: rgba(255, 255, 255, 0.8);
+  height: 20px;
+  width: 20px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
+  background-color: var(--main-bg-color1);
   box-sizing: border-box;
-  border-radius: 25%;
+  border-radius: 100%;
   top: -100%;
   visibility: visible;
 }
@@ -49,7 +35,7 @@
   position: relative;
   width: 30px;
   height: 30px;
-  top: calc(-100% + 5px);
+  top: -100%;
   background-color: indianred;
   border-radius: 10px 0 50% 0;
   visibility: visible;
@@ -69,17 +55,17 @@
   width: 30px;
   height: 30px;
   top: -30px;
-  background-color: lightgrey;
+  background-color: var(--main-bg-color1);
   border-radius: 0 50% 0 10px;
   visibility: visible;
   border-style: solid;
-  border-color: dimgrey;
+  border-color: var(--main-bg-color4);
   border-width: 2px;
   box-sizing: border-box;
 }
 
 .elementContainer .elementVisibility:hover {
-  background-color: grey;
+  background-color: var(--main-bg-color3);
 }
 
 .elementContainer .deleteElement .image,
@@ -104,9 +90,9 @@
   box-sizing: border-box;
   overflow: hidden;
   display: grid;
-  grid-template-rows: 75% 25%;
   align-items: center;
 }
+
 
 .elementContainer .noImageElement {
   grid-template-rows: 40% 20%;
@@ -167,3 +153,28 @@
 .elementContainer .visible {
   opacity: 0;
 }
+
+.borderEdit {
+  visibility: visible;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  animation: mymove ease-in-out 1s infinite alternate;
+  pointer-events: none;
+  border-radius: 15px;
+}
+
+@keyframes mymove {
+  from {
+    background-color: transparent;
+    box-shadow: 0 200px 100px -100px yellow inset;
+  }
+  to {
+    background-color: yellow;
+    box-shadow: 0 100px 200px -100px transparent inset;
+  }
+}
+
+
+

@@ -1,21 +1,21 @@
 import {Injectable} from '@angular/core';
 import multilinguism from '../../assets/multilinguism.json'
 import {Dictionary} from '../types';
+import {ConfigurationService} from "./configuration.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MultilinguismService {
 
-  constructor() {
+  constructor(public configurationService: ConfigurationService) {
     this.dictionary.dictionary = multilinguism.dictionary;
   }
 
-  language = 'FR';
   dictionary: Dictionary = new Dictionary();
 
   translate(id: string) {
-    return this.translateIn(id, this.language);
+    return this.translateIn(id, this.configurationService.LANGUAGE_VALUE);
   }
 
   translateIn(id: string, lang: string) {

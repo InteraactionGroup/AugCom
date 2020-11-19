@@ -23,14 +23,14 @@
 
     <div class="width-100 floatLeft">
       <div class="menu">
-        <ng-container *ngFor="let menus of this.editionService.menu">
+        <ng-container *ngFor="let section of this.editionService.menu">
           <div>
             <div>
               <div class="menu-item-title-container"
-                   [class.selected]="this.editionService.currentEditPage===menus"
-                   (click)="this.selectMenu(menus)">
+                   [class.selected]="this.editionService.currentEditPage===section"
+                   (click)="this.selectMenu(section)">
                 <div>
-                  {{menus}}
+                  {{this.multilinguism.translate(section)}}
                 </div>
               </div>
             </div>
@@ -47,19 +47,19 @@
   </div>
 
   <div class="rightPane floatLeft">
-    <ng-container *ngIf="this.isDisplayed('Grammaire')">
+    <ng-container *ngIf="this.isDisplayed('grammar')">
       <app-a-venir></app-a-venir>
     </ng-container>
-    <ng-container *ngIf="this.isDisplayed('Interactions')">
+    <ng-container *ngIf="this.isDisplayed('interactions')">
       <app-event></app-event>
     </ng-container>
-    <ng-container *ngIf="this.isDisplayed('Autres formes')">
+    <ng-container *ngIf="this.isDisplayed('otherForms')">
       <app-alternative-forms></app-alternative-forms>
     </ng-container>
-    <ng-container *ngIf="this.isDisplayed('Apparence')">
+    <ng-container *ngIf="this.isDisplayed('appearance')">
       <app-image-selection-page></app-image-selection-page>
     </ng-container>
-    <ng-container *ngIf="this.isDisplayed('Informations')">
+    <ng-container *ngIf="this.isDisplayed('information')">
       <app-information-edition-page></app-information-edition-page>
     </ng-container>
   </div>

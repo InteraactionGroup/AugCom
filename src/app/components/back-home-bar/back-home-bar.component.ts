@@ -10,7 +10,9 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 })
 export class BackHomeBarComponent implements OnInit {
 
-  constructor(private multilinguism: MultilinguismService, private getIconService: GeticonService, private editionService: EditionService) {
+  constructor(private multilinguism: MultilinguismService,
+              private getIconService: GeticonService,
+              private editionService: EditionService) {
   }
 
   ngOnInit() {
@@ -18,6 +20,7 @@ export class BackHomeBarComponent implements OnInit {
 
   /*go back in the browser history*/
   backInHistory() {
+    this.editionService.clearEditionPane();
     window.history.back();
   }
 

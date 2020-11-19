@@ -20,12 +20,15 @@ export class AccountComponent implements OnInit {
     ['complementaryInfo', ['actuality', 'contacts']]
   ];
 
+
   selectedMenu = 'complementaryInfo';
   selectedSubMenu = 'contacts';
+
 
   constructor(public multilinguism: MultilinguismService,
               public getIconService: GeticonService) {
   }
+
 
   ngOnInit() {
   }

@@ -1,9 +1,15 @@
 <div class="height-width-100">
   <div class=palettesContainer>
     <ng-container *ngFor="let palette of this.paletteService.palettes">
-      <div class="palette-item width-100">
+      <div class="palette-item">
         <div class="paletteLabel width-100 floatLeft">
           {{palette.name}}
+        </div>
+        <div (click)="this.paletteService.paletteCodamne = palette"
+             class="supprPalette floatLeft">
+          <div [style.background-image]="this.getIcon('delete')"
+               class="icon haveBackgroundImage">
+          </div>
         </div>
         <div
           [ngStyle]="{'grid-template-rows': 'repeat(' + this.paletteService.rowNumber(palette.colors.length) + ',30px)'}"
@@ -11,16 +17,6 @@
           <div *ngFor="let color of palette.colors" [class.realcolor]="color!==null"
                [ngStyle]="{'background-color': color}"
                class="color floatLeft">
-
-          </div>
-        </div>
-        <div (click)="this.paletteCodamne = palette"
-             [ngStyle]="{'height': 30*this.paletteService.rowNumber(palette.colors.length) + 'px'}"
-             class="supprPalette floatLeft">
-          <div [ngStyle]="{'margin-top': (30*this.paletteService.rowNumber(palette.colors.length)-20)/2 + 'px'}"
-               [style.background-image]="this.getIcon('delete')"
-               class="icon haveBackgroundImage"
-          >
 
           </div>
         </div>
@@ -37,7 +33,7 @@
       </div>
     </div>
 
-    <div *ngIf="this.paletteService.newpalette" class="palette-item width-100">
+    <div *ngIf="this.paletteService.newpalette" class="palette-item">
       <div class="paletteAddLabel floatLeft">
         {{this.paletteService.getNextPaletteName()}}
       </div>
@@ -71,31 +67,30 @@
           [style.background-image]="this.getIcon('delete')"
           class="icon haveBackgroundImage"
         >
-
         </div>
       </div>
     </div>
   </div>
 
-  <div *ngIf="this.paletteCodamne != null" class="popup">
-    <div class="popupContainer">
-      <div class="popupQuestion">
-        {{this.multilinguism.translate("paletteQuestion")}}
+  <div class="mainPopUp" *ngIf="this.paletteService.paletteCodamne != null">
+  <div class="popup">
+
+      <div class="popupQuestion" style="font-size: larger;">
+        <div>{{this.multilinguism.translate("paletteQuestion")}}</div>
+        <div>{{this.multilinguism.translate("continue")}}</div>
       </div>
 
       <div class="popupButtons">
-
-        <div (click)="this.paletteCodamne = null" class="popupChoiceButton floatLeft no">
-          {{this.multilinguism.translate("noCancel")}}
+        <div (click)="this.paletteService.paletteCodamne = null" class="popupChoiceButton floatLeft no">
+          <div style="font-size: larger;">{{this.multilinguism.translate("No")}}</div>
+          <div>{{this.multilinguism.translate("Cancel")}}</div>
         </div>
 
         <div (click)="this.deletePalette()" class="popupChoiceButton floatLeft yes">
-          {{this.multilinguism.translate("yesDelete")}}
+          <div style="font-size: larger;">{{this.multilinguism.translate("Yes")}}</div>
+          <div>{{this.multilinguism.translate("Delete")}}</div>
         </div>
       </div>
-
-    </div>
   </div>
-
-
+  </div>
 </div>

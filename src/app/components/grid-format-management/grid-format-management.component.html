@@ -1,0 +1,27 @@
+<div>{{this.multilinguismService.translate("gridDimensions")}}</div>
+
+<div style="  margin: 20px ;width: fit-content; display: grid; grid-template-columns: max-content max-content ">
+  <label for="col">{{this.multilinguismService.translate("chooseNumberOfColumns")}}:</label>
+  <input id="col" value="{{this.boardService.getNumberOfCols()}}" type="number" min="1"
+         (change)="onKeyCols($event)">
+
+  <label for="row">{{this.multilinguismService.translate("chooseNumberOfLines")}}:</label>
+  <input id="row" value="{{this.boardService.getNumberOfRows()}}" type="number" min="1"
+         (change)="onKeyRows($event)">
+
+  <label for="gap">{{this.multilinguismService.translate("chooseGapBetweenPictograms")}}:</label>
+  <input id="gap" value="{{this.boardService.getGapSize()}}" type="number" min="0"
+         (change)="onKeyGap($event)">
+</div>
+
+
+<div>{{this.multilinguismService.translate("backgroundTheme")}}</div>
+
+<div style=" margin: 20px ;width: fit-content; display: grid; grid-template-columns: max-content 20px ">
+  <div>{{this.multilinguismService.translate("chooseTheColor")}}:</div>
+  <div class="newColor">
+    <div class="mainColorPicker"
+         [ngStyle]="{'background-color': this.boardService.getGridBackgroundColorValue() }"></div>
+    <input class="colorPicker height-width-100" type="color" [(ngModel)]="this.boardService.board.BackgroundColor">
+  </div>
+</div>

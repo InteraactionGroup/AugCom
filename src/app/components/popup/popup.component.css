@@ -1,39 +1,45 @@
+
 .popup {
   position: absolute;
   top: 25%;
   left: 25%;
   height: 50%;
   width: 50%;
-  background-color: dimgrey;
+  /*background-color: var(--main-bg-color1);*/
+  border: 5px solid tan;
+  background-color: wheat;
+  display: grid;
+  grid-template-rows: 2fr 1fr;
+  border-radius: 10px;
+  visibility: visible;
+  z-index: 99999;
+  opacity: 100%;
 }
 
-.popup .popupContainer {
-  height: 96%;
-  width: 96%;
-  margin-left: 2%;
-  transform: translateY(2.5%);
-  background-color: grey;
+.popup .popupQuestion {
+  width: calc(100% - 50px);
+  display: inline-grid;
+  align-items: center;
+  margin-left: 25px;
+  align-content: center;
+  text-align: center;
 }
 
-.popup .popupContainer .popupQuestion {
-  width: 70%;
-  height: 20%;
-  margin-left: 15%;
-  transform: translateY(100%);
+.popup .popupButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
-.popup .popupContainer .popupButtons {
-  width: 70%;
-  height: 30%;
-  margin-left: 15%;
-  transform: translateY(100%);
-}
-
-.popup .popupContainer .popupButtons .popupChoiceButton {
-  width: 30%;
-  margin-left: 10%;
-  margin-right: 10%;
-  height: 100%;
+.popup .popupButtons .popupChoiceButton {
+  width: 40%;
+  margin-left: 30%;
+  height: 60px;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+  display: grid;
+  grid-template-rows: 2fr 2fr;
+  cursor: pointer;
 }
 
 .yes {
@@ -50,4 +56,13 @@
 
 .no:hover {
   background-color: darkred;
+}
+
+.mainPopUp{
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
 }

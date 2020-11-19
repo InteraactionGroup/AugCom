@@ -32,7 +32,7 @@
 .colorPickerContainer {
   height: 20px;
   width: 100px;
-  background-color: dimgrey;
+  background-color: var(--main-bg-color4);
   border-radius: 5px;
   margin-right: 10px;
 }
@@ -40,7 +40,7 @@
 .colorPickerContainerDown {
   height: 20px;
   width: 100px;
-  background-color: dimgrey;
+  background-color: var(--main-bg-color4);
   border-radius: 5px;
   margin-right: 10px;
 }

@@ -3,39 +3,23 @@
 }
 
 .share .sharePanel {
-  height: 50%;
-  width: 90%;
-  margin: 20px auto auto;
+  margin-top: 20px;
 }
 
-.share .sharePanel .shareSection {
-  margin-left: auto;
-  display: inline-grid;
-  visibility: visible;
+.share .sharePanel .listElement {
+  margin: 20px;
+  width: fit-content;
 }
 
-.share .sharePanel .shareSection .listElement {
-  height: 90%;
-  width: 90%;
-  margin-left: 5%;
-  background: linear-gradient(transparent, lightgrey 100%);
-}
-
-.share .sharePanel .shareSection .listElement .image {
+.share .sharePanel .listElement .image {
   height: 80%;
   width: 15%;
   transform: translateY(10%);
 }
 
-.share .sharePanel .shareSection .listElement .label {
-  height: 80%;
-  width: 20%;
-  margin-left: 5%;
-  transform: translateY(50%);
+label {
+  margin-right: 10px;
 }
 
-.share .sharePanel .shareSection .inputField {
-  height: 25%;
-  width: 55%;
-  transform: translateY(150%);
+.share .sharePanel .inputField {
 }

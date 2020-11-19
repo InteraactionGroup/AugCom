@@ -1,23 +1,22 @@
 <div class="usertoolbar width-100">
+  <!--     [ngStyle]="{'bottom': this.userToolBarService.edit ? '50%' :'0'}">-->
 
   <div class="titleContainer floatLeft"
        [class.width0]="this.userToolBarService.search">
     <ng-container *ngIf="!this.userToolBarService.search">
-      <svg class="titleSVG" viewBox="0 0 110 60">
-        <text x="50%" y="50%" dominant-baseline="middle"
-              text-anchor="middle">{{this.boardService.getCurrentTitle()}}</text>
-      </svg>
+      <div class="titleandimage"
+           [ngStyle]="{'grid-template-columns': this.userToolBarService.titleDisplayValue === 'default' ? '50px 1fr' : '100%'}">
+        <div *ngIf="this.userToolBarService.titleDisplayValue!=='textOnly'" class="haveBackgroundImage"
+             style="height: 90%; width:90%" [style.background-image]="this.getCurrentPageImage()">
+
+        </div>
+        <div *ngIf="this.userToolBarService.titleDisplayValue!=='imageOnly'">
+          {{this.boardService.getCurrentTitle()}}
+        </div>
+      </div>
     </ng-container>
   </div>
 
-  <nav>
-    <a routerLink="/account">
-      <div class="button floatRight" id="accountButton">
-        <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('account')}">
-        </div>
-      </div>
-    </a>
-  </nav>
 
   <div class="button floatRight" id="lockUnlockButton" (click)="this.setLock()">
     <div class="image width-100" [class.imageSelected]="this.userToolBarService.unlock"
@@ -25,6 +24,14 @@
     </div>
   </div>
 
+  <nav *ngIf="this.userToolBarService.unlock">
+    <a routerLink="/account">
+      <div class="button floatRight" id="accountButton">
+        <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('settings')}">
+        </div>
+      </div>
+    </a>
+  </nav>
 
   <div class="button floatRight" id="editButton" *ngIf="this.userToolBarService.unlock" (click)="this.edit()">
     <div class="image width-100" [class.noConnection]="!this.userToolBarService.isConnected"
@@ -46,9 +53,18 @@
     </div>
   </div>
 
+  <div class="button floatRight" id="language" *ngIf="this.userToolBarService.unlock"
+       (click)="translate()">
+    <div class="image width-100"
+         [ngStyle]="{'background-image':this.getIcon(this.configurationService.LANGUAGE_VALUE==='FR'? 'france':'uk')}">
+    </div>
+  </div>
+
 
   <div class="button floatLeft" id="backButton"
        (click)="this.boardService.backToPreviousFolder()"
+       (pointerenter)="enter()"
+       (pointerleave)="exit()"
        [ngStyle]="{'opacity': (this.boardService.getCurrentFolder() !== '#HOME' && this.boardService.activatedElement==-1) ? '1' : '0.5'}">
     <div class="image width-100"
          [ngStyle]="{'background-image':this.getIcon('retour')}">

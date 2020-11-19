@@ -33,17 +33,17 @@
   padding: 10px;
   width: 70%;
   font-weight: 600;
-  background-color: lightgrey;
+  background-color: var(--main-bg-color1);
   border-radius: 5px;
   margin-left: calc(15% - 10px);
 }
 
 .edition .save:hover {
-  background-color: grey;
+  background-color: var(--main-bg-color3);
 }
 
 .edition .save:active {
-  background-color: dimgrey;
+  background-color: var(--main-bg-color4);
 }
 
 .edition .leftEdition .button {
@@ -78,8 +78,8 @@
   margin-left: 10px;
   margin-bottom: 10px;
   list-style: none;
-  background-color: #fff;
-  border: 1px solid #d1d5da;
+  background-color: var(--main-bg-color0);
+  border: 1px solid var(--main-bg-color2);
   border-radius: 3px;
   display: block;
 }
@@ -89,10 +89,10 @@
   padding: 8px 10px;
   margin-top: 0;
   line-height: 20px;
-  color: #586069;
+  color: var(--main-bg-color4);
   list-style: none;
-  background-color: #d1d5da;
-  border: 1px solid #d1d5da;
+  background-color: var(--main-bg-color2);
+  border: 1px solid var(--main-bg-color2);
   font-size: 18px;
   font-weight: 600;
 }
@@ -104,8 +104,8 @@
   color: black;
   text-decoration: none;
   list-style: none;
-  background-color: #f4f4f4;
-  border: 1px solid #d1d5da;
+  background-color: var(--main-bg-color0);
+  border: 1px solid var(--main-bg-color2);
   font-size: 14px;
 }
 
@@ -116,7 +116,7 @@
   left: 0;
   width: 6px;
   content: "";
-  background-color: lightgrey;
+  background-color: var(--main-bg-color1);
 }
 
 .menu-item-title-container:active:before {
@@ -126,7 +126,7 @@
   left: 0;
   width: 6px;
   content: "";
-  background-color: grey;
+  background-color: var(--main-bg-color3);
 }
 
 .menu-item-title-container.selected:before {
@@ -136,15 +136,15 @@
   left: 0;
   width: 6px;
   content: "";
-  background-color: lightgrey;
+  background-color: var(--main-bg-color3);
 }
 
 .menu-item-title-container:hover {
-  background-color: #eef4f9;
+  background-color: var(--main-bg-color1);
 }
 
 .menu-item-title-container.selected {
-  background-color: #eef4f9;
+  background-color: var(--main-bg-color1);
   font-weight: 600;
 }
 
@@ -154,7 +154,7 @@
   left: 25%;
   height: 50%;
   width: 50%;
-  background-color: dimgrey;
+  background-color: var(--main-bg-color4);
 }
 
 .popup .popupContainer {
@@ -162,7 +162,7 @@
   width: 96%;
   margin-left: 2%;
   transform: translateY(2.5%);
-  background-color: lightgrey;
+  background-color: var(--main-bg-color1);
 }
 
 .popup .close {
@@ -187,18 +187,18 @@
   height: fit-content;
   display: grid;
   grid-template-columns: repeat(10, 10%);
-  background-color: grey;
+  background-color: var(--main-bg-color3);
   margin-bottom: 10px;
 }
 
 
 .palettes .paletteLabel {
   height: 20px;
-  background-color: grey;
+  background-color: var(--main-bg-color3);
 }
 
 .palettes .paletteLabel:hover {
-  background-color: dimgrey;
+  background-color: var(--main-bg-color4);
 }
 
 .moreLess {

@@ -3,9 +3,12 @@
   min-height: 1cm;
   max-height: 14vw;
   min-width: 7cm;
-  background-color: grey;
-  position: relative;
+  background-color: var(--main-bg-color1);
+  position: absolute;
   z-index: 2;
+  bottom: 0;
+  transition: bottom 0.5s;
+  bottom: 0;
 }
 
 .usertoolbar .button {
@@ -51,8 +54,26 @@
   transition: width 1s;
 }
 
+.titleandimage {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  align-items: center;
+  grid-gap: 5px;
+}
+
+.adjustableText {
+  text-align: center;
+  width: 100%;
+  height: fit-content;
+  align-items: center;
+  vertical-align: middle;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
 .usertoolbar .button .image:hover, .usertoolbar .buttonLeftLeft .image:hover, .usertoolbar .buttonLeftRight .image:hover {
-  background-color: darkgrey;
+  background-color: var(--main-bg-color2);
 }
 
 .usertoolbar .button .image {
@@ -60,7 +81,7 @@
   width: 80%;
   margin-left: 10%;
   transform: translateY(10%);
-  background-color: lightgrey;
+  background-color: var(--main-bg-color1);
   border-radius: 10px;
   background-size: 60%;
   background-repeat: no-repeat;
@@ -73,7 +94,7 @@
   margin-left: 0;
   margin-right: 0;
   transform: translateY(10%);
-  background-color: lightgrey;
+  background-color: var(--main-bg-color1);
   border-radius: 10px 0 0 10px;
   background-size: 60% 60%;
   background-repeat: no-repeat;
@@ -92,7 +113,7 @@
   width: 98%;
   height: 0;
   margin-left: 1%;
-  background-color: lightgrey;
+  background-color: var(--main-bg-color1);
   box-shadow: 0 2px 15px black;
   opacity: 0;
 }
@@ -102,13 +123,13 @@
   height: 500%;
   opacity: 1;
   margin-left: 1%;
-  background-color: lightgrey;
+  background-color: var(--main-bg-color1);
   box-shadow: 0 2px 15px black;
   overflow-y: auto;
 }
 
 .usertoolbar .buttonLeftLeft .image .searchResultContainer .searchResult {
-  background-color: dimgrey;
+  background-color: var(--main-bg-color4);
   opacity: 0.8;
 }
 
@@ -131,7 +152,7 @@
   margin-left: 0;
   margin-right: 0;
   transform: translateY(10%);
-  background-color: lightgrey;
+  background-color: var(--main-bg-color1);
   border-radius: 0 10px 10px 0;
   background-size: 60% 60%;
   background-repeat: no-repeat;

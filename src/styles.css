@@ -63,3 +63,10 @@ body {
   padding-left: 10px;
   width: calc(100% - 10px);
 }
+
+gridster .gridster-column,
+gridster .gridster-row,
+gridster-item {
+  transition: unset !important;
+}
+

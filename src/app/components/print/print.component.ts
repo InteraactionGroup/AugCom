@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {BoardService} from '../../services/board.service';
-import {MultilinguismService} from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-print',
@@ -9,7 +8,7 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 })
 export class PrintComponent implements OnInit {
 
-  constructor(public boardService: BoardService, private multilinguism: MultilinguismService) {
+  constructor(public boardService: BoardService) {
   }
 
   ngOnInit() {

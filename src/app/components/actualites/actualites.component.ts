@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {MultilinguismService} from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-actualites',
@@ -8,7 +7,7 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 })
 export class ActualitesComponent implements OnInit {
 
-  constructor(private multilinguism: MultilinguismService) {
+  constructor() {
   }
 
   ngOnInit() {

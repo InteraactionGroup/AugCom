@@ -19,7 +19,11 @@
         <div class="wrapperPreview centerText floatLeft">
           <ng-container *ngFor="let b of this.getVariantListExceptDefault()">
             <div class="elementContainer">
-              <div class="element" [class.inModification]="b===this.selectedItem" (click)="select(b)"
+              <div class="deleteElement" (click)="deleteElementForm(b)">
+                <div class="image haveBackgroundImage" [style.background-image]="this.getIcon('delete')"></div>
+              </div>
+              <div class="element" style="margin-top: -30px;" [class.inModification]="b===this.selectedItem"
+                   (click)="select(b)"
                    [ngStyle]="{'background-color': this.editionService.curentColor ,
                     'border-color': this.editionService.curentBorderColor}">
 
@@ -29,9 +33,6 @@
                   <text x="50%" y="50%" dominant-baseline="middle"
                         text-anchor="middle">{{this.selectedItem === b ? this.elementFormDisplayedWordField : b.DisplayedText}}</text>
                 </svg>
-              </div>
-              <div class="deleteElement" (click)="deleteElementForm(b)">
-                <div class="image haveBackgroundImage" [style.background-image]="this.getIcon('delete')"></div>
               </div>
             </div>
           </ng-container>

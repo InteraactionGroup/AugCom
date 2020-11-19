@@ -2,81 +2,83 @@
 <div class="account-page-container">
   <div class="account-page">
 
-    <div class="menu-container floatLeft">
-      <div class="menu">
+    <!--    <div class="menu-container floatLeft">-->
+    <!--      <div class="menu">-->
 
-        <div class="menu-title-container">
-          <div>
-            {{this.multilinguism.translate("settings")}}
-          </div>
-        </div>
+    <!--        <div class="menu-title-container">-->
+    <!--          <div>-->
+    <!--            {{this.multilinguism.translate("settings")}}-->
+    <!--          </div>-->
+    <!--        </div>-->
 
-        <ng-container *ngFor="let menus of menu">
-          <div>
-            <div>
-              <div class="menu-item-title-container"
-                   [class.selected]="selectedMenu===menus[0]"
-                   (click)="this.selectMenu(menus[0])">
-                <div>
-                  {{this.multilinguism.translate(menus[0])}}
-                </div>
-              </div>
-              <ng-container *ngFor="let submenu of menus[1]">
-                <div>
-                  <div>
-                    <div class="sub-menu-item-title-container centerText"
-                         [class.closed]="!(selectedMenu===menus[0])"
-                         [class.selected]="selectedSubMenu===submenu && selectedMenu===menus[0]"
-                         (click)="this.selectSubMenu(menus[0],submenu)">
-                      <div>
-                        {{this.multilinguism.translate(submenu)}}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </ng-container>
+    <!--        <ng-container *ngFor="let menus of menu">-->
+    <!--          <div>-->
+    <!--            <div>-->
+    <!--              <div class="menu-item-title-container"-->
+    <!--                   [class.selected]="selectedMenu===menus[0]"-->
+    <!--                   (click)="this.selectMenu(menus[0])">-->
+    <!--                <div>-->
+    <!--                  {{this.multilinguism.translate(menus[0])}}-->
+    <!--                </div>-->
+    <!--              </div>-->
+    <!--              <ng-container *ngFor="let submenu of menus[1]">-->
+    <!--                <div>-->
+    <!--                  <div>-->
+    <!--                    <div class="sub-menu-item-title-container centerText"-->
+    <!--                         [class.closed]="!(selectedMenu===menus[0])"-->
+    <!--                         [class.selected]="selectedSubMenu===submenu && selectedMenu===menus[0]"-->
+    <!--                         (click)="this.selectSubMenu(menus[0],submenu)">-->
+    <!--                      <div>-->
+    <!--                        {{this.multilinguism.translate(submenu)}}-->
+    <!--                      </div>-->
+    <!--                    </div>-->
+    <!--                  </div>-->
+    <!--                </div>-->
+    <!--              </ng-container>-->
 
-            </div>
-          </div>
-        </ng-container>
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--        </ng-container>-->
 
-      </div>
-    </div>
+
+    <!--      </div>-->
+    <!--    </div>-->
+
 
     <div class="menu-page-container">
       <div class="menu-page">
-        <div class="menu-page-title-container">
-          <div class="menu-page-title">
-            {{getMenuPageTitle()}}
-          </div>
-        </div>
+        <!--        <div class="menu-page-title-container">-->
+        <!--          <div class="menu-page-title">-->
+        <!--            {{getMenuPageTitle()}}-->
+        <!--          </div>-->
+        <!--        </div>-->
         <div class="menu-page-content-container width-100">
           <div class="menu-page-content height-width-100">
-
+            <app-account-menu></app-account-menu>
             <!--            <ng-container *ngIf="selectedSubMenu==='Informations du compte'">-->
             <!--              <app-account-information></app-account-information>-->
+            <!--            &lt;!&ndash;            </ng-container>&ndash;&gt;-->
+            <!--            <ng-container *ngIf="this.menuAVenir()">-->
+            <!--              &lt;!&ndash;              <app-a-venir></app-a-venir>&ndash;&gt;-->
             <!--            </ng-container>-->
-            <ng-container *ngIf="this.menuAVenir()">
-              <app-a-venir></app-a-venir>
-            </ng-container>
-            <ng-container *ngIf="selectedSubMenu==='saveManagement'">
-              <app-saves></app-saves>
-            </ng-container>
-            <ng-container *ngIf="selectedMenu==='language'">
-              <app-language></app-language>
-            </ng-container>
-            <ng-container *ngIf="selectedSubMenu==='paletteManagement'">
-              <app-palettes></app-palettes>
-            </ng-container>
-            <!--            <ng-container *ngIf="selectedSubMenu==='Contacts'">-->
-            <!--              <app-contact></app-contact>-->
+            <!--            <ng-container *ngIf="selectedSubMenu==='saveManagement'">-->
+            <!--              <app-saves></app-saves>-->
             <!--            </ng-container>-->
-            <ng-container *ngIf="selectedMenu==='share'">
-              <app-share></app-share>
-            </ng-container>
-            <ng-container *ngIf="selectedMenu==='settings'">
-              <app-settings></app-settings>
-            </ng-container>
+            <!--            <ng-container *ngIf="selectedMenu==='language'">-->
+            <!--              <app-language></app-language>-->
+            <!--            </ng-container>-->
+            <!--            <ng-container *ngIf="selectedSubMenu==='paletteManagement'">-->
+            <!--              <app-palettes></app-palettes>-->
+            <!--            </ng-container>-->
+            <!--            &lt;!&ndash;            <ng-container *ngIf="selectedSubMenu==='Contacts'">&ndash;&gt;-->
+            <!--            &lt;!&ndash;              <app-contact></app-contact>&ndash;&gt;-->
+            <!--            &lt;!&ndash;            </ng-container>&ndash;&gt;-->
+            <!--            <ng-container *ngIf="selectedMenu==='share'">-->
+            <!--              <app-share></app-share>-->
+            <!--            </ng-container>-->
+            <!--            <ng-container *ngIf="selectedMenu==='settings'">-->
+            <!--              <app-settings></app-settings>-->
+            <!--            </ng-container>-->
           </div>
         </div>
       </div>

@@ -8,6 +8,11 @@ import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {ParametersService} from '../../services/parameters.service';
 import {Router} from '@angular/router';
 import {SearchService} from '../../services/search.service';
+import {LayoutService} from '../../services/layout.service';
+import {StyleService} from '../../services/style.service';
+import {GridElementService} from '../../services/grid-element.service';
+import {DwellCursorService} from "../../services/dwell-cursor.service";
+import {ConfigurationService} from "../../services/configuration.service";
 
 @Component({
   selector: 'app-tile',
@@ -20,6 +25,7 @@ export class TileComponent implements OnInit {
    * the current pressTimer started when pressing an element and ending on release
    */
   pressTimer;
+  dwellTimer;
   dblClickTimer;
 
   /**
@@ -42,7 +48,12 @@ export class TileComponent implements OnInit {
     public boardService: BoardService,
     private historicService: HistoricService,
     private parametersService: ParametersService,
-    private getIconService: GeticonService
+    private getIconService: GeticonService,
+    public layoutService: LayoutService,
+    public styleService: StyleService,
+    public gridElementService: GridElementService,
+    private dwellCursorService: DwellCursorService,
+    public configurationService: ConfigurationService
   ) {
   }
 
@@ -54,7 +65,23 @@ export class TileComponent implements OnInit {
       this.action(element, 'longPress');
       this.pressedElement = null;
       this.down = 0;
-    }, this.parametersService.longpressTimeOut);
+    }, this.configurationService.LONGPRESS_TIMEOUT_VALUE);
+  }
+
+  exit() {
+    if (this.configurationService.DWELL_TIME_ENABLED) {
+      this.dwellCursorService.stop();
+      window.clearTimeout(this.dwellTimer);
+    }
+  }
+
+  enter(element) {
+    if (this.configurationService.DWELL_TIME_ENABLED) {
+      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_TIMEOUT_VALUE);
+      this.dwellTimer = window.setTimeout(() => {
+        this.action(element, 'click');
+      }, this.configurationService.DWELL_TIME_TIMEOUT_VALUE);
+    }
   }
 
   setClickTimer(element) {
@@ -62,7 +89,7 @@ export class TileComponent implements OnInit {
       this.action(element, 'click');
       this.pressedElement = null;
       this.down = 0;
-    }, this.parametersService.doubleClickTimeOut);
+    }, this.configurationService.DOUBLE_CLICK_TIMEOUT_VALUE);
   }
 
   /**
@@ -113,8 +140,8 @@ export class TileComponent implements OnInit {
       // for button
       if (element.Type === 'button') {
         const prononcedText = this.boardService.getLabel(element);
-        const color = element.Color;
-        const borderColor = element.BorderColor;
+        const color = this.gridElementService.getStyle(element).BackgroundColor;
+        const borderColor = this.gridElementService.getStyle(element).BorderColor;
         const imgUrl = this.boardService.getImgUrl(element);
         const vignette: Vignette = {
           Label: prononcedText,
@@ -134,7 +161,7 @@ export class TileComponent implements OnInit {
                 this.historicService.push(vignette);
               } else if (action.ID === 'say') {
                 this.historicService.say('' + prononcedText);
-              } else if (action.ID === 'otherforms' && element.ElementFormsList.length > 1 ) {
+              } else if (action.ID === 'otherforms' && element.ElementFormsList.length > 1) {
                 otherFormsDisplayed = true;
                 this.boardService.activatedElement = this.boardService
                   .getNormalTempList()
@@ -143,9 +170,9 @@ export class TileComponent implements OnInit {
                 this.pressedElement = null;
               } else if (action.ID === 'backFromVariant' && !otherFormsDisplayed) {
                 this.boardService.activatedElement = -1;
-              } else if (action.ID === 'back'){
+              } else if (action.ID === 'back') {
                 this.boardService.backToPreviousFolder();
-              }else if (action.ID === 'backHome'){
+              } else if (action.ID === 'backHome') {
                 this.boardService.backHome();
               }
             });
@@ -187,6 +214,8 @@ export class TileComponent implements OnInit {
             '.' +
             (element.Type as FolderGoTo).GoTo;
         }
+        this.layoutService.refresh();
+
         // for errors
       } else {
         console.error(element.Type);
@@ -222,6 +251,7 @@ export class TileComponent implements OnInit {
    * @param element, the Element we want to edit
    */
   edit(element: GridElement) {
+    console.log('double click on ' + element.ID);
     if (this.userToolBarService.edit) {
       this.router.navigate(['/edit']).then(() => {
         this.editionService.clearEditionPane();
@@ -305,43 +335,50 @@ export class TileComponent implements OnInit {
    * @param  element, the element for which the shadow is beeing returned
    * @return  the string corresponding to the box-shadow effect
    */
+
+  isFolder(element: GridElement) {
+    return (element.Type as FolderGoTo).GoTo !== undefined;
+  }
+
+
   getShadow(element: GridElement) {
-    const isFolder = (element.Type as FolderGoTo).GoTo !== undefined;
+    const isFolder = this.isFolder(element);
 
     let s =
       (isFolder ? '3px ' : '0px ') +
       (isFolder ? '-3px ' : '0px ') +
       '0px ' +
       (isFolder ? '-2px ' : '0px ') +
-      (element.Color === undefined || element.Color == null
+      (this.gridElementService.getStyle(element).BackgroundColor === undefined
+      || this.gridElementService.getStyle(element).BackgroundColor == null
         ? '#d3d3d3'
-        : element.Color);
+        : this.gridElementService.getStyle(element).BackgroundColor);
 
     s =
       s +
       ' , ' +
       (isFolder ? '4px ' : '0px ') +
       (isFolder ? '-4px ' : '0px ') +
-      (element.BorderColor === undefined || element.BorderColor == null
+      (this.gridElementService.getStyle(element).BorderColor === undefined || this.gridElementService.getStyle(element).BorderColor == null
         ? 'black'
-        : element.BorderColor);
+        : this.gridElementService.getStyle(element).BorderColor);
     return s;
   }
 
   getWidth(element: GridElement) {
-    const isFolder = (element.Type as FolderGoTo).GoTo !== undefined;
+    const isFolder = this.isFolder(element);
     const s = isFolder ? 'calc(100% - 5px)' : '100%';
     return s;
   }
 
   getHeight(element: GridElement) {
-    const isFolder = (element.Type as FolderGoTo).GoTo !== undefined;
+    const isFolder = this.isFolder(element);
     const s = isFolder ? 'calc(100% - 5px)' : '100%';
     return s;
   }
 
   getMarginTop(element: GridElement) {
-    const isFolder = (element.Type as FolderGoTo).GoTo !== undefined;
+    const isFolder = this.isFolder(element);
     const s = isFolder ? '5px' : '0';
     return s;
   }
@@ -394,6 +431,116 @@ export class TileComponent implements OnInit {
     }
   }
 
+  displayImage(element) {
+    return (
+      (!this.isFolder(element) && this.configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE !== 'textOnly') ||
+      (this.isFolder(element) && this.configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE !== 'textOnly')
+    );
+  }
+
+  displayTopLabel(element) {
+    return (
+      (!this.isFolder(element) && this.configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default' &&
+        (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'down' || this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'right')
+      ) ||
+      (this.isFolder(element) && this.configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default' &&
+        (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'down' || this.configurationService.REPO_IMAGE_POSITION_VALUE === 'right')
+      )
+    );
+  }
+
+  displayBottomLabel(element) {
+    return (
+      (!this.isFolder(element) &&
+        (
+          (this.configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default' &&
+            (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'up' || this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'left')) ||
+          (this.configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'textOnly')
+        )
+      ) ||
+      (this.isFolder(element) &&
+        (
+          (this.configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default' &&
+            (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'up' || this.configurationService.REPO_IMAGE_POSITION_VALUE === 'left')) ||
+          (this.configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'textOnly')
+        )
+      )
+    );
+  }
+
+  getGridTemplateRows() {
+    if (this.boardService.getImgUrl(this.element) == '') {
+      return '100%';
+    } else {
+      if (!this.isFolder(this.element)) {
+        if (this.configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default') {
+          if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'up') {
+            return '75% 25%';
+          } else if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'down') {
+            return '25% 75%';
+          } else if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'left' || this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'right') {
+            return '100%';
+          }
+        } else {
+          return '100%';
+        }
+      } else {
+        if (this.configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default') {
+          if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'up') {
+            return '75% 25%';
+          } else if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'down') {
+            return '25% 75%';
+          } else if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'left' || this.configurationService.REPO_IMAGE_POSITION_VALUE === 'right') {
+            return '100%';
+          }
+        } else {
+          return '100%';
+        }
+      }
+    }
+  }
+
+  getGridTemplateColumns() {
+    if (this.boardService.getImgUrl(this.element) == '') {
+      return '100%';
+    } else {
+      if (!this.isFolder(this.element)) {
+        if (this.configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default') {
+          if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'up' || this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'down') {
+            return '100%'
+          } else if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'left') {
+            return '60% 40%'
+          } else if (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'right') {
+            return '40% 60%'
+          }
+        } else {
+          return '100%';
+        }
+      }
+      if (this.isFolder(this.element)) {
+        if (this.configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default') {
+          if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'up' || this.configurationService.REPO_IMAGE_POSITION_VALUE === 'down') {
+            return '100%'
+          } else if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'left') {
+            return '60% 40%'
+          } else if (this.configurationService.REPO_IMAGE_POSITION_VALUE === 'right') {
+            return '40% 60%'
+          }
+        } else {
+          return '100%';
+        }
+      }
+    }
+  }
+
+  getFontFamily() {
+    if (this.isFolder(this.element)) {
+      return this.configurationService.REPO_TEXT_STYLE_VALUE === 'default' ? 'var(--main-font)' : this.configurationService.REPO_TEXT_STYLE_VALUE + ', sans serif';
+    } else {
+      return this.configurationService.PICTO_TEXT_STYLE_VALUE === 'default' ? 'var(--main-font)' : this.configurationService.PICTO_TEXT_STYLE_VALUE + ', sans serif';
+    }
+  }
+
   /**
    * open the popup for the future element deletion
    *
@@ -410,7 +557,9 @@ export class TileComponent implements OnInit {
    * @param  element, the element to select
    */
   select(element: GridElement) {
-    this.editionService.select(element);
+    if (this.userToolBarService.edit && element.dragAndResizeEnabled !== false) {
+      this.editionService.select(element);
+    }
   }
 
   /**

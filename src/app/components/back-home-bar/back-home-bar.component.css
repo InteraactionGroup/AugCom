@@ -1,7 +1,7 @@
 .topBackBar {
   height: 50px;
   width: 100%;
-  background-color: dimgray;
+  background-color: var(--main-bg-color4);
 }
 
 .topBarBackIcon {
@@ -13,15 +13,15 @@
   fill: white;
   padding: 5px;
   border-radius: 8px;
-  background-color: dimgray;
+  background-color: var(--main-bg-color4);
 }
 
 .topBarBackIcon:hover {
-  background-color: grey;
+  background-color: var(--main-bg-color3);
 }
 
 .topBarBackIcon:active {
-  background-color: dimgray;
+  background-color: var(--main-bg-color4);
 }
 
 .topBarLabel {

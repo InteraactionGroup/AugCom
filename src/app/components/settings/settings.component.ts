@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ParametersService} from '../../services/parameters.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
+import {ConfigurationService} from "../../services/configuration.service";
 
 @Component({
   selector: 'app-settings',
@@ -9,7 +9,8 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(private multilinguism: MultilinguismService, public parametersService: ParametersService) {
+  constructor(private multilinguism: MultilinguismService,
+              public configurationService: ConfigurationService) {
   }
 
   ngOnInit() {

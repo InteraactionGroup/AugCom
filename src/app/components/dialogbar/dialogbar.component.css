@@ -1,78 +1,43 @@
-@media (max-width: 7cm) {
-  .dialogBar {
-    height: 14vw;
-    min-height: 1cm;
-    width: 100vw;
-    min-width: 7cm;
-    visibility: visible;
-    background-color: seagreen;
-  }
 
-  .dialogBar .button {
-    cursor: pointer;
-    float: right;
-    height: 14vw;
-    min-height: 1cm;
-    width: 14vw;
-    min-width: 1cm;
-    visibility: hidden;
-  }
-
-  .dialogBar .textBar {
-    width: 55vw;
-    height: 96%;
-    min-height: 1cm;
-    min-width: calc(100vw - 3.2cm);
-    transform: translateY(2%);
-    margin-left: 0.2%;
-    background-color: lightgrey;
-    visibility: visible;
-    border-radius: 5px;
-  }
+.dialogBar {
+  height: 75px;
+  width: 100%;
+  visibility: hidden;
+  display: grid;
+  grid-template-columns: 1fr 75px 75px 75px;
 }
 
-@media (min-width: 7cm) {
-  .dialogBar {
-    height: 2cm;
-    min-height: 1cm;
-    width: 100%;
-    visibility: hidden;
-  }
-
-  .dialogBar .button {
-    cursor: pointer;
-    height: 2cm;
-    min-height: 1cm;
-    width: 2cm;
-    min-width: 1cm;
-    visibility: hidden;
-  }
-
-  .dialogBar .textBar {
-    display: flex;
-    overflow-x: auto;
-    width: calc(100vw - 6.2cm);
-    height: 96%;
-    transform: translateY(2%);
-    margin-left: 0.2%;
-    background-color: lightgrey;
-    visibility: visible;
-    border-radius: 5px;
-    transform-origin: right top;
-  }
-
+.dialogBar .button {
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+  visibility: hidden;
 }
+
+.dialogBar .textBar {
+  display: flex;
+  overflow-x: auto;
+  width: calc(100vw - 6.2cm);
+  height: 96%;
+  transform: translateY(2%);
+  margin-left: 0.2%;
+  background-color: var(--main-bg-color1);
+  visibility: visible;
+  border-radius: 5px;
+  transform-origin: right top;
+}
+
 
 .dialogBar .button .image:hover {
-  background-color: darkgrey;
+  background-color: var(--main-bg-color2);
 }
 
 .dialogBar .button .image {
-  height: 80%;
-  width: 80%;
-  transform: translateY(10%);
-  margin-left: 10%;
-  background-color: lightgrey;
+  height: calc(100% - 10px);
+  width: calc(100% - 10px);
+  margin-top: 5px;
+  margin-right: 5px;
+  background-color: var(--main-bg-color1);
   border-radius: 25%;
   visibility: visible;
   background-size: 60%;

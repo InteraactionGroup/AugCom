@@ -11,8 +11,6 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 })
 export class PalettesComponent implements OnInit {
 
-  paletteCodamne = null;
-
   constructor(private multilinguism: MultilinguismService,
               public indexeddbaccessService: IndexeddbaccessService,
               private getIconService: GeticonService,
@@ -31,8 +29,8 @@ export class PalettesComponent implements OnInit {
 
   /*delete selected palette and remove it from indexeddb*/
   deletePalette() {
-    this.paletteService.deletePalette(this.paletteCodamne);
-    this.paletteCodamne = null;
+    this.paletteService.deletePalette(this.paletteService.paletteCodamne);
+    this.paletteService.paletteCodamne = null;
     this.indexeddbaccessService.update();
   }
 

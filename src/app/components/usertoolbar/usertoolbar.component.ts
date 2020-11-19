@@ -9,6 +9,10 @@ import {BoardService} from '../../services/board.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
 import {LayoutService} from '../../services/layout.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
+import {FolderGoTo} from '../../types';
+import {EditionService} from '../../services/edition.service';
+import {DwellCursorService} from "../../services/dwell-cursor.service";
+import {ConfigurationService} from "../../services/configuration.service";
 
 @Component({
   selector: 'app-usertoolbar',
@@ -26,12 +30,16 @@ export class UsertoolbarComponent implements OnInit {
     public getIconService: GeticonService,
     public userToolBarService: UsertoolbarService,
     public layoutService: LayoutService,
-    private multilinguism: MultilinguismService
+    private multilinguism: MultilinguismService,
+    public editionService: EditionService,
+    private dwellCursorService: DwellCursorService,
+    public configurationService: ConfigurationService
   ) {
   }
 
   /*text to search in the searchBar*/
   searchText = '';
+  dwellTimer;
 
   ngOnInit() {
   }
@@ -65,14 +73,24 @@ export class UsertoolbarComponent implements OnInit {
     return this.getIconService.getIconUrl(s);
   }
 
+
+  translate() {
+    this.configurationService.LANGUAGE_VALUE = (this.configurationService.LANGUAGE_VALUE === 'FR' ? 'EN' : 'FR');
+    console.log(this.configurationService.LANGUAGE_VALUE)
+  }
+
+
   /**
    * open the edit panel if not open,
    * otherwise close the edit panel and save the modified information into he indexedDB
    */
   edit() {
+    this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
+
     if (this.userToolBarService.isConnected) {
       this.userToolBarService.switchEditValue();
       if (!this.userToolBarService.edit) {
+        this.editionService.clearEditionPane();
         this.indexedDBacess.update();
         console.log('info saved');
       }
@@ -80,6 +98,31 @@ export class UsertoolbarComponent implements OnInit {
       this.snapBarService.snap();
     }
     this.layoutService.setDraggable(this.userToolBarService.edit);
+
+
+    // let interval;
+    //
+    // interval = setInterval(() => { // waiting for the edit animation to end
+    //   this.layoutService.refresh();
+    //   clearInterval(interval);
+    // },600);
+
+  }
+
+  exit() {
+    if (this.configurationService.DWELL_TIME_ENABLED) {
+      this.dwellCursorService.stop();
+      window.clearTimeout(this.dwellTimer);
+    }
+  }
+
+  enter() {
+    if (this.configurationService.DWELL_TIME_ENABLED) {
+      this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_TIMEOUT_VALUE);
+      this.dwellTimer = window.setTimeout(() => {
+        this.boardService.backToPreviousFolder();
+      }, this.configurationService.DWELL_TIME_TIMEOUT_VALUE);
+    }
   }
 
   /*open search bar*/
@@ -98,5 +141,21 @@ export class UsertoolbarComponent implements OnInit {
     this.userToolBarService.edit =
       this.userToolBarService.edit && this.userToolBarService.unlock;
     this.layoutService.setDraggable(this.userToolBarService.edit);
+  }
+
+  getCurrentPageImage() {
+    const currentFolder = this.boardService.getCurrentFolder();
+    if (currentFolder === '#HOME') {
+      return this.getIcon('home');
+    } else {
+      const tempelt = this.boardService.board.ElementList.find(elt => {
+        return (elt.Type as FolderGoTo).GoTo === currentFolder
+      });
+      if (tempelt !== null && tempelt !== undefined) {
+        return this.boardService.getImgUrl(tempelt);
+      } else {
+        return this.getIcon('home');
+      }
+    }
   }
 }

@@ -29,23 +29,17 @@ export class LayoutService {
   setDraggable(b: boolean): void {
     this.options.draggable.enabled = b;
     this.options.resizable.enabled = b;
-    this.options.displayGrid = b ?'always' : 'none';
+    this.options.displayGrid = b ? 'always' : 'none';
     this.refresh();
   }
 
-  setCols(cols: number): void {
-    this.options.minCols = this.options.maxCols = cols;
-    this.refresh();
-  }
-
-  setRows(rows: number): void {
-    this.options.minRows = this.options.maxRows = rows;
-    this.refresh();
-  }
-
-  setGap(gap: number): void {
-    this.options.margin = gap;
-    this.refresh();
+  refreshAll(cols, rows, gap) {
+    if (this.options.api !== undefined) {
+      this.options.minCols = this.options.maxCols = cols;
+      this.options.minRows = this.options.maxRows = rows;
+      this.options.margin = gap;
+      this.options.api.optionsChanged();
+    }
   }
 
   refresh() {
@@ -53,4 +47,6 @@ export class LayoutService {
       this.options.api.optionsChanged();
     }
   }
+
+
 }

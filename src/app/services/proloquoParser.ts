@@ -228,9 +228,14 @@ export class ProloquoParser {
       {ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}
     ];
 
-    return {
-      ID: idOfWord, Type: type, PartOfSpeech: '', Color: this.getColor(word.wordID), BorderColor: 'black', VisibilityLevel: 0,
-      ElementFormsList: [
+    return new GridElement(
+      idOfWord,
+      type,
+      '',
+      this.getColor(word.ID),
+      'black',
+      0,
+      [
         {
           DisplayedText: word.mot,
           VoiceText: word.mot,
@@ -238,13 +243,8 @@ export class ProloquoParser {
           ImageID: word.wordID
         }
       ],
-      InteractionsList: interList,
-      x: 0,
-      y: 0,
-      rows: 1,
-      cols: 1,
-      dragAndResizeEnabled: true
-    };
+      interList
+    )
   }
 
   setUpElementIDToDisable(tempPage) {
@@ -265,10 +265,12 @@ export class ProloquoParser {
 
   setUpNewGrid(tempElement, tempPage): Grid {
     return {
+      BackgroundColor: 'default',
       ID: 'ProloquoGrid',
       Type: 'Grid',
       NumberOfCols: 8,
       NumberOfRows: 4,
+      GapSize: 5,
       ElementList: tempElement,
       ImageList: [],
       PageList: tempPage

@@ -7,9 +7,9 @@ import {ParametersService} from './parameters.service';
 })
 export class HistoricService {
 
-
   public historic: Vignette[] = [];
   public speechSynthesis: SpeechSynthesis;
+  public volume = 1.0;
 
   constructor(private parametersService: ParametersService) {
   }
@@ -52,7 +52,6 @@ export class HistoricService {
   say(text: string) {
     this.speechSynthesis = window.speechSynthesis;
     const x = new SpeechSynthesisUtterance(text + ' ');
-
     /*checking if we can find the same voice*/
     const newVoice = this.parametersService.getCurrentVoice();
 
@@ -61,6 +60,7 @@ export class HistoricService {
       x.voice = newVoice;
       x.lang = newVoice.lang;
     }
+    x.volume = this.volume;
     this.speechSynthesis.resume();
     this.speechSynthesis.speak(x);
   }

@@ -60,11 +60,11 @@ describe('EventComponent', () => {
       expect(compiled.querySelectorAll('.selectBox').length).toEqual(1);
 
       component.functionService.selectedFunction = (compiled.querySelector('.selectBox') as HTMLSelectElement).options[1].value;
-        fixture.detectChanges();
-        component.functionService.selectFunction2(component.functionService.interactionIDs[0]);
-        fixture.detectChanges();
-        expect(component.functionService.interactionIDs[0].ActionList.length).toBeGreaterThan(0);
-        expect(component.functionService.interactionIDs[0].ActionList[0].ID).toEqual(component.functionService.functionList[0]);
+      fixture.detectChanges();
+      component.functionService.selectFunction2(component.functionService.interactionIDs[0]);
+      fixture.detectChanges();
+      expect(component.functionService.interactionIDs[0].ActionList.length).toBeGreaterThan(0);
+      expect(component.functionService.interactionIDs[0].ActionList[0].ID).toEqual(component.functionService.functionList[0]);
       addTemp++;
     });
 

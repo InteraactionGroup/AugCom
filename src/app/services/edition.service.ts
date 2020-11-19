@@ -8,7 +8,6 @@ import {PaletteService} from './palette.service';
 })
 export class EditionService {
 
-
   public add = false;
 
   public ElementListener = new Subject<GridElement>();
@@ -53,9 +52,9 @@ export class EditionService {
   radioTypeFormat = 'button';
 
 
-  menu: string[] = ['Informations', 'Apparence', 'Grammaire', 'Autres formes', 'Interactions'];
+  menu: string[] = ['information', 'appearance'/*, 'grammar'*/, 'otherForms', 'interactions'];
 
-  currentEditPage = 'Informations';
+  currentEditPage = 'information';
 
 
   colorPicked = null;
@@ -108,7 +107,7 @@ export class EditionService {
     this.variantList = [];
     this.imageURL = '';
     this.radioTypeFormat = 'button';
-    this.currentEditPage = 'Informations';
+    this.currentEditPage = 'information';
     this.colorPicked = null;
     this.curentColor = '#d3d3d3';
     this.curentBorderColor = 'black';

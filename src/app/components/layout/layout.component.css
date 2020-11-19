@@ -1,3 +1,9 @@
+
 gridster-item {
-  background: none;
+  background-color: transparent;
+}
+
+gridster.fit {
+  overflow-x: hidden;
+  overflow-y: auto;
 }
