@@ -5,11 +5,9 @@ import {BoardService} from '../../services/board.service';
 import {ElementForm, FolderGoTo, GridElement, Vignette} from '../../types';
 import {GeticonService} from '../../services/geticon.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
-import {ParametersService} from '../../services/parameters.service';
 import {Router} from '@angular/router';
 import {SearchService} from '../../services/search.service';
 import {LayoutService} from '../../services/layout.service';
-import {StyleService} from '../../services/style.service';
 import {GridElementService} from '../../services/grid-element.service';
 import {DwellCursorService} from "../../services/dwell-cursor.service";
 import {ConfigurationService} from "../../services/configuration.service";
@@ -41,18 +39,16 @@ export class TileComponent implements OnInit {
   release = [false, false];
 
   constructor(
-    private searchService: SearchService,
+    public searchService: SearchService,
     public userToolBarService: UsertoolbarService,
-    private router: Router,
+    public router: Router,
     public editionService: EditionService,
     public boardService: BoardService,
-    private historicService: HistoricService,
-    private parametersService: ParametersService,
-    private getIconService: GeticonService,
+    public historicService: HistoricService,
+    public getIconService: GeticonService,
     public layoutService: LayoutService,
-    public styleService: StyleService,
     public gridElementService: GridElementService,
-    private dwellCursorService: DwellCursorService,
+    public dwellCursorService: DwellCursorService,
     public configurationService: ConfigurationService
   ) {
   }

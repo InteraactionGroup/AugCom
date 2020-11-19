@@ -9,7 +9,7 @@ export class UsertoolbarService {
   status = 'ONLINE';
   isConnected = true;
 
-  constructor(private connectionService: ConnectionService) {
+  constructor(public connectionService: ConnectionService) {
     document.onfullscreenchange = () => {
       this.full = !this.full;
     };

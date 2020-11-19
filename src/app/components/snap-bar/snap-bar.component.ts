@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {SnapBarService} from '../../services/snap-bar.service';
-import {MultilinguismService} from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-snap-bar',
@@ -9,7 +8,7 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 })
 export class SnapBarComponent implements OnInit {
 
-  constructor(private multilinguism: MultilinguismService, public snapBarService: SnapBarService) {
+  constructor(public snapBarService: SnapBarService) {
   }
 
   ngOnInit() {

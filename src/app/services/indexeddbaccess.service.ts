@@ -3,7 +3,6 @@ import {BoardService} from './board.service';
 import {PaletteService} from './palette.service';
 import {JsonValidatorService} from './json-validator.service';
 import {ConfigurationService} from "./configuration.service";
-import {StyleService} from "./style.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +14,7 @@ export class IndexeddbaccessService {
   constructor(public paletteService: PaletteService,
               public boardService: BoardService,
               public jsonValidator: JsonValidatorService,
-              public configurationService: ConfigurationService,
-              public styleService: StyleService) {
+              public configurationService: ConfigurationService) {
     this.init();
   }
 

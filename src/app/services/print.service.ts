@@ -65,7 +65,7 @@ export class PrintService {
       const beginning = i * (numberOfCols * numberOfRows);
       const ending = (i + 1) * (numberOfCols * numberOfRows);
       temp = temp +
-        this.wrapperBegin(page,i) +
+        this.wrapperBegin(page, i) +
         this.innerHTML(elementList.slice(beginning, ending)) +
         this.wrapperEnd();
     }
@@ -109,10 +109,10 @@ export class PrintService {
         this.urlList.push(url);
 
         let row = (element.rows === null || element.rows === undefined) ? '' :
-          'grid-row-start:' + (element.y + 1) + ';grid-row-end:'+ ( element.y + 1 + element.rows) + '; '  ;
+          'grid-row-start:' + (element.y + 1) + ';grid-row-end:' + (element.y + 1 + element.rows) + '; ';
         let column = (element.cols === null || element.cols === undefined) ? '' :
-          'grid-column-start:' + (element.x + 1) + ';grid-column-end:'+ ( element.x + 1 + element.cols) + '; '   ;
-        let span =  (row === '' && column === '') ? '' : 'style="' + row + column +'" ';
+          'grid-column-start:' + (element.x + 1) + ';grid-column-end:' + (element.x + 1 + element.cols) + '; ';
+        let span = (row === '' && column === '') ? '' : 'style="' + row + column + '" ';
 
         innerValue = innerValue +
           '<div class="elementContainer"' + span + '>' +

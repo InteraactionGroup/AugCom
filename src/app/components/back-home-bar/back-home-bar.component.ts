@@ -10,9 +10,9 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 })
 export class BackHomeBarComponent implements OnInit {
 
-  constructor(private multilinguism: MultilinguismService,
-              private getIconService: GeticonService,
-              private editionService: EditionService) {
+  constructor(public multilinguism: MultilinguismService,
+              public getIconService: GeticonService,
+              public editionService: EditionService) {
   }
 
   ngOnInit() {

@@ -11,7 +11,7 @@ import {ConfigurationService} from "../../services/configuration.service";
 })
 export class LanguageComponent implements OnInit {
 
-  constructor(private multilinguism: MultilinguismService,
+  constructor(public multilinguism: MultilinguismService,
               public parametersService: ParametersService,
               public getIconService: GeticonService,
               public configurationService: ConfigurationService) {

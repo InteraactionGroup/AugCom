@@ -71,7 +71,7 @@ export class EditionService {
 
   selectedPalette = this.paletteService.defaultPalette;
 
-  constructor(public  paletteService: PaletteService) {
+  constructor(public paletteService: PaletteService) {
   }
 
   /* get the default name of an element */

@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {StyleService} from '../../services/style.service';
 import {BoardService} from '../../services/board.service';
 import {LayoutService} from '../../services/layout.service';
 import {MultilinguismService} from "../../services/multilinguism.service";
@@ -11,8 +10,7 @@ import {MultilinguismService} from "../../services/multilinguism.service";
 })
 export class GridFormatManagementComponent implements OnInit {
 
-  constructor(public styleService: StyleService,
-              public  boardService: BoardService,
+  constructor(public  boardService: BoardService,
               public layoutService: LayoutService,
               public multilinguismService: MultilinguismService) {
   }

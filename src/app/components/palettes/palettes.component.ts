@@ -11,9 +11,9 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 })
 export class PalettesComponent implements OnInit {
 
-  constructor(private multilinguism: MultilinguismService,
+  constructor(public multilinguism: MultilinguismService,
               public indexeddbaccessService: IndexeddbaccessService,
-              private getIconService: GeticonService,
+              public getIconService: GeticonService,
               public paletteService: PaletteService) {
   }
 

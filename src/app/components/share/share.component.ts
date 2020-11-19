@@ -8,14 +8,12 @@ import {Router} from '@angular/router';
 import {PrintService} from '../../services/print.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {SpeakForYourselfParser} from '../../services/speakForYourselfParser';
-import {DbnaryService} from '../../services/dbnary.service';
 import {HttpClient} from '@angular/common/http';
 import {Ng2ImgMaxService} from 'ng2-img-max';
 import {FolderGoTo, GridElement} from '../../types';
 import {ProloquoParser} from '../../services/proloquoParser';
 import {JsonValidatorService} from '../../services/json-validator.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
-import {LayoutService} from 'src/app/services/layout.service';
 
 @Component({
   selector: 'app-share',
@@ -25,17 +23,15 @@ import {LayoutService} from 'src/app/services/layout.service';
 })
 export class ShareComponent implements OnInit {
   constructor(
-    private dbNaryService: DbnaryService,
-    private speakForYourselfParser: SpeakForYourselfParser,
+    public speakForYourselfParser: SpeakForYourselfParser,
     public indexedDBacess: IndexeddbaccessService,
-    private printService: PrintService,
-    private router: Router,
+    public printService: PrintService,
+    public router: Router,
     public getIconService: GeticonService,
     public boardService: BoardService,
     public userToolBarService: UsertoolbarService,
     public proloquoParser: ProloquoParser,
     public jsonValidator: JsonValidatorService,
-    private layoutService: LayoutService,
     public multilinguism: MultilinguismService) {
   }
 

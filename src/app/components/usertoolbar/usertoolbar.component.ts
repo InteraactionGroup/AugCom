@@ -3,7 +3,6 @@ import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {GeticonService} from '../../services/geticon.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {SnapBarService} from '../../services/snap-bar.service';
-import {ParametersService} from '../../services/parameters.service';
 import {SearchService} from '../../services/search.service';
 import {BoardService} from '../../services/board.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
@@ -24,15 +23,14 @@ export class UsertoolbarComponent implements OnInit {
   constructor(
     public boardService: BoardService,
     public searchService: SearchService,
-    private parametersService: ParametersService,
-    private snapBarService: SnapBarService,
+    public snapBarService: SnapBarService,
     public indexedDBacess: IndexeddbaccessService,
     public getIconService: GeticonService,
     public userToolBarService: UsertoolbarService,
     public layoutService: LayoutService,
-    private multilinguism: MultilinguismService,
+    public multilinguism: MultilinguismService,
     public editionService: EditionService,
-    private dwellCursorService: DwellCursorService,
+    public dwellCursorService: DwellCursorService,
     public configurationService: ConfigurationService
   ) {
   }
@@ -98,14 +96,6 @@ export class UsertoolbarComponent implements OnInit {
       this.snapBarService.snap();
     }
     this.layoutService.setDraggable(this.userToolBarService.edit);
-
-
-    // let interval;
-    //
-    // interval = setInterval(() => { // waiting for the edit animation to end
-    //   this.layoutService.refresh();
-    //   clearInterval(interval);
-    // },600);
 
   }
 

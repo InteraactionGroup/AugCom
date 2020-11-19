@@ -6,9 +6,7 @@ import {Action, ElementForm, FolderGoTo, GridElement, Page, Vignette,} from '../
 import {GeticonService} from '../../services/geticon.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {ParametersService} from '../../services/parameters.service';
 import {Router} from '@angular/router';
-import {PaletteService} from '../../services/palette.service';
 import {SearchService} from '../../services/search.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
 import {LayoutService} from 'src/app/services/layout.service';
@@ -47,9 +45,7 @@ export class KeyboardComponent implements OnInit {
   // tslint:disable-next-line:max-line-length
   constructor(
     public searchService: SearchService,
-    private paletteService: PaletteService,
-    private router: Router,
-    public parametersService: ParametersService,
+    public router: Router,
     public indexeddbaccessService: IndexeddbaccessService,
     public userToolBarService: UsertoolbarService,
     public getIconService: GeticonService,

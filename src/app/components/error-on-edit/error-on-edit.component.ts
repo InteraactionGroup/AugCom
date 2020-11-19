@@ -8,7 +8,7 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 })
 export class ErrorOnEditComponent implements OnInit {
 
-  constructor(private multilinguism: MultilinguismService) {
+  constructor(public multilinguism: MultilinguismService) {
   }
 
   ngOnInit() {
