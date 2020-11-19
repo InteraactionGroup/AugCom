@@ -30,7 +30,8 @@
     <label for="lang2">{{this.multilinguismService.translate("chooseTheFont")}}:</label>
     <select [ngStyle]="{'font-family': option.value}" #option id="lang2"
             [(ngModel)]="this.configurationService.PICTO_TEXT_STYLE_VALUE" class="variantListBox">
-      <option value="default" style="font-family: Arial,sans-serif">{{this.multilinguismService.translate("defaultSyleSameAsApp")}}</option>
+      <option value="default"
+              style="font-family: Arial,sans-serif">{{this.multilinguismService.translate("defaultSyleSameAsApp")}}</option>
       <option value="Arial" style="font-family: Arial,sans-serif">Arial</option>
       <option value="Karumbi" style="font-family: Karumbi ,sans-serif">Karumbi</option>
       <option value="Chilanka" style="font-family: Chilanka,sans-serif"> Chilanka</option>
@@ -78,7 +79,8 @@
     <label for="lang2_R">{{this.multilinguismService.translate("chooseTheFont")}}:</label>
     <select [ngStyle]="{'font-family': option2.value}" #option2 id="lang2_R"
             [(ngModel)]="this.configurationService.REPO_TEXT_STYLE_VALUE" class="variantListBox">
-      <option value="default" style="font-family: Arial,sans-serif">{{this.multilinguismService.translate("defaultSyleSameAsApp")}}</option>
+      <option value="default"
+              style="font-family: Arial,sans-serif">{{this.multilinguismService.translate("defaultSyleSameAsApp")}}</option>
       <option value="Arial" style="font-family: Arial,sans-serif">Arial</option>
       <option value="Karumbi" style="font-family: Karumbi ,sans-serif">Karumbi</option>
       <option value="Chilanka" style="font-family: Chilanka,sans-serif"> Chilanka</option>

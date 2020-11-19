@@ -3,7 +3,6 @@ import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {GeticonService} from '../../services/geticon.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {SnapBarService} from '../../services/snap-bar.service';
-import {ParametersService} from '../../services/parameters.service';
 import {SearchService} from '../../services/search.service';
 import {BoardService} from '../../services/board.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';

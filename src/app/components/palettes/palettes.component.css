@@ -236,22 +236,22 @@
 }
 
 .yes {
-background-color: darkseagreen;
+  background-color: darkseagreen;
 }
 
 .yes:hover {
-background-color: darkgreen;
+  background-color: darkgreen;
 }
 
 .no {
-background-color: indianred;
+  background-color: indianred;
 }
 
 .no:hover {
-background-color: darkred;
+  background-color: darkred;
 }
 
-.mainPopUp{
+.mainPopUp {
   height: 100vh;
   width: 100vw;
   position: absolute;

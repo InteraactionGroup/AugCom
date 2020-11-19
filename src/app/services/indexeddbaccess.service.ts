@@ -3,7 +3,6 @@ import {BoardService} from './board.service';
 import {PaletteService} from './palette.service';
 import {JsonValidatorService} from './json-validator.service';
 import {ConfigurationService} from "./configuration.service";
-import {StyleService} from "./style.service";
 
 @Injectable({
   providedIn: 'root'

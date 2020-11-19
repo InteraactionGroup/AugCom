@@ -4,7 +4,6 @@ import {AccountMenuComponent} from './account-menu.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {Ng2ImgMaxModule} from "ng2-img-max";
-import {trigger} from "@angular/animations";
 
 function clickElementOf(compiled: any, fixture: any, selector: any, textIncluded: any) {
   compiled.querySelectorAll(selector).forEach(
@@ -18,7 +17,7 @@ function clickElementOf(compiled: any, fixture: any, selector: any, textIncluded
 }
 
 function expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled: any, openElementName: any) {
-  const tabNameList = ['app-page-title-management','app-saves', 'app-language', 'app-palettes', 'app-share', 'app-settings','app-pictogram-style','app-grid-format-management'];
+  const tabNameList = ['app-page-title-management', 'app-saves', 'app-language', 'app-palettes', 'app-share', 'app-settings', 'app-pictogram-style', 'app-grid-format-management'];
   tabNameList.forEach(tabName => {
     if (tabName === openElementName) {
       expect(compiled.querySelector(tabName)).not.toBe(null);

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {DwellCursorService} from "../../services/dwell-cursor.service";
-import {ParametersService} from "../../services/parameters.service";
 import {ConfigurationService} from "../../services/configuration.service";
 
 @Component({

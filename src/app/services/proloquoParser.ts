@@ -4,7 +4,6 @@ import {BackLinksCSV, ButtonLinksCSV, PageLinksCSV, WordsCSV} from '../csvType';
 import {FolderGoTo, Grid, GridElement, Interaction, Page} from '../types';
 import {BoardService} from './board.service';
 import {IndexeddbaccessService} from './indexeddbaccess.service';
-import {PrintService} from './print.service';
 import {Router} from '@angular/router';
 import {JsonValidatorService} from './json-validator.service';
 

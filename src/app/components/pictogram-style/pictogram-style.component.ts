@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {StyleService} from '../../services/style.service';
 import {ConfigurationService} from "../../services/configuration.service";
 import {MultilinguismService} from "../../services/multilinguism.service";
 

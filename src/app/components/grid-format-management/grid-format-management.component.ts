@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {StyleService} from '../../services/style.service';
 import {BoardService} from '../../services/board.service';
 import {LayoutService} from '../../services/layout.service';
 import {MultilinguismService} from "../../services/multilinguism.service";
