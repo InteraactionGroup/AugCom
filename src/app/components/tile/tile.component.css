@@ -176,5 +176,24 @@
   }
 }
 
+.drag-handler{
+  width: 50px;
+  height: 50px;
+  float: right;
+  margin-top: -50px;
+  background-color: var(--main-bg-color1);
+  border-radius: 50% 50% 10px;
+  visibility: visible;
+  border-style: solid;
+  border-color: black;
+  border-width: 3px;
+  box-shadow: inset -1px -1px 12px 0px black;
+  z-index: 999999;
+}
 
-
+.drag-img{
+  width: 35px;
+  height: 35px;
+  margin-top: 3px;
+  margin-left: 0;
+}

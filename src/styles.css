@@ -8,10 +8,10 @@ html {
   width: 100%;
   margin-left: 0;
   background-color: white;
-  overflow: hidden;
 
   font-family: Arial, sans-serif;
 
+  overflow: hidden;
   -webkit-user-select: none !important;
   -moz-user-select: none !important;
   -ms-user-select: none !important;
