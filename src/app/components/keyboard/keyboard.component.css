@@ -3,9 +3,7 @@
   -moz-user-select: none !important;
   -ms-user-select: none !important;
   user-select: none !important;
-  /*transition: height 0.5s;*/
   overflow-y: auto;
-  height: calc(100vh - 75px - 1.5cm);
 }
 
 .editionSettings {
@@ -74,10 +72,11 @@
 
 .editionSettings .gridSettings .inputSize {
   width: 25%;
-  text-align: end;
   height: 100%;
   margin: 0 0 0 0;
   padding: 0 0 0 0;
+  border-radius: 50%;
+  text-align: center;
 }
 
 .editionSettings .gridSettings .x {
