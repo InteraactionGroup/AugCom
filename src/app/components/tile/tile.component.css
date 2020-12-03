@@ -176,5 +176,26 @@
   }
 }
 
+.drag-handler{
+  width: 30px;
+  height: 30px;
+  float: right;
+  margin-top: -30px;
+  background-color: var(--main-bg-color1);
+  border-radius: 50% 50% 10px;
+  visibility: visible;
+  border-style: solid;
+  border-color: black;
+  border-width: 3px;
+  box-shadow: inset -1px -1px 3px 0px black;
+  z-index: 999999;
+  cursor: all-scroll;
+}
 
-
+.drag-img{
+  width: 20px;
+  height: 20px;
+  /* margin-top: 0px; */
+  /* margin-left: -5px; */
+  margin: -5px;
+}

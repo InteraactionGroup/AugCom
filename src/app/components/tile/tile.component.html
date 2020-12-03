@@ -1,7 +1,6 @@
 <!-- display elementContainers with element having non empty type-->
-<div id="{{element.ID}}" class="elementContainer floatLeft" *ngIf="element.Type!=='empty'">
+<div id="{{element.ID}}" class="elementContainer floatLeft" *ngIf="element.Type!=='empty'" (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
   <!-- an element composed of a pictogram and a corresponding text-->
-
   <div class="element" [class.notsearched]="searchStarted()&&!isSearched(element)"
        (click)="this.select(element)"
        (pointerenter)="enter(element)"
@@ -71,5 +70,8 @@
 
 
 </div>
-
+<button class="drag-handler"
+        *ngIf="this.userToolBarService.edit && element.ID !== '#disable'  && element.dragAndResizeEnabled!==false">
+  <img src="assets/icons/drag.png" class="drag-img">
+</button>
 <div *ngIf="this.editionService.isSelected(element)" class="borderEdit"></div>
