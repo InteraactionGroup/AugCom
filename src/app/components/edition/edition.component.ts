@@ -13,6 +13,7 @@ import {HttpClient} from '@angular/common/http';
 import {MultilinguismService} from '../../services/multilinguism.service';
 import {FunctionsService} from '../../services/functions.service';
 import {GridElementService} from '../../services/grid-element.service';
+import {LayoutService} from "../../services/layout.service";
 
 @Component({
   selector: 'app-edition',
@@ -27,7 +28,7 @@ export class EditionComponent implements OnInit {
               public indexedDBacess: IndexeddbaccessService, public functionsService: FunctionsService,
               public sanitizer: DomSanitizer, public getIconService: GeticonService,
               public dbnaryService: DbnaryService, public boardService: BoardService,
-              public  gridElementService: GridElementService) {
+              public  gridElementService: GridElementService, public layoutService: LayoutService) {
 
   }
 
@@ -76,7 +77,7 @@ export class EditionComponent implements OnInit {
    * Save the modified or new element update the indexedDB database with it and close the edition panel
    *
    */
-  save() {
+  async save() {
     if (this.editionService.currentEditPage !== '') {
       this.editionService.currentEditPage = ''
     } else {
@@ -91,7 +92,16 @@ export class EditionComponent implements OnInit {
       this.clear();
       this.indexedDBacess.update();
       this.router.navigate(['']);
+
+      await this.delay(500);
+      this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
+      await this.delay(1000);
+      this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
     }
+  }
+
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   /*open modification for all selected items of the grid*/

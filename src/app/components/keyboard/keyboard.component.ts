@@ -111,8 +111,19 @@ export class KeyboardComponent implements OnInit {
   ngOnInit() {
     this.boardService.updateElementList();
     this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
+  this.refresh();
   }
 
+    public async refresh() {
+      await this.delay(500);
+      this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
+      await this.delay(1000);
+      this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
+    }
+
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
   /**
    * Return true if the element is part of the search result
    *

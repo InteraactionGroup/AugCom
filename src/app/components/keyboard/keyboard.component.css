@@ -8,7 +8,7 @@
 
 .editionSettings {
   height: 50px;
-  background-color: var(--main-bg-color3);
+  background-color: var(--main-bg-color2);
   margin: 0 0 0 0;
   padding: 5px 0;
   border-bottom: 1px solid var(--main-bg-color1);
@@ -119,6 +119,7 @@
   color: black;
   border-width: 0;
   border-color: transparent;
+  box-shadow: inset 0 -10px 20px 0px #00000038;
 }
 
 .elementContainer .noImageElement {

@@ -29,15 +29,15 @@
   <!-- button used in order to change the background of the keyboard-->
   <!-- note: if we does not use this function for visual scene display we will have to move
         this function have to be moved in the setting of augCom -->
-  <div class="editSettingsButton floatLeft">
-    <label for="editBckButton">
-      <!--      <div class="editButtonLabel floatLeft centerText">  {{this.multilinguism.translate("changeBackground")}}</div>-->
-      <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('photo')">
-      </div>
-    </label>
-    <input #file style="width: 0" type="file" accept='image/*' id='editBckButton'
-           (change)="this.boardService.updateBackground( file.files )">
-  </div>
+<!--  <div class="editSettingsButton floatLeft">-->
+<!--    <label for="editBckButton">-->
+<!--      &lt;!&ndash;      <div class="editButtonLabel floatLeft centerText">  {{this.multilinguism.translate("changeBackground")}}</div>&ndash;&gt;-->
+<!--      <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('photo')">-->
+<!--      </div>-->
+<!--    </label>-->
+<!--    <input #file style="width: 0" type="file" accept='image/*' id='editBckButton'-->
+<!--           (change)="this.boardService.updateBackground( file.files )">-->
+<!--  </div>-->
 
   <!-- input fields for column and row size, have to be changed with a button number incrementer -->
   <div class="gridSettings">

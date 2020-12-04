@@ -535,6 +535,7 @@ export class TileComponent implements OnInit {
     } else {
       return this.configurationService.PICTO_TEXT_STYLE_VALUE === 'default' ? 'var(--main-font)' : this.configurationService.PICTO_TEXT_STYLE_VALUE + ', sans serif';
     }
+
   }
 
   /**
