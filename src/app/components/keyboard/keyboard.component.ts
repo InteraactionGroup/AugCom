@@ -20,27 +20,13 @@ import {ConfigurationService} from "../../services/configuration.service";
   styleUrls: ['./keyboard.component.css'],
   providers: [Ng2ImgMaxService]
 })
-export class KeyboardComponent implements OnInit {
-  /**
-   * the current pressTimer started when pressing an element and ending on release
-   */
-  pressTimer;
-  dblClickTimer;
+export class KeyboardComponent implements OnInit{
 
   /**
    * element currently pressed
    */
   pressedElement: GridElement = null;
   down = 0;
-
-  press = [false, false];
-  release = [false, false];
-
-  /**
-   * cols and rows of grid
-   */
-  cols: number;
-  rows: number;
 
   // tslint:disable-next-line:max-line-length
   constructor(
@@ -109,9 +95,9 @@ export class KeyboardComponent implements OnInit {
    * execute the indexeddbaccessService init fucntion to get the information of the DB or to create new entries if there is no info
    */
   ngOnInit() {
-    this.boardService.updateElementList();
     this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
-  this.refresh();
+    this.boardService.updateElementList();
+    this.refresh();
   }
 
     public async refresh() {
@@ -123,19 +109,6 @@ export class KeyboardComponent implements OnInit {
 
   delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
-  }
-  /**
-   * Return true if the element is part of the search result
-   *
-   * @param  element, the element to test
-   * @return  true or false, depending if the element corresponds to the search result
-   */
-  isSearched(element: GridElement) {
-    return this.searchService.searchedPath.includes(element);
-  }
-
-  searchStarted() {
-    return this.searchService.searchedPath.length > 0;
   }
 
   /**
@@ -167,32 +140,6 @@ export class KeyboardComponent implements OnInit {
     this.editionService.select(element);
   }
 
-  /**
-   * Return the string corresponding to the value of a box-shadow css effect, used for create folder design effect
-   *
-   * @param  element, the element for which the shadow is beeing returned
-   * @return  the string corresponding to the box-shadow effect
-   */
-  getShadow(element: GridElement) {
-    const isFolder = (element.Type as FolderGoTo).GoTo !== undefined;
-
-    let s =
-      (isFolder ? '3px ' : '0px ') +
-      (isFolder ? '-3px ' : '0px ') +
-      '0px ' +
-      (isFolder ? '-2px ' : '0px ') +
-      (this.gridElementService.getStyle(element).BackgroundColor === undefined ||
-      this.gridElementService.getStyle(element).BackgroundColor == null
-        ? '#d3d3d3'
-        : this.gridElementService.getStyle(element).BackgroundColor);
-
-    s = s + ' , ' +
-      (isFolder ? '4px ' : '0px ') +
-      (isFolder ? '-4px ' : '0px ') +
-      (this.gridElementService.getStyle(element).BorderColor === undefined ||
-      this.gridElementService.getStyle(element).BorderColor == null ? 'black' : this.gridElementService.getStyle(element).BorderColor);
-    return s;
-  }
 
   /**
    * update the current person and number information for verb terminations
@@ -216,100 +163,6 @@ export class KeyboardComponent implements OnInit {
 
     const num = elementForm.LexicInfos.find(info => info.number != null && info.number !== undefined);
     this.boardService.currentNounTerminaison.currentNumber = (num != null && num !== undefined) ? num.number : '';
-  }
-
-
-  /**
-   * if not in edit mode
-   * process the pointerDown event triggered by 'element' and starts the longpress timer
-   * @param element, the element triggering the event
-   * @param num, number of the event triggering the action
-   */
-  pointerDown(element: GridElement, num) {
-    this.press[num] = false;
-    this.press[(num + 1) % 2] = false;
-    this.release[num] = true;
-    if (!this.userToolBarService.edit && this.release[num] && !this.release[(num + 1) % 2]) {
-      if (this.down === 0) {
-        this.pressedElement = element;
-      } else {
-        window.clearTimeout(this.dblClickTimer);
-        if (this.pressedElement !== element && this.pressedElement != null) {
-          this.action(element, 'click');
-        }
-      }
-      this.down = this.down + 1;
-      this.setLongPressTimer(element);
-    }
-  }
-
-  /**
-   * if not in edit mode
-   * process the pointerUp event triggered by 'element' and execute its corresponding normal click function
-   * if the element has not been longpressed yet
-   * @param element, the element triggering the event
-   * @param num, number of the event triggering the action
-   */
-  pointerUp(element: GridElement, num) {
-    this.release[num] = false;
-    this.release[(num + 1) % 2] = false;
-    this.press[num] = true;
-    if (!this.userToolBarService.edit && this.press[num] && !this.press[(num + 1) % 2]) {
-      window.clearTimeout(this.pressTimer);
-      window.clearTimeout(this.dblClickTimer);
-      if (this.down === 1) {
-        if (this.pressedElement === element) {
-          this.setClickTimer(element);
-        } else {
-          this.down = 0;
-          this.pressedElement = null;
-        }
-
-      } else if (this.down > 1) {
-        if (this.pressedElement === element) {
-          this.action(element, 'doubleClick');
-          this.pressedElement = null;
-          this.down = 0;
-        } else if (this.pressedElement != null) {
-          this.down = 1;
-          this.pressedElement = element;
-          this.setClickTimer(element);
-        }
-      }
-    }
-  }
-
-  setClickTimer(element) {
-    this.dblClickTimer = window.setTimeout(() => {
-      this.action(element, 'click');
-      this.pressedElement = null;
-      this.down = 0;
-    }, this.configurationService.DOUBLE_CLICK_TIMEOUT_VALUE);
-  }
-
-  setLongPressTimer(element) {
-    this.pressTimer = window.setTimeout(() => {
-      this.action(element, 'longPress');
-      this.pressedElement = null;
-      this.down = 0;
-    }, this.configurationService.LONGPRESS_TIMEOUT_VALUE);
-  }
-
-  /**
-   * return the copy of the given 'intaractions' list
-   * @param interactions, an interaction list
-   * @return the copied interaction List
-   */
-  copyInteractions(interactions: { InteractionID: string, ActionList: Action[] }[]) {
-    const tempInter = [];
-    interactions.forEach(inter => {
-      const tempAction = [];
-      inter.ActionList.forEach(act => {
-        tempAction.push({ActionId: act.ID, Action: act.Options});
-      });
-      tempInter.push({InteractionID: inter.InteractionID, ActionList: tempAction});
-    });
-    return tempInter;
   }
 
   action(element: GridElement, interaction: string) {
@@ -440,56 +293,6 @@ export class KeyboardComponent implements OnInit {
         ActionList: [{ID: 'otherforms', Options: []}],
       },
     ];
-  }
-
-  /**
-   * check if the current element is visible on the board
-   * @param element, the element to check
-   */
-  isVisible(element: GridElement) {
-    if (element.VisibilityLevel === undefined) {
-      element.VisibilityLevel = 0;
-    }
-    return element.VisibilityLevel === 0;
-  }
-
-  /**
-   * change the current element visibility
-   * @param element, the element to change the visibility
-   */
-  changeVisibility(element: GridElement) {
-    if (element.VisibilityLevel === undefined) {
-      element.VisibilityLevel = 1;
-    } else {
-      element.VisibilityLevel = (element.VisibilityLevel + 1) % 2;
-    }
-  }
-
-  /**
-   * compute the right opacity value for a given element
-   * @return a string corresponding to the opacity value of the element
-   * @param element, the element we compute the opacity
-   */
-  getOpacity(element: GridElement) {
-    const visible: boolean = this.isVisible(element);
-    return !this.userToolBarService.babble ?
-      (this.userToolBarService.edit && !visible ? '0.5' : '1') :
-      (visible ? '1' : this.userToolBarService.edit ? '0.3' : '0');
-  }
-
-  /**
-   * compute the right cursor value for a given element
-   * @return a string corresponding to the cursor value for the element
-   * @param element, the element we compute the cursor used when hover it
-   */
-  getCursor(element: GridElement) {
-    if (element.ID === '#disable') {
-      return 'default';
-    } else if ((!this.userToolBarService.babble) || this.isVisible(element) || (this.userToolBarService.edit)) {
-      return 'pointer';
-    } else {
-      return 'default';
-    }
   }
 
   /**
