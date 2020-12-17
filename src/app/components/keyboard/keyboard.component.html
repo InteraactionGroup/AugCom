@@ -2,7 +2,7 @@
 <app-dialogbar></app-dialogbar>
 
 <!-- edit settings toolbar displayed on top on keyboard when on edition mode -->
-<div class="editionSettings width-100" *ngIf="this.userToolBarService.edit">
+<div class="editionSettings width-100" *ngIf="this.userToolBarService.edit"  >
 
   <!-- checkbox used to select all the elements in edition mode -->
   <div class="selectCheckBox floatLeft" (click)="this.selectAll()">
@@ -29,15 +29,15 @@
   <!-- button used in order to change the background of the keyboard-->
   <!-- note: if we does not use this function for visual scene display we will have to move
         this function have to be moved in the setting of augCom -->
-  <div class="editSettingsButton floatLeft">
-    <label for="editBckButton">
-      <!--      <div class="editButtonLabel floatLeft centerText">  {{this.multilinguism.translate("changeBackground")}}</div>-->
-      <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('photo')">
-      </div>
-    </label>
-    <input #file style="width: 0" type="file" accept='image/*' id='editBckButton'
-           (change)="this.boardService.updateBackground( file.files )">
-  </div>
+<!--  <div class="editSettingsButton floatLeft">-->
+<!--    <label for="editBckButton">-->
+<!--      &lt;!&ndash;      <div class="editButtonLabel floatLeft centerText">  {{this.multilinguism.translate("changeBackground")}}</div>&ndash;&gt;-->
+<!--      <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('photo')">-->
+<!--      </div>-->
+<!--    </label>-->
+<!--    <input #file style="width: 0" type="file" accept='image/*' id='editBckButton'-->
+<!--           (change)="this.boardService.updateBackground( file.files )">-->
+<!--  </div>-->
 
   <!-- input fields for column and row size, have to be changed with a button number incrementer -->
   <div class="gridSettings">
@@ -58,7 +58,7 @@
 
 <!-- the keyboard containing the element wrapper -->
 <div id="keyboard" class="keyboard width-100"
-     [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100vh - 75px - 50px - 1.5cm - 50px )':'calc(100vh - 75px - 1.5cm)'}">
+     [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100% - 75px - 50px - 1.5cm - 50px )':'calc(100% - 75px - 1.5cm)'}">
 
   <!-- the wrapper displayed with elements containing pictogram and corresponding text -->
   <div class="wrapper haveBackgroundImage height-width-100">

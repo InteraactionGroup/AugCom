@@ -3,14 +3,12 @@
   -moz-user-select: none !important;
   -ms-user-select: none !important;
   user-select: none !important;
-  /*transition: height 0.5s;*/
   overflow-y: auto;
-  height: calc(100vh - 75px - 1.5cm);
 }
 
 .editionSettings {
   height: 50px;
-  background-color: var(--main-bg-color3);
+  background-color: var(--main-bg-color2);
   margin: 0 0 0 0;
   padding: 5px 0;
   border-bottom: 1px solid var(--main-bg-color1);
@@ -74,10 +72,11 @@
 
 .editionSettings .gridSettings .inputSize {
   width: 25%;
-  text-align: end;
   height: 100%;
   margin: 0 0 0 0;
   padding: 0 0 0 0;
+  border-radius: 50%;
+  text-align: center;
 }
 
 .editionSettings .gridSettings .x {
@@ -120,6 +119,7 @@
   color: black;
   border-width: 0;
   border-color: transparent;
+  box-shadow: inset 0 -10px 20px 0px #00000038;
 }
 
 .elementContainer .noImageElement {

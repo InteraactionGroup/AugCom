@@ -3,7 +3,7 @@
   <!-- an element composed of a pictogram and a corresponding text-->
   <div class="element" [class.notsearched]="searchStarted()&&!isSearched(element)"
        (click)="this.select(element)"
-       (pointerenter)="enter(element)"
+       (pointerenter)="enter($event, element)"
        (pointerleave)="exit()"
        [class.searched]="searchStarted()&&isSearched(element)"
        [class.blurredElt]="element.ID==='#disable'"

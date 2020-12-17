@@ -78,7 +78,7 @@
 }
 
 .elementContainer .element:hover {
-  filter: brightness(80%);
+  /*filter: brightness(80%);*/
 }
 
 .elementContainer .element {
@@ -195,7 +195,5 @@
 .drag-img{
   width: 20px;
   height: 20px;
-  /* margin-top: 0px; */
-  /* margin-left: -5px; */
-  margin: -5px;
+  margin-left: -4px;
 }

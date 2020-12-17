@@ -77,10 +77,6 @@ export class IndexeddbaccessService {
     this.openRequest.onsuccess = event => {
       const db = event.target.result;
 
-      // if (!db.transaction(['Grid']).objectStoreNames.contains('Palette') || !db.objectStoreNames.contains('Grid')) {
-      //   this.init();
-      // }
-
       const gridStore = db.transaction(['Grid']).objectStore('Grid').get(1);
       gridStore.onsuccess = e => {
         this.boardService.board = this.jsonValidator.getCheckedGrid(gridStore.result);

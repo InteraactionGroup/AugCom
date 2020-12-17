@@ -24,6 +24,7 @@ export class LayoutService {
   };
 
   constructor() {
+    this.refresh();
   }
 
   setDraggable(b: boolean): void {

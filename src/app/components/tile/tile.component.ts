@@ -71,8 +71,9 @@ export class TileComponent implements OnInit {
     }
   }
 
-  enter(element) {
+  enter(event, element) {
     if (this.configurationService.DWELL_TIME_ENABLED) {
+      this.dwellCursorService.updatePositionHTMLElement((<HTMLElement>event.target));
       this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_TIMEOUT_VALUE);
       this.dwellTimer = window.setTimeout(() => {
         this.action(element, 'click');
@@ -535,6 +536,7 @@ export class TileComponent implements OnInit {
     } else {
       return this.configurationService.PICTO_TEXT_STYLE_VALUE === 'default' ? 'var(--main-font)' : this.configurationService.PICTO_TEXT_STYLE_VALUE + ', sans serif';
     }
+
   }
 
   /**
