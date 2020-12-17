@@ -106,8 +106,9 @@ export class UsertoolbarComponent implements OnInit {
     }
   }
 
-  enter() {
+  enter(event) {
     if (this.configurationService.DWELL_TIME_ENABLED) {
+      this.dwellCursorService.updatePositionHTMLElement((<HTMLElement>event.target));
       this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_TIMEOUT_VALUE);
       this.dwellTimer = window.setTimeout(() => {
         this.boardService.backToPreviousFolder();

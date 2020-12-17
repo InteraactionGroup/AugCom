@@ -9,9 +9,10 @@
 
 .dialogBar .button {
   cursor: pointer;
-  height: 100%;
-  width: 100%;
+  height: calc(100% - 10px);
+  width: calc(100% - 10px);
   visibility: hidden;
+  margin: auto;
 }
 
 .dialogBar .textBar {
@@ -33,10 +34,11 @@
 }
 
 .dialogBar .button .image {
-  height: calc(100% - 10px);
-  width: calc(100% - 10px);
-  margin-top: 5px;
-  margin-right: 5px;
+  height: 100%;
+  width: 100%;
+  /* margin-top: 5px; */
+  /* margin-right: 2px; */
+  /* margin-left: 2px; */
   background-color: var(--main-bg-color1);
   border-radius: 25%;
   visibility: visible;

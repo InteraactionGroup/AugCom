@@ -63,7 +63,7 @@
 
   <div class="button floatLeft" id="backButton"
        (click)="this.boardService.backToPreviousFolder()"
-       (pointerenter)="enter()"
+       (pointerenter)="enter($event)"
        (pointerleave)="exit()"
        [ngStyle]="{'opacity': (this.boardService.getCurrentFolder() !== '#HOME' && this.boardService.activatedElement==-1) ? '1' : '0.5'}">
     <div class="image width-100"

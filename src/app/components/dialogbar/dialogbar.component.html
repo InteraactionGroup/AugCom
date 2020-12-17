@@ -13,7 +13,7 @@
       <!-- the element containing a pictogram and its text -->
       <div class="element"
            (click)="this.historicService.say('' + element.Label);"
-           (pointerenter)="enterToSay('' + element.Label)"
+           (pointerenter)="enterToSay($event,'' + element.Label)"
            (pointerleave)="exit()"
            [ngStyle]="{
               'border-color':element.BorderColor,
@@ -37,7 +37,7 @@
   <!-- the button used to play the sound of the sentence entered by the user -->
   <div class="button floatLeft"
        (click)="this.historicService.playHistoric()"
-       (pointerenter)="enterAndPlay()"
+       (pointerenter)="enterAndPlay($event)"
        (pointerleave)="exit()"
   >
     <div class="image haveBackgroundImage" [ngStyle]="{'background-image':this.getIcon('play')}">
@@ -47,7 +47,7 @@
   <!-- the button used in order to remove the last element entered by the user -->
   <div class="button floatLeft"
        (click)="this.historicService.backHistoric()"
-       (pointerenter)="enterAndBack()"
+       (pointerenter)="enterAndBack($event)"
        (pointerleave)="exit()"
   >
     <div class="image haveBackgroundImage" [ngStyle]="{'background-image':this.getIcon('back')}">
@@ -57,7 +57,7 @@
   <!-- the button used to clear the whole sentence entered by the user -->
   <div class="button floatLeft"
        (click)="this.clear()"
-       (pointerenter)="enterAndClear()"
+       (pointerenter)="enterAndClear($event)"
        (pointerleave)="exit()"
   >
     <div class="image haveBackgroundImage" [ngStyle]="{'background-image':this.getIcon('clear')}">

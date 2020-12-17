@@ -4,6 +4,7 @@ import {EditionService} from '../../services/edition.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
 import {LayoutService} from "../../services/layout.service";
 import {BoardService} from "../../services/board.service";
+import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 
 @Component({
   selector: 'app-back-home-bar',
@@ -16,6 +17,7 @@ export class BackHomeBarComponent implements OnInit {
               public getIconService: GeticonService,
               public layoutService: LayoutService,
               public boardService: BoardService,
+              public indexedDBacess: IndexeddbaccessService,
               public editionService: EditionService) {
   }
 
@@ -31,6 +33,8 @@ export class BackHomeBarComponent implements OnInit {
     this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
     await this.delay(1000);
     this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
+
+    this.indexedDBacess.update();
   }
 
   delay(ms: number) {

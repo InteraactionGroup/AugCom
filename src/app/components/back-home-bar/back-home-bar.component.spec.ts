@@ -3,6 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {BackHomeBarComponent} from './back-home-bar.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import {Ng2ImgMaxModule} from "ng2-img-max";
 
 describe('BackHomeBarComponent', () => {
   let component: BackHomeBarComponent;
@@ -11,7 +12,7 @@ describe('BackHomeBarComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [FormsModule],
+      imports: [FormsModule, Ng2ImgMaxModule],
       declarations: [BackHomeBarComponent]
     })
       .compileComponents();

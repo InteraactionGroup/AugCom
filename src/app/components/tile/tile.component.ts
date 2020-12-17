@@ -71,8 +71,9 @@ export class TileComponent implements OnInit {
     }
   }
 
-  enter(element) {
+  enter(event, element) {
     if (this.configurationService.DWELL_TIME_ENABLED) {
+      this.dwellCursorService.updatePositionHTMLElement((<HTMLElement>event.target));
       this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_TIMEOUT_VALUE);
       this.dwellTimer = window.setTimeout(() => {
         this.action(element, 'click');
