@@ -43,6 +43,7 @@ import {GridFormatManagementComponent} from './components/grid-format-management
 import {PictogramStyleComponent} from './components/pictogram-style/pictogram-style.component';
 import {DwellCursorComponent} from './components/dwell-cursor/dwell-cursor.component';
 import { MainComponent } from './components/main/main.component';
+import { Spb2augComponent } from './components/spb2aug/spb2aug.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { MainComponent } from './components/main/main.component';
     GridFormatManagementComponent,
     PictogramStyleComponent,
     DwellCursorComponent,
-    MainComponent
+    MainComponent,
+    Spb2augComponent
   ],
   imports: [
     BrowserModule,

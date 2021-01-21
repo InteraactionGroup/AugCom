@@ -1,0 +1,6 @@
+<div class="import listElement">
+  <label>
+    {{this.multilinguism.translate("convert .spb to augcom ") + ":"}}
+  </label>
+  <input #file type="file" (change)="convert(file.files)" onclick="this.value=null">
+</div>
