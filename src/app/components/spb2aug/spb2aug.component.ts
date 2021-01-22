@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MultilinguismService} from '../../services/multilinguism.service';
 import {query} from '@angular/animations';
 import {Grid} from '../../types';
+declare const initSqlJs:any;
 
 @Component({
   selector: 'app-spb2aug',
@@ -13,12 +14,18 @@ export class Spb2augComponent implements OnInit {
   constructor(public multilinguism: MultilinguismService) {
   }
   private newGrid: Grid;
+  private sql:any;
+  // initSqlJs = require('sql.js');
 
   ngOnInit(): void {
   }
 
   convert(file){
-    this.loadDB(file);
+    const myFile = file[0];
+    const fileReader = new FileReader();
+    fileReader.readAsText(myFile);
+    console.log(myFile);
+    this.loadDB(myFile);
   }
 
   loadDB(arrayBuffer) {

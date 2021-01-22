@@ -27,7 +27,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/@types/sql.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -31,6 +31,8 @@
     "angular-gridster2": "^9.3.3",
     "angular2-uuid": "^1.1.1",
     "blueimp-canvas-to-blob": "^3.16.0",
+    "boostrap": "^2.0.0",
+    "bootstrap": "^4.6.0",
     "file-saver": "^2.0.2",
     "html-to-image": "^0.1.1",
     "html2canvas": "^1.0.0-rc.5",
