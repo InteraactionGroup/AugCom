@@ -13,9 +13,6 @@ export class Spb2augComponent implements OnInit {
 
   constructor(public multilinguism: MultilinguismService) {
   }
-  private newGrid: Grid;
-  private sql:any;
-  // initSqlJs = require('sql.js');
 
   ngOnInit(): void {
   }
@@ -37,7 +34,7 @@ export class Spb2augComponent implements OnInit {
       db = new SQL.Database(new Uint8Array(arrayBuffer));
 
       // Get all table names from master table
-      tables = this.db.prepare('SELECT * FROM sqlite_master WHERE type=\'table\' OR type=\'view\' ORDER BY name');
+      tables = db.prepare('SELECT * FROM sqlite_master WHERE type=\'table\' OR type=\'view\' ORDER BY name');
       console.log(tables);
     } catch (ex) {
       alert(ex);
