@@ -1,18 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MultilinguismService} from '../../services/multilinguism.service';
-import {query} from '@angular/animations';
 import {Grid} from '../../types';
-declare const initSqlJs:any;
+import {readPackageTree} from "@angular/cli/utilities/package-tree";
 
 @Component({
   selector: 'app-spb2aug',
   templateUrl: './spb2aug.component.html',
   styleUrls: ['./spb2aug.component.css']
 })
+// doc sqlite : https://github.com/sql-js/sql.js/
 export class Spb2augComponent implements OnInit {
 
   constructor(public multilinguism: MultilinguismService) {
   }
+  newgrid: Grid;
+  rowCounts: number[];
+  NumberOfCols: number;
+  NumberOfRows: number;
+  db = null;
 
   ngOnInit(): void {
   }
@@ -20,168 +25,75 @@ export class Spb2augComponent implements OnInit {
   convert(file){
     const myFile = file[0];
     const fileReader = new FileReader();
-    fileReader.readAsText(myFile);
-    console.log(myFile);
-    this.loadDB(myFile);
+    fileReader.onload = (e) => {
+      this.loadDB(fileReader);
+    };
+    fileReader.readAsArrayBuffer(myFile);
+    console.log('myFile : ' + myFile);
+    console.log('filereader.result : ' + fileReader.result);
+
   }
 
   loadDB(arrayBuffer) {
-    // initSqlJs is in the librairy sql.js, use npm install @types/sql.js
-    initSqlJs().then(function(SQL) {
-    let tables;
-    let db;
-    try {
-      db = new SQL.Database(new Uint8Array(arrayBuffer));
-
-      // Get all table names from master table
-      tables = db.prepare('SELECT * FROM sqlite_master WHERE type=\'table\' OR type=\'view\' ORDER BY name');
-      console.log(tables);
-    } catch (ex) {
-      alert(ex);
-      return;
-    }
-  });
-  }
-/*
-  loadDB(arrayBuffer) {
-    setIsLoading(true);
-
-    function renderQuery(defaultSelect: string) {
-      function renderQuery(query) {
-        const dataBox = $('#data');
-        const thead = dataBox.find('thead').find('tr');
-        const tbody = dataBox.find('tbody');
-
-        thead.empty();
-        tbody.empty();
-        dataBox.show();
-
-        let columnTypes = [];
-        const tableName = getTableNameFromQuery(query);
-        if (tableName != null) {
-          columnTypes = getTableColumnTypes(tableName);
-        }
-
-        let sel;
-        try {
-          sel = this.db.prepare(query);
-        } catch (ex) {
-          return;
-        }
-
-        let addedColums = false;
-        while (sel.step()) {
-          if (!addedColums) {
-            addedColums = true;
-            const columnNames = sel.getColumnNames();
-            for (let i = 0; i < columnNames.length; i++) {
-              const type = columnTypes[columnNames[i]];
-              thead.append('<th><span data-toggle="tooltip" data-placement="top" title="' + type + '">' + columnNames[i] + '</span></th>');
-            }
-          }
-
-          const tr = $('<tr>');
-          const s = sel.get();
-          for (let i = 0; i < s.length; i++) {
-            tr.append('<td><span title="' + htmlEncode(s[i]) + '">' + htmlEncode(s[i]) + '</span></td>');
-          }
-          tbody.append(tr);
-        }
-
-        refreshPagination(query, tableName);
-
-        $('[data-toggle="tooltip"]').tooltip({html: true});
-        dataBox.editableTableWidget();
-      }
-    }
-
-    function doDefaultSelect(name) {
-      const defaultSelect = 'SELECT * FROM \'' + name + '\' LIMIT 0,30';
-      this.editor.setValue(defaultSelect, -1);
-      renderQuery(defaultSelect);
-    }
-
-    function resetTableList() {
-      const tables = $('#tables');
-      const rowCounts = [];
-      tables.empty();
-      tables.append('<option></option>');
-      tables.select2({
-        placeholder: 'Select a table',
-        formatSelection: this.selectFormatter,
-        formatResult: this.selectFormatter
-      });
-      tables.on('change', function (e) {
-        doDefaultSelect(e.val);
-      });
-    }
-
-    resetTableList();
-
-    function setIsLoading(isLoading) {
-      const dropText = $('#drop-text');
-      const loading = $('#drop-loading');
-      if (isLoading) {
-        dropText.hide();
-        loading.show();
-      } else {
-        dropText.show();
-        loading.hide();
-      }
-    }
-
-    function getTableRowsCount(name) {
-      const sel = this.db.prepare('SELECT COUNT(*) AS count FROM \'' + name + '\'');
-      if (sel.step()) {
-        return sel.getAsObject().count;
-      } else {
-        return -1;
-      }
-    }
-
-    initSqlJs().then(function (SQL) {
+    // initSqlJs is in the library sql.js, use npm install @types/sql.js
+    initSqlJs().then(SQL => {
       let tables;
-      let db;
       try {
-        db = new SQL.Database(new Uint8Array(arrayBuffer));
-
+        this.db = new SQL.Database(new Uint8Array(arrayBuffer.result));
         // Get all table names from master table
-        tables = db.prepare('SELECT * FROM sqlite_master WHERE type=\'table\' OR type=\'view\' ORDER BY name');
+        tables = this.db.prepare("SELECT * FROM sqlite_master WHERE type='table' ORDER BY name");
+        console.log(tables);
       } catch (ex) {
-        setIsLoading(false);
         alert(ex);
         return;
       }
-
       let firstTableName = null;
-      const tableList = document.getElementById('#tables');
-
+      let columnTypes = [];
       while (tables.step()) {
         const rowObj = tables.getAsObject();
         const name = rowObj.name;
+        console.log('name : ' + name);
 
         if (firstTableName === null) {
           firstTableName = name;
+          console.log('firstTableName : ' + firstTableName);
         }
-        const rowCount = getTableRowsCount(name);
-        (this.rowCounts)[name] = rowCount;
-        tableList.append('<option value="' + name + '">' + name + ' (' + rowCount + ' rows)</option>');
+        const rowCount = this.getTableRowsCount(name);
+        console.log('nom de la table ' + name + ', nombre de ligne : ' + rowCount);
+
+        if (name === 'ElementPlacement'){
+          this.NumberOfCols = 0;
+          this.NumberOfRows = 0;
+          if (name != null) {
+            columnTypes = this.getTableColumnTypes(name);
+            console.log('columnTypes : ' + columnTypes);
+          }
+        }
       }
-
-      // Select first table and show It
-      tableList.select2('val', firstTableName);
-      doDefaultSelect(firstTableName);
-
-      document.getElementById('#output-box');
-      document.querySelector('.nouploadinfo');
-      document.getElementById('#sample-db-link');
-      document.getElementById('#dropzone');
-      document.getElementById('#success-box');
-      console.log(document.getElementById('#output-box'));
-
-      setIsLoading(false);
     });
   }
+  getTableRowsCount(name): number {
+    const cell = this.db.prepare("SELECT COUNT(*) AS count FROM '" + name + "'");
+    if (cell.step()) {
+      return cell.getAsObject().count;
+    } else {
+      return -1;
+    }
+  }
 
- */
+
+  getTableColumnTypes(tableName) {
+    const result = [];
+    const sel = this.db.prepare("PRAGMA table_info('" + tableName + "')");
+
+    while (sel.step()) {
+      const obj = sel.getAsObject();
+      result[obj.name] = obj.type;
+      /*if (obj.notnull === 1) {
+          result[obj.name] += " NOTNULL";
+      }*/
+    }
+    console.log('result' + result);
+    return result;
+}
 }
