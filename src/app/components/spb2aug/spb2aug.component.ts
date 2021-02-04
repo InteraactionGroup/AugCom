@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MultilinguismService} from '../../services/multilinguism.service';
-import {Grid} from '../../types';
+import {Grid, GridElement} from '../../types';
 
 @Component({
   selector: 'app-spb2aug',
@@ -12,16 +12,22 @@ export class Spb2augComponent implements OnInit {
 
   constructor(public multilinguism: MultilinguismService) {
   }
-  newgrid: Grid;
+  newGrid: Grid;
+  newElementGrid: GridElement;
   rowCounts: number[];
   NumberOfCols: number;
   NumberOfRows: number;
   db = null;
 
+  currentElementCol: number;
+  currentElementRow: number;
+
   ngOnInit(): void {
   }
 
   convert(file){
+    this.newGrid.ID = 'newGrid';
+    this.newGrid.GapSize = 5;
     const myFile = file[0];
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
@@ -61,8 +67,11 @@ export class Spb2augComponent implements OnInit {
           if (name != null) {
             columnTypes = this.getTableColumnTypes(name);
             console.log('columnTypes : ' + columnTypes);
-            this.getElementGridPosition(name);
+            this.getGridDimension(name);
           }
+        }
+        if (name === 'Button'){
+          this.getButton(name);
         }
       }
     });
@@ -88,11 +97,27 @@ export class Spb2augComponent implements OnInit {
     }
     console.log('result :' + result);
     return result;
-}
+  }
 
-  async getElementGridPosition(name){
-    const cel = await this.db.prepare('SELECT GridPosition FROM \'' + name + '\'');
-    const result = await cel.valueOf();
-    console.log(result);
+  getGridDimension(name) {
+    const cel = this.db.prepare('SELECT GridPosition FROM \'' + name + '\'');
+    while (cel.step()) {
+      const result = cel.getAsObject().GridPosition;
+      const tabRes = result.split(',');
+      this.currentElementCol = +tabRes[0];
+      this.currentElementRow = +tabRes[1];
+      if(this.NumberOfCols < this.currentElementCol){
+        this.NumberOfCols = this.currentElementCol;
+      }
+      if(this.NumberOfRows < this.currentElementRow){
+        this.NumberOfRows = this.currentElementRow;
+      }
+    }
+    this.newGrid.NumberOfCols = this.NumberOfCols;
+    this.newGrid.NumberOfRows = this.NumberOfRows;
+  }
+
+  getButton(name){
+    const cel = this.db.prepare('SELECT * FROM \'' + name + '\'');
   }
 }
