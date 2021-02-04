@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MultilinguismService} from '../../services/multilinguism.service';
 import {Grid} from '../../types';
-import {readPackageTree} from "@angular/cli/utilities/package-tree";
 
 @Component({
   selector: 'app-spb2aug',
@@ -29,9 +28,6 @@ export class Spb2augComponent implements OnInit {
       this.loadDB(fileReader);
     };
     fileReader.readAsArrayBuffer(myFile);
-    console.log('myFile : ' + myFile);
-    console.log('filereader.result : ' + fileReader.result);
-
   }
 
   loadDB(arrayBuffer) {
@@ -41,7 +37,7 @@ export class Spb2augComponent implements OnInit {
       try {
         this.db = new SQL.Database(new Uint8Array(arrayBuffer.result));
         // Get all table names from master table
-        tables = this.db.prepare("SELECT * FROM sqlite_master WHERE type='table' ORDER BY name");
+        tables = this.db.prepare('SELECT * FROM sqlite_master WHERE type=\'table\' ORDER BY name');
         console.log(tables);
       } catch (ex) {
         alert(ex);
@@ -52,14 +48,12 @@ export class Spb2augComponent implements OnInit {
       while (tables.step()) {
         const rowObj = tables.getAsObject();
         const name = rowObj.name;
-        console.log('name : ' + name);
 
         if (firstTableName === null) {
           firstTableName = name;
-          console.log('firstTableName : ' + firstTableName);
         }
         const rowCount = this.getTableRowsCount(name);
-        console.log('nom de la table ' + name + ', nombre de ligne : ' + rowCount);
+        console.log('nom de la table : ' + name + ', nombre de ligne : ' + rowCount);
 
         if (name === 'ElementPlacement'){
           this.NumberOfCols = 0;
@@ -67,13 +61,14 @@ export class Spb2augComponent implements OnInit {
           if (name != null) {
             columnTypes = this.getTableColumnTypes(name);
             console.log('columnTypes : ' + columnTypes);
+            this.getElementGridPosition(name);
           }
         }
       }
     });
   }
   getTableRowsCount(name): number {
-    const cell = this.db.prepare("SELECT COUNT(*) AS count FROM '" + name + "'");
+    const cell = this.db.prepare('SELECT COUNT(*) AS count FROM \'' + name + '\'');
     if (cell.step()) {
       return cell.getAsObject().count;
     } else {
@@ -84,16 +79,20 @@ export class Spb2augComponent implements OnInit {
 
   getTableColumnTypes(tableName) {
     const result = [];
-    const sel = this.db.prepare("PRAGMA table_info('" + tableName + "')");
+    const sel = this.db.prepare('PRAGMA table_info(\'' + tableName + '\')');
 
     while (sel.step()) {
       const obj = sel.getAsObject();
+      console.log('obj.name : ' + obj.name);
       result[obj.name] = obj.type;
-      /*if (obj.notnull === 1) {
-          result[obj.name] += " NOTNULL";
-      }*/
     }
-    console.log('result' + result);
+    console.log('result :' + result);
     return result;
 }
+
+  async getElementGridPosition(name){
+    const cel = await this.db.prepare('SELECT GridPosition FROM \'' + name + '\'');
+    const result = await cel.valueOf();
+    console.log(result);
+  }
 }
