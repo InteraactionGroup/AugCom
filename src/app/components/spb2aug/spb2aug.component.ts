@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MultilinguismService} from '../../services/multilinguism.service';
-import {Grid, GridElement} from '../../types';
+import {Grid, GridElement, Page} from '../../types';
 
 @Component({
   selector: 'app-spb2aug',
@@ -13,13 +13,18 @@ export class Spb2augComponent implements OnInit {
   constructor(public multilinguism: MultilinguismService) {
   }
   newGrid: Grid;
+  page : Page;
   rowCounts: number[];
   NumberOfCols: number;
   NumberOfRows: number;
   db = null;
 
   ngOnInit(): void {
-    this.newGrid = new Grid('newGrid','Grid',0,0,0,0,0);
+    this.newGrid = new Grid('newGrid','Grid',0,0,[],[],[]);
+    this.page = new Page();
+    this.page.ID = '#HOME';
+    this.page.Name = 'Accueil';
+    this.page.ElementIDsList = [];
   }
 
   convert(file){
@@ -133,6 +138,8 @@ export class Spb2augComponent implements OnInit {
             }
           ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}]}])
       );
+      this.page.ElementIDsList.push(label);
     }
+    this.newGrid.PageList.push(this.page);
   }
 }
