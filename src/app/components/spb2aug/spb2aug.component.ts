@@ -13,16 +13,13 @@ export class Spb2augComponent implements OnInit {
   constructor(public multilinguism: MultilinguismService) {
   }
   newGrid: Grid;
-  newElementGrid: GridElement;
   rowCounts: number[];
   NumberOfCols: number;
   NumberOfRows: number;
   db = null;
 
-  currentElementCol: number;
-  currentElementRow: number;
-
   ngOnInit(): void {
+    this.newGrid = new Grid('newGrid','Grid',0,0,0,0,0);
   }
 
   convert(file){
@@ -61,6 +58,9 @@ export class Spb2augComponent implements OnInit {
         const rowCount = this.getTableRowsCount(name);
         console.log('nom de la table : ' + name + ', nombre de ligne : ' + rowCount);
 
+        if (name === 'Button'){
+          this.getElement(name);
+        }
         if (name === 'ElementPlacement'){
           this.NumberOfCols = 0;
           this.NumberOfRows = 0;
@@ -70,10 +70,8 @@ export class Spb2augComponent implements OnInit {
             this.getGridDimension(name);
           }
         }
-        if (name === 'Button'){
-          this.getButton(name);
-        }
       }
+      console.log(this.newGrid);
     });
   }
   getTableRowsCount(name): number {
@@ -104,20 +102,37 @@ export class Spb2augComponent implements OnInit {
     while (cel.step()) {
       const result = cel.getAsObject().GridPosition;
       const tabRes = result.split(',');
-      this.currentElementCol = +tabRes[0];
-      this.currentElementRow = +tabRes[1];
-      if(this.NumberOfCols < this.currentElementCol){
-        this.NumberOfCols = this.currentElementCol;
+      const currentElementCol = +tabRes[0];
+      const currentElementRow = +tabRes[1];
+      if(this.NumberOfCols < currentElementCol){
+        this.NumberOfCols = currentElementCol;
       }
-      if(this.NumberOfRows < this.currentElementRow){
-        this.NumberOfRows = this.currentElementRow;
+      if(this.NumberOfRows < currentElementRow){
+        this.NumberOfRows = currentElementRow;
       }
     }
     this.newGrid.NumberOfCols = this.NumberOfCols;
     this.newGrid.NumberOfRows = this.NumberOfRows;
   }
 
-  getButton(name){
+  getElement(name){
     const cel = this.db.prepare('SELECT * FROM \'' + name + '\'');
+    // cel.step itère sur les ligne une à une
+    while (cel.step()){
+      const label = cel.getAsObject().Label;
+      const message = cel.getAsObject().Message;
+      this.newGrid.ElementList.push(
+        new GridElement(label, 'button', '', 'var(--main-bg-color1)', 'black'
+          , 0,
+          [
+            {
+              DisplayedText: label,
+              VoiceText: message,
+              LexicInfos: [{default: true}],
+              ImageID: label,
+            }
+          ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}]}])
+      );
+    }
   }
 }
