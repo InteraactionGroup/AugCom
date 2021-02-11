@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {MultilinguismService} from '../../services/multilinguism.service';
 import {Grid, GridElement, Page} from '../../types';
+import {BoardService} from '../../services/board.service';
+import {Router} from '@angular/router';
+import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 
 @Component({
   selector: 'app-spb2aug',
@@ -10,7 +13,11 @@ import {Grid, GridElement, Page} from '../../types';
 // doc sqlite : https://github.com/sql-js/sql.js/
 export class Spb2augComponent implements OnInit {
 
-  constructor(public multilinguism: MultilinguismService) {
+  constructor(
+    public multilinguism: MultilinguismService,
+    public indexedDBacess: IndexeddbaccessService,
+    public router: Router,
+    public boardService: BoardService) {
   }
   newGrid: Grid;
   page : Page;
@@ -76,6 +83,9 @@ export class Spb2augComponent implements OnInit {
         }
       }
       console.log(this.newGrid);
+      this.boardService.board = this.newGrid;
+      this.indexedDBacess.update();
+      this.router.navigate(['']);
     });
   }
   getTableRowsCount(name): number {
