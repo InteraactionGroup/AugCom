@@ -139,10 +139,6 @@ export class Spb2augComponent implements OnInit {
       const gridSpan = elPlacement.getAsObject().GridSpan;
       const tabResPos = gridPosition.split(',');
       const tabResSpan = gridSpan.split(',');
-      const gridPosY = tabResPos[0];
-      const gridPosX = tabResPos[1];
-      const gridSpanY = tabResSpan[0];
-      const gridSpanX = tabResSpan[1];
       const label = cel.getAsObject().Label;
       const message = cel.getAsObject().Message;
       this.gridElement = new GridElement(label, 'button', '', 'var(--main-bg-color1)', 'black'
@@ -155,10 +151,10 @@ export class Spb2augComponent implements OnInit {
             ImageID: label,
           }
         ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}]}])
-      this.gridElement.x = gridPosX;
-      this.gridElement.y = gridPosY;
-      this.gridElement.rows = gridSpanX;
-      this.gridElement.cols = gridSpanY;
+      this.gridElement.x = tabResPos[1];
+      this.gridElement.y = tabResPos[0];
+      this.gridElement.rows = tabResSpan[1];
+      this.gridElement.cols = tabResSpan[0];
       this.newGrid.ElementList.push(this.gridElement);
       this.page.ElementIDsList.push(label);
     }
