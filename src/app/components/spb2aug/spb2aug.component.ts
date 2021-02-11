@@ -110,12 +110,14 @@ export class Spb2augComponent implements OnInit {
   }
 
   getGridDimension(name) {
-    const cel = this.db.prepare('SELECT GridPosition FROM \'' + name + '\'');
+    const cel = this.db.prepare('SELECT GridPosition,GridSpan FROM \'' + name + '\'');
     while (cel.step()) {
       const result = cel.getAsObject().GridPosition;
-      const tabRes = result.split(',');
-      const currentElementCol = +tabRes[0];
-      const currentElementRow = +tabRes[1];
+      const gridSpan = cel.getAsObject().GridSpan;
+      const tabPos = result.split(',');
+      const tabSpan = gridSpan.split(',');
+      const currentElementCol = Number(tabPos[0])+Number(tabSpan[0]);
+      const currentElementRow = Number(tabPos[1])+Number(tabSpan[1]);
       if(this.NumberOfCols < currentElementCol){
         this.NumberOfCols = currentElementCol;
       }
@@ -129,32 +131,42 @@ export class Spb2augComponent implements OnInit {
 
   getElement(name){
     const cel = this.db.prepare('SELECT * FROM \'' + name + '\'');
-    const elPlacement = this.db.prepare('SELECT * FROM ElementPlacement ORDER BY ElementReferenceId ASC');
+    const elPlacement = this.db.prepare('SELECT * FROM \'ElementReference\' INNER JOIN \'ElementPlacement\' ON ElementReference.Id = ElementPlacement.ElementReferenceId ORDER BY ID');
     // skip the first because we don't care about it
     elPlacement.step();
     // cel.step itère sur les ligne une à une
     while (cel.step()){
       elPlacement.step();
+
       const gridPosition = elPlacement.getAsObject().GridPosition;
+      const color = Number(elPlacement.getAsObject().BackgroundColor);
+
+      const B_MASK = 255;
+      const G_MASK = 255<<8; // 65280
+      const R_MASK = 255<<16; // 16711680
+      const r = (color & R_MASK)>>16;
+      const g = (color & G_MASK)>>8;
+      const b = color & B_MASK;
+
       const gridSpan = elPlacement.getAsObject().GridSpan;
       const tabResPos = gridPosition.split(',');
       const tabResSpan = gridSpan.split(',');
-      const label = cel.getAsObject().Label;
-      const message = cel.getAsObject().Message;
-      this.gridElement = new GridElement(label, 'button', '', 'var(--main-bg-color1)', 'black'
-        , 0,
+      const label: string = cel.getAsObject().Label;
+      const message: string = cel.getAsObject().Message;
+      this.gridElement = new GridElement(label, 'button', '', 'rgb('+r+','+g+','+b+')', 'black'
+        , 1,
         [
           {
             DisplayedText: label,
-            VoiceText: message,
+            VoiceText: (message) !== null ? message : label,
             LexicInfos: [{default: true}],
             ImageID: label,
           }
-        ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}]}])
-      this.gridElement.x = tabResPos[1];
-      this.gridElement.y = tabResPos[0];
-      this.gridElement.rows = tabResSpan[1];
-      this.gridElement.cols = tabResSpan[0];
+        ], [{ID: 'click', ActionList: [{ID: 'display', Options: []},{ID: 'say', Options: []}]}])
+      this.gridElement.x = Number(tabResPos[0]);
+      this.gridElement.y = Number(tabResPos[1]);
+      this.gridElement.rows = Number(tabResSpan[1]);
+      this.gridElement.cols = Number(tabResSpan[0]);
       this.newGrid.ElementList.push(this.gridElement);
       this.page.ElementIDsList.push(label);
     }
