@@ -148,12 +148,16 @@ export class Spb2augComponent implements OnInit {
       const g = (color & G_MASK)>>8;
       const b = color & B_MASK;
 
+      const rb = (borderColor & R_MASK)>>16;
+      const gb = (borderColor & G_MASK)>>8;
+      const bb = borderColor & B_MASK;
+
       const gridSpan = elPlacement.getAsObject().GridSpan;
       const tabResPos = gridPosition.split(',');
       const tabResSpan = gridSpan.split(',');
       const label: string = cel.getAsObject().Label;
       const message: string = cel.getAsObject().Message;
-      this.gridElement = new GridElement(label, 'button', '', 'rgb('+r+','+g+','+b+')', String('#'+Math.abs(borderColor))
+      this.gridElement = new GridElement(label, 'button', '', 'rgb('+r+','+g+','+b+')', 'rgb('+rb+','+gb+','+bb+')'
         , 1,
         [
           {
