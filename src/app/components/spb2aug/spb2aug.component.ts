@@ -68,7 +68,6 @@ export class Spb2augComponent implements OnInit {
           firstTableName = name;
         }
         const rowCount = this.getTableRowsCount(name);
-        console.log('nom de la table : ' + name + ', nombre de ligne : ' + rowCount);
 
         if (name === 'Button'){
           this.getElement(name);
@@ -110,7 +109,7 @@ export class Spb2augComponent implements OnInit {
   }
 
   getGridDimension(name) {
-    const cel = this.db.prepare('SELECT GridPosition,GridSpan FROM \'' + name + '\'');
+    const cel = this.db.prepare('SELECT GridPosition,GridSpan FROM ' + name + ' ORDER BY ElementReferenceId ASC');
     while (cel.step()) {
       const result = cel.getAsObject().GridPosition;
       const gridSpan = cel.getAsObject().GridSpan;
@@ -140,6 +139,7 @@ export class Spb2augComponent implements OnInit {
 
       const gridPosition = elPlacement.getAsObject().GridPosition;
       const color = Number(elPlacement.getAsObject().BackgroundColor);
+      const borderColor = Number(cel.getAsObject().BorderColor);
 
       const B_MASK = 255;
       const G_MASK = 255<<8; // 65280
@@ -153,7 +153,7 @@ export class Spb2augComponent implements OnInit {
       const tabResSpan = gridSpan.split(',');
       const label: string = cel.getAsObject().Label;
       const message: string = cel.getAsObject().Message;
-      this.gridElement = new GridElement(label, 'button', '', 'rgb('+r+','+g+','+b+')', 'black'
+      this.gridElement = new GridElement(label, 'button', '', 'rgb('+r+','+g+','+b+')', String('#'+Math.abs(borderColor))
         , 1,
         [
           {
