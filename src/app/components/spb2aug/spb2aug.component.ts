@@ -4,6 +4,7 @@ import {Grid, GridElement, Page} from '../../types';
 import {BoardService} from '../../services/board.service';
 import {Router} from '@angular/router';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
+import {ConfigurationService} from '../../services/configuration.service';
 
 @Component({
   selector: 'app-spb2aug',
@@ -17,7 +18,8 @@ export class Spb2augComponent implements OnInit {
     public multilinguism: MultilinguismService,
     public indexedDBacess: IndexeddbaccessService,
     public router: Router,
-    public boardService: BoardService) {
+    public boardService: BoardService,
+    public configuration: ConfigurationService) {
   }
   newGrid: Grid;
   page : Page;
@@ -79,6 +81,9 @@ export class Spb2augComponent implements OnInit {
             columnTypes = this.getTableColumnTypes(name);
             this.getGridDimension(name);
           }
+        }
+        if (name === 'PageSetProperties') {
+          this.getPolice(name);
         }
       }
       console.log(this.newGrid);
@@ -175,5 +180,12 @@ export class Spb2augComponent implements OnInit {
       this.page.ElementIDsList.push(label);
     }
     this.newGrid.PageList.push(this.page);
+  }
+  getPolice(name){
+    const po = this.db.prepare('SELECT * FROM \'' + name + '\'');
+    po.step();
+    const police = po.getAsObject().FontFamily;
+    console.log(police);
+    this.configuration.DEFAULT_STYLE_FONTFAMILY_VALUE = String(police);
   }
 }
