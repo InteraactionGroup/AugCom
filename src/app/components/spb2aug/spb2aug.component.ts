@@ -28,7 +28,9 @@ export class Spb2augComponent implements OnInit {
   NumberOfCols: number;
   NumberOfRows: number;
   db = null;
-  blob: Blob;
+
+  myBlob: Blob;
+  myFile: File;
 
   ngOnInit(): void {
     this.newGrid = new Grid('newGrid','Grid',0,0,[],[],[]);
@@ -186,7 +188,7 @@ export class Spb2augComponent implements OnInit {
       this.newGrid.ImageList.push({
         ID: label,
         OriginalName: label,
-        Path: URL.createObjectURL(this.blob),
+        Path: URL.createObjectURL(this.myFile),
         });
     }
     this.newGrid.PageList.push(this.page);
@@ -201,9 +203,19 @@ export class Spb2augComponent implements OnInit {
     const im = this.db.prepare('SELECT * FROM PageSetData');
     while (im.step()){
       const imageData = im.getAsObject().Data;
-      console.log(imageData);
-      this.blob = new Blob(imageData, {type: 'image/wmf'});
-      console.log('blob :' + this.blob);
+      this.myBlob = new Blob(imageData, {type: 'image/wmf'});
+      console.log('blob :' + this.myBlob);
+      this.myFile = this.blobToFile(this.myBlob,'chat.wmf');
+      console.log('file :' + this.myFile);
     }
+  }
+  blobToFile(theBlob: Blob, fileName:string): File{
+    const b: any = theBlob;
+    // A Blob() is almost a File() - it's just missing the two properties below which we will add
+    b.lastModifiedDate = new Date();
+    b.name = fileName;
+
+    // Cast to a File() type
+    return theBlob as File;
   }
 }
