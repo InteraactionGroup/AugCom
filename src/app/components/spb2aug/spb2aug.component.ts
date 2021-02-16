@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MultilinguismService} from '../../services/multilinguism.service';
-import {Grid, GridElement, Page} from '../../types';
+import {Grid, GridElement, Image, Page} from '../../types';
 import {BoardService} from '../../services/board.service';
 import {Router} from '@angular/router';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
@@ -28,6 +28,7 @@ export class Spb2augComponent implements OnInit {
   NumberOfCols: number;
   NumberOfRows: number;
   db = null;
+  blob: Blob;
 
   ngOnInit(): void {
     this.newGrid = new Grid('newGrid','Grid',0,0,[],[],[]);
@@ -142,6 +143,10 @@ export class Spb2augComponent implements OnInit {
     while (cel.step()){
       elPlacement.step();
 
+      const pageSetImageId = elPlacement.getAsObject().PageSetImageId;
+      if(pageSetImageId !== 0){
+        this.getImage();
+      }
       const gridPosition = elPlacement.getAsObject().GridPosition;
       const color = Number(elPlacement.getAsObject().BackgroundColor);
       const borderColor = Number(cel.getAsObject().BorderColor);
@@ -178,6 +183,11 @@ export class Spb2augComponent implements OnInit {
       this.gridElement.cols = Number(tabResSpan[0]);
       this.newGrid.ElementList.push(this.gridElement);
       this.page.ElementIDsList.push(label);
+      this.newGrid.ImageList.push({
+        ID: label,
+        OriginalName: label,
+        Path: URL.createObjectURL(this.blob),
+        });
     }
     this.newGrid.PageList.push(this.page);
   }
@@ -185,7 +195,15 @@ export class Spb2augComponent implements OnInit {
     const po = this.db.prepare('SELECT * FROM \'' + name + '\'');
     po.step();
     const police = po.getAsObject().FontFamily;
-    console.log(police);
     this.configuration.DEFAULT_STYLE_FONTFAMILY_VALUE = String(police);
+  }
+  getImage(){
+    const im = this.db.prepare('SELECT * FROM PageSetData');
+    while (im.step()){
+      const imageData = im.getAsObject().Data;
+      console.log(imageData);
+      this.blob = new Blob(imageData, {type: 'image/wmf'});
+      console.log('blob :' + this.blob);
+    }
   }
 }
