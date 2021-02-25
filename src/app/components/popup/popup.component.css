@@ -11,9 +11,7 @@
   display: grid;
   grid-template-rows: 2fr 1fr;
   border-radius: 10px;
-  visibility: visible;
   z-index: 99999;
-  opacity: 100%;
 }
 
 .popup .popupQuestion {
