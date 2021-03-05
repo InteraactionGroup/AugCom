@@ -5,6 +5,7 @@ import {BoardService} from '../../services/board.service';
 import {Router} from '@angular/router';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {ConfigurationService} from '../../services/configuration.service';
+import {SafeUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-spb2aug',
@@ -31,6 +32,7 @@ export class Spb2augComponent implements OnInit {
 
   myBlob: Blob;
   myFile: File;
+  im: SafeUrl;
 
   ngOnInit(): void {
     this.newGrid = new Grid('newGrid','Grid',0,0,[],[],[]);
@@ -135,11 +137,13 @@ export class Spb2augComponent implements OnInit {
     this.newGrid.NumberOfCols = this.NumberOfCols;
     this.newGrid.NumberOfRows = this.NumberOfRows;
   }
-
+  // name =  table des buttons
   getElement(name){
     const cel = this.db.prepare('SELECT * FROM \'' + name + '\'');
     const elPlacement = this.db.prepare('SELECT * FROM \'ElementReference\' INNER JOIN \'ElementPlacement\' ON ElementReference.Id = ElementPlacement.ElementReferenceId ORDER BY ID');
+    const buttonsFolder = this.db.prepare('SELECT * FROM ButtonPageLink');
     // skip the first because we don't care about it
+    buttonsFolder.step();
     elPlacement.step();
     // cel.step itère sur les ligne une à une
     while (cel.step()){
@@ -147,8 +151,14 @@ export class Spb2augComponent implements OnInit {
 
       const pageSetImageId = elPlacement.getAsObject().PageSetImageId;
       if(pageSetImageId !== 0){
-        this.getImage();
+        // this.getImage();
       }
+
+      const buttonFolder = Number(buttonsFolder.getAsObject().ButtonId);
+      console.log('buttonFolder : ' +  buttonFolder);
+      const buttonId = Number(cel.getAsObject().Id);
+      console.log('id : ' + buttonId);
+
       const gridPosition = elPlacement.getAsObject().GridPosition;
       const color = Number(elPlacement.getAsObject().BackgroundColor);
       const borderColor = Number(cel.getAsObject().BorderColor);
@@ -169,16 +179,33 @@ export class Spb2augComponent implements OnInit {
       const tabResSpan = gridSpan.split(',');
       const label: string = cel.getAsObject().Label;
       const message: string = cel.getAsObject().Message;
-      this.gridElement = new GridElement(label, 'button', '', 'rgb('+r+','+g+','+b+')', 'rgb('+rb+','+gb+','+bb+')'
-        , 1,
-        [
-          {
-            DisplayedText: label,
-            VoiceText: (message) !== null ? message : label,
-            LexicInfos: [{default: true}],
-            ImageID: label,
-          }
-        ], [{ID: 'click', ActionList: [{ID: 'display', Options: []},{ID: 'say', Options: []}]}])
+
+      if(buttonId === buttonFolder){
+        this.gridElement = new GridElement(label, 'GoTo', '', 'rgb('+r+','+g+','+b+')', 'rgb('+rb+','+gb+','+bb+')'
+          , 1,
+          [
+            {
+              DisplayedText: label,
+              VoiceText: (message) !== null ? message : label,
+              LexicInfos: [{default: true}],
+              ImageID: label,
+            }
+          ], [{ID: 'click', ActionList: [{ID: 'display', Options: []},{ID: 'say', Options: []}]}])
+        buttonsFolder.step();
+        // buttonFolder = Number(buttonsFolder.getAsObject().ButtonId);
+      }
+      else{
+        this.gridElement = new GridElement(label, 'button', '', 'rgb('+r+','+g+','+b+')', 'rgb('+rb+','+gb+','+bb+')'
+          , 1,
+          [
+            {
+              DisplayedText: label,
+              VoiceText: (message) !== null ? message : label,
+              LexicInfos: [{default: true}],
+              ImageID: label,
+            }
+          ], [{ID: 'click', ActionList: [{ID: 'display', Options: []},{ID: 'say', Options: []}]}])
+      }
       this.gridElement.x = Number(tabResPos[0]);
       this.gridElement.y = Number(tabResPos[1]);
       this.gridElement.rows = Number(tabResSpan[1]);
@@ -188,7 +215,7 @@ export class Spb2augComponent implements OnInit {
       this.newGrid.ImageList.push({
         ID: label,
         OriginalName: label,
-        Path: URL.createObjectURL(this.myFile),
+        Path: '',
         });
     }
     this.newGrid.PageList.push(this.page);
@@ -201,21 +228,16 @@ export class Spb2augComponent implements OnInit {
   }
   getImage(){
     const im = this.db.prepare('SELECT * FROM PageSetData');
-    while (im.step()){
-      const imageData = im.getAsObject().Data;
-      this.myBlob = new Blob(imageData, {type: 'image/wmf'});
-      console.log('blob :' + this.myBlob);
-      this.myFile = this.blobToFile(this.myBlob,'chat.wmf');
-      console.log('file :' + this.myFile);
-    }
+    im.step();
+    const imageData = im.getAsObject().Data;
+    this.myBlob = new Blob(imageData, {type: 'image/wmf'});
+    this.myFile = this.blobToFile(this.myBlob,'chat.wmf');
+    console.log('file :' + this.myFile);
   }
   blobToFile(theBlob: Blob, fileName:string): File{
     const b: any = theBlob;
-    // A Blob() is almost a File() - it's just missing the two properties below which we will add
     b.lastModifiedDate = new Date();
     b.name = fileName;
-
-    // Cast to a File() type
-    return theBlob as File;
+    return b as File;
   }
 }
