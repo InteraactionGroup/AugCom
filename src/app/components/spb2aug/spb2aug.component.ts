@@ -29,6 +29,8 @@ export class Spb2augComponent implements OnInit {
   NumberOfCols: number;
   NumberOfRows: number;
   db = null;
+  pageHome: number;
+  newPage: Page;
 
   myBlob: Blob;
   myFile: File;
@@ -40,6 +42,9 @@ export class Spb2augComponent implements OnInit {
     this.page.ID = '#HOME';
     this.page.Name = 'Accueil';
     this.page.ElementIDsList = [];
+    this.newPage = new Page();
+    this.newPage.ElementIDsList = [];
+    this.pageHome = 4;
   }
 
   convert(file){
@@ -74,7 +79,6 @@ export class Spb2augComponent implements OnInit {
         if (firstTableName === null) {
           firstTableName = name;
         }
-        const rowCount = this.getTableRowsCount(name);
 
         if (name === 'Button'){
           this.getElement(name);
@@ -140,14 +144,17 @@ export class Spb2augComponent implements OnInit {
   // name =  table des buttons
   getElement(name){
     const cel = this.db.prepare('SELECT * FROM \'' + name + '\'');
+    const elReference = this.db.prepare('SELECT * FROM ElementReference');
     const elPlacement = this.db.prepare('SELECT * FROM \'ElementReference\' INNER JOIN \'ElementPlacement\' ON ElementReference.Id = ElementPlacement.ElementReferenceId ORDER BY ID');
     const buttonsFolder = this.db.prepare('SELECT * FROM ButtonPageLink');
     // skip the first because we don't care about it
+    elReference.step();
     buttonsFolder.step();
     elPlacement.step();
     // cel.step itère sur les ligne une à une
     while (cel.step()){
       elPlacement.step();
+      elReference.step();
 
       const pageSetImageId = elPlacement.getAsObject().PageSetImageId;
       if(pageSetImageId !== 0){
@@ -155,9 +162,7 @@ export class Spb2augComponent implements OnInit {
       }
 
       const buttonFolder = Number(buttonsFolder.getAsObject().ButtonId);
-      console.log('buttonFolder : ' +  buttonFolder);
       const buttonId = Number(cel.getAsObject().Id);
-      console.log('id : ' + buttonId);
 
       const gridPosition = elPlacement.getAsObject().GridPosition;
       const color = Number(elPlacement.getAsObject().BackgroundColor);
@@ -180,8 +185,12 @@ export class Spb2augComponent implements OnInit {
       const label: string = cel.getAsObject().Label;
       const message: string = cel.getAsObject().Message;
 
+      const pageId = elReference.getAsObject().PageId;
+      console.log(pageId);
+
+      // check if the button is a folder button to bind him
       if(buttonId === buttonFolder){
-        this.gridElement = new GridElement(label, 'GoTo', '', 'rgb('+r+','+g+','+b+')', 'rgb('+rb+','+gb+','+bb+')'
+        this.gridElement = new GridElement(label, {GoTo : label}, '', 'rgb('+r+','+g+','+b+')', 'rgb('+rb+','+gb+','+bb+')'
           , 1,
           [
             {
@@ -193,6 +202,8 @@ export class Spb2augComponent implements OnInit {
           ], [{ID: 'click', ActionList: [{ID: 'display', Options: []},{ID: 'say', Options: []}]}])
         buttonsFolder.step();
         // buttonFolder = Number(buttonsFolder.getAsObject().ButtonId);
+        this.newPage.ID = label;
+        this.newPage.Name = label;
       }
       else{
         this.gridElement = new GridElement(label, 'button', '', 'rgb('+r+','+g+','+b+')', 'rgb('+rb+','+gb+','+bb+')'
@@ -211,7 +222,7 @@ export class Spb2augComponent implements OnInit {
       this.gridElement.rows = Number(tabResSpan[1]);
       this.gridElement.cols = Number(tabResSpan[0]);
       this.newGrid.ElementList.push(this.gridElement);
-      this.page.ElementIDsList.push(label);
+      this.getPage(pageId,label);
       this.newGrid.ImageList.push({
         ID: label,
         OriginalName: label,
@@ -225,6 +236,20 @@ export class Spb2augComponent implements OnInit {
     po.step();
     const police = po.getAsObject().FontFamily;
     this.configuration.DEFAULT_STYLE_FONTFAMILY_VALUE = String(police);
+  }
+  getPage(pageId: any, label: string){
+    if (pageId === this.pageHome) {
+      this.page.ElementIDsList.push(label);
+    }
+    else{
+      this.newGrid.PageList.push(this.page);
+      this.page = new Page();
+      this.page.Name = this.newPage.Name;
+      this.page.ID = this.newPage.ID;
+      this.page.ElementIDsList = [];
+      this.page.ElementIDsList.push(label);
+      this.pageHome = pageId;
+    }
   }
   getImage(){
     const im = this.db.prepare('SELECT * FROM PageSetData');
