@@ -42,8 +42,6 @@ export class Spb2augComponent implements OnInit {
     this.page.ID = '#HOME';
     this.page.Name = 'Accueil';
     this.page.ElementIDsList = [];
-    this.newPage = new Page();
-    this.newPage.ElementIDsList = [];
     this.pageHome = 4;
   }
 
@@ -147,6 +145,7 @@ export class Spb2augComponent implements OnInit {
     const elReference = this.db.prepare('SELECT * FROM ElementReference');
     const elPlacement = this.db.prepare('SELECT * FROM \'ElementReference\' INNER JOIN \'ElementPlacement\' ON ElementReference.Id = ElementPlacement.ElementReferenceId ORDER BY ID');
     const buttonsFolder = this.db.prepare('SELECT * FROM ButtonPageLink');
+    const buttonPage = this.db.prepare('SELECT ButtonId, Button.Label, Button.ElementReferenceId as ButtonElementRenceID, PageUniqueId, Page.Id, ElementPlacement.ElementReferenceId as ElementReferenceIdOfChild, ElementPlacement.GridPosition as ChildPosition, ElementPlacement.GridSpan as ChildSpan FROM \'Button\' JOIN \'ButtonPageLink\' ON Button.Id = ButtonPageLink.ButtonId JOIN \'PAGE\' ON ButtonPageLink.PageUniqueId = Page.UniqueID JOIN PageLayout ON PageId = Page.Id JOIN ElementPlacement ON PageLayoutId = PageLayout.ID ORDER BY ButtonId ASC');
     // skip the first because we don't care about it
     elReference.step();
     buttonsFolder.step();
@@ -186,7 +185,6 @@ export class Spb2augComponent implements OnInit {
       const message: string = cel.getAsObject().Message;
 
       const pageId = elReference.getAsObject().PageId;
-      console.log(pageId);
 
       // check if the button is a folder button to bind him
       if(buttonId === buttonFolder){
@@ -201,9 +199,11 @@ export class Spb2augComponent implements OnInit {
             }
           ], [{ID: 'click', ActionList: [{ID: 'display', Options: []},{ID: 'say', Options: []}]}])
         buttonsFolder.step();
-        // buttonFolder = Number(buttonsFolder.getAsObject().ButtonId);
+        this.newPage = new Page();
         this.newPage.ID = label;
         this.newPage.Name = label;
+        this.newPage.ElementIDsList = [];
+        this.newGrid.PageList.push(this.newPage);
       }
       else{
         this.gridElement = new GridElement(label, 'button', '', 'rgb('+r+','+g+','+b+')', 'rgb('+rb+','+gb+','+bb+')'
@@ -217,12 +217,19 @@ export class Spb2augComponent implements OnInit {
             }
           ], [{ID: 'click', ActionList: [{ID: 'display', Options: []},{ID: 'say', Options: []}]}])
       }
+      /*
+      console.log('buttonId : ' + buttonId);
+      if(buttonId === ElementReference - 1){
+        this.page.ElementIDsList.push(label);
+        buttonPage.step();
+      }
+      */
       this.gridElement.x = Number(tabResPos[0]);
       this.gridElement.y = Number(tabResPos[1]);
       this.gridElement.rows = Number(tabResSpan[1]);
       this.gridElement.cols = Number(tabResSpan[0]);
       this.newGrid.ElementList.push(this.gridElement);
-      this.getPage(pageId,label);
+      this.getPageHome(pageId,label);
       this.newGrid.ImageList.push({
         ID: label,
         OriginalName: label,
@@ -230,6 +237,12 @@ export class Spb2augComponent implements OnInit {
         });
     }
     this.newGrid.PageList.push(this.page);
+    while(buttonPage.step()){
+      const elementReferenceOfChild = Number(buttonPage.getAsObject().ElementReferenceIdOfChild);
+      const labelFolder = String(buttonPage.getAsObject().Label);
+      const index = this.newGrid.PageList.findIndex(page => page.Name === labelFolder );
+      this.newGrid.PageList[index].ElementIDsList.push(this.newGrid.ElementList[elementReferenceOfChild - 2].ID);
+    }
   }
   getPolice(name){
     const po = this.db.prepare('SELECT * FROM \'' + name + '\'');
@@ -237,18 +250,9 @@ export class Spb2augComponent implements OnInit {
     const police = po.getAsObject().FontFamily;
     this.configuration.DEFAULT_STYLE_FONTFAMILY_VALUE = String(police);
   }
-  getPage(pageId: any, label: string){
+  getPageHome(pageId: any, label: string){
     if (pageId === this.pageHome) {
       this.page.ElementIDsList.push(label);
-    }
-    else{
-      this.newGrid.PageList.push(this.page);
-      this.page = new Page();
-      this.page.Name = this.newPage.Name;
-      this.page.ID = this.newPage.ID;
-      this.page.ElementIDsList = [];
-      this.page.ElementIDsList.push(label);
-      this.pageHome = pageId;
     }
   }
   getImage(){
