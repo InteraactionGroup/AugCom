@@ -44,7 +44,6 @@ export class Spb2augComponent implements OnInit {
     this.page.ElementIDsList = [];
     this.pageHome = 4;
   }
-
   convert(file){
     this.newGrid.ID = 'newGrid';
     this.newGrid.GapSize = 5;
@@ -55,7 +54,6 @@ export class Spb2augComponent implements OnInit {
     };
     fileReader.readAsArrayBuffer(myFile);
   }
-
   loadDB(arrayBuffer) {
     // initSqlJs is in the library sql.js, use npm install @types/sql.js
     initSqlJs().then(SQL => {
@@ -107,8 +105,6 @@ export class Spb2augComponent implements OnInit {
       return -1;
     }
   }
-
-
   getTableColumnTypes(tableName) {
     const result = [];
     const sel = this.db.prepare('PRAGMA table_info(\'' + tableName + '\')');
@@ -119,27 +115,6 @@ export class Spb2augComponent implements OnInit {
     }
     return result;
   }
-
-  getGridDimension(name) {
-    const cel = this.db.prepare('SELECT GridPosition,GridSpan FROM ' + name + ' ORDER BY ElementReferenceId ASC');
-    while (cel.step()) {
-      const result = cel.getAsObject().GridPosition;
-      const gridSpan = cel.getAsObject().GridSpan;
-      const tabPos = result.split(',');
-      const tabSpan = gridSpan.split(',');
-      const currentElementCol = Number(tabPos[0])+Number(tabSpan[0]);
-      const currentElementRow = Number(tabPos[1])+Number(tabSpan[1]);
-      if(this.NumberOfCols < currentElementCol){
-        this.NumberOfCols = currentElementCol;
-      }
-      if(this.NumberOfRows < currentElementRow){
-        this.NumberOfRows = currentElementRow;
-      }
-    }
-    this.newGrid.NumberOfCols = this.NumberOfCols;
-    this.newGrid.NumberOfRows = this.NumberOfRows;
-  }
-  // name =  table des buttons
   getElement(name){
     const cel = this.db.prepare('SELECT * FROM \'' + name + '\'');
     const elReference = this.db.prepare('SELECT * FROM ElementReference');
@@ -205,8 +180,8 @@ export class Spb2augComponent implements OnInit {
         this.newPage.ElementIDsList = [];
         this.newGrid.PageList.push(this.newPage);
       }
-      else{
-        this.gridElement = new GridElement(label, 'button', '', 'rgb('+r+','+g+','+b+')', 'rgb('+rb+','+gb+','+bb+')'
+      else {
+        this.gridElement = new GridElement(label, 'button', '', 'rgb(' + r + ',' + g + ',' + b + ')', 'rgb(' + rb + ',' + gb + ',' + bb + ')'
           , 1,
           [
             {
@@ -215,15 +190,8 @@ export class Spb2augComponent implements OnInit {
               LexicInfos: [{default: true}],
               ImageID: label,
             }
-          ], [{ID: 'click', ActionList: [{ID: 'display', Options: []},{ID: 'say', Options: []}]}])
+          ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
       }
-      /*
-      console.log('buttonId : ' + buttonId);
-      if(buttonId === ElementReference - 1){
-        this.page.ElementIDsList.push(label);
-        buttonPage.step();
-      }
-      */
       this.gridElement.x = Number(tabResPos[0]);
       this.gridElement.y = Number(tabResPos[1]);
       this.gridElement.rows = Number(tabResSpan[1]);
@@ -237,12 +205,51 @@ export class Spb2augComponent implements OnInit {
         });
     }
     this.newGrid.PageList.push(this.page);
-    while(buttonPage.step()){
+    this.getMainPageDimension();
+    this.getPageFolderButtons(buttonPage);
+  }
+  getPageFolderButtons(buttonPage: any){
+    while(buttonPage.step()) {
       const elementReferenceOfChild = Number(buttonPage.getAsObject().ElementReferenceIdOfChild);
       const labelFolder = String(buttonPage.getAsObject().Label);
-      const index = this.newGrid.PageList.findIndex(page => page.Name === labelFolder );
+      const index = this.newGrid.PageList.findIndex(page => page.Name === labelFolder);
       this.newGrid.PageList[index].ElementIDsList.push(this.newGrid.ElementList[elementReferenceOfChild - 2].ID);
+      const pageId = Number(buttonPage.getAsObject().Id);
+      const pageLayout = this.db.prepare('SELECT * FROM PageLayout WHERE PageId = ' + pageId);
+      pageLayout.step();
+      const pageLayoutSetting = pageLayout.getAsObject().PageLayoutSetting;
+      const tabLayoutSetting = pageLayoutSetting.split(',');
+      this.newGrid.PageList[index].NumberOfRows = Number(tabLayoutSetting[0]);
+      this.newGrid.PageList[index].NumberOfCols = Number(tabLayoutSetting[1]);
     }
+  }
+  getGridDimension(name) {
+    const cel = this.db.prepare('SELECT GridPosition,GridSpan FROM ' + name + ' ORDER BY ElementReferenceId ASC');
+    while (cel.step()) {
+      const result = cel.getAsObject().GridPosition;
+      const gridSpan = cel.getAsObject().GridSpan;
+      const tabPos = result.split(',');
+      const tabSpan = gridSpan.split(',');
+      const currentElementCol = Number(tabPos[0])+Number(tabSpan[0]);
+      const currentElementRow = Number(tabPos[1])+Number(tabSpan[1]);
+      if(this.NumberOfCols < currentElementCol){
+        this.NumberOfCols = currentElementCol;
+      }
+      if(this.NumberOfRows < currentElementRow){
+        this.NumberOfRows = currentElementRow;
+      }
+    }
+    this.newGrid.NumberOfCols = this.NumberOfCols;
+    this.newGrid.NumberOfRows = this.NumberOfRows;
+  }
+  getMainPageDimension(){
+    const pageLayout = this.db.prepare('SELECT * FROM PageLayout WHERE PageId = 4');
+    pageLayout.step();
+    const pageLayoutSetting = pageLayout.getAsObject().PageLayoutSetting;
+    const tabLayoutSetting = pageLayoutSetting.split(',');
+    const length = this.newGrid.PageList.length;
+    this.newGrid.PageList[length-1].NumberOfRows = Number(tabLayoutSetting[0]);
+    this.newGrid.PageList[length-1].NumberOfCols = Number(tabLayoutSetting[1]);
   }
   getPolice(name){
     const po = this.db.prepare('SELECT * FROM \'' + name + '\'');
