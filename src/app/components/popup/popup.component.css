@@ -5,7 +5,7 @@
   left: 25%;
   height: 50%;
   width: 50%;
-  border: 5px solid tan;
+  border: 5px solid #9d1e40;
   background-color: wheat;
   display: grid;
   grid-template-rows: 2fr 1fr;
