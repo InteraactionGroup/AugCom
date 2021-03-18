@@ -207,6 +207,7 @@ export class Spb2augComponent implements OnInit {
     this.newGrid.PageList.push(this.page);
     this.getMainPageDimension();
     this.getPageFolderButtons(buttonPage);
+    this.nextPage();
   }
   getPageFolderButtons(buttonPage: any){
     while(buttonPage.step()) {
@@ -261,6 +262,51 @@ export class Spb2augComponent implements OnInit {
     if (pageId === this.pageHome) {
       this.page.ElementIDsList.push(label);
     }
+  }
+  nextPage(){
+    // faire varier le numeroPage par la suite
+    const numeroPage = 0;
+    let nextPages: Page = new Page();
+    nextPages.ElementIDsList = [];
+    this.newGrid.PageList.forEach(page => {
+      if(page.ElementIDsList.length > page.NumberOfRows*page.NumberOfCols){
+        nextPages.Name = page.Name + numeroPage;
+        nextPages.ID = page.Name + numeroPage;
+        nextPages.NumberOfCols = page.NumberOfCols;
+        nextPages.NumberOfRows = page.NumberOfRows;
+        page.ElementIDsList.forEach(element => {
+          // + 2 car il faut 1 pour donner une place au bouton descendre et 1 parce qu'il commence à 0
+          if(page.ElementIDsList.indexOf(element) + 2 > page.NumberOfRows*page.NumberOfCols){
+            nextPages.ElementIDsList.push(page.ElementIDsList[page.ElementIDsList.indexOf(element)]);
+            page.ElementIDsList = page.ElementIDsList.filter(elementValue =>
+              elementValue !== page.ElementIDsList[page.ElementIDsList.indexOf(element)]
+            );
+          }
+        });
+        // bouton pour descendre
+        this.gridElement = new GridElement('goDown', {GoTo : nextPages.Name}, '', '', ''
+          , 1,
+          [
+            {
+              DisplayedText: '',
+              VoiceText: '',
+              LexicInfos: [{default: true}],
+              ImageID: '',
+            }
+          ], [{ID: 'click', ActionList: [{ID: 'display', Options: []},{ID: 'say', Options: []}]}])
+        this.gridElement.cols = 1;
+        this.gridElement.rows = 1;
+        this.gridElement.x = this.newGrid.NumberOfRows - 1;
+        this.gridElement.y = this.newGrid.NumberOfCols - 1;
+        this.newGrid.ElementList.push(this.gridElement);
+        page.ElementIDsList.push(this.gridElement.ID);
+        this.newGrid.PageList.push(nextPages);
+        nextPages = new Page();
+        nextPages.ElementIDsList = [];
+        nextPages.NumberOfCols = page.NumberOfCols;
+        nextPages.NumberOfRows = page.NumberOfRows;
+      }
+    });
   }
   getImage(){
     const im = this.db.prepare('SELECT * FROM PageSetData');
