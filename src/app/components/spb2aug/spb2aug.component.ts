@@ -179,7 +179,7 @@ export class Spb2augComponent implements OnInit {
         this.newPage.ID = label;
         this.newPage.Name = label;
         this.newPage.ElementIDsList = [];
-        this.newGrid.PageList.push(this.newPage);
+        this.newGrid.PageList.unshift(this.newPage);
       }
       else {
         this.gridElement = new GridElement(label, 'button', '', 'rgb(' + r + ',' + g + ',' + b + ')', 'rgb(' + rb + ',' + gb + ',' + bb + ')'
@@ -214,14 +214,19 @@ export class Spb2augComponent implements OnInit {
       const elementReferenceOfChild = Number(buttonPage.getAsObject().ElementReferenceIdOfChild);
       const labelFolder = String(buttonPage.getAsObject().Label);
       const index = this.newGrid.PageList.findIndex(page => page.Name === labelFolder);
-      this.newGrid.PageList[index].ElementIDsList.push(this.newGrid.ElementList[elementReferenceOfChild - 2].ID);
       const pageId = Number(buttonPage.getAsObject().Id);
       const pageLayout = this.db.prepare('SELECT * FROM PageLayout WHERE PageId = ' + pageId);
       pageLayout.step();
       const pageLayoutSetting = pageLayout.getAsObject().PageLayoutSetting;
+      const childPositions =  buttonPage.getAsObject().ChildPosition;
+      const childPositionsXY = childPositions.split(',');
       const tabLayoutSetting = pageLayoutSetting.split(',');
       this.newGrid.PageList[index].NumberOfRows = Number(tabLayoutSetting[0]);
       this.newGrid.PageList[index].NumberOfCols = Number(tabLayoutSetting[1]);
+      // on ajoute tout les boutons aux différentes pages des boutons (uniquement leur première page)
+      if(Number(childPositionsXY[1]) < this.newGrid.PageList[index].NumberOfRows) {
+        this.newGrid.PageList[index].ElementIDsList.push(this.newGrid.ElementList[elementReferenceOfChild - 2].ID);
+      }
     }
   }
   getGridDimension(name) {
@@ -278,14 +283,16 @@ export class Spb2augComponent implements OnInit {
         const buttonPosition = gridPosition.split(',');
         const buttonRow = Number(buttonPosition[1]);
         // numberNewPage permet de connaitre le nombre de page à créer -1 puisque l'on créer déjà la première page en dehors
+        console.log('this.newGrid.PageList[pageid - 4] : ', this.newGrid.PageList[pageid - 4].Name)
+        console.log('buttonRow : ', buttonRow)
+        console.log('this.newGrid.PageList[pageid - 4].NumberOfRows) - 1 :', this.newGrid.PageList[pageid - 4].NumberOfRows - 1)
         const numberNewPage = Math.ceil(buttonRow / this.newGrid.PageList[pageid - 4].NumberOfRows) - 1;
-        console.log('numberNewPage :', numberNewPage);
+        console.log('resultat numberNewPage : ', numberNewPage);
         // condition pour les pages initiales
-        if (numberNewPage > 0) {
+        if(numberNewPage > 0) {
           // this.newGrid.PageList[pageid - 4].NumberOfCols = this.newGrid.PageList[pageid - 4].NumberOfCols + 1;
           // création du bouton pour descendre dans la page d'origine quand il y a plusieurs pages
-          console.log('index de newgrid.PageList', pageid - 4)
-          this.gridElement = new GridElement('goDown' + this.newGrid.PageList[pageid - 4].ID, {GoTo: this.newGrid.PageList[pageid - 4].ID + numeroPage}, '', '', ''
+          this.gridElement = new GridElement('goDown' + this.newGrid.PageList[pageid - 4].ID + numeroPage, {GoTo: this.newGrid.PageList[pageid - 4].ID + numeroPage}, '', '', ''
             , 1,
             [
               {
@@ -314,7 +321,7 @@ export class Spb2augComponent implements OnInit {
             // bouton goto à vérifier par la suite
             // numberNewPage - 1 !== i car on ne veut pas de bouton dans la dernière page
             if (numberNewPage - 1 !== i) {
-              this.gridElement = new GridElement('goDown ' + this.newGrid.PageList[pageid - 4].ID + (numeroPage + 2), {GoTo: this.newGrid.PageList[pageid - 4].ID + (numeroPage + 2)}, '', '', ''
+              this.gridElement = new GridElement('goDown ' + this.newGrid.PageList[pageid - 4].ID + (numeroPage + 1), {GoTo: this.newGrid.PageList[pageid - 4].ID + (numeroPage + 1)}, '', '', ''
                 , 1,
                 [
                   {
@@ -332,10 +339,10 @@ export class Spb2augComponent implements OnInit {
               nextPages.ElementIDsList.push(this.gridElement.ID);
             }
             this.newGrid.PageList.push(nextPages);
-            pageid = pageId;
             numeroPage = numeroPage + 1;
           }
         }
+        pageid = pageId;
         numeroPage = 1;
       }
       gridPosition = gridPositionAndPageId.getAsObject().GridPosition;
