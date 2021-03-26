@@ -125,6 +125,7 @@ export class Spb2augComponent implements OnInit {
     elReference.step();
     buttonsFolder.step();
     elPlacement.step();
+    this.getMainPageDimension();
     // cel.step itère sur les ligne une à une
     while (cel.step()){
       elPlacement.step();
@@ -197,15 +198,14 @@ export class Spb2augComponent implements OnInit {
       this.gridElement.rows = Number(tabResSpan[1]);
       this.gridElement.cols = Number(tabResSpan[0]);
       this.newGrid.ElementList.push(this.gridElement);
-      this.getPageHome(pageId,label);
+      this.getPageHome(pageId,this.gridElement);
       this.newGrid.ImageList.push({
         ID: label,
         OriginalName: label,
         Path: '',
         });
     }
-    this.newGrid.PageList.push(this.page);
-    this.getMainPageDimension();
+    this.newGrid.PageList.unshift(this.page);
     this.getPageFolderButtons(buttonPage);
     this.nextPage();
   }
@@ -248,9 +248,8 @@ export class Spb2augComponent implements OnInit {
     pageLayout.step();
     const pageLayoutSetting = pageLayout.getAsObject().PageLayoutSetting;
     const tabLayoutSetting = pageLayoutSetting.split(',');
-    const length = this.newGrid.PageList.length;
-    this.newGrid.PageList[length-1].NumberOfRows = Number(tabLayoutSetting[0]);
-    this.newGrid.PageList[length-1].NumberOfCols = Number(tabLayoutSetting[1]);
+    this.page.NumberOfRows = Number(tabLayoutSetting[0]);
+    this.page.NumberOfCols = Number(tabLayoutSetting[1]);
   }
   getPolice(name){
     const po = this.db.prepare('SELECT * FROM \'' + name + '\'');
@@ -258,55 +257,143 @@ export class Spb2augComponent implements OnInit {
     const police = po.getAsObject().FontFamily;
     this.configuration.DEFAULT_STYLE_FONTFAMILY_VALUE = String(police);
   }
-  getPageHome(pageId: any, label: string){
-    if (pageId === this.pageHome) {
-      this.page.ElementIDsList.push(label);
+  getPageHome(pageId: any, gridElement: GridElement){
+    // -1 à cause des tableaux de l'enfer qui commencent à 0
+    if (pageId === this.pageHome && gridElement.y <= this.page.NumberOfRows - 1) {
+      this.page.ElementIDsList.push(gridElement.ID);
     }
   }
   nextPage(){
-    // faire varier le numeroPage par la suite
-    const numeroPage = 0;
     let nextPages: Page = new Page();
     nextPages.ElementIDsList = [];
-    this.newGrid.PageList.forEach(page => {
-      if(page.ElementIDsList.length > page.NumberOfRows*page.NumberOfCols){
-        nextPages.Name = page.Name + numeroPage;
-        nextPages.ID = page.Name + numeroPage;
-        nextPages.NumberOfCols = page.NumberOfCols;
-        nextPages.NumberOfRows = page.NumberOfRows;
-        page.ElementIDsList.forEach(element => {
-          // + 2 car il faut 1 pour donner une place au bouton descendre et 1 parce qu'il commence à 0
-          if(page.ElementIDsList.indexOf(element) + 2 > page.NumberOfRows*page.NumberOfCols){
-            nextPages.ElementIDsList.push(page.ElementIDsList[page.ElementIDsList.indexOf(element)]);
-            page.ElementIDsList = page.ElementIDsList.filter(elementValue =>
-              elementValue !== page.ElementIDsList[page.ElementIDsList.indexOf(element)]
-            );
-          }
-        });
-        // bouton pour descendre
-        this.gridElement = new GridElement('goDown', {GoTo : nextPages.Name}, '', '', ''
-          , 1,
-          [
-            {
-              DisplayedText: '',
-              VoiceText: '',
-              LexicInfos: [{default: true}],
-              ImageID: '',
+    let numeroPage = 1;
+
+    const gridPositionAndPageId = this.db.prepare('SELECT * FROM \'ElementReference\' INNER JOIN \'ElementPlacement\' ON ElementReference.Id = ElementPlacement.ElementReferenceId ORDER BY ID');
+    let pageid = 4;
+    gridPositionAndPageId.step();
+    let gridPosition = gridPositionAndPageId.getAsObject().GridPosition;
+    while(gridPositionAndPageId.step()) {
+      const pageId = gridPositionAndPageId.getAsObject().PageId;
+      if (pageid !== pageId) {
+        const buttonPosition = gridPosition.split(',');
+        const buttonRow = Number(buttonPosition[1]);
+        // numberNewPage permet de connaitre le nombre de page à créer -1 puisque l'on créer déjà la première page en dehors
+        const numberNewPage = Math.ceil(buttonRow / this.newGrid.PageList[pageid - 4].NumberOfRows) - 1;
+        console.log('numberNewPage :', numberNewPage);
+        // condition pour les pages initiales
+        if (numberNewPage > 0) {
+          // this.newGrid.PageList[pageid - 4].NumberOfCols = this.newGrid.PageList[pageid - 4].NumberOfCols + 1;
+          // création du bouton pour descendre dans la page d'origine quand il y a plusieurs pages
+          console.log('index de newgrid.PageList', pageid - 4)
+          this.gridElement = new GridElement('goDown' + this.newGrid.PageList[pageid - 4].ID, {GoTo: this.newGrid.PageList[pageid - 4].ID + numeroPage}, '', '', ''
+            , 1,
+            [
+              {
+                DisplayedText: 'go Down',
+                VoiceText: '',
+                LexicInfos: [{default: true}],
+                ImageID: '',
+              }
+            ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
+          this.gridElement.cols = 1;
+          this.gridElement.rows = 1;
+          this.gridElement.x = this.page.NumberOfRows - 1;
+          this.gridElement.y = this.page.NumberOfCols - 1;
+          this.newGrid.ElementList.push(this.gridElement);
+          this.newGrid.PageList[pageid - 4].ElementIDsList.push(this.gridElement.ID);
+
+          // conditions pour les pages de page
+          for (let i = 0; i < numberNewPage; i++) {
+            nextPages = new Page();
+            nextPages.ID = this.newGrid.PageList[pageid - 4].ID + numeroPage;
+            nextPages.Name = this.newGrid.PageList[pageid - 4].Name + numeroPage;
+            nextPages.ElementIDsList = [];
+            nextPages.NumberOfRows = this.newGrid.PageList[pageid - 4].NumberOfRows;
+            nextPages.NumberOfCols = this.newGrid.PageList[pageid - 4].NumberOfCols;
+
+            // bouton goto à vérifier par la suite
+            // numberNewPage - 1 !== i car on ne veut pas de bouton dans la dernière page
+            if (numberNewPage - 1 !== i) {
+              this.gridElement = new GridElement('goDown ' + this.newGrid.PageList[pageid - 4].ID + (numeroPage + 2), {GoTo: this.newGrid.PageList[pageid - 4].ID + (numeroPage + 2)}, '', '', ''
+                , 1,
+                [
+                  {
+                    DisplayedText: 'go Down',
+                    VoiceText: '',
+                    LexicInfos: [{default: true}],
+                    ImageID: '',
+                  }
+                ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
+              this.gridElement.cols = 1;
+              this.gridElement.rows = 1;
+              this.gridElement.x = nextPages.NumberOfRows - 1;
+              this.gridElement.y = nextPages.NumberOfCols - 1;
+              this.newGrid.ElementList.push(this.gridElement);
+              nextPages.ElementIDsList.push(this.gridElement.ID);
             }
-          ], [{ID: 'click', ActionList: [{ID: 'display', Options: []},{ID: 'say', Options: []}]}])
-        this.gridElement.cols = 1;
-        this.gridElement.rows = 1;
-        this.gridElement.x = this.newGrid.NumberOfRows - 1;
-        this.gridElement.y = this.newGrid.NumberOfCols - 1;
-        this.newGrid.ElementList.push(this.gridElement);
-        page.ElementIDsList.push(this.gridElement.ID);
-        this.newGrid.PageList.push(nextPages);
-        nextPages = new Page();
-        nextPages.ElementIDsList = [];
-        nextPages.NumberOfCols = page.NumberOfCols;
-        nextPages.NumberOfRows = page.NumberOfRows;
+            this.newGrid.PageList.push(nextPages);
+            pageid = pageId;
+            numeroPage = numeroPage + 1;
+          }
+        }
+        numeroPage = 1;
       }
-    });
+      gridPosition = gridPositionAndPageId.getAsObject().GridPosition;
+    }
+
+/*
+    // cas où les boutons font tous une taille de 1 par 1
+    while (this.newGrid.PageList.length !== numberOfPages) {
+      numberOfPages = this.newGrid.PageList.length;
+      this.newGrid.PageList.forEach(page => {
+        if (page.ElementIDsList.length > page.NumberOfRows * page.NumberOfCols) {
+          nextPages.Name = page.Name + numeroPage;
+          nextPages.ID = page.Name + numeroPage;
+          nextPages.NumberOfCols = page.NumberOfCols;
+          nextPages.NumberOfRows = page.NumberOfRows;
+          page.ElementIDsList.forEach(element => {
+            // + 2 car il faut 1 pour donner une place au bouton descendre et 1 parce qu'il commence à 0
+            if (page.ElementIDsList.indexOf(element) + 2 > page.NumberOfRows * page.NumberOfCols) {
+              nextPages.ElementIDsList.push(page.ElementIDsList[page.ElementIDsList.indexOf(element)]);
+              page.ElementIDsList = page.ElementIDsList.filter(elementValue =>
+                elementValue !== page.ElementIDsList[page.ElementIDsList.indexOf(element)]
+              );
+            }
+          });
+          this.createButtonDown(nextPages);
+          this.newGrid.ElementList.push(this.gridElement);
+          page.ElementIDsList.push(this.gridElement.ID);
+          this.newGrid.PageList.push(nextPages);
+          this.InitnextPage(page, nextPages);
+          numeroPage = numeroPage + 1;
+        }
+        numeroPage = 1;
+      });
+    }
+ */
+  }
+
+  InitnextPage(page ,nextPages){
+    nextPages = new Page();
+    nextPages.ElementIDsList = [];
+    nextPages.NumberOfCols = page.NumberOfCols;
+    nextPages.NumberOfRows = page.NumberOfRows;
+  }
+  createButtonDown(nextPages){
+    this.gridElement = new GridElement('goDown', {GoTo : nextPages.Name}, '', '', ''
+      , 1,
+      [
+        {
+          DisplayedText: 'go Down',
+          VoiceText: '',
+          LexicInfos: [{default: true}],
+          ImageID: '',
+        }
+      ], [{ID: 'click', ActionList: [{ID: 'display', Options: []},{ID: 'say', Options: []}]}])
+    this.gridElement.cols = 1;
+    this.gridElement.rows = 1;
+    this.gridElement.x = this.newGrid.NumberOfRows - 1;
+    this.gridElement.y = this.newGrid.NumberOfCols - 1;
   }
   getImage(){
     const im = this.db.prepare('SELECT * FROM PageSetData');
