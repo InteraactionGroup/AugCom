@@ -283,11 +283,7 @@ export class Spb2augComponent implements OnInit {
         const buttonPosition = gridPosition.split(',');
         const buttonRow = Number(buttonPosition[1]);
         // numberNewPage permet de connaitre le nombre de page à créer -1 puisque l'on créer déjà la première page en dehors
-        console.log('this.newGrid.PageList[pageid - 4] : ', this.newGrid.PageList[pageid - 4].Name)
-        console.log('buttonRow : ', buttonRow)
-        console.log('this.newGrid.PageList[pageid - 4].NumberOfRows) - 1 :', this.newGrid.PageList[pageid - 4].NumberOfRows - 1)
         const numberNewPage = Math.ceil(buttonRow / this.newGrid.PageList[pageid - 4].NumberOfRows) - 1;
-        console.log('resultat numberNewPage : ', numberNewPage);
         // condition pour les pages initiales
         if(numberNewPage > 0) {
           // this.newGrid.PageList[pageid - 4].NumberOfCols = this.newGrid.PageList[pageid - 4].NumberOfCols + 1;
@@ -318,8 +314,7 @@ export class Spb2augComponent implements OnInit {
             nextPages.NumberOfRows = this.newGrid.PageList[pageid - 4].NumberOfRows;
             nextPages.NumberOfCols = this.newGrid.PageList[pageid - 4].NumberOfCols;
 
-            // bouton goto à vérifier par la suite
-            // numberNewPage - 1 !== i car on ne veut pas de bouton dans la dernière page
+            // numberNewPage - 1 !== i car on ne veut pas de bouton descendre dans la dernière page
             if (numberNewPage - 1 !== i) {
               this.gridElement = new GridElement('goDown ' + this.newGrid.PageList[pageid - 4].ID + (numeroPage + 1), {GoTo: this.newGrid.PageList[pageid - 4].ID + (numeroPage + 1)}, '', '', ''
                 , 1,
@@ -338,6 +333,7 @@ export class Spb2augComponent implements OnInit {
               this.newGrid.ElementList.push(this.gridElement);
               nextPages.ElementIDsList.push(this.gridElement.ID);
             }
+            this.buttonsNewPages(nextPages, i, pageid);
             this.newGrid.PageList.push(nextPages);
             numeroPage = numeroPage + 1;
           }
@@ -347,46 +343,43 @@ export class Spb2augComponent implements OnInit {
       }
       gridPosition = gridPositionAndPageId.getAsObject().GridPosition;
     }
-
-/*
-    // cas où les boutons font tous une taille de 1 par 1
-    while (this.newGrid.PageList.length !== numberOfPages) {
-      numberOfPages = this.newGrid.PageList.length;
-      this.newGrid.PageList.forEach(page => {
-        if (page.ElementIDsList.length > page.NumberOfRows * page.NumberOfCols) {
-          nextPages.Name = page.Name + numeroPage;
-          nextPages.ID = page.Name + numeroPage;
-          nextPages.NumberOfCols = page.NumberOfCols;
-          nextPages.NumberOfRows = page.NumberOfRows;
-          page.ElementIDsList.forEach(element => {
-            // + 2 car il faut 1 pour donner une place au bouton descendre et 1 parce qu'il commence à 0
-            if (page.ElementIDsList.indexOf(element) + 2 > page.NumberOfRows * page.NumberOfCols) {
-              nextPages.ElementIDsList.push(page.ElementIDsList[page.ElementIDsList.indexOf(element)]);
-              page.ElementIDsList = page.ElementIDsList.filter(elementValue =>
-                elementValue !== page.ElementIDsList[page.ElementIDsList.indexOf(element)]
-              );
-            }
-          });
-          this.createButtonDown(nextPages);
-          this.newGrid.ElementList.push(this.gridElement);
-          page.ElementIDsList.push(this.gridElement.ID);
-          this.newGrid.PageList.push(nextPages);
-          this.InitnextPage(page, nextPages);
-          numeroPage = numeroPage + 1;
-        }
-        numeroPage = 1;
-      });
-    }
- */
   }
-
-  InitnextPage(page ,nextPages){
+  buttonsNewPages(nextPages: Page, indicePage: number, pageid: number){
+    const buttonAllInfomations = this.db.prepare('SELECT * FROM ((\'ElementReference\' INNER JOIN \'ElementPlacement\' ON ElementReference.Id = ElementPlacement.ElementReferenceId) INNER JOIN \'Button\' ON ElementReference.Id = Button.ElementReferenceId) ORDER BY ID');
+    while (buttonAllInfomations.step()) {
+      const label = buttonAllInfomations.getAsObject().Label;
+      const pos = buttonAllInfomations.getAsObject().GridPosition;
+      const tabResPos = pos.split(',');
+      const span = buttonAllInfomations.getAsObject().GridSpan;
+      const tabResSpan = span.split(',');
+      const buttonPageId = Number(buttonAllInfomations.getAsObject().PageId);
+      this.gridElement = new GridElement(label, 'button', '', '', ''
+        , 1,
+        [
+          {
+            DisplayedText: label,
+            VoiceText: label,
+            LexicInfos: [{default: true}],
+            ImageID: label,
+          }
+        ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
+      this.gridElement.x = Number(tabResPos[0]);
+      this.gridElement.y = Number(tabResPos[1]);
+      this.gridElement.rows = Number(tabResSpan[1]);
+      this.gridElement.cols = Number(tabResSpan[0]);
+      // l'indice commence à 0 donc +1
+      if(this.gridElement.y >= nextPages.NumberOfRows * (indicePage + 1) && this.gridElement.y < nextPages.NumberOfRows * (indicePage + 2) && pageid === buttonPageId){
+        nextPages.ElementIDsList.push(this.gridElement.ID);
+      }
+    }
+  }
+  InitnextPage(page: Page ,nextPages: Page){
     nextPages = new Page();
     nextPages.ElementIDsList = [];
     nextPages.NumberOfCols = page.NumberOfCols;
     nextPages.NumberOfRows = page.NumberOfRows;
   }
-  createButtonDown(nextPages){
+  createButtonDown(nextPages: Page){
     this.gridElement = new GridElement('goDown', {GoTo : nextPages.Name}, '', '', ''
       , 1,
       [
