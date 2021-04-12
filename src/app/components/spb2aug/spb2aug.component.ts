@@ -205,6 +205,7 @@ export class Spb2augComponent implements OnInit {
         Path: '',
         });
     }
+    this.addColIfNeeded();
     this.newGrid.PageList.unshift(this.page);
     this.getPageFolderButtons(buttonPage);
     this.nextPage();
@@ -272,6 +273,7 @@ export class Spb2augComponent implements OnInit {
     let nextPages: Page = new Page();
     nextPages.ElementIDsList = [];
     let numeroPage = 1;
+    let lastElementPageId: number;
 
     const gridPositionAndPageId = this.db.prepare('SELECT * FROM \'ElementPlacement\' INNER JOIN \'ElementReference\' ON ElementReference.Id = ElementPlacement.ElementReferenceId ORDER BY Id');
     let pageid = 4;
@@ -303,8 +305,9 @@ export class Spb2augComponent implements OnInit {
             ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
           this.gridElement.cols = 1;
           this.gridElement.rows = 1;
-          this.gridElement.x = this.page.NumberOfRows - 1;
-          this.gridElement.y = this.page.NumberOfCols - 1;
+          this.gridElement.y = this.page.NumberOfRows - 1;
+          this.gridElement.x = this.page.NumberOfCols - 1;
+
           this.newGrid.ElementList.push(this.gridElement);
           this.newGrid.PageList[pageid - 4].ElementIDsList.push(this.gridElement.ID);
 
@@ -335,8 +338,8 @@ export class Spb2augComponent implements OnInit {
                 ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
               this.gridElement.cols = 1;
               this.gridElement.rows = 1;
-              this.gridElement.x = nextPages.NumberOfRows - 1;
-              this.gridElement.y = nextPages.NumberOfCols - 1;
+              this.gridElement.y = nextPages.NumberOfRows - 1;
+              this.gridElement.x = nextPages.NumberOfCols - 1;
               this.newGrid.ElementList.push(this.gridElement);
               nextPages.ElementIDsList.push(this.gridElement.ID);
             }
@@ -347,11 +350,12 @@ export class Spb2augComponent implements OnInit {
         }
         pageid = pageId;
         numeroPage = 1;
+        lastElementPageId = pageId;
       }
       gridPosition = gridPositionAndPageId.getAsObject().GridPosition;
     }
     // Traitement pour le dernier cas de la boucle while
-    if(pageid !== 4){
+    if(pageid !== 4 && pageid !== lastElementPageId){
       // on donne l'indice de la dernière page en rajoutant ce + 1 mais ne fonctionne qu'avec plusieurs page
       pageid = pageid + 1;
     }
@@ -377,8 +381,8 @@ export class Spb2augComponent implements OnInit {
         ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
       this.gridElement.cols = 1;
       this.gridElement.rows = 1;
-      this.gridElement.x = this.page.NumberOfRows - 1;
-      this.gridElement.y = this.page.NumberOfCols - 1;
+      this.gridElement.y = this.page.NumberOfRows - 1;
+      this.gridElement.x = this.page.NumberOfCols - 1;
       this.newGrid.ElementList.push(this.gridElement);
       this.newGrid.PageList[pageid - 4].ElementIDsList.push(this.gridElement.ID);
 
@@ -409,8 +413,8 @@ export class Spb2augComponent implements OnInit {
             ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
           this.gridElement.cols = 1;
           this.gridElement.rows = 1;
-          this.gridElement.x = nextPages.NumberOfRows - 1;
-          this.gridElement.y = nextPages.NumberOfCols - 1;
+          this.gridElement.y = nextPages.NumberOfRows - 1;
+          this.gridElement.x = nextPages.NumberOfCols - 1;
           this.newGrid.ElementList.push(this.gridElement);
           nextPages.ElementIDsList.push(this.gridElement.ID);
         }
@@ -474,6 +478,17 @@ export class Spb2augComponent implements OnInit {
     this.gridElement.rows = 1;
     this.gridElement.x = this.newGrid.NumberOfRows - 1;
     this.gridElement.y = this.newGrid.NumberOfCols - 1;
+  }
+  addColIfNeeded(){
+    let resultat = false;
+    this.newGrid.ElementList.forEach(element => {
+      if(element.y + element.rows === this.page.NumberOfRows && element.x + element.cols === this.page.NumberOfCols && this.page.ElementIDsList.indexOf(element.ID) > -1){
+        if(resultat === false) {
+          this.page.NumberOfCols = this.page.NumberOfCols + 1;
+          resultat = true;
+        }
+      }
+    });
   }
   getImage(){
     const im = this.db.prepare('SELECT * FROM PageSetData');
