@@ -164,8 +164,12 @@ export class Spb2augComponent implements OnInit {
 
       // check if the button is a folder button to bind him
       if(buttonId === buttonFolder && label !== null){
-        this.gridElement = new GridElement(label, {GoTo : label}, '', 'rgb('+r+','+g+','+b+')', 'rgb('+rb+','+gb+','+bb+')'
-          , 1,
+        this.gridElement = new GridElement(label,
+          {GoTo : label},
+          '',
+          'rgb('+r+','+g+','+b+')',
+          'rgb('+rb+','+gb+','+bb+')',
+          1,
           [
             {
               DisplayedText: label,
