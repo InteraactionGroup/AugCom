@@ -77,6 +77,7 @@ export class Spb2augComponent implements OnInit {
         }
 
         if (name === 'Button'){
+          this.getGridDimension();
           this.getElement(name);
         }
         if (name === 'ElementPlacement'){
@@ -84,7 +85,6 @@ export class Spb2augComponent implements OnInit {
           this.NumberOfRows = 0;
           if (name != null) {
             columnTypes = this.getTableColumnTypes(name);
-            this.getGridDimension(name);
           }
         }
         if (name === 'PageSetProperties') {
@@ -263,24 +263,14 @@ export class Spb2augComponent implements OnInit {
       }
     }
   }
-  getGridDimension(name) {
-    const cel = this.db.prepare('SELECT GridPosition,GridSpan FROM ' + name + ' ORDER BY ElementReferenceId ASC');
+  getGridDimension() {
+    const cel = this.db.prepare('SELECT * FROM PageSetProperties');
     while (cel.step()) {
-      const result = cel.getAsObject().GridPosition;
-      const gridSpan = cel.getAsObject().GridSpan;
-      const tabPos = result.split(',');
-      const tabSpan = gridSpan.split(',');
-      const currentElementCol = Number(tabPos[0])+Number(tabSpan[0]);
-      const currentElementRow = Number(tabPos[1])+Number(tabSpan[1]);
-      if(this.NumberOfCols < currentElementCol){
-        this.NumberOfCols = currentElementCol;
-      }
-      if(this.NumberOfRows < currentElementRow){
-        this.NumberOfRows = currentElementRow;
-      }
+      const result = cel.getAsObject().GridDimension;
+      const gridDimension = result.split(',');
+      this.newGrid.NumberOfCols = Number(gridDimension[0]);
+      this.newGrid.NumberOfRows = Number(gridDimension[1]);
     }
-    this.newGrid.NumberOfCols = this.NumberOfCols;
-    this.newGrid.NumberOfRows = this.NumberOfRows;
   }
   getMainPageDimension(){
     const pageLayout = this.db.prepare('SELECT * FROM PageLayout WHERE PageId = 4');
