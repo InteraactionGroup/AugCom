@@ -121,7 +121,7 @@ export class Spb2augComponent implements OnInit {
     const elPlacement = this.db.prepare('SELECT * FROM \'ElementReference\' INNER JOIN \'ElementPlacement\' ON ElementReference.Id = ElementPlacement.ElementReferenceId ORDER BY ID');
     const buttonsFolder = this.db.prepare('SELECT * FROM ButtonPageLink');
     const buttonPage = this.db.prepare('SELECT ButtonId, Button.Label, Button.ElementReferenceId as ButtonElementRenceID, PageUniqueId, Page.Id, ElementPlacement.ElementReferenceId as ElementReferenceIdOfChild, ElementPlacement.GridPosition as ChildPosition, ElementPlacement.GridSpan as ChildSpan FROM \'Button\' JOIN \'ButtonPageLink\' ON Button.Id = ButtonPageLink.ButtonId JOIN \'PAGE\' ON ButtonPageLink.PageUniqueId = Page.UniqueID JOIN PageLayout ON PageId = Page.Id JOIN ElementPlacement ON PageLayoutId = PageLayout.ID ORDER BY ButtonId ASC');
-    // skip the first because we don't care about it
+    // skip the first button because we don't care about it
     elReference.step();
     buttonsFolder.step();
     elPlacement.step();
@@ -193,10 +193,10 @@ export class Spb2augComponent implements OnInit {
           1,
           [
             {
-              DisplayedText: label,
+              DisplayedText: (message) !== null ? message : label,
               VoiceText: (message) !== null ? message : label,
               LexicInfos: [{default: true}],
-              ImageID: label,
+              ImageID: (message) !== null ? message : label,
             }
           ], [{ID: 'click', ActionList: [{ID: 'display', Options: []},{ID: 'say', Options: []}]}])
         buttonsFolder.step();
@@ -218,7 +218,7 @@ export class Spb2augComponent implements OnInit {
               DisplayedText: (label) !== null ? label : message,
               VoiceText: (message) !== null ? message : label,
               LexicInfos: [{default: true}],
-              ImageID: label,
+              ImageID: (message) !== null ? message : label,
             }
           ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
       }
@@ -228,16 +228,28 @@ export class Spb2augComponent implements OnInit {
       this.gridElement.cols = Number(tabResSpan[0]);
       this.newGrid.ElementList.push(this.gridElement);
       this.getPageHome(pageId,this.gridElement);
+      const pathImage = this.getPathImageArsaacLibrary(label,message);
       this.newGrid.ImageList.push({
-        ID: label,
-        OriginalName: label,
-        Path: 'assets/libs/FR_Pictogrammes_couleur/' + label + '.png',
+        ID: (label) !== null ? label : message,
+        OriginalName: (label) !== null ? label : message,
+        Path: pathImage,
       });
     }
     this.addColIfNeeded();
     this.newGrid.PageList.unshift(this.page);
     this.getPageFolderButtons(buttonPage);
     this.nextPage();
+  }
+  getPathImageArsaacLibrary(label,message):string{
+    if (label !== null) {
+      return 'assets/libs/FR_Pictogrammes_couleur/' + label + '.png';
+    }
+    else if (message !== null){
+      return 'assets/libs/FR_Pictogrammes_couleur/' + message + '.png';
+    }
+    else{
+      return 'assets/libs/FR_Pictogrammes_couleur/direction_1.png';
+    }
   }
   getPageFolderButtons(buttonPage: any){
     while(buttonPage.step()) {
@@ -312,7 +324,6 @@ export class Spb2augComponent implements OnInit {
       }
       if (pageid !== pageId) {
         // numberNewPage permet de connaitre le nombre de page à créer -1 puisque l'on créer déjà la première page en dehors
-        console.log('RowMaxPage :', RowMaxPage)
         const numberNewPage = Math.ceil(RowMaxPage / this.newGrid.PageList[pageid - 4].NumberOfRows) - 1;
         RowMaxPage = 0;
         // condition pour les pages initiales
