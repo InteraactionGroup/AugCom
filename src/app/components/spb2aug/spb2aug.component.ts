@@ -342,10 +342,7 @@ export class Spb2augComponent implements OnInit {
                 ImageID: '',
               }
             ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
-          this.gridElement.cols = 1;
-          this.gridElement.rows = 1;
-          this.gridElement.y = this.page.NumberOfRows - 1;
-          this.gridElement.x = this.page.NumberOfCols - 1;
+          this.buttonGoDownPlacement(nextPages);
 
           this.newGrid.ElementList.push(this.gridElement);
           this.newGrid.PageList[pageid - 4].ElementIDsList.push(this.gridElement.ID);
@@ -375,10 +372,7 @@ export class Spb2augComponent implements OnInit {
                     ImageID: '',
                   }
                 ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
-              this.gridElement.cols = 1;
-              this.gridElement.rows = 1;
-              this.gridElement.y = nextPages.NumberOfRows - 1;
-              this.gridElement.x = nextPages.NumberOfCols - 1;
+              this.buttonGoDownPlacement(nextPages);
               this.newGrid.ElementList.push(this.gridElement);
               nextPages.ElementIDsList.push(this.gridElement.ID);
             }
@@ -417,10 +411,7 @@ export class Spb2augComponent implements OnInit {
               ImageID: '',
             }
           ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
-        this.gridElement.cols = 1;
-        this.gridElement.rows = 1;
-        this.gridElement.y = this.page.NumberOfRows - 1;
-        this.gridElement.x = this.page.NumberOfCols - 1;
+        this.buttonGoDownPlacement(nextPages);
         this.newGrid.ElementList.push(this.gridElement);
         this.newGrid.PageList[pageid - 6].ElementIDsList.push(this.gridElement.ID);
 
@@ -449,10 +440,7 @@ export class Spb2augComponent implements OnInit {
                   ImageID: '',
                 }
               ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
-            this.gridElement.cols = 1;
-            this.gridElement.rows = 1;
-            this.gridElement.y = nextPages.NumberOfRows - 1;
-            this.gridElement.x = nextPages.NumberOfCols - 1;
+            this.buttonGoDownPlacement(nextPages);
             this.newGrid.ElementList.push(this.gridElement);
             nextPages.ElementIDsList.push(this.gridElement.ID);
           }
@@ -483,10 +471,7 @@ export class Spb2augComponent implements OnInit {
               ImageID: '',
             }
           ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
-        this.gridElement.cols = 1;
-        this.gridElement.rows = 1;
-        this.gridElement.y = this.page.NumberOfRows - 1;
-        this.gridElement.x = this.page.NumberOfCols - 1;
+        this.buttonGoDownPlacement(nextPages);
         this.newGrid.ElementList.push(this.gridElement);
         this.newGrid.PageList[pageid - 4].ElementIDsList.push(this.gridElement.ID);
 
@@ -515,10 +500,7 @@ export class Spb2augComponent implements OnInit {
                   ImageID: '',
                 }
               ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
-            this.gridElement.cols = 1;
-            this.gridElement.rows = 1;
-            this.gridElement.y = nextPages.NumberOfRows - 1;
-            this.gridElement.x = nextPages.NumberOfCols - 1;
+            this.buttonGoDownPlacement(nextPages);
             this.newGrid.ElementList.push(this.gridElement);
             nextPages.ElementIDsList.push(this.gridElement.ID);
           }
@@ -528,6 +510,12 @@ export class Spb2augComponent implements OnInit {
         }
       }
     }
+  }
+  buttonGoDownPlacement(nextPages: Page){
+    this.gridElement.cols = 1;
+    this.gridElement.rows = 1;
+    this.gridElement.y = nextPages.NumberOfRows - 1;
+    this.gridElement.x = nextPages.NumberOfCols - 1;
   }
   buttonsNewPages(nextPages: Page, indicePage: number, pageid: number){
     const buttonAllInfomations = this.db.prepare('SELECT * FROM ((\'ElementReference\' INNER JOIN \'ElementPlacement\' ON ElementReference.Id = ElementPlacement.ElementReferenceId) INNER JOIN \'Button\' ON ElementReference.Id = Button.ElementReferenceId) ORDER BY ID');
