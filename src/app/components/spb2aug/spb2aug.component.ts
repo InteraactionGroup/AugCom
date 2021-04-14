@@ -231,7 +231,7 @@ export class Spb2augComponent implements OnInit {
       this.newGrid.ImageList.push({
         ID: label,
         OriginalName: label,
-        Path: '',
+        Path: 'assets/libs/FR_Pictogrammes_couleur/' + label + '.png',
         });
     }
     this.addColIfNeeded();
@@ -307,6 +307,7 @@ export class Spb2augComponent implements OnInit {
     nextPages.ElementIDsList = [];
     let numeroPage = 1;
     let lastElementPageId: number;
+    let RowMaxPage = 0;
 
     const gridPositionAndPageId = this.db.prepare('SELECT * FROM \'ElementPlacement\' INNER JOIN \'ElementReference\' ON ElementReference.Id = ElementPlacement.ElementReferenceId ORDER BY Id');
     let pageid = 4;
@@ -314,11 +315,16 @@ export class Spb2augComponent implements OnInit {
     let gridPosition = gridPositionAndPageId.getAsObject().GridPosition;
     while(gridPositionAndPageId.step()) {
       const pageId = gridPositionAndPageId.getAsObject().PageId;
+      const buttonPosition = gridPosition.split(',');
+      const buttonRow = Number(buttonPosition[1]);
+      if(RowMaxPage < buttonRow){
+        RowMaxPage = buttonRow;
+      }
       if (pageid !== pageId) {
-        const buttonPosition = gridPosition.split(',');
-        const buttonRow = Number(buttonPosition[1]);
         // numberNewPage permet de connaitre le nombre de page à créer -1 puisque l'on créer déjà la première page en dehors
-        const numberNewPage = Math.ceil(buttonRow / this.newGrid.PageList[pageid - 4].NumberOfRows) - 1;
+        console.log('RowMaxPage :', RowMaxPage)
+        const numberNewPage = Math.ceil(RowMaxPage / this.newGrid.PageList[pageid - 4].NumberOfRows) - 1;
+        RowMaxPage = 0;
         // condition pour les pages initiales
         if(numberNewPage > 0) {
           // création du bouton pour descendre dans la page d'origine quand il y a plusieurs pages
