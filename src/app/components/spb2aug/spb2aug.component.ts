@@ -120,7 +120,7 @@ export class Spb2augComponent implements OnInit {
     const elReference = this.db.prepare('SELECT * FROM ElementReference');
     const elPlacement = this.db.prepare('SELECT * FROM \'ElementReference\' INNER JOIN \'ElementPlacement\' ON ElementReference.Id = ElementPlacement.ElementReferenceId ORDER BY ID');
     const buttonsFolder = this.db.prepare('SELECT * FROM ButtonPageLink');
-    const buttonPage = this.db.prepare('SELECT ButtonId, Button.Label, Button.ElementReferenceId as ButtonElementRenceID, PageUniqueId, Page.Id, ElementPlacement.ElementReferenceId as ElementReferenceIdOfChild, ElementPlacement.GridPosition as ChildPosition, ElementPlacement.GridSpan as ChildSpan FROM \'Button\' JOIN \'ButtonPageLink\' ON Button.Id = ButtonPageLink.ButtonId JOIN \'PAGE\' ON ButtonPageLink.PageUniqueId = Page.UniqueID JOIN PageLayout ON PageId = Page.Id JOIN ElementPlacement ON PageLayoutId = PageLayout.ID ORDER BY ButtonId ASC');
+    const buttonPage = this.db.prepare('SELECT ButtonId, Button.Label, Button.ElementReferenceId as ButtonElementRenceID,Page.Title, PageUniqueId, Page.Id, ElementPlacement.ElementReferenceId as ElementReferenceIdOfChild, ElementPlacement.GridPosition as ChildPosition, ElementPlacement.GridSpan as ChildSpan FROM \'Button\' JOIN \'ButtonPageLink\' ON Button.Id = ButtonPageLink.ButtonId JOIN \'PAGE\' ON ButtonPageLink.PageUniqueId = Page.UniqueID JOIN PageLayout ON PageId = Page.Id JOIN ElementPlacement ON PageLayoutId = PageLayout.ID ORDER BY ButtonId ASC');
     const pageTable = this.db.prepare('SELECT Title FROM Page');
     // skip the first button because we don't care about it
     elReference.step();
@@ -130,6 +130,8 @@ export class Spb2augComponent implements OnInit {
     pageTable.step();
     pageTable.step();
     pageTable.step();
+    let elementReferenceOld = 0;
+    let elementReferenceCurrent = 0;
     this.getMainPageDimension();
     // cel.step itère sur les ligne une à une
     while (cel.step()){
@@ -140,11 +142,23 @@ export class Spb2augComponent implements OnInit {
       if(pageSetImageId !== 0){
         // this.getImage();
       }
+      // check si elementReference est le même entre 2 itérations si c'est le cas on va au suivant
+      elementReferenceOld = elementReferenceCurrent;
+      elementReferenceCurrent = elPlacement.getAsObject().ElementReferenceId;
+      console.log('elementReferenceCurrent :',elementReferenceCurrent )
+      console.log('elementReferenceOld :',elementReferenceOld )
+      if(elementReferenceCurrent === elementReferenceOld) {
+        while (elementReferenceCurrent === elementReferenceOld) {
+          elPlacement.step();
+          elementReferenceCurrent = elPlacement.getAsObject().ElementReferenceId;
+          console.log('on saute les elplacement :',elementReferenceCurrent )
+        }
+        elementReferenceOld = elementReferenceCurrent;
+      }
 
       const buttonFolder = Number(buttonsFolder.getAsObject().ButtonId);
       const buttonId = Number(cel.getAsObject().Id);
 
-      const gridPosition = elPlacement.getAsObject().GridPosition;
       const color = Number(elPlacement.getAsObject().BackgroundColor);
       const borderColor = Number(cel.getAsObject().BorderColor);
 
@@ -159,6 +173,7 @@ export class Spb2augComponent implements OnInit {
       const gb = (borderColor & G_MASK)>>8;
       const bb = borderColor & B_MASK;
 
+      const gridPosition = elPlacement.getAsObject().GridPosition;
       const gridSpan = elPlacement.getAsObject().GridSpan;
       const tabResPos = gridPosition.split(',');
       const tabResSpan = gridSpan.split(',');
