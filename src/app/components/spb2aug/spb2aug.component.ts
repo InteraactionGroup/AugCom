@@ -121,10 +121,15 @@ export class Spb2augComponent implements OnInit {
     const elPlacement = this.db.prepare('SELECT * FROM \'ElementReference\' INNER JOIN \'ElementPlacement\' ON ElementReference.Id = ElementPlacement.ElementReferenceId ORDER BY ID');
     const buttonsFolder = this.db.prepare('SELECT * FROM ButtonPageLink');
     const buttonPage = this.db.prepare('SELECT ButtonId, Button.Label, Button.ElementReferenceId as ButtonElementRenceID, PageUniqueId, Page.Id, ElementPlacement.ElementReferenceId as ElementReferenceIdOfChild, ElementPlacement.GridPosition as ChildPosition, ElementPlacement.GridSpan as ChildSpan FROM \'Button\' JOIN \'ButtonPageLink\' ON Button.Id = ButtonPageLink.ButtonId JOIN \'PAGE\' ON ButtonPageLink.PageUniqueId = Page.UniqueID JOIN PageLayout ON PageId = Page.Id JOIN ElementPlacement ON PageLayoutId = PageLayout.ID ORDER BY ButtonId ASC');
+    const pageTable = this.db.prepare('SELECT Title FROM Page');
     // skip the first button because we don't care about it
     elReference.step();
     buttonsFolder.step();
     elPlacement.step();
+    // saute les 3 premières ligne car ne s'occupe pas de nos page et celle de l'accueil n'est pas intéressant
+    pageTable.step();
+    pageTable.step();
+    pageTable.step();
     this.getMainPageDimension();
     // cel.step itère sur les ligne une à une
     while (cel.step()){
@@ -179,9 +184,11 @@ export class Spb2augComponent implements OnInit {
             }
           ], [{ID: 'click', ActionList: [{ID: 'display', Options: []},{ID: 'say', Options: []}]}])
         buttonsFolder.step();
+        pageTable.step();
+        const pageTitle = pageTable.getAsObject().Title;
         this.newPage = new Page();
         this.newPage.ID = label;
-        this.newPage.Name = label;
+        this.newPage.Name = String(pageTitle);
         this.newPage.ElementIDsList = [];
         this.newGrid.PageList.unshift(this.newPage);
       }
@@ -200,9 +207,11 @@ export class Spb2augComponent implements OnInit {
             }
           ], [{ID: 'click', ActionList: [{ID: 'display', Options: []},{ID: 'say', Options: []}]}])
         buttonsFolder.step();
+        pageTable.step();
+        const pageTitle = pageTable.getAsObject().Title;
         this.newPage = new Page();
         this.newPage.ID = String(buttonFolder);
-        this.newPage.Name = String(buttonFolder);
+        this.newPage.Name = String(pageTitle);
         this.newPage.ElementIDsList = [];
         this.newGrid.PageList.unshift(this.newPage);
       }
@@ -256,9 +265,9 @@ export class Spb2augComponent implements OnInit {
       const elementReferenceOfChild = Number(buttonPage.getAsObject().ElementReferenceIdOfChild);
       const labelFolder = String(buttonPage.getAsObject().Label);
       const labelFolderId = String(buttonPage.getAsObject().ButtonId);
-      let index = this.newGrid.PageList.findIndex(page => page.Name === labelFolder);
+      let index = this.newGrid.PageList.findIndex(page => page.ID === labelFolder);
       if(index === -1){
-        index = this.newGrid.PageList.findIndex(page => page.Name === labelFolderId);
+        index = this.newGrid.PageList.findIndex(page => page.ID === labelFolderId);
       }
       const pageId = Number(buttonPage.getAsObject().Id);
       const pageLayout = this.db.prepare('SELECT * FROM PageLayout WHERE PageId = ' + pageId);
