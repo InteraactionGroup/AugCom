@@ -285,13 +285,12 @@ export class Spb2augComponent implements OnInit {
       }
       const pageId = Number(buttonPage.getAsObject().Id);
       const pageLayout = this.db.prepare('SELECT * FROM PageLayout WHERE PageId = ' + pageId);
-      pageLayout.step();
-      const pageLayoutSetting = pageLayout.getAsObject().PageLayoutSetting;
+      // on va prendre la taille la plus grande parmis toutes les dispositions pour etre sur d'accueillir tous les boutons
+      const numberof = this.getPageDimensionMax(pageLayout);
+      this.newGrid.PageList[index].NumberOfRows = Number(numberof[0]);
+      this.newGrid.PageList[index].NumberOfCols = Number(numberof[1]);
       const childPositions = buttonPage.getAsObject().ChildPosition;
       const childPositionsXY = childPositions.split(',');
-      const tabLayoutSetting = pageLayoutSetting.split(',');
-      this.newGrid.PageList[index].NumberOfRows = Number(tabLayoutSetting[0]);
-      this.newGrid.PageList[index].NumberOfCols = Number(tabLayoutSetting[1]);
       // on ajoute tout les boutons aux différentes pages des boutons (uniquement leur première page)
       if(Number(childPositionsXY[1]) < this.newGrid.PageList[index].NumberOfRows) {
         this.newGrid.PageList[index].ElementIDsList.push(this.newGrid.ElementList[elementReferenceOfChild - 2].ID);
@@ -309,11 +308,24 @@ export class Spb2augComponent implements OnInit {
   }
   getMainPageDimension(){
     const pageLayout = this.db.prepare('SELECT * FROM PageLayout WHERE PageId = 4');
-    pageLayout.step();
-    const pageLayoutSetting = pageLayout.getAsObject().PageLayoutSetting;
-    const tabLayoutSetting = pageLayoutSetting.split(',');
-    this.page.NumberOfRows = Number(tabLayoutSetting[1]);
-    this.page.NumberOfCols = Number(tabLayoutSetting[0]);
+    const numberof = this.getPageDimensionMax(pageLayout);
+    this.page.NumberOfRows = Number(numberof[0]);
+    this.page.NumberOfCols = Number(numberof[1]);
+  }
+  getPageDimensionMax(pageLayout: any){
+    // on va prendre la taille la plus grande parmis toutes les dispositions pour etre sur d'accueillir tous les boutons
+    let numberOfRowsMax = 0;
+    let numberOfColsMax = 0;
+    while(pageLayout.step()){
+      const pageLayoutSetting = pageLayout.getAsObject().PageLayoutSetting;
+      const tabLayoutSetting = pageLayoutSetting.split(',');
+      if(numberOfRowsMax <= Number(tabLayoutSetting[1]) && numberOfColsMax <= Number(tabLayoutSetting[0])){
+        numberOfRowsMax = Number(tabLayoutSetting[1]);
+        numberOfColsMax = Number(tabLayoutSetting[0]);
+      }
+    }
+    const numberof = [numberOfRowsMax,numberOfColsMax];
+    return numberof;
   }
   getPolice(name){
     const po = this.db.prepare('SELECT * FROM \'' + name + '\'');
@@ -590,7 +602,7 @@ export class Spb2augComponent implements OnInit {
   DeleteDoublon(grid: Grid){
     grid.PageList.forEach(page => {
       page.ElementIDsList = Array.from(new Set(page.ElementIDsList));
-  });
+    });
   }
   createButtonDown(nextPages: Page){
     this.gridElement = new GridElement('goDown', {GoTo : nextPages.Name}, '', '', ''
