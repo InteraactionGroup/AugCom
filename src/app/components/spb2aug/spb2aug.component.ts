@@ -145,19 +145,17 @@ export class Spb2augComponent implements OnInit {
       // check si elementReference est le même entre 2 itérations si c'est le cas on va au suivant
       elementReferenceOld = elementReferenceCurrent;
       elementReferenceCurrent = elPlacement.getAsObject().ElementReferenceId;
-      console.log('elementReferenceCurrent :',elementReferenceCurrent )
-      console.log('elementReferenceOld :',elementReferenceOld )
       if(elementReferenceCurrent === elementReferenceOld) {
         while (elementReferenceCurrent === elementReferenceOld) {
           elPlacement.step();
           elementReferenceCurrent = elPlacement.getAsObject().ElementReferenceId;
-          console.log('on saute les elplacement :',elementReferenceCurrent )
         }
         elementReferenceOld = elementReferenceCurrent;
       }
 
       const buttonFolder = Number(buttonsFolder.getAsObject().ButtonId);
       const buttonId = Number(cel.getAsObject().Id);
+      const buttonUniqueId = String(cel.getAsObject().UniqueId);
 
       const color = Number(elPlacement.getAsObject().BackgroundColor);
       const borderColor = Number(cel.getAsObject().BorderColor);
@@ -184,7 +182,7 @@ export class Spb2augComponent implements OnInit {
 
       // check if the button is a folder button to bind him
       if(buttonId === buttonFolder && label !== null){
-        this.gridElement = new GridElement(label,
+        this.gridElement = new GridElement(buttonUniqueId,
           {GoTo : label},
           '',
           'rgb('+r+','+g+','+b+')',
@@ -208,7 +206,7 @@ export class Spb2augComponent implements OnInit {
         this.newGrid.PageList.unshift(this.newPage);
       }
       else if (buttonId === buttonFolder && label === null){
-        this.gridElement = new GridElement(String(buttonFolder),
+        this.gridElement = new GridElement(buttonUniqueId,
           {GoTo : String(buttonFolder)},
           '', 'rgb('+r+','+g+','+b+')',
           'rgb('+rb+','+gb+','+bb+')',
@@ -231,7 +229,7 @@ export class Spb2augComponent implements OnInit {
         this.newGrid.PageList.unshift(this.newPage);
       }
       else {
-        this.gridElement = new GridElement((label) !== null ? label : message,
+        this.gridElement = new GridElement(buttonUniqueId,
           'button',
           '',
           'rgb(' + r + ',' + g + ',' + b + ')',
@@ -558,12 +556,13 @@ export class Spb2augComponent implements OnInit {
     const buttonAllInfomations = this.db.prepare('SELECT * FROM ((\'ElementReference\' INNER JOIN \'ElementPlacement\' ON ElementReference.Id = ElementPlacement.ElementReferenceId) INNER JOIN \'Button\' ON ElementReference.Id = Button.ElementReferenceId) ORDER BY ID');
     while (buttonAllInfomations.step()) {
       const label = buttonAllInfomations.getAsObject().Label;
+      const buttonUniqueId = String(buttonAllInfomations.getAsObject().UniqueId);
       const pos = buttonAllInfomations.getAsObject().GridPosition;
       const tabResPos = pos.split(',');
       const span = buttonAllInfomations.getAsObject().GridSpan;
       const tabResSpan = span.split(',');
       const buttonPageId = Number(buttonAllInfomations.getAsObject().PageId);
-      this.gridElement = new GridElement(label, 'button', '', '', ''
+      this.gridElement = new GridElement(buttonUniqueId, 'button', '', '', ''
         , 1,
         [
           {
