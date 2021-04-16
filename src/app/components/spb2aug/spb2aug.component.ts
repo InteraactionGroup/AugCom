@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MultilinguismService} from '../../services/multilinguism.service';
-import {Grid, GridElement, Image, Page} from '../../types';
+import {Grid, GridElement, Page} from '../../types';
 import {BoardService} from '../../services/board.service';
 import {Router} from '@angular/router';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
@@ -91,6 +91,7 @@ export class Spb2augComponent implements OnInit {
           this.getPolice(name);
         }
       }
+      this.DeleteDoublon(this.newGrid);
       console.log(this.newGrid);
       this.boardService.board = this.newGrid;
       this.indexedDBacess.update();
@@ -586,11 +587,10 @@ export class Spb2augComponent implements OnInit {
       }
     }
   }
-  InitnextPage(page: Page ,nextPages: Page){
-    nextPages = new Page();
-    nextPages.ElementIDsList = [];
-    nextPages.NumberOfCols = page.NumberOfCols;
-    nextPages.NumberOfRows = page.NumberOfRows;
+  DeleteDoublon(grid: Grid){
+    grid.PageList.forEach(page => {
+      page.ElementIDsList = Array.from(new Set(page.ElementIDsList));
+  });
   }
   createButtonDown(nextPages: Page){
     this.gridElement = new GridElement('goDown', {GoTo : nextPages.Name}, '', '', ''
