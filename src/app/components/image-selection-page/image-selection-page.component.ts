@@ -88,15 +88,15 @@ export class ImageSelectionPageComponent implements OnInit {
    * @param t, the string short name of the image of the mulberry library image
    */
   previewMullberry(t: string) {
-    this.previewWithURL('assets/libs/mulberry-symbols/EN-symbols/' + t + '.svg');
+    this.previewWithURL('https://augcom.imag.fr/stable/assets/libs/mulberry-symbols/EN-symbols/' + t + '.svg');
   }
 
   previewArasaac(t: string, isColored: boolean) {
     if (isColored) {
-      this.previewWithURL('assets/libs/FR_Pictogrammes_couleur/' + t + '.png');
+      this.previewWithURL('https://augcom.imag.fr/stable/assets/libs/FR_Pictogrammes_couleur/' + t + '.png');
     } else {
-      console.log('assets/libs/FR_Noir_et_blanc_pictogrammes/' + t + '.png');
-      this.previewWithURL('assets/libs/FR_Noir_et_blanc_pictogrammes/' + t + '.png');
+      console.log('https://augcom.imag.fr/stable/assets/libs/FR_Noir_et_blanc_pictogrammes/' + t + '.png');
+      this.previewWithURL('https://augcom.imag.fr/stable/assets/libs/FR_Noir_et_blanc_pictogrammes/' + t + '.png');
     }
   }
 

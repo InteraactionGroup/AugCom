@@ -680,67 +680,67 @@
     {
       "ID": "fruits",
       "OriginalName": "fruits",
-      "Path": "assets/libs/mulberry-symbols/EN-symbols/fruit.svg"
+      "Path": "https://augcom.imag.fr/stable/assets/libs/mulberry-symbols/EN-symbols/fruit.svg"
     },
     {
       "ID": "lieux",
       "OriginalName": "lieux",
-      "Path": "assets/libs/mulberry-symbols/EN-symbols/house.svg"
+      "Path": "https://augcom.imag.fr/stable/assets/libs/mulberry-symbols/EN-symbols/house.svg"
     },
     {
       "ID": "non",
       "OriginalName": "non",
-      "Path": "assets/libs/mulberry-symbols/EN-symbols/mistake_no_wrong.svg"
+      "Path": "https://augcom.imag.fr/stable/assets/libs/mulberry-symbols/EN-symbols/mistake_no_wrong.svg"
     },
     {
       "ID": "vous",
       "OriginalName": "vous",
-      "Path": "assets/libs/mulberry-symbols/EN-symbols/dinner_3_people.svg"
+      "Path": "https://augcom.imag.fr/stable/assets/libs/mulberry-symbols/EN-symbols/dinner_3_people.svg"
     },
     {
       "ID": "moi",
       "OriginalName": "moi",
-      "Path": "assets/libs/mulberry-symbols/EN-symbols/man_-_face.svg"
+      "Path": "https://augcom.imag.fr/stable/assets/libs/mulberry-symbols/EN-symbols/man_-_face.svg"
     },
     {
       "ID": "banane",
       "OriginalName": "banane",
-      "Path": "assets/libs/mulberry-symbols/EN-symbols/banana_bunch.svg"
+      "Path": "https://augcom.imag.fr/stable/assets/libs/mulberry-symbols/EN-symbols/banana_bunch.svg"
     },
     {
       "ID": "pomme",
       "OriginalName": "pomme",
-      "Path": "assets/libs/mulberry-symbols/EN-symbols/apple.svg"
+      "Path": "https://augcom.imag.fr/stable/assets/libs/mulberry-symbols/EN-symbols/apple.svg"
     },
     {
       "ID": "dedans",
       "OriginalName": "dedans",
-      "Path": "assets/libs/mulberry-symbols/EN-symbols/inside_room.svg"
+      "Path": "https://augcom.imag.fr/stable/assets/libs/mulberry-symbols/EN-symbols/inside_room.svg"
     },
     {
       "ID": "dehors",
       "OriginalName": "dehors",
-      "Path": "assets/libs/mulberry-symbols/EN-symbols/outside.svg"
+      "Path": "https://augcom.imag.fr/stable/assets/libs/mulberry-symbols/EN-symbols/outside.svg"
     },
     {
       "ID": "salle à manger",
       "OriginalName": "salle à manger",
-      "Path": "assets/libs/mulberry-symbols/EN-symbols/dining_table.svg"
+      "Path": "https://augcom.imag.fr/stable/assets/libs/mulberry-symbols/EN-symbols/dining_table.svg"
     },
     {
       "ID": "chambre",
       "OriginalName": "chambre",
-      "Path": "assets/libs/mulberry-symbols/EN-symbols/bunk_beds.svg"
+      "Path": "https://augcom.imag.fr/stable/assets/libs/mulberry-symbols/EN-symbols/bunk_beds.svg"
     },
     {
       "ID": "école",
       "OriginalName": "école",
-      "Path": "assets/libs/mulberry-symbols/EN-symbols/school.svg"
+      "Path": "https://augcom.imag.fr/stable/assets/libs/mulberry-symbols/EN-symbols/school.svg"
     },
     {
       "ID": "chez mamie",
       "OriginalName": "chez mamie",
-      "Path": "assets/libs/mulberry-symbols/EN-symbols/grandmother.svg"
+      "Path": "https://augcom.imag.fr/stable/assets/libs/mulberry-symbols/EN-symbols/grandmother.svg"
     }
   ],
   "PageList": [
