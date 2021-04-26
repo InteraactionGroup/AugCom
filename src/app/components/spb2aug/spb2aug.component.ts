@@ -261,7 +261,7 @@ export class Spb2augComponent implements OnInit {
     this.addColIfNeeded();
     this.newGrid.PageList.unshift(this.page);
     this.getPageFolderButtons(buttonPage);
-    this.nextPage();
+    this.goDownPage();
   }
   getPathImageArsaacLibrary(label,message):string{
     if (label !== null) {
@@ -339,7 +339,7 @@ export class Spb2augComponent implements OnInit {
       this.page.ElementIDsList.push(gridElement.ID);
     }
   }
-  nextPage(){
+  goDownPage(){
     let nextPages: Page = new Page();
     nextPages.ElementIDsList = [];
     let numeroPage = 1;
@@ -435,8 +435,11 @@ export class Spb2augComponent implements OnInit {
       pageid = pageid + 1;
       const buttonPositionBis = gridPosition.split(',');
       const buttonRowBis = Number(buttonPositionBis[1]);
+      if(RowMaxPage < buttonRowBis){
+        RowMaxPage = buttonRowBis;
+      }
       // numberNewPage permet de connaitre le nombre de page à créer -1 puisque l'on créer déjà la première page en dehors
-      const numberNewPageBis = Math.ceil(buttonRowBis / this.newGrid.PageList[pageid - 6].NumberOfRows) - 1;
+      const numberNewPageBis = Math.ceil(RowMaxPage / this.newGrid.PageList[pageid - 6].NumberOfRows) - 1;
       if(numberNewPageBis > 0) {
         // création du bouton pour descendre dans la page d'origine quand il y a plusieurs pages
         this.gridElement = new GridElement('goDown' + this.newGrid.PageList[pageid - 6].ID + numeroPage,
@@ -501,8 +504,14 @@ export class Spb2augComponent implements OnInit {
     else{
       const buttonPositionBis = gridPosition.split(',');
       const buttonRowBis = Number(buttonPositionBis[1]);
+      if(RowMaxPage < buttonRowBis){
+        RowMaxPage = buttonRowBis;
+      }
+      console.log('RowMaxPage', RowMaxPage)
+      console.log('this.newGrid.PageList[pageid - 4].NumberOfRows', this.newGrid.PageList[pageid - 4].NumberOfRows)
+      console.log('numberNewPageBis', Math.ceil((RowMaxPage + 1) / this.newGrid.PageList[pageid - 4].NumberOfRows - 1))
       // numberNewPage permet de connaitre le nombre de page à créer -1 puisque l'on créer déjà la première page en dehors
-      const numberNewPageBis = Math.ceil(buttonRowBis / this.newGrid.PageList[pageid - 4].NumberOfRows) - 1;
+      const numberNewPageBis = Math.ceil((RowMaxPage + 1) / this.newGrid.PageList[pageid - 4].NumberOfRows) - 1;
       if(numberNewPageBis > 0) {
         // création du bouton pour descendre dans la page d'origine quand il y a plusieurs pages
         this.gridElement = new GridElement('goDown' + this.newGrid.PageList[pageid - 4].ID + numeroPage,
