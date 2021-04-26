@@ -194,7 +194,7 @@ export class Spb2augComponent implements OnInit {
               DisplayedText: label,
               VoiceText: (message) !== null ? message : label,
               LexicInfos: [{default: true}],
-              ImageID: label,
+              ImageID: (label) !== null ? label : message,
             }
           ], [{ID: 'click', ActionList: [{ID: 'display', Options: []},{ID: 'say', Options: []}]}])
         buttonsFolder.step();
@@ -217,7 +217,7 @@ export class Spb2augComponent implements OnInit {
               DisplayedText: (message) !== null ? message : label,
               VoiceText: (message) !== null ? message : label,
               LexicInfos: [{default: true}],
-              ImageID: (message) !== null ? message : label,
+              ImageID: (label) !== null ? label : message,
             }
           ], [{ID: 'click', ActionList: [{ID: 'display', Options: []},{ID: 'say', Options: []}]}])
         buttonsFolder.step();
@@ -241,7 +241,7 @@ export class Spb2augComponent implements OnInit {
               DisplayedText: (label) !== null ? label : message,
               VoiceText: (message) !== null ? message : label,
               LexicInfos: [{default: true}],
-              ImageID: (message) !== null ? message : label,
+              ImageID: (label) !== null ? label : message,
             }
           ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
       }
@@ -653,5 +653,8 @@ export class Spb2augComponent implements OnInit {
     b.lastModifiedDate = new Date();
     b.name = fileName;
     return b as File;
+  }
+  noImageFound(){
+
   }
 }
