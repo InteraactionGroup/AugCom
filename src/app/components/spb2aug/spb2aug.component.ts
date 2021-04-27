@@ -676,7 +676,7 @@ export class Spb2augComponent implements OnInit {
   statErrorImage(){
     this.newGrid.ImageList.forEach(picture => {
       const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
-        return picture.ID !== null && picture.ID !== '' && (picture.ID === word || picture.ID.toUpperCase() === word);
+        return picture.ID !== null && picture.ID !== '' && (picture.ID.toLowerCase() === word || picture.ID.toUpperCase() === word);
       });
 
       if(index ===-1){
