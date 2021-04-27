@@ -6,6 +6,8 @@ import {Router} from '@angular/router';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {ConfigurationService} from '../../services/configuration.service';
 import {SafeUrl} from '@angular/platform-browser';
+import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
+import {ArasaacObject} from '../../libTypes';
 
 @Component({
   selector: 'app-spb2aug',
@@ -36,6 +38,8 @@ export class Spb2augComponent implements OnInit {
   myFile: File;
   im: SafeUrl;
 
+  numberErrorImage: number;
+
   ngOnInit(): void {
     this.newGrid = new Grid('newGrid','Grid',0,0,[],[],[]);
     this.page = new Page();
@@ -43,6 +47,7 @@ export class Spb2augComponent implements OnInit {
     this.page.Name = 'Accueil';
     this.page.ElementIDsList = [];
     this.pageHome = 4;
+    this.numberErrorImage = 0;
   }
   convert(file){
     this.newGrid.ID = 'newGrid';
@@ -93,6 +98,7 @@ export class Spb2augComponent implements OnInit {
       }
       this.DeleteDoublon(this.newGrid);
       console.log(this.newGrid);
+      this.statErrorImage();
       this.boardService.board = this.newGrid;
       this.indexedDBacess.update();
       this.router.navigate(['']);
@@ -265,10 +271,26 @@ export class Spb2augComponent implements OnInit {
   }
   getPathImageArsaacLibrary(label,message):string{
     if (label !== null) {
-      return 'assets/libs/FR_Pictogrammes_couleur/' + label + '.png';
+      const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
+        return label === word;
+      });
+      if(index > -1) {
+        return 'assets/libs/FR_Pictogrammes_couleur/' + label + '.png';
+      }
+      else{
+        return 'assets/libs/FR_Pictogrammes_couleur/' + label.toUpperCase() + '.png';
+      }
     }
     else if (message !== null){
-      return 'assets/libs/FR_Pictogrammes_couleur/' + message + '.png';
+      const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
+        return label === word;
+      });
+      if(index > -1) {
+        return 'assets/libs/FR_Pictogrammes_couleur/' + message + '.png';
+      }
+      else{
+        return 'assets/libs/FR_Pictogrammes_couleur/' + message.toUpperCase() + '.png';
+      }
     }
     else{
       return 'assets/libs/FR_Pictogrammes_couleur/direction_1.png';
@@ -507,9 +529,6 @@ export class Spb2augComponent implements OnInit {
       if(RowMaxPage < buttonRowBis){
         RowMaxPage = buttonRowBis;
       }
-      console.log('RowMaxPage', RowMaxPage)
-      console.log('this.newGrid.PageList[pageid - 4].NumberOfRows', this.newGrid.PageList[pageid - 4].NumberOfRows)
-      console.log('numberNewPageBis', Math.ceil((RowMaxPage + 1) / this.newGrid.PageList[pageid - 4].NumberOfRows - 1))
       // numberNewPage permet de connaitre le nombre de page à créer -1 puisque l'on créer déjà la première page en dehors
       const numberNewPageBis = Math.ceil((RowMaxPage + 1) / this.newGrid.PageList[pageid - 4].NumberOfRows) - 1;
       if(numberNewPageBis > 0) {
@@ -654,7 +673,17 @@ export class Spb2augComponent implements OnInit {
     b.name = fileName;
     return b as File;
   }
-  noImageFound(){
+  statErrorImage(){
+    this.newGrid.ImageList.forEach(picture => {
+      const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
+        return picture.ID !== null && picture.ID !== '' && (picture.ID === word || picture.ID.toUpperCase() === word);
+      });
 
+      if(index ===-1){
+        console.log(picture.ID);
+        this.numberErrorImage = this.numberErrorImage + 1;
+      }
+    });
+    console.log('pourcentage d\'erreur : ', this.numberErrorImage / this.newGrid.ImageList.length * 100);
   }
 }
