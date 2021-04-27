@@ -272,10 +272,10 @@ export class Spb2augComponent implements OnInit {
   getPathImageArsaacLibrary(label,message):string{
     if (label !== null) {
       const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
-        return label === word;
+        return label.toLowerCase() === word;
       });
       if(index > -1) {
-        return 'assets/libs/FR_Pictogrammes_couleur/' + label + '.png';
+        return 'assets/libs/FR_Pictogrammes_couleur/' + label.toLowerCase() + '.png';
       }
       else{
         return 'assets/libs/FR_Pictogrammes_couleur/' + label.toUpperCase() + '.png';
@@ -283,10 +283,10 @@ export class Spb2augComponent implements OnInit {
     }
     else if (message !== null){
       const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
-        return label === word;
+        return message.toLowerCase() === word;
       });
       if(index > -1) {
-        return 'assets/libs/FR_Pictogrammes_couleur/' + message + '.png';
+        return 'assets/libs/FR_Pictogrammes_couleur/' + message.toLowerCase() + '.png';
       }
       else{
         return 'assets/libs/FR_Pictogrammes_couleur/' + message.toUpperCase() + '.png';
