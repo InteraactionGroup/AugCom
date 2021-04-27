@@ -48,6 +48,8 @@ export class Spb2augComponent implements OnInit {
     this.page.ElementIDsList = [];
     this.pageHome = 4;
     this.numberErrorImage = 0;
+    this.NumberOfCols = 0;
+    this.NumberOfRows = 0;
   }
   convert(file){
     this.newGrid.ID = 'newGrid';
@@ -71,26 +73,13 @@ export class Spb2augComponent implements OnInit {
         alert(ex);
         return;
       }
-      let firstTableName = null;
-      let columnTypes = [];
       while (tables.step()) {
         const rowObj = tables.getAsObject();
         const name = rowObj.name;
 
-        if (firstTableName === null) {
-          firstTableName = name;
-        }
-
         if (name === 'Button'){
           this.getGridDimension();
           this.getElement(name);
-        }
-        if (name === 'ElementPlacement'){
-          this.NumberOfCols = 0;
-          this.NumberOfRows = 0;
-          if (name != null) {
-            columnTypes = this.getTableColumnTypes(name);
-          }
         }
         if (name === 'PageSetProperties') {
           this.getPolice(name);
@@ -111,16 +100,6 @@ export class Spb2augComponent implements OnInit {
     } else {
       return -1;
     }
-  }
-  getTableColumnTypes(tableName) {
-    const result = [];
-    const sel = this.db.prepare('PRAGMA table_info(\'' + tableName + '\')');
-
-    while (sel.step()) {
-      const obj = sel.getAsObject();
-      result[obj.name] = obj.type;
-    }
-    return result;
   }
   getElement(name){
     const cel = this.db.prepare('SELECT * FROM \'' + name + '\'');
@@ -145,6 +124,7 @@ export class Spb2augComponent implements OnInit {
       elPlacement.step();
       elReference.step();
 
+      // partie du code pour tenter de recupérer l'image originelle du bouton
       const pageSetImageId = elPlacement.getAsObject().PageSetImageId;
       if(pageSetImageId !== 0){
         // this.getImage();
@@ -320,9 +300,9 @@ export class Spb2augComponent implements OnInit {
     }
   }
   getGridDimension() {
-    const cel = this.db.prepare('SELECT * FROM PageSetProperties');
-    while (cel.step()) {
-      const result = cel.getAsObject().GridDimension;
+    const gridDim = this.db.prepare('SELECT * FROM PageSetProperties');
+    while (gridDim.step()) {
+      const result = gridDim.getAsObject().GridDimension;
       const gridDimension = result.split(',');
       this.newGrid.NumberOfCols = Number(gridDimension[0]);
       this.newGrid.NumberOfRows = Number(gridDimension[1]);
