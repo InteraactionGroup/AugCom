@@ -53,6 +53,11 @@ export class Spb2augComponent implements OnInit {
     this.NumberOfCols = 0;
     this.NumberOfRows = 0;
   }
+
+  /**
+   * convert a spb file into a grid
+   * @param file file imported
+   */
   convert(file){
     this.newGrid.ID = 'newGrid';
     this.newGrid.GapSize = 5;
@@ -63,6 +68,11 @@ export class Spb2augComponent implements OnInit {
     };
     fileReader.readAsArrayBuffer(myFile);
   }
+
+  /**
+   * load the database the the data from the file
+   * @param arrayBuffer data from the file
+   */
   loadDB(arrayBuffer) {
     // initSqlJs is in the library sql.js, use npm install @types/sql.js
     initSqlJs().then(SQL => {
@@ -91,18 +101,11 @@ export class Spb2augComponent implements OnInit {
       console.log(this.newGrid);
       this.statErrorImage();
       this.boardService.board = this.newGrid;
+      this.boardService.backHome();
       this.indexedDBacess.update();
       this.layoutService.refresh();
       this.router.navigate(['']);
     });
-  }
-  getTableRowsCount(name): number {
-    const cell = this.db.prepare('SELECT COUNT(*) AS count FROM \'' + name + '\'');
-    if (cell.step()) {
-      return cell.getAsObject().count;
-    } else {
-      return -1;
-    }
   }
   getElement(name){
     const cel = this.db.prepare('SELECT * FROM \'' + name + '\'');
@@ -252,6 +255,12 @@ export class Spb2augComponent implements OnInit {
     this.getPageFolderButtons(buttonPage);
     this.goDownPage();
   }
+
+  /**
+   *
+   * @param label the label of the button
+   * @param message the message of the button
+   */
   getPathImageArsaacLibrary(label,message):string{
     if (label !== null) {
       const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
@@ -279,6 +288,11 @@ export class Spb2augComponent implements OnInit {
       return 'assets/libs/FR_Pictogrammes_couleur/direction_1.png';
     }
   }
+
+  /**
+   * loads the buttons in the right folder on the right page
+   * @param buttonPage request for buttonFolder in every page
+   */
   getPageFolderButtons(buttonPage: any){
     while(buttonPage.step()) {
       const elementReferenceOfChild = Number(buttonPage.getAsObject().ElementReferenceIdOfChild);
@@ -315,12 +329,21 @@ export class Spb2augComponent implements OnInit {
       this.newGrid.NumberOfRows = Number(gridDimension[1]);
     }
   }
+
+  /**
+   * query the database and set the number of rows and columns in the main page
+   */
   getMainPageDimension(){
     const pageLayout = this.db.prepare('SELECT * FROM PageLayout WHERE PageId = 4');
     const numberof = this.getPageDimensionMax(pageLayout);
     this.page.NumberOfRows = Number(numberof[0]);
     this.page.NumberOfCols = Number(numberof[1]);
   }
+
+  /**
+   * set the max of rows and columns for every pages
+   * @param pageLayout query from the database for pageLayout
+   */
   getPageDimensionMax(pageLayout: any){
     // on va prendre la taille la plus grande parmis toutes les dispositions pour etre sur d'accueillir tous les boutons
     let numberOfRowsMax = 0;
@@ -336,12 +359,23 @@ export class Spb2augComponent implements OnInit {
     const numberof = [numberOfRowsMax,numberOfColsMax];
     return numberof;
   }
+
+  /**
+   * query the database to set the police
+   * @param name the name of the table (useless if you put the great query)
+   */
   getPolice(name){
     const po = this.db.prepare('SELECT * FROM \'' + name + '\'');
     po.step();
     const police = po.getAsObject().FontFamily;
     this.configuration.DEFAULT_STYLE_FONTFAMILY_VALUE = String(police);
   }
+
+  /**
+   * load buttons in the main page
+   * @param pageId the Id of the current page
+   * @param gridElement the current element
+   */
   getPageHome(pageId: any, gridElement: GridElement){
     // -1 à cause des tableaux de l'enfer qui commencent à 0
     if (pageId === this.pageHome && gridElement.y <= this.page.NumberOfRows - 1) {
