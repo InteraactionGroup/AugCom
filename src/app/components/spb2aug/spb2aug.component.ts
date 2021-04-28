@@ -101,7 +101,6 @@ export class Spb2augComponent implements OnInit {
       console.log(this.newGrid);
       this.statErrorImage();
       this.boardService.board = this.newGrid;
-      this.boardService.updateElementList();
       this.boardService.backHome();
       this.indexedDBacess.update();
       this.router.navigate(['']);
@@ -356,8 +355,7 @@ export class Spb2augComponent implements OnInit {
         numberOfColsMax = Number(tabLayoutSetting[0]);
       }
     }
-    const numberof = [numberOfRowsMax,numberOfColsMax];
-    return numberof;
+    return [numberOfRowsMax, numberOfColsMax];
   }
 
   /**
@@ -655,8 +653,7 @@ export class Spb2augComponent implements OnInit {
 
   /**
    * removes all duplicate buttons in the grid
-   * @param grid
-   * @constructor
+   * @param grid the current grid
    */
   DeleteDoublon(grid: Grid){
     grid.PageList.forEach(page => {
