@@ -8,6 +8,7 @@ import {ConfigurationService} from '../../services/configuration.service';
 import {SafeUrl} from '@angular/platform-browser';
 import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
 import {ArasaacObject} from '../../libTypes';
+import {LayoutService} from '../../services/layout.service';
 
 @Component({
   selector: 'app-spb2aug',
@@ -22,7 +23,8 @@ export class Spb2augComponent implements OnInit {
     public indexedDBacess: IndexeddbaccessService,
     public router: Router,
     public boardService: BoardService,
-    public configuration: ConfigurationService) {
+    public configuration: ConfigurationService,
+    public layoutService: LayoutService) {
   }
   newGrid: Grid;
   page : Page;
@@ -90,6 +92,7 @@ export class Spb2augComponent implements OnInit {
       this.statErrorImage();
       this.boardService.board = this.newGrid;
       this.indexedDBacess.update();
+      this.layoutService.refresh();
       this.router.navigate(['']);
     });
   }
@@ -299,6 +302,10 @@ export class Spb2augComponent implements OnInit {
       }
     }
   }
+
+  /**
+   * Search in the database and set the number of rows and colomns in the grid
+   */
   getGridDimension() {
     const gridDim = this.db.prepare('SELECT * FROM PageSetProperties');
     while (gridDim.step()) {
@@ -341,6 +348,10 @@ export class Spb2augComponent implements OnInit {
       this.page.ElementIDsList.push(gridElement.ID);
     }
   }
+
+  /**
+   * Create a button to go down in the page and load it
+   */
   goDownPage(){
     let nextPages: Page = new Page();
     nextPages.ElementIDsList = [];
@@ -607,6 +618,12 @@ export class Spb2augComponent implements OnInit {
       }
     }
   }
+
+  /**
+   * removes all duplicate buttons in the grid
+   * @param grid
+   * @constructor
+   */
   DeleteDoublon(grid: Grid){
     grid.PageList.forEach(page => {
       page.ElementIDsList = Array.from(new Set(page.ElementIDsList));
@@ -628,6 +645,10 @@ export class Spb2augComponent implements OnInit {
     this.gridElement.x = this.newGrid.NumberOfRows - 1;
     this.gridElement.y = this.newGrid.NumberOfCols - 1;
   }
+
+  /**
+   * add a colomn if we need to add a button page down and we don't have place to do it
+   */
   addColIfNeeded(){
     let resultat = false;
     this.newGrid.ElementList.forEach(element => {
@@ -653,6 +674,10 @@ export class Spb2augComponent implements OnInit {
     b.name = fileName;
     return b as File;
   }
+
+  /**
+   * checks that each image exists in the image bank and makes the error rate
+   */
   statErrorImage(){
     this.newGrid.ImageList.forEach(picture => {
       const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
@@ -660,7 +685,7 @@ export class Spb2augComponent implements OnInit {
       });
 
       if(index ===-1){
-        console.log(picture.ID);
+        // console.log(picture.ID);
         this.numberErrorImage = this.numberErrorImage + 1;
       }
     });
