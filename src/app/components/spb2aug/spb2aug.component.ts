@@ -101,9 +101,9 @@ export class Spb2augComponent implements OnInit {
       console.log(this.newGrid);
       this.statErrorImage();
       this.boardService.board = this.newGrid;
+      this.boardService.updateElementList();
       this.boardService.backHome();
       this.indexedDBacess.update();
-      this.layoutService.refresh();
       this.router.navigate(['']);
     });
   }
@@ -663,6 +663,11 @@ export class Spb2augComponent implements OnInit {
       page.ElementIDsList = Array.from(new Set(page.ElementIDsList));
     });
   }
+
+  /**
+   * create down button
+   * @param nextPages the page that will be targeted by the button
+   */
   createButtonDown(nextPages: Page){
     this.gridElement = new GridElement('goDown', {GoTo : nextPages.Name}, '', '', ''
       , 1,
