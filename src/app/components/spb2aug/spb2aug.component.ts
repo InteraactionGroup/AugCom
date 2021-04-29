@@ -76,27 +76,15 @@ export class Spb2augComponent implements OnInit {
   loadDB(arrayBuffer) {
     // initSqlJs is in the library sql.js, use npm install @types/sql.js
     initSqlJs().then(SQL => {
-      let tables;
       try {
         this.db = new SQL.Database(new Uint8Array(arrayBuffer.result));
-        // Get all table names from master table
-        tables = this.db.prepare('SELECT * FROM sqlite_master WHERE type=\'table\' ORDER BY name');
       } catch (ex) {
         alert(ex);
         return;
       }
-      while (tables.step()) {
-        const rowObj = tables.getAsObject();
-        const name = rowObj.name;
-
-        if (name === 'Button'){
-          this.getGridDimension();
-          this.getElement(name);
-        }
-        if (name === 'PageSetProperties') {
-          this.getPolice(name);
-        }
-      }
+      this.getGridDimension();
+      this.getElement();
+      this.getPolice();
       this.DeleteDoublon(this.newGrid);
       console.log(this.newGrid);
       this.statErrorImage();
@@ -106,21 +94,16 @@ export class Spb2augComponent implements OnInit {
       this.router.navigate(['']);
     });
   }
-  getElement(name){
-    const cel = this.db.prepare('SELECT * FROM \'' + name + '\'');
+  getElement(){
+    const cel = this.db.prepare('SELECT * FROM button');
     const elReference = this.db.prepare('SELECT * FROM ElementReference');
     const elPlacement = this.db.prepare('SELECT * FROM \'ElementReference\' INNER JOIN \'ElementPlacement\' ON ElementReference.Id = ElementPlacement.ElementReferenceId ORDER BY ID');
     const buttonsFolder = this.db.prepare('SELECT * FROM ButtonPageLink');
     const buttonPage = this.db.prepare('SELECT ButtonId, Button.Label, Button.ElementReferenceId as ButtonElementRenceID,Page.Title, PageUniqueId, Page.Id, ElementPlacement.ElementReferenceId as ElementReferenceIdOfChild, ElementPlacement.GridPosition as ChildPosition, ElementPlacement.GridSpan as ChildSpan FROM \'Button\' JOIN \'ButtonPageLink\' ON Button.Id = ButtonPageLink.ButtonId JOIN \'PAGE\' ON ButtonPageLink.PageUniqueId = Page.UniqueID JOIN PageLayout ON PageId = Page.Id JOIN ElementPlacement ON PageLayoutId = PageLayout.ID ORDER BY ButtonId ASC');
-    const pageTable = this.db.prepare('SELECT Title FROM Page');
     // skip the first button because we don't care about it
     elReference.step();
     buttonsFolder.step();
     elPlacement.step();
-    // saute les 3 premières ligne car ne s'occupe pas de nos page et celle de l'accueil n'est pas intéressant
-    pageTable.step();
-    pageTable.step();
-    pageTable.step();
     let elementReferenceOld = 0;
     let elementReferenceCurrent = 0;
     this.getMainPageDimension();
@@ -188,12 +171,13 @@ export class Spb2augComponent implements OnInit {
               ImageID: (label) !== null ? label : message,
             }
           ], [{ID: 'click', ActionList: [{ID: 'display', Options: []},{ID: 'say', Options: []}]}])
+        const pageUniqueIdFromButtonFolder = buttonsFolder.getAsObject().PageUniqueId;
+        const querySearchTitle = this.db.prepare('SELECT Title FROM Page WHERE UniqueId == "' +String(pageUniqueIdFromButtonFolder) + '"');
+        querySearchTitle.step();
         buttonsFolder.step();
-        pageTable.step();
-        const pageTitle = pageTable.getAsObject().Title;
         this.newPage = new Page();
         this.newPage.ID = label;
-        this.newPage.Name = String(pageTitle);
+        this.newPage.Name = String(querySearchTitle.getAsObject().Title);
         this.newPage.ElementIDsList = [];
         this.newGrid.PageList.unshift(this.newPage);
       }
@@ -211,12 +195,13 @@ export class Spb2augComponent implements OnInit {
               ImageID: (label) !== null ? label : message,
             }
           ], [{ID: 'click', ActionList: [{ID: 'display', Options: []},{ID: 'say', Options: []}]}])
+        const pageUniqueIdFromButtonFolder = buttonsFolder.getAsObject().PageUniqueId;
+        const querySearchTitle = this.db.prepare('SELECT Title FROM Page WHERE UniqueId == "' +String(pageUniqueIdFromButtonFolder) + '"');
+        querySearchTitle.step();
         buttonsFolder.step();
-        pageTable.step();
-        const pageTitle = pageTable.getAsObject().Title;
         this.newPage = new Page();
         this.newPage.ID = String(buttonFolder);
-        this.newPage.Name = String(pageTitle);
+        this.newPage.Name = String(querySearchTitle.getAsObject().Title);
         this.newPage.ElementIDsList = [];
         this.newGrid.PageList.unshift(this.newPage);
       }
@@ -362,8 +347,8 @@ export class Spb2augComponent implements OnInit {
    * query the database to set the police
    * @param name the name of the table (useless if you put the great query)
    */
-  getPolice(name){
-    const po = this.db.prepare('SELECT * FROM \'' + name + '\'');
+  getPolice(){
+    const po = this.db.prepare('SELECT * FROM PageSetProperties');
     po.step();
     const police = po.getAsObject().FontFamily;
     this.configuration.DEFAULT_STYLE_FONTFAMILY_VALUE = String(police);
