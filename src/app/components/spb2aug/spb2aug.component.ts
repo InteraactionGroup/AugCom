@@ -226,7 +226,8 @@ export class Spb2augComponent implements OnInit {
       this.gridElement.rows = Number(tabResSpan[1]);
       this.gridElement.cols = Number(tabResSpan[0]);
       this.newGrid.ElementList.push(this.gridElement);
-      this.getPageHome(pageId,this.gridElement);
+      this.getPageHomeButtons(pageId,this.gridElement);
+      this.getPageHomeTitle(pageId)
       const pathImage = this.getPathImageArsaacLibrary(label,message);
       this.newGrid.ImageList.push({
         ID: (label) !== null ? label : message,
@@ -359,13 +360,20 @@ export class Spb2augComponent implements OnInit {
    * @param pageId the Id of the current page
    * @param gridElement the current element
    */
-  getPageHome(pageId: any, gridElement: GridElement){
+  getPageHomeButtons(pageId: any, gridElement: GridElement){
     // -1 à cause des tableaux de l'enfer qui commencent à 0
     if (pageId === this.pageHome && gridElement.y <= this.page.NumberOfRows - 1) {
       this.page.ElementIDsList.push(gridElement.ID);
     }
   }
-
+  getPageHomeTitle(pageId: any){
+    let titlePage;
+    if (pageId === this.pageHome) {
+      titlePage = this.db.prepare('SELECT Title FROM Page WHERE id ==' + 4);
+      titlePage.step();
+      this.page.Name = String(titlePage.getAsObject().Title);
+    }
+  }
   /**
    * Create a button to go down in the page and load it
    */
