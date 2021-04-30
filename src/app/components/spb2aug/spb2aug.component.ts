@@ -106,7 +106,7 @@ export class Spb2augComponent implements OnInit {
     elPlacement.step();
     let elementReferenceOld = 0;
     let elementReferenceCurrent = 0;
-    this.getMainPageDimension();
+    const pageLayoutSelected = this.getMainPageDimension();
     // cel.step itère sur les ligne une à une
     while (cel.step()){
       elPlacement.step();
@@ -323,6 +323,7 @@ export class Spb2augComponent implements OnInit {
     const numberof = this.getPageDimensionMax(pageLayout);
     this.page.NumberOfRows = Number(numberof[0]);
     this.page.NumberOfCols = Number(numberof[1]);
+    return Number(numberof[2])
   }
 
   /**
@@ -333,15 +334,18 @@ export class Spb2augComponent implements OnInit {
     // on va prendre la taille la plus grande parmis toutes les dispositions pour etre sur d'accueillir tous les boutons
     let numberOfRowsMax = 0;
     let numberOfColsMax = 0;
+    let pageLayoutId = 0;
     while(pageLayout.step()){
       const pageLayoutSetting = pageLayout.getAsObject().PageLayoutSetting;
+      const pageLayoutIdDataBase = pageLayout.getAsObject().Id;
       const tabLayoutSetting = pageLayoutSetting.split(',');
       if(numberOfRowsMax <= Number(tabLayoutSetting[1]) && numberOfColsMax <= Number(tabLayoutSetting[0])){
         numberOfRowsMax = Number(tabLayoutSetting[1]);
         numberOfColsMax = Number(tabLayoutSetting[0]);
+        pageLayoutId = pageLayoutIdDataBase;
       }
     }
-    return [numberOfRowsMax, numberOfColsMax];
+    return [numberOfRowsMax, numberOfColsMax, pageLayoutId];
   }
 
   /**
