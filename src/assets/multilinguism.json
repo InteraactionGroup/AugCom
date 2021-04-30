@@ -134,6 +134,7 @@
     { "id" : "chooseImagePositionOfPicrogram",  "FR" : "Choissez la position de l'image du pictogramme", "EN" : "Choose the image position of the pictogram" },
     { "id" : "chooseTheFont",  "FR" : "Choissez la police", "EN" : "Choose the font" },
     { "id" : "pictogramDirectoryManagement",  "FR" : "Organisation des pictogrammes-répertoire", "EN" : "Pictograms-Directory management" },
-    { "id" : "defaultSyleSameAsApp",  "FR" : "Style par défault (celui de l'application)", "EN" : "Default Style (same as the app)" }
+    { "id" : "defaultSyleSameAsApp",  "FR" : "Style par défault (celui de l'application)", "EN" : "Default Style (same as the app)" },
+    { "id" : "import save from snap core first",  "FR" : "Importer une sauvegarde de snap core first", "EN" : "Import save from snap core first" }
   ]
 }

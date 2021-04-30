@@ -366,6 +366,11 @@ export class Spb2augComponent implements OnInit {
       this.page.ElementIDsList.push(gridElement.ID);
     }
   }
+
+  /**
+   * check the current page if it's the main page it will set the good title
+   * @param pageId current page
+   */
   getPageHomeTitle(pageId: any){
     let titlePage;
     if (pageId === this.pageHome) {
