@@ -18,6 +18,20 @@ import {LayoutService} from '../../services/layout.service';
 // doc sqlite : https://github.com/sql-js/sql.js/
 export class Spb2augComponent implements OnInit {
 
+  newGrid: Grid;
+  page: Page;
+  gridElement: GridElement;
+  rowCounts: number[];
+  NumberOfCols: number;
+  NumberOfRows: number;
+  db = null;
+  pageHome: number;
+  newPage: Page;
+  myBlob: Blob;
+  myFile: File;
+  im: SafeUrl;
+  numberErrorImage: number;
+
   constructor(
     public multilinguism: MultilinguismService,
     public indexedDBacess: IndexeddbaccessService,
@@ -26,24 +40,9 @@ export class Spb2augComponent implements OnInit {
     public configuration: ConfigurationService,
     public layoutService: LayoutService) {
   }
-  newGrid: Grid;
-  page : Page;
-  gridElement: GridElement;
-  rowCounts: number[];
-  NumberOfCols: number;
-  NumberOfRows: number;
-  db = null;
-  pageHome: number;
-  newPage: Page;
-
-  myBlob: Blob;
-  myFile: File;
-  im: SafeUrl;
-
-  numberErrorImage: number;
 
   ngOnInit(): void {
-    this.newGrid = new Grid('newGrid','Grid',0,0,[],[],[]);
+    this.newGrid = new Grid('newGrid', 'Grid', 0, 0, [], [], []);
     this.page = new Page();
     this.page.ID = '#HOME';
     this.page.Name = 'Accueil';
@@ -58,7 +57,7 @@ export class Spb2augComponent implements OnInit {
    * convert a spb file into a grid
    * @param file file imported
    */
-  convert(file){
+  convert(file) {
     this.newGrid.ID = 'newGrid';
     this.newGrid.GapSize = 5;
     const myFile = file[0];
@@ -94,35 +93,47 @@ export class Spb2augComponent implements OnInit {
       this.router.navigate(['']);
     });
   }
-  getElement(){
-    const pageLayoutSelected = this.getMainPageDimension();
-    console.log(pageLayoutSelected)
+
+  getElement() {
+    let pageLayoutSelected = this.getMainPageDimension();
     const buttonTable = this.db.prepare('SELECT * FROM button');
     const elReference = this.db.prepare('SELECT * FROM ElementReference');
-    const elPlacement = this.db.prepare('SELECT * FROM \'ElementReference\' INNER JOIN \'ElementPlacement\' ON ElementReference.Id = ElementPlacement.ElementReferenceId WHERE PageLayoutId == '+pageLayoutSelected+' ORDER BY ID');
+    let elPlacement = this.db.prepare('SELECT * FROM \'ElementReference\' INNER JOIN \'ElementPlacement\' ON ElementReference.Id = ElementPlacement.ElementReferenceId WHERE PageLayoutId == ' + pageLayoutSelected + ' ORDER BY ID');
     const buttonsFolder = this.db.prepare('SELECT * FROM ButtonPageLink');
-    const buttonPage = this.db.prepare('SELECT ButtonId, Button.Label, Button.ElementReferenceId as ButtonElementRenceID,Page.Title, PageUniqueId, Page.Id, ElementPlacement.ElementReferenceId as ElementReferenceIdOfChild, ElementPlacement.GridPosition as ChildPosition, ElementPlacement.GridSpan as ChildSpan FROM \'Button\' JOIN \'ButtonPageLink\' ON Button.Id = ButtonPageLink.ButtonId JOIN \'PAGE\' ON ButtonPageLink.PageUniqueId = Page.UniqueID JOIN PageLayout ON PageId = Page.Id JOIN ElementPlacement ON PageLayoutId = PageLayout.ID WHERE PageLayoutId == '+pageLayoutSelected+' ORDER BY ButtonId ASC');
+    const buttonPage = this.db.prepare('SELECT ButtonId, Button.Label, Button.ElementReferenceId as ButtonElementRenceID,Page.Title, PageUniqueId, Page.Id, ElementPlacement.ElementReferenceId as ElementReferenceIdOfChild, ElementPlacement.GridPosition as ChildPosition, ElementPlacement.GridSpan as ChildSpan FROM \'Button\' JOIN \'ButtonPageLink\' ON Button.Id = ButtonPageLink.ButtonId JOIN \'PAGE\' ON ButtonPageLink.PageUniqueId = Page.UniqueID JOIN PageLayout ON PageId = Page.Id JOIN ElementPlacement ON PageLayoutId = PageLayout.ID  ORDER BY ButtonId ASC');
     // skip the first button because we don't care about it
     elReference.step();
     buttonsFolder.step();
-    // elPlacement.step();
     let elementReferenceOld = 0;
     let elementReferenceCurrent = 0;
+    // variable qui sert à connaître la page que l'on est en train de remplir
+    let pageIdSelected = 4;
     // buttonTable.step itère sur les ligne une à une
-    while (buttonTable.step()){
+    while (buttonTable.step()) {
       elPlacement.step();
       elReference.step();
 
       // check si elementReference est le même entre 2 itérations si c'est le cas on va au suivant
       elementReferenceOld = elementReferenceCurrent;
       elementReferenceCurrent = elPlacement.getAsObject().ElementReferenceId;
-      if(elementReferenceCurrent === elementReferenceOld) {
+      if (elementReferenceCurrent === elementReferenceOld) {
         while (elementReferenceCurrent === elementReferenceOld) {
           elPlacement.step();
           elementReferenceCurrent = elPlacement.getAsObject().ElementReferenceId;
         }
         elementReferenceOld = elementReferenceCurrent;
       }
+
+      let gridPosition = elPlacement.getAsObject().GridPosition;
+      if (gridPosition == null) {
+        pageIdSelected = pageIdSelected + 1;
+        const pageLayout = this.db.prepare('SELECT * FROM PageLayout WHERE PageId =' + pageIdSelected);
+        pageLayoutSelected = this.getPageDimensionMax(pageLayout)[2];
+        elPlacement = this.db.prepare('SELECT * FROM \'ElementReference\' INNER JOIN \'ElementPlacement\' ON ElementReference.Id = ElementPlacement.ElementReferenceId WHERE PageLayoutId == ' + pageLayoutSelected + ' ORDER BY ID');
+        elPlacement.step();
+        gridPosition = elPlacement.getAsObject().GridPosition;
+      }
+      const gridSpan = elPlacement.getAsObject().GridSpan;
 
       const buttonFolder = Number(buttonsFolder.getAsObject().ButtonId);
       const buttonId = Number(buttonTable.getAsObject().Id);
@@ -132,18 +143,17 @@ export class Spb2augComponent implements OnInit {
       const borderColor = Number(buttonTable.getAsObject().BorderColor);
 
       const B_MASK = 255;
-      const G_MASK = 255<<8; // 65280
-      const R_MASK = 255<<16; // 16711680
-      const r = (color & R_MASK)>>16;
-      const g = (color & G_MASK)>>8;
+      const G_MASK = 255 << 8; // 65280
+      const R_MASK = 255 << 16; // 16711680
+      const r = (color & R_MASK) >> 16;
+      const g = (color & G_MASK) >> 8;
       const b = color & B_MASK;
 
-      const rb = (borderColor & R_MASK)>>16;
-      const gb = (borderColor & G_MASK)>>8;
+      const rb = (borderColor & R_MASK) >> 16;
+      const gb = (borderColor & G_MASK) >> 8;
       const bb = borderColor & B_MASK;
 
-      const gridPosition = elPlacement.getAsObject().GridPosition;
-      const gridSpan = elPlacement.getAsObject().GridSpan;
+
       const tabResPos = gridPosition.split(',');
       const tabResSpan = gridSpan.split(',');
       const label: string = buttonTable.getAsObject().Label;
@@ -152,12 +162,12 @@ export class Spb2augComponent implements OnInit {
       const pageId = elReference.getAsObject().PageId;
 
       // check if the button is a folder button to bind him
-      if(buttonId === buttonFolder && label !== null){
+      if (buttonId === buttonFolder && label !== null) {
         this.gridElement = new GridElement(buttonUniqueId,
-          {GoTo : label},
+          {GoTo: label},
           '',
-          'rgb('+r+','+g+','+b+')',
-          'rgb('+rb+','+gb+','+bb+')',
+          'rgb(' + r + ',' + g + ',' + b + ')',
+          'rgb(' + rb + ',' + gb + ',' + bb + ')',
           1,
           [
             {
@@ -166,9 +176,9 @@ export class Spb2augComponent implements OnInit {
               LexicInfos: [{default: true}],
               ImageID: (label) !== null ? label : message,
             }
-          ], [{ID: 'click', ActionList: [{ID: 'display', Options: []},{ID: 'say', Options: []}]}])
+          ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
         const pageUniqueIdFromButtonFolder = buttonsFolder.getAsObject().PageUniqueId;
-        const querySearchTitle = this.db.prepare('SELECT Title FROM Page WHERE UniqueId == "' +String(pageUniqueIdFromButtonFolder) + '"');
+        const querySearchTitle = this.db.prepare('SELECT Title FROM Page WHERE UniqueId == "' + String(pageUniqueIdFromButtonFolder) + '"');
         querySearchTitle.step();
         buttonsFolder.step();
         this.newPage = new Page();
@@ -176,12 +186,11 @@ export class Spb2augComponent implements OnInit {
         this.newPage.Name = String(querySearchTitle.getAsObject().Title);
         this.newPage.ElementIDsList = [];
         this.newGrid.PageList.unshift(this.newPage);
-      }
-      else if (buttonId === buttonFolder && label === null){
+      } else if (buttonId === buttonFolder && label === null) {
         this.gridElement = new GridElement(buttonUniqueId,
-          {GoTo : String(buttonFolder)},
-          '', 'rgb('+r+','+g+','+b+')',
-          'rgb('+rb+','+gb+','+bb+')',
+          {GoTo: String(buttonFolder)},
+          '', 'rgb(' + r + ',' + g + ',' + b + ')',
+          'rgb(' + rb + ',' + gb + ',' + bb + ')',
           1,
           [
             {
@@ -190,9 +199,9 @@ export class Spb2augComponent implements OnInit {
               LexicInfos: [{default: true}],
               ImageID: (label) !== null ? label : message,
             }
-          ], [{ID: 'click', ActionList: [{ID: 'display', Options: []},{ID: 'say', Options: []}]}])
+          ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
         const pageUniqueIdFromButtonFolder = buttonsFolder.getAsObject().PageUniqueId;
-        const querySearchTitle = this.db.prepare('SELECT Title FROM Page WHERE UniqueId == "' +String(pageUniqueIdFromButtonFolder) + '"');
+        const querySearchTitle = this.db.prepare('SELECT Title FROM Page WHERE UniqueId == "' + String(pageUniqueIdFromButtonFolder) + '"');
         querySearchTitle.step();
         buttonsFolder.step();
         this.newPage = new Page();
@@ -200,8 +209,7 @@ export class Spb2augComponent implements OnInit {
         this.newPage.Name = String(querySearchTitle.getAsObject().Title);
         this.newPage.ElementIDsList = [];
         this.newGrid.PageList.unshift(this.newPage);
-      }
-      else {
+      } else {
         this.gridElement = new GridElement(buttonUniqueId,
           'button',
           '',
@@ -222,9 +230,9 @@ export class Spb2augComponent implements OnInit {
       this.gridElement.rows = Number(tabResSpan[1]);
       this.gridElement.cols = Number(tabResSpan[0]);
       this.newGrid.ElementList.push(this.gridElement);
-      this.getPageHomeButtons(pageId,this.gridElement);
+      this.getPageHomeButtons(pageId, this.gridElement);
       this.getPageHomeTitle(pageId)
-      const pathImage = this.getPathImageArsaacLibrary(label,message);
+      const pathImage = this.getPathImageArsaacLibrary(label, message);
       this.newGrid.ImageList.push({
         ID: (label) !== null ? label : message,
         OriginalName: (label) !== null ? label : message,
@@ -234,7 +242,7 @@ export class Spb2augComponent implements OnInit {
     this.addColIfNeeded();
     this.newGrid.PageList.unshift(this.page);
     this.getPageFolderButtons(buttonPage);
-    this.goDownPage(pageLayoutSelected);
+    this.goDownPageRemastered();
   }
 
   /**
@@ -242,30 +250,26 @@ export class Spb2augComponent implements OnInit {
    * @param label the label of the button
    * @param message the message of the button
    */
-  getPathImageArsaacLibrary(label,message):string{
+  getPathImageArsaacLibrary(label, message): string {
     if (label !== null) {
       const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
         return label.toLowerCase() === word;
       });
-      if(index > -1) {
+      if (index > -1) {
         return 'assets/libs/FR_Pictogrammes_couleur/' + label.toLowerCase() + '.png';
-      }
-      else{
+      } else {
         return 'assets/libs/FR_Pictogrammes_couleur/' + label.toUpperCase() + '.png';
       }
-    }
-    else if (message !== null){
+    } else if (message !== null) {
       const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
         return message.toLowerCase() === word;
       });
-      if(index > -1) {
+      if (index > -1) {
         return 'assets/libs/FR_Pictogrammes_couleur/' + message.toLowerCase() + '.png';
-      }
-      else{
+      } else {
         return 'assets/libs/FR_Pictogrammes_couleur/' + message.toUpperCase() + '.png';
       }
-    }
-    else{
+    } else {
       return 'assets/libs/FR_Pictogrammes_couleur/direction_1.png';
     }
   }
@@ -274,13 +278,13 @@ export class Spb2augComponent implements OnInit {
    * loads the buttons in the right folder on the right page
    * @param buttonPage request for buttonFolder in every page
    */
-  getPageFolderButtons(buttonPage: any){
-    while(buttonPage.step()) {
+  getPageFolderButtons(buttonPage: any) {
+    while (buttonPage.step()) {
       const elementReferenceOfChild = Number(buttonPage.getAsObject().ElementReferenceIdOfChild);
       const labelFolder = String(buttonPage.getAsObject().Label);
       const labelFolderId = String(buttonPage.getAsObject().ButtonId);
       let index = this.newGrid.PageList.findIndex(page => page.ID === labelFolder);
-      if(index === -1){
+      if (index === -1) {
         index = this.newGrid.PageList.findIndex(page => page.ID === labelFolderId);
       }
       const pageId = Number(buttonPage.getAsObject().Id);
@@ -289,10 +293,11 @@ export class Spb2augComponent implements OnInit {
       const numberof = this.getPageDimensionMax(pageLayout);
       this.newGrid.PageList[index].NumberOfRows = Number(numberof[0]);
       this.newGrid.PageList[index].NumberOfCols = Number(numberof[1]);
+      const pageLayoutSelected = Number(numberof[2]);
       const childPositions = buttonPage.getAsObject().ChildPosition;
       const childPositionsXY = childPositions.split(',');
       // on ajoute tout les boutons aux différentes pages des boutons (uniquement leur première page)
-      if(Number(childPositionsXY[1]) < this.newGrid.PageList[index].NumberOfRows) {
+      if (Number(childPositionsXY[1]) < this.newGrid.PageList[index].NumberOfRows) {
         this.newGrid.PageList[index].ElementIDsList.push(this.newGrid.ElementList[elementReferenceOfChild - 2].ID);
       }
     }
@@ -314,28 +319,28 @@ export class Spb2augComponent implements OnInit {
   /**
    * query the database and set the number of rows and columns in the main page
    */
-  getMainPageDimension():number{
-    const pageLayout = this.db.prepare('SELECT * FROM PageLayout WHERE PageId = 4');
-    const numberof = this.getPageDimensionMax(pageLayout);
+  getMainPageDimension(): number {
+    const page = this.db.prepare('SELECT * FROM PageLayout WHERE PageId == 4');
+    const numberof = this.getPageDimensionMax(page);
     this.page.NumberOfRows = Number(numberof[0]);
     this.page.NumberOfCols = Number(numberof[1]);
-    return Number(numberof[2])
+    return Number(numberof[2]);
   }
 
   /**
-   * set the max of rows and columns for every pages
-   * @param pageLayout query from the database for pageLayout
+   * get the max of rows and columns for every pages and return the pageLayoutId
+   * @param page query from the database for page in PageLayout table
    */
-  getPageDimensionMax(pageLayout: any):number[]{
+  getPageDimensionMax(page: any): number[] {
     // on va prendre la taille la plus grande parmis toutes les dispositions pour etre sur d'accueillir tous les boutons
     let numberOfRowsMax = 0;
     let numberOfColsMax = 0;
     let pageLayoutId = 0;
-    while(pageLayout.step()){
-      const pageLayoutSetting = pageLayout.getAsObject().PageLayoutSetting;
-      const pageLayoutIdDataBase = pageLayout.getAsObject().Id;
+    while (page.step()) {
+      const pageLayoutSetting = page.getAsObject().PageLayoutSetting;
+      const pageLayoutIdDataBase = page.getAsObject().Id;
       const tabLayoutSetting = pageLayoutSetting.split(',');
-      if(numberOfRowsMax <= Number(tabLayoutSetting[1]) && numberOfColsMax <= Number(tabLayoutSetting[0])){
+      if (numberOfRowsMax <= Number(tabLayoutSetting[1]) && numberOfColsMax <= Number(tabLayoutSetting[0])) {
         numberOfRowsMax = Number(tabLayoutSetting[1]);
         numberOfColsMax = Number(tabLayoutSetting[0]);
         pageLayoutId = pageLayoutIdDataBase;
@@ -348,7 +353,7 @@ export class Spb2augComponent implements OnInit {
    * query the database to set the police
    * @param name the name of the table (useless if you put the great query)
    */
-  getPolice(){
+  getPolice() {
     const po = this.db.prepare('SELECT * FROM PageSetProperties');
     po.step();
     const police = po.getAsObject().FontFamily;
@@ -360,7 +365,7 @@ export class Spb2augComponent implements OnInit {
    * @param pageId the Id of the current page
    * @param gridElement the current element
    */
-  getPageHomeButtons(pageId: any, gridElement: GridElement){
+  getPageHomeButtons(pageId: any, gridElement: GridElement) {
     // -1 à cause des tableaux de l'enfer qui commencent à 0
     if (pageId === this.pageHome && gridElement.y <= this.page.NumberOfRows - 1) {
       this.page.ElementIDsList.push(gridElement.ID);
@@ -371,7 +376,7 @@ export class Spb2augComponent implements OnInit {
    * check the current page if it's the main page it will set the good title
    * @param pageId current page
    */
-  getPageHomeTitle(pageId: any){
+  getPageHomeTitle(pageId: any) {
     let titlePage;
     if (pageId === this.pageHome) {
       titlePage = this.db.prepare('SELECT Title FROM Page WHERE id ==' + 4);
@@ -379,25 +384,119 @@ export class Spb2augComponent implements OnInit {
       this.page.Name = String(titlePage.getAsObject().Title);
     }
   }
+
+  goDownPageRemastered() {
+    const eachPageReal = this.db.prepare('SELECT * FROM Page');
+    eachPageReal.step();
+    eachPageReal.step();
+    while (eachPageReal.step()) {
+      const pageId = eachPageReal.getAsObject().Id;
+      console.log(pageId);
+      const eachPage = this.db.prepare('SELECT * FROM PageLayout WHERE PageId == ' + pageId);
+      let pageLayoutId;
+      const pageLayout = this.getPageDimensionMax(eachPage);
+      let nextPages: Page = new Page();
+      nextPages.NumberOfRows = pageLayout[0];
+      nextPages.NumberOfCols = pageLayout[1];
+      pageLayoutId = pageLayout[2];
+      console.log('pageLayoutId', pageLayoutId)
+      nextPages.ElementIDsList = [];
+      let numeroPage = 1;
+      let RowMaxPage = 0;
+      let pageid = 0;
+      // const gridPositionAndPageId = this.db.prepare('SELECT * FROM \'ElementPlacement\' INNER JOIN \'ElementReference\' ON ElementReference.Id = ElementPlacement.ElementReferenceId WHERE PageLayoutId == '+pageLayoutId+' ORDER BY Id');
+      const buttonRowMaxPage = this.db.prepare('SELECT * FROM \'ElementPlacement\' INNER JOIN \'ElementReference\' ON ElementReference.Id = ElementPlacement.ElementReferenceId WHERE PageLayoutId == ' + pageLayoutId + ' ORDER BY Id');
+      while (buttonRowMaxPage.step()) {
+        const gridPosition = buttonRowMaxPage.getAsObject().GridPosition;
+        const buttonPosition = gridPosition.split(',');
+        console.log(buttonPosition)
+        const buttonRow = Number(buttonPosition[1]);
+        if (RowMaxPage < buttonRow) {
+          RowMaxPage = buttonRow;
+          pageid = buttonRowMaxPage.getAsObject().PageId;
+        }
+      }
+      const numberNewPage = Math.ceil(RowMaxPage / this.newGrid.PageList[pageid - 4].NumberOfRows) - 1;
+      if (numberNewPage > 0) {
+        this.gridElement = new GridElement('goDown' + this.newGrid.PageList[pageid - 4].ID + numeroPage,
+          {GoTo: this.newGrid.PageList[pageid - 4].ID + numeroPage},
+          '',
+          '',
+          '',
+          1,
+          [
+            {
+              DisplayedText: 'go Down',
+              VoiceText: '',
+              LexicInfos: [{default: true}],
+              ImageID: '',
+            }
+          ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
+        this.gridElement.cols = 1;
+        this.gridElement.rows = 1;
+        this.gridElement.y = this.page.NumberOfRows - 1;
+        this.gridElement.x = this.page.NumberOfCols - 1;
+
+        this.newGrid.ElementList.push(this.gridElement);
+        this.newGrid.PageList[pageid - 4].ElementIDsList.push(this.gridElement.ID);
+        // conditions pour les pages de page
+        for (let i = 0; i < numberNewPage; i++) {
+          nextPages = new Page();
+          nextPages.ID = this.newGrid.PageList[pageid - 4].ID + numeroPage;
+          nextPages.Name = this.newGrid.PageList[pageid - 4].Name + numeroPage;
+          nextPages.ElementIDsList = [];
+          nextPages.NumberOfRows = this.newGrid.PageList[pageid - 4].NumberOfRows;
+          nextPages.NumberOfCols = this.newGrid.PageList[pageid - 4].NumberOfCols;
+
+          // numberNewPage - 1 !== i car on ne veut pas de bouton descendre dans la dernière page
+          if (numberNewPage - 1 !== i) {
+            this.gridElement = new GridElement('goDown ' + this.newGrid.PageList[pageid - 4].ID + (numeroPage + 1),
+              {GoTo: this.newGrid.PageList[pageid - 4].ID + (numeroPage + 1)},
+              '',
+              '',
+              '',
+              1,
+              [
+                {
+                  DisplayedText: 'go Down',
+                  VoiceText: '',
+                  LexicInfos: [{default: true}],
+                  ImageID: '',
+                }
+              ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
+            this.gridElement.cols = 1;
+            this.gridElement.rows = 1;
+            this.gridElement.y = nextPages.NumberOfRows - 1;
+            this.gridElement.x = nextPages.NumberOfCols - 1;
+            this.newGrid.ElementList.push(this.gridElement);
+            nextPages.ElementIDsList.push(this.gridElement.ID);
+          }
+          this.buttonsNewPages(nextPages, i, pageid);
+          this.newGrid.PageList.push(nextPages);
+          numeroPage = numeroPage + 1;
+        }
+      }
+    }
+  }
+
   /**
    * Create a button to go down in the page and load it
    */
-  goDownPage(pageLayoutSelected:number){
+  goDownPage() {
     let nextPages: Page = new Page();
     nextPages.ElementIDsList = [];
     let numeroPage = 1;
     let lastElementPageId: number;
     let RowMaxPage = 0;
-
-    const gridPositionAndPageId = this.db.prepare('SELECT * FROM \'ElementPlacement\' INNER JOIN \'ElementReference\' ON ElementReference.Id = ElementPlacement.ElementReferenceId WHERE PageLayoutId == '+pageLayoutSelected+' ORDER BY Id');
+    const gridPositionAndPageId = this.db.prepare('SELECT * FROM \'ElementPlacement\' INNER JOIN \'ElementReference\' ON ElementReference.Id = ElementPlacement.ElementReferenceId WHERE PageLayoutId == 4 ORDER BY Id');
     let pageid = 4;
     gridPositionAndPageId.step();
     let gridPosition = gridPositionAndPageId.getAsObject().GridPosition;
-    while(gridPositionAndPageId.step()) {
+    while (gridPositionAndPageId.step()) {
       const pageId = gridPositionAndPageId.getAsObject().PageId;
       const buttonPosition = gridPosition.split(',');
       const buttonRow = Number(buttonPosition[1]);
-      if(RowMaxPage < buttonRow){
+      if (RowMaxPage < buttonRow) {
         RowMaxPage = buttonRow;
       }
       if (pageid !== pageId) {
@@ -405,7 +504,7 @@ export class Spb2augComponent implements OnInit {
         const numberNewPage = Math.ceil(RowMaxPage / this.newGrid.PageList[pageid - 4].NumberOfRows) - 1;
         RowMaxPage = 0;
         // condition pour les pages initiales
-        if(numberNewPage > 0) {
+        if (numberNewPage > 0) {
           // création du bouton pour descendre dans la page d'origine quand il y a plusieurs pages
           this.gridElement = new GridElement('goDown' + this.newGrid.PageList[pageid - 4].ID + numeroPage,
             {GoTo: this.newGrid.PageList[pageid - 4].ID + numeroPage},
@@ -473,17 +572,17 @@ export class Spb2augComponent implements OnInit {
       gridPosition = gridPositionAndPageId.getAsObject().GridPosition;
     }
     // Traitement pour le dernier cas de la boucle while
-    if(pageid !== 4 && pageid !== lastElementPageId){
+    if (pageid !== 4 && pageid !== lastElementPageId) {
       // on donne l'indice de la dernière page en rajoutant ce + 1 mais ne fonctionne qu'avec plusieurs page
       pageid = pageid + 1;
       const buttonPositionBis = gridPosition.split(',');
       const buttonRowBis = Number(buttonPositionBis[1]);
-      if(RowMaxPage < buttonRowBis){
+      if (RowMaxPage < buttonRowBis) {
         RowMaxPage = buttonRowBis;
       }
       // numberNewPage permet de connaitre le nombre de page à créer -1 puisque l'on créer déjà la première page en dehors
       const numberNewPageBis = Math.ceil(RowMaxPage / this.newGrid.PageList[pageid - 6].NumberOfRows) - 1;
-      if(numberNewPageBis > 0) {
+      if (numberNewPageBis > 0) {
         // création du bouton pour descendre dans la page d'origine quand il y a plusieurs pages
         this.gridElement = new GridElement('goDown' + this.newGrid.PageList[pageid - 6].ID + numeroPage,
           {GoTo: this.newGrid.PageList[pageid - 6].ID + numeroPage},
@@ -543,16 +642,15 @@ export class Spb2augComponent implements OnInit {
           numeroPage = numeroPage + 1;
         }
       }
-    }
-    else{
+    } else {
       const buttonPositionBis = gridPosition.split(',');
       const buttonRowBis = Number(buttonPositionBis[1]);
-      if(RowMaxPage < buttonRowBis){
+      if (RowMaxPage < buttonRowBis) {
         RowMaxPage = buttonRowBis;
       }
       // numberNewPage permet de connaitre le nombre de page à créer -1 puisque l'on créer déjà la première page en dehors
       const numberNewPageBis = Math.ceil((RowMaxPage + 1) / this.newGrid.PageList[pageid - 4].NumberOfRows) - 1;
-      if(numberNewPageBis > 0) {
+      if (numberNewPageBis > 0) {
         // création du bouton pour descendre dans la page d'origine quand il y a plusieurs pages
         this.gridElement = new GridElement('goDown' + this.newGrid.PageList[pageid - 4].ID + numeroPage,
           {GoTo: this.newGrid.PageList[pageid - 4].ID + numeroPage},
@@ -614,7 +712,8 @@ export class Spb2augComponent implements OnInit {
       }
     }
   }
-  buttonsNewPages(nextPages: Page, indicePage: number, pageid: number){
+
+  buttonsNewPages(nextPages: Page, indicePage: number, pageid: number) {
     const buttonAllInfomations = this.db.prepare('SELECT * FROM ((\'ElementReference\' INNER JOIN \'ElementPlacement\' ON ElementReference.Id = ElementPlacement.ElementReferenceId) INNER JOIN \'Button\' ON ElementReference.Id = Button.ElementReferenceId) ORDER BY ID');
     while (buttonAllInfomations.step()) {
       const label = buttonAllInfomations.getAsObject().Label;
@@ -639,10 +738,11 @@ export class Spb2augComponent implements OnInit {
       this.gridElement.rows = Number(tabResSpan[1]);
       this.gridElement.cols = Number(tabResSpan[0]);
       // l'indice commence à 0 donc +1
-      if(this.gridElement.y >= nextPages.NumberOfRows * (indicePage + 1) && this.gridElement.y < nextPages.NumberOfRows * (indicePage + 2) && pageid === buttonPageId){
-        this.newGrid.ElementList.forEach(element => {if(element.ID === this.gridElement.ID){
-          element.y = element.y % nextPages.NumberOfRows;
-        }
+      if (this.gridElement.y >= nextPages.NumberOfRows * (indicePage + 1) && this.gridElement.y < nextPages.NumberOfRows * (indicePage + 2) && pageid === buttonPageId) {
+        this.newGrid.ElementList.forEach(element => {
+          if (element.ID === this.gridElement.ID) {
+            element.y = element.y % nextPages.NumberOfRows;
+          }
         });
         nextPages.ElementIDsList.push(this.gridElement.ID);
       }
@@ -653,7 +753,7 @@ export class Spb2augComponent implements OnInit {
    * removes all duplicate buttons in the grid
    * @param grid the current grid
    */
-  DeleteDoublon(grid: Grid){
+  DeleteDoublon(grid: Grid) {
     grid.PageList.forEach(page => {
       page.ElementIDsList = Array.from(new Set(page.ElementIDsList));
     });
@@ -663,8 +763,8 @@ export class Spb2augComponent implements OnInit {
    * create down button
    * @param nextPages the page that will be targeted by the button
    */
-  createButtonDown(nextPages: Page){
-    this.gridElement = new GridElement('goDown', {GoTo : nextPages.Name}, '', '', ''
+  createButtonDown(nextPages: Page) {
+    this.gridElement = new GridElement('goDown', {GoTo: nextPages.Name}, '', '', ''
       , 1,
       [
         {
@@ -673,7 +773,7 @@ export class Spb2augComponent implements OnInit {
           LexicInfos: [{default: true}],
           ImageID: '',
         }
-      ], [{ID: 'click', ActionList: [{ID: 'display', Options: []},{ID: 'say', Options: []}]}])
+      ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
     this.gridElement.cols = 1;
     this.gridElement.rows = 1;
     this.gridElement.x = this.newGrid.NumberOfRows - 1;
@@ -683,11 +783,11 @@ export class Spb2augComponent implements OnInit {
   /**
    * add a colomn if we need to add a button page down and we don't have place to do it
    */
-  addColIfNeeded(){
+  addColIfNeeded() {
     let resultat = false;
     this.newGrid.ElementList.forEach(element => {
-      if(element.y + element.rows === this.page.NumberOfRows && element.x + element.cols === this.page.NumberOfCols && this.page.ElementIDsList.indexOf(element.ID) > -1){
-        if(resultat === false) {
+      if (element.y + element.rows === this.page.NumberOfRows && element.x + element.cols === this.page.NumberOfCols && this.page.ElementIDsList.indexOf(element.ID) > -1) {
+        if (resultat === false) {
           this.page.NumberOfCols = this.page.NumberOfCols + 1;
           resultat = true;
         }
@@ -698,13 +798,13 @@ export class Spb2augComponent implements OnInit {
   /**
    * checks that each image exists in the image bank and makes the error rate
    */
-  statErrorImage(){
+  statErrorImage() {
     this.newGrid.ImageList.forEach(picture => {
       const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
         return picture.ID !== null && picture.ID !== '' && (picture.ID.toLowerCase() === word || picture.ID.toUpperCase() === word);
       });
 
-      if(index ===-1){
+      if (index === -1) {
         // console.log(picture.ID);
         this.numberErrorImage = this.numberErrorImage + 1;
       }
