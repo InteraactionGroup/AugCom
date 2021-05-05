@@ -104,12 +104,11 @@ export class Spb2augComponent implements OnInit {
     let elPlacement = this.db.prepare('SELECT * FROM \'ElementReference\' INNER JOIN \'ElementPlacement\' ON ElementReference.Id = ElementPlacement.ElementReferenceId WHERE PageLayoutId == ' + pageLayoutSelected + ' ORDER BY ID');
     const buttonsFolder = this.db.prepare('SELECT * FROM ButtonPageLink');
     const buttonPage = this.db.prepare('SELECT ButtonId, Button.Label, Button.ElementReferenceId as ButtonElementRenceID,Page.Title, PageUniqueId, Page.Id, ElementPlacement.ElementReferenceId as ElementReferenceIdOfChild, ElementPlacement.GridPosition as ChildPosition, ElementPlacement.GridSpan as ChildSpan FROM \'Button\' JOIN \'ButtonPageLink\' ON Button.Id = ButtonPageLink.ButtonId JOIN \'PAGE\' ON ButtonPageLink.PageUniqueId = Page.UniqueID JOIN PageLayout ON PageId = Page.Id JOIN ElementPlacement ON PageLayoutId = PageLayout.ID  ORDER BY ButtonId ASC');
-    // skip the first button because we don't care about it
     elReference.step();
     buttonsFolder.step();
-    // variable qui sert à connaître la page que l'on est en train de remplir
+    // variable that is used to know the page that is being filled in
     let pageIdSelected = 4;
-    // buttonTable.step itère sur les ligne une à une
+    // read line by line the table "button"
     while (buttonTable.step()) {
       elPlacement.step();
       elReference.step();
@@ -280,7 +279,6 @@ export class Spb2augComponent implements OnInit {
       }
       const pageId = Number(buttonPage.getAsObject().Id);
       const pageLayout = this.db.prepare('SELECT * FROM PageLayout WHERE PageId = ' + pageId);
-      // on va prendre la taille la plus grande parmis toutes les dispositions pour etre sur d'accueillir tous les boutons
       const numberof = this.getPageDimensionMax(pageLayout);
       this.newGrid.PageList[index].NumberOfRows = Number(numberof[0]);
       this.newGrid.PageList[index].NumberOfCols = Number(numberof[1]);
@@ -323,7 +321,6 @@ export class Spb2augComponent implements OnInit {
    * @param page query from the database for page in PageLayout table
    */
   getPageDimensionMax(page: any): number[] {
-    // on va prendre la taille la plus grande parmis toutes les dispositions pour etre sur d'accueillir tous les boutons
     let numberOfRowsMax = 0;
     let numberOfColsMax = 0;
     let pageLayoutId = 0;
@@ -357,7 +354,6 @@ export class Spb2augComponent implements OnInit {
    * @param gridElement the current element
    */
   getPageHomeButtons(pageId: any, gridElement: GridElement) {
-    // -1 à cause des tableaux de l'enfer qui commencent à 0
     if (pageId === this.pageHome && gridElement.y <= this.page.NumberOfRows - 1) {
       this.page.ElementIDsList.push(gridElement.ID);
     }
@@ -396,7 +392,6 @@ export class Spb2augComponent implements OnInit {
       let numeroPage = 1;
       let RowMaxPage = 0;
       let pageid = 0;
-      // const gridPositionAndPageId = this.db.prepare('SELECT * FROM \'ElementPlacement\' INNER JOIN \'ElementReference\' ON ElementReference.Id = ElementPlacement.ElementReferenceId WHERE PageLayoutId == '+pageLayoutId+' ORDER BY Id');
       const buttonRowMaxPage = this.db.prepare('SELECT * FROM \'ElementPlacement\' INNER JOIN \'ElementReference\' ON ElementReference.Id = ElementPlacement.ElementReferenceId WHERE PageLayoutId == ' + pageLayoutId + ' ORDER BY Id');
       while (buttonRowMaxPage.step()) {
         const gridPosition = buttonRowMaxPage.getAsObject().GridPosition;
@@ -440,7 +435,7 @@ export class Spb2augComponent implements OnInit {
             nextPages.NumberOfRows = this.newGrid.PageList[pageid - 4].NumberOfRows;
             nextPages.NumberOfCols = this.newGrid.PageList[pageid - 4].NumberOfCols;
 
-            // numberNewPage - 1 !== i car on ne veut pas de bouton descendre dans la dernière page
+            // numberNewPage - 1 !== i because we don't want a down button in the last page
             if (numberNewPage - 1 !== i) {
               this.gridElement = new GridElement('goDown ' + this.newGrid.PageList[pageid - 4].ID + (numeroPage + 1),
                 {GoTo: this.newGrid.PageList[pageid - 4].ID + (numeroPage + 1)},
