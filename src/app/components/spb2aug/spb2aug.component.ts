@@ -104,8 +104,6 @@ export class Spb2augComponent implements OnInit {
     // skip the first button because we don't care about it
     elReference.step();
     buttonsFolder.step();
-    let elementReferenceOld = 0;
-    let elementReferenceCurrent = 0;
     // variable qui sert à connaître la page que l'on est en train de remplir
     let pageIdSelected = 4;
     // buttonTable.step itère sur les ligne une à une
@@ -113,19 +111,9 @@ export class Spb2augComponent implements OnInit {
       elPlacement.step();
       elReference.step();
 
-      // check si elementReference est le même entre 2 itérations si c'est le cas on va au suivant
-      elementReferenceOld = elementReferenceCurrent;
-      elementReferenceCurrent = elPlacement.getAsObject().ElementReferenceId;
-      if (elementReferenceCurrent === elementReferenceOld) {
-        while (elementReferenceCurrent === elementReferenceOld) {
-          elPlacement.step();
-          elementReferenceCurrent = elPlacement.getAsObject().ElementReferenceId;
-        }
-        elementReferenceOld = elementReferenceCurrent;
-      }
-
       let gridPosition = elPlacement.getAsObject().GridPosition;
-      if (gridPosition == null) {
+
+      while (gridPosition == null) {
         pageIdSelected = pageIdSelected + 1;
         const pageLayout = this.db.prepare('SELECT * FROM PageLayout WHERE PageId =' + pageIdSelected);
         pageLayoutSelected = this.getPageDimensionMax(pageLayout)[2];
@@ -385,13 +373,15 @@ export class Spb2augComponent implements OnInit {
     }
   }
 
+  /**
+   * Create a button to go down in the page and load it
+   */
   goDownPageRemastered() {
     const eachPageReal = this.db.prepare('SELECT * FROM Page');
     eachPageReal.step();
     eachPageReal.step();
     while (eachPageReal.step()) {
       const pageId = eachPageReal.getAsObject().Id;
-      console.log(pageId);
       const eachPage = this.db.prepare('SELECT * FROM PageLayout WHERE PageId == ' + pageId);
       let pageLayoutId;
       const pageLayout = this.getPageDimensionMax(eachPage);
@@ -399,7 +389,6 @@ export class Spb2augComponent implements OnInit {
       nextPages.NumberOfRows = pageLayout[0];
       nextPages.NumberOfCols = pageLayout[1];
       pageLayoutId = pageLayout[2];
-      console.log('pageLayoutId', pageLayoutId)
       nextPages.ElementIDsList = [];
       let numeroPage = 1;
       let RowMaxPage = 0;
@@ -409,103 +398,15 @@ export class Spb2augComponent implements OnInit {
       while (buttonRowMaxPage.step()) {
         const gridPosition = buttonRowMaxPage.getAsObject().GridPosition;
         const buttonPosition = gridPosition.split(',');
-        console.log(buttonPosition)
         const buttonRow = Number(buttonPosition[1]);
         if (RowMaxPage < buttonRow) {
           RowMaxPage = buttonRow;
           pageid = buttonRowMaxPage.getAsObject().PageId;
         }
       }
-      const numberNewPage = Math.ceil(RowMaxPage / this.newGrid.PageList[pageid - 4].NumberOfRows) - 1;
-      if (numberNewPage > 0) {
-        this.gridElement = new GridElement('goDown' + this.newGrid.PageList[pageid - 4].ID + numeroPage,
-          {GoTo: this.newGrid.PageList[pageid - 4].ID + numeroPage},
-          '',
-          '',
-          '',
-          1,
-          [
-            {
-              DisplayedText: 'go Down',
-              VoiceText: '',
-              LexicInfos: [{default: true}],
-              ImageID: '',
-            }
-          ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
-        this.gridElement.cols = 1;
-        this.gridElement.rows = 1;
-        this.gridElement.y = this.page.NumberOfRows - 1;
-        this.gridElement.x = this.page.NumberOfCols - 1;
-
-        this.newGrid.ElementList.push(this.gridElement);
-        this.newGrid.PageList[pageid - 4].ElementIDsList.push(this.gridElement.ID);
-        // conditions pour les pages de page
-        for (let i = 0; i < numberNewPage; i++) {
-          nextPages = new Page();
-          nextPages.ID = this.newGrid.PageList[pageid - 4].ID + numeroPage;
-          nextPages.Name = this.newGrid.PageList[pageid - 4].Name + numeroPage;
-          nextPages.ElementIDsList = [];
-          nextPages.NumberOfRows = this.newGrid.PageList[pageid - 4].NumberOfRows;
-          nextPages.NumberOfCols = this.newGrid.PageList[pageid - 4].NumberOfCols;
-
-          // numberNewPage - 1 !== i car on ne veut pas de bouton descendre dans la dernière page
-          if (numberNewPage - 1 !== i) {
-            this.gridElement = new GridElement('goDown ' + this.newGrid.PageList[pageid - 4].ID + (numeroPage + 1),
-              {GoTo: this.newGrid.PageList[pageid - 4].ID + (numeroPage + 1)},
-              '',
-              '',
-              '',
-              1,
-              [
-                {
-                  DisplayedText: 'go Down',
-                  VoiceText: '',
-                  LexicInfos: [{default: true}],
-                  ImageID: '',
-                }
-              ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
-            this.gridElement.cols = 1;
-            this.gridElement.rows = 1;
-            this.gridElement.y = nextPages.NumberOfRows - 1;
-            this.gridElement.x = nextPages.NumberOfCols - 1;
-            this.newGrid.ElementList.push(this.gridElement);
-            nextPages.ElementIDsList.push(this.gridElement.ID);
-          }
-          this.buttonsNewPages(nextPages, i, pageid);
-          this.newGrid.PageList.push(nextPages);
-          numeroPage = numeroPage + 1;
-        }
-      }
-    }
-  }
-
-  /**
-   * Create a button to go down in the page and load it
-   */
-  goDownPage() {
-    let nextPages: Page = new Page();
-    nextPages.ElementIDsList = [];
-    let numeroPage = 1;
-    let lastElementPageId: number;
-    let RowMaxPage = 0;
-    const gridPositionAndPageId = this.db.prepare('SELECT * FROM \'ElementPlacement\' INNER JOIN \'ElementReference\' ON ElementReference.Id = ElementPlacement.ElementReferenceId WHERE PageLayoutId == 4 ORDER BY Id');
-    let pageid = 4;
-    gridPositionAndPageId.step();
-    let gridPosition = gridPositionAndPageId.getAsObject().GridPosition;
-    while (gridPositionAndPageId.step()) {
-      const pageId = gridPositionAndPageId.getAsObject().PageId;
-      const buttonPosition = gridPosition.split(',');
-      const buttonRow = Number(buttonPosition[1]);
-      if (RowMaxPage < buttonRow) {
-        RowMaxPage = buttonRow;
-      }
-      if (pageid !== pageId) {
-        // numberNewPage permet de connaitre le nombre de page à créer -1 puisque l'on créer déjà la première page en dehors
+      if (this.newGrid.PageList[pageid - 4] != null) {
         const numberNewPage = Math.ceil(RowMaxPage / this.newGrid.PageList[pageid - 4].NumberOfRows) - 1;
-        RowMaxPage = 0;
-        // condition pour les pages initiales
         if (numberNewPage > 0) {
-          // création du bouton pour descendre dans la page d'origine quand il y a plusieurs pages
           this.gridElement = new GridElement('goDown' + this.newGrid.PageList[pageid - 4].ID + numeroPage,
             {GoTo: this.newGrid.PageList[pageid - 4].ID + numeroPage},
             '',
@@ -527,7 +428,6 @@ export class Spb2augComponent implements OnInit {
 
           this.newGrid.ElementList.push(this.gridElement);
           this.newGrid.PageList[pageid - 4].ElementIDsList.push(this.gridElement.ID);
-
           // conditions pour les pages de page
           for (let i = 0; i < numberNewPage; i++) {
             nextPages = new Page();
@@ -563,151 +463,7 @@ export class Spb2augComponent implements OnInit {
             this.buttonsNewPages(nextPages, i, pageid);
             this.newGrid.PageList.push(nextPages);
             numeroPage = numeroPage + 1;
-            lastElementPageId = pageId;
           }
-        }
-        pageid = pageId;
-        numeroPage = 1;
-      }
-      gridPosition = gridPositionAndPageId.getAsObject().GridPosition;
-    }
-    // Traitement pour le dernier cas de la boucle while
-    if (pageid !== 4 && pageid !== lastElementPageId) {
-      // on donne l'indice de la dernière page en rajoutant ce + 1 mais ne fonctionne qu'avec plusieurs page
-      pageid = pageid + 1;
-      const buttonPositionBis = gridPosition.split(',');
-      const buttonRowBis = Number(buttonPositionBis[1]);
-      if (RowMaxPage < buttonRowBis) {
-        RowMaxPage = buttonRowBis;
-      }
-      // numberNewPage permet de connaitre le nombre de page à créer -1 puisque l'on créer déjà la première page en dehors
-      const numberNewPageBis = Math.ceil(RowMaxPage / this.newGrid.PageList[pageid - 6].NumberOfRows) - 1;
-      if (numberNewPageBis > 0) {
-        // création du bouton pour descendre dans la page d'origine quand il y a plusieurs pages
-        this.gridElement = new GridElement('goDown' + this.newGrid.PageList[pageid - 6].ID + numeroPage,
-          {GoTo: this.newGrid.PageList[pageid - 6].ID + numeroPage},
-          '',
-          '',
-          '',
-          1,
-          [
-            {
-              DisplayedText: 'go Down',
-              VoiceText: '',
-              LexicInfos: [{default: true}],
-              ImageID: '',
-            }
-          ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
-        this.gridElement.cols = 1;
-        this.gridElement.rows = 1;
-        this.gridElement.y = this.page.NumberOfRows - 1;
-        this.gridElement.x = this.page.NumberOfCols - 1;
-        this.newGrid.ElementList.push(this.gridElement);
-        this.newGrid.PageList[pageid - 6].ElementIDsList.push(this.gridElement.ID);
-
-        // conditions pour les pages de page
-        for (let i = 0; i < numberNewPageBis; i++) {
-          nextPages = new Page();
-          nextPages.ID = this.newGrid.PageList[pageid - 6].ID + numeroPage;
-          nextPages.Name = this.newGrid.PageList[pageid - 6].Name + numeroPage;
-          nextPages.ElementIDsList = [];
-          nextPages.NumberOfRows = this.newGrid.PageList[pageid - 6].NumberOfRows;
-          nextPages.NumberOfCols = this.newGrid.PageList[pageid - 6].NumberOfCols;
-
-          // numberNewPage - 1 !== i car on ne veut pas de bouton descendre dans la dernière page
-          if (numberNewPageBis - 1 !== i) {
-            this.gridElement = new GridElement('goDown ' + this.newGrid.PageList[pageid - 6].ID + (numeroPage + 1),
-              {GoTo: this.newGrid.PageList[pageid - 6].ID + (numeroPage + 1)},
-              '',
-              '',
-              '',
-              1,
-              [
-                {
-                  DisplayedText: 'go Down',
-                  VoiceText: '',
-                  LexicInfos: [{default: true}],
-                  ImageID: '',
-                }
-              ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
-            this.gridElement.cols = 1;
-            this.gridElement.rows = 1;
-            this.gridElement.y = nextPages.NumberOfRows - 1;
-            this.gridElement.x = nextPages.NumberOfCols - 1;
-            this.newGrid.ElementList.push(this.gridElement);
-            nextPages.ElementIDsList.push(this.gridElement.ID);
-          }
-          this.buttonsNewPages(nextPages, i, pageid);
-          this.newGrid.PageList.push(nextPages);
-          numeroPage = numeroPage + 1;
-        }
-      }
-    } else {
-      const buttonPositionBis = gridPosition.split(',');
-      const buttonRowBis = Number(buttonPositionBis[1]);
-      if (RowMaxPage < buttonRowBis) {
-        RowMaxPage = buttonRowBis;
-      }
-      // numberNewPage permet de connaitre le nombre de page à créer -1 puisque l'on créer déjà la première page en dehors
-      const numberNewPageBis = Math.ceil((RowMaxPage + 1) / this.newGrid.PageList[pageid - 4].NumberOfRows) - 1;
-      if (numberNewPageBis > 0) {
-        // création du bouton pour descendre dans la page d'origine quand il y a plusieurs pages
-        this.gridElement = new GridElement('goDown' + this.newGrid.PageList[pageid - 4].ID + numeroPage,
-          {GoTo: this.newGrid.PageList[pageid - 4].ID + numeroPage},
-          '',
-          '',
-          '',
-          1,
-          [
-            {
-              DisplayedText: 'go Down',
-              VoiceText: '',
-              LexicInfos: [{default: true}],
-              ImageID: '',
-            }
-          ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
-        this.gridElement.cols = 1;
-        this.gridElement.rows = 1;
-        this.gridElement.y = this.page.NumberOfRows - 1;
-        this.gridElement.x = this.page.NumberOfCols - 1;
-        this.newGrid.ElementList.push(this.gridElement);
-        this.newGrid.PageList[pageid - 4].ElementIDsList.push(this.gridElement.ID);
-
-        // conditions pour les pages de page
-        for (let i = 0; i < numberNewPageBis; i++) {
-          nextPages = new Page();
-          nextPages.ID = this.newGrid.PageList[pageid - 4].ID + numeroPage;
-          nextPages.Name = this.newGrid.PageList[pageid - 4].Name + numeroPage;
-          nextPages.ElementIDsList = [];
-          nextPages.NumberOfRows = this.newGrid.PageList[pageid - 4].NumberOfRows;
-          nextPages.NumberOfCols = this.newGrid.PageList[pageid - 4].NumberOfCols;
-
-          // numberNewPage - 1 !== i car on ne veut pas de bouton descendre dans la dernière page
-          if (numberNewPageBis - 1 !== i) {
-            this.gridElement = new GridElement('goDown ' + this.newGrid.PageList[pageid - 4].ID + (numeroPage + 1),
-              {GoTo: this.newGrid.PageList[pageid - 4].ID + (numeroPage + 1)},
-              '',
-              '',
-              '',
-              1,
-              [
-                {
-                  DisplayedText: 'go Down',
-                  VoiceText: '',
-                  LexicInfos: [{default: true}],
-                  ImageID: '',
-                }
-              ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
-            this.gridElement.cols = 1;
-            this.gridElement.rows = 1;
-            this.gridElement.y = nextPages.NumberOfRows - 1;
-            this.gridElement.x = nextPages.NumberOfCols - 1;
-            this.newGrid.ElementList.push(this.gridElement);
-            nextPages.ElementIDsList.push(this.gridElement.ID);
-          }
-          this.buttonsNewPages(nextPages, i, pageid);
-          this.newGrid.PageList.push(nextPages);
-          numeroPage = numeroPage + 1;
         }
       }
     }
