@@ -82,7 +82,7 @@ export class Spb2augComponent implements OnInit {
         return;
       }
       this.getGridDimension();
-      this.getElement();
+      this.getGridFromDatabase();
       this.getPolice();
       this.DeleteDoublon(this.newGrid);
       console.log(this.newGrid);
@@ -94,7 +94,10 @@ export class Spb2augComponent implements OnInit {
     });
   }
 
-  getElement() {
+  /**
+   * the main function where we get the grid from the database
+   */
+  getGridFromDatabase() {
     let pageLayoutSelected = this.getMainPageDimension();
     const buttonTable = this.db.prepare('SELECT * FROM button');
     const elReference = this.db.prepare('SELECT * FROM ElementReference');
@@ -469,6 +472,12 @@ export class Spb2augComponent implements OnInit {
     }
   }
 
+  /**
+   * fill in the rest of the page with the corresponding buttons
+   * @param nextPages the page to fill
+   * @param indicePage index of the page to be filled
+   * @param pageid index of the page in the database
+   */
   buttonsNewPages(nextPages: Page, indicePage: number, pageid: number) {
     const buttonAllInfomations = this.db.prepare('SELECT * FROM ((\'ElementReference\' INNER JOIN \'ElementPlacement\' ON ElementReference.Id = ElementPlacement.ElementReferenceId) INNER JOIN \'Button\' ON ElementReference.Id = Button.ElementReferenceId) ORDER BY ID');
     while (buttonAllInfomations.step()) {
@@ -513,27 +522,6 @@ export class Spb2augComponent implements OnInit {
     grid.PageList.forEach(page => {
       page.ElementIDsList = Array.from(new Set(page.ElementIDsList));
     });
-  }
-
-  /**
-   * create down button
-   * @param nextPages the page that will be targeted by the button
-   */
-  createButtonDown(nextPages: Page) {
-    this.gridElement = new GridElement('goDown', {GoTo: nextPages.Name}, '', '', ''
-      , 1,
-      [
-        {
-          DisplayedText: 'go Down',
-          VoiceText: '',
-          LexicInfos: [{default: true}],
-          ImageID: '',
-        }
-      ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
-    this.gridElement.cols = 1;
-    this.gridElement.rows = 1;
-    this.gridElement.x = this.newGrid.NumberOfRows - 1;
-    this.gridElement.y = this.newGrid.NumberOfCols - 1;
   }
 
   /**
