@@ -1,0 +1,39 @@
+import {Component, OnInit} from '@angular/core';
+import {BoardService} from '../../services/board.service';
+import {EditionService} from '../../services/edition.service';
+import {FolderGoTo, Page} from '../../types';
+
+@Component({
+  selector: 'app-delete-page',
+  templateUrl: './delete-page.component.html',
+  styleUrls: ['./delete-page.component.css']
+})
+export class DeletePageComponent implements OnInit {
+
+  constructor(public boardService: BoardService,
+              public editionService: EditionService) { }
+
+  ngOnInit(): void {
+  }
+  DeletePage(){
+    console.log(this.boardService.board);
+    this.DeleteLink(this.getCurrentPage());
+    this.boardService.board.PageList = this.boardService.board.PageList.filter(page => page !== this.getCurrentPage());
+    this.boardService.backToPreviousFolder();
+  }
+  DeleteLink(page: Page){
+    this.boardService.board.ElementList.forEach(elem =>
+    {
+      if( (elem.Type as FolderGoTo).GoTo  === page.ID ){
+        console.log('oui');
+        elem.Type = 'button';
+      }
+    });
+  }
+
+  getCurrentPage(): Page {
+    return this.boardService.board.PageList.find(page => {
+      return page.ID === this.boardService.getCurrentFolder()
+    });
+  }
+}

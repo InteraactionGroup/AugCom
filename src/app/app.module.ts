@@ -43,6 +43,8 @@ import {GridFormatManagementComponent} from './components/grid-format-management
 import {PictogramStyleComponent} from './components/pictogram-style/pictogram-style.component';
 import {DwellCursorComponent} from './components/dwell-cursor/dwell-cursor.component';
 import { MainComponent } from './components/main/main.component';
+import { DeletePageComponent } from './components/delete-page/delete-page.component';
+import {MatListModule} from "@angular/material/list";
 
 @NgModule({
   declarations: [
@@ -79,20 +81,22 @@ import { MainComponent } from './components/main/main.component';
     GridFormatManagementComponent,
     PictogramStyleComponent,
     DwellCursorComponent,
-    MainComponent
+    MainComponent,
+    DeletePageComponent
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    Ng2ImgMaxModule,
-    HttpClientModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-    }),
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    GridsterModule
-  ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        Ng2ImgMaxModule,
+        HttpClientModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: environment.production,
+        }),
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        GridsterModule,
+        MatListModule
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
