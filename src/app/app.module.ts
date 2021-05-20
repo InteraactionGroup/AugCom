@@ -44,7 +44,10 @@ import {PictogramStyleComponent} from './components/pictogram-style/pictogram-st
 import {DwellCursorComponent} from './components/dwell-cursor/dwell-cursor.component';
 import { MainComponent } from './components/main/main.component';
 import { DeletePageComponent } from './components/delete-page/delete-page.component';
-import {MatListModule} from "@angular/material/list";
+import {MatListModule} from '@angular/material/list';
+import { DialogDeletePageComponent } from './components/dialog-delete-page/dialog-delete-page.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialog, MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -82,22 +85,31 @@ import {MatListModule} from "@angular/material/list";
     PictogramStyleComponent,
     DwellCursorComponent,
     MainComponent,
-    DeletePageComponent
+    DeletePageComponent,
+    DialogDeletePageComponent
   ],
-    imports: [
-        BrowserModule,
-        FormsModule,
-        Ng2ImgMaxModule,
-        HttpClientModule,
-        ServiceWorkerModule.register('ngsw-worker.js', {
-            enabled: environment.production,
-        }),
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        GridsterModule,
-        MatListModule
-    ],
-  bootstrap: [AppComponent]
+  imports: [
+    BrowserModule,
+    FormsModule,
+    Ng2ImgMaxModule,
+    HttpClientModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+    }),
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    GridsterModule,
+    MatListModule,
+    MatButtonModule,
+    MatDialogModule
+  ],
+  bootstrap: [AppComponent],
+  providers: [
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+  ],
+  entryComponents: [
+    DialogDeletePageComponent
+  ],
 })
 export class AppModule {
 }

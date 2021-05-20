@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {BoardService} from '../../services/board.service';
 import {EditionService} from '../../services/edition.service';
 import {FolderGoTo, Page} from '../../types';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogDeletePageComponent} from '../dialog-delete-page/dialog-delete-page.component';
 
 @Component({
   selector: 'app-delete-page',
@@ -11,7 +13,8 @@ import {FolderGoTo, Page} from '../../types';
 export class DeletePageComponent implements OnInit {
 
   constructor(public boardService: BoardService,
-              public editionService: EditionService) { }
+              public editionService: EditionService,
+              public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -35,5 +38,8 @@ export class DeletePageComponent implements OnInit {
     return this.boardService.board.PageList.find(page => {
       return page.ID === this.boardService.getCurrentFolder()
     });
+  }
+  openDialog(){
+    this.dialog.open(DialogDeletePageComponent);
   }
 }
