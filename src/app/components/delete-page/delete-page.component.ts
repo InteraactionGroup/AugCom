@@ -39,7 +39,10 @@ export class DeletePageComponent implements OnInit {
       return page.ID === this.boardService.getCurrentFolder()
     });
   }
-  openDialog(){
-    this.dialog.open(DialogDeletePageComponent);
+  private openDialog(): void{
+    const dialogRef = this.dialog.open(DialogDeletePageComponent, {
+      height: '400px',
+      width: '600px'
+    });
   }
 }

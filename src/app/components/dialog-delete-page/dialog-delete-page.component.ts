@@ -8,10 +8,6 @@ import {Page} from '../../types';
   styleUrls: ['./dialog-delete-page.component.css']
 })
 export class DialogDeletePageComponent implements OnInit {
-
-  constructor(@Inject(MAT_DIALOG_DATA) public page: Page) { }
-
   ngOnInit(): void {
   }
-
 }

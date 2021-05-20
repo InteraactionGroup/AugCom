@@ -48,6 +48,7 @@ import {MatListModule} from '@angular/material/list';
 import { DialogDeletePageComponent } from './components/dialog-delete-page/dialog-delete-page.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
@@ -101,14 +102,15 @@ import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialog, MatDialogModule} from "@angular/m
     GridsterModule,
     MatListModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatMenuModule
   ],
   bootstrap: [AppComponent],
   providers: [
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   ],
   entryComponents: [
-    DialogDeletePageComponent
+    DialogDeletePageComponent,
   ],
 })
 export class AppModule {
