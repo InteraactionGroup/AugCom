@@ -49,6 +49,9 @@ import { DialogDeletePageComponent } from './components/dialog-delete-page/dialo
 import {MatButtonModule} from '@angular/material/button';
 import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {MatMenuModule} from "@angular/material/menu";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatSelectModule} from "@angular/material/select";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -103,7 +106,10 @@ import {MatMenuModule} from "@angular/material/menu";
     MatListModule,
     MatButtonModule,
     MatDialogModule,
-    MatMenuModule
+    MatMenuModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatCheckboxModule
   ],
   bootstrap: [AppComponent],
   providers: [

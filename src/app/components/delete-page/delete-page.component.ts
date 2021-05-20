@@ -19,7 +19,6 @@ export class DeletePageComponent implements OnInit {
   ngOnInit(): void {
   }
   DeletePage(){
-    console.log(this.boardService.board);
     this.DeleteLink(this.getCurrentPage());
     this.boardService.board.PageList = this.boardService.board.PageList.filter(page => page !== this.getCurrentPage());
     this.boardService.backToPreviousFolder();
@@ -28,7 +27,6 @@ export class DeletePageComponent implements OnInit {
     this.boardService.board.ElementList.forEach(elem =>
     {
       if( (elem.Type as FolderGoTo).GoTo  === page.ID ){
-        console.log('oui');
         elem.Type = 'button';
       }
     });
@@ -44,5 +42,11 @@ export class DeletePageComponent implements OnInit {
       height: '400px',
       width: '600px'
     });
+  }
+
+  DeletePages(pages: Page[]){
+    // this.DeleteLink(this.getCurrentPage());
+    this.boardService.board.PageList = this.boardService.board.PageList.filter(page => page !== this.getCurrentPage());
+    this.boardService.backToPreviousFolder();
   }
 }

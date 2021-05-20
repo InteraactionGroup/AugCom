@@ -1,5 +1,9 @@
-<h1 mat-dialog-title>Dialog with elements</h1>
-<div mat-dialog-content>This dialog showcases the title, close, content and actions elements.</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Close</button>
-</div>
+<mat-selection-list #pages>
+    <mat-list-option *ngFor="let page of this.boardService.board.PageList" [value]="page.ID">
+      {{page.Name}}
+    </mat-list-option>
+</mat-selection-list>
+<section>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="warn" (click)="DeletePages(pages.selectedOptions.selected)">Suppression des pages sélectionnées</button>
+</section>
