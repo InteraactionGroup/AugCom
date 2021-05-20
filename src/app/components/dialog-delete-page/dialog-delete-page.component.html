@@ -3,7 +3,7 @@
       {{page.Name}}
     </mat-list-option>
 </mat-selection-list>
-<section>
+<mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button color="warn" (click)="DeletePages(pages.selectedOptions.selected)">Suppression des pages sélectionnées</button>
-</section>
+  <button mat-raised-button [mat-dialog-close]="true" color="warn" (click)="DeletePages(pages.selectedOptions.selected)">Suppression des pages sélectionnées</button>
+</mat-dialog-actions>

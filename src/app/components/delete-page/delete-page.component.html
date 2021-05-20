@@ -1,13 +1,6 @@
 <div class="x floatLeft">
-  <button class="remove" type="button" (click)="DeletePage()">delete</button>
+  <button mat-raised-button (click)="DeletePage()">Delete Current Page</button>
 </div>
 <div class="x floatLeft">
-  <button mat-button (click)="openDialog()">Open dialog</button>
+  <button mat-raised-button (click)="openDialog()">Multiple Delete Page</button>
 </div>
-<!--
-<mat-selection-list #pages>
-  <mat-list-option *ngFor="let page of this.boardService.board.PageList">
-    {{page.Name}}
-  </mat-list-option>
-</mat-selection-list>
--->

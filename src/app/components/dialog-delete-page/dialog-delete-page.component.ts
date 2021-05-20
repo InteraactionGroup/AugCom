@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BoardService} from '../../services/board.service';
 import {MatListOption} from '@angular/material/list';
+import {FolderGoTo, Page} from "../../types";
 
 @Component({
   selector: 'app-dialog-delete-page',
@@ -12,14 +13,17 @@ export class DialogDeletePageComponent implements OnInit {
   ngOnInit(): void {}
 
   DeletePages(pages: MatListOption[]){
-    console.log('pages.selected',pages);
-    console.log('pagelist',this.boardService.board.PageList);
-    // this.DeleteLink(this.getCurrentPage());
-    this.boardService.board.PageList = this.boardService.board.PageList.filter(page => pages.forEach(pa => {
-      console.log('pa.value[0]',pa.value);
-      // tslint:disable-next-line:no-unused-expression
-      String(pa.value[0]) === page.ID;})
-    );
-    // this.boardService.backToPreviousFolder();
+    const pagefilter = [];
+    pages.forEach(pa => pagefilter.push(String(pa.value)));
+    pagefilter.forEach(page => this.DeleteLinks(page));
+    this.boardService.board.PageList = this.boardService.board.PageList.filter(page => !pagefilter.includes(page.ID));
+  }
+  DeleteLinks(page: string){
+    this.boardService.board.ElementList.forEach(elem =>
+    {
+      if( (elem.Type as FolderGoTo).GoTo  === page ){
+        elem.Type = 'button';
+      }
+    });
   }
 }
