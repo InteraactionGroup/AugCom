@@ -37,16 +37,11 @@ export class DeletePageComponent implements OnInit {
       return page.ID === this.boardService.getCurrentFolder()
     });
   }
-  private openDialog(): void{
-    const dialogRef = this.dialog.open(DialogDeletePageComponent, {
+
+  openDialog(): void{
+    this.dialog.open(DialogDeletePageComponent, {
       height: '400px',
       width: '600px'
     });
-  }
-
-  DeletePages(pages: Page[]){
-    // this.DeleteLink(this.getCurrentPage());
-    this.boardService.board.PageList = this.boardService.board.PageList.filter(page => page !== this.getCurrentPage());
-    this.boardService.backToPreviousFolder();
   }
 }
