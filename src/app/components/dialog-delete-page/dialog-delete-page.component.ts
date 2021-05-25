@@ -12,18 +12,21 @@ export class DialogDeletePageComponent implements OnInit {
   constructor(public boardService: BoardService) {}
   ngOnInit(): void {}
 
-  DeletePages(pages: MatListOption[]){
+  deletePages(pages: MatListOption[]){
     const pagefilter = [];
     pages.forEach(pa => pagefilter.push(String(pa.value)));
-    pagefilter.forEach(page => this.DeleteLinks(page));
+    pagefilter.forEach(page => this.deleteLinks(page));
     this.boardService.board.PageList = this.boardService.board.PageList.filter(page => !pagefilter.includes(page.ID));
   }
-  DeleteLinks(page: string){
+  deleteLinks(page: string){
     this.boardService.board.ElementList.forEach(elem =>
     {
       if( (elem.Type as FolderGoTo).GoTo  === page ){
         elem.Type = 'button';
       }
     });
+  }
+  preview(page: Page){
+
   }
 }

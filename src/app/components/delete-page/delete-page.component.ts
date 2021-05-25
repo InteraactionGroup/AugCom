@@ -18,12 +18,12 @@ export class DeletePageComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  DeletePage(){
-    this.DeleteLink(this.getCurrentPage());
+  deletePage(){
+    this.deleteLink(this.getCurrentPage());
     this.boardService.board.PageList = this.boardService.board.PageList.filter(page => page !== this.getCurrentPage());
     this.boardService.backToPreviousFolder();
   }
-  DeleteLink(page: Page){
+  deleteLink(page: Page){
     this.boardService.board.ElementList.forEach(elem =>
     {
       if( (elem.Type as FolderGoTo).GoTo  === page.ID ){
