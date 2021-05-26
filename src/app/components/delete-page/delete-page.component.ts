@@ -4,6 +4,7 @@ import {EditionService} from '../../services/edition.service';
 import {FolderGoTo, Page} from '../../types';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogDeletePageComponent} from '../dialog-delete-page/dialog-delete-page.component';
+import {MultilinguismService} from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-delete-page',
@@ -14,6 +15,7 @@ export class DeletePageComponent implements OnInit {
 
   constructor(public boardService: BoardService,
               public editionService: EditionService,
+              public multilinguism: MultilinguismService,
               public dialog: MatDialog) { }
 
   ngOnInit(): void {

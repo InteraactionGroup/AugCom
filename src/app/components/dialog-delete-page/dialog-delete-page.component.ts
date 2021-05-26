@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {BoardService} from '../../services/board.service';
 import {MatListOption} from '@angular/material/list';
-import {FolderGoTo, Page} from "../../types";
+import {FolderGoTo, Grid, Page} from '../../types';
+import {MultilinguismService} from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-dialog-delete-page',
@@ -9,7 +10,8 @@ import {FolderGoTo, Page} from "../../types";
   styleUrls: ['./dialog-delete-page.component.css']
 })
 export class DialogDeletePageComponent implements OnInit {
-  constructor(public boardService: BoardService) {}
+  constructor(public boardService: BoardService,
+              public multilinguism: MultilinguismService) {}
   ngOnInit(): void {}
 
   deletePages(pages: MatListOption[]){
@@ -26,7 +28,21 @@ export class DialogDeletePageComponent implements OnInit {
       }
     });
   }
-  preview(page: Page){
 
+  preview(page: Page){
+    console.log('nom de page', page.Name);
+    this.boardService.backHome();
+    this.boardService.currentPath = '#HOME.' + page.ID;
+    console.log('le path',this.boardService.currentPath)
+  }
+
+  displayGrid(){
+    const element = document.getElementById('grid');
+    element.style.visibility = 'hidden';
+  }
+
+  hideGrid() {
+    const element = document.getElementById('grid');
+    element.style.visibility = 'visible';
   }
 }

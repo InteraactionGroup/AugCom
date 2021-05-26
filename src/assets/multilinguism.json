@@ -136,6 +136,8 @@
     { "id" : "chooseTheFont",  "FR" : "Choissez la police", "EN" : "Choose the font" },
     { "id" : "pictogramDirectoryManagement",  "FR" : "Organisation des pictogrammes-répertoire", "EN" : "Pictograms-Directory management" },
     { "id" : "defaultSyleSameAsApp",  "FR" : "Style par défault (celui de l'application)", "EN" : "Default Style (same as the app)" },
-    { "id" : "Cancel", "FR" : "Annuler", "EN" : "Cancel"}
+    { "id" : "Cancel", "FR" : "Annuler", "EN" : "Cancel"},
+    { "id" : "Deleting selected pages", "FR" : "Supprimer les pages selectionnées", "EN" : "Deleting selected pages"},
+    { "id" : "Multiple Delete Page","FR" :  "Suppression de pages", "EN" : "Delete Pages"}
   ]
 }

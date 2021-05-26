@@ -1,12 +1,18 @@
-<div class="scroller">
-  <mat-selection-list #pages>
-    <mat-list-option *ngFor="let page of this.boardService.board.PageList" [value]="page.ID">
-      {{page.Name}}
-    </mat-list-option>
-  </mat-selection-list>
+
+
+
+
+
+
+<div>
+    <mat-selection-list #pages>
+      <mat-list-option *ngFor="let page of this.boardService.board.PageList" (click)="preview(page)" [value]="page.ID ">
+        {{page.Name}}
+      </mat-list-option>
+      <span class="grille" *ngIf="pages.selectedOptions.hasValue()"><app-keyboard></app-keyboard></span>
+    </mat-selection-list>
 </div>
 <mat-dialog-actions align="end">
-  <button mat-raised-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button [mat-dialog-close]="true" color="warn" (click)="deletePages(pages.selectedOptions.selected)">Deleting selected pages</button>
-  <button mat-raised-button [mat-dialog-close]="true" color="warn" (click)="preview(pages.selectedOptions.selected)">Preview</button>
+  <button mat-raised-button [mat-dialog-close]="true">{{this.multilinguism.translate("Cancel")}}</button>
+  <button mat-raised-button [mat-dialog-close]="true" color="warn" (click)="deletePages(pages.selectedOptions.selected)">{{this.multilinguism.translate("Deleting selected pages")}}</button>
 </mat-dialog-actions>
