@@ -12,6 +12,7 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 export class DialogDeletePageComponent implements OnInit {
   constructor(public boardService: BoardService,
               public multilinguism: MultilinguismService) {}
+  pointer = 'none';
   ngOnInit(): void {}
 
   deletePages(pages: MatListOption[]){
@@ -30,19 +31,10 @@ export class DialogDeletePageComponent implements OnInit {
   }
 
   preview(page: Page){
-    console.log('nom de page', page.Name);
-    this.boardService.backHome();
+    // this.boardService.backHome();
     this.boardService.currentPath = '#HOME.' + page.ID;
-    console.log('le path',this.boardService.currentPath)
-  }
-
-  displayGrid(){
-    const element = document.getElementById('grid');
-    element.style.visibility = 'hidden';
-  }
-
-  hideGrid() {
-    const element = document.getElementById('grid');
-    element.style.visibility = 'visible';
+    const styleGrid = document.getElementById('grille');
+    styleGrid.style.visibility = 'hidden';
+    styleGrid.style.visibility = 'visible';
   }
 }
