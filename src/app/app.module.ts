@@ -43,7 +43,6 @@ import {GridFormatManagementComponent} from './components/grid-format-management
 import {PictogramStyleComponent} from './components/pictogram-style/pictogram-style.component';
 import {DwellCursorComponent} from './components/dwell-cursor/dwell-cursor.component';
 import { MainComponent } from './components/main/main.component';
-import { HelpComponent } from './components/help/help.component';
 import { DialogHelpComponent } from './components/dialog-help/dialog-help.component';
 import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
@@ -84,7 +83,6 @@ import {MatButtonModule} from "@angular/material/button";
     PictogramStyleComponent,
     DwellCursorComponent,
     MainComponent,
-    HelpComponent,
     DialogHelpComponent
   ],
   imports: [
