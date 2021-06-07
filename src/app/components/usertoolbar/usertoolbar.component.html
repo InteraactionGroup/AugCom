@@ -34,9 +34,8 @@
   </nav>
 
   <nav *ngIf="this.userToolBarService.unlock">
-    <div class="button floatRight" >
-      <div class="image width-100">
-        <app-help></app-help>
+    <div class="button floatRight" (click)="this.openDialog()">
+      <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('help')}">
       </div>
     </div>
   </nav>

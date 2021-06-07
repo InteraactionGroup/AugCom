@@ -12,6 +12,8 @@ import {FolderGoTo} from '../../types';
 import {EditionService} from '../../services/edition.service';
 import {DwellCursorService} from "../../services/dwell-cursor.service";
 import {ConfigurationService} from "../../services/configuration.service";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogHelpComponent} from "../dialog-help/dialog-help.component";
 
 @Component({
   selector: 'app-usertoolbar',
@@ -31,7 +33,8 @@ export class UsertoolbarComponent implements OnInit {
     public multilinguism: MultilinguismService,
     public editionService: EditionService,
     public dwellCursorService: DwellCursorService,
-    public configurationService: ConfigurationService
+    public configurationService: ConfigurationService,
+    public dialog: MatDialog
   ) {
   }
 
@@ -148,5 +151,11 @@ export class UsertoolbarComponent implements OnInit {
         return this.getIcon('home');
       }
     }
+  }
+  openDialog(): void{
+    this.dialog.open(DialogHelpComponent, {
+      height: '75%',
+      width: '75%'
+    });
   }
 }
