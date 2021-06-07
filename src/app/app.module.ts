@@ -43,6 +43,10 @@ import {GridFormatManagementComponent} from './components/grid-format-management
 import {PictogramStyleComponent} from './components/pictogram-style/pictogram-style.component';
 import {DwellCursorComponent} from './components/dwell-cursor/dwell-cursor.component';
 import { MainComponent } from './components/main/main.component';
+import { HelpComponent } from './components/help/help.component';
+import { DialogHelpComponent } from './components/dialog-help/dialog-help.component';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material/dialog";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -79,7 +83,9 @@ import { MainComponent } from './components/main/main.component';
     GridFormatManagementComponent,
     PictogramStyleComponent,
     DwellCursorComponent,
-    MainComponent
+    MainComponent,
+    HelpComponent,
+    DialogHelpComponent
   ],
   imports: [
     BrowserModule,
@@ -91,9 +97,17 @@ import { MainComponent } from './components/main/main.component';
     }),
     AppRoutingModule,
     BrowserAnimationsModule,
-    GridsterModule
+    GridsterModule,
+    MatDialogModule,
+    MatButtonModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+  ],
+  entryComponents: [
+    DialogHelpComponent,
+  ],
 })
 export class AppModule {
 }
