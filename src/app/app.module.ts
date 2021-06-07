@@ -46,6 +46,7 @@ import { MainComponent } from './components/main/main.component';
 import { DialogHelpComponent } from './components/dialog-help/dialog-help.component';
 import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import {MatButtonModule} from "@angular/material/button";
     BrowserAnimationsModule,
     GridsterModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
   ],
   bootstrap: [AppComponent],
   providers: [
