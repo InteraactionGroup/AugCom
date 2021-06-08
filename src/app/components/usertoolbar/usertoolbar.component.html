@@ -23,6 +23,12 @@
          [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.unlock?'unlock':'lock')}">
     </div>
   </div>
+  <nav>
+    <div class="button floatRight" (click)="this.openDialog()">
+      <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('help')}">
+      </div>
+    </div>
+  </nav>
 
   <nav *ngIf="this.userToolBarService.unlock">
     <a routerLink="/account">
@@ -31,13 +37,6 @@
         </div>
       </div>
     </a>
-  </nav>
-
-  <nav *ngIf="this.userToolBarService.unlock">
-    <div class="button floatRight" (click)="this.openDialog()">
-      <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('help')}">
-      </div>
-    </div>
   </nav>
 
   <div class="button floatRight" id="editButton" *ngIf="this.userToolBarService.unlock" (click)="this.edit()">
