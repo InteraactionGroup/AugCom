@@ -12,6 +12,7 @@ export class UserPageComponent implements OnInit {
   addUserBool: boolean;
   usersList: string[];
   userName: string;
+  selectedFile = null;
   checkoutForm = this.formBuilder.group({
     name: ''
   })
@@ -43,5 +44,19 @@ export class UserPageComponent implements OnInit {
   removeUser(user: string){
     this.userPageService.removeUser(user);
     this.usersList = this.userPageService.usersList;
+  }
+
+  onFileSelected(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.selectedFile = reader.result;
+    };
+
+    reader.onerror = (error) => {
+      console.log('Error: ', error);
+    };
+
   }
 }
