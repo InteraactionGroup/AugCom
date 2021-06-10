@@ -1,0 +1,15 @@
+<button mat-button [routerLink]="'/keyboard'">Utilisateur par defaut</button>
+<br>
+<button mat-button id="addUser" (click)="clickAddUser()"> Add User</button>
+<div [hidden]="submitted" *ngIf="this.addUserBool">
+  <form (ngSubmit)="onSubmit(newUser)" #newUser="ngForm">
+    <label> nom de l'utilisateur </label>
+    <input id="nameUser" type="text" class="form-control" placeholder="enter your name" name="name" ngModel required>
+    <button mat-button type="submit" [disabled]="newUser.invalid">Submit</button>
+  </form>
+</div>
+<ul>
+  <li *ngFor="let user of usersList">
+    <button mat-button [routerLink]="'/keyboard'">{{user}}</button>
+  </li>
+</ul>

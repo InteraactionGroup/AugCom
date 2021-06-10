@@ -8,7 +8,7 @@ import {KeyboardComponent} from './components/keyboard/keyboard.component';
 import {DialogbarComponent} from './components/dialogbar/dialogbar.component';
 import {ShareComponent} from './components/share/share.component';
 import {PopupComponent} from './components/popup/popup.component';
-import {FormsModule} from '@angular/forms';
+import {FormBuilder, FormsModule} from '@angular/forms';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {HttpClientModule} from '@angular/common/http';
 import {ServiceWorkerModule} from '@angular/service-worker';
@@ -43,6 +43,11 @@ import {GridFormatManagementComponent} from './components/grid-format-management
 import {PictogramStyleComponent} from './components/pictogram-style/pictogram-style.component';
 import {DwellCursorComponent} from './components/dwell-cursor/dwell-cursor.component';
 import { MainComponent } from './components/main/main.component';
+import { UserPageComponent } from './components/user-page/user-page.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {CommonModule} from "@angular/common";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -79,7 +84,8 @@ import { MainComponent } from './components/main/main.component';
     GridFormatManagementComponent,
     PictogramStyleComponent,
     DwellCursorComponent,
-    MainComponent
+    MainComponent,
+    UserPageComponent
   ],
   imports: [
     BrowserModule,
@@ -91,9 +97,13 @@ import { MainComponent } from './components/main/main.component';
     }),
     AppRoutingModule,
     BrowserAnimationsModule,
-    GridsterModule
+    GridsterModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [FormBuilder]
 })
 export class AppModule {
 }
