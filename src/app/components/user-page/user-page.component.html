@@ -11,5 +11,6 @@
 <ul>
   <li *ngFor="let user of usersList">
     <button mat-button [routerLink]="'/keyboard'">{{user}}</button>
+    <button mat-button color="warn" (click)="this.removeUser(user)">Supprimer cet utilisateur</button>
   </li>
 </ul>

@@ -39,4 +39,9 @@ export class UserPageComponent implements OnInit {
     this.userName = newUser.value['name'];
     this.userPageService.addUser(this.userName);
   }
+
+  removeUser(user: string){
+    this.userPageService.removeUser(user);
+    this.usersList = this.userPageService.usersList;
+  }
 }
