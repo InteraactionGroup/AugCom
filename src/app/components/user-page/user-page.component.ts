@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserPageService} from "../../services/user-page.service";
 import {FormBuilder, NgForm} from "@angular/forms";
+import {User} from "../../types";
 
 @Component({
   selector: 'app-user-page',
@@ -10,8 +11,10 @@ import {FormBuilder, NgForm} from "@angular/forms";
 export class UserPageComponent implements OnInit {
 
   addUserBool: boolean;
-  usersList: string[];
-  userName: string;
+
+  usersList: User[] = [];
+  user: User = new User('','');
+
   selectedFile = null;
   checkoutForm = this.formBuilder.group({
     name: ''
@@ -37,8 +40,9 @@ export class UserPageComponent implements OnInit {
 
   onSubmit(newUser: NgForm) {
     this.submitted = true;
-    this.userName = newUser.value['name'];
-    this.userPageService.addUser(this.userName);
+    this.user.name = newUser.value['name'];
+    this.user.base64image = this.selectedFile;
+    this.userPageService.addUser(this.user.name, this.user.base64image);
   }
 
   removeUser(user: string){

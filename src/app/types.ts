@@ -169,3 +169,12 @@ export class Configuration {
   'MAIN_COLOR_3_VALUE': string;
   'MAIN_COLOR_4_VALUE': string;
 }
+export class User{
+  name: string;
+  base64image: string;
+
+  constructor(name, base64image) {
+    this.name = name;
+    this.base64image = base64image;
+  }
+}

@@ -12,11 +12,10 @@
     <br>
     <button mat-button type="submit" [disabled]="newUser.invalid">Submit</button>
   </form>
-
 </div>
 <ul>
   <li *ngFor="let user of usersList">
-    <button mat-button [routerLink]="'/keyboard'">{{user}}</button>
-    <button mat-raised-button color="accent" (click)="this.removeUser(user)"> <img src='/assets/icons/delete.svg' alt="delete" height="5%" width="5%"></button>
+    <button mat-button [routerLink]="'/keyboard'"><img src="{{user.base64image}}" alt="{{user.name}}">{{user.name}}</button>
+    <button mat-raised-button color="accent" (click)="this.removeUser(user.name)"> <img src='/assets/icons/delete.svg' alt="delete" height="5%" width="5%"></button>
   </li>
 </ul>
