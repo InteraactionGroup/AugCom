@@ -42,11 +42,12 @@ export class UserPageComponent implements OnInit {
     this.submitted = true;
     this.user.name = newUser.value['name'];
     this.user.base64image = this.selectedFile;
+    this.user.id = Math.floor(Math.random() * 10000000000).toString() + Date.now().toString();
     this.userPageService.addUser(this.user.name, this.user.base64image);
   }
 
-  removeUser(user: string){
-    this.userPageService.removeUser(user);
+  removeUser(id: string){
+    this.userPageService.removeUser(id);
     this.usersList = this.userPageService.usersList;
   }
 

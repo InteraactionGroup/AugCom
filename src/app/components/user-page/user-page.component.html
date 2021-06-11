@@ -1,3 +1,4 @@
+<body>
 <h1> Page de Connexion </h1>
 <button mat-button [routerLink]="'/keyboard'">Utilisateur par defaut</button>
 <br>
@@ -15,7 +16,13 @@
 </div>
 <ul>
   <li *ngFor="let user of usersList">
-    <button mat-button [routerLink]="'/keyboard'"><img src="{{user.base64image}}" alt="{{user.name}}">{{user.name}}</button>
-    <button mat-raised-button color="accent" (click)="this.removeUser(user.name)"> <img src='/assets/icons/delete.svg' alt="delete" height="5%" width="5%"></button>
+    <div class="image">
+      <button mat-button [routerLink]="'/keyboard'"><img src="{{user.base64image}}" alt="{{user.name}}"></button>
+      <button mat-raised-button color="accent" (click)="this.removeUser(user.id)"> <img src='/assets/icons/delete.svg' alt="delete" height="5%" width="5%"></button>
+      <div class="label">
+        {{user.name}}
+      </div>
+    </div>
   </li>
 </ul>
+</body>

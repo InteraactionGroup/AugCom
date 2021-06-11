@@ -13,8 +13,8 @@ export class UserPageService {
     this.usersList.push(new User(name,image));
   }
 
-  removeUser(name: string){
-    this.usersList = this.usersList.filter(user => user.name !== name);
+  removeUser(id: string){
+    this.usersList = this.usersList.filter(user => user.id !== id);
   }
 
   getUserList(): User[]{

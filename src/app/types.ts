@@ -170,10 +170,12 @@ export class Configuration {
   'MAIN_COLOR_4_VALUE': string;
 }
 export class User{
+  id: string;
   name: string;
   base64image: string;
 
   constructor(name, base64image) {
+    this.id = Math.floor(Math.random() * 10000000000).toString() + Date.now().toString();
     this.name = name;
     this.base64image = base64image;
   }
