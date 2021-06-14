@@ -19,7 +19,7 @@
     <mat-card-header class="card-header-image">
       <mat-card-title>{{user.name}}</mat-card-title>
     </mat-card-header>
-      <button mat-button [routerLink]="'/keyboard'"><img alt="{{user.name}}" height="270px" width="280" src="{{UserImage(user)}}"></button>
+      <button mat-button (click)="userSelected(user)" [routerLink]="'/keyboard'"><img alt="{{user.name}}" height="270px" width="280" src="{{userImage(user)}}"></button>
     </mat-card>
     <!--
     <div class="image">

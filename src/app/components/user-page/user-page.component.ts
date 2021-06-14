@@ -3,6 +3,7 @@ import {UserPageService} from "../../services/user-page.service";
 import {FormBuilder, NgForm} from "@angular/forms";
 import {User} from "../../types";
 import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
+import {BoardService} from "../../services/board.service";
 
 @Component({
   selector: 'app-user-page',
@@ -22,7 +23,8 @@ export class UserPageComponent implements OnInit {
   })
   constructor(private userPageService: UserPageService,
               private formBuilder: FormBuilder,
-              private indexeddbaccessService: IndexeddbaccessService) {}
+              private indexeddbaccessService: IndexeddbaccessService,
+              private boardService: BoardService) {}
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -49,7 +51,8 @@ export class UserPageComponent implements OnInit {
     this.user.base64image = this.selectedFile;
     this.user.id = Math.floor(Math.random() * 10000000000).toString() + Date.now().toString();
     this.userPageService.addUser(this.user.name, this.user.base64image);
-    this.indexeddbaccessService.update();
+    this.indexeddbaccessService.updateUserList();
+    this.indexeddbaccessService.init();
   }
 
   removeUser(id: string){
@@ -70,7 +73,15 @@ export class UserPageComponent implements OnInit {
     };
 
   }
-  UserImage(user):string{
+  userImage(user: User):string{
     return user.base64image !== ''? user.base64image : 'assets/images/DefaultUser.png'
+  }
+  userSelected(user: User){
+    this.userPageService.currentUser = user;
+    this.indexeddbaccessService.getGrid();
+    console.log('pute :',this.indexeddbaccessService.grid);
+    if(this.indexeddbaccessService.grid != null){
+      this.boardService.board = this.indexeddbaccessService.grid;
+    }
   }
 }

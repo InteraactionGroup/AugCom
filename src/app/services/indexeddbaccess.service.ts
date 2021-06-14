@@ -4,6 +4,7 @@ import {PaletteService} from './palette.service';
 import {JsonValidatorService} from './json-validator.service';
 import {ConfigurationService} from "./configuration.service";
 import {UserPageService} from "./user-page.service";
+import {Grid} from "../types";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,9 @@ import {UserPageService} from "./user-page.service";
 export class IndexeddbaccessService {
 
   openRequest;
+  grid: Grid;
+  palette;
+  configuration;
 
   constructor(public paletteService: PaletteService,
               public boardService: BoardService,
@@ -41,28 +45,41 @@ export class IndexeddbaccessService {
       // UPDATE THE GRID
       const gridStore = db.transaction(['Grid'], 'readwrite');
       const gridObjectStore = gridStore.objectStore('Grid');
-      const storeGridRequest = gridObjectStore.get(1);
+      const storeGridRequest = gridObjectStore.get(this.userPageService.currentUser.id);
       storeGridRequest.onsuccess = () => {
-        gridObjectStore.put(this.boardService.board, 1);
+        gridObjectStore.put(this.boardService.board, this.userPageService.currentUser.id);
         this.boardService.updateElementList();
       };
 
       // UPDATE THE PALETTES
       const paletteStore = db.transaction(['Palette'], 'readwrite');
       const paletteObjectStore = paletteStore.objectStore('Palette');
-      const storePaletteRequest = paletteObjectStore.get(1);
+      const storePaletteRequest = paletteObjectStore.get(this.userPageService.currentUser.id);
       storePaletteRequest.onsuccess = () => {
-        paletteObjectStore.put(this.paletteService.palettes, 1);
+        paletteObjectStore.put(this.paletteService.palettes, this.userPageService.currentUser.id);
       };
 
       // UPDATE THE CONFIGURATION
       const configStore = db.transaction(['Configuration'], 'readwrite');
       const configObjectStore = configStore.objectStore('Configuration');
-      const storeConfigRequest = configObjectStore.get(1);
+      const storeConfigRequest = configObjectStore.get(this.userPageService.currentUser.id);
       storeConfigRequest.onsuccess = () => {
-        configObjectStore.put(this.configurationService.getConfiguration(), 1);
+        configObjectStore.put(this.configurationService.getConfiguration(), this.userPageService.currentUser.id);
       };
+    };
+  }
 
+  updateUserList(){
+    this.openRequest = indexedDB.open('Saves', 1);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
       // UPDATE THE USER LIST
       const userListStore = db.transaction(['UserList'], 'readwrite');
       const userListObjectStore = userListStore.objectStore('UserList');
@@ -87,27 +104,32 @@ export class IndexeddbaccessService {
     this.openRequest.onsuccess = event => {
       const db = event.target.result;
 
-      const gridStore = db.transaction(['Grid']).objectStore('Grid').get(1);
-      gridStore.onsuccess = e => {
-        this.boardService.board = this.jsonValidator.getCheckedGrid(gridStore.result);
-        this.boardService.updateElementList();
-      };
+      this.userPageService.usersList.forEach(user =>{
 
-      const paletteStore = db.transaction(['Palette']).objectStore('Palette').get(1);
-      paletteStore.onsuccess = e => {
-        this.paletteService.palettes = paletteStore.result;
-      };
+        const gridStore = db.transaction(['Grid']).objectStore('Grid').get(user.id);
+        gridStore.onsuccess = e => {
+          this.boardService.board = this.jsonValidator.getCheckedGrid(gridStore.result);
+          this.boardService.updateElementList();
+        };
 
-      const configStore = db.transaction(['Configuration']).objectStore('Configuration').get(1);
-      configStore.onsuccess = e => {
-        this.configurationService.setConfiguration(configStore.result);
-      };
+        const paletteStore = db.transaction(['Palette']).objectStore('Palette').get(user.id);
+        paletteStore.onsuccess = e => {
+          this.paletteService.palettes = paletteStore.result;
+        };
 
-      const userList = db.transaction(['UserList']).objectStore('UserList').get(1);
-      userList.onsuccess = e => {
-        this.userPageService.usersList = userList.result;
-        console.log('this.userPageService.usersList',this.userPageService.usersList)
-      };
+        const configStore = db.transaction(['Configuration']).objectStore('Configuration').get(user.id);
+        configStore.onsuccess = e => {
+          this.configurationService.setConfiguration(configStore.result);
+        };
+
+        const userList = db.transaction(['UserList']).objectStore('UserList').get(1);
+        userList.onsuccess = e => {
+          this.userPageService.usersList = userList.result;
+          console.log('this.userPageService.usersList',this.userPageService.usersList)
+        };
+      });
+
+
     };
 
     this.openRequest.onupgradeneeded = event => {
@@ -151,5 +173,26 @@ export class IndexeddbaccessService {
     console.log('BDD a sauvegarder les utilisateurs');
     const userList = transaction.objectStore('UserList');
     userList.add(this.userPageService.usersList);
+  }
+
+  getGrid(){
+
+    this.openRequest = indexedDB.open('Saves', 1);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+
+      const gridRequest =db.transaction(['Grid']).objectStore('Grid').get(this.userPageService.currentUser.id);
+      gridRequest.onsuccess = e => {
+        console.log('gridRequest.result',gridRequest.result)
+        this.grid = gridRequest.result;
+      }
+    }
   }
 }
