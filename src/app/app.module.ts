@@ -48,6 +48,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {CommonModule} from "@angular/common";
 import {MatButtonModule} from "@angular/material/button";
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -87,21 +88,22 @@ import {MatButtonModule} from "@angular/material/button";
     MainComponent,
     UserPageComponent
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    Ng2ImgMaxModule,
-    HttpClientModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-    }),
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    GridsterModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule
-  ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        Ng2ImgMaxModule,
+        HttpClientModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: environment.production,
+        }),
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        GridsterModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatCardModule
+    ],
   bootstrap: [AppComponent],
   providers: [FormBuilder]
 })

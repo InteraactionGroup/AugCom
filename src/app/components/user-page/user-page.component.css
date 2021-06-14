@@ -1,3 +1,12 @@
 body {
   overflow-y: scroll;
 }
+.card {
+  max-width: 400px;
+}
+.card:hover{
+  opacity: 0.5;
+}
+.card-header-image {
+  background-size: cover;
+}

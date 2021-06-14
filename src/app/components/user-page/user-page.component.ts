@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserPageService} from "../../services/user-page.service";
 import {FormBuilder, NgForm} from "@angular/forms";
 import {User} from "../../types";
+import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 
 @Component({
   selector: 'app-user-page',
@@ -20,11 +21,15 @@ export class UserPageComponent implements OnInit {
     name: ''
   })
   constructor(private userPageService: UserPageService,
-              private formBuilder: FormBuilder) {}
+              private formBuilder: FormBuilder,
+              private indexeddbaccessService: IndexeddbaccessService) {}
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.usersList = this.userPageService.usersList;
+    },200)
     this.addUserBool = false;
-    this.usersList = this.userPageService.getUserList();
+
   }
 
   clickAddUser(){
@@ -33,7 +38,7 @@ export class UserPageComponent implements OnInit {
   }
 
   loadUserList(){
-    this.usersList = this.userPageService.getUserList();
+    this.usersList = this.userPageService.usersList;
   }
 
   submitted = false;
@@ -44,6 +49,7 @@ export class UserPageComponent implements OnInit {
     this.user.base64image = this.selectedFile;
     this.user.id = Math.floor(Math.random() * 10000000000).toString() + Date.now().toString();
     this.userPageService.addUser(this.user.name, this.user.base64image);
+    this.indexeddbaccessService.update();
   }
 
   removeUser(id: string){
@@ -63,5 +69,8 @@ export class UserPageComponent implements OnInit {
       console.log('Error: ', error);
     };
 
+  }
+  UserImage(user):string{
+    return user.base64image !== ''? user.base64image : 'assets/images/DefaultUser.png'
   }
 }

@@ -3,6 +3,7 @@ import {BoardService} from './board.service';
 import {PaletteService} from './palette.service';
 import {JsonValidatorService} from './json-validator.service';
 import {ConfigurationService} from "./configuration.service";
+import {UserPageService} from "./user-page.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class IndexeddbaccessService {
   constructor(public paletteService: PaletteService,
               public boardService: BoardService,
               public jsonValidator: JsonValidatorService,
-              public configurationService: ConfigurationService) {
+              public configurationService: ConfigurationService,
+              public userPageService: UserPageService) {
     this.init();
   }
 
@@ -60,6 +62,14 @@ export class IndexeddbaccessService {
       storeConfigRequest.onsuccess = () => {
         configObjectStore.put(this.configurationService.getConfiguration(), 1);
       };
+
+      // UPDATE THE USER LIST
+      const userListStore = db.transaction(['UserList'], 'readwrite');
+      const userListObjectStore = userListStore.objectStore('UserList');
+      const storeUserListRequest = userListObjectStore.get(1);
+      storeUserListRequest.onsuccess = () => {
+        userListObjectStore.put(this.userPageService.usersList, 1);
+      };
     };
   }
 
@@ -92,6 +102,12 @@ export class IndexeddbaccessService {
       configStore.onsuccess = e => {
         this.configurationService.setConfiguration(configStore.result);
       };
+
+      const userList = db.transaction(['UserList']).objectStore('UserList').get(1);
+      userList.onsuccess = e => {
+        this.userPageService.usersList = userList.result;
+        console.log('this.userPageService.usersList',this.userPageService.usersList)
+      };
     };
 
     this.openRequest.onupgradeneeded = event => {
@@ -103,6 +119,7 @@ export class IndexeddbaccessService {
       this.createPaletteObject(db, transaction);
       this.createGridObject(db, transaction);
       this.createConfigurationObject(db, transaction);
+      this.createUserObject(db, transaction);
 
       this.boardService.updateElementList();
 
@@ -128,5 +145,11 @@ export class IndexeddbaccessService {
     // console.log('save loaded');
     const configurationStore = transaction.objectStore('Configuration');
     configurationStore.add(this.configurationService.getConfiguration());
+  }
+  createUserObject(db, transaction) {
+    db.createObjectStore('UserList', {autoIncrement: true});
+    console.log('BDD a sauvegarder les utilisateurs');
+    const userList = transaction.objectStore('UserList');
+    userList.add(this.userPageService.usersList);
   }
 }

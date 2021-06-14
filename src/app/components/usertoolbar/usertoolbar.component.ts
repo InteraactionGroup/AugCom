@@ -12,6 +12,7 @@ import {FolderGoTo} from '../../types';
 import {EditionService} from '../../services/edition.service';
 import {DwellCursorService} from "../../services/dwell-cursor.service";
 import {ConfigurationService} from "../../services/configuration.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-usertoolbar',
@@ -31,7 +32,8 @@ export class UsertoolbarComponent implements OnInit {
     public multilinguism: MultilinguismService,
     public editionService: EditionService,
     public dwellCursorService: DwellCursorService,
-    public configurationService: ConfigurationService
+    public configurationService: ConfigurationService,
+    private router: Router,
   ) {
   }
 
@@ -148,5 +150,9 @@ export class UsertoolbarComponent implements OnInit {
         return this.getIcon('home');
       }
     }
+  }
+
+  logout() {
+    this.router.navigate(['logging']);
   }
 }

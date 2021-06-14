@@ -6,7 +6,8 @@ import {User} from "../types";
 })
 export class UserPageService {
 
-  usersList: User[] = [];
+  usersList: User[] = [new User('Utilisateur par defaut','','1')];
+  currentUser: User;
   constructor() {}
 
   addUser(name: string, image: string){
@@ -15,9 +16,5 @@ export class UserPageService {
 
   removeUser(id: string){
     this.usersList = this.usersList.filter(user => user.id !== id);
-  }
-
-  getUserList(): User[]{
-    return this.usersList;
   }
 }
