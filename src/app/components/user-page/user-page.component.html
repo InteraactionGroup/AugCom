@@ -16,10 +16,13 @@
 <ul>
   <li *ngFor="let user of usersList">
     <mat-card class="card">
-    <mat-card-header class="card-header-image">
-      <mat-card-title>{{user.name}}</mat-card-title>
-    </mat-card-header>
       <button mat-button (click)="userSelected(user)" [routerLink]="'/keyboard'"><img alt="{{user.name}}" height="270px" width="280" src="{{userImage(user)}}"></button>
+      <mat-card-content>
+        <p class="textCard">
+          {{user.name}}
+        </p>
+        <button mat-raised-button color="accent" (click)="this.removeUser(user.id)"> <img src='/assets/icons/delete.svg' alt="delete" height="5%" width="5%"></button>
+      </mat-card-content>
     </mat-card>
     <!--
     <div class="image">

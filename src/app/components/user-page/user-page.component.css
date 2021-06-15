@@ -3,10 +3,14 @@ body {
 }
 .card {
   max-width: 400px;
+  max-height: 400px;
 }
 .card:hover{
   opacity: 0.5;
 }
 .card-header-image {
   background-size: cover;
+}
+p.textCard{
+  text-align: center
 }

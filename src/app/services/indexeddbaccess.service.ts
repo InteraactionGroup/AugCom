@@ -4,7 +4,7 @@ import {PaletteService} from './palette.service';
 import {JsonValidatorService} from './json-validator.service';
 import {ConfigurationService} from "./configuration.service";
 import {UserPageService} from "./user-page.service";
-import {Grid} from "../types";
+import {Grid, User} from "../types";
 
 @Injectable({
   providedIn: 'root'
@@ -170,7 +170,6 @@ export class IndexeddbaccessService {
   }
   createUserObject(db, transaction) {
     db.createObjectStore('UserList', {autoIncrement: true});
-    console.log('BDD a sauvegarder les utilisateurs');
     const userList = transaction.objectStore('UserList');
     userList.add(this.userPageService.usersList);
   }
@@ -194,5 +193,76 @@ export class IndexeddbaccessService {
         this.grid = gridRequest.result;
       }
     }
+  }
+
+  getPalette(){
+
+    this.openRequest = indexedDB.open('Saves', 1);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+
+      const paletteRequest =db.transaction(['Palette']).objectStore('Palette').get(this.userPageService.currentUser.id);
+      paletteRequest.onsuccess = e => {
+        console.log('palette.result',paletteRequest.result)
+        this.palette = paletteRequest.result;
+      }
+    }
+  }
+
+  getConfiguration(){
+
+    this.openRequest = indexedDB.open('Saves', 1);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+
+      const configRequest =db.transaction(['Configuration']).objectStore('Configuration').get(this.userPageService.currentUser.id);
+      configRequest.onsuccess = e => {
+        console.log('configRequest.result',configRequest.result)
+        this.configuration = configRequest.result;
+      }
+    }
+  }
+  deleteUser(id: string) {
+    this.openRequest = indexedDB.open('Saves', 1);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+
+      const deleteConfigRequest = db.transaction(['Configuration'], 'readwrite').objectStore('Configuration').delete(id);
+      deleteConfigRequest.onsuccess = e =>{
+        this.configurationService.setConfiguration(deleteConfigRequest.result);
+      }
+
+      const deleteGridRequest = db.transaction(['Grid'], 'readwrite').objectStore('Grid').delete(id);
+      deleteGridRequest.onsuccess = e => {
+        this.boardService.board = this.jsonValidator.getCheckedGrid(deleteGridRequest.result);
+        this.boardService.updateElementList();
+      };
+
+      const deletePaletteRequest = db.transaction(['Palette'], 'readwrite').objectStore('Palette').delete(id);
+      deletePaletteRequest.onsuccess = e => {
+        this.paletteService.palettes = deletePaletteRequest.result;
+      };
+    };
   }
 }

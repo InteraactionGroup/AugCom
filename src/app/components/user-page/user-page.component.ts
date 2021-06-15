@@ -4,6 +4,8 @@ import {FormBuilder, NgForm} from "@angular/forms";
 import {User} from "../../types";
 import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 import {BoardService} from "../../services/board.service";
+import {ConfigurationService} from "../../services/configuration.service";
+import {PaletteService} from "../../services/palette.service";
 
 @Component({
   selector: 'app-user-page',
@@ -24,7 +26,9 @@ export class UserPageComponent implements OnInit {
   constructor(private userPageService: UserPageService,
               private formBuilder: FormBuilder,
               private indexeddbaccessService: IndexeddbaccessService,
-              private boardService: BoardService) {}
+              private boardService: BoardService,
+              private configurationService: ConfigurationService,
+              private paletteService: PaletteService) {}
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -58,6 +62,8 @@ export class UserPageComponent implements OnInit {
   removeUser(id: string){
     this.userPageService.removeUser(id);
     this.usersList = this.userPageService.usersList;
+    this.indexeddbaccessService.updateUserList();
+    this.indexeddbaccessService.deleteUser(id)
   }
 
   onFileSelected(event) {
@@ -79,9 +85,21 @@ export class UserPageComponent implements OnInit {
   userSelected(user: User){
     this.userPageService.currentUser = user;
     this.indexeddbaccessService.getGrid();
-    console.log('pute :',this.indexeddbaccessService.grid);
+    this.indexeddbaccessService.getPalette();
+    this.indexeddbaccessService.getConfiguration();
+
+    setTimeout(() => {
+    console.log('la grille coté user : ', this.indexeddbaccessService.grid)
     if(this.indexeddbaccessService.grid != null){
       this.boardService.board = this.indexeddbaccessService.grid;
+      this.boardService.updateElementList();
     }
+    if(this.indexeddbaccessService.palette != null){
+      this.paletteService.palettes = this.indexeddbaccessService.palette;
+    }
+    if(this.indexeddbaccessService.configuration != null){
+      this.configurationService = this.indexeddbaccessService.configuration;
+    }
+  },500)
   }
 }
