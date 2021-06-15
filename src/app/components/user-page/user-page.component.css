@@ -5,7 +5,7 @@ body {
   max-width: 400px;
   max-height: 400px;
 }
-.card:hover{
+.cardButton:hover{
   opacity: 0.5;
 }
 .card-header-image {
@@ -14,6 +14,9 @@ body {
 p.textCard{
   text-align: center
 }
-button.deletebutton{
+button.deleteButton{
   background-color: red;
+}
+button.deleteButton:hover{
+  opacity: 0.5;
 }

@@ -39,7 +39,7 @@ export class UserPageComponent implements OnInit {
   }
 
   clickAddUser(){
-    this.addUserBool = true;
+    this.addUserBool = !this.addUserBool;
     this.submitted = false;
   }
 
