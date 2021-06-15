@@ -1,10 +1,10 @@
 <body>
-<h1> Page de Connexion </h1>
+<h1> Augcom </h1>
 <button mat-button id="addUser" (click)="clickAddUser()"> <img src="assets/images/AddUser.png" alt=""> Ajouter un utilisateur </button>
 <div [hidden]="submitted" *ngIf="this.addUserBool">
   <form (ngSubmit)="onSubmit(newUser)" #newUser="ngForm">
     <label> nom de l'utilisateur </label>
-    <input id="nameUser" type="text" class="form-control" placeholder="enter your name" name="name" ngModel required>
+    <input id="nameUser" type="text" class="form-control" placeholder="entrer votre nom" name="name" ngModel required>
     <br>
     <label> votre image</label>
     <input type="file" accept="image/*" (change)="onFileSelected($event)">
@@ -12,27 +12,21 @@
     <button mat-button type="submit" [disabled]="newUser.invalid">Submit</button>
   </form>
 </div>
-
-<ul>
-  <li *ngFor="let user of usersList">
-    <mat-card class="card">
-      <button mat-button (click)="userSelected(user)" [routerLink]="'/keyboard'"><img alt="{{user.name}}" height="270px" width="280" src="{{userImage(user)}}"></button>
-      <mat-card-content>
-        <p class="textCard">
-          {{user.name}}
-        </p>
-        <button mat-raised-button color="accent" (click)="this.removeUser(user.id)"> <img src='/assets/icons/delete.svg' alt="delete" height="5%" width="5%"></button>
-      </mat-card-content>
-    </mat-card>
-    <!--
-    <div class="image">
-      <button mat-button [routerLink]="'/keyboard'"><img src="{{user.base64image}}" alt="{{user.name}}"></button>
-      <button mat-raised-button color="accent" (click)="this.removeUser(user.id)"> <img src='/assets/icons/delete.svg' alt="delete" height="5%" width="5%"></button>
-      <div class="label">
-        {{user.name}}
-      </div>
-    </div>
-    -->
-  </li>
-</ul>
+<br>
+<br>
+<div>
+  <mat-grid-list cols="4" rowHeight="1:1">
+    <mat-grid-tile *ngFor="let user of usersList">
+      <mat-card class="card">
+        <button mat-button (click)="userSelected(user)" [routerLink]="'/keyboard'"><img alt="{{user.name}}" height="270px" width="280" src="{{userImage(user)}}"></button>
+        <mat-card-content>
+          <p class="textCard">
+            {{user.name}}
+          </p>
+          <button class="deletebutton" *ngIf="user.id != 1" mat-raised-button (click)="this.removeUser(user.id)"> <img src='/assets/icons/delete.svg' alt="delete" height="5%" width="5%"></button>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
 </body>

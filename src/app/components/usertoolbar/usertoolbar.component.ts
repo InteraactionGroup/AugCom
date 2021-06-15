@@ -13,6 +13,7 @@ import {EditionService} from '../../services/edition.service';
 import {DwellCursorService} from "../../services/dwell-cursor.service";
 import {ConfigurationService} from "../../services/configuration.service";
 import {Router} from "@angular/router";
+import {UserPageService} from "../../services/user-page.service";
 
 @Component({
   selector: 'app-usertoolbar',
@@ -34,6 +35,7 @@ export class UsertoolbarComponent implements OnInit {
     public dwellCursorService: DwellCursorService,
     public configurationService: ConfigurationService,
     private router: Router,
+    private userPageService: UserPageService
   ) {
   }
 
@@ -154,5 +156,6 @@ export class UsertoolbarComponent implements OnInit {
 
   logout() {
     this.router.navigate(['logging']);
+    this.userPageService.currentUser = undefined;
   }
 }

@@ -49,6 +49,7 @@ import {MatInputModule} from "@angular/material/input";
 import {CommonModule} from "@angular/common";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
+import {MatGridListModule} from "@angular/material/grid-list";
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import {MatCardModule} from "@angular/material/card";
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
-        MatCardModule
+        MatCardModule,
+        MatGridListModule
     ],
   bootstrap: [AppComponent],
   providers: [FormBuilder]
