@@ -111,7 +111,7 @@ export class UserPageComponent implements OnInit {
   openDialogDelete(id: string): void{
     this.userPageService.deleteIdUser = id;
     const dialogDelete = this.dialog.open(DialogDeleteUserComponent, {
-      height: '25%',
+      height: '20%',
       width: '25%'
     });
     dialogDelete.afterClosed().subscribe(() =>{
@@ -125,7 +125,7 @@ export class UserPageComponent implements OnInit {
     this.userPageService.deleteIdUser = id;
     this.userPageService.index = index;
     const dialogChange = this.dialog.open(DialogChangeUserComponent, {
-      height: '25%',
+      height: '20%',
       width: '25%'
     });
     dialogChange.afterClosed().subscribe(() => {

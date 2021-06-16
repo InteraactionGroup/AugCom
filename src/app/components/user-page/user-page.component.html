@@ -25,13 +25,13 @@
   <mat-grid-list cols="4" rowHeight="1:1">
     <mat-grid-tile *ngFor="let user of usersList; let index = index">
       <mat-card class="card">
-        <button class="cardButton" mat-button (click)="userSelected(user)" [routerLink]="'/keyboard'"><img alt="{{user.name}}" height="270px" width="280" src="{{userImage(user)}}"></button>
+        <button class="cardButton" mat-button (click)="userSelected(user)" [routerLink]="'/keyboard'"><img alt="{{user.name}}" height="100%" width="100%" src="{{userImage(user)}}"></button>
         <mat-card-content>
           <p class="textCard">
             {{user.name}}
           </p>
-          <button class="deleteButton" *ngIf="user.id != 1" mat-raised-button color="warn" (click)="this.openDialogDelete(user.id)"> Supprimer <img src='/assets/icons/delete.svg' alt="delete" height="5%" width="5%"></button>
           <button class="deleteButton" *ngIf="user.id != 1" mat-raised-button color="primary" (click)="this.openDialogChange(user.id, index)"> Modifier <img src='/assets/icons/delete.svg' alt="delete" height="5%" width="5%"></button>
+          <button class="deleteButton" *ngIf="user.id != 1" mat-raised-button color="warn" (click)="this.openDialogDelete(user.id)"> Supprimer <img src='/assets/icons/delete.svg' alt="delete" height="5%" width="5%"></button>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
