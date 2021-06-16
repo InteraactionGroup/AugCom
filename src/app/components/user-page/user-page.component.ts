@@ -97,9 +97,7 @@ export class UserPageComponent implements OnInit {
     }
     else{
       console.log('chargement des valeurs par defaut')
-      this.indexeddbaccessService.getGridDefault();
-      this.indexeddbaccessService.getPaletteDefault();
-      this.indexeddbaccessService.getConfigurationDefault();
+      this.indexeddbaccessService.initDefault();
     }
 
 

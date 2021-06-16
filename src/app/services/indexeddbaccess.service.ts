@@ -261,7 +261,7 @@ export class IndexeddbaccessService {
       };
     };
   }
-  getGridDefault(){
+  initDefault() {
 
     this.openRequest = indexedDB.open('Saves', 1);
 
@@ -274,50 +274,35 @@ export class IndexeddbaccessService {
     this.openRequest.onsuccess = event => {
       const db = event.target.result;
 
-      const gridRequest =db.transaction(['Grid']).objectStore('Grid').get(1);
-      gridRequest.onsuccess = e => {
-        this.grid = gridRequest.result;
-      }
-    }
-  }
+      const gridStore = db.transaction(['Grid']).objectStore('Grid').get(1);
+      gridStore.onsuccess = e => {
+        this.boardService.board = this.jsonValidator.getCheckedGrid(gridStore.result);
+        this.boardService.updateElementList();
+      };
 
-  getPaletteDefault(){
+      const paletteStore = db.transaction(['Palette']).objectStore('Palette').get(1);
+      paletteStore.onsuccess = e => {
+        this.paletteService.palettes = paletteStore.result;
+      };
 
-    this.openRequest = indexedDB.open('Saves', 1);
-
-    // ERROR
-    this.openRequest.onerror = event => {
-      alert('Database error: ' + event.target.errorCode);
+      const configStore = db.transaction(['Configuration']).objectStore('Configuration').get(1);
+      configStore.onsuccess = e => {
+        this.configurationService.setConfiguration(configStore.result);
+      };
     };
 
-    // SUCCESS
-    this.openRequest.onsuccess = event => {
+    this.openRequest.onupgradeneeded = event => {
+
+      // Creaction of Store
       const db = event.target.result;
+      const transaction = event.target.transaction;
 
-      const paletteRequest =db.transaction(['Palette']).objectStore('Palette').get(1);
-      paletteRequest.onsuccess = e => {
-        this.palette = paletteRequest.result;
-      }
-    }
-  }
+      this.createPaletteObject(db, transaction);
+      this.createGridObject(db, transaction);
+      this.createConfigurationObject(db, transaction);
 
-  getConfigurationDefault(){
+      this.boardService.updateElementList();
 
-    this.openRequest = indexedDB.open('Saves', 1);
-
-    // ERROR
-    this.openRequest.onerror = event => {
-      alert('Database error: ' + event.target.errorCode);
     };
-
-    // SUCCESS
-    this.openRequest.onsuccess = event => {
-      const db = event.target.result;
-
-      const configRequest =db.transaction(['Configuration']).objectStore('Configuration').get(1);
-      configRequest.onsuccess = e => {
-        this.configuration = configRequest.result;
-      }
-    }
   }
 }
