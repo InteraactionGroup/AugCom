@@ -8,6 +8,7 @@ import {ConfigurationService} from "../../services/configuration.service";
 import {PaletteService} from "../../services/palette.service";
 import {DialogDeleteUserComponent} from "../dialog-delete-user/dialog-delete-user.component";
 import {MatDialog} from "@angular/material/dialog";
+import {DialogChangeUserComponent} from "../dialog-change-user/dialog-change-user.component";
 
 @Component({
   selector: 'app-user-page',
@@ -107,7 +108,7 @@ export class UserPageComponent implements OnInit {
     }
   },500)
   }
-  openDialog(id: string): void{
+  openDialogDelete(id: string): void{
     this.userPageService.deleteIdUser = id;
     const dialogDelete = this.dialog.open(DialogDeleteUserComponent, {
       height: '25%',
@@ -118,5 +119,19 @@ export class UserPageComponent implements OnInit {
         this.removeUser(id);
       }
     });
+  }
+
+  openDialogChange(id: string, index: number) {
+    this.userPageService.deleteIdUser = id;
+    this.userPageService.index = index;
+    const dialogChange = this.dialog.open(DialogChangeUserComponent, {
+      height: '25%',
+      width: '25%'
+    });
+    dialogChange.afterClosed().subscribe(() => {
+      if(this.userPageService.isUserImageChanged === true){
+        this.indexeddbaccessService.updateUserList();
+      }
+    })
   }
 }

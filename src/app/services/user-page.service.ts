@@ -10,6 +10,8 @@ export class UserPageService {
   currentUser: User;
   deleteIdUser: string;
   yes: boolean;
+  isUserImageChanged:boolean;
+  index: number;
   constructor() {}
 
   addUser(name: string, image: string){

@@ -52,6 +52,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatGridListModule} from "@angular/material/grid-list";
 import { DialogDeleteUserComponent } from './components/dialog-delete-user/dialog-delete-user.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import { DialogChangeUserComponent } from './components/dialog-change-user/dialog-change-user.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     DwellCursorComponent,
     MainComponent,
     UserPageComponent,
-    DialogDeleteUserComponent
+    DialogDeleteUserComponent,
+    DialogChangeUserComponent
   ],
     imports: [
         BrowserModule,
