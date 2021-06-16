@@ -4,7 +4,7 @@ import {PaletteService} from './palette.service';
 import {JsonValidatorService} from './json-validator.service';
 import {ConfigurationService} from "./configuration.service";
 import {UserPageService} from "./user-page.service";
-import {Grid, User} from "../types";
+import {Grid} from "../types";
 
 @Injectable({
   providedIn: 'root'
@@ -125,7 +125,6 @@ export class IndexeddbaccessService {
         const userList = db.transaction(['UserList']).objectStore('UserList').get(1);
         userList.onsuccess = e => {
           this.userPageService.usersList = userList.result;
-          console.log('this.userPageService.usersList',this.userPageService.usersList)
         };
       });
 
@@ -189,7 +188,6 @@ export class IndexeddbaccessService {
 
       const gridRequest =db.transaction(['Grid']).objectStore('Grid').get(this.userPageService.currentUser.id);
       gridRequest.onsuccess = e => {
-        console.log('gridRequest.result',gridRequest.result)
         this.grid = gridRequest.result;
       }
     }
@@ -210,7 +208,6 @@ export class IndexeddbaccessService {
 
       const paletteRequest =db.transaction(['Palette']).objectStore('Palette').get(this.userPageService.currentUser.id);
       paletteRequest.onsuccess = e => {
-        console.log('palette.result',paletteRequest.result)
         this.palette = paletteRequest.result;
       }
     }
@@ -231,7 +228,6 @@ export class IndexeddbaccessService {
 
       const configRequest =db.transaction(['Configuration']).objectStore('Configuration').get(this.userPageService.currentUser.id);
       configRequest.onsuccess = e => {
-        console.log('configRequest.result',configRequest.result)
         this.configuration = configRequest.result;
       }
     }
@@ -264,5 +260,64 @@ export class IndexeddbaccessService {
         this.paletteService.palettes = deletePaletteRequest.result;
       };
     };
+  }
+  getGridDefault(){
+
+    this.openRequest = indexedDB.open('Saves', 1);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+
+      const gridRequest =db.transaction(['Grid']).objectStore('Grid').get(1);
+      gridRequest.onsuccess = e => {
+        this.grid = gridRequest.result;
+      }
+    }
+  }
+
+  getPaletteDefault(){
+
+    this.openRequest = indexedDB.open('Saves', 1);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+
+      const paletteRequest =db.transaction(['Palette']).objectStore('Palette').get(1);
+      paletteRequest.onsuccess = e => {
+        this.palette = paletteRequest.result;
+      }
+    }
+  }
+
+  getConfigurationDefault(){
+
+    this.openRequest = indexedDB.open('Saves', 1);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+
+      const configRequest =db.transaction(['Configuration']).objectStore('Configuration').get(1);
+      configRequest.onsuccess = e => {
+        this.configuration = configRequest.result;
+      }
+    }
   }
 }

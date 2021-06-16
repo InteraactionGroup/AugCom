@@ -44,6 +44,7 @@ export class UsertoolbarComponent implements OnInit {
   dwellTimer;
 
   ngOnInit() {
+    this.indexedDBacess.update();
   }
 
   /*get size of the searched result under search bar, maximum size reached for 5 results*/

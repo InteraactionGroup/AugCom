@@ -1,9 +1,9 @@
 <body>
-<h1> Augcom </h1>
+<h1> Page de connexion </h1>
 <mat-grid-list cols="4" rowHeight="1:1">
   <mat-grid-tile>
     <mat-card>
-      <button mat-button class="cardButton" id="addUser" (click)="clickAddUser()"> <img src="assets/images/AddUser.png" alt=""></button>
+      <button mat-button class="cardButton" id="addUser" (click)="clickAddUser()"> <img src="assets/images/AddUser.png" height="100%" width="100%" alt=""></button>
       <mat-card-content>
         <p class="textCard">Ajouter un utilisateur</p>
       </mat-card-content>
@@ -18,7 +18,7 @@
     <label> votre image</label>
     <input type="file" accept="image/*" (change)="onFileSelected($event)">
     <br>
-    <button mat-button type="submit" [disabled]="newUser.invalid">Valider</button>
+    <button mat-button mat-raised-button type="submit" [disabled]="newUser.invalid">Valider</button>
   </form>
 </div>
 <div>

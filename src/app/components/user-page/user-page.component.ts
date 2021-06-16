@@ -90,12 +90,20 @@ export class UserPageComponent implements OnInit {
   }
   userSelected(user: User){
     this.userPageService.currentUser = user;
-    this.indexeddbaccessService.getGrid();
-    this.indexeddbaccessService.getPalette();
-    this.indexeddbaccessService.getConfiguration();
+    if(user.id !== '1'){
+      this.indexeddbaccessService.getGrid();
+      this.indexeddbaccessService.getPalette();
+      this.indexeddbaccessService.getConfiguration();
+    }
+    else{
+      console.log('chargement des valeurs par defaut')
+      this.indexeddbaccessService.getGridDefault();
+      this.indexeddbaccessService.getPaletteDefault();
+      this.indexeddbaccessService.getConfigurationDefault();
+    }
+
 
     setTimeout(() => {
-    console.log('la grille coté user : ', this.indexeddbaccessService.grid)
     if(this.indexeddbaccessService.grid != null){
       this.boardService.board = this.indexeddbaccessService.grid;
       this.boardService.updateElementList();
