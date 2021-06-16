@@ -18,6 +18,8 @@ export class UserPageComponent implements OnInit {
 
   addUserBool: boolean;
 
+  submitted = false;
+
   usersList: User[] = [];
   user: User = new User('','');
 
@@ -50,16 +52,16 @@ export class UserPageComponent implements OnInit {
     this.usersList = this.userPageService.usersList;
   }
 
-  submitted = false;
-
   onSubmit(newUser: NgForm) {
     this.submitted = true;
     this.user.name = newUser.value['name'];
     this.user.base64image = this.selectedFile;
     this.user.id = Math.floor(Math.random() * 10000000000).toString() + Date.now().toString();
     this.userPageService.addUser(this.user.name, this.user.base64image);
+    this.usersList = this.userPageService.usersList;
     this.indexeddbaccessService.updateUserList();
     this.indexeddbaccessService.init();
+    this.addUserBool = !this.addUserBool;
   }
 
   removeUser(id: string){
@@ -107,9 +109,14 @@ export class UserPageComponent implements OnInit {
   }
   openDialog(id: string): void{
     this.userPageService.deleteIdUser = id;
-    this.dialog.open(DialogDeleteUserComponent, {
+    const dialogDelete = this.dialog.open(DialogDeleteUserComponent, {
       height: '25%',
       width: '25%'
+    });
+    dialogDelete.afterClosed().subscribe(() =>{
+      if(this.userPageService.yes === true){
+        this.removeUser(id);
+      }
     });
   }
 }

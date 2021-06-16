@@ -17,7 +17,10 @@ p.textCard{
 button.deleteButton:hover{
   opacity: 0.5;
 }
-button{
+button.deleteButton{
+  color: black;
+}
+.cardButton{
   display: block;
   margin: auto;
 }

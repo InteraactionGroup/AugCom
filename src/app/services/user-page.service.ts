@@ -9,6 +9,7 @@ export class UserPageService {
   usersList: User[] = [new User('Utilisateur par defaut','','1')];
   currentUser: User;
   deleteIdUser: string;
+  yes: boolean;
   constructor() {}
 
   addUser(name: string, image: string){

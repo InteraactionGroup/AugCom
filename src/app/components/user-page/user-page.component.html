@@ -30,7 +30,7 @@
           <p class="textCard">
             {{user.name}}
           </p>
-          <button class="deleteButton" *ngIf="user.id != 1" mat-raised-button color="warn" (click)="this.openDialog(user.id)"> <img src='/assets/icons/delete.svg' alt="delete" height="5%" width="5%"></button>
+          <button class="deleteButton" *ngIf="user.id != 1" mat-raised-button color="warn" (click)="this.openDialog(user.id)"> Supprimer <img src='/assets/icons/delete.svg' alt="delete" height="5%" width="5%"></button>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

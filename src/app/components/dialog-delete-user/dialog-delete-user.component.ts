@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {UserPageService} from "../../services/user-page.service";
-import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
-import {UserPageComponent} from "../user-page/user-page.component";
 
 @Component({
   selector: 'app-dialog-delete-user',
@@ -10,14 +8,14 @@ import {UserPageComponent} from "../user-page/user-page.component";
 })
 export class DialogDeleteUserComponent implements OnInit {
 
-  constructor(// private userPageComponent: UserPageComponent,
-              private userPageService: UserPageService) { }
+  constructor(private userPageService: UserPageService) {}
 
   ngOnInit(): void {
+    this.userPageService.yes = false;
   }
 
-  removeUser(){
-    // this.userPageComponent.removeUser(this.userPageService.deleteIdUser);
+  putYes(){
+    this.userPageService.yes = true;
   }
 
 }
