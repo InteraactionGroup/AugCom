@@ -1,6 +1,15 @@
 <body>
 <h1> Augcom </h1>
-<button mat-button class="cardButton" id="addUser" (click)="clickAddUser()"> <img src="assets/images/AddUser.png" alt=""> Ajouter un utilisateur </button>
+<mat-grid-list cols="4" rowHeight="1:1">
+  <mat-grid-tile>
+    <mat-card>
+      <button mat-button class="cardButton" id="addUser" (click)="clickAddUser()"> <img src="assets/images/AddUser.png" alt=""></button>
+      <mat-card-content>
+        <p class="textCard">Ajouter un utilisateur</p>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
 <div [hidden]="submitted" *ngIf="this.addUserBool">
   <form (ngSubmit)="onSubmit(newUser)" #newUser="ngForm">
     <label> nom de l'utilisateur </label>
@@ -12,8 +21,6 @@
     <button mat-button type="submit" [disabled]="newUser.invalid">Submit</button>
   </form>
 </div>
-<br>
-<br>
 <div>
   <mat-grid-list cols="4" rowHeight="1:1">
     <mat-grid-tile *ngFor="let user of usersList">
@@ -23,7 +30,7 @@
           <p class="textCard">
             {{user.name}}
           </p>
-          <button class="deleteButton" *ngIf="user.id != 1" mat-raised-button (click)="this.removeUser(user.id)"> <img src='/assets/icons/delete.svg' alt="delete" height="5%" width="5%"></button>
+          <button class="deleteButton" *ngIf="user.id != 1" mat-raised-button color="warn" (click)="this.openDialog(user.id)"> <img src='/assets/icons/delete.svg' alt="delete" height="5%" width="5%"></button>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

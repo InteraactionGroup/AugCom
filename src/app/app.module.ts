@@ -50,6 +50,8 @@ import {CommonModule} from "@angular/common";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {MatGridListModule} from "@angular/material/grid-list";
+import { DialogDeleteUserComponent } from './components/dialog-delete-user/dialog-delete-user.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -87,7 +89,8 @@ import {MatGridListModule} from "@angular/material/grid-list";
     PictogramStyleComponent,
     DwellCursorComponent,
     MainComponent,
-    UserPageComponent
+    UserPageComponent,
+    DialogDeleteUserComponent
   ],
     imports: [
         BrowserModule,
@@ -104,7 +107,8 @@ import {MatGridListModule} from "@angular/material/grid-list";
         MatInputModule,
         MatButtonModule,
         MatCardModule,
-        MatGridListModule
+        MatGridListModule,
+        MatDialogModule
     ],
   bootstrap: [AppComponent],
   providers: [FormBuilder]

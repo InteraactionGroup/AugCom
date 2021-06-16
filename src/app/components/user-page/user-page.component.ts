@@ -6,6 +6,8 @@ import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 import {BoardService} from "../../services/board.service";
 import {ConfigurationService} from "../../services/configuration.service";
 import {PaletteService} from "../../services/palette.service";
+import {DialogDeleteUserComponent} from "../dialog-delete-user/dialog-delete-user.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-user-page',
@@ -28,7 +30,8 @@ export class UserPageComponent implements OnInit {
               private indexeddbaccessService: IndexeddbaccessService,
               private boardService: BoardService,
               private configurationService: ConfigurationService,
-              private paletteService: PaletteService) {}
+              private paletteService: PaletteService,
+              public dialog: MatDialog) {}
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -101,5 +104,12 @@ export class UserPageComponent implements OnInit {
       this.configurationService = this.indexeddbaccessService.configuration;
     }
   },500)
+  }
+  openDialog(id: string): void{
+    this.userPageService.deleteIdUser = id;
+    this.dialog.open(DialogDeleteUserComponent, {
+      height: '25%',
+      width: '25%'
+    });
   }
 }

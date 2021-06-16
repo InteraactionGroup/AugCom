@@ -14,9 +14,10 @@ body {
 p.textCard{
   text-align: center
 }
-button.deleteButton{
-  background-color: red;
-}
 button.deleteButton:hover{
   opacity: 0.5;
+}
+button{
+  display: block;
+  margin: auto;
 }
