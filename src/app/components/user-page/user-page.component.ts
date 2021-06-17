@@ -96,14 +96,16 @@ export class UserPageComponent implements OnInit {
       this.indexeddbaccessService.getConfiguration();
     }
     else{
-      console.log('chargement des valeurs par defaut')
       this.indexeddbaccessService.initDefault();
     }
-
 
     setTimeout(() => {
     if(this.indexeddbaccessService.grid != null){
       this.boardService.board = this.indexeddbaccessService.grid;
+      this.boardService.updateElementList();
+    }
+    else{
+      this.indexeddbaccessService.initDefault();
       this.boardService.updateElementList();
     }
     if(this.indexeddbaccessService.palette != null){
