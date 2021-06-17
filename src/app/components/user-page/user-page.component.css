@@ -33,3 +33,6 @@ button.deleteButton{
   height:100%;
   width:100%;
 }
+.image:hover, button:hover{
+  opacity: 0.5;
+}
