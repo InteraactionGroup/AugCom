@@ -1,4 +1,11 @@
 <body>
+<nav class="navbar navbar-expand-sm bg-light">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <button (click)="translate()" [ngStyle]="{'background-image':this.getIcon(this.configurationService.LANGUAGE_VALUE==='FR'? 'france':'uk')}"></button>
+    </li>
+  </ul>
+</nav>
 <h1> Page de connexion </h1>
 <mat-grid-list cols="4" rowHeight="1:1">
   <mat-grid-tile>

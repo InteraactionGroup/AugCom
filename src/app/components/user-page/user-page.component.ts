@@ -9,6 +9,8 @@ import {PaletteService} from "../../services/palette.service";
 import {DialogDeleteUserComponent} from "../dialog-delete-user/dialog-delete-user.component";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogChangeUserComponent} from "../dialog-change-user/dialog-change-user.component";
+import {GeticonService} from "../../services/geticon.service";
+import {UsertoolbarService} from "../../services/usertoolbar.service";
 
 @Component({
   selector: 'app-user-page',
@@ -32,8 +34,10 @@ export class UserPageComponent implements OnInit {
               private formBuilder: FormBuilder,
               private indexeddbaccessService: IndexeddbaccessService,
               private boardService: BoardService,
-              private configurationService: ConfigurationService,
+              public configurationService: ConfigurationService,
               private paletteService: PaletteService,
+              private getIconService: GeticonService,
+              public userToolBarService: UsertoolbarService,
               public dialog: MatDialog) {}
 
   ngOnInit(): void {
@@ -141,5 +145,12 @@ export class UserPageComponent implements OnInit {
         this.indexeddbaccessService.updateUserList();
       }
     })
+  }
+  getIcon(s: string) {
+    return this.getIconService.getIconUrl(s);
+  }
+  translate() {
+    this.configurationService.LANGUAGE_VALUE = (this.configurationService.LANGUAGE_VALUE === 'FR' ? 'EN' : 'FR');
+    console.log(this.configurationService.LANGUAGE_VALUE)
   }
 }
