@@ -27,3 +27,9 @@ button.deleteButton{
   display: block;
   margin: auto;
 }
+.imgCard{
+  max-height:270px;
+  max-width:280px;
+  height:100%;
+  width:100%;
+}
