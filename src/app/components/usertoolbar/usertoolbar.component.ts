@@ -8,7 +8,7 @@ import {BoardService} from '../../services/board.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
 import {LayoutService} from '../../services/layout.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
-import {FolderGoTo} from '../../types';
+import {FolderGoTo, Grid} from '../../types';
 import {EditionService} from '../../services/edition.service';
 import {DwellCursorService} from "../../services/dwell-cursor.service";
 import {ConfigurationService} from "../../services/configuration.service";
@@ -157,6 +157,9 @@ export class UsertoolbarComponent implements OnInit {
 
   logout() {
     this.router.navigate(['logging']);
-    this.userPageService.currentUser = undefined;
+    this.indexedDBacess.update();
+    setTimeout(() => {
+      this.userPageService.currentUser = undefined;
+    },200);
   }
 }

@@ -95,9 +95,7 @@ export class UserPageComponent implements OnInit {
   userSelected(user: User){
     this.userPageService.currentUser = user;
     if(user.id !== '1'){
-      this.indexeddbaccessService.getGrid();
-      this.indexeddbaccessService.getPalette();
-      this.indexeddbaccessService.getConfiguration();
+      this.indexeddbaccessService.getAllFromUser();
     }
     else{
       this.indexeddbaccessService.initDefault();
@@ -108,10 +106,12 @@ export class UserPageComponent implements OnInit {
       this.boardService.board = this.indexeddbaccessService.grid;
       this.boardService.updateElementList();
     }
+    /*
     else{
       this.indexeddbaccessService.initDefault();
       this.boardService.updateElementList();
     }
+    */
     if(this.indexeddbaccessService.palette != null){
       this.paletteService.palettes = this.indexeddbaccessService.palette;
     }
