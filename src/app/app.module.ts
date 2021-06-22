@@ -8,7 +8,7 @@ import {KeyboardComponent} from './components/keyboard/keyboard.component';
 import {DialogbarComponent} from './components/dialogbar/dialogbar.component';
 import {ShareComponent} from './components/share/share.component';
 import {PopupComponent} from './components/popup/popup.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {HttpClientModule} from '@angular/common/http';
 import {ServiceWorkerModule} from '@angular/service-worker';
@@ -43,6 +43,8 @@ import {GridFormatManagementComponent} from './components/grid-format-management
 import {PictogramStyleComponent} from './components/pictogram-style/pictogram-style.component';
 import {DwellCursorComponent} from './components/dwell-cursor/dwell-cursor.component';
 import { MainComponent } from './components/main/main.component';
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -91,7 +93,10 @@ import { MainComponent } from './components/main/main.component';
     }),
     AppRoutingModule,
     BrowserAnimationsModule,
-    GridsterModule
+    GridsterModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    ReactiveFormsModule
   ],
   bootstrap: [AppComponent]
 })

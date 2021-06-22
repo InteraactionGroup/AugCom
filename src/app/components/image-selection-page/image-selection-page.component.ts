@@ -7,6 +7,9 @@ import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
 import {ArasaacObject, MulBerryObject} from '../../libTypes';
 import {MultilinguismService} from '../../services/multilinguism.service';
 import {ConfigurationService} from "../../services/configuration.service";
+import {Observable} from "rxjs";
+import {FormControl} from "@angular/forms";
+import {map, startWith} from "rxjs/operators";
 
 @Component({
   selector: 'app-image-selection-page',
@@ -22,6 +25,10 @@ export class ImageSelectionPageComponent implements OnInit {
    */
   imageList: { lib, word }[];
 
+  myControl = new FormControl();
+  filteredOptions: Observable<string[]>;
+
+  wordList: string[] = [];
 
   constructor(public multilinguism: MultilinguismService,
               public ng2ImgMaxService: Ng2ImgMaxService,
@@ -30,6 +37,12 @@ export class ImageSelectionPageComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      )
   }
 
   /**
@@ -155,9 +168,14 @@ export class ImageSelectionPageComponent implements OnInit {
       }, this);
     }
 
-    tempList = tempList.sort((a: { lib, word }, b: { lib, word }) => {
+    tempList = tempList.sort((a: { lib: any, word: string | any[] }, b: { lib: any, word: string | any[] }) => {
       return a.word.length - b.word.length;
     });
+
+    // this.wordList = tempList;
+    tempList.forEach(couple => {
+      this.wordList.push(couple.word);
+    })
 
     this.imageList = tempList.slice(0, 100);
   }
@@ -168,4 +186,11 @@ export class ImageSelectionPageComponent implements OnInit {
   }
 
 
+  private _filter(value: string): string[] {
+    if(value.length > 1){
+      this.wordList = [];
+      this.searchInLib(value);
+      return this.wordList;
+    }
+  }
 }
