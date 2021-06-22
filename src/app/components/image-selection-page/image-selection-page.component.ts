@@ -6,6 +6,7 @@ import arasaacJson from '../../../assets/arasaac-symbol-info.json';
 import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
 import {ArasaacObject, MulBerryObject} from '../../libTypes';
 import {MultilinguismService} from '../../services/multilinguism.service';
+import {ConfigurationService} from "../../services/configuration.service";
 
 @Component({
   selector: 'app-image-selection-page',
@@ -24,7 +25,8 @@ export class ImageSelectionPageComponent implements OnInit {
 
   constructor(public multilinguism: MultilinguismService,
               public ng2ImgMaxService: Ng2ImgMaxService,
-              public editionService: EditionService) {
+              public editionService: EditionService,
+              public configurationService: ConfigurationService) {
   }
 
   ngOnInit() {
@@ -129,26 +131,29 @@ export class ImageSelectionPageComponent implements OnInit {
     this.imageList = [];
     let tempList = [];
 
-    (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
-      if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase())) {
-        const url = word;
-        tempList.push({lib: 'arasaacNB', word: this.cleanString(url)});
-      }
-    }, this);
+    if(this.configurationService.LANGUAGE_VALUE === 'FR') {
+      (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
+        if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase())) {
+          const url = word;
+          tempList.push({lib: 'arasaacNB', word: this.cleanString(url)});
+        }
+      }, this);
 
-    (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
-      if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase())) {
-        const url = word;
-        tempList.push({lib: 'arasaacColor', word: this.cleanString(url)});
-      }
-    }, this);
-
-    (mullberryJson as unknown as MulBerryObject[]).forEach(value => {
-      if (text !== null && text !== '' && value.symbol.toLowerCase().includes(text.toLocaleLowerCase())) {
-        const url = value.symbol;
-        tempList.push({lib: 'mulberry', word: this.cleanString(url)});
-      }
-    }, this);
+      (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
+        if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase())) {
+          const url = word;
+          tempList.push({lib: 'arasaacColor', word: this.cleanString(url)});
+        }
+      }, this);
+    }
+    else{
+      (mullberryJson as unknown as MulBerryObject[]).forEach(value => {
+        if (text !== null && text !== '' && value.symbol.toLowerCase().includes(text.toLocaleLowerCase())) {
+          const url = value.symbol;
+          tempList.push({lib: 'mulberry', word: this.cleanString(url)});
+        }
+      }, this);
+    }
 
     tempList = tempList.sort((a: { lib, word }, b: { lib, word }) => {
       return a.word.length - b.word.length;
