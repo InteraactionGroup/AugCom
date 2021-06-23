@@ -149,4 +149,8 @@ export class UsertoolbarComponent implements OnInit {
       }
     }
   }
+
+  closeBrowser() {
+    window.close();
+  }
 }

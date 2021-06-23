@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.5/dist/semantic.min.css">
 <div class="usertoolbar width-100">
   <!--     [ngStyle]="{'bottom': this.userToolBarService.edit ? '50%' :'0'}">-->
 
@@ -36,6 +37,11 @@
   <div class="button floatRight" id="editButton" *ngIf="this.userToolBarService.unlock" (click)="this.edit()">
     <div class="image width-100" [class.noConnection]="!this.userToolBarService.isConnected"
          [class.imageSelected]="this.userToolBarService.edit" [ngStyle]="{'background-image':this.getIcon('edit')}">
+    </div>
+  </div>
+
+  <div class="button floatRight" id="closeBrowser" (click)="this.closeBrowser()">
+    <div class="image width-100" ><img class="ui mini image" src="assets/images/power-off.png" alt="">
     </div>
   </div>
 
