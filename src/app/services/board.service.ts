@@ -24,7 +24,6 @@ export class BoardService {
   ) {
     this.board = Board;
     this.updateElementList();
-    console.log('grid', this.board)
   }
 
   /*background url value for grid background image*/
