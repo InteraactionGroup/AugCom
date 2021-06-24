@@ -18,6 +18,10 @@
     </ng-container>
   </div>
 
+  <div class="button floatRight" id="closeBrowser" (click)="this.closeBrowser()">
+    <div class="image width-100" ><img class="ui mini image" src="assets/images/power-off.png" alt="">
+    </div>
+  </div>
 
   <div class="button floatRight" id="lockUnlockButton" (click)="this.setLock()">
     <div class="image width-100" [class.imageSelected]="this.userToolBarService.unlock"
@@ -40,10 +44,7 @@
     </div>
   </div>
 
-  <div class="button floatRight" id="closeBrowser" (click)="this.closeBrowser()">
-    <div class="image width-100" ><img class="ui mini image" src="assets/images/power-off.png" alt="">
-    </div>
-  </div>
+
 
   <div class="button floatRight" id="babbleButton" *ngIf="this.userToolBarService.unlock"
        (click)="this.userToolBarService.babble = !this.userToolBarService.babble">
