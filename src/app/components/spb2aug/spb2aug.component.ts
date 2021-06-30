@@ -527,7 +527,6 @@ export class Spb2augComponent implements OnInit {
     let isColAdd = false;
     this.newGrid.PageList.forEach(page => {
       let indexGoDownButtonPage = this.newGrid.ElementList.findIndex(element => element.ID.includes('goDown'));
-      console.log('indexLastButtonPage', indexGoDownButtonPage);
       if(indexGoDownButtonPage > -1){
         this.newGrid.ElementList.forEach(element => {
           if (element.y + element.rows === this.page.NumberOfRows && element.x + element.cols === this.page.NumberOfCols && this.page.ElementIDsList.indexOf(element.ID) > -1 && element.ID.includes('goDown') === false) {
