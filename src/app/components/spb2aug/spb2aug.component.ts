@@ -230,7 +230,6 @@ export class Spb2augComponent implements OnInit {
         Path: pathImage,
       });
     }
-    //this.addColIfNeeded();
     this.newGrid.PageList.unshift(this.page);
     this.getPageFolderButtons(buttonPage);
     this.goDownPageRemastered();
@@ -340,7 +339,6 @@ export class Spb2augComponent implements OnInit {
 
   /**
    * query the database to set the police
-   * @param name the name of the table (useless if you put the great query)
    */
   getPolice() {
     const po = this.db.prepare('SELECT * FROM PageSetProperties');
@@ -355,6 +353,8 @@ export class Spb2augComponent implements OnInit {
    * @param gridElement the current element
    */
   getPageHomeButtons(pageId: any, gridElement: GridElement) {
+    console.log('gridElement.y', gridElement.y)
+    console.log('this.page.NumberOfRows - 1 : ', this.page.NumberOfRows - 1)
     if (pageId === this.pageHome && gridElement.y <= this.page.NumberOfRows - 1) {
       this.page.ElementIDsList.push(gridElement.ID);
     }
@@ -404,7 +404,7 @@ export class Spb2augComponent implements OnInit {
         }
       }
       if (this.newGrid.PageList[pageid - 4] != null) {
-        const numberNewPage = Math.ceil(RowMaxPage / this.newGrid.PageList[pageid - 4].NumberOfRows) - 1;
+        const numberNewPage = Math.floor(RowMaxPage / this.newGrid.PageList[pageid - 4].NumberOfRows);
         if (numberNewPage > 0) {
           this.gridElement = new GridElement('goDown' + this.newGrid.PageList[pageid - 4].ID + numeroPage,
             {GoTo: this.newGrid.PageList[pageid - 4].ID + numeroPage},
