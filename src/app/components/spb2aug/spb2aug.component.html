@@ -1,4 +1,4 @@
 <label>
   {{this.multilinguism.translate("import save from snap core first") + ":"}}
 </label>
-<input #file type="file" (change)="convert(file.files)" onclick="this.value=null">
+<input #file type="file" accept=".spb" (change)="convert(file.files)" onclick="this.value=null">
