@@ -113,25 +113,25 @@ export class IndexeddbaccessService {
           this.boardService.updateElementList();
         };
 
-        const paletteStore = db.transaction(['Palette']).objectStore('Palette').get(user.id);
+        const paletteStore = db.transaction(['Palette']).objectStore('Palette').get(1);
         paletteStore.onsuccess = e => {
           this.paletteService.palettes = paletteStore.result;
           this.palette = this.paletteService.palettes;
         };
 
-        const configStore = db.transaction(['Configuration']).objectStore('Configuration').get(user.id);
+        const configStore = db.transaction(['Configuration']).objectStore('Configuration').get(1);
         configStore.onsuccess = e => {
+          console.log('configStore.result',configStore.result);
           this.configurationService.setConfiguration(configStore.result);
           this.configuration = this.configurationService.getConfiguration();
         };
 
         const userList = db.transaction(['UserList']).objectStore('UserList').get(1);
         userList.onsuccess = e => {
+          console.log('userslist',userList.result);
           this.userPageService.usersList = userList.result;
         };
       });
-
-
     };
 
     this.openRequest.onupgradeneeded = event => {
