@@ -8,7 +8,7 @@ import {BoardService} from '../../services/board.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
 import {LayoutService} from '../../services/layout.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
-import {FolderGoTo, Grid} from '../../types';
+import {FolderGoTo} from '../../types';
 import {EditionService} from '../../services/edition.service';
 import {DwellCursorService} from "../../services/dwell-cursor.service";
 import {ConfigurationService} from "../../services/configuration.service";

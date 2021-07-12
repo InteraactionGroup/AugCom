@@ -53,6 +53,8 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import { DialogDeleteUserComponent } from './components/dialog-delete-user/dialog-delete-user.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { DialogChangeUserComponent } from './components/dialog-change-user/dialog-change-user.component';
+import {Router} from "@angular/router";
+import {AuthGuardService} from "./services/auth-guard.service";
 
 @NgModule({
   declarations: [
@@ -110,10 +112,10 @@ import { DialogChangeUserComponent } from './components/dialog-change-user/dialo
         MatButtonModule,
         MatCardModule,
         MatGridListModule,
-        MatDialogModule
+        MatDialogModule,
     ],
   bootstrap: [AppComponent],
-  providers: [FormBuilder]
+  providers: [FormBuilder, Router, AuthGuardService]
 })
 export class AppModule {
 }
