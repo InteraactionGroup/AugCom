@@ -55,6 +55,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { DialogChangeUserComponent } from './components/dialog-change-user/dialog-change-user.component';
 import {Router} from "@angular/router";
 import {AuthGuardService} from "./services/auth-guard.service";
+import { DialogAddUserComponent } from './components/dialog-add-user/dialog-add-user.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import {AuthGuardService} from "./services/auth-guard.service";
     MainComponent,
     UserPageComponent,
     DialogDeleteUserComponent,
-    DialogChangeUserComponent
+    DialogChangeUserComponent,
+    DialogAddUserComponent
   ],
     imports: [
         BrowserModule,
@@ -115,7 +117,7 @@ import {AuthGuardService} from "./services/auth-guard.service";
         MatDialogModule,
     ],
   bootstrap: [AppComponent],
-  providers: [FormBuilder, Router, AuthGuardService]
+  providers: [FormBuilder]
 })
 export class AppModule {
 }

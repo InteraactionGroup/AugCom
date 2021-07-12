@@ -11,6 +11,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {DialogChangeUserComponent} from "../dialog-change-user/dialog-change-user.component";
 import {GeticonService} from "../../services/geticon.service";
 import {UsertoolbarService} from "../../services/usertoolbar.service";
+import {DialogAddUserComponent} from "../dialog-add-user/dialog-add-user.component";
 
 @Component({
   selector: 'app-user-page',
@@ -57,18 +58,6 @@ export class UserPageComponent implements OnInit {
     this.usersList = this.userPageService.usersList;
   }
 
-  onSubmit(newUser: NgForm) {
-    this.submitted = true;
-    this.user.name = newUser.value['name'];
-    this.user.base64image = this.selectedFile;
-    this.user.id = Math.floor(Math.random() * 10000000000).toString() + Date.now().toString();
-    this.userPageService.addUser(this.user.name, this.user.base64image);
-    this.usersList = this.userPageService.usersList;
-    this.indexeddbaccessService.updateUserList();
-    this.indexeddbaccessService.init();
-    this.addUserBool = !this.addUserBool;
-  }
-
   removeUser(id: string){
     this.userPageService.removeUser(id);
     this.usersList = this.userPageService.usersList;
@@ -76,19 +65,6 @@ export class UserPageComponent implements OnInit {
     this.indexeddbaccessService.deleteUser(id)
   }
 
-  onFileSelected(event) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      this.selectedFile = reader.result;
-    };
-
-    reader.onerror = (error) => {
-      console.log('Error: ', error);
-    };
-
-  }
   userImage(user: User):string{
     return user.base64image !== ''? user.base64image : 'assets/images/DefaultUser.png'
   }
@@ -106,12 +82,6 @@ export class UserPageComponent implements OnInit {
       this.boardService.board = this.indexeddbaccessService.grid;
       this.boardService.updateElementList();
     }
-    /*
-    else{
-      this.indexeddbaccessService.initDefault();
-      this.boardService.updateElementList();
-    }
-    */
     if(this.indexeddbaccessService.palette != null){
       this.paletteService.palettes = this.indexeddbaccessService.palette;
     }
@@ -139,6 +109,17 @@ export class UserPageComponent implements OnInit {
     const dialogChange = this.dialog.open(DialogChangeUserComponent, {
       height: '20%',
       width: '25%'
+    });
+    dialogChange.afterClosed().subscribe(() => {
+      if(this.userPageService.isUserImageChanged === true){
+        this.indexeddbaccessService.updateUserList();
+      }
+    })
+  }
+  openDialogAdd() {
+    const dialogChange = this.dialog.open(DialogAddUserComponent, {
+      height: '50%',
+      width: '35%'
     });
     dialogChange.afterClosed().subscribe(() => {
       if(this.userPageService.isUserImageChanged === true){

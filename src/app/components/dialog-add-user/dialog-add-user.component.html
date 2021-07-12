@@ -1,0 +1,17 @@
+<h2 class="ui centered aligned header">
+  Ajouter un utilisateur
+</h2>
+<div class="ui centered aligned">
+  <form (ngSubmit)="onSubmit(newUser)" #newUser="ngForm">
+    <label>Nom de l'utilisateur : </label>
+    <input id="nameUser" type="text" class="form-control" placeholder="entrer votre nom" name="name" ngModel required>
+    <br>
+    <label>Votre image : </label>
+    <input type="file" accept="image/*" (change)="onFileSelected($event)">
+    <br>
+    <div class="preview">
+      <img *ngIf="selectedFile !== null" class="ui centered image" [src]="selectedFile" alt="">
+    </div>
+    <button mat-button mat-raised-button type="submit" [disabled]="newUser.invalid">Valider</button>
+  </form>
+</div>
