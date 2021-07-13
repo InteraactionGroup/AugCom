@@ -35,7 +35,7 @@
     "html2canvas": "^1.0.0-rc.5",
     "http": "0.0.1-security",
     "jquery": "^3.5.1",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.3.1",
     "jszip": "^3.2.2",
     "ng-connection-service": "^1.0.4",
     "ng2-dragula": "^2.1.1",

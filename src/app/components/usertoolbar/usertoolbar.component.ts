@@ -71,6 +71,15 @@ export class UsertoolbarComponent implements OnInit {
     return this.getIconService.getIconUrl(s);
   }
 
+  /**
+   * return the icon url corresponding to the string s
+   * @param s, the string identifying the icon
+   * @return the icon url
+   */
+  getIconPng(s: string) {
+    return this.getIconService.getIconUrlPng(s);
+  }
+
 
   translate() {
     this.configurationService.LANGUAGE_VALUE = (this.configurationService.LANGUAGE_VALUE === 'FR' ? 'EN' : 'FR');
