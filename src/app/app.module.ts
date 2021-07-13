@@ -102,9 +102,7 @@ import {MatIconModule} from "@angular/material/icon";
     MatIconModule
   ],
   bootstrap: [AppComponent],
-  providers: [
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
-  ],
+  providers: [],
   entryComponents: [
     DialogHelpComponent,
   ],
