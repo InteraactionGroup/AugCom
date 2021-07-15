@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DeletePageComponent } from './delete-page.component';
+import {Ng2ImgMaxModule} from "ng2-img-max";
+import {MatDialogModule} from "@angular/material/dialog";
 
 describe('DeletePageComponent', () => {
   let component: DeletePageComponent;
@@ -8,7 +10,8 @@ describe('DeletePageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeletePageComponent ]
+      declarations: [ DeletePageComponent ],
+      imports: [Ng2ImgMaxModule, MatDialogModule]
     })
     .compileComponents();
   }));

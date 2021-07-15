@@ -17,7 +17,7 @@ function clickElementOf(compiled: any, fixture: any, selector: any, textIncluded
 }
 
 function expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled: any, openElementName: any) {
-  const tabNameList = ['app-page-title-management', 'app-saves', 'app-language', 'app-palettes', 'app-share', 'app-settings', 'app-pictogram-style', 'app-grid-format-management'];
+  const tabNameList = ['app-page-title-management', 'app-saves', 'app-language', 'app-palettes', 'app-share', 'app-settings', 'app-pictogram-style'];
   tabNameList.forEach(tabName => {
     if (tabName === openElementName) {
       expect(compiled.querySelector(tabName)).not.toBe(null);
@@ -100,7 +100,7 @@ describe('AccountMenuComponent', () => {
     compiled.querySelectorAll('.title')[1].click(); // Pictogram-style
     fixture.detectChanges();
     expect(component.selectedNewMenu).toEqual("Grids");
-    expect(component.selectedSection).toEqual("GridFormat");
+    expect(component.selectedSection).toEqual("DeletePage");
     expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled, 'app-grid-format-management');
   });
 
