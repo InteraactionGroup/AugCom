@@ -9,6 +9,7 @@ import {SafeUrl} from '@angular/platform-browser';
 import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
 import {ArasaacObject} from '../../libTypes';
 import {LayoutService} from '../../services/layout.service';
+declare const initSqlJs: any;
 
 @Component({
   selector: 'app-spb2aug',
