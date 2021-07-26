@@ -36,4 +36,6 @@ button.deleteButton{
 .images:hover, button:hover{
   opacity: 0.5;
 }
-
+.nameUser:hover{
+  opacity: 0.5;
+}

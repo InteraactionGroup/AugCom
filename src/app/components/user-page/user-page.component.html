@@ -30,7 +30,7 @@
     <div class="ui four column grid">
       <div class="column" *ngFor="let user of usersList; let index = index">
         <div class="ui card">
-          <div class="content">
+          <div class="content nameUser" (click)="userSelected(user)" [routerLink]="'/keyboard'">
             <h3 class="ui centered aligned header">
               {{user.name}}
             </h3>
