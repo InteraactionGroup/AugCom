@@ -79,7 +79,7 @@ export class PrintService {
 
     return '<div class="id section-to-print">' + id + '</div>\n' +
       '<div class="keyboard section-to-print" id="' + id + '">\n' +
-      '<div class="wrapper height-width-100"' +
+      '<div class="wrapper height-width-100" ' +
       'style="grid-template-columns: repeat(' + numberOfCols +
       ', 1fr) ;grid-template-rows: repeat(100, ' +
       (100 / numberOfRows) + '%) ;"' + '>\n';
