@@ -11,4 +11,8 @@ export class GeticonService {
   getIconUrl(s: string): string {
     return 'url(assets/icons/' + s + '.svg)';
   }
+
+  getIconUrlPng(s: string): string {
+    return 'url(assets/icons/' + s + '.png)';
+  }
 }
