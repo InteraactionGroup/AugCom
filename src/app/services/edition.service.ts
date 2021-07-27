@@ -117,7 +117,10 @@ export class EditionService {
   selectAllElementsOf(elementList) {
     this.selectedElements = [];
     if (!this.selectAll) {
-      elementList.forEach(elt => this.addToSelected(elt));
+      elementList.forEach(elt => {
+        if(elt.dragAndResizeEnabled){
+        this.addToSelected(elt)
+      }});
     }
     this.selectAll = !this.selectAll;
   }
