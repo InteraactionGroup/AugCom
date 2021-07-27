@@ -80,13 +80,17 @@ export class EditionComponent implements OnInit {
   async save() {
     if (this.editionService.currentEditPage !== '') {
       this.editionService.currentEditPage = ''
-    } else {
+      console.log('passage 1')
+    }
       if (this.editionService.add) {
         this.createNewButton();
+        console.log('passage 2')
       } else if (this.editionService.selectedElements.length === 1) {
         this.modifyButton();
+        console.log('passage 3')
       } else if (this.editionService.selectedElements.length > 1) {
         this.modifyAllButtons();
+        console.log('passage 4')
       }
       this.editionService.add = false;
       this.clear();
@@ -97,7 +101,7 @@ export class EditionComponent implements OnInit {
       this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
       await this.delay(1000);
       this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
-    }
+
   }
 
   delay(ms: number) {
