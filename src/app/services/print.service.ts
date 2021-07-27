@@ -15,7 +15,7 @@ export class PrintService {
   buttonHTML = '<input id="print" type="button" value="cliquez pour imprimer" style="margin-left: 25%; height: 50px; width: 50%; font-size: x-large;">\n';
 
   printDiv() {
-    const wind = window.open('/#/print');
+    const wind = window.open('stable/#/print');
     wind.onload = () => {
       wind.document.body.innerHTML =
         '<style>' + this.getCSSKeyboard() + '</style>'
@@ -56,8 +56,8 @@ export class PrintService {
   }
 
   getHTML(page: Page, elementList: any[]) {
-    let numberOfCols = this.boardService.getNumberOfColsForPage(page);
-    let numberOfRows = this.boardService.getNumberOfRowsForPage(page);
+    const numberOfCols = this.boardService.getNumberOfColsForPage(page);
+    const numberOfRows = this.boardService.getNumberOfRowsForPage(page);
 
     let temp = '';
     const numberOfPages = Math.ceil(elementList.length / (numberOfCols * numberOfRows));
@@ -73,9 +73,9 @@ export class PrintService {
   }
 
   wrapperBegin(page: Page, i: number) {
-    let numberOfCols = this.boardService.getNumberOfColsForPage(page);
-    let numberOfRows = this.boardService.getNumberOfRowsForPage(page);
-    let id = page.ID + '- page ' + (((i as number) + (1 as number)) as number);
+    const numberOfCols = this.boardService.getNumberOfColsForPage(page);
+    const numberOfRows = this.boardService.getNumberOfRowsForPage(page);
+    const id = page.ID + '- page ' + (((i as number) + (1 as number)) as number);
 
     return '<div class="id section-to-print">' + id + '</div>\n' +
       '<div class="keyboard section-to-print" id="' + id + '">\n' +
@@ -108,11 +108,11 @@ export class PrintService {
         const url = this.boardService.getSimpleImgUrl(element);
         this.urlList.push(url);
 
-        let row = (element.rows === null || element.rows === undefined) ? '' :
+        const row = (element.rows === null || element.rows === undefined) ? '' :
           'grid-row-start:' + (element.y + 1) + ';grid-row-end:' + (element.y + 1 + element.rows) + '; ';
-        let column = (element.cols === null || element.cols === undefined) ? '' :
+        const column = (element.cols === null || element.cols === undefined) ? '' :
           'grid-column-start:' + (element.x + 1) + ';grid-column-end:' + (element.x + 1 + element.cols) + '; ';
-        let span = (row === '' && column === '') ? '' : 'style="' + row + column + '" ';
+        const span = (row === '' && column === '') ? '' : 'style="' + row + column + '" ';
 
         innerValue = innerValue +
           '<div class="elementContainer"' + span + '>' +
