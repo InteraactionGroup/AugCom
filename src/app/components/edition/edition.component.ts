@@ -80,17 +80,13 @@ export class EditionComponent implements OnInit {
   async save() {
     if (this.editionService.currentEditPage !== '') {
       this.editionService.currentEditPage = ''
-      console.log('passage 1')
     }
       if (this.editionService.add) {
         this.createNewButton();
-        console.log('passage 2')
       } else if (this.editionService.selectedElements.length === 1) {
         this.modifyButton();
-        console.log('passage 3')
       } else if (this.editionService.selectedElements.length > 1) {
         this.modifyAllButtons();
-        console.log('passage 4')
       }
       this.editionService.add = false;
       this.clear();
