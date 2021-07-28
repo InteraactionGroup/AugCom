@@ -89,10 +89,14 @@ export class Spb2augComponent implements OnInit {
       console.log(this.newGrid);
       this.statErrorImage();
       this.addColIfNeeded();
-      this.boardService.board = this.newGrid;
-      this.boardService.backHome();
-      this.indexedDBacess.update();
       this.router.navigate(['']);
+      let that = this;
+      setTimeout(function () {
+        that.boardService.board = that.newGrid;
+        that.layoutService.refreshAll(that.newGrid.NumberOfCols,that.newGrid.NumberOfRows, that.newGrid.GapSize);
+        that.boardService.backHome();
+        that.indexedDBacess.update();
+      }, 50);
     });
   }
 
@@ -160,7 +164,7 @@ export class Spb2augComponent implements OnInit {
           '',
           'rgb(' + r + ',' + g + ',' + b + ')',
           'rgb(' + rb + ',' + gb + ',' + bb + ')',
-          1,
+          0,
           [
             {
               DisplayedText: label,
@@ -183,7 +187,7 @@ export class Spb2augComponent implements OnInit {
           {GoTo: String(buttonFolder)},
           '', 'rgb(' + r + ',' + g + ',' + b + ')',
           'rgb(' + rb + ',' + gb + ',' + bb + ')',
-          1,
+          0,
           [
             {
               DisplayedText: (message) !== null ? message : label,
@@ -207,7 +211,7 @@ export class Spb2augComponent implements OnInit {
           '',
           'rgb(' + r + ',' + g + ',' + b + ')',
           'rgb(' + rb + ',' + gb + ',' + bb + ')',
-          1,
+          0,
           [
             {
               DisplayedText: (label) !== null ? label : message,
@@ -223,7 +227,7 @@ export class Spb2augComponent implements OnInit {
       this.gridElement.cols = Number(tabResSpan[0]);
       this.newGrid.ElementList.push(this.gridElement);
       this.getPageHomeButtons(pageId, this.gridElement);
-      this.getPageHomeTitle(pageId)
+      this.getPageHomeTitle(pageId);
       const pathImage = this.getPathImageArsaacLibrary(label, message);
       this.newGrid.ImageList.push({
         ID: (label) !== null ? label : message,
@@ -244,25 +248,24 @@ export class Spb2augComponent implements OnInit {
   getPathImageArsaacLibrary(label, message): string {
     if (label !== null) {
       const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
-        return label.toLowerCase() === word;
+        return label.toLowerCase() === word.toLowerCase();
       });
       if (index > -1) {
-        return 'assets/libs/FR_Pictogrammes_couleur/' + label.toLowerCase() + '.png';
-      } else {
-        return 'assets/libs/FR_Pictogrammes_couleur/' + label.toUpperCase() + '.png';
+        return 'assets/libs/FR_Pictogrammes_couleur/' + (arasaacColoredJson as unknown as ArasaacObject)[0].wordList[index] + '.png';
       }
-    } else if (message !== null) {
-      const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
-        return message.toLowerCase() === word;
-      });
-      if (index > -1) {
-        return 'assets/libs/FR_Pictogrammes_couleur/' + message.toLowerCase() + '.png';
-      } else {
-        return 'assets/libs/FR_Pictogrammes_couleur/' + message.toUpperCase() + '.png';
-      }
-    } else {
-      return 'assets/libs/FR_Pictogrammes_couleur/direction_1.png';
     }
+
+    if (message !== null) {
+      const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
+        return message.toLowerCase() === word.toLowerCase();
+      });
+      if (index > -1) {
+        return 'assets/libs/FR_Pictogrammes_couleur/' + (arasaacColoredJson as unknown as ArasaacObject)[0].wordList[index] + '.png';
+      }
+    }
+
+
+    return '';
   }
 
   /**
@@ -354,8 +357,6 @@ export class Spb2augComponent implements OnInit {
    * @param gridElement the current element
    */
   getPageHomeButtons(pageId: any, gridElement: GridElement) {
-    console.log('gridElement.y', gridElement.y)
-    console.log('this.page.NumberOfRows - 1 : ', this.page.NumberOfRows - 1)
     if (pageId === this.pageHome && gridElement.y <= this.page.NumberOfRows - 1) {
       this.page.ElementIDsList.push(gridElement.ID);
     }
@@ -412,7 +413,7 @@ export class Spb2augComponent implements OnInit {
             '',
             '',
             '',
-            1,
+            0,
             [
               {
                 DisplayedText: 'go Down',
@@ -444,7 +445,7 @@ export class Spb2augComponent implements OnInit {
                 '',
                 '',
                 '',
-                1,
+                0,
                 [
                   {
                     DisplayedText: 'go Down',
@@ -486,7 +487,7 @@ export class Spb2augComponent implements OnInit {
       const tabResSpan = span.split(',');
       const buttonPageId = Number(buttonAllInfomations.getAsObject().PageId);
       this.gridElement = new GridElement(buttonUniqueId, 'button', '', '', ''
-        , 1,
+        , 0,
         [
           {
             DisplayedText: label,
