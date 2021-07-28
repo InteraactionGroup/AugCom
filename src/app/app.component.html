@@ -1,4 +1,10 @@
-<app-main></app-main>
-<app-dwell-cursor></app-dwell-cursor>
-<app-popup></app-popup>
-<video></video>
+<span *ngIf="firefoxAgent === true">
+  this app is not working on firefox, please open it with another browser
+</span>
+<span *ngIf="firefoxAgent === false">
+  <app-main></app-main>
+  <app-dwell-cursor></app-dwell-cursor>
+  <app-popup></app-popup>
+  <video></video>
+</span>
+
