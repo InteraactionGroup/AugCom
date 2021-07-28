@@ -19,11 +19,6 @@
           <input [(ngModel)]="this.editionService.radioTypeFormat" id="radioFolder" name="typeFormat" type="radio"
                  value="folder">
           <label class="radio" for="radioFolder">{{multilinguism.translate("folder")}}</label>
-          <!--
-          <input [(ngModel)]="this.editionService.radioTypeFormat" id="radioFunction" name="typeFormat" type="radio"
-                 value="function">
-          <label class="radio" for="radioFunction">{{multilinguism.translate("function")}}</label>
-          -->
           <select class="selectBox" [(ngModel)]="this.editionService.pageLink"
                   *ngIf="this.editionService.radioTypeFormat=='folder'"
                   [ngModelOptions]="{standalone: true}">
