@@ -92,7 +92,7 @@ import { Spb2augComponent } from './components/spb2aug/spb2aug.component';
     PictogramStyleComponent,
     DwellCursorComponent,
     MainComponent,
-    MentionComponent
+    MentionComponent,
     DeletePageComponent,
     DialogDeletePageComponent,
     Spb2augComponent
