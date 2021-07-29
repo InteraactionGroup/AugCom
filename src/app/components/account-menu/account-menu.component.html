@@ -66,6 +66,10 @@
           <app-page-title-management></app-page-title-management>
         </ng-container>
 
+        <ng-container *ngIf="isSelectedSection('DeletePage')">
+          <app-delete-page></app-delete-page>
+        </ng-container>
+
         <ng-container *ngIf="isSelectedSection('GridFormat')">
           <app-grid-format-management></app-grid-format-management>
         </ng-container>
