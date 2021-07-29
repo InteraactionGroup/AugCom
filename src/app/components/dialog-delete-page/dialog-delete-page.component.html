@@ -1,6 +1,6 @@
 <div>
   <mat-selection-list #pages>
-    <mat-list-option *ngFor="let page of this.boardService.board.PageList" (click)="preview(page)" [value]="page.ID ">
+    <mat-list-option *ngFor="let page of this.getPageList()" (click)="preview(page)" [value]="page.ID ">
       {{page.Name}}
     </mat-list-option>
     <div id="grille" class="grille" *ngIf="pages.selectedOptions!==undefined && pages.selectedOptions.hasValue()">

@@ -21,6 +21,10 @@ export class DialogDeletePageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getPageList(){
+    return this.boardService.board.PageList.filter(page =>{ return page.ID !== '#HOME'});
+  }
+
   deletePages(pages: MatListOption[]) {
     const pagefilter = [];
     pages.forEach(pa => pagefilter.push(String(pa.value)));
