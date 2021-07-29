@@ -17,6 +17,10 @@
       "Type": "button",
       "PartOfSpeech": "",
       "VisibilityLevel": 0,
+      "x": 0,
+      "y": 0,
+      "cols": 1,
+      "rows": 1,
       "dragAndResizeEnabled": true,
       "ElementFormsList": [
         {
@@ -69,6 +73,10 @@
     },
     {
       "ID": "fruits",
+      "x": 1,
+      "y": 0,
+      "cols": 1,
+      "rows": 1,
       "Type": {
         "GoTo": "fruits"
       },
@@ -121,6 +129,10 @@
     },
     {
       "ID": "lieux",
+      "x": 1,
+      "y": 1,
+      "cols": 1,
+      "rows": 1,
       "Type": {
         "GoTo": "lieux"
       },
@@ -173,6 +185,10 @@
     },
     {
       "ID": "non",
+      "x": 2,
+      "y": 1,
+      "cols": 1,
+      "rows": 1,
       "Type": "button",
       "dragAndResizeEnabled" : true,
       "PartOfSpeech": "",
@@ -223,6 +239,10 @@
     },
     {
       "ID": "vous",
+      "x": 2,
+      "y": 0,
+      "cols": 1,
+      "rows": 1,
       "Type": "button",
       "dragAndResizeEnabled" : true,
       "PartOfSpeech": "",
@@ -273,6 +293,10 @@
     },
     {
       "ID": "banane",
+      "x": 0,
+      "y": 0,
+      "cols": 1,
+      "rows": 1,
       "Type": "button",
       "dragAndResizeEnabled" : true,
       "PartOfSpeech": "",
@@ -323,6 +347,10 @@
     },
     {
       "ID": "pomme",
+      "x": 1,
+      "y": 0,
+      "cols": 1,
+      "rows": 1,
       "Type": "button",
       "dragAndResizeEnabled" : true,
       "PartOfSpeech": "",
@@ -373,6 +401,10 @@
     },
     {
       "ID": "dedans",
+      "x": 0,
+      "y": 0,
+      "cols": 1,
+      "rows": 1,
       "Type": {
         "GoTo": "dedans"
       },
@@ -425,6 +457,10 @@
     },
     {
       "ID": "dehors",
+      "x": 1,
+      "y": 0,
+      "cols": 1,
+      "rows": 1,
       "Type": {
         "GoTo": "dehors"
       },
@@ -477,6 +513,10 @@
     },
     {
       "ID": "salle à manger",
+      "x": 0,
+      "y": 0,
+      "cols": 1,
+      "rows": 1,
       "Type": "button",
       "dragAndResizeEnabled" : true,
       "PartOfSpeech": "",
@@ -527,6 +567,10 @@
     },
     {
       "ID": "chambre",
+      "x": 0,
+      "y": 1,
+      "cols": 1,
+      "rows": 1,
       "Type": "button",
       "dragAndResizeEnabled" : true,
       "PartOfSpeech": "",
@@ -577,6 +621,10 @@
     },
     {
       "ID": "école",
+      "x": 0,
+      "y": 0,
+      "cols": 1,
+      "rows": 1,
       "Type": "button",
       "dragAndResizeEnabled" : true,
       "PartOfSpeech": "",
@@ -627,6 +675,10 @@
     },
     {
       "ID": "chez mamie",
+      "x": 1,
+      "y": 0,
+      "cols": 1,
+      "rows": 1,
       "Type": "button",
       "dragAndResizeEnabled" : true,
       "PartOfSpeech": "",

@@ -129,6 +129,7 @@
     { "id" : "gridDimensions",  "FR" : "Dimensions de la grille", "EN" : "Grid dimensions" },
     { "id" : "backgroundTheme",  "FR" : "Thème du fond", "EN" : "Background theme" },
     { "id" : "chooseTheColor",  "FR" : "Choisissez la couleur", "EN" : "Choose the color" },
+    { "id" : "DeletePage", "FR" : "Supprimer des pages", "EN" : ""},
     { "id" : "pictogramsManagement",  "FR" : "Organisation des pictogrammes", "EN" : "Pictograms management" },
     { "id" : "choosePictogramStyle",  "FR" : "Choissez le style de pictogramme", "EN" : "Choose the pictogram style" },
     { "id" : "chooseImagePositionOfPicrogram",  "FR" : "Choissez la position de l'image du pictogramme", "EN" : "Choose the image position of the pictogram" },
@@ -139,5 +140,9 @@
     { "id" : "de", "FR" : "de", "EN": "by"},
     { "id" : "Mention", "FR" : "Mention", "EN" : "Mention"},
     { "id" : "Mentionpourlesgraphistesquiontdessinéslespictogrammes", "FR" : "Mention pour les graphistes qui ont dessinés les pictogrammes", "EN" : "Mention for the graphic designers who designed the pictograms"}
+    { "id" : "import save from snap core first",  "FR" : "Importer une sauvegarde de snap core first", "EN" : "Import save from snap core first" },
+    { "id" : "Cancel", "FR" : "Annuler", "EN" : "Cancel"},
+    { "id" : "Deleting selected pages", "FR" : "Supprimer les pages selectionnées", "EN" : "Deleting selected pages"},
+    { "id" : "Multiple Delete Page","FR" :  "Suppression de pages", "EN" : "Delete Pages"}
   ]
 }

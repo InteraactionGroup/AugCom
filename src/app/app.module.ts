@@ -44,6 +44,17 @@ import {PictogramStyleComponent} from './components/pictogram-style/pictogram-st
 import {DwellCursorComponent} from './components/dwell-cursor/dwell-cursor.component';
 import { MainComponent } from './components/main/main.component';
 import { MentionComponent } from './components/mention/mention.component';
+import { DeletePageComponent } from './components/delete-page/delete-page.component';
+import {MatListModule} from '@angular/material/list';
+import { DialogDeletePageComponent } from './components/dialog-delete-page/dialog-delete-page.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatSelectModule} from "@angular/material/select";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import { Spb2augComponent } from './components/spb2aug/spb2aug.component';
+
 
 @NgModule({
   declarations: [
@@ -82,6 +93,9 @@ import { MentionComponent } from './components/mention/mention.component';
     DwellCursorComponent,
     MainComponent,
     MentionComponent
+    DeletePageComponent,
+    DialogDeletePageComponent,
+    Spb2augComponent
   ],
   imports: [
     BrowserModule,
@@ -93,9 +107,20 @@ import { MentionComponent } from './components/mention/mention.component';
     }),
     AppRoutingModule,
     BrowserAnimationsModule,
-    GridsterModule
+    GridsterModule,
+    MatListModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatMenuModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatCheckboxModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [],
+  entryComponents: [
+    DialogDeletePageComponent,
+  ],
 })
 export class AppModule {
 }

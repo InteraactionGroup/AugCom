@@ -265,7 +265,6 @@ export class EditionComponent implements OnInit {
 
     const currentPage: Page = this.getCurrentPage();
     currentPage.ElementIDsList.push(tempId);
-    this.boardService.board.PageList.push(currentPage);
   }
 
   getCurrentPage(): Page {
