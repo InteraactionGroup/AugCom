@@ -136,6 +136,7 @@
     { "id" : "chooseTheFont",  "FR" : "Choissez la police", "EN" : "Choose the font" },
     { "id" : "pictogramDirectoryManagement",  "FR" : "Organisation des pictogrammes-répertoire", "EN" : "Pictograms-Directory management" },
     { "id" : "defaultSyleSameAsApp",  "FR" : "Style par défault (celui de l'application)", "EN" : "Default Style (same as the app)" },
+    { "id" : "import save from snap core first",  "FR" : "Importer une sauvegarde de snap core first", "EN" : "Import save from snap core first" },
     { "id" : "Cancel", "FR" : "Annuler", "EN" : "Cancel"},
     { "id" : "Deleting selected pages", "FR" : "Supprimer les pages selectionnées", "EN" : "Deleting selected pages"},
     { "id" : "Multiple Delete Page","FR" :  "Suppression de pages", "EN" : "Delete Pages"}

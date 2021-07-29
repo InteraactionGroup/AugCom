@@ -52,6 +52,7 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { Spb2augComponent } from './components/spb2aug/spb2aug.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     DwellCursorComponent,
     MainComponent,
     DeletePageComponent,
-    DialogDeletePageComponent
+    DialogDeletePageComponent,
+    Spb2augComponent
   ],
   imports: [
     BrowserModule,
