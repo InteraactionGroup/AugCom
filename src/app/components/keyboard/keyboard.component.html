@@ -41,16 +41,16 @@
 
   <!-- input fields for column and row size, have to be changed with a button number incrementer -->
   <div class="gridSettings">
-    <div class="gridSettingsImageContainer floatLeft centerText " [ngStyle]="{'background-image':'url(assets/icons/colomns.svg)'}">
+    <div class="gridSettingsImage floatLeft centerText " [ngStyle]="{'background-image':'url(assets/icons/colomns.svg)'}">
     </div>
     <input class="inputSize floatLeft centerText" value="{{this.boardService.getNumberOfCols()}}" type="number" min="1"
            (change)="onKeyCols($event)">
-    <div class="gridSettingsImageContainer floatLeft centerText " [ngStyle]="{'background-image':'url(assets/icons/lines.svg)'}">
+    <div class="gridSettingsImage floatLeft centerText " [ngStyle]="{'background-image':'url(assets/icons/lines.svg)'}">
     </div>
 
     <input class="inputSize floatLeft centerText" value="{{this.boardService.getNumberOfRows()}}" type="number" min="1"
            (change)="onKeyRows($event)">
-    <div class="gridSettingsImageContainer floatLeft centerText " [ngStyle]="{'background-image':'url(assets/icons/margin.svg)'}">
+    <div class="gridSettingsImage floatLeft centerText " [ngStyle]="{'background-image':'url(assets/icons/margin.svg)'}">
     </div>
     <input class="inputSize floatLeft centerText" value="{{this.boardService.getGapSize()}}" type="number" min="0"
            (change)="onKeyGap($event)">

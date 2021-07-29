@@ -62,11 +62,6 @@
   height: 50%;
 }
 
-.gridSettingsImage{
-  margin-left: 30%;
-  transform: translateY(25%);
-}
-
 .editionSettings .gridSettings {
   float: right;
   width: calc( 40px * 6 + 5px);
@@ -223,7 +218,7 @@
   border: none;
 }
 
-.gridSettingsImageContainer {
+.gridSettingsImage {
   width: 35px;
   height: 100%;
   background-repeat: no-repeat;
