@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {BoardService} from '../../services/board.service';
 import {EditionService} from '../../services/edition.service';
-import {FolderGoTo, Page} from '../../types';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogDeletePageComponent} from '../dialog-delete-page/dialog-delete-page.component';
 import {MultilinguismService} from '../../services/multilinguism.service';
+import {LayoutService} from "../../services/layout.service";
 
 @Component({
   selector: 'app-delete-page',
@@ -16,34 +16,21 @@ export class DeletePageComponent implements OnInit {
   constructor(public boardService: BoardService,
               public editionService: EditionService,
               public multilinguism: MultilinguismService,
-              public dialog: MatDialog) { }
+              public layoutService: LayoutService,
+              public dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
   }
-  deletePage(){
-    this.deleteLink(this.getCurrentPage());
-    this.boardService.board.PageList = this.boardService.board.PageList.filter(page => page !== this.getCurrentPage());
-    this.boardService.backToPreviousFolder();
-  }
-  deleteLink(page: Page){
-    this.boardService.board.ElementList.forEach(elem =>
-    {
-      if( (elem.Type as FolderGoTo).GoTo  === page.ID ){
-        elem.Type = 'button';
-      }
-    });
-  }
 
-  getCurrentPage(): Page {
-    return this.boardService.board.PageList.find(page => {
-      return page.ID === this.boardService.getCurrentFolder()
-    });
-  }
-
-  openDialog(): void{
-    this.dialog.open(DialogDeletePageComponent, {
+  openDialog(): void {
+    let dialogref = this.dialog.open(DialogDeletePageComponent, {
       height: '400px',
       width: '600px'
+    });
+
+    dialogref.afterClosed().subscribe(() => {
+      this.layoutService.isPreview = false;
     });
   }
 }

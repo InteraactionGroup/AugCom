@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DialogDeletePageComponent } from './dialog-delete-page.component';
+import {DialogDeletePageComponent} from './dialog-delete-page.component';
 import {Ng2ImgMaxModule} from "ng2-img-max";
 
 describe('DialogDeletePageComponent', () => {
@@ -9,10 +9,10 @@ describe('DialogDeletePageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DialogDeletePageComponent ],
+      declarations: [DialogDeletePageComponent],
       imports: [Ng2ImgMaxModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
