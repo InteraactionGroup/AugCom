@@ -69,16 +69,16 @@
 
 .editionSettings .gridSettings {
   float: right;
-  width: 20%;
+  width: calc( 40px * 6 + 5px);
   height: 100%;
   margin: 0 0 0 0;
   padding: 0 0 0 0;
 }
 
 .editionSettings .gridSettings .inputSize {
-  width: 15%;
-  height: 100%;
-  margin: 0 0 0 5%;
+  width: 40px;
+  height: 40px;
+  margin: 0 0 0 5px;
   padding: 0 0 0 0;
   border-radius: 50%;
   text-align: center;
@@ -221,4 +221,13 @@
   border-radius: 15px;
   outline: none;
   border: none;
+}
+
+.gridSettingsImageContainer {
+  width: 35px;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  align-items: center;
 }
