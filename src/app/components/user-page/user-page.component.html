@@ -2,7 +2,7 @@
 <body>
 <div class="ui secondary menu">
   <div class="right menu">
-    <div class="ui item" (click)="translate()" [ngStyle]="{'background-image':this.getIcon(this.configurationService.LANGUAGE_VALUE==='FR'? 'france':'uk')}">
+    <div class="ui item" (click)="translate()" [ngStyle]="{'background-image':this.getIcon(this.configurationService.LANGUAGE_VALUE==='FR'? 'france':'uk'), 'background-repeat': 'no-repeat'}">
     </div>
   </div>
 </div>
