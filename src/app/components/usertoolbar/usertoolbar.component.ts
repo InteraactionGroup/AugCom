@@ -154,8 +154,8 @@ export class UsertoolbarComponent implements OnInit {
   }
   openDialog(): void{
     this.dialog.open(DialogHelpComponent, {
-      height: '75%',
-      width: '75%'
+      height: 'fit-content',
+      width: 'fit-content'
     });
   }
 }
