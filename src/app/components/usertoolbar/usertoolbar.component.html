@@ -20,7 +20,7 @@
 
   <div class="button floatRight" id="lockUnlockButton" (click)="this.setLock()">
     <div class="image width-100" [class.imageSelected]="this.userToolBarService.unlock"
-         [ngStyle]="{'background-image':this.getIconPng(this.userToolBarService.unlock?'Unlock':'Lock')}">
+         [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.unlock?'unlock':'lock')}">
     </div>
   </div>
 
