@@ -30,6 +30,7 @@ export class DialogDeletePageComponent implements OnInit {
     pages.forEach(pa => pagefilter.push(String(pa.value)));
     pagefilter.forEach(page => this.deleteLinks(page));
     this.boardService.board.PageList = this.boardService.board.PageList.filter(page => !pagefilter.includes(page.ID));
+    this.boardService.backHome();
   }
 
   deleteLinks(page: string) {
