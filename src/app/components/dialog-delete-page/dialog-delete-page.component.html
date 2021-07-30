@@ -1,0 +1,19 @@
+<div>
+  <mat-selection-list #pages>
+    <mat-list-option *ngFor="let page of this.getPageList()" (click)="preview(page)" [value]="page.ID ">
+      {{page.Name}}
+    </mat-list-option>
+    <div id="grille" class="grille" *ngIf="pages.selectedOptions!==undefined && pages.selectedOptions.hasValue()">
+      <app-layout></app-layout>
+    </div>
+  </mat-selection-list>
+</div>
+<mat-dialog-actions align="end">
+  <button mat-raised-button [mat-dialog-close]="true">
+    {{this.multilinguism.translate("Cancel")}}
+  </button>
+  <button mat-raised-button [mat-dialog-close]="true" color="warn"
+          (click)="deletePages(pages.selectedOptions.selected)">
+    {{this.multilinguism.translate("Deleting selected pages")}}
+  </button>
+</mat-dialog-actions>
