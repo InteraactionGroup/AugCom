@@ -52,7 +52,8 @@ export class AccountMenuComponent implements OnInit {
       ]
     ],
     ['Pictograms',
-      ['PictogramStyle'// ,
+      ['PictogramStyle',
+        'Mention'// ,
         // ['pictogramme de base',
         //   ['couleur principale'],
         //   ['texte',

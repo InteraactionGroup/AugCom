@@ -43,6 +43,7 @@ import {GridFormatManagementComponent} from './components/grid-format-management
 import {PictogramStyleComponent} from './components/pictogram-style/pictogram-style.component';
 import {DwellCursorComponent} from './components/dwell-cursor/dwell-cursor.component';
 import { MainComponent } from './components/main/main.component';
+import { MentionComponent } from './components/mention/mention.component';
 import { DeletePageComponent } from './components/delete-page/delete-page.component';
 import {MatListModule} from '@angular/material/list';
 import { DialogDeletePageComponent } from './components/dialog-delete-page/dialog-delete-page.component';
@@ -55,6 +56,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import { Spb2augComponent } from './components/spb2aug/spb2aug.component';
 import { DialogHelpComponent } from './components/dialog-help/dialog-help.component';
 import {MatIconModule} from "@angular/material/icon";
+
 
 @NgModule({
   declarations: [
@@ -92,6 +94,7 @@ import {MatIconModule} from "@angular/material/icon";
     PictogramStyleComponent,
     DwellCursorComponent,
     MainComponent,
+    MentionComponent,
     DeletePageComponent,
     DialogDeletePageComponent,
     Spb2augComponent,

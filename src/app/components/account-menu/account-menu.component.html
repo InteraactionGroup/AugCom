@@ -78,6 +78,10 @@
           <app-pictogram-style></app-pictogram-style>
         </ng-container>
 
+        <ng-container *ngIf="isSelectedSection('Mention')">
+          <app-mention></app-mention>
+        </ng-container>
+
       </div>
     </div>
 
