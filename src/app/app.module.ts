@@ -53,6 +53,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { Spb2augComponent } from './components/spb2aug/spb2aug.component';
+import { DialogHelpComponent } from './components/dialog-help/dialog-help.component';
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -92,7 +94,8 @@ import { Spb2augComponent } from './components/spb2aug/spb2aug.component';
     MainComponent,
     DeletePageComponent,
     DialogDeletePageComponent,
-    Spb2augComponent
+    Spb2augComponent,
+    DialogHelpComponent
   ],
   imports: [
     BrowserModule,
@@ -111,12 +114,15 @@ import { Spb2augComponent } from './components/spb2aug/spb2aug.component';
     MatMenuModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    GridsterModule,
+    MatIconModule
   ],
   bootstrap: [AppComponent],
   providers: [],
   entryComponents: [
     DialogDeletePageComponent,
+    DialogHelpComponent
   ],
 })
 export class AppModule {
