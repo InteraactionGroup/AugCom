@@ -43,6 +43,10 @@ import {GridFormatManagementComponent} from './components/grid-format-management
 import {PictogramStyleComponent} from './components/pictogram-style/pictogram-style.component';
 import {DwellCursorComponent} from './components/dwell-cursor/dwell-cursor.component';
 import { MainComponent } from './components/main/main.component';
+import { DialogTextComponent } from './components/dialog-text/dialog-text.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -79,7 +83,8 @@ import { MainComponent } from './components/main/main.component';
     GridFormatManagementComponent,
     PictogramStyleComponent,
     DwellCursorComponent,
-    MainComponent
+    MainComponent,
+    DialogTextComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +96,10 @@ import { MainComponent } from './components/main/main.component';
     }),
     AppRoutingModule,
     BrowserAnimationsModule,
-    GridsterModule
+    GridsterModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatInputModule
   ],
   bootstrap: [AppComponent]
 })

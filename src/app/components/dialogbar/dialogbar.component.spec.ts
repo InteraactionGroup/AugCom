@@ -5,6 +5,7 @@ import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {Vignette} from '../../types';
+import {MatDialogModule} from "@angular/material/dialog";
 
 function addVignette(component: any) {
   component.historicService.historic.push(new Vignette());
@@ -17,7 +18,7 @@ describe('DialogbarComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [FormsModule, Ng2ImgMaxModule],
+      imports: [FormsModule, Ng2ImgMaxModule, MatDialogModule ],
       declarations: [DialogbarComponent]
     })
       .compileComponents();
@@ -52,8 +53,8 @@ describe('DialogbarComponent', () => {
     fixture.detectChanges();
     compiled.querySelectorAll('.button').item(1).click();
     fixture.detectChanges();
-    expect(component.historicService.historic.length).toEqual(2);
-    expect(compiled.querySelectorAll('.element').length).toEqual(2);
+    expect(component.historicService.historic.length).toEqual(3);
+    expect(compiled.querySelectorAll('.element').length).toEqual(3);
   });
 
   it('should clear the dialog bar by removing all the vignettes', () => {
