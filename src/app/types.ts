@@ -135,12 +135,14 @@ export class Style {
   BorderColor: string;
   BorderWidth: string;
   BorderRadius: string;
+  FontFamily:string;
   TextColor: string;
 
   constructor(backgroundColor: string, borderColor: string, textColor: string) {
     this.BackgroundColor = backgroundColor;
     this.BorderColor = borderColor;
     this.TextColor = textColor;
+    this.FontFamily = 'Arial';
     this.BorderRadius = '10px';
     this.BorderWidth = '3px';
   }
@@ -159,6 +161,7 @@ export class Configuration {
   'DEFAULT_STYLE_BACKGROUNDCOLOR_VALUE': string;
   'DEFAULT_STYLE_BORDERCOLOR_VALUE': string;
   'DEFAULT_STYLE_TEXTCOLOR_VALUE': string;
+  'DEFAULT_STYLE_FONTFAMILY_VALUE': string;
   'DWELL_TIME_TIMEOUT_VALUE': number;
   'LONGPRESS_TIMEOUT_VALUE': number;
   'DOUBLE_CLICK_TIMEOUT_VALUE': number;

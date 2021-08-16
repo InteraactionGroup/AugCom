@@ -43,10 +43,23 @@ import {GridFormatManagementComponent} from './components/grid-format-management
 import {PictogramStyleComponent} from './components/pictogram-style/pictogram-style.component';
 import {DwellCursorComponent} from './components/dwell-cursor/dwell-cursor.component';
 import { MainComponent } from './components/main/main.component';
+
 import { DialogTextComponent } from './components/dialog-text/dialog-text.component';
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatDialogModule} from "@angular/material/dialog";
 import {MatInputModule} from "@angular/material/input";
+import { MentionComponent } from './components/mention/mention.component';
+import { DeletePageComponent } from './components/delete-page/delete-page.component';
+import {MatListModule} from '@angular/material/list';
+import { DialogDeletePageComponent } from './components/dialog-delete-page/dialog-delete-page.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatSelectModule} from "@angular/material/select";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import { Spb2augComponent } from './components/spb2aug/spb2aug.component';
+import { DialogHelpComponent } from './components/dialog-help/dialog-help.component';
+import {MatIconModule} from "@angular/material/icon";
+
 
 @NgModule({
   declarations: [
@@ -85,6 +98,11 @@ import {MatInputModule} from "@angular/material/input";
     DwellCursorComponent,
     MainComponent,
     DialogTextComponent
+    MentionComponent,
+    DeletePageComponent,
+    DialogDeletePageComponent,
+    Spb2augComponent,
+    DialogHelpComponent
   ],
   imports: [
     BrowserModule,
@@ -97,11 +115,23 @@ import {MatInputModule} from "@angular/material/input";
     AppRoutingModule,
     BrowserAnimationsModule,
     GridsterModule,
-    MatFormFieldModule,
-    MatDialogModule,
     MatInputModule
+    MatListModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatMenuModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    GridsterModule,
+    MatIconModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [],
+  entryComponents: [
+    DialogDeletePageComponent,
+    DialogHelpComponent
+  ],
 })
 export class AppModule {
 }

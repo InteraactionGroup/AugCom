@@ -8,6 +8,12 @@
       <input #file type="file" (change)="import(file.files)" onclick="this.value=null">
     </div>
 
+    <div class="import listElement">
+      <label>
+        {{this.multilinguism.translate("import save from snap core first") + ":"}}
+      </label>
+      <app-spb2aug></app-spb2aug>
+    </div>
     <!--      <div>-->
     <!--        <label class="floatLeft">-->
     <!--          {{this.multilinguism.translate("importZip") + ":"}}-->

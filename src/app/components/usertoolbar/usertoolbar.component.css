@@ -48,7 +48,7 @@
 .usertoolbar .buttonLeftLeftBig {
   cursor: pointer;
   height: 1.5cm;
-  width: calc(100% - 12.5cm);
+  width: 250px;
   min-width: 1cm;
   min-height: 1cm;
   transition: width 1s;
