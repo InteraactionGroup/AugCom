@@ -64,7 +64,7 @@ describe('DialogbarComponent', () => {
     addVignette(component);
     addVignette(component);
     fixture.detectChanges();
-    compiled.querySelectorAll('.button').item(2).click();
+    compiled.querySelectorAll('.button').item(3).click();
     fixture.detectChanges();
     expect(component.historicService.historic.length).toEqual(0);
     expect(compiled.querySelectorAll('.element').length).toEqual(0);
