@@ -97,7 +97,7 @@ import {MatIconModule} from "@angular/material/icon";
     PictogramStyleComponent,
     DwellCursorComponent,
     MainComponent,
-    DialogTextComponent
+    DialogTextComponent,
     MentionComponent,
     DeletePageComponent,
     DialogDeletePageComponent,
@@ -115,7 +115,7 @@ import {MatIconModule} from "@angular/material/icon";
     AppRoutingModule,
     BrowserAnimationsModule,
     GridsterModule,
-    MatInputModule
+    MatInputModule,
     MatListModule,
     MatButtonModule,
     MatDialogModule,

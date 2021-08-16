@@ -137,7 +137,7 @@
     { "id" : "pictogramDirectoryManagement",  "FR" : "Organisation des pictogrammes-répertoire", "EN" : "Pictograms-Directory management" },
     { "id" : "defaultSyleSameAsApp",  "FR" : "Style par défault (celui de l'application)", "EN" : "Default Style (same as the app)" },
     { "id" : "writehereyourwordorsentence", "FR" : "Ecrivez ici votre mot ou votre phrase", "EN" : "Write here your word or your sentence"},
-    { "id" : "submit", "FR" : "Valider", "EN": "Submit"}
+    { "id" : "submit", "FR" : "Valider", "EN": "Submit"},
     { "id" : "Icônesconçuespar", "FR" : "Icônes conçues par", "EN" : "Icons made by"},
     { "id" : "de", "FR" : "de", "EN": "by"},
     { "id" : "Mention", "FR" : "Mention", "EN" : "Mention"},
