@@ -7,17 +7,22 @@ import {Component, OnInit} from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'AugCom';
-  operaAgent: any;
-  firefoxAgent: any;
-  safariAgent: any;
-  chromeAgent: any;
-  IExplorerAgent: any;
+  operaAgent: boolean;
+  firefoxAgent: boolean;
+  safariAgent: boolean;
+  chromeAgent: boolean;
+  IExplorerAgent: boolean;
+  acceptTheRisk: boolean = false;
+
+  userAcceptTheRisk() {
+    this.acceptTheRisk = true;
+  }
 
   checkBrowser() {
     // Get the user-agent string
     let userAgentString =
       navigator.userAgent;
-    console.log('userAgentString',userAgentString);
+    console.log('userAgentString', userAgentString);
     // Detect Chrome
     this.chromeAgent =
       userAgentString.indexOf("Chrome") > -1;
