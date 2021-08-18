@@ -143,6 +143,9 @@
     { "id" : "import save from snap core first",  "FR" : "Importer une sauvegarde de snap core first", "EN" : "Import save from snap core first" },
     { "id" : "Cancel", "FR" : "Annuler", "EN" : "Cancel"},
     { "id" : "Deleting selected pages", "FR" : "Supprimer les pages selectionnées", "EN" : "Deleting selected pages"},
-    { "id" : "Multiple Delete Page","FR" :  "Suppression de pages", "EN" : "Delete Pages"}
+    { "id" : "Multiple Delete Page","FR" :  "Suppression de pages", "EN" : "Delete Pages"},
+    { "id" : "pitch", "FR" : "Pitch", "EN" : "Pitch"},
+    { "id" : "volume", "FR" : "Volume", "EN" : "Volume"},
+    { "id" : "rate", "FR" : "Vitesse de lecture", "EN" : "Reading speed"}
   ]
 }
