@@ -97,7 +97,6 @@ export class DialogbarComponent implements OnInit {
 
   openDialog(): void {
     this.dialog.open(DialogTextComponent, {
-      height: '200px',
       width: '600px'
     });
   }
