@@ -144,7 +144,7 @@
     { "id" : "Cancel", "FR" : "Annuler", "EN" : "Cancel"},
     { "id" : "Deleting selected pages", "FR" : "Supprimer les pages selectionnées", "EN" : "Deleting selected pages"},
     { "id" : "Multiple Delete Page","FR" :  "Suppression de pages", "EN" : "Delete Pages"},
-    { "id" : "pitch", "FR" : "Pitch", "EN" : "Pitch"},
+    { "id" : "pitch", "FR" : "Hauteur du son", "EN" : "Pitch"},
     { "id" : "volume", "FR" : "Volume", "EN" : "Volume"},
     { "id" : "rate", "FR" : "Vitesse de lecture", "EN" : "Reading speed"}
   ]
