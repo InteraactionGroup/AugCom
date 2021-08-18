@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
-import {ElementForm, GridElement, Interaction} from '../types';
+import {ElementForm, GridElement, Interaction, Page} from '../types';
 import {PaletteService} from './palette.service';
 
 @Injectable({
@@ -118,6 +118,17 @@ export class EditionService {
     this.selectedElements = [];
     if (!this.selectAll) {
       elementList.forEach(elt => this.addToSelected(elt));
+    }
+    this.selectAll = !this.selectAll;
+  }
+
+  selectAllElementsOfThePage(elementList, currentPage: Page){
+    this.selectedElements = [];
+    if (!this.selectAll) {
+      elementList.forEach(elt => {
+        if(currentPage.ElementIDsList.find(element => elt.ID === element))
+        {this.addToSelected(elt)}
+      });
     }
     this.selectAll = !this.selectAll;
   }
