@@ -5,6 +5,8 @@ import {BoardService} from '../../services/board.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
 import {DwellCursorService} from "../../services/dwell-cursor.service";
 import {ConfigurationService} from "../../services/configuration.service";
+import {DialogTextComponent} from "../dialog-text/dialog-text.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-dialogbar',
@@ -18,7 +20,8 @@ export class DialogbarComponent implements OnInit {
               public boardService: BoardService,
               public historicService: HistoricService,
               public dwellCursorService: DwellCursorService,
-              public configurationService: ConfigurationService) {
+              public configurationService: ConfigurationService,
+              public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -90,6 +93,12 @@ export class DialogbarComponent implements OnInit {
         this.historicService.say(text);
       }, this.configurationService.DWELL_TIME_TIMEOUT_VALUE);
     }
+  }
+
+  openDialog(): void {
+    this.dialog.open(DialogTextComponent, {
+      width: '600px'
+    });
   }
 
 }

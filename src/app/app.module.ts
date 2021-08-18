@@ -43,6 +43,9 @@ import {GridFormatManagementComponent} from './components/grid-format-management
 import {PictogramStyleComponent} from './components/pictogram-style/pictogram-style.component';
 import {DwellCursorComponent} from './components/dwell-cursor/dwell-cursor.component';
 import { MainComponent } from './components/main/main.component';
+
+import { DialogTextComponent } from './components/dialog-text/dialog-text.component';
+import {MatInputModule} from "@angular/material/input";
 import { MentionComponent } from './components/mention/mention.component';
 import { DeletePageComponent } from './components/delete-page/delete-page.component';
 import {MatListModule} from '@angular/material/list';
@@ -94,6 +97,7 @@ import {MatIconModule} from "@angular/material/icon";
     PictogramStyleComponent,
     DwellCursorComponent,
     MainComponent,
+    DialogTextComponent,
     MentionComponent,
     DeletePageComponent,
     DialogDeletePageComponent,
@@ -111,6 +115,7 @@ import {MatIconModule} from "@angular/material/icon";
     AppRoutingModule,
     BrowserAnimationsModule,
     GridsterModule,
+    MatInputModule,
     MatListModule,
     MatButtonModule,
     MatDialogModule,
