@@ -148,7 +148,7 @@
     { "id" : "Multiple Delete Page","FR" :  "Suppression de pages", "EN" : "Delete Pages"},
     { "id" : "pitch", "FR" : "Hauteur du son", "EN" : "Pitch"},
     { "id" : "volume", "FR" : "Volume", "EN" : "Volume"},
-    { "id" : "rate", "FR" : "Vitesse de lecture", "EN" : "Reading speed"}
+    { "id" : "rate", "FR" : "Vitesse de lecture", "EN" : "Reading speed"},
     { "id" : "retour", "FR" : "Retour", "EN" : "Back"}
   ]
 }
