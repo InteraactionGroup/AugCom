@@ -10,6 +10,9 @@ export class HistoricService {
   public historic: Vignette[] = [];
   public speechSynthesis: SpeechSynthesis;
   public volume = 1.0;
+  public rate = 1.0;
+  public pitch = 1.0;
+  public x: SpeechSynthesisUtterance;
 
   constructor(public parametersService: ParametersService) {
   }
@@ -51,18 +54,20 @@ export class HistoricService {
 
   say(text: string) {
     this.speechSynthesis = window.speechSynthesis;
-    const x = new SpeechSynthesisUtterance(text + ' ');
+    this.x = new SpeechSynthesisUtterance(text + ' ');
     /*checking if we can find the same voice*/
     const newVoice = this.parametersService.getCurrentVoice();
 
     /*if we can't find the same lang don't change the voice*/
     if (newVoice !== undefined && newVoice !== null) {
-      x.voice = newVoice;
-      x.lang = newVoice.lang;
+      this.x.voice = newVoice;
+      this.x.lang = newVoice.lang;
     }
-    x.volume = this.volume;
+    this.x.volume = this.volume;
+    this.x.pitch = this.pitch;
+    this.x.rate = this.rate;
     this.speechSynthesis.resume();
-    this.speechSynthesis.speak(x);
+    this.speechSynthesis.speak(this.x);
   }
 
 
