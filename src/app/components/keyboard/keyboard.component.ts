@@ -116,8 +116,8 @@ export class KeyboardComponent implements OnInit{
    *
    */
   selectAll() {
-    this.editionService.selectAllElementsOf(
-      this.boardService.board.ElementList
+    this.editionService.selectAllElementsOfThePage(
+      this.boardService.board.ElementList, this.boardService.currentPage()
     );
   }
 

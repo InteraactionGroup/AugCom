@@ -5,12 +5,18 @@ import {GridsterConfig} from 'angular-gridster2';
   providedIn: 'root',
 })
 export class LayoutService {
+
+  public isPreview: boolean = false;
+
   public options: GridsterConfig = {
     draggable: {
       enabled: false,
     },
     pushItems: false,
     swapItems: true,
+    mobileBreakpoint: 20,
+    keepFixedHeightInMobile: false,
+    keepFixedWidthInMobile: false,
     resizable: {
       enabled: false,
     },

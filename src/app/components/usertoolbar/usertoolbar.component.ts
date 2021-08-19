@@ -12,6 +12,8 @@ import {FolderGoTo} from '../../types';
 import {EditionService} from '../../services/edition.service';
 import {DwellCursorService} from "../../services/dwell-cursor.service";
 import {ConfigurationService} from "../../services/configuration.service";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogHelpComponent} from "../dialog-help/dialog-help.component";
 
 @Component({
   selector: 'app-usertoolbar',
@@ -31,7 +33,8 @@ export class UsertoolbarComponent implements OnInit {
     public multilinguism: MultilinguismService,
     public editionService: EditionService,
     public dwellCursorService: DwellCursorService,
-    public configurationService: ConfigurationService
+    public configurationService: ConfigurationService,
+    public dialog: MatDialog
   ) {
   }
 
@@ -69,6 +72,15 @@ export class UsertoolbarComponent implements OnInit {
    */
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
+  }
+
+  /**
+   * return the icon url corresponding to the string s
+   * @param s, the string identifying the icon
+   * @return the icon url
+   */
+  getIconPng(s: string) {
+    return this.getIconService.getIconUrlPng(s);
   }
 
 
@@ -152,5 +164,12 @@ export class UsertoolbarComponent implements OnInit {
 
   closeBrowser() {
     window.close();
+  }
+
+  openDialog(): void{
+    this.dialog.open(DialogHelpComponent, {
+      height: 'fit-content',
+      width: 'fit-content'
+    });
   }
 }
