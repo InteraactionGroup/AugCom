@@ -32,7 +32,7 @@ describe('UsertoolbarComponent', () => {
 
   it('should create right buttons in lock mode', () => {
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelectorAll('.button').length).toEqual(3);
+    expect(compiled.querySelectorAll('.button').length).toEqual(4);
     expect(compiled.querySelector('#accountButton')).toBe(null);
     expect(compiled.querySelector('#lockUnlockButton')).not.toBe(null);
     expect(compiled.querySelector('#backButton')).not.toBe(null);
@@ -48,7 +48,7 @@ describe('UsertoolbarComponent', () => {
     compiled.querySelector('#lockUnlockButton').click();
     fixture.detectChanges();
 
-    expect(compiled.querySelectorAll('.button').length).toEqual(8);
+    expect(compiled.querySelectorAll('.button').length).toEqual(9);
     expect(compiled.querySelector('#accountButton')).not.toBe(null);
     expect(compiled.querySelector('#lockUnlockButton')).not.toBe(null);
     expect(compiled.querySelector('#editButton')).not.toBe(null);
@@ -66,7 +66,7 @@ describe('UsertoolbarComponent', () => {
     compiled.querySelector('#lockUnlockButton').click();
     fixture.detectChanges();
 
-    expect(compiled.querySelectorAll('.button').length).toEqual(3);
+    expect(compiled.querySelectorAll('.button').length).toEqual(4);
     expect(compiled.querySelector('#accountButton')).toBe(null);
     expect(compiled.querySelector('#lockUnlockButton')).not.toBe(null);
     expect(compiled.querySelector('#backButton')).not.toBe(null);
