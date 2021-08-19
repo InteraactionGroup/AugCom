@@ -151,6 +151,8 @@ export class UsertoolbarComponent implements OnInit {
   }
 
   closeBrowser() {
+    window.open("about:blank", "_self");
+    window.close();
     window.close();
   }
 }
