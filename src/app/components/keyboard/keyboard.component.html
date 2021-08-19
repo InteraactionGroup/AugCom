@@ -44,16 +44,16 @@
     <div class="gridSettingsImage floatLeft centerText " [ngStyle]="{'background-image':'url(assets/icons/colomns.svg)'}">
     </div>
     <input class="inputSize floatLeft centerText" value="{{this.boardService.getNumberOfCols()}}" type="number" min="1"
-           (change)="onKeyCols($event)">
+           (change)="onKeyCols($event)" max="50">
     <div class="gridSettingsImage floatLeft centerText " [ngStyle]="{'background-image':'url(assets/icons/lines.svg)'}">
     </div>
 
     <input class="inputSize floatLeft centerText" value="{{this.boardService.getNumberOfRows()}}" type="number" min="1"
-           (change)="onKeyRows($event)">
+           (change)="onKeyRows($event)" max="50">
     <div class="gridSettingsImage floatLeft centerText " [ngStyle]="{'background-image':'url(assets/icons/margin.svg)'}">
     </div>
     <input class="inputSize floatLeft centerText" value="{{this.boardService.getGapSize()}}" type="number" min="0"
-           (change)="onKeyGap($event)">
+           (change)="onKeyGap($event)" max="50">
   </div>
 
 </div>
