@@ -83,5 +83,18 @@
   },
   "resolutions": {
     "@babel/preset-env": "^7.8.0"
-  }
+  },
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.10.",
+  "main": "karma.conf.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/InteraactionGroup/AugCom.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/InteraactionGroup/AugCom/issues"
+  },
+  "homepage": "https://github.com/InteraactionGroup/AugCom#readme"
 }

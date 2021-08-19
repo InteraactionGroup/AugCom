@@ -44,19 +44,14 @@ import {PictogramStyleComponent} from './components/pictogram-style/pictogram-st
 import {DwellCursorComponent} from './components/dwell-cursor/dwell-cursor.component';
 import { MainComponent } from './components/main/main.component';
 import { UserPageComponent } from './components/user-page/user-page.component';
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
 import {CommonModule} from "@angular/common";
-import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {MatGridListModule} from "@angular/material/grid-list";
 import { DialogDeleteUserComponent } from './components/dialog-delete-user/dialog-delete-user.component';
-import {MatDialogModule} from "@angular/material/dialog";
 import { DialogChangeUserComponent } from './components/dialog-change-user/dialog-change-user.component';
 import {Router} from "@angular/router";
 import {AuthGuardService} from "./services/auth-guard.service";
 import { DialogAddUserComponent } from './components/dialog-add-user/dialog-add-user.component';
-
 import { DialogTextComponent } from './components/dialog-text/dialog-text.component';
 import {MatInputModule} from "@angular/material/input";
 import { MentionComponent } from './components/mention/mention.component';
