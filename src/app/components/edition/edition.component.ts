@@ -80,7 +80,7 @@ export class EditionComponent implements OnInit {
   async save() {
     if (this.editionService.currentEditPage !== '') {
       this.editionService.currentEditPage = ''
-    } else {
+    }
       if (this.editionService.add) {
         this.createNewButton();
       } else if (this.editionService.selectedElements.length === 1) {
@@ -97,7 +97,7 @@ export class EditionComponent implements OnInit {
       this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
       await this.delay(1000);
       this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
-    }
+
   }
 
   delay(ms: number) {
@@ -265,7 +265,6 @@ export class EditionComponent implements OnInit {
 
     const currentPage: Page = this.getCurrentPage();
     currentPage.ElementIDsList.push(tempId);
-    this.boardService.board.PageList.push(currentPage);
   }
 
   getCurrentPage(): Page {

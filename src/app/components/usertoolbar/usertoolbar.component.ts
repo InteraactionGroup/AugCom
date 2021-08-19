@@ -14,6 +14,8 @@ import {DwellCursorService} from "../../services/dwell-cursor.service";
 import {ConfigurationService} from "../../services/configuration.service";
 import {Router} from "@angular/router";
 import {UserPageService} from "../../services/user-page.service";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogHelpComponent} from "../dialog-help/dialog-help.component";
 
 @Component({
   selector: 'app-usertoolbar',
@@ -35,7 +37,8 @@ export class UsertoolbarComponent implements OnInit {
     public dwellCursorService: DwellCursorService,
     public configurationService: ConfigurationService,
     private router: Router,
-    private userPageService: UserPageService
+    private userPageService: UserPageService,
+    public dialog: MatDialog
   ) {
   }
 
@@ -74,6 +77,15 @@ export class UsertoolbarComponent implements OnInit {
    */
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
+  }
+
+  /**
+   * return the icon url corresponding to the string s
+   * @param s, the string identifying the icon
+   * @return the icon url
+   */
+  getIconPng(s: string) {
+    return this.getIconService.getIconUrlPng(s);
   }
 
 
@@ -161,5 +173,12 @@ export class UsertoolbarComponent implements OnInit {
     setTimeout(() => {
       this.userPageService.currentUser = undefined;
     },200);
+  }
+
+  openDialog(): void{
+    this.dialog.open(DialogHelpComponent, {
+      height: 'fit-content',
+      width: 'fit-content'
+    });
   }
 }

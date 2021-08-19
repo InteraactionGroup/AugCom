@@ -5,6 +5,7 @@ import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {RouterTestingModule} from "@angular/router/testing";
+import {MatDialogModule} from "@angular/material/dialog";
 
 describe('UsertoolbarComponent', () => {
   let component: UsertoolbarComponent;
@@ -13,7 +14,7 @@ describe('UsertoolbarComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [FormsModule, Ng2ImgMaxModule, RouterTestingModule],
+      imports: [FormsModule, Ng2ImgMaxModule, MatDialogModule, RouterTestingModule],
       declarations: [UsertoolbarComponent]
     })
       .compileComponents();
@@ -32,7 +33,7 @@ describe('UsertoolbarComponent', () => {
 
   it('should create right buttons in lock mode', () => {
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelectorAll('.button').length).toEqual(2);
+    expect(compiled.querySelectorAll('.button').length).toEqual(3);
     expect(compiled.querySelector('#accountButton')).toBe(null);
     expect(compiled.querySelector('#lockUnlockButton')).not.toBe(null);
     expect(compiled.querySelector('#backButton')).not.toBe(null);
@@ -66,7 +67,7 @@ describe('UsertoolbarComponent', () => {
     compiled.querySelector('#lockUnlockButton').click();
     fixture.detectChanges();
 
-    expect(compiled.querySelectorAll('.button').length).toEqual(2);
+    expect(compiled.querySelectorAll('.button').length).toEqual(3);
     expect(compiled.querySelector('#accountButton')).toBe(null);
     expect(compiled.querySelector('#lockUnlockButton')).not.toBe(null);
     expect(compiled.querySelector('#backButton')).not.toBe(null);
