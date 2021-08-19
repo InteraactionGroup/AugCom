@@ -44,6 +44,7 @@ export class AccountMenuComponent implements OnInit {
         // ['nom/picto ou les deux'],
         // ['chemin absolu ou juste nom de la page']
         ,
+        'DeletePage',
         'GridFormat' // ,
         // ['taille de la grille'],
         // ['espace entre les picto'],
@@ -51,7 +52,8 @@ export class AccountMenuComponent implements OnInit {
       ]
     ],
     ['Pictograms',
-      ['PictogramStyle'// ,
+      ['PictogramStyle',
+        'Mention'// ,
         // ['pictogramme de base',
         //   ['couleur principale'],
         //   ['texte',

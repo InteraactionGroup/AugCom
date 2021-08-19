@@ -4,7 +4,7 @@
   width: 100%;
   visibility: hidden;
   display: grid;
-  grid-template-columns: 1fr 75px 75px 75px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
 .dialogBar .button {
