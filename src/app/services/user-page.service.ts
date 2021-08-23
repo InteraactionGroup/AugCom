@@ -23,6 +23,8 @@ export class UserPageService {
   }
 
   setLoggedIn(){
-    localStorage.setItem('logged', 'true');
+    localStorage.setItem('logged', this.currentUser.id);
+    localStorage.setItem('name', this.currentUser.name);
+    localStorage.setItem('image', this.currentUser.base64image);
   }
 }

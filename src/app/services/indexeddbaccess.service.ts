@@ -45,27 +45,53 @@ export class IndexeddbaccessService {
       // UPDATE THE GRID
       const gridStore = db.transaction(['Grid'], 'readwrite');
       const gridObjectStore = gridStore.objectStore('Grid');
-      const storeGridRequest = gridObjectStore.get(this.userPageService.currentUser.id);
-      storeGridRequest.onsuccess = () => {
-        gridObjectStore.put(this.boardService.board, this.userPageService.currentUser.id);
-        this.boardService.updateElementList();
-      };
+      console.log(this.userPageService.currentUser);
+      if(this.userPageService.currentUser !== undefined){
+        const storeGridRequest = gridObjectStore.get(this.userPageService.currentUser.id);
+        storeGridRequest.onsuccess = () => {
+          gridObjectStore.put(this.boardService.board, this.userPageService.currentUser.id);
+          this.boardService.updateElementList();
+        };
+      }else{
+        const storeGridRequest = gridObjectStore.get(localStorage.getItem('logged'));
+        storeGridRequest.onsuccess = () => {
+          gridObjectStore.put(this.boardService.board, localStorage.getItem('logged'));
+          this.boardService.updateElementList();
+        };
+      }
+
 
       // UPDATE THE PALETTES
       const paletteStore = db.transaction(['Palette'], 'readwrite');
       const paletteObjectStore = paletteStore.objectStore('Palette');
-      const storePaletteRequest = paletteObjectStore.get(this.userPageService.currentUser.id);
-      storePaletteRequest.onsuccess = () => {
-        paletteObjectStore.put(this.paletteService.palettes, this.userPageService.currentUser.id);
-      };
+      if(this.userPageService.currentUser !== undefined){
+        const storePaletteRequest = paletteObjectStore.get(this.userPageService.currentUser.id);
+        storePaletteRequest.onsuccess = () => {
+          paletteObjectStore.put(this.paletteService.palettes, this.userPageService.currentUser.id);
+        };
+      }else{
+        const storePaletteRequest = paletteObjectStore.get(localStorage.getItem('logged'));
+        storePaletteRequest.onsuccess = () => {
+          paletteObjectStore.put(this.paletteService.palettes, localStorage.getItem('logged'));
+        };
+      }
+
 
       // UPDATE THE CONFIGURATION
       const configStore = db.transaction(['Configuration'], 'readwrite');
       const configObjectStore = configStore.objectStore('Configuration');
-      const storeConfigRequest = configObjectStore.get(this.userPageService.currentUser.id);
-      storeConfigRequest.onsuccess = () => {
-        configObjectStore.put(this.configurationService.getConfiguration(), this.userPageService.currentUser.id);
-      };
+      if(this.userPageService.currentUser !== undefined){
+        const storeConfigRequest = configObjectStore.get(this.userPageService.currentUser.id);
+        storeConfigRequest.onsuccess = () => {
+          configObjectStore.put(this.configurationService.getConfiguration(), this.userPageService.currentUser.id);
+        };
+      }else{
+        const storeConfigRequest = configObjectStore.get(localStorage.getItem('logged'));
+        storeConfigRequest.onsuccess = () => {
+          configObjectStore.put(this.configurationService.getConfiguration(), localStorage.getItem('logged'));
+        };
+      }
+
     };
   }
 

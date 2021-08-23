@@ -172,6 +172,8 @@ export class UsertoolbarComponent implements OnInit {
     this.indexedDBacess.update();
     setTimeout(() => {
       localStorage.removeItem('logged');
+      localStorage.removeItem('name');
+      localStorage.removeItem('image');
       this.userPageService.currentUser = undefined;
     },200);
   }
