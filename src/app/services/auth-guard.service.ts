@@ -12,7 +12,7 @@ export class AuthGuardService implements CanActivate{
               private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if(this.userPageService.currentUser !== undefined){
+    if(localStorage.getItem('coucou') == 'true'){
       return true;
     }
     else{

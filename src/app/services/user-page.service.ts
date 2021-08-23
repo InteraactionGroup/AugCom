@@ -21,4 +21,8 @@ export class UserPageService {
   removeUser(id: string){
     this.usersList = this.usersList.filter(user => user.id !== id);
   }
+
+  setLoggedIn(){
+    localStorage.setItem('logged', 'true');
+  }
 }

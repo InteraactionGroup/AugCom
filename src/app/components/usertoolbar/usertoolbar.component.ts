@@ -171,6 +171,7 @@ export class UsertoolbarComponent implements OnInit {
     this.router.navigate(['logging']);
     this.indexedDBacess.update();
     setTimeout(() => {
+      localStorage.removeItem('logged');
       this.userPageService.currentUser = undefined;
     },200);
   }

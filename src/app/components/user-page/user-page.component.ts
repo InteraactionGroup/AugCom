@@ -70,6 +70,7 @@ export class UserPageComponent implements OnInit {
   }
   userSelected(user: User){
     this.userPageService.currentUser = user;
+    this.userPageService.setLoggedIn();
     if(user.id !== '1'){
       this.indexeddbaccessService.getAllFromUser();
     }
