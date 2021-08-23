@@ -41,7 +41,7 @@ export class FolderGoTo {
 export class GridElement {
   ID: string;
   Type: 'empty' | 'button' | FolderGoTo;
-  PartOfSpeech: string;
+  PartOfSpeech: '-nom-' | '-nom-pr-' | 'nom de famille' | '-adv-' | 'prénom' | '-adj-' | 'variante typographique' | '-verb' | 'pronom' | 'locution-phrase' | 'interjection' | 'onomatopée' | 'pronom démonstratif' | 'adjectif indéfini' | 'pronom indéfini' | 'pronom personnel' | 'conjonction' | 'adjectif numéral' | 'préposition' | 'article partitif' | 'adverbe interrogatif' | 'conjonction de coordination' | 'pronom interrogatif' | 'pronom relatif' | 'pronom possessif' | 'erreur' | 'locution phrase' | 'proverbe' | 'adverbe relatif' | 'nom scientifique' | 'adjectif exclamatif' | 'adjectif interrogatif' | 'adjectif possessif' | 'adjectif démonstratif' | 'patronyme' | 'article défini' | 'interj' | 'locution' | 'article indéfini' |string;
   VisibilityLevel: number;
   x: number;
   y: number;
