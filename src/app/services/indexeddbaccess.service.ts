@@ -121,14 +121,12 @@ export class IndexeddbaccessService {
 
         const configStore = db.transaction(['Configuration']).objectStore('Configuration').get(1);
         configStore.onsuccess = e => {
-          console.log('configStore.result',configStore.result);
           this.configurationService.setConfiguration(configStore.result);
           this.configuration = this.configurationService.getConfiguration();
         };
 
         const userList = db.transaction(['UserList']).objectStore('UserList').get(1);
         userList.onsuccess = e => {
-          console.log('userslist',userList.result);
           this.userPageService.usersList = userList.result;
         };
       });
