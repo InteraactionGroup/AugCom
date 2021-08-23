@@ -89,7 +89,7 @@ export class Spb2augComponent implements OnInit {
       console.log(this.newGrid);
       this.statErrorImage();
       this.addColIfNeeded();
-      this.router.navigate(['']);
+      this.router.navigate(['keyboard']);
       let that = this;
       setTimeout(function () {
         that.boardService.board = that.newGrid;
