@@ -113,7 +113,8 @@ import {MatIconModule} from "@angular/material/icon";
     DialogHelpComponent,
     UserPageComponent,
     DialogChangeUserComponent,
-    DialogAddUserComponent
+    DialogAddUserComponent,
+    DialogDeleteUserComponent
   ],
   imports: [
     BrowserModule,
