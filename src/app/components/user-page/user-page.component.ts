@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserPageService} from "../../services/user-page.service";
-import {FormBuilder, NgForm} from "@angular/forms";
+import {FormBuilder} from "@angular/forms";
 import {User} from "../../types";
 import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 import {BoardService} from "../../services/board.service";
@@ -25,12 +25,13 @@ export class UserPageComponent implements OnInit {
   submitted = false;
 
   usersList: User[] = [];
-  user: User = new User('','');
+  user: User = new User('', '');
 
   selectedFile = null;
   checkoutForm = this.formBuilder.group({
     name: ''
   })
+
   constructor(private userPageService: UserPageService,
               private formBuilder: FormBuilder,
               private indexeddbaccessService: IndexeddbaccessService,
@@ -39,66 +40,68 @@ export class UserPageComponent implements OnInit {
               private paletteService: PaletteService,
               private getIconService: GeticonService,
               public userToolBarService: UsertoolbarService,
-              public dialog: MatDialog) {}
+              public dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
     setTimeout(() => {
       this.usersList = this.userPageService.usersList;
-    },200)
+    }, 200)
     this.addUserBool = false;
 
   }
 
-  clickAddUser(){
+  clickAddUser() {
     this.addUserBool = !this.addUserBool;
     this.submitted = false;
   }
 
-  loadUserList(){
+  loadUserList() {
     this.usersList = this.userPageService.usersList;
   }
 
-  removeUser(id: string){
+  removeUser(id: string) {
     this.userPageService.removeUser(id);
     this.usersList = this.userPageService.usersList;
     this.indexeddbaccessService.updateUserList();
     this.indexeddbaccessService.deleteUser(id)
   }
 
-  userImage(user: User):string{
-    return user.base64image !== ''? user.base64image : 'assets/images/DefaultUser.png'
+  userImage(user: User): string {
+    return user.base64image !== '' ? user.base64image : 'assets/images/DefaultUser.png'
   }
-  userSelected(user: User){
+
+  userSelected(user: User) {
     this.userPageService.currentUser = user;
     this.userPageService.setLoggedIn();
-    if(user.id !== '1'){
+    if (user.id !== '1') {
       this.indexeddbaccessService.getAllFromUser();
-    }
-    else{
+    } else {
       this.indexeddbaccessService.initDefault();
     }
 
     setTimeout(() => {
-    if(this.indexeddbaccessService.grid != null){
-      this.boardService.board = this.indexeddbaccessService.grid;
-      this.boardService.updateElementList();
-    }
-    if(this.indexeddbaccessService.palette != null){
-      this.paletteService.palettes = this.indexeddbaccessService.palette;
-    }
-    if(this.indexeddbaccessService.configuration != null){
-      this.configurationService = this.indexeddbaccessService.configuration;
-    }
-  },500)
+      if (this.indexeddbaccessService.grid != null) {
+        this.boardService.board = this.indexeddbaccessService.grid;
+        this.boardService.updateElementList();
+      }
+      if (this.indexeddbaccessService.palette != null) {
+        this.paletteService.palettes = this.indexeddbaccessService.palette;
+      }
+      if (this.indexeddbaccessService.configuration != null) {
+        this.configurationService = this.indexeddbaccessService.configuration;
+      }
+    }, 500)
   }
-  openDialogDelete(id: string): void{
+
+  openDialogDelete(id: string): void {
     this.userPageService.deleteIdUser = id;
     const dialogDelete = this.dialog.open(DialogDeleteUserComponent, {
       height: '20%',
       width: '25%'
     });
-    dialogDelete.afterClosed().subscribe(() =>{
-      if(this.userPageService.yes === true){
+    dialogDelete.afterClosed().subscribe(() => {
+      if (this.userPageService.yes === true) {
         this.removeUser(id);
       }
     });
@@ -112,25 +115,28 @@ export class UserPageComponent implements OnInit {
       width: '25%'
     });
     dialogChange.afterClosed().subscribe(() => {
-      if(this.userPageService.isUserImageChanged === true){
+      if (this.userPageService.isUserImageChanged === true) {
         this.indexeddbaccessService.updateUserList();
       }
     })
   }
+
   openDialogAdd() {
     const dialogChange = this.dialog.open(DialogAddUserComponent, {
       height: '50%',
       width: '35%'
     });
     dialogChange.afterClosed().subscribe(() => {
-      if(this.userPageService.isUserImageChanged === true){
+      if (this.userPageService.isUserImageChanged === true) {
         this.indexeddbaccessService.updateUserList();
       }
     })
   }
+
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
   }
+
   translate() {
     this.configurationService.LANGUAGE_VALUE = (this.configurationService.LANGUAGE_VALUE === 'FR' ? 'EN' : 'FR');
     console.log(this.configurationService.LANGUAGE_VALUE)

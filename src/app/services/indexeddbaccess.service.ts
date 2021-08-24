@@ -45,14 +45,15 @@ export class IndexeddbaccessService {
       // UPDATE THE GRID
       const gridStore = db.transaction(['Grid'], 'readwrite');
       const gridObjectStore = gridStore.objectStore('Grid');
-      console.log(this.userPageService.currentUser);
-      if(this.userPageService.currentUser !== undefined){
+      console.log('this.userPageService.currentUser :',this.userPageService.currentUser);
+      console.log('localStorage.getItem(\'logged\') :',localStorage.getItem('logged'));
+      if (this.userPageService.currentUser !== undefined) {
         const storeGridRequest = gridObjectStore.get(this.userPageService.currentUser.id);
         storeGridRequest.onsuccess = () => {
           gridObjectStore.put(this.boardService.board, this.userPageService.currentUser.id);
           this.boardService.updateElementList();
         };
-      }else{
+      } else {
         const storeGridRequest = gridObjectStore.get(localStorage.getItem('logged'));
         storeGridRequest.onsuccess = () => {
           gridObjectStore.put(this.boardService.board, localStorage.getItem('logged'));
@@ -64,12 +65,12 @@ export class IndexeddbaccessService {
       // UPDATE THE PALETTES
       const paletteStore = db.transaction(['Palette'], 'readwrite');
       const paletteObjectStore = paletteStore.objectStore('Palette');
-      if(this.userPageService.currentUser !== undefined){
+      if (this.userPageService.currentUser !== undefined) {
         const storePaletteRequest = paletteObjectStore.get(this.userPageService.currentUser.id);
         storePaletteRequest.onsuccess = () => {
           paletteObjectStore.put(this.paletteService.palettes, this.userPageService.currentUser.id);
         };
-      }else{
+      } else {
         const storePaletteRequest = paletteObjectStore.get(localStorage.getItem('logged'));
         storePaletteRequest.onsuccess = () => {
           paletteObjectStore.put(this.paletteService.palettes, localStorage.getItem('logged'));
@@ -80,12 +81,12 @@ export class IndexeddbaccessService {
       // UPDATE THE CONFIGURATION
       const configStore = db.transaction(['Configuration'], 'readwrite');
       const configObjectStore = configStore.objectStore('Configuration');
-      if(this.userPageService.currentUser !== undefined){
+      if (this.userPageService.currentUser !== undefined) {
         const storeConfigRequest = configObjectStore.get(this.userPageService.currentUser.id);
         storeConfigRequest.onsuccess = () => {
           configObjectStore.put(this.configurationService.getConfiguration(), this.userPageService.currentUser.id);
         };
-      }else{
+      } else {
         const storeConfigRequest = configObjectStore.get(localStorage.getItem('logged'));
         storeConfigRequest.onsuccess = () => {
           configObjectStore.put(this.configurationService.getConfiguration(), localStorage.getItem('logged'));
@@ -95,7 +96,7 @@ export class IndexeddbaccessService {
     };
   }
 
-  updateUserList(){
+  updateUserList() {
     this.openRequest = indexedDB.open('Saves', 1);
 
     // ERROR
@@ -130,32 +131,41 @@ export class IndexeddbaccessService {
     this.openRequest.onsuccess = event => {
       const db = event.target.result;
 
-      this.userPageService.usersList.forEach(user =>{
 
-        const gridStore = db.transaction(['Grid']).objectStore('Grid').get(user.id);
-        gridStore.onsuccess = e => {
-          this.boardService.board = this.jsonValidator.getCheckedGrid(gridStore.result);
-          this.grid = this.boardService.board;
-          this.boardService.updateElementList();
-        };
+      const gridRequest = db.transaction(['UserList']).objectStore('UserList').get(1);
+      gridRequest.onsuccess = e => {
 
-        const paletteStore = db.transaction(['Palette']).objectStore('Palette').get(1);
-        paletteStore.onsuccess = e => {
-          this.paletteService.palettes = paletteStore.result;
-          this.palette = this.paletteService.palettes;
-        };
+        this.userPageService.usersList = gridRequest.result;
+      }
+      setTimeout(() => {
+        console.log('this.userPageService.usersList', this.userPageService.usersList);
+        this.userPageService.usersList.forEach(user => {
 
-        const configStore = db.transaction(['Configuration']).objectStore('Configuration').get(1);
-        configStore.onsuccess = e => {
-          this.configurationService.setConfiguration(configStore.result);
-          this.configuration = this.configurationService.getConfiguration();
-        };
+          const gridStore = db.transaction(['Grid']).objectStore('Grid').get(user.id);
+          gridStore.onsuccess = e => {
+            this.boardService.board = this.jsonValidator.getCheckedGrid(gridStore.result);
+            this.grid = this.boardService.board;
+            this.boardService.updateElementList();
+          };
 
-        const userList = db.transaction(['UserList']).objectStore('UserList').get(1);
-        userList.onsuccess = e => {
-          this.userPageService.usersList = userList.result;
-        };
-      });
+          const paletteStore = db.transaction(['Palette']).objectStore('Palette').get(1);
+          paletteStore.onsuccess = e => {
+            this.paletteService.palettes = paletteStore.result;
+            this.palette = this.paletteService.palettes;
+          };
+
+          const configStore = db.transaction(['Configuration']).objectStore('Configuration').get(1);
+          configStore.onsuccess = e => {
+            this.configurationService.setConfiguration(configStore.result);
+            this.configuration = this.configurationService.getConfiguration();
+          };
+
+          const userList = db.transaction(['UserList']).objectStore('UserList').get(1);
+          userList.onsuccess = e => {
+            this.userPageService.usersList = userList.result;
+          };
+        });
+      }, 500)
     };
 
     this.openRequest.onupgradeneeded = event => {
@@ -194,13 +204,14 @@ export class IndexeddbaccessService {
     const configurationStore = transaction.objectStore('Configuration');
     configurationStore.add(this.configurationService.getConfiguration());
   }
+
   createUserObject(db, transaction) {
     db.createObjectStore('UserList', {autoIncrement: true});
     const userList = transaction.objectStore('UserList');
     userList.add(this.userPageService.usersList);
   }
 
-  getGrid(){
+  getGrid() {
 
     this.openRequest = indexedDB.open('Saves', 1);
 
@@ -213,14 +224,14 @@ export class IndexeddbaccessService {
     this.openRequest.onsuccess = event => {
       const db = event.target.result;
 
-      const gridRequest =db.transaction(['Grid']).objectStore('Grid').get(this.userPageService.currentUser.id);
+      const gridRequest = db.transaction(['Grid']).objectStore('Grid').get(this.userPageService.currentUser.id);
       gridRequest.onsuccess = e => {
         this.grid = gridRequest.result;
       }
     }
   }
 
-  getPalette(){
+  getPalette() {
 
     this.openRequest = indexedDB.open('Saves', 1);
 
@@ -233,14 +244,14 @@ export class IndexeddbaccessService {
     this.openRequest.onsuccess = event => {
       const db = event.target.result;
 
-      const paletteRequest =db.transaction(['Palette']).objectStore('Palette').get(this.userPageService.currentUser.id);
+      const paletteRequest = db.transaction(['Palette']).objectStore('Palette').get(this.userPageService.currentUser.id);
       paletteRequest.onsuccess = e => {
         this.palette = paletteRequest.result;
       }
     }
   }
 
-  getConfiguration(){
+  getConfiguration() {
 
     this.openRequest = indexedDB.open('Saves', 1);
 
@@ -253,14 +264,14 @@ export class IndexeddbaccessService {
     this.openRequest.onsuccess = event => {
       const db = event.target.result;
 
-      const configRequest =db.transaction(['Configuration']).objectStore('Configuration').get(this.userPageService.currentUser.id);
+      const configRequest = db.transaction(['Configuration']).objectStore('Configuration').get(this.userPageService.currentUser.id);
       configRequest.onsuccess = e => {
         this.configuration = configRequest.result;
       }
     }
   }
 
-  getAllFromUser(){
+  getAllFromUser() {
     this.openRequest = indexedDB.open('Saves', 1);
 
     // ERROR
@@ -272,20 +283,21 @@ export class IndexeddbaccessService {
     this.openRequest.onsuccess = event => {
       const db = event.target.result;
 
-      const gridRequest =db.transaction(['Grid']).objectStore('Grid').get(this.userPageService.currentUser.id);
+      const gridRequest = db.transaction(['Grid']).objectStore('Grid').get(this.userPageService.currentUser.id);
       gridRequest.onsuccess = e => {
         this.grid = gridRequest.result;
       }
-      const configRequest =db.transaction(['Configuration']).objectStore('Configuration').get(this.userPageService.currentUser.id);
+      const configRequest = db.transaction(['Configuration']).objectStore('Configuration').get(this.userPageService.currentUser.id);
       configRequest.onsuccess = e => {
         this.configuration = configRequest.result;
       }
-      const paletteRequest =db.transaction(['Palette']).objectStore('Palette').get(this.userPageService.currentUser.id);
+      const paletteRequest = db.transaction(['Palette']).objectStore('Palette').get(this.userPageService.currentUser.id);
       paletteRequest.onsuccess = e => {
         this.palette = paletteRequest.result;
       }
     }
   }
+
   deleteUser(id: string) {
     this.openRequest = indexedDB.open('Saves', 1);
 
@@ -299,7 +311,7 @@ export class IndexeddbaccessService {
       const db = event.target.result;
 
       const deleteConfigRequest = db.transaction(['Configuration'], 'readwrite').objectStore('Configuration').delete(id);
-      deleteConfigRequest.onsuccess = e =>{
+      deleteConfigRequest.onsuccess = e => {
         this.configurationService.setConfiguration(deleteConfigRequest.result);
       }
 
@@ -315,6 +327,7 @@ export class IndexeddbaccessService {
       };
     };
   }
+
   initDefault() {
 
     this.openRequest = indexedDB.open('Saves', 1);
