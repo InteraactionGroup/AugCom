@@ -95,6 +95,7 @@
     { "id" : "resetDefaultValue" , "FR" : "réinitialiser les valeurs par défaut", "EN" : "reset default values" },
     { "id" : "longPressValue" , "FR" : "Valeur de l'appuis long", "EN" : "longPress value" },
     { "id" : "dblClickValue" , "FR" : "Valeur du double click", "EN" : "doubleClick value" },
+    { "id" : "dwellTimeValue" , "FR" : "Valeur du temps de fixation", "EN" : "dwell time value" },
     { "id" : "enterValue" , "FR" : "entrez une valeur", "EN" : "enter a value" },
     { "id" : "importSave" , "FR" : "Importer une sauvegarde", "EN" : "import save" },
     { "id" : "importZip" , "FR" : "Importer un fichier ZIP", "EN" : "import ZIP" },

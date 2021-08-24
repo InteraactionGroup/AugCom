@@ -47,7 +47,7 @@ export class KeyboardComponent implements OnInit{
   }
 
   onKeyCols(event: any) {
-    if (+event.target.value >= 1) {
+    if (+event.target.value >= 1 && +event.target.value <= 50) {
       const currentPage: Page = this.boardService.currentPage();
       if (currentPage !== null && currentPage !== undefined) {
         if (currentPage.NumberOfCols === undefined) {
@@ -62,7 +62,7 @@ export class KeyboardComponent implements OnInit{
   }
 
   onKeyRows(event: any) {
-    if (+event.target.value >= 1) {
+    if (+event.target.value >= 1 && +event.target.value <= 50) {
       const currentPage: Page = this.boardService.currentPage();
       if (currentPage !== null && currentPage !== undefined) {
         if (currentPage.NumberOfRows === undefined) {
@@ -77,7 +77,7 @@ export class KeyboardComponent implements OnInit{
   }
 
   onKeyGap(event: any) {
-    if (+event.target.value >= 1) {
+    if (+event.target.value >= 1 && +event.target.value <= 50) {
       const currentPage: Page = this.boardService.currentPage();
       if (currentPage !== null && currentPage !== undefined) {
         if (currentPage.GapSize === undefined) {
