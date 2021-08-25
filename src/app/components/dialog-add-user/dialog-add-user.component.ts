@@ -29,7 +29,7 @@ export class DialogAddUserComponent implements OnInit {
     this.userPageService.addUser(this.user.name, this.user.base64image);
     this.usersList = this.userPageService.usersList;
     this.indexeddbaccessService.updateUserList();
-    this.indexeddbaccessService.init();
+    this.indexeddbaccessService.loadUsersList();
   }
 
   onFileSelected(event) {

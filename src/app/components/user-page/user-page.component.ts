@@ -30,7 +30,7 @@ export class UserPageComponent implements OnInit {
   selectedFile = null;
   checkoutForm = this.formBuilder.group({
     name: ''
-  })
+  });
 
   constructor(private userPageService: UserPageService,
               private formBuilder: FormBuilder,
@@ -46,7 +46,7 @@ export class UserPageComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       this.usersList = this.userPageService.usersList;
-    }, 200)
+    }, 200);
     this.addUserBool = false;
 
   }
@@ -64,7 +64,7 @@ export class UserPageComponent implements OnInit {
     this.userPageService.removeUser(id);
     this.usersList = this.userPageService.usersList;
     this.indexeddbaccessService.updateUserList();
-    this.indexeddbaccessService.deleteUser(id)
+    this.indexeddbaccessService.deleteUserInformation(id)
   }
 
   userImage(user: User): string {
@@ -74,24 +74,7 @@ export class UserPageComponent implements OnInit {
   userSelected(user: User) {
     this.userPageService.currentUser = user;
     this.userPageService.setLoggedIn();
-    if (user.id !== '1') {
-      this.indexeddbaccessService.getAllFromUser();
-    } else {
-      this.indexeddbaccessService.initDefault();
-    }
-
-    setTimeout(() => {
-      if (this.indexeddbaccessService.grid != null) {
-        this.boardService.board = this.indexeddbaccessService.grid;
-        this.boardService.updateElementList();
-      }
-      if (this.indexeddbaccessService.palette != null) {
-        this.paletteService.palettes = this.indexeddbaccessService.palette;
-      }
-      if (this.indexeddbaccessService.configuration != null) {
-        this.configurationService = this.indexeddbaccessService.configuration;
-      }
-    }, 500)
+    this.indexeddbaccessService.loadInfoFromCurrentUser();
   }
 
   openDialogDelete(id: string): void {

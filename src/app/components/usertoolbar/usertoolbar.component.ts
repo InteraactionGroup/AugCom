@@ -169,16 +169,14 @@ export class UsertoolbarComponent implements OnInit {
 
   logout() {
     this.router.navigate(['logging']);
-    this.indexedDBacess.update();
-    setTimeout(() => {
-      localStorage.removeItem('logged');
-      localStorage.removeItem('name');
-      localStorage.removeItem('image');
-      this.userPageService.currentUser = undefined;
-    },200);
+    this.boardService.backHome();
+    localStorage.removeItem('logged');
+    localStorage.removeItem('name');
+    localStorage.removeItem('image');
+    this.userPageService.currentUser = undefined;
   }
 
-  openDialog(): void{
+  openDialog(): void {
     this.dialog.open(DialogHelpComponent, {
       height: 'fit-content',
       width: 'fit-content'

@@ -24,7 +24,7 @@ describe('UsertoolbarComponent', () => {
     fixture = TestBed.createComponent(UsertoolbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    component.indexedDBacess.init();
+    component.indexedDBacess.loadUsersList();
   });
 
   it('should create', () => {
