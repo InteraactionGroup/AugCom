@@ -11,8 +11,6 @@ import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 })
 export class DialogAddUserComponent implements OnInit {
   selectedFile = null;
-
-  usersList: User[] = [];
   user: User = new User('','');
 
   constructor(private userPageService: UserPageService,
@@ -25,9 +23,8 @@ export class DialogAddUserComponent implements OnInit {
   onSubmit(newUser: NgForm) {
     this.user.name = newUser.value['name'];
     this.user.base64image = this.selectedFile;
-    this.user.id = Math.floor(Math.random() * 10000000000).toString() + Date.now().toString();
+    this.user.id = Math.floor(Math.random() * 10000000000) + Date.now();
     this.userPageService.addUser(this.user.name, this.user.base64image);
-    this.usersList = this.userPageService.usersList;
     this.indexeddbaccessService.updateUserList();
     this.indexeddbaccessService.loadUsersList();
   }

@@ -174,12 +174,12 @@ export class Configuration {
 }
 
 export class User{
-  id: string;
+  id: number;
   name: string;
   base64image: string;
   constructor(name, base64image, id?) {
     if(id == null){
-      this.id = Math.floor(Math.random() * 10000000000).toString() + Date.now().toString();
+      this.id = Math.floor(Math.random() * 10000000000) + Date.now();
     }
     else{
       this.id = id;

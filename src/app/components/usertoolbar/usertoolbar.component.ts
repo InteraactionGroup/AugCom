@@ -16,6 +16,7 @@ import {Router} from "@angular/router";
 import {UserPageService} from "../../services/user-page.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogHelpComponent} from "../dialog-help/dialog-help.component";
+import {PaletteService} from "../../services/palette.service";
 
 @Component({
   selector: 'app-usertoolbar',
@@ -38,7 +39,8 @@ export class UsertoolbarComponent implements OnInit {
     public configurationService: ConfigurationService,
     private router: Router,
     private userPageService: UserPageService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public paletteService: PaletteService
   ) {
   }
 
@@ -168,12 +170,14 @@ export class UsertoolbarComponent implements OnInit {
   }
 
   logout() {
-    this.router.navigate(['logging']);
     this.boardService.backHome();
+    this.router.navigate(['logging']);
     localStorage.removeItem('logged');
     localStorage.removeItem('name');
     localStorage.removeItem('image');
-    this.userPageService.currentUser = undefined;
+    this.userPageService.currentUser = null;
+     this.boardService.resetBoardNoUpdate();
+     this.paletteService.palettes = this.paletteService.DEFAULTPALETTELIST;
   }
 
   openDialog(): void {

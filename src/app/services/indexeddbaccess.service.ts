@@ -12,8 +12,6 @@ import {Grid} from "../types";
 export class IndexeddbaccessService {
 
   openRequest;
-  currentGrid: Grid;
-  currentPalette;
   currentConfiguration;
 
   constructor(public paletteService: PaletteService,
@@ -28,7 +26,8 @@ export class IndexeddbaccessService {
   update() {
     if(this.userPageService.currentUser != null &&
       this.userPageService.currentUser.id != null &&
-      this.userPageService.currentUser.id != '1') {
+      this.userPageService.currentUser.id != 1) {
+      console.log("default");
 
       this.openRequest = indexedDB.open('Saves', 1);
 
@@ -111,9 +110,12 @@ export class IndexeddbaccessService {
       const gridRequest = db.transaction(['UserList']).objectStore('UserList').get(1);
       gridRequest.onsuccess = e => {
         this.userPageService.usersList = gridRequest.result;
+        console.log("HERE IS THE USER LIST");
+        console.log(this.userPageService.usersList);
         const loggedUser = localStorage.getItem('logged');
         if (  loggedUser != null){
-          this.userPageService.currentUser = this.userPageService.usersList.find(user => user.id == loggedUser);
+          let indexOfLogged = parseInt(loggedUser,10);
+          this.userPageService.currentUser = this.userPageService.usersList.find(user => user.id == indexOfLogged);
           this.loadInfoFromCurrentUser();
         }
       };
@@ -162,64 +164,56 @@ export class IndexeddbaccessService {
 
   //DONE
   loadInfoFromCurrentUser() {
-    this.openRequest = indexedDB.open('Saves', 1);
+    if(this.userPageService.currentUser==null) {
+      this.userPageService.currentUser = this.userPageService.defaultUser;
+    }
+      this.openRequest = indexedDB.open('Saves', 1);
 
-    // ERROR
-    this.openRequest.onerror = event => {
-      alert('Database error: ' + event.target.errorCode);
-    };
-
-    // SUCCESS
-    this.openRequest.onsuccess = event => {
-      const db = event.target.result;
-
-      const configRequest = db.transaction(['Configuration']).objectStore('Configuration').get(this.userPageService.currentUser.id);
-      configRequest.onsuccess = e => {
-        let resultConfig = configRequest.result;
-        if( resultConfig == null){
-          resultConfig = this.configurationService.getDefaultConfiguration();
-        }
-        this.configurationService.setConfiguration(resultConfig);
-        this.currentConfiguration = this.configurationService.getConfiguration();
+      // ERROR
+      this.openRequest.onerror = event => {
+        alert('Database error: ' + event.target.errorCode);
       };
-      const paletteRequest = db.transaction(['Palette']).objectStore('Palette').get(this.userPageService.currentUser.id);
-      paletteRequest.onsuccess = e => {
-        let resultedPalette = paletteRequest.result;
-        if(resultedPalette == null){
-          this.paletteService.palettes = this.paletteService.DEFAULTPALETTELIST;
-        }
-        this.currentPalette = this.paletteService.palettes
+
+      // SUCCESS
+      this.openRequest.onsuccess = event => {
+        const db = event.target.result;
+
+        const configRequest = db.transaction(['Configuration']).objectStore('Configuration').get(this.userPageService.currentUser.id);
+        configRequest.onsuccess = e => {
+          console.log("success conf user " + this.userPageService.currentUser.name);
+          let resultConfig = configRequest.result;
+          if (resultConfig == null) {
+            console.log("success grid user null " + this.userPageService.currentUser.name);
+            resultConfig = this.configurationService.getDefaultConfiguration();
+          }
+          this.configurationService.setConfiguration(resultConfig);
+        };
+        const paletteRequest = db.transaction(['Palette']).objectStore('Palette').get(this.userPageService.currentUser.id);
+        paletteRequest.onsuccess = e => {
+          console.log("success palette user " + this.userPageService.currentUser.name);
+          let resultedPalette = paletteRequest.result;
+          if (resultedPalette == null) {
+            console.log("success palette user null " + this.userPageService.currentUser.name);
+            this.paletteService.palettes = this.paletteService.DEFAULTPALETTELIST;
+          }
+        };
+        const gridRequest = db.transaction(['Grid']).objectStore('Grid').get(this.userPageService.currentUser.id);
+        gridRequest.onsuccess = e => {
+          console.log("success grid user " + this.userPageService.currentUser.name);
+          let gridResult = gridRequest.result;
+          if (gridResult == null) {
+            console.log("success grid user null" + this.userPageService.currentUser.name);
+            this.boardService.resetBoard();
+          } else {
+            this.boardService.board = this.jsonValidator.getCheckedGrid(gridResult);
+          }
+          this.boardService.updateElementList();
+        };
       };
-      const gridRequest = db.transaction(['Grid']).objectStore('Grid').get(this.userPageService.currentUser.id);
-      gridRequest.onsuccess = e => {
-        let gridResult = gridRequest.result;
-        if(gridResult == null){
-          this.boardService.resetBoard();
-        }else{
-          this.boardService.board = this.jsonValidator.getCheckedGrid(gridResult);
-          this.currentGrid = this.boardService.board;
-        }
-        this.boardService.updateElementList();
-      };
-    };
-
-    // NEW VERSION AVAILABLE
-    this.openRequest.onupgradeneeded = event => {
-
-      // Creaction of Store
-      const db = event.target.result;
-      const transaction = event.target.transaction;
-
-      this.createPaletteObject(db, transaction);
-      this.createGridObject(db, transaction);
-      this.createConfigurationObject(db, transaction);
-      this.boardService.updateElementList();
-
-    };
   }
 
   //DONE
-  deleteUserInformation(id: string) {
+  deleteUserInformation(id: number) {
     this.openRequest = indexedDB.open('Saves', 1);
 
     // ERROR
@@ -230,9 +224,19 @@ export class IndexeddbaccessService {
     // SUCCESS
     this.openRequest.onsuccess = event => {
       const db = event.target.result;
-      db.transaction(['Configuration'], 'readwrite').objectStore('Configuration').delete(id);
-      db.transaction(['Grid'], 'readwrite').objectStore('Grid').delete(id);
-      db.transaction(['Palette'], 'readwrite').objectStore('Palette').delete(id);
+      const deleteConfigRequest = db.transaction(['Configuration'], 'readwrite').objectStore('Configuration').delete(id);
+      deleteConfigRequest.onsuccess = e => {
+        console.log("DELETE CONFIG");
+      };
+        const deleteGridRequest = db.transaction(['Grid'], 'readwrite').objectStore('Grid').delete(id);
+      deleteGridRequest.onsuccess = e => {
+        console.log("DELETE GRID");
+      };
+
+      const deletePaletteRequest =  db.transaction(['Palette'], 'readwrite').objectStore('Palette').delete(id);
+      deletePaletteRequest.onsuccess = e => {
+        console.log("DELETE PALETTE");
+      };
     };
   }
 }

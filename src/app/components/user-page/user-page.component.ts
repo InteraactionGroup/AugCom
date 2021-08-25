@@ -24,7 +24,6 @@ export class UserPageComponent implements OnInit {
 
   submitted = false;
 
-  usersList: User[] = [];
   user: User = new User('', '');
 
   selectedFile = null;
@@ -44,9 +43,6 @@ export class UserPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.usersList = this.userPageService.usersList;
-    }, 200);
     this.addUserBool = false;
 
   }
@@ -56,15 +52,10 @@ export class UserPageComponent implements OnInit {
     this.submitted = false;
   }
 
-  loadUserList() {
-    this.usersList = this.userPageService.usersList;
-  }
-
-  removeUser(id: string) {
-    this.userPageService.removeUser(id);
-    this.usersList = this.userPageService.usersList;
-    this.indexeddbaccessService.updateUserList();
+  removeUser(id: number) {
     this.indexeddbaccessService.deleteUserInformation(id)
+    this.userPageService.removeUser(id);
+    this.indexeddbaccessService.updateUserList();
   }
 
   userImage(user: User): string {
@@ -73,11 +64,12 @@ export class UserPageComponent implements OnInit {
 
   userSelected(user: User) {
     this.userPageService.currentUser = user;
+    console.log("select user " + user.name);
     this.userPageService.setLoggedIn();
     this.indexeddbaccessService.loadInfoFromCurrentUser();
   }
 
-  openDialogDelete(id: string): void {
+  openDialogDelete(id: number): void {
     this.userPageService.deleteIdUser = id;
     const dialogDelete = this.dialog.open(DialogDeleteUserComponent, {
       height: '20%',
@@ -90,7 +82,7 @@ export class UserPageComponent implements OnInit {
     });
   }
 
-  openDialogChange(id: string, index: number) {
+  openDialogChange(id: number, index: number) {
     this.userPageService.deleteIdUser = id;
     this.userPageService.index = index;
     const dialogChange = this.dialog.open(DialogChangeUserComponent, {
