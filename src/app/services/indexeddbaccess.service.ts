@@ -175,7 +175,11 @@ export class IndexeddbaccessService {
 
       const configRequest = db.transaction(['Configuration']).objectStore('Configuration').get(this.userPageService.currentUser.id);
       configRequest.onsuccess = e => {
-        this.configurationService.setConfiguration(configRequest.result);
+        let resultConfig = configRequest.result;
+        if( resultConfig == null){
+          resultConfig = this.configurationService.getDefaultConfiguration();
+        }
+        this.configurationService.setConfiguration(resultConfig);
         this.currentConfiguration = this.configurationService.getConfiguration();
       };
       const paletteRequest = db.transaction(['Palette']).objectStore('Palette').get(this.userPageService.currentUser.id);
@@ -188,8 +192,13 @@ export class IndexeddbaccessService {
       };
       const gridRequest = db.transaction(['Grid']).objectStore('Grid').get(this.userPageService.currentUser.id);
       gridRequest.onsuccess = e => {
-        this.boardService.board = this.jsonValidator.getCheckedGrid(gridRequest.result);
-        this.currentGrid = this.boardService.board;
+        let gridResult = gridRequest.result;
+        if(gridResult == null){
+          this.boardService.resetBoard();
+        }else{
+          this.boardService.board = this.jsonValidator.getCheckedGrid(gridResult);
+          this.currentGrid = this.boardService.board;
+        }
         this.boardService.updateElementList();
       };
     };
@@ -204,7 +213,6 @@ export class IndexeddbaccessService {
       this.createPaletteObject(db, transaction);
       this.createGridObject(db, transaction);
       this.createConfigurationObject(db, transaction);
-
       this.boardService.updateElementList();
 
     };

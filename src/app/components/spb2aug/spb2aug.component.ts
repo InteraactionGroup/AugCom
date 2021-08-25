@@ -348,7 +348,7 @@ export class Spb2augComponent implements OnInit {
     const po = this.db.prepare('SELECT * FROM PageSetProperties');
     po.step();
     const police = po.getAsObject().FontFamily;
-    this.configuration.DEFAULT_STYLE_FONTFAMILY_VALUE = String(police);
+    this.configuration.STYLE_FONTFAMILY_VALUE = String(police);
   }
 
   /**
