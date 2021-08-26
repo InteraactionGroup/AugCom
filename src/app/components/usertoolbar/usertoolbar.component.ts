@@ -175,9 +175,6 @@ export class UsertoolbarComponent implements OnInit {
     localStorage.removeItem('logged');
     localStorage.removeItem('name');
     localStorage.removeItem('image');
-    this.userPageService.currentUser = null;
-     this.boardService.resetBoardNoUpdate();
-     this.paletteService.palettes = this.paletteService.DEFAULTPALETTELIST;
   }
 
   openDialog(): void {

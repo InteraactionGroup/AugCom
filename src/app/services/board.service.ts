@@ -83,13 +83,6 @@ export class BoardService {
   }
 
   /*reset board with default Board value*/
-  resetBoardNoUpdate() {
-    this.board = Board;
-    this.configurationService.setConfiguration(this.configurationService.getDefaultConfiguration());
-
-  }
-
-  /*reset board with default Board value*/
   resetBoard() {
     this.board = Board;
     this.updateElementList();

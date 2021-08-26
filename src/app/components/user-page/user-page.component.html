@@ -30,13 +30,13 @@
     <hr>
     <div class="ui four column grid">
       <div class="column" *ngFor="let user of  this.userPageService.usersList; let index = index">
-        <div class="ui card" [routerLink]="'/keyboard'">
-          <div class="content nameUser" (click)="userSelected(user)">
+        <div class="ui card">
+          <div class="content nameUser" (click)="userSelected(user)"  [routerLink]="'/keyboard'">
             <h3 class="ui centered aligned header">
               {{user.name}}
             </h3>
           </div>
-          <div class="images image" (click)="userSelected(user)" >
+          <div class="images image" (click)="userSelected(user)"  [routerLink]="'/keyboard'">
             <img src="{{userImage(user)}}" alt="">
           </div>
           <button class="deleteButton" *ngIf="user.id != 1" mat-raised-button color="primary"
