@@ -17,7 +17,8 @@ export class AccountMenuComponent implements OnInit {
         'paletteManagement',
         'interactions',
         'language',
-        'share']
+        'share',
+        'resetconfig']
     ],
     // ['Barre de phrase',
     //   ['Paramètres de la phrase',

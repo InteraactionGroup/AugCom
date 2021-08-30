@@ -129,4 +129,23 @@ export class IndexeddbaccessService {
     const configurationStore = transaction.objectStore('Configuration');
     configurationStore.add(this.configurationService.getConfiguration());
   }
+
+  setDefaultConfiguration(){
+    this.openRequest = indexedDB.open('Saves', 1);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+
+      const configRequest = db.transaction(['Configuration']).objectStore('Configuration').get(1);
+      configRequest.onsuccess = e => {
+        this.configurationService.setConfiguration(configRequest.result);
+      }
+    }
+  }
 }
