@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ResetConfigurationComponent } from './reset-configuration.component';
+import {Ng2ImgMaxModule} from "ng2-img-max";
 
 describe('ResetConfigurationComponent', () => {
   let component: ResetConfigurationComponent;
@@ -8,7 +9,8 @@ describe('ResetConfigurationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ResetConfigurationComponent ]
+      declarations: [ ResetConfigurationComponent ],
+      imports: [Ng2ImgMaxModule]
     })
     .compileComponents();
   }));
