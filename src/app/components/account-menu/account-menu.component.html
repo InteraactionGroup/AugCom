@@ -82,6 +82,10 @@
           <app-mention></app-mention>
         </ng-container>
 
+        <ng-container *ngIf="isSelectedSection('clearGrid')">
+          <app-reset-grid></app-reset-grid>
+        </ng-container>
+
       </div>
     </div>
 

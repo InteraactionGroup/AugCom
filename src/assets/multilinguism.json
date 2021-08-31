@@ -147,6 +147,8 @@
     { "id" : "Cancel", "FR" : "Annuler", "EN" : "Cancel"},
     { "id" : "Deleting selected pages", "FR" : "Supprimer les pages selectionnées", "EN" : "Deleting selected pages"},
     { "id" : "Multiple Delete Page","FR" :  "Suppression de pages", "EN" : "Delete Pages"},
-    { "id" : "retour", "FR" : "Retour", "EN" : "Back"}
+    { "id" : "retour", "FR" : "Retour", "EN" : "Back"},
+    { "id" : "VoulezVousVraimentSupprimerLaGrille?", "FR" : "Voulez vous vraiment supprimer la grille?", "EN" : "Do you want to delete the grid?"},
+    { "id" : "clearGrid", "FR" : "Vider la grille", "EN" : "Clear the grid"}
   ]
 }

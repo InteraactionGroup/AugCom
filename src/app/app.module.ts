@@ -59,6 +59,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import { Spb2augComponent } from './components/spb2aug/spb2aug.component';
 import { DialogHelpComponent } from './components/dialog-help/dialog-help.component';
 import {MatIconModule} from "@angular/material/icon";
+import { ResetGridComponent } from './components/reset-grid/reset-grid.component';
+import { DialogResetGridComponent } from './components/dialog-reset-grid/dialog-reset-grid.component';
 
 
 @NgModule({
@@ -102,7 +104,9 @@ import {MatIconModule} from "@angular/material/icon";
     DeletePageComponent,
     DialogDeletePageComponent,
     Spb2augComponent,
-    DialogHelpComponent
+    DialogHelpComponent,
+    ResetGridComponent,
+    DialogResetGridComponent
   ],
   imports: [
     BrowserModule,
