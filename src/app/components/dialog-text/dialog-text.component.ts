@@ -3,6 +3,8 @@ import {HistoricService} from "../../services/historic.service";
 import {GridElement, Vignette} from "../../types";
 import {MultilinguismService} from "../../services/multilinguism.service";
 import {ConfigurationService} from "../../services/configuration.service";
+import {UsertoolbarService} from "../../services/usertoolbar.service";
+import {GeticonService} from "../../services/geticon.service";
 
 declare const annyang: any;
 
@@ -23,6 +25,8 @@ export class DialogTextComponent implements OnInit {
   constructor(private historicService: HistoricService,
               public multilinguism: MultilinguismService,
               private configurationService: ConfigurationService,
+              public getIconService: GeticonService,
+              public userToolBarService: UsertoolbarService,
               private ngZone: NgZone) { }
 
   ngOnInit(): void {
@@ -36,6 +40,16 @@ export class DialogTextComponent implements OnInit {
   submit() {
     const vignette: Vignette = {
       Label: this.name,
+      ImagePath: '',
+      Color: '',
+      BorderColor: '',
+    };
+    this.historicService.push(vignette);
+  }
+
+  submitFromSpeech() {
+    const vignette: Vignette = {
+      Label: this.voiceText,
       ImagePath: '',
       Color: '',
       BorderColor: '',
@@ -117,5 +131,8 @@ export class DialogTextComponent implements OnInit {
     if(this.configurationService.LANGUAGE_VALUE === 'EN'){
       annyang.setLanguage('en');
     }
+  }
+  getIcon(s: string) {
+    return this.getIconService.getIconUrl(s);
   }
 }
