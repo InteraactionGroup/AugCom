@@ -12,8 +12,11 @@ import {FolderGoTo} from '../../types';
 import {EditionService} from '../../services/edition.service';
 import {DwellCursorService} from "../../services/dwell-cursor.service";
 import {ConfigurationService} from "../../services/configuration.service";
+import {Router} from "@angular/router";
+import {UserPageService} from "../../services/user-page.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogHelpComponent} from "../dialog-help/dialog-help.component";
+import {PaletteService} from "../../services/palette.service";
 
 declare const annyang: any;
 
@@ -36,7 +39,10 @@ export class UsertoolbarComponent implements OnInit {
     public editionService: EditionService,
     public dwellCursorService: DwellCursorService,
     public configurationService: ConfigurationService,
-    public dialog: MatDialog
+    private router: Router,
+    private userPageService: UserPageService,
+    public dialog: MatDialog,
+    public paletteService: PaletteService
   ) {
   }
 
@@ -45,6 +51,7 @@ export class UsertoolbarComponent implements OnInit {
   dwellTimer;
 
   ngOnInit() {
+    this.indexedDBacess.update();
   }
 
   /*get size of the searched result under search bar, maximum size reached for 5 results*/
@@ -169,7 +176,16 @@ export class UsertoolbarComponent implements OnInit {
       }
     }
   }
-  openDialog(): void{
+
+  logout() {
+    this.boardService.backHome();
+    this.router.navigate(['logging']);
+    localStorage.removeItem('logged');
+    localStorage.removeItem('name');
+    localStorage.removeItem('image');
+  }
+
+  openDialog(): void {
     this.dialog.open(DialogHelpComponent, {
       height: 'fit-content',
       width: 'fit-content'

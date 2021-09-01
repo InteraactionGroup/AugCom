@@ -153,6 +153,13 @@
     { "id" : "speechToText", "FR" : "Reconnaissance vocal", "EN" : "Speech to text"},
     { "id" : "Listening", "FR" : "En train d'écouter", "EN" : "Listening"},
     { "id" : "Start talking", "FR" : "Commence à parler", "EN" : "Start talking"},
-    { "id" : "Didnt catch that", "FR" : "Je n'ai pas compris", "EN" : "Didn't catch that"}
+    { "id" : "Didnt catch that", "FR" : "Je n'ai pas compris", "EN" : "Didn't catch that"},
+    { "id" : "pitch", "FR" : "Hauteur du son", "EN" : "Pitch"},
+    { "id" : "volume", "FR" : "Volume", "EN" : "Volume"},
+    { "id" : "rate", "FR" : "Vitesse de lecture", "EN" : "Reading speed"},
+    { "id" : "retour", "FR" : "Retour", "EN" : "Back"},
+    { "id" : "resetconfig", "FR": "Rétablir la configuration par défaut", "EN" : "Reset the configuration by default"},
+    { "id" : "VoulezVousVraimentSupprimerLaGrille?", "FR" : "Voulez vous vraiment supprimer la grille?", "EN" : "Do you want to delete the grid?"},
+    { "id" : "clearGrid", "FR" : "Vider la grille", "EN" : "Clear the grid"}
   ]
 }
