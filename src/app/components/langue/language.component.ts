@@ -21,14 +21,8 @@ export class LanguageComponent implements OnInit {
   }
 
   public msg: SpeechSynthesisUtterance;
-  public volume: number;
-  public pitch: number;
-  public rate: number;
 
   ngOnInit() {
-    this.volume = 1.0;
-    this.rate = 1.0;
-    this.pitch = 1.0;
   }
 
   translate() {
@@ -46,22 +40,4 @@ export class LanguageComponent implements OnInit {
     return this.getIconService.getIconUrl(s);
   }
 
-  voiceParamValue(){
-    this.historicService.volume = this.volume;
-    this.historicService.rate = this.rate;
-    this.historicService.pitch = this.pitch;
-  }
-
-  onSubmit(form: NgForm) {
-    if(form.value['volume'] != ""){
-      this.volume = form.value['volume'];
-    }
-    if(form.value['pitch'] != ""){
-      this.pitch = form.value['pitch'];
-    }
-    if(form.value['rate'] != ""){
-      this.rate = form.value['rate'];
-    }
-    this.voiceParamValue();
-  }
 }
