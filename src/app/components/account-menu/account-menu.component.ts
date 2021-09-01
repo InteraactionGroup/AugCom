@@ -46,7 +46,8 @@ export class AccountMenuComponent implements OnInit {
         // ['chemin absolu ou juste nom de la page']
         ,
         'DeletePage',
-        'GridFormat' // ,
+        'GridFormat',
+        'clearGrid'// ,
         // ['taille de la grille'],
         // ['espace entre les picto'],
         // ['thème du fond']

@@ -65,6 +65,8 @@ import { Spb2augComponent } from './components/spb2aug/spb2aug.component';
 import { DialogHelpComponent } from './components/dialog-help/dialog-help.component';
 import {MatIconModule} from "@angular/material/icon";
 import { ResetConfigurationComponent } from './components/reset-configuration/reset-configuration.component';
+import { ResetGridComponent } from './components/reset-grid/reset-grid.component';
+import { DialogResetGridComponent } from './components/dialog-reset-grid/dialog-reset-grid.component';
 
 
 @NgModule({
@@ -113,7 +115,9 @@ import { ResetConfigurationComponent } from './components/reset-configuration/re
     DialogChangeUserComponent,
     DialogAddUserComponent,
     DialogDeleteUserComponent,
-    ResetConfigurationComponent
+    ResetConfigurationComponent,
+    ResetGridComponent,
+    DialogResetGridComponent
   ],
   imports: [
     BrowserModule,
