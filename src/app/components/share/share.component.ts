@@ -132,7 +132,7 @@ export class ShareComponent implements OnInit {
     });
 
     this.indexedDBacess.update();
-    this.router.navigate(['']);
+    this.router.navigate(['keyboard']);
 
   }
 
@@ -204,7 +204,7 @@ export class ShareComponent implements OnInit {
 
       this.boardService.board = this.jsonValidator.getCheckedGrid(tempBoard);
       this.indexedDBacess.update();
-      this.router.navigate(['']);
+      this.router.navigate(['keyboard']);
     };
     fileReader.readAsText(myFile);
   }
