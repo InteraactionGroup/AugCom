@@ -30,7 +30,7 @@ describe('ShareComponent', () => {
     fixture = TestBed.createComponent(ShareComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    component.indexedDBacess.init();
+    component.indexedDBacess.loadUsersList();
   });
 
   it('should create', () => {

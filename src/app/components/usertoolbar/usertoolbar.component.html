@@ -52,6 +52,12 @@
     </div>
   </div>
 
+  <div class="button floatRight" id="log out" *ngIf="this.userToolBarService.unlock" (click)="this.logout()">
+    <div class="image width-100">
+      <img src="assets/images/logout.png" width="50" height="50" alt="logout">
+    </div>
+  </div>
+
   <div class="button floatRight" id="fullScreenButton" *ngIf="this.userToolBarService.unlock"
        (click)="this.userToolBarService.fullScreen()">
     <div class="image width-100"
@@ -83,7 +89,7 @@
          [ngStyle]="{'background-image': this.userToolBarService.search? '' : this.getIcon('search') }">
       <input #searchedText type="text" [(ngModel)]="this.searchText"
              (input)="this.searchService.searchFor(searchedText.value)" class="searchBar"
-             *ngIf="this.userToolBarService.search">
+             *ngIf="this.userToolBarService.search" maxlength="50">
       <div class="searchResultContainer"
            [ngStyle]="{'height': this.getResultsHeight(this.searchService.searchedWords.length)}">
         <div class="searchResult width-100" (click)="this.searchService.search(res.ID)"

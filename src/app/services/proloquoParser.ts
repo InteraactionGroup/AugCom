@@ -51,7 +51,7 @@ export class ProloquoParser {
 
             this.boardService.board = this.jsonValidator.getCheckedGrid(this.createGrid());
             this.indexedDBacess.update();
-            this.router.navigate(['']);
+            this.router.navigate(['keyboard']);
           });
         });
       });
