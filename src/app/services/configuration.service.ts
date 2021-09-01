@@ -28,6 +28,9 @@ export class ConfigurationService {
   DEFAULT_MAIN_COLOR_2_VALUE = "darkgrey";
   DEFAULT_MAIN_COLOR_3_VALUE = "grey";
   DEFAULT_MAIN_COLOR_4_VALUE = "dimgrey";
+  DEFAULT_VOLUME = 1.0;
+  DEFAULT_RATE = 1.0;
+  DEFAULT_PITCH = 1.0;
 
   DWELL_TIME_ENABLED = this.DEFAULT_DWELL_TIME_ENABLED;
   PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE = this.DEFAULT_PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE;
@@ -50,6 +53,9 @@ export class ConfigurationService {
   MAIN_COLOR_2_VALUE = this.DEFAULT_MAIN_COLOR_2_VALUE;
   MAIN_COLOR_3_VALUE = this.DEFAULT_MAIN_COLOR_3_VALUE;
   MAIN_COLOR_4_VALUE = this.DEFAULT_MAIN_COLOR_4_VALUE;
+  VOLUME = this.DEFAULT_VOLUME;
+  RATE = this.DEFAULT_RATE;
+  PITCH = this.DEFAULT_PITCH;
 
 // --main-font: Arial, sans-serif;
 // --main-picto-font: Arial, sans-serif;
@@ -79,7 +85,10 @@ export class ConfigurationService {
       'MAIN_COLOR_1_VALUE': this.MAIN_COLOR_1_VALUE,
       'MAIN_COLOR_2_VALUE': this.MAIN_COLOR_2_VALUE,
       'MAIN_COLOR_3_VALUE': this.MAIN_COLOR_3_VALUE,
-      'MAIN_COLOR_4_VALUE': this.MAIN_COLOR_4_VALUE
+      'MAIN_COLOR_4_VALUE': this.MAIN_COLOR_4_VALUE,
+      'VOLUME': this.DEFAULT_VOLUME,
+      'RATE': this.DEFAULT_RATE,
+      'PITCH': this.DEFAULT_PITCH
     }
   }
 
@@ -105,7 +114,10 @@ export class ConfigurationService {
       'MAIN_COLOR_1_VALUE': this.DEFAULT_MAIN_COLOR_1_VALUE,
       'MAIN_COLOR_2_VALUE': this.DEFAULT_MAIN_COLOR_2_VALUE,
       'MAIN_COLOR_3_VALUE': this.DEFAULT_MAIN_COLOR_3_VALUE,
-      'MAIN_COLOR_4_VALUE': this.DEFAULT_MAIN_COLOR_4_VALUE
+      'MAIN_COLOR_4_VALUE': this.DEFAULT_MAIN_COLOR_4_VALUE,
+      'VOLUME': this.DEFAULT_VOLUME,
+      'RATE': this.DEFAULT_RATE,
+      'PITCH': this.DEFAULT_PITCH
     }
   }
 
@@ -131,6 +143,9 @@ export class ConfigurationService {
     this.MAIN_COLOR_2_VALUE = configuration.MAIN_COLOR_2_VALUE;
     this.MAIN_COLOR_3_VALUE = configuration.MAIN_COLOR_3_VALUE;
     this.MAIN_COLOR_4_VALUE = configuration.MAIN_COLOR_4_VALUE;
+    this.VOLUME = configuration.VOLUME;
+    this.RATE = configuration.RATE;
+    this.PITCH = configuration.PITCH;
 
 
     this.styleService.updateStyle(

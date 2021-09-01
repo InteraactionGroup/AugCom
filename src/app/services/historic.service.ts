@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Vignette} from '../types';
 import {ParametersService} from './parameters.service';
+import {ConfigurationService} from "./configuration.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +10,9 @@ export class HistoricService {
 
   public historic: Vignette[] = [];
   public speechSynthesis: SpeechSynthesis;
-  public volume = 1.0;
-  public rate = 1.0;
-  public pitch = 1.0;
   public x: SpeechSynthesisUtterance;
 
-  constructor(public parametersService: ParametersService) {
+  constructor(public parametersService: ParametersService, private configurationService: ConfigurationService) {
   }
 
   isHistoricLengthMoreThan10(): boolean {
@@ -63,9 +61,9 @@ export class HistoricService {
       this.x.voice = newVoice;
       this.x.lang = newVoice.lang;
     }
-    this.x.volume = this.volume;
-    this.x.pitch = this.pitch;
-    this.x.rate = this.rate;
+    this.x.volume = this.configurationService.VOLUME;
+    this.x.pitch = this.configurationService.PITCH;
+    this.x.rate = this.configurationService.RATE;
     this.speechSynthesis.resume();
     this.speechSynthesis.speak(this.x);
   }

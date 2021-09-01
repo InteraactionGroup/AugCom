@@ -3,8 +3,6 @@ import {ParametersService} from '../../services/parameters.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
 import {GeticonService} from '../../services/geticon.service';
 import {ConfigurationService} from "../../services/configuration.service";
-import {HistoricService} from "../../services/historic.service";
-import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-language',
@@ -16,11 +14,8 @@ export class LanguageComponent implements OnInit {
   constructor(public multilinguism: MultilinguismService,
               public parametersService: ParametersService,
               public getIconService: GeticonService,
-              public historicService: HistoricService,
               public configurationService: ConfigurationService) {
   }
-
-  public msg: SpeechSynthesisUtterance;
 
   ngOnInit() {
   }
