@@ -7,7 +7,8 @@
   "files": [
     "src/main.ts",
     "src/polyfills.ts",
-    "node_modules/@types/sql.js/module.d.ts"
+    "node_modules/@types/sql.js/module.d.ts",
+    "src/assets/js/annyang.min.js"
   ],
   "include": [
     "src/**/*.ts"
