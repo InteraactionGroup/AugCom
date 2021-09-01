@@ -172,3 +172,19 @@ export class Configuration {
   'MAIN_COLOR_3_VALUE': string;
   'MAIN_COLOR_4_VALUE': string;
 }
+
+export class User{
+  id: number;
+  name: string;
+  base64image: string;
+  constructor(name, base64image, id?) {
+    if(id == null){
+      this.id = Math.floor(Math.random() * 10000000000) + Date.now();
+    }
+    else{
+      this.id = id;
+    }
+    this.name = name;
+    this.base64image = base64image;
+  }
+}
