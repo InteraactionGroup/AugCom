@@ -147,6 +147,7 @@
     { "id" : "Cancel", "FR" : "Annuler", "EN" : "Cancel"},
     { "id" : "Deleting selected pages", "FR" : "Supprimer les pages selectionnées", "EN" : "Deleting selected pages"},
     { "id" : "Multiple Delete Page","FR" :  "Suppression de pages", "EN" : "Delete Pages"},
-    { "id" : "retour", "FR" : "Retour", "EN" : "Back"}
+    { "id" : "retour", "FR" : "Retour", "EN" : "Back"},
+    { "id" : "resetconfig", "FR": "Rétablir la configuration par défaut", "EN" : "Reset the configuration by default"}
   ]
 }
