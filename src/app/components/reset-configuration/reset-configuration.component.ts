@@ -11,14 +11,13 @@ import {MultilinguismService} from "../../services/multilinguism.service";
 export class ResetConfigurationComponent implements OnInit {
 
   constructor(private configurationService: ConfigurationService,
-              private indexeddbaccessService: IndexeddbaccessService,
               public multilinguismService: MultilinguismService) { }
 
   ngOnInit(): void {
   }
 
   resetConfig(){
-    this.indexeddbaccessService.setDefaultConfiguration();
-    console.log('config', this.configurationService.getConfiguration())
+    this.configurationService.setConfiguration(this.configurationService.getDefaultConfiguration());
+    console.log('config reset', this.configurationService.getConfiguration())
   }
 }
