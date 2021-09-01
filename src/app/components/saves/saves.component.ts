@@ -24,7 +24,7 @@ export class SavesComponent implements OnInit {
   reset() {
     indexedDB.deleteDatabase('Saves');
     this.boardService.resetBoard();
-    this.indexeddbaccessService.init();
+    this.indexeddbaccessService.loadUsersList();
     this.indexeddbaccessService.update();
   }
 

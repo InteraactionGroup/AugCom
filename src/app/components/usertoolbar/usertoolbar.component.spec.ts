@@ -4,6 +4,7 @@ import {UsertoolbarComponent} from './usertoolbar.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
+import {RouterTestingModule} from "@angular/router/testing";
 import {MatDialogModule} from "@angular/material/dialog";
 
 describe('UsertoolbarComponent', () => {
@@ -13,7 +14,7 @@ describe('UsertoolbarComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [FormsModule, Ng2ImgMaxModule, MatDialogModule],
+      imports: [FormsModule, Ng2ImgMaxModule, MatDialogModule, RouterTestingModule],
       declarations: [UsertoolbarComponent]
     })
       .compileComponents();
@@ -23,7 +24,7 @@ describe('UsertoolbarComponent', () => {
     fixture = TestBed.createComponent(UsertoolbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    component.indexedDBacess.init();
+    component.indexedDBacess.loadUsersList();
   });
 
   it('should create', () => {
@@ -48,7 +49,7 @@ describe('UsertoolbarComponent', () => {
     compiled.querySelector('#lockUnlockButton').click();
     fixture.detectChanges();
 
-    expect(compiled.querySelectorAll('.button').length).toEqual(8);
+    expect(compiled.querySelectorAll('.button').length).toEqual(9);
     expect(compiled.querySelector('#accountButton')).not.toBe(null);
     expect(compiled.querySelector('#lockUnlockButton')).not.toBe(null);
     expect(compiled.querySelector('#editButton')).not.toBe(null);

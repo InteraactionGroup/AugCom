@@ -24,8 +24,8 @@ export class GridElementService {
     } else {
       element.style = new Style(
         backgroundColor,
-        this.configurationService.DEFAULT_STYLE_BORDERCOLOR_VALUE,
-        this.configurationService.DEFAULT_STYLE_TEXTCOLOR_VALUE);
+        this.configurationService.STYLE_BORDERCOLOR_VALUE,
+        this.configurationService.STYLE_TEXTCOLOR_VALUE);
     }
   }
 
@@ -34,9 +34,9 @@ export class GridElementService {
       (element.style as Style).BorderColor = borderColor;
     } else {
       element.style = new Style(
-        this.configurationService.DEFAULT_STYLE_BACKGROUNDCOLOR_VALUE,
+        this.configurationService.STYLE_BACKGROUNDCOLOR_VALUE,
         borderColor,
-        this.configurationService.DEFAULT_STYLE_TEXTCOLOR_VALUE);
+        this.configurationService.STYLE_TEXTCOLOR_VALUE);
     }
   }
 
@@ -45,8 +45,8 @@ export class GridElementService {
       (element.style as Style).TextColor = textColor;
     } else {
       element.style = new Style(
-        this.configurationService.DEFAULT_STYLE_BACKGROUNDCOLOR_VALUE,
-        this.configurationService.DEFAULT_STYLE_BORDERCOLOR_VALUE,
+        this.configurationService.STYLE_BACKGROUNDCOLOR_VALUE,
+        this.configurationService.STYLE_BORDERCOLOR_VALUE,
         textColor);
     }
   }

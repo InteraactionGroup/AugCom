@@ -89,7 +89,7 @@ export class Spb2augComponent implements OnInit {
       console.log(this.newGrid);
       this.statErrorImage();
       this.addColIfNeeded();
-      this.router.navigate(['']);
+      this.router.navigate(['keyboard']);
       let that = this;
       setTimeout(function () {
         that.boardService.board = that.newGrid;
@@ -348,7 +348,7 @@ export class Spb2augComponent implements OnInit {
     const po = this.db.prepare('SELECT * FROM PageSetProperties');
     po.step();
     const police = po.getAsObject().FontFamily;
-    this.configuration.DEFAULT_STYLE_FONTFAMILY_VALUE = String(police);
+    this.configuration.STYLE_FONTFAMILY_VALUE = String(police);
   }
 
   /**
