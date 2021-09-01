@@ -24,7 +24,7 @@ export class DialogResetGridComponent implements OnInit {
     homePage.NumberOfCols = 3;
     homePage.NumberOfRows = 3;
     homePage.GapSize = 6;
-    this.boardService.board = new Grid('nothing','grid',0,0,[],[],[homePage]);
+    this.boardService.board = new Grid('nothing','Grid',0,0,[],[],[homePage]);
     this.boardService.updateElementList();
   }
 
