@@ -5,7 +5,7 @@
 layout: splash
 permalink: /
 header:
-  overlay_image: /assets/images/logoAugcom.png
+  overlay_image: /assets/images/logoAugCom.png
   actions:
     - label: "<i class='fas fa-hand-point-up'></i> Try now"
       url: https://lig-augcom.imag.fr/stable/#/keyboard
@@ -13,7 +13,7 @@ excerpt: >
   AugCom description : //TODO <br />
 ---
 
-{% include figure image_path="/assets/images/augcom.png" alt="AugCom" %}
+{% include figure image_path="/assets/images/augCom.png" alt="AugCom" %}
 
 ## System Requirements
 
