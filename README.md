@@ -1,27 +1,16 @@
-# AugCom
+# GazePlay [![build status](https://secure.travis-ci.org/GazePlay/GazePlay.png)](http://travis-ci.org/GazePlay/GazePlay)<!-- [![codecov](https://codecov.io/gh/schwabdidier/GazePlay/branch/master/graph/badge.svg)](https://codecov.io/gh/schwabdidier/GazePlay)-->
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.10.
+All information about GazePlay can be found at [gazeplay.net](http://gazeplay.net). Download the latest version of the 
+game in the [releases](https://github.com/GazePlay/GazePlay/releases) tab.
 
-## Development server
+## Included Games
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+See [here](Games-eng.md) for a list of games included in the software.
 
-## Code scaffolding
+## Build from Source
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+You can build the project from source code by cloning this repository and following the [BUILD](BUILD.MD) instructions.
 
-## Build
+## Contribute
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Please refer to the [Contribution Guidelines](CONTRIBUTING.MD).
