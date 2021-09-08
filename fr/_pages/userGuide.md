@@ -8,9 +8,9 @@ layout: single
 
 Le clavier d'Augcom permet de générer des phrases en utilisant les pictogrammes proposés. Il existe deux sortes de touches sur le clavier d'Augcom, les boutons simples qui permettent d'ajouter un mot à la phrase et les boutons dossiers qui vont permettre d'entrer dans le dossier correspondant pour découvrir une nouvelle grille de pictogrammes.
 
-Quand vous rentrer dans un dossier, vous pouvez revenir à la page précédente en utilisant la flèche de retour située en bas a gauche de la fenetre.
+Quand vous rentrez dans un dossier, vous pouvez revenir à la page précédente en utilisant la flèche de retour située en bas à gauche de la fenetre.
 
-Un peu plus à droite du bouton retour vous trouverez le chemin de votre page courante.
+À droite du bouton retour vous trouverez le chemin de votre page courante.
 
 Le bouton avec un cadenas en bas à droite permet de débloquer l'accès à plusieurs fonctionnalités d'Augcom 
 
@@ -18,7 +18,7 @@ Le bouton avec un cadenas en bas à droite permet de débloquer l'accès à plus
 
 Quand un bouton simple est activé le mot et son pictogramme sont ajoutés à la phrase qui est visible dans la barre de texte ci dessus.
 
-Le bouton directement à droite de la barre de texte est le bouton "play" et permet donc de prononcer la phrase dans son intégralité, grâce à la synthèse vocale.
+Le bouton directement à droite de la barre de texte est le bouton "lecture" et permet donc de prononcer la phrase dans son intégralité, grâce à la synthèse vocale.
 
 Le bouton suivant, avec un "T" est le bouton permettant d'entrer directement un texte au clavier traditionnel et de l'ajouter à la phrase. Ce bouton peut être utilie par exemple si un mot est manquant dans la grille.
 
@@ -29,11 +29,11 @@ le bouton le plus à droite, avec une croix, permet d'effacer la phrase en entie
 # La Barre de Menu 
 Une fois la liste de fonctionnalités débloquées grâce au bouton cadenassé en bas à droite du logiciel, vous aurez accès à une barre de menu.
 
-Le bouton avec un drapeau permet evidemment de changer la langue de l'application, pour le moment seules deux langues sont disponibles: le français et l'anglais. Ce bouton permet seulement de changer la langue du menu, il en changera pas la langue de la grille.
+Le bouton avec un drapeau permet de changer la langue de l'application, pour le moment seules deux langues sont disponibles: le français et l'anglais. Ce bouton permet seulement de changer la langue du menu, il ne changera pas la langue de la grille.
 
-Le bouton avec la croix aux extrémités en forme de flèche permet de passer en mode plein écran. note: le mode plein écran n'est pas disponible sur IOS  (Iphone, Ipad, etc...)
+Le bouton avec la croix aux extrémités en forme de flèche permet de passer en mode plein écran. Note: le mode plein écran n'est pas disponible sur IOS  (Iphone, Ipad, etc...)
 
-Le bouton en forme d'oeil permet d'afficher ou de cacher les éléments marqués comme "non visibles" avec cette fonctionnalité. Pour plus d'information consultez la partie modification du bouton
+Le bouton en forme d'oeil permet d'afficher ou de cacher les éléments marqués comme "non visibles" avec cette fonctionnalité. Pour plus d'information, consultez la partie modification du bouton
 
 ## Modification du Bouton
 
@@ -49,13 +49,13 @@ Le bouton avec un crayon permet de modifier en une fois tous les boutons actuell
 
 Le bouton avec une poubelle permet de supprimer tous les boutons actuellement sélectionnés.
 
-Sur la droite de la barre vous trouverez des zonnes de texte modifiables grace au clavier ou grace aux petites fleches apparaissant quand vous les survolez.
+Sur la droite de la barre vous trouverez des zones de texte modifiables grâce au clavier ou grâce aux petites fleches apparaissant quand vous les survolez.
 
 La première zone de texte défini le nombre de colonnes de la grille visible.
 La seconde zone permet de définir le nombre de ligne de la grille actuelle.
-La dernière permet de définit l'écart entre les boutons de la grille actuelle.
+La dernière permet de définir l'écart entre les boutons de la grille actuelle.
 
-pour chaque bouton vous avez pu voir trois nouveau boutons apparaitre dans les angles de ces dernier.
+pour chaque bouton trois nouveaux boutons sont apparus dans les angles de ces dernier.
 Le bouton rouge avec une poubelle permet de supprimer le bouton correspondant.
 le bouton avec un oeil permet de le marquer comme "non visible" quand la fonction avec l'oeil est activée dans la barre de fonctionnalité présentée préccédemment.
 la croix en bas à droite permet de déplacer le bouton sur un autre emplacement de la grille.
