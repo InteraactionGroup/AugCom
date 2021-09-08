@@ -6,4 +6,4 @@ toc: true
 toc_label: "Sur cette page"
 ---
 
-//TODO
+Prochainement, différentes grilles crées par la communauté seront partagées ici !
