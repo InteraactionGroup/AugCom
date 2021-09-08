@@ -9,15 +9,3 @@ main:
     url: /references/
   - title: "Partners"
     url: /partners/
-  - title: "MenuTest"
-    children:
-      - title: "Sub1"
-        url: /sub1/
-      - title: "Sub2"
-        url: /sub2/
-  - title: "MenuTest1"
-    children:
-       - title: "Sub1"
-         url: /sub1/
-       - title: "Sub2"
-         url: /sub2/
