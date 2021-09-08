@@ -1,6 +1,6 @@
-references.md---
-title: MenuTest1
-permalink: /menuTest1/
+---
+title: References
+permalink: /references/
 layout: single
 ---
 
