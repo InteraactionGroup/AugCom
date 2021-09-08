@@ -10,7 +10,6 @@ main:
   - title: "Partners"
     url: /partners/
   - title: "MenuTest"
-    url: /partners/
     subcategories:
       - subtitle: "Sub1"
           url: /sub1/
