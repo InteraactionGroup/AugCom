@@ -10,12 +10,11 @@ main:
   - title: "Partners"
     url: /partners/
   - title: "MenuTest"
-    url: /partners/
     subcategories:
       - subtitle: "Sub1"
-          url: /sub1/
+        url: /sub1/
       - subtitle: "Sub2"
-          url: /sub2/
+        url: /sub2/
   - title: "MenuTest1"
     subcategories:
        - subtitle: "Sub1"
