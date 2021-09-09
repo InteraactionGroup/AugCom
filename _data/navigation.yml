@@ -1,7 +1,7 @@
 main:
   - title: "Share"
     url: /share/
-  - title: "User Guide"
+  - title: "How to use"
     url: /userGuide/
   - title: "Contact"
     url: /contact/
