@@ -28,7 +28,7 @@ describe('KeyboardComponent', () => {
     fixture = TestBed.createComponent(KeyboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    component.indexeddbaccessService.init();
+    component.indexeddbaccessService.loadUsersList();
   });
 
   it('should create', () => {

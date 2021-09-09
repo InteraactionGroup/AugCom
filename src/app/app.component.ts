@@ -52,16 +52,26 @@ export class AppComponent implements OnInit {
     if ((this.chromeAgent) && (this.operaAgent))
       this.chromeAgent = false;
 
-    document.querySelector(".output-safari").textContent
-      = String(this.safariAgent);
-    document.querySelector(".output-chrome").textContent
-      = String(this.chromeAgent);
-    document.querySelector(".output-ie").textContent
-      = String(this.IExplorerAgent);
-    document.querySelector(".output-opera").textContent
-      = String(this.operaAgent);
-    document.querySelector(".output-firefox").textContent
-      = String(this.firefoxAgent);
+    if(document.querySelector(".output-safari") !== null){
+      document.querySelector(".output-safari").textContent
+        = String(this.safariAgent);
+    }
+    if(document.querySelector(".output-chrome") !== null) {
+      document.querySelector(".output-chrome").textContent
+        = String(this.chromeAgent);
+    }
+    if(document.querySelector(".output-ie") !== null) {
+      document.querySelector(".output-ie").textContent
+        = String(this.IExplorerAgent);
+    }
+    if(document.querySelector(".output-opera") !== null) {
+      document.querySelector(".output-opera").textContent
+        = String(this.operaAgent);
+    }
+    if(document.querySelector(".output-firefox") !== null) {
+      document.querySelector(".output-firefox").textContent
+        = String(this.firefoxAgent);
+    }
   }
 
   ngOnInit(): void {

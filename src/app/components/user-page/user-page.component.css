@@ -1,0 +1,41 @@
+h1{
+  text-align: center
+}
+body {
+  overflow-y: scroll;
+}
+.card {
+  max-width: 400px;
+  max-height: 400px;
+}
+.cardButton:hover{
+  opacity: 0.5;
+}
+.card-header-image {
+  background-size: cover;
+}
+p.textCard{
+  text-align: center
+}
+button.deleteButton:hover{
+  opacity: 0.5;
+}
+button.deleteButton{
+  color: black;
+}
+.cardButton{
+  display: block;
+  margin: auto;
+}
+.imgCard{
+  max-height:270px;
+  max-width:280px;
+  height:100%;
+  width:100%;
+}
+.images:hover, button:hover{
+  opacity: 0.5;
+}
+.nameUser:hover{
+  opacity: 0.5;
+}

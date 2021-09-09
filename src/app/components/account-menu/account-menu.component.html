@@ -46,6 +46,10 @@
           <app-share></app-share>
         </ng-container>
 
+        <ng-container *ngIf="isSelectedSection('resetconfig')">
+          <app-reset-configuration></app-reset-configuration>
+        </ng-container>
+
         <ng-container *ngIf="isSelectedSection('interactions')">
           <app-settings></app-settings>
         </ng-container>
@@ -80,6 +84,10 @@
 
         <ng-container *ngIf="isSelectedSection('Mention')">
           <app-mention></app-mention>
+        </ng-container>
+
+        <ng-container *ngIf="isSelectedSection('clearGrid')">
+          <app-reset-grid></app-reset-grid>
         </ng-container>
 
       </div>

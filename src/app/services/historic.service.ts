@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Vignette} from '../types';
 import {ParametersService} from './parameters.service';
+import {ConfigurationService} from "./configuration.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +10,9 @@ export class HistoricService {
 
   public historic: Vignette[] = [];
   public speechSynthesis: SpeechSynthesis;
-  public volume = 1.0;
+  public x: SpeechSynthesisUtterance;
 
-  constructor(public parametersService: ParametersService) {
+  constructor(public parametersService: ParametersService, private configurationService: ConfigurationService) {
   }
 
   isHistoricLengthMoreThan10(): boolean {
@@ -51,18 +52,20 @@ export class HistoricService {
 
   say(text: string) {
     this.speechSynthesis = window.speechSynthesis;
-    const x = new SpeechSynthesisUtterance(text + ' ');
+    this.x = new SpeechSynthesisUtterance(text + ' ');
     /*checking if we can find the same voice*/
     const newVoice = this.parametersService.getCurrentVoice();
 
     /*if we can't find the same lang don't change the voice*/
     if (newVoice !== undefined && newVoice !== null) {
-      x.voice = newVoice;
-      x.lang = newVoice.lang;
+      this.x.voice = newVoice;
+      this.x.lang = newVoice.lang;
     }
-    x.volume = this.volume;
+    this.x.volume = this.configurationService.VOLUME;
+    this.x.pitch = this.configurationService.PITCH;
+    this.x.rate = this.configurationService.RATE;
     this.speechSynthesis.resume();
-    this.speechSynthesis.speak(x);
+    this.speechSynthesis.speak(this.x);
   }
 
 

@@ -91,7 +91,7 @@ export class EditionComponent implements OnInit {
       this.editionService.add = false;
       this.clear();
       this.indexedDBacess.update();
-      this.router.navigate(['']);
+      this.router.navigate(['keyboard']);
 
       await this.delay(500);
       this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
