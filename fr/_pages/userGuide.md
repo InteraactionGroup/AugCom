@@ -32,9 +32,11 @@ Le bouton directement à droite de la barre de texte est le bouton "lecture". Il
 
 Le bouton suivant, avec un "T" est le bouton permettant d'entrer directement un texte au clavier traditionnel et de l'ajouter à la phrase. Ce bouton peut être utile par exemple si un mot est manquant dans la grille.
 
-L'avant dernier bouton avec une flèche vers la gauche permet d'effacer le dernier mot ajouté à la phrase.
+Le bouton avec une flèche vers la gauche permet d'effacer le dernier mot ajouté à la phrase.
 
-Le bouton le plus à droite, avec une croix, permet d'effacer la phrase en entier.
+L'avant dernier bouton, avec une croix, permet d'effacer la phrase en entier.
+
+Le bouton le plus à droite, en forme de point d'interrogation, permet d'afficher le menu d'aide.
 
 # La Barre de Menu 
 
@@ -72,10 +74,10 @@ En mode "édition", pour chaque touche, trois nouveau boutons apparaissent dans 
 
 {% include figure image_path="assets/images/button_edit_mode.PNG" alt="button edit mode" %}
 
-Le bouton rouge avec une poubelle permet de supprimer le bouton auquel il est attaché. *(Note: une demande de validation s'affichera pour éviter une fausse manipulation.)*
-Le bouton avec un œil permet de le marquer comme "non visible" quand la fonction avec l’œil est activée en utilisant la fonction présentée dans la section "Barre de menu".
-La croix fléchée en bas à droite permet de déplacer le bouton sur un autre emplacement de la grille. *Laissez appuyé pour saisir la touche et la soulever, puis déplacer là dans la grille et relâchez le bouton pour valider la nouvelle position.*
-Vous pouvez également étirer la touche, en hauteur ou en largeur, en tirant sur ses bords.
+- Le bouton rouge avec une poubelle permet de supprimer le bouton auquel il est attaché. *(Note: une demande de validation s'affichera pour éviter une fausse manipulation.)*
+- Le bouton avec un œil permet de le marquer comme "non visible" quand la fonction avec l’œil est activée en utilisant la fonction présentée dans la section "Barre de menu".
+- La croix fléchée en bas à droite permet de déplacer le bouton sur un autre emplacement de la grille. *Laissez appuyé pour saisir la touche et la soulever, puis déplacer là dans la grille et relâchez le bouton pour valider la nouvelle position.*
+- Vous pouvez également étirer la touche, en hauteur ou en largeur, en tirant sur ses bords.
 
 En cliquant une fois sur une touche vous pouvez la sélectionner/désélectionner puis cliquez sur les boutons de la barre de fonctionnalités du mode édition présentée juste avant, pour modifier ou supprimer l'ensemble des touches sélectionnées.
 
@@ -119,9 +121,9 @@ Pour la modification d'image, 3 possibilités s'offrent à vous.
 
 {% include figure image_path="assets/images/modifier_l_image.PNG" alt="modifier l image" %}
 
-Vous pouvez tout d'abord importer un de vos propres fichiers images en cliquant sur "choisir un fichier".
-Vous pouvez aussi importer une image à partir d'une URL. Pour cela, entrez simplement l'URL dans la zone de texte correspondante et cliquez sur OK.
-Enfin vous pouvez ajouter une image à partir de notre bibliothèque locale regroupant des banques d'images provenant de plusieurs bases de données open source. Pour trouver l'image qui vous intéresse, entrez le mot clef dans la zone de texte correspondante et cliquez sur "search". Plusieurs pictogrammes vous seront proposés, cliquez simplement sur celui qui vous convient.
+- Vous pouvez tout d'abord importer un de vos propres fichiers images en cliquant sur "choisir un fichier".
+- Vous pouvez aussi importer une image à partir d'une URL. Pour cela, entrez simplement l'URL dans la zone de texte correspondante et cliquez sur OK.
+- Enfin vous pouvez ajouter une image à partir de notre bibliothèque locale regroupant des banques d'images provenant de plusieurs bases de données open source. Pour trouver l'image qui vous intéresse, entrez le mot clef dans la zone de texte correspondante et cliquez sur "search". Plusieurs pictogrammes vous seront proposés, cliquez simplement sur celui qui vous convient.
 
 {% include figure image_path="assets/images/library_fruit_search.PNG" alt="library fruit search" %}
 
@@ -136,7 +138,7 @@ Pour ajouter une nouvelle forme variante du mot cliquez sur le bouton ajouter.
 
 {% include figure image_path="assets/images/add_variant.PNG" alt="add variant" %}
 
-Vous pouvez ajouter une variante de deux manière différents.
+Vous pouvez ajouter une variante de deux manières différents.
 - Soit manuellement, en choisissant le mot qui sera affiché et celui qui sera prononcé.
 - Soit en recherchant les variantes existantes pour ce mot depuis le net. **(cette fonctionnalité est actuellement en développement et n'est pas encore fonctionnelle.)**
 
@@ -166,6 +168,8 @@ Les différentes actions son:
  - *retour*: retourne à la page précédente.
  - *retour à l'écran principal*: retourne à la page d'accueil de votre clavier.
  - *afficher les formes alternatives*: affiche les formes alternatives du bouton si il en a. *(pour plus d'informations sur les formes alternatives, rendez vous dans la section correspondante)*
+ 
+ 
  
 
 # Paramètres de l'application
