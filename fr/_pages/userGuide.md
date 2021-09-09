@@ -104,15 +104,15 @@ Si on choisit de créer une nouvelle page une zone de texte apparait pour défin
 
 ## Menu Apparence
 
-###modifier les couleurs
+### modifier les couleurs
 
 Le menu apparence permet de changer les éléments graphiques du boutons.
 
-{% include figure image_path="assets/images/edit_color_modif.PNG" alt="edit color modif" %}
+{% include figure image_path="assets/images/edition_color_modif.PNG" alt="edit color modif" %}
 
 La couleur intérieur et extérieur du bouton peuvent donc être changés en utilisant les palettes définies par l'utilisateur (pour apprendre à créer une palette rendez vous dans la section "Gestion des paletttes".
 
-###modifier l'image / le pictogramme
+### modifier l'image / le pictogramme
 
 Pour la modification d'image 3 différentes possibilités s'offrent à vous.
 
