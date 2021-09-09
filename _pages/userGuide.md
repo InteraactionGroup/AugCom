@@ -32,9 +32,11 @@ The button directly to the right of the text bar is the "read" button. It allows
 
 The next button, with a "T", is the button that allows you to directly enter a text with the traditional keyboard and to add it to the sentence. This button can be useful for example if a word is missing in the grid.
 
-The second to last button with an arrow to the left allows to delete the last word added to the sentence.
+The button with a left arrow allows to delete the last word added to the sentence.
 
-The rightmost button, with a cross, is used to delete the entire sentence.
+The second to last button, with a cross, is used to delete the whole sentence.
+
+The rightmost button, in the form of a question mark, displays the help menu.
 
 # The Menu Bar 
 
@@ -72,10 +74,10 @@ In "edit" mode, for each key, three new buttons appear in the corners as you can
 
 {% include figure image_path="assets/images/button_edit_mode.PNG" alt="button edit mode" %}
 
-The red button with a trash can allows you to delete the button it is attached to. *(Note: a validation request will be displayed to avoid a false manipulation.)
-The button with an eye allows you to mark it as "not visible" when the function with the eye is activated using the function presented in the "Menu bar" section.
-The arrow cross at the bottom right allows you to move the button to another location on the grid. *Press and hold to grab the button and lift it, then move it around the grid and release the button to accept the new position.
-You can also stretch the key, in height or width, by dragging its edges.
+- The red button with a trash can allows you to delete the button it is attached to. *(Note: a validation request will be displayed to avoid a false manipulation.)
+- The button with an eye allows you to mark it as "not visible" when the function with the eye is activated using the function presented in the "Menu bar" section.
+- The arrow cross at the bottom right allows you to move the button to another location on the grid. *Press and hold to grab the button and lift it, then move it around the grid and release the button to accept the new position.
+- You can also stretch the key, in height or width, by dragging its edges.
 
 By clicking once on a key you can select/deselect it and then click on the buttons of the edit mode feature bar presented just before, to modify or delete all the selected keys.
 
@@ -119,9 +121,9 @@ For image modification, 3 possibilities are available.
 
 {% include figure image_path="assets/images/modifier_l_image.PNG" alt="modify image" %}
 
-You can first import one of your own image files by clicking on "choose a file".
-You can also import an image from a URL. To do this, simply enter the URL in the corresponding text box and click OK.
-Finally you can add an image from our local library of images from several open source databases. To find the image you are interested in, enter the keyword in the corresponding text box and click on "search". Several pictograms will be proposed to you, just click on the one that suits you.
+- You can first import one of your own image files by clicking on "choose a file".
+- You can also import an image from a URL. To do this, simply enter the URL in the corresponding text box and click OK.
+- Finally you can add an image from our local library of images from several open source databases. To find the image you are interested in, enter the keyword in the corresponding text box and click on "search". Several pictograms will be proposed to you, just click on the one that suits you.
 
 {% include figure image_path="assets/images/library_fruit_search.PNG" alt="library fruit search" %}
 
