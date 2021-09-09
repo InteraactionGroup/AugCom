@@ -4,7 +4,7 @@ permalink: /references/fr
 layout: single
 ---
 
-{% include figure image_path="/assets/images/augCom.png" alt="AugCom" %}
+{% include figure image_path="/assets/images/logoAugCom.png" alt="AugCom" %}
 ### Augcom
 
 #### Site Web:
