@@ -4,39 +4,22 @@ permalink: /references/fr
 layout: single
 ---
 
-{% include figure image_path="/assets/images/logoAugCom.png" alt="AugCom" %}
 ### Augcom
-
-#### Site Web:
-https://interaactiongroup.github.io/AugCom/fr
-
+<a href="https://interaactiongroup.github.io/AugCom/fr"><img src="../assets/images/augCom.png" alt="augCom"></a>
 #### Application:
 http://www.augcom.net/
 
-
-{% include figure image_path="/assets/images/logoInteraactionScene.png" alt="InteraactionScene" %}
 ### InteraactionScene
-
-#### Site Web:
-https://interaactiongroup.github.io/InteraactionScene/fr
-
+<a href="https://interaactiongroup.github.io/InteraactionScene/fr"><img src="../assets/images/logoInteraactionScene.png" alt="InteraactionScene"></a>
 #### Application:
 http://www.interaactionScene.net/
 
-{% include figure image_path="/assets/images/gazeplayClassicLogo.png" alt="GazePlay" %}
 ### GazePlay
+<a href="http://www.gazeplay.net/"><img src="../assets/images/gazeplayClassicLogo.png" alt="gazeplay"></a>
 
-#### Site Web:
-http://www.gazeplay.net/
-
-{% include figure image_path="/assets/images/interaactionBox-AFSR.png" alt="InteraactionBox-AFSR" %}
 ### InteraactionBox-AFSR
+<a href="https://interaactionbox.afsr.fr/"><img src="../assets/images/interaactionBox-AFSR.png" alt="interaactionBox-AFSR"></a>
 
-#### Site Web:
-https://interaactionbox.afsr.fr/
-
-{% include figure image_path="/assets/images/afsrlogo.png" alt="AFSR" %}
 ### AFSR
+<a href="https://afsr.fr/"><img src="../assets/images/afsrlogo.png" alt="AFSR"></a>
 
-#### Site Web:
-https://afsr.fr/
