@@ -20,5 +20,3 @@ layout: single
 
 <p><a href="https://www.klesia.fr/"><img src="../assets/images/klesia.jpg" alt="klesia" width="30%"></a></p>
 
-        
-      </section>
