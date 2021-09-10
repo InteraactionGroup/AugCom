@@ -3,7 +3,7 @@ title: Partenaires
 permalink: /partners/fr
 layout: single
 ---
-AFSR | Université Grenoble Alpes | Lig Lab | Gipsa Lab 
+Association Française du syndrome de Rett | Université Grenoble Alpes | Laboratoire d'informatique de Grenoble  | Laboratoire de Grenoble Images Parole Signal Automatique
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
 <a href="https://afsr.fr/"><img src="../assets/images/afsrlogo.png" alt="asfr" ></a> | <a href="https://www.univ-grenoble-alpes.fr/"><img src="../assets/images/UGA.png" alt="uga" ></a> | <a href="https://www.liglab.fr/"><img src="../assets/images/lig.png" alt="lig" ></a> | <a href="http://www.gipsa-lab.fr/"><img src="../assets/images/Gipsa_Lab.png" alt="gipsa" ></a>
 
