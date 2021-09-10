@@ -35,7 +35,7 @@ http://www.gazeplay.net/
 #### Site Web:
 https://interaactionbox.afsr.fr/
 
-{% include figure image_path="/assets/images/interaactionBox-AFSR.png" alt="AFSR" %}
+{% include figure image_path="/assets/images/afsrlogo.png" alt="AFSR" %}
 ### AFSR
 
 #### Site Web:
