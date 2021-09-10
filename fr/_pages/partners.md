@@ -23,4 +23,4 @@ layout: single
 [![afnic](../assets/images/afnic.jpg)](https://www.fondation-afnic.fr/)
 
 ### Fondation klesia
-[![afnic](../assets/images/afnic.jpg)](https://www.klesia.fr/)
+[![klesia](../assets/images/klesia.jpg)](https://www.klesia.fr/)
