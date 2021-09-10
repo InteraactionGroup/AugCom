@@ -15,9 +15,7 @@ layout: single
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: center;width: 25%;"><a href="https://afsr.fr/"><img src="../assets/images/afsrlogo.png" alt="asfr" style="
-    /* width: 20%; */
-"></a></td>
+      <td style="text-align: center;width: 25%;"><a href="https://afsr.fr/"><img src="../assets/images/afsrlogo.png" alt="asfr"></a></td>
       <td style="text-align: center;width: 25%;"><a href="https://www.univ-grenoble-alpes.fr/"><img src="../assets/images/UGA.png" alt="uga"></a></td>
       <td style="text-align: center;width: 25%;"><a href="https://www.liglab.fr/"><img src="../assets/images/lig.png" alt="lig"></a></td>
       <td style="text-align: center;width: 25%;"><a href="http://www.gipsa-lab.fr/"><img src="../assets/images/Gipsa_Lab.png" alt="gipsa"></a></td>
