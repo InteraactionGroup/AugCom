@@ -6,44 +6,23 @@ layout: single
 
 {% include figure image_path="/assets/images/afsrlogo.png" alt="AFSR" %}
 ### Association Française du syndrome de Rett (AFSR)
+[![asfr][/assets/images/afsrlogo.png]][https://afsr.fr/]
 
-#### Site Web:
-https://afsr.fr/
-
-{% include figure image_path="/assets/images/UGA.png" alt="UGA" %}
 ### Université Grenoble Alpes (UGA)
+[![uga][/assets/images/UGA.png]][https://www.univ-grenoble-alpes.fr/]
 
-#### Site Web:
-https://www.univ-grenoble-alpes.fr/
-
-{% include figure image_path="/assets/images/lig.png" alt="lig" %}
 ### Laboratoire d'informatique de Grenoble (Lig Lab)
+[![lig][/assets/images/lig.png]][https://www.liglab.fr/]
 
-#### Site Web:
-https://www.liglab.fr/
-
-{% include figure image_path="/assets/images/Gipsa_Lab.png" alt="Gipsa Lab" %}
 ### Laboratoire Grenoble Images Parole Signal Automatique (Gipsa Lab)
+[![gipsa][/assets/images/Gipsa_Lab.png]][http://www.gipsa-lab.fr/]
 
-#### Site Web:
-http://www.gipsa-lab.fr/
-
-#
-
-{% include figure image_path="/assets/images/fondation_free.png" alt="fondation free" %}
 ### Fondation free
-
-#### Site Web:
-https://www.fondation-free.fr/
+[![free][/assets/images/free.jpg]][https://www.fondation-free.fr/]
 
 {% include figure image_path="/assets/images/afnic.jpg" alt="afnic" %}
 ### Fondation afnic
+[![afnic][/assets/images/afnic.jpg]][https://www.fondation-afnic.fr/]
 
-#### Site Web:
-https://www.fondation-afnic.fr/
-
-{% include figure image_path="/assets/images/klesia.jpg" alt="klesia" %}
-### Fondation afnic
-
-#### Site Web:
-https://www.klesia.fr/
+### Fondation klesia
+[![afnic][/assets/images/afnic.jpg]][https://www.klesia.fr/]
