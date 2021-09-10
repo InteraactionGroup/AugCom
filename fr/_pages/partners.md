@@ -4,23 +4,19 @@ permalink: /partners/fr
 layout: single
 ---
 
-[![asfr](../assets/images/afsrlogo.png)](https://afsr.fr/) 
+<p><a href="https://afsr.fr/"><img src="../assets/images/afsrlogo.png" alt="asfr" width="20%"></a></p>
 
-<img src="assets/images/afsrlogo.png" width="20%"/>
+<p><a href="https://www.univ-grenoble-alpes.fr/"><img src="../assets/images/UGA.png" alt="uga" width="20%"></a></p>
 
-[![uga](../assets/images/UGA.png)](https://www.univ-grenoble-alpes.fr/)
+<p><a href="https://www.liglab.fr/"><img src="../assets/images/lig.png" alt="lig" width="20%"></a></p>
 
-[![lig](../assets/images/lig.png)](https://www.liglab.fr/)
-
-[![gipsa](../assets/images/Gipsa_Lab.png)](http://www.gipsa-lab.fr/)
+<p><a href="http://www.gipsa-lab.fr/"><img src="../assets/images/Gipsa_Lab.png" alt="gipsa" width="20%"></a></p>
 
 ## ils nous soutiennent
 
-### Fondation free
-[![free](../assets/images/free.jpg)](https://www.fondation-free.fr/)
+<p><a href="https://www.fondation-free.fr/"><img src="../assets/images/free.jpg" alt="free" width="30%"></a></p>
 
-### Fondation afnic
-[![afnic](../assets/images/afnic.jpg)](https://www.fondation-afnic.fr/)
+<p><a href="https://www.fondation-afnic.fr/"><img src="../assets/images/afnic.jpg" alt="afnic" width="30%"></a></p>
 
-### Fondation klesia
-[![klesia](../assets/images/klesia.jpg)](https://www.klesia.fr/)
+<p><a href="https://www.klesia.fr/"><img src="../assets/images/klesia.jpg" alt="klesia" width="30%"></a></p>
+
