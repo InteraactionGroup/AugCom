@@ -45,6 +45,12 @@ export class UserPageComponent implements OnInit {
               public userToolBarService: UsertoolbarService,
               public dialog: MatDialog,
               public themeService: ThemeService) {
+    this.theme = this.themeService.theme;
+    if(this.theme == "inverted"){
+      this.themebody = "darkMode";
+    }else {
+      this.themebody = "";
+    }
     this.themeService.themeObservable.subscribe(value => {
       if (value == "inverted"){
         this.themebody = "darkMode";

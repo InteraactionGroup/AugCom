@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {GeticonService} from '../../services/geticon.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
+import {ThemeService} from "../../services/theme.service";
+import {ConfigurationService} from "../../services/configuration.service";
 
 @Component({
   selector: 'app-account',
@@ -23,10 +25,21 @@ export class AccountComponent implements OnInit {
 
   selectedMenu = 'complementaryInfo';
   selectedSubMenu = 'contacts';
+  theme: string;
 
 
   constructor(public multilinguism: MultilinguismService,
-              public getIconService: GeticonService) {
+              public getIconService: GeticonService,
+              public themeService: ThemeService,
+              public configurationService: ConfigurationService) {
+    if(this.themeService.theme === "inverted"){
+      this.theme = "darkMode";
+      const body = document.body;
+      body.style.setProperty('--main-bg-color0', '#231f20');
+    }else{
+      this.theme = "";
+    }
+    console.log('theme account', this.theme);
   }
 
 

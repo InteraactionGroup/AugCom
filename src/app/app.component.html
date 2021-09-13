@@ -2,7 +2,7 @@
   <p> this app is not designed to work on firefox, please open it with another browser (Google-Chrome is recommended)</p>
   <p> you can <span (click)="this.userAcceptTheRisk()" style="font-weight: bolder"> click here </span> if you want to continue at your own risks.</p>
 </span>
-<body [ngClass]="theme">
+<body>
 <span *ngIf="(!firefoxAgent && !safariAgent) || this.acceptTheRisk">
   <app-main></app-main>
   <app-dwell-cursor></app-dwell-cursor>
