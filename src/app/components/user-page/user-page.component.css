@@ -39,3 +39,8 @@ button.deleteButton{
 .nameUser:hover{
   opacity: 0.5;
 }
+
+.darkMode {
+  background-color: #231f20;
+  color: floralwhite;
+}

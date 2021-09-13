@@ -1,20 +1,24 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.5/dist/semantic.min.css">
-<body>
+<body [ngClass]="themebody">
 <div class="ui secondary menu">
   <div class="right menu">
     <div class="ui item" (click)="translate()"
          [ngStyle]="{'background-image':this.getIcon(this.configurationService.LANGUAGE_VALUE==='FR'? 'france':'uk'), 'background-repeat': 'no-repeat'}">
     </div>
+    <div class="ui item" (click)="this.themeService.theme === ''? this.themeService.emitTheme('inverted') : this.themeService.emitTheme('')"
+         [ngStyle]="{'background-image':this.getIcon(this.themeService.theme===''? 'light-mode':'night-mode'), 'background-repeat': 'no-repeat'}">
+    </div>
   </div>
 </div>
+
 <div class="ui centered grid">
-  <div class="fourteen wide column">
-    <h1 class="ui centered aligned header">
+  <div class="ui fourteen wide column">
+    <h1 [ngClass]="theme" class="ui centered aligned header">
       <span>
         Page de connexion
       </span>
     </h1>
-    <div class="ui cards centered">
+    <div [ngClass]="theme" class="ui cards centered">
       <div class="ui card" (click)="openDialogAdd()">
         <div class="image">
           <img src="./assets/images/AddUser.png" alt="">
@@ -30,7 +34,7 @@
     <hr>
     <div class="ui four column grid">
       <div class="column" *ngFor="let user of  this.userPageService.usersList; let index = index">
-        <div class="ui card">
+        <div [ngClass]="theme" class="ui card">
           <div class="content nameUser" (click)="userSelected(user)"  [routerLink]="'/keyboard'">
             <h3 class="ui centered aligned header">
               {{user.name}}

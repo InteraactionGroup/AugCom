@@ -1,3 +1,8 @@
 * {
   font-family: var(--main-font)
 }
+
+.darkMode  {
+  background-color: #231f20;
+  color: floralwhite;
+}

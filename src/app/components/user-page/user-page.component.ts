@@ -12,6 +12,7 @@ import {DialogChangeUserComponent} from "../dialog-change-user/dialog-change-use
 import {GeticonService} from "../../services/geticon.service";
 import {UsertoolbarService} from "../../services/usertoolbar.service";
 import {DialogAddUserComponent} from "../dialog-add-user/dialog-add-user.component";
+import {ThemeService} from "../../services/theme.service";
 
 @Component({
   selector: 'app-user-page',
@@ -31,6 +32,9 @@ export class UserPageComponent implements OnInit {
     name: ''
   });
 
+  theme = '';
+  themebody = '';
+
   constructor(private userPageService: UserPageService,
               private formBuilder: FormBuilder,
               private indexeddbaccessService: IndexeddbaccessService,
@@ -39,12 +43,20 @@ export class UserPageComponent implements OnInit {
               private paletteService: PaletteService,
               private getIconService: GeticonService,
               public userToolBarService: UsertoolbarService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              public themeService: ThemeService) {
+    this.themeService.themeObservable.subscribe(value => {
+      if (value == "inverted"){
+        this.themebody = "darkMode";
+      }else {
+        this.themebody = "";
+      }
+      this.theme = value;
+    });
   }
 
   ngOnInit(): void {
     this.addUserBool = false;
-
   }
 
   clickAddUser() {

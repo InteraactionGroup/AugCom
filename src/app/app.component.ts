@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {ThemeService} from "./services/theme.service";
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,18 @@ export class AppComponent implements OnInit {
   chromeAgent: boolean;
   IExplorerAgent: boolean;
   acceptTheRisk: boolean = false;
+  theme = "";
+
+  constructor(private themeService: ThemeService) {
+    this.theme = this.themeService.theme;
+    this.themeService.themeObservable.subscribe(value => {
+      if (value == "inverted"){
+        this.theme = "darkMode";
+      }else {
+        this.theme = "";
+      }
+    });
+  }
 
   userAcceptTheRisk() {
     this.acceptTheRisk = true;
