@@ -3,6 +3,7 @@ import {GeticonService} from '../../services/geticon.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
 import {ThemeService} from "../../services/theme.service";
 import {ConfigurationService} from "../../services/configuration.service";
+import {StyleService} from "../../services/style.service";
 
 @Component({
   selector: 'app-account',
@@ -31,11 +32,13 @@ export class AccountComponent implements OnInit {
   constructor(public multilinguism: MultilinguismService,
               public getIconService: GeticonService,
               public themeService: ThemeService,
-              public configurationService: ConfigurationService) {
+              public configurationService: ConfigurationService,
+              public styleService: StyleService) {
     if(this.themeService.theme === "inverted"){
       this.theme = "darkMode";
       const body = document.body;
       body.style.setProperty('--main-bg-color0', '#231f20');
+      body.style.setProperty('color','white');
     }else{
       this.theme = "";
     }
