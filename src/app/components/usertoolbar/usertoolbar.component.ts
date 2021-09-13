@@ -18,6 +18,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {DialogHelpComponent} from "../dialog-help/dialog-help.component";
 import {PaletteService} from "../../services/palette.service";
 
+declare const annyang: any;
+
 @Component({
   selector: 'app-usertoolbar',
   templateUrl: './usertoolbar.component.html',
@@ -93,6 +95,12 @@ export class UsertoolbarComponent implements OnInit {
 
   translate() {
     this.configurationService.LANGUAGE_VALUE = (this.configurationService.LANGUAGE_VALUE === 'FR' ? 'EN' : 'FR');
+    if(this.configurationService.LANGUAGE_VALUE === 'FR'){
+      annyang.setLanguage('fr-FR');
+    }
+    if(this.configurationService.LANGUAGE_VALUE === 'EN'){
+      annyang.setLanguage('en');
+    }
     console.log(this.configurationService.LANGUAGE_VALUE)
   }
 

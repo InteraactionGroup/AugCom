@@ -5,3 +5,33 @@
     <input type="submit" value="{{this.multilinguism.translate('submit')}}" (click)="submit()" mat-dialog-close>
   </form>
 </div>
+<br>
+<br>
+<p> {{this.multilinguism.translate('speechToText')}} </p>
+<div *ngIf="voiceActiveSectionDisabled; else voicesection;">
+  <button class="backgroundWhite" mat-raised-button type="button" (click)="startVoiceRecognition()"><img height="60px" width="50px" src="assets/icons/microphone.svg" alt="microphone"/></button>
+</div>
+<ng-template #voicesection>
+  <ng-container *ngIf="!voiceActiveSectionError; else failure">
+    <ng-container *ngIf="voiceText; else start">
+      <span>{{voiceText}}</span>
+    </ng-container>
+    <ng-template #start>
+      <ng-container
+        *ngIf="voiceActiveSectionListening; else beginning">
+        <span>{{this.multilinguism.translate('Listening')}}...</span>
+      </ng-container>
+      <ng-template #beginning>
+        <span>{{this.multilinguism.translate('Start talking')}}...</span>
+      </ng-template>
+    </ng-template>
+  </ng-container>
+  <ng-template #failure>
+    <span>{{this.multilinguism.translate('Didnt catch that')}}</span>
+  </ng-template>
+  <div>
+    <button mat-raised-button color="warn" (click)="closeVoiceRecognition()">{{this.multilinguism.translate('Close')}}</button>
+    <button mat-raised-button color="primary" (click)="startVoiceRecognition()">{{this.multilinguism.translate('Restart')}}</button>
+    <button mat-raised-button color="accent" *ngIf="voiceText" (click)="submitFromSpeech()" mat-dialog-close>{{this.multilinguism.translate('submit')}}</button>
+  </div>
+</ng-template>
