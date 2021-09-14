@@ -29,3 +29,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Update your repository forked
 
 Go to your Github repository with a web browser, on your master or main branch, click on Fetch upstream and then on Fetch and merge. Don't forget to pull to have the changes in your local repository.
+
+## Link your branch to the issue
+
+When you make a pull request, add in the comment section fix #numeroOfTheIssue.
+more information at this adress : https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue
