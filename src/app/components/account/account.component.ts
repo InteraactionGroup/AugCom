@@ -39,6 +39,7 @@ export class AccountComponent implements OnInit {
       const body = document.body;
       body.style.setProperty('--main-bg-color0', '#231f20');
       body.style.setProperty('color','white');
+      // body.style.setProperty('backgroundColor','#231f20');
     }else{
       this.theme = "";
     }
