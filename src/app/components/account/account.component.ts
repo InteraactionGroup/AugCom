@@ -26,24 +26,17 @@ export class AccountComponent implements OnInit {
 
   selectedMenu = 'complementaryInfo';
   selectedSubMenu = 'contacts';
-  theme: string;
 
 
   constructor(public multilinguism: MultilinguismService,
               public getIconService: GeticonService,
-              public themeService: ThemeService,
-              public configurationService: ConfigurationService,
-              public styleService: StyleService) {
-    if(this.themeService.theme === "inverted"){
-      this.theme = "darkMode";
+              public themeService: ThemeService) {
+    if(this.themeService.theme === "inverted") {
       const body = document.body;
       body.style.setProperty('--main-bg-color0', '#231f20');
-      body.style.setProperty('color','white');
-      // body.style.setProperty('backgroundColor','#231f20');
-    }else{
-      this.theme = "";
+      body.style.setProperty('--main-bg-color1', 'grey');
+      body.style.setProperty('color', 'white');
     }
-    console.log('theme account', this.theme);
   }
 
 

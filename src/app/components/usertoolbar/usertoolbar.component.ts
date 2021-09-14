@@ -17,6 +17,7 @@ import {UserPageService} from "../../services/user-page.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogHelpComponent} from "../dialog-help/dialog-help.component";
 import {PaletteService} from "../../services/palette.service";
+import {ThemeService} from "../../services/theme.service";
 
 @Component({
   selector: 'app-usertoolbar',
@@ -25,6 +26,7 @@ import {PaletteService} from "../../services/palette.service";
   providers: [Ng2ImgMaxService]
 })
 export class UsertoolbarComponent implements OnInit {
+
   constructor(
     public boardService: BoardService,
     public searchService: SearchService,
@@ -38,11 +40,11 @@ export class UsertoolbarComponent implements OnInit {
     public dwellCursorService: DwellCursorService,
     public configurationService: ConfigurationService,
     private router: Router,
-    private userPageService: UserPageService,
     public dialog: MatDialog,
-    public paletteService: PaletteService
-  ) {
-  }
+    public paletteService: PaletteService,
+    public themeService: ThemeService,
+    public indexdbaccessService: IndexeddbaccessService
+  ) {}
 
   /*text to search in the searchBar*/
   searchText = '';
@@ -143,6 +145,11 @@ export class UsertoolbarComponent implements OnInit {
       this.searchService.searchedWords = [];
       this.searchText = '';
     }
+  }
+
+  //this function is used to refresh the CSS for the keyboard
+  changePage(){
+    this.router.navigate(['account']).then(()=>this.router.navigate(['keyboard']));
   }
 
   /*lock or unlock the usertoolbar (and close the edit service if we lock)*/

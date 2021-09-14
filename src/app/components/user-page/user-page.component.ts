@@ -54,6 +54,10 @@ export class UserPageComponent implements OnInit {
     this.themeService.themeObservable.subscribe(value => {
       if (value == "inverted"){
         this.themebody = "darkMode";
+        const body = document.body;
+        body.style.setProperty('--main-bg-color0', '#231f20');
+        body.style.setProperty('--main-bg-color1', 'grey');
+        body.style.setProperty('color','white');
       }else {
         this.themebody = "";
       }

@@ -44,6 +44,11 @@
          [class.imageSelected]="this.userToolBarService.edit" [ngStyle]="{'background-image':this.getIcon('edit')}">
     </div>
   </div>
+  <div class="button floatRight" id="theme" *ngIf="this.userToolBarService.unlock">
+    <div class="ui image width-100" (click)="this.themeService.theme === ''? this.themeService.emitTheme('inverted') : this.themeService.emitTheme(''); changePage()"
+         [ngStyle]="{'background-image':this.getIcon(this.themeService.theme===''? 'light-mode':'night-mode'), 'background-repeat': 'no-repeat', 'background-size': 'contain'}">
+    </div>
+  </div>
 
   <div class="button floatRight" id="babbleButton" *ngIf="this.userToolBarService.unlock"
        (click)="this.userToolBarService.babble = !this.userToolBarService.babble">

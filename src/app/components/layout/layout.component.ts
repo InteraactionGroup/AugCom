@@ -3,6 +3,9 @@ import {GridsterConfig} from 'angular-gridster2';
 import {LayoutService} from '../../services/layout.service';
 import {BoardService} from '../../services/board.service';
 import {EditionService} from '../../services/edition.service';
+import {ThemeService} from "../../services/theme.service";
+import {ConfigurationService} from "../../services/configuration.service";
+import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 
 @Component({
   selector: 'app-layout',
@@ -11,7 +14,35 @@ import {EditionService} from '../../services/edition.service';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor(public boardService: BoardService, public layoutService: LayoutService, public editionService: EditionService) {
+  theme: string;
+
+  constructor(public boardService: BoardService,
+              public layoutService: LayoutService,
+              public editionService: EditionService,
+              public themeService: ThemeService,
+              public configurationService: ConfigurationService,
+              public indexedbaccessService: IndexeddbaccessService) {
+    if(this.themeService.theme === "inverted"){
+      this.theme = "darkMode";
+      const body = document.body;
+      body.style.setProperty('--main-bg-color0', '#231f20');
+      body.style.setProperty('--main-bg-color1', 'grey');
+      body.style.setProperty('background-color', 'lightgrey');
+      body.style.setProperty('color','white');
+      this.configurationService.DEFAULT_MAIN_COLOR_0_VALUE = '#231f20';
+      this.configurationService.DEFAULT_MAIN_COLOR_1_VALUE = 'grey';
+      this.indexedbaccessService.update();
+    }else{
+      this.theme = "";
+      const body = document.body;
+      body.style.setProperty('--main-bg-color0', 'white');
+      body.style.setProperty('--main-bg-color1', 'lightgrey');
+      body.style.setProperty('background-color', 'white');
+      body.style.setProperty('color','black');
+      this.configurationService.DEFAULT_MAIN_COLOR_0_VALUE = 'white';
+      this.configurationService.DEFAULT_MAIN_COLOR_1_VALUE = 'lightgrey';
+      this.indexedbaccessService.update();
+    }
   }
 
   ngOnInit(): void {
@@ -31,18 +62,23 @@ export class LayoutComponent implements OnInit {
   }
 
   getPageBackgroundColorValue(): string {
-    const currentPage = this.boardService.board.PageList.find(page => {
-      return page.ID === this.boardService.getCurrentFolder()
-    });
-    if (currentPage !== null && currentPage !== undefined) {
-      if (currentPage.BackgroundColor === undefined || currentPage.BackgroundColor === null || currentPage.BackgroundColor === 'default') {
-        return this.boardService.getGridBackgroundColorValue();
+    if(this.theme === "darkMode"){
+      return '#231f20';
+    }else{
+      const currentPage = this.boardService.board.PageList.find(page => {
+        return page.ID === this.boardService.getCurrentFolder()
+      });
+      if (currentPage !== null && currentPage !== undefined) {
+        if (currentPage.BackgroundColor === undefined || currentPage.BackgroundColor === null || currentPage.BackgroundColor === 'default') {
+          return this.boardService.getGridBackgroundColorValue();
+        } else {
+          return currentPage.BackgroundColor;
+        }
       } else {
-        return currentPage.BackgroundColor;
+        return this.boardService.getGridBackgroundColorValue();
       }
-    } else {
-      return this.boardService.getGridBackgroundColorValue();
     }
+
   }
 
 

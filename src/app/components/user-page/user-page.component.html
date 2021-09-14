@@ -6,7 +6,7 @@
          [ngStyle]="{'background-image':this.getIcon(this.configurationService.LANGUAGE_VALUE==='FR'? 'france':'uk'), 'background-repeat': 'no-repeat'}">
     </div>
     <div class="ui item" (click)="this.themeService.theme === ''? this.themeService.emitTheme('inverted') : this.themeService.emitTheme('')"
-         [ngStyle]="{'background-image':this.getIcon(this.themeService.theme===''? 'light-mode':'night-mode'), 'background-repeat': 'no-repeat'}">
+         [ngStyle]="{'background-image':this.getIcon(this.themeService.theme===''? 'light-mode':'night-mode'), 'background-repeat': 'no-repeat', 'background-size': 'contain', 'filter': this.themeService.theme === 'inverted'? 'invert(100%)':'invert(0%)'}">
     </div>
   </div>
 </div>
