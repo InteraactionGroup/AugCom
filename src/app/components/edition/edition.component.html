@@ -63,36 +63,4 @@
       <app-information-edition-page></app-information-edition-page>
     </ng-container>
   </div>
-
-
-  <div class="popup" *ngIf="this.editionService.colorPicked !== null">
-    <div class="popupcontainer">
-
-      <div class="palettes">
-        <ng-container *ngFor="let palette of this.paletteService.palettes">
-          <div class="paletteLabel width-100 floatLeft" (click)="this.editionService.selectThePalette(palette.name)">
-            {{palette.name}}
-            <div class="moreLess">
-              {{this.editionService.selectedPalette == palette.name ? '^' : 'v'}}
-            </div>
-          </div>
-          <div class="palette width-100 floatLeft" *ngIf="this.editionService.selectedPalette == palette.name"
-               [ngStyle]="{'grid-template-rows': 'repeat(' + this.paletteService.rowNumber(palette.colors.length) + ',30px)'}">
-            <div class="color floatLeft" [class.realcolor]="color!==null" *ngFor="let color of palette.colors"
-                 [ngStyle]="{'background-color': color}"
-                 (click)="this.editionService.selectColor(color);">
-
-            </div>
-          </div>
-        </ng-container>
-      </div>
-
-
-    </div>
-    <div class="close haveBackgroundImage" (click)="this.editionService.colorPicked = null;"
-         [ngStyle]="{'background-image':this.getIcon('clear')}">
-
-    </div>
-  </div>
-
 </div>
