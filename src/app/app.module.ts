@@ -67,6 +67,7 @@ import {MatIconModule} from "@angular/material/icon";
 import { ResetConfigurationComponent } from './components/reset-configuration/reset-configuration.component';
 import { ResetGridComponent } from './components/reset-grid/reset-grid.component';
 import { DialogResetGridComponent } from './components/dialog-reset-grid/dialog-reset-grid.component';
+import { ExportSaveDialogComponent } from './components/export-save-dialog/export-save-dialog.component';
 
 
 @NgModule({
@@ -117,7 +118,8 @@ import { DialogResetGridComponent } from './components/dialog-reset-grid/dialog-
     DialogDeleteUserComponent,
     ResetConfigurationComponent,
     ResetGridComponent,
-    DialogResetGridComponent
+    DialogResetGridComponent,
+    ExportSaveDialogComponent
   ],
   imports: [
     BrowserModule,
