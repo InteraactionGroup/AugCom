@@ -176,7 +176,6 @@ export class ImageSelectionPageComponent implements OnInit {
   }
 
   openDialogModifyBorder() {
-    //component à changer
     this.editionService.colorPicked = 'border';
     this.dialog.open(DialogModifyColorBorderComponent, {
       height: '50%',
