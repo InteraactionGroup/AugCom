@@ -15,7 +15,7 @@ export class PrintService {
   buttonHTML = '<input id="print" type="button" value="cliquez pour imprimer" style="margin-left: 25%; height: 50px; width: 50%; font-size: x-large;">\n';
 
   printDiv() {
-    const wind = window.open('/#/print');
+    const wind = window.open('stable/#/print');
     wind.onload = () => {
       wind.document.body.innerHTML =
         '<style>' + this.getCSSKeyboard() + '</style>'
