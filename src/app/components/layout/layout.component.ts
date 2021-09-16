@@ -25,6 +25,10 @@ export class LayoutComponent implements OnInit {
     if(this.themeService.theme === "inverted"){
       this.theme = "darkMode";
       const body = document.body;
+      if(body.style.getPropertyValue('--main-bg-color0') !== '#231f20' && body.style.getPropertyValue('--main-bg-color1') !== 'grey'){
+        localStorage.setItem('--main-bg-color0',body.style.getPropertyValue('--main-bg-color0'));
+        localStorage.setItem('--main-bg-color1',body.style.getPropertyValue('--main-bg-color1'));
+      }
       body.style.setProperty('--main-bg-color0', '#231f20');
       body.style.setProperty('--main-bg-color1', 'grey');
       body.style.setProperty('background-color', 'lightgrey');
@@ -35,13 +39,15 @@ export class LayoutComponent implements OnInit {
     }else{
       this.theme = "";
       const body = document.body;
-      body.style.setProperty('--main-bg-color0', 'white');
-      body.style.setProperty('--main-bg-color1', 'lightgrey');
+      body.style.setProperty('--main-bg-color0', localStorage.getItem('--main-bg-color0'));
+      body.style.setProperty('--main-bg-color1', localStorage.getItem('--main-bg-color1'));
       body.style.setProperty('background-color', 'white');
       body.style.setProperty('color','black');
-      this.configurationService.DEFAULT_MAIN_COLOR_0_VALUE = 'white';
-      this.configurationService.DEFAULT_MAIN_COLOR_1_VALUE = 'lightgrey';
+      this.configurationService.DEFAULT_MAIN_COLOR_0_VALUE = localStorage.getItem('--main-bg-color0');
+      this.configurationService.DEFAULT_MAIN_COLOR_1_VALUE = localStorage.getItem('--main-bg-color1');
       this.indexedbaccessService.update();
+      localStorage.removeItem('--main-bg-color0');
+      localStorage.removeItem('--main-bg-color1');
     }
   }
 

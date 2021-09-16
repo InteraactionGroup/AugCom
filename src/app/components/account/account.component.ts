@@ -27,15 +27,24 @@ export class AccountComponent implements OnInit {
   selectedMenu = 'complementaryInfo';
   selectedSubMenu = 'contacts';
 
-
   constructor(public multilinguism: MultilinguismService,
               public getIconService: GeticonService,
               public themeService: ThemeService) {
     if(this.themeService.theme === "inverted") {
       const body = document.body;
+      if(body.style.getPropertyValue('--main-bg-color0') !== '#231f20' && body.style.getPropertyValue('--main-bg-color1') !== 'grey'){
+        localStorage.setItem('--main-bg-color0',body.style.getPropertyValue('--main-bg-color0'));
+        localStorage.setItem('--main-bg-color1',body.style.getPropertyValue('--main-bg-color1'));
+      }
       body.style.setProperty('--main-bg-color0', '#231f20');
       body.style.setProperty('--main-bg-color1', 'grey');
       body.style.setProperty('color', 'white');
+    }else{
+      const body = document.body;
+      body.style.setProperty('--main-bg-color0', localStorage.getItem('--main-bg-color0'));
+      body.style.setProperty('--main-bg-color1', localStorage.getItem('--main-bg-color1'));
+      localStorage.removeItem('--main-bg-color0');
+      localStorage.removeItem('--main-bg-color1');
     }
   }
 
