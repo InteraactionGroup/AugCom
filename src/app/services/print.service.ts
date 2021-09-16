@@ -31,7 +31,6 @@ export class PrintService {
     wind.document.getElementById('print').onclick = () => {
       wind.document.getElementById('print').hidden = true;
       wind.print();
-      // wind.close();
       wind.document.body.innerHTML = this.buttonHTML + wind.document.body.innerHTML;
       this.recEventSettingFunction(wind);
     }
@@ -103,6 +102,7 @@ export class PrintService {
 
   innerHTML(elementList: GridElement[]) {
     let innerValue = '';
+
     elementList.forEach(element => {
       if (element.Type !== 'empty') {
         const url = this.boardService.getSimpleImgUrl(element);
