@@ -17,7 +17,7 @@
     <div class="ui cards centered">
       <div class="ui card" (click)="openDialogAdd()">
         <div class="image">
-          <img src="./assets/images/AddUser.png" alt="">
+          <img src="assets/images/AddUser.png" alt="">
         </div>
         <div class="content">
           <h2 class="ui centered aligned header">
@@ -40,11 +40,11 @@
             <img src="{{userImage(user)}}" alt="">
           </div>
           <button class="deleteButton" *ngIf="user.id != 1" mat-raised-button color="primary"
-                  (click)="this.openDialogChange(user.id, index)"> Modifier <img src='/assets/icons/settings.svg'
+                  (click)="this.openDialogChange(user.id, index)"> Modifier <img src='assets/icons/settings.svg'
                                                                                  alt="delete" height="5%" width="5%">
           </button>
           <button class="deleteButton" *ngIf="user.id != 1" mat-raised-button color="warn"
-                  (click)="this.openDialogDelete(user.id)"> Supprimer <img src='/assets/icons/delete.svg' alt="delete"
+                  (click)="this.openDialogDelete(user.id)"> Supprimer <img src='assets/icons/delete.svg' alt="delete"
                                                                            height="5%" width="5%"></button>
         </div>
       </div>
