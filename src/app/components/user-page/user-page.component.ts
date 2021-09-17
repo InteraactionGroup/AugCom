@@ -12,6 +12,7 @@ import {DialogChangeUserComponent} from "../dialog-change-user/dialog-change-use
 import {GeticonService} from "../../services/geticon.service";
 import {UsertoolbarService} from "../../services/usertoolbar.service";
 import {DialogAddUserComponent} from "../dialog-add-user/dialog-add-user.component";
+import {ThemeService} from "../../services/theme.service";
 
 @Component({
   selector: 'app-user-page',
@@ -31,6 +32,9 @@ export class UserPageComponent implements OnInit {
     name: ''
   });
 
+  theme = '';
+  themebody = '';
+
   constructor(private userPageService: UserPageService,
               private formBuilder: FormBuilder,
               private indexeddbaccessService: IndexeddbaccessService,
@@ -39,12 +43,42 @@ export class UserPageComponent implements OnInit {
               private paletteService: PaletteService,
               private getIconService: GeticonService,
               public userToolBarService: UsertoolbarService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              public themeService: ThemeService) {
+    this.theme = this.themeService.theme;
+    if(this.theme == "inverted"){
+      this.themebody = "darkMode";
+    }else {
+      this.themebody = "";
+    }
+    this.themeService.themeObservable.subscribe(value => {
+      if (value == "inverted"){
+        this.themebody = "darkMode";
+        const body = document.body;
+        body.style.setProperty('--main-bg-color0', '#231f20');
+        body.style.setProperty('--main-bg-color1', 'grey');
+        body.style.setProperty('--main-bg-color2', 'darkgrey');
+        body.style.setProperty('--main-bg-color3', 'grey');
+        body.style.setProperty('--main-bg-color4', 'dimgrey');
+        body.style.setProperty('color', 'white');
+        body.style.setProperty('background-color', 'lightgrey');
+      }else {
+        const body = document.body;
+        body.style.setProperty('--main-bg-color0', this.configurationService.MAIN_COLOR_0_VALUE);
+        body.style.setProperty('--main-bg-color1', this.configurationService.MAIN_COLOR_1_VALUE);
+        body.style.setProperty('--main-bg-color2', this.configurationService.MAIN_COLOR_2_VALUE);
+        body.style.setProperty('--main-bg-color3', this.configurationService.MAIN_COLOR_3_VALUE);
+        body.style.setProperty('--main-bg-color4', this.configurationService.MAIN_COLOR_4_VALUE);
+        body.style.setProperty('background-color', this.configurationService.STYLE_BACKGROUNDCOLOR_VALUE);
+        body.style.setProperty('color','black');
+        this.themebody = "";
+      }
+      this.theme = value;
+    });
   }
 
   ngOnInit(): void {
     this.addUserBool = false;
-
   }
 
   clickAddUser() {

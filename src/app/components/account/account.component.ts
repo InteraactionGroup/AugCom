@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {GeticonService} from '../../services/geticon.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
+import {ThemeService} from "../../services/theme.service";
+import {ConfigurationService} from "../../services/configuration.service";
+import {StyleService} from "../../services/style.service";
+import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 
 @Component({
   selector: 'app-account',
@@ -24,10 +28,11 @@ export class AccountComponent implements OnInit {
   selectedMenu = 'complementaryInfo';
   selectedSubMenu = 'contacts';
 
-
   constructor(public multilinguism: MultilinguismService,
-              public getIconService: GeticonService) {
-  }
+              public configurationService: ConfigurationService,
+              public getIconService: GeticonService,
+              public themeService: ThemeService,
+              public indexedbaccessService: IndexeddbaccessService) {}
 
 
   ngOnInit() {

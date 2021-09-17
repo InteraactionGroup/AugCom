@@ -2,7 +2,7 @@
   display: block;
   width: 100vw;
   height: 100vh;
-  background-color: white;
+  background-color: var(--main-bg-color0);
 }
 
 .account-page:after, .account-page:before {
@@ -211,4 +211,9 @@
 
 .menu-page-content::-webkit-scrollbar {
   display: none;
+}
+
+.darkMode {
+  background-color: #231f20;
+  color: floralwhite;
 }
