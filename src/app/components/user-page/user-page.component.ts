@@ -55,19 +55,22 @@ export class UserPageComponent implements OnInit {
       if (value == "inverted"){
         this.themebody = "darkMode";
         const body = document.body;
-        if(body.style.getPropertyValue('--main-bg-color0') !== '#231f20' && body.style.getPropertyValue('--main-bg-color1') !== 'grey'){
-          localStorage.setItem('--main-bg-color0',body.style.getPropertyValue('--main-bg-color0'));
-          localStorage.setItem('--main-bg-color1',body.style.getPropertyValue('--main-bg-color1'));
-        }
         body.style.setProperty('--main-bg-color0', '#231f20');
         body.style.setProperty('--main-bg-color1', 'grey');
-        body.style.setProperty('color','white');
+        body.style.setProperty('--main-bg-color2', 'darkgrey');
+        body.style.setProperty('--main-bg-color3', 'grey');
+        body.style.setProperty('--main-bg-color4', 'dimgrey');
+        body.style.setProperty('color', 'white');
+        body.style.setProperty('background-color', 'lightgrey');
       }else {
         const body = document.body;
-        body.style.setProperty('--main-bg-color0', localStorage.getItem('--main-bg-color0'));
-        body.style.setProperty('--main-bg-color1', localStorage.getItem('--main-bg-color1'));
-        localStorage.removeItem('--main-bg-color0');
-        localStorage.removeItem('--main-bg-color1');
+        body.style.setProperty('--main-bg-color0', this.configurationService.MAIN_COLOR_0_VALUE);
+        body.style.setProperty('--main-bg-color1', this.configurationService.MAIN_COLOR_1_VALUE);
+        body.style.setProperty('--main-bg-color2', this.configurationService.MAIN_COLOR_2_VALUE);
+        body.style.setProperty('--main-bg-color3', this.configurationService.MAIN_COLOR_3_VALUE);
+        body.style.setProperty('--main-bg-color4', this.configurationService.MAIN_COLOR_4_VALUE);
+        body.style.setProperty('background-color', this.configurationService.STYLE_BACKGROUNDCOLOR_VALUE);
+        body.style.setProperty('color','black');
         this.themebody = "";
       }
       this.theme = value;
