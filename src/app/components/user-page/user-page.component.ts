@@ -31,7 +31,7 @@ export class UserPageComponent implements OnInit {
     name: ''
   });
 
-  constructor(private userPageService: UserPageService,
+  constructor(public userPageService: UserPageService,
               private formBuilder: FormBuilder,
               private indexeddbaccessService: IndexeddbaccessService,
               private boardService: BoardService,
