@@ -18,6 +18,9 @@ export class PrintService {
     const wind = window.open('/#/print');
     wind.onload = () => {
       wind.document.body.innerHTML =
+        '<style type="text/css" media="print">\n' +
+        '  @page { size: landscape; }\n' +
+        '</style>'+
         '<style>' + this.getCSSKeyboard() + '</style>'
         + '<style>' + this.getCSSIndex() + '</style>'
         + '<style>' + this.getCSSPrint() + '</style>'
