@@ -22,6 +22,6 @@
   <div class="newColor">
     <div class="mainColorPicker"
          [ngStyle]="{'background-color': this.boardService.getGridBackgroundColorValue() }"></div>
-    <input class="colorPicker height-width-100" type="color" [(ngModel)]="this.boardService.board.BackgroundColor">
+    <input class="colorPicker height-width-100" type="color" [(ngModel)]="this.boardService.board.BackgroundColor" (input)="this.configurationService.STYLE_BACKGROUNDCOLOR_VALUE = this.boardService.board.BackgroundColor">
   </div>
 </div>

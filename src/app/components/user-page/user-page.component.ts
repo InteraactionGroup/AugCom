@@ -45,6 +45,8 @@ export class UserPageComponent implements OnInit {
               public userToolBarService: UsertoolbarService,
               public dialog: MatDialog,
               public themeService: ThemeService) {
+    this.configurationService.STYLE_BACKGROUNDCOLOR_VALUE = "white";
+    this.configurationService.DEFAULT_STYLE_BACKGROUNDCOLOR_VALUE = "white";
     this.theme = this.themeService.theme;
     if(this.theme == "inverted"){
       this.themebody = "darkMode";

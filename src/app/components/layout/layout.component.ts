@@ -24,6 +24,8 @@ export class LayoutComponent implements OnInit {
               public configurationService: ConfigurationService,
               public indexedbaccessService: IndexeddbaccessService,
               public styleservice: StyleService) {
+    this.configurationService.STYLE_BACKGROUNDCOLOR_VALUE = "white";
+    this.configurationService.DEFAULT_STYLE_BACKGROUNDCOLOR_VALUE = "white";
     if(this.themeService.theme === "inverted"){
       this.theme = "darkMode";
       const body = document.body;
