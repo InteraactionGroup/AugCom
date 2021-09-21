@@ -54,24 +54,33 @@
 }
 
 .palettes {
-  display: inline-block;
-  margin-top: 65px;
-  width: 80%;
-  margin-left: 5%;
+display: flex;
+  width: 100%;
   height: fit-content;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .palettes .palette {
   height: fit-content;
   display: grid;
   grid-template-columns: repeat(10, 10%);
-  background-color: var(--main-bg-color3);
+  background-color: var(--main-bg-color2);
   margin-bottom: 10px;
 }
 
 
 .palettes .paletteLabel {
-  height: 20px;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: space-between;
+  align-items: center;
   background-color: var(--main-bg-color3);
 }
 
