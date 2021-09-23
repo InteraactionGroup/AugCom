@@ -7,15 +7,15 @@ permalink: /fr
 header:
   overlay_image: /assets/images/logoAugCom.png
   actions:
-    - label: "<i class='fas fa-hand-point-up'></i> Essayer maintenant"
-      url: https://lig-augcom.imag.fr/stable/#/keyboard
+    - label: "<i class='fas fa-hand-point-right'></i> Essayer maintenant"
+      url: https://lig-augcom.imag.fr/stable
 excerpt: >
   Description de AugCom : AugCom est une application de Communication Alternative et Augmentée développée en Open Source dans le cadre du projet InterAACtionBox et s’adressant aux enfants en situation de polyhandicap .  <br />
 ---
 
 {% include figure image_path="/assets/images/augCom.png" alt="AugCom" %}
 
-## Pourquoi AugCom
+## Pourquoi AugCom ?
 
 Cette application est accessible en ligne, sur les navigateurs les plus célèbres (google-chrome, …), mais elle reste également utilisable hors ligne dès votre première visite, grâce à son système de « Progressive Web App » !
 
