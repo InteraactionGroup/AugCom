@@ -82,7 +82,7 @@ toc_sticky: true
 ## Mr Patate
 
 {% include figure image_path="/assets/images/grids/mrPatate.png" alt="grille Mr Patate pour AugCom" %}
-<a href="/assets/grids/jeuMrPatae.json" download>
+<a href="/assets/grids/jeuMrPatate.json" download>
   <i class='fas fa-hand-point-right'></i>
   Télécharger la grille "Mr Patate"
 </a>
