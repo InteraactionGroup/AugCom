@@ -7,19 +7,15 @@ permalink: /
 header:
   overlay_image: /assets/images/logoAugCom.png
   actions:
-    - label: "<i class='fas fa-hand-point-up'></i> Try now"
-      url: https://lig-augcom.imag.fr/stable/#/keyboard
+    - label: "<i class='fas fa-hand-point-right'></i> Try now"
+      url: https://lig-augcom.imag.fr/stable
 excerpt: >
-  AugCom description : 
-AugCom is an Augmentative and Alternative Communication application developed in Open Source within the framework of the InterAACtionBox project and aimed at children with multiple disabilities.
-
-It is accessible online, on the most famous browsers (google-chrome, ...), but it can also be used offline from your first visit, thanks to its "Progressive Web App" system!
- <br />
+  AugCom description : AugCom is an Augmentative and Alternative Communication application developed in Open Source within the framework of the InterAACtionBox project and aimed at children with multiple disabilities. <br />
 ---
 
 {% include figure image_path="/assets/images/augCom.png" alt="AugCom" %}
 
-## Why AugCom?
+## Why AugCom ?
 
 This app is accessible online, on the most famous browsers (google-chrome, ...), but it can also be used offline from your first visit, thanks to its "Progressive Web App" system!
 
