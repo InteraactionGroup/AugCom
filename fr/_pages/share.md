@@ -11,6 +11,8 @@ toc_sticky: true
 
 {% include figure image_path="/assets/images/grids/troisPetitsCochons.png" alt="grille 3 petits cochons pour AugCom" %}
 
+<a href="/assets/grids/3PetitsCochons.json" download>Test</a>
+
 ## Besoins
 
 {% include figure image_path="/assets/images/grids/besoins.png" alt="grille Besoins pour AugCom" %}
