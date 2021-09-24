@@ -7,6 +7,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {Router} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
+import {MatDialogModule} from "@angular/material/dialog";
 
 describe('ShareComponent', () => {
   let component: ShareComponent;
@@ -20,7 +21,7 @@ describe('ShareComponent', () => {
           navigate = jasmine.createSpy('navigate');
         }
       }],
-      imports: [FormsModule, HttpClientModule, Ng2ImgMaxModule, RouterTestingModule],
+      imports: [FormsModule, HttpClientModule, Ng2ImgMaxModule, RouterTestingModule, MatDialogModule],
       declarations: [ShareComponent]
     })
       .compileComponents();
