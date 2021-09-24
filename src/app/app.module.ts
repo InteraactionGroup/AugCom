@@ -69,6 +69,7 @@ import { ResetGridComponent } from './components/reset-grid/reset-grid.component
 import { DialogResetGridComponent } from './components/dialog-reset-grid/dialog-reset-grid.component';
 import { DialogModifyColorInsideComponent } from './components/dialog-modify-color-inside/dialog-modify-color-inside.component';
 import { DialogModifyColorBorderComponent } from './components/dialog-modify-color-border/dialog-modify-color-border.component';
+import { ExportSaveDialogComponent } from './components/export-save-dialog/export-save-dialog.component';
 
 
 @NgModule({
@@ -121,7 +122,9 @@ import { DialogModifyColorBorderComponent } from './components/dialog-modify-col
     ResetGridComponent,
     DialogResetGridComponent,
     DialogModifyColorInsideComponent,
-    DialogModifyColorBorderComponent
+    DialogModifyColorBorderComponent,
+    DialogResetGridComponent,
+    ExportSaveDialogComponent
   ],
   imports: [
     BrowserModule,

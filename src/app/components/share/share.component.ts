@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {BoardService} from '../../services/board.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {GeticonService} from '../../services/geticon.service';
-import {saveAs as importedSaveAs} from 'file-saver';
 import * as JSZip from 'jszip';
 import {Router} from '@angular/router';
 import {PrintService} from '../../services/print.service';
@@ -14,6 +13,9 @@ import {FolderGoTo, GridElement} from '../../types';
 import {ProloquoParser} from '../../services/proloquoParser';
 import {JsonValidatorService} from '../../services/json-validator.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
+import {MatDialog} from "@angular/material/dialog";
+import {ExportSaveDialogComponent} from "../export-save-dialog/export-save-dialog.component";
+import {ExportManagerService} from "../../services/export-manager.service";
 
 @Component({
   selector: 'app-share',
@@ -32,7 +34,9 @@ export class ShareComponent implements OnInit {
     public userToolBarService: UsertoolbarService,
     public proloquoParser: ProloquoParser,
     public jsonValidator: JsonValidatorService,
-    public multilinguism: MultilinguismService) {
+    public multilinguism: MultilinguismService,
+    public exportManagerService: ExportManagerService,
+    public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -249,8 +253,10 @@ export class ShareComponent implements OnInit {
    * @param data, the string text that have to be saved
    */
   downloadFile(data: string) {
-    const blob = new Blob([data], {type: 'text/json'});
-    importedSaveAs(blob, 'save.json');
+    this.exportManagerService.prepareExport(data);
+    this.dialog.open(ExportSaveDialogComponent, {
+      width: '600px'
+    });
   }
 
 }
