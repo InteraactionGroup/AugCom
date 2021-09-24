@@ -10,10 +10,8 @@ toc_sticky: true
 ## 3 petits cochons
 
 {% include figure image_path="/assets/images/grids/troisPetitsCochons.png" alt="grille 3 petits cochons pour AugCom" %}
-<a href="/assets/grids/3PetitsCochons.zip" download>
-  <i class='fas fa-hand-point-right'></i>
-  Télécharger la grille "3 petits cochons"
-</a>
+
+<i class='fas fa-hand-point-right'></i> Télécharger la grille "3 petits cochons" [3PetitsCochons.zip](https://github.com/Noars/AugCom/files/7224806/3PetitsCochons.zip)
 
 ## Besoins
 
