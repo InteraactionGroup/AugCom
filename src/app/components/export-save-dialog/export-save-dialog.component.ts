@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ExportManagerService} from "../../services/export-manager.service";
+import JSZip from "jszip";
+import {saveAs as importedSaveAs} from 'file-saver';
 
 @Component({
   selector: 'app-export-save-dialog',
@@ -8,16 +10,33 @@ import {ExportManagerService} from "../../services/export-manager.service";
 })
 export class ExportSaveDialogComponent implements OnInit {
 
+  name: String = "Save.augcom";
+
   constructor(public  exportManagerService: ExportManagerService) {
   }
-
-  name: String = "Save.augcom";
 
   ngOnInit(): void {
   }
 
   exportSave() {
-    this.exportManagerService.exportSave(this.name)
+    let tempName;
+    if (this.name.endsWith(".json")) {
+      tempName = this.name.slice(0, this.name.length - 5);
+    } else if (this.name.endsWith(".augcom")) {
+      tempName = this.name.slice(0, this.name.length - 7);
+    }
+    if (tempName.length == 0) {
+      tempName = "save";
+    }
+
+    const jszip = new JSZip();
+    jszip.file(tempName + '.opgf', this.exportManagerService.data);
+
+    jszip.generateAsync({type: 'blob'}).then(function (content) {
+      // see FileSaver.js
+      importedSaveAs(content, tempName + '.augcom');
+    });
+
   }
 
 }
