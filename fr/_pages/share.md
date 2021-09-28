@@ -24,7 +24,7 @@ Télécharger la grille : <br>
 Télécharger la grille : <br>
 <a href="../assets/grids/besoins.augcom" download>
   <i class='fas fa-hand-point-right'></i>
-  Les besoins 2
+  Les besoins
 </a>
 
 ## Besoins 2
@@ -72,7 +72,7 @@ Télécharger la grille : <br>
 {% include figure image_path="/assets/images/grids/courDeRecreation.png" alt="grille Cour de récréation pour AugCom" %}
 
 Télécharger la grille : <br>
-<a href="../assets/grids/courDeRécréation.augcom" download>
+<a href="../assets/grids/coursDeRécréation.augcom" download>
   <i class='fas fa-hand-point-right'></i>
   La cour de récréation
 </a>
