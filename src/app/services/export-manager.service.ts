@@ -17,7 +17,7 @@ export class ExportManagerService {
 
   exportSave(name: String) {
     const blob = new Blob([this.data], {type: 'text/json'});
-    let tempName;
+    let tempName = name;
     if(name.endsWith(".json")){
       tempName = name.slice(0, name.length - 5);
     }else if (name.endsWith(".augcom")){
