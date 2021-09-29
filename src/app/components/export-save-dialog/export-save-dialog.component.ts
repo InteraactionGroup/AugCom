@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ExportManagerService} from "../../services/export-manager.service";
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-export-save-dialog',
@@ -8,10 +9,10 @@ import {ExportManagerService} from "../../services/export-manager.service";
 })
 export class ExportSaveDialogComponent implements OnInit {
 
-  constructor(public  exportManagerService: ExportManagerService) {
-  }
+  name: String = "save";
 
-  name: String = "Save.augcom";
+  constructor(public  exportManagerService: ExportManagerService, public multilinguism: MultilinguismService) {
+  }
 
   ngOnInit(): void {
   }
