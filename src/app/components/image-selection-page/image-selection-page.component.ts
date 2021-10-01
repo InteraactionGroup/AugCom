@@ -131,6 +131,7 @@ export class ImageSelectionPageComponent implements OnInit {
   * */
 
   searchInLib(text: string) {
+    this.editionService.imageTextField = text;
     this.imageList = [];
     let tempList = [];
 

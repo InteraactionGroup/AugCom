@@ -39,7 +39,7 @@
         <label class="label" for="imagefromLib">{{this.multilinguism.translate("fromLibrary")}}: </label>
         <div class="input">
           <input #search class="searchField" type="search" id="imagefromLib"
-                 placeholder="{{this.multilinguism.translate('searchForWord')}}">
+                 placeholder="{{this.multilinguism.translate('searchForWord')}}" value="{{this.editionService.imageTextField}}">
           <input class="searchLib" type="button" value="search" (click)="searchInLib(search.value)">
         </div>
       </div>

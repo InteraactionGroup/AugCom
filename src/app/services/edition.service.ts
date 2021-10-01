@@ -20,6 +20,8 @@ export class EditionService {
 
   sentencedToBeDeletedElement: GridElement[] = [];
 
+  imageTextField = "";
+
   /**
    * current grammatical class type of the element (empty by default)
    */
