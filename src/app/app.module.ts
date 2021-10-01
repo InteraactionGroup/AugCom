@@ -138,7 +138,7 @@ import { ExportSaveDialogComponent } from './components/export-save-dialog/expor
     BrowserAnimationsModule,
     GridsterModule,
     MatAutocompleteModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
     MatInputModule,
     MatListModule,
     MatButtonModule,
