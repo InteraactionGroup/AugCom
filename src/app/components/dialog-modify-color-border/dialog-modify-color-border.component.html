@@ -18,7 +18,7 @@
       </ng-container>
     </div>
     <mat-action-list>
-      <input type="checkbox" name="defaultBorder" id="defaultBorder">
+      <input type="checkbox" name="defaultBorder" id="defaultBorder" [checked]="this.editionService.borderCheck" (click)="this.editionService.checkBorderColor()">
       <label for="defaultBorder"> set as default</label>
     </mat-action-list>
   </div>

@@ -18,7 +18,7 @@
       </ng-container>
     </div>
     <mat-action-list>
-      <input type="checkbox" name="defaultInside" id="defaultInside">
+      <input type="checkbox" name="defaultInside" id="defaultInside" [checked]="this.editionService.insideCheck" (click)="this.editionService.checkInsideColor()">
       <label for="defaultInside"> set as default</label>
     </mat-action-list>
   </div>

@@ -74,6 +74,8 @@ export class EditionService {
   newPage = '';
 
   selectedPalette = this.paletteService.defaultPalette;
+  insideCheck: boolean = false;
+  borderCheck: boolean = false;
 
   constructor(public paletteService: PaletteService) {
   }
@@ -161,17 +163,15 @@ export class EditionService {
   }
 
   selectColor(color) {
-    const elementInside = <HTMLInputElement> document.getElementById("defaultInside");
-    const elementBorder = <HTMLInputElement> document.getElementById("defaultBorder");
     if (this.colorPicked === 'inside') {
       this.curentColor = color;
     } else if (this.colorPicked === 'border') {
       this.curentBorderColor = color;
     }
-    if(elementInside.checked){
+    if(this.insideCheck){
       this.defaultInsideColor = color;
     }
-    if(elementBorder.checked){
+    if(this.borderCheck){
       this.defaultBorderColor = color;
     }
   }
@@ -182,5 +182,11 @@ export class EditionService {
     } else {
       this.selectedPalette = name;
     }
+  }
+  checkInsideColor(){
+    this.insideCheck = !this.insideCheck;
+  }
+  checkBorderColor(){
+    this.borderCheck = !this.borderCheck;
   }
 }
