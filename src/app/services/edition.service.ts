@@ -20,6 +20,10 @@ export class EditionService {
 
   sentencedToBeDeletedElement: GridElement[] = [];
 
+  defaultBorderColor: string;
+
+  defaultInsideColor: string;
+
   /**
    * current grammatical class type of the element (empty by default)
    */
@@ -157,10 +161,18 @@ export class EditionService {
   }
 
   selectColor(color) {
+    const elementInside = <HTMLInputElement> document.getElementById("defaultInside");
+    const elementBorder = <HTMLInputElement> document.getElementById("defaultBorder");
     if (this.colorPicked === 'inside') {
       this.curentColor = color;
     } else if (this.colorPicked === 'border') {
       this.curentBorderColor = color;
+    }
+    if(elementInside.checked){
+      this.defaultInsideColor = color;
+    }
+    if(elementBorder.checked){
+      this.defaultBorderColor = color;
     }
   }
 

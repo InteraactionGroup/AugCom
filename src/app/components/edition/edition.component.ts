@@ -43,6 +43,12 @@ export class EditionComponent implements OnInit {
         this.updateModifications();
       }
     });
+    if(this.editionService.defaultBorderColor != undefined){
+      this.editionService.curentBorderColor = this.editionService.defaultBorderColor;
+    }
+    if(this.editionService.defaultInsideColor != undefined){
+      this.editionService.curentColor = this.editionService.defaultInsideColor;
+    }
   }
 
   /*select given edit page menu item*/

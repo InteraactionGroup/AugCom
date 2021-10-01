@@ -33,6 +33,12 @@ export class ImageSelectionPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(this.editionService.defaultBorderColor != undefined){
+      this.editionService.curentBorderColor = this.editionService.defaultBorderColor;
+    }
+    if(this.editionService.defaultInsideColor != undefined){
+      this.editionService.curentColor = this.editionService.defaultInsideColor;
+    }
   }
 
   /**
