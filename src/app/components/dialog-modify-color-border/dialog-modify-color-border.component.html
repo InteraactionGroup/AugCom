@@ -19,7 +19,7 @@
     </div>
     <mat-action-list>
       <input type="checkbox" name="defaultBorder" id="defaultBorder" [checked]="this.editionService.borderCheck" (click)="this.editionService.checkBorderColor()">
-      <label for="defaultBorder"> set as default</label>
+      <label for="defaultBorder"> {{this.multilinguism.translate("setAsDefault")}}</label>
     </mat-action-list>
   </div>
 </div>

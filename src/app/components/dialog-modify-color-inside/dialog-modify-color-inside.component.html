@@ -19,7 +19,7 @@
     </div>
     <mat-action-list>
       <input type="checkbox" name="defaultInside" id="defaultInside" [checked]="this.editionService.insideCheck" (click)="this.editionService.checkInsideColor()">
-      <label for="defaultInside"> set as default</label>
+      <label for="defaultInside"> {{this.multilinguism.translate("setAsDefault")}}</label>
     </mat-action-list>
   </div>
 </div>
