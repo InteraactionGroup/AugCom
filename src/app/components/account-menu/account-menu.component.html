@@ -46,6 +46,10 @@
           <app-share></app-share>
         </ng-container>
 
+        <ng-container *ngIf="isSelectedSection('resetconfig')">
+          <app-reset-configuration></app-reset-configuration>
+        </ng-container>
+
         <ng-container *ngIf="isSelectedSection('interactions')">
           <app-settings></app-settings>
         </ng-container>
@@ -66,12 +70,24 @@
           <app-page-title-management></app-page-title-management>
         </ng-container>
 
+        <ng-container *ngIf="isSelectedSection('DeletePage')">
+          <app-delete-page></app-delete-page>
+        </ng-container>
+
         <ng-container *ngIf="isSelectedSection('GridFormat')">
           <app-grid-format-management></app-grid-format-management>
         </ng-container>
 
         <ng-container *ngIf="isSelectedSection('PictogramStyle')">
           <app-pictogram-style></app-pictogram-style>
+        </ng-container>
+
+        <ng-container *ngIf="isSelectedSection('Mention')">
+          <app-mention></app-mention>
+        </ng-container>
+
+        <ng-container *ngIf="isSelectedSection('clearGrid')">
+          <app-reset-grid></app-reset-grid>
         </ng-container>
 
       </div>

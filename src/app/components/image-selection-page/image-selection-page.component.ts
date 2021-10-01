@@ -10,6 +10,10 @@ import {ConfigurationService} from "../../services/configuration.service";
 import {Observable} from "rxjs";
 import {FormControl} from "@angular/forms";
 import {map, startWith} from "rxjs/operators";
+import {DialogAddUserComponent} from "../dialog-add-user/dialog-add-user.component";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogModifyColorInsideComponent} from "../dialog-modify-color-inside/dialog-modify-color-inside.component";
+import {DialogModifyColorBorderComponent} from "../dialog-modify-color-border/dialog-modify-color-border.component";
 
 @Component({
   selector: 'app-image-selection-page',
@@ -33,7 +37,8 @@ export class ImageSelectionPageComponent implements OnInit {
   constructor(public multilinguism: MultilinguismService,
               public ng2ImgMaxService: Ng2ImgMaxService,
               public editionService: EditionService,
-              public configurationService: ConfigurationService) {
+              public configurationService: ConfigurationService,
+              public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -183,6 +188,22 @@ export class ImageSelectionPageComponent implements OnInit {
   /*s can be 'inside' or 'border', used to open the corresponding color picker popup  */
   pickAColor(s: string) {
     this.editionService.colorPicked = s;
+  }
+
+  openDialogModifyInside() {
+    this.editionService.colorPicked = 'inside';
+    this.dialog.open(DialogModifyColorInsideComponent, {
+      height: '50%',
+      width: '60%'
+    });
+  }
+
+  openDialogModifyBorder() {
+    this.editionService.colorPicked = 'border';
+    this.dialog.open(DialogModifyColorBorderComponent, {
+      height: '50%',
+      width: '60%'
+    });
   }
 
 

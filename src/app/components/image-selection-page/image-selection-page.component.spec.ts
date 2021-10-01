@@ -5,6 +5,8 @@ import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {FormsModule, NgControl, ReactiveFormsModule} from '@angular/forms';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {MatAutocomplete, MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatDialogModule} from "@angular/material/dialog";
+
 
 describe('ImageSelectionPageComponent', () => {
   let component: ImageSelectionPageComponent;
@@ -13,7 +15,7 @@ describe('ImageSelectionPageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [FormsModule, Ng2ImgMaxModule, ReactiveFormsModule, MatAutocompleteModule],
+      imports: [FormsModule, Ng2ImgMaxModule, ReactiveFormsModule, MatAutocompleteModule, MatDialogModule],
       declarations: [ImageSelectionPageComponent]
     })
       .compileComponents();

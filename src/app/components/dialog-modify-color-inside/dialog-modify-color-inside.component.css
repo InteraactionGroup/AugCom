@@ -1,0 +1,93 @@
+.edition .leftEdition .button {
+  padding-bottom: 80%;
+  width: 80%;
+  margin-left: 10%;
+  height: 0;
+  border-radius: 15px;
+}
+
+.edition .leftEdition .button .image {
+  padding-top: 80%;
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 10%;
+}
+
+.edition .leftEdition .button .label {
+  width: 90%;
+  margin-left: 5%;
+}
+
+.popup .popupContainer {
+  height: 96%;
+  width: 96%;
+  margin-left: 2%;
+  transform: translateY(2.5%);
+  /* background-color: var(--main-bg-color1);*/
+}
+
+.palettes {
+display: flex;
+  width: 100%;
+  height: fit-content;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.palettes .palette {
+  height: fit-content;
+  display: grid;
+  grid-template-columns: repeat(10, 10%);
+  background-color: var(--main-bg-color2);
+  margin-bottom: 10px;
+}
+
+
+.palettes .paletteLabel {
+  padding-left: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--main-bg-color3);
+}
+
+.palettes .paletteLabel:hover {
+  background-color: var(--main-bg-color4);
+}
+
+.moreLess {
+  float: right;
+  margin-right: 5%;
+}
+
+.palettes .palette .color {
+  margin-top: 3%;
+  margin-left: 10%;
+  height: 80%;
+  width: 80%;
+}
+
+.palettes .palette .realcolor {
+  margin-top: 3%;
+  margin-left: 10%;
+  height: 80%;
+  width: 80%;
+  box-sizing: border-box;
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
+}
+
+.palettes .palette .realcolor:hover {
+  cursor: pointer;
+  margin-top: 0;
+  margin-left: 0;
+  height: 100%;
+  width: 100%;
+}

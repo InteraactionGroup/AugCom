@@ -41,7 +41,7 @@ export class FolderGoTo {
 export class GridElement {
   ID: string;
   Type: 'empty' | 'button' | FolderGoTo;
-  PartOfSpeech: string;
+  PartOfSpeech: '-nom-' | '-nom-pr-' | 'nom de famille' | '-adv-' | 'prénom' | '-adj-' | 'variante typographique' | '-verb' | 'pronom' | 'locution-phrase' | 'interjection' | 'onomatopée' | 'pronom démonstratif' | 'adjectif indéfini' | 'pronom indéfini' | 'pronom personnel' | 'conjonction' | 'adjectif numéral' | 'préposition' | 'article partitif' | 'adverbe interrogatif' | 'conjonction de coordination' | 'pronom interrogatif' | 'pronom relatif' | 'pronom possessif' | 'erreur' | 'locution phrase' | 'proverbe' | 'adverbe relatif' | 'nom scientifique' | 'adjectif exclamatif' | 'adjectif interrogatif' | 'adjectif possessif' | 'adjectif démonstratif' | 'patronyme' | 'article défini' | 'interj' | 'locution' | 'article indéfini' |string;
   VisibilityLevel: number;
   x: number;
   y: number;
@@ -135,12 +135,14 @@ export class Style {
   BorderColor: string;
   BorderWidth: string;
   BorderRadius: string;
+  FontFamily:string;
   TextColor: string;
 
   constructor(backgroundColor: string, borderColor: string, textColor: string) {
     this.BackgroundColor = backgroundColor;
     this.BorderColor = borderColor;
     this.TextColor = textColor;
+    this.FontFamily = 'Arial';
     this.BorderRadius = '10px';
     this.BorderWidth = '3px';
   }
@@ -159,6 +161,7 @@ export class Configuration {
   'DEFAULT_STYLE_BACKGROUNDCOLOR_VALUE': string;
   'DEFAULT_STYLE_BORDERCOLOR_VALUE': string;
   'DEFAULT_STYLE_TEXTCOLOR_VALUE': string;
+  'DEFAULT_STYLE_FONTFAMILY_VALUE': string;
   'DWELL_TIME_TIMEOUT_VALUE': number;
   'LONGPRESS_TIMEOUT_VALUE': number;
   'DOUBLE_CLICK_TIMEOUT_VALUE': number;
@@ -168,4 +171,24 @@ export class Configuration {
   'MAIN_COLOR_2_VALUE': string;
   'MAIN_COLOR_3_VALUE': string;
   'MAIN_COLOR_4_VALUE': string;
+  'VOLUME': number;
+  'RATE': number;
+  'PITCH': number;
+
+}
+
+export class User{
+  id: number;
+  name: string;
+  base64image: string;
+  constructor(name, base64image, id?) {
+    if(id == null){
+      this.id = Math.floor(Math.random() * 10000000000) + Date.now();
+    }
+    else{
+      this.id = id;
+    }
+    this.name = name;
+    this.base64image = base64image;
+  }
 }

@@ -23,6 +23,12 @@
          [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.unlock?'unlock':'lock')}">
     </div>
   </div>
+  <nav>
+    <div class="button floatRight" (click)="this.openDialog()">
+      <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('help')}">
+      </div>
+    </div>
+  </nav>
 
   <nav *ngIf="this.userToolBarService.unlock">
     <a routerLink="/account">
@@ -43,6 +49,12 @@
        (click)="this.userToolBarService.babble = !this.userToolBarService.babble">
     <div class="image width-100"
          [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.babble?'hide':'show')}">
+    </div>
+  </div>
+
+  <div class="button floatRight" id="log out" *ngIf="this.userToolBarService.unlock" (click)="this.logout()">
+    <div class="image width-100">
+      <img src="assets/images/logout.png" width="50" height="50" alt="logout">
     </div>
   </div>
 
@@ -77,7 +89,7 @@
          [ngStyle]="{'background-image': this.userToolBarService.search? '' : this.getIcon('search') }">
       <input #searchedText type="text" [(ngModel)]="this.searchText"
              (input)="this.searchService.searchFor(searchedText.value)" class="searchBar"
-             *ngIf="this.userToolBarService.search">
+             *ngIf="this.userToolBarService.search" maxlength="50">
       <div class="searchResultContainer"
            [ngStyle]="{'height': this.getResultsHeight(this.searchService.searchedWords.length)}">
         <div class="searchResult width-100" (click)="this.searchService.search(res.ID)"

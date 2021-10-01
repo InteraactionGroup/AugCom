@@ -12,6 +12,13 @@ import {FolderGoTo} from '../../types';
 import {EditionService} from '../../services/edition.service';
 import {DwellCursorService} from "../../services/dwell-cursor.service";
 import {ConfigurationService} from "../../services/configuration.service";
+import {Router} from "@angular/router";
+import {UserPageService} from "../../services/user-page.service";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogHelpComponent} from "../dialog-help/dialog-help.component";
+import {PaletteService} from "../../services/palette.service";
+
+declare const annyang: any;
 
 @Component({
   selector: 'app-usertoolbar',
@@ -31,7 +38,11 @@ export class UsertoolbarComponent implements OnInit {
     public multilinguism: MultilinguismService,
     public editionService: EditionService,
     public dwellCursorService: DwellCursorService,
-    public configurationService: ConfigurationService
+    public configurationService: ConfigurationService,
+    private router: Router,
+    private userPageService: UserPageService,
+    public dialog: MatDialog,
+    public paletteService: PaletteService
   ) {
   }
 
@@ -40,6 +51,7 @@ export class UsertoolbarComponent implements OnInit {
   dwellTimer;
 
   ngOnInit() {
+    this.indexedDBacess.update();
   }
 
   /*get size of the searched result under search bar, maximum size reached for 5 results*/
@@ -71,9 +83,24 @@ export class UsertoolbarComponent implements OnInit {
     return this.getIconService.getIconUrl(s);
   }
 
+  /**
+   * return the icon url corresponding to the string s
+   * @param s, the string identifying the icon
+   * @return the icon url
+   */
+  getIconPng(s: string) {
+    return this.getIconService.getIconUrlPng(s);
+  }
+
 
   translate() {
     this.configurationService.LANGUAGE_VALUE = (this.configurationService.LANGUAGE_VALUE === 'FR' ? 'EN' : 'FR');
+    if(this.configurationService.LANGUAGE_VALUE === 'FR'){
+      annyang.setLanguage('fr-FR');
+    }
+    if(this.configurationService.LANGUAGE_VALUE === 'EN'){
+      annyang.setLanguage('en');
+    }
     console.log(this.configurationService.LANGUAGE_VALUE)
   }
 
@@ -148,5 +175,20 @@ export class UsertoolbarComponent implements OnInit {
         return this.getIcon('home');
       }
     }
+  }
+
+  logout() {
+    this.boardService.backHome();
+    this.router.navigate(['logging']);
+    localStorage.removeItem('logged');
+    localStorage.removeItem('name');
+    localStorage.removeItem('image');
+  }
+
+  openDialog(): void {
+    this.dialog.open(DialogHelpComponent, {
+      height: 'fit-content',
+      width: 'fit-content'
+    });
   }
 }

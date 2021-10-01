@@ -3,15 +3,15 @@
 <div style="  margin: 20px ;width: fit-content; display: grid; grid-template-columns: max-content max-content ">
   <label for="col">{{this.multilinguismService.translate("chooseNumberOfColumns")}}:</label>
   <input id="col" value="{{this.boardService.getNumberOfCols()}}" type="number" min="1"
-         (change)="onKeyCols($event)">
+         (change)="onKeyCols($event)" maxlength="2" max="50">
 
   <label for="row">{{this.multilinguismService.translate("chooseNumberOfLines")}}:</label>
   <input id="row" value="{{this.boardService.getNumberOfRows()}}" type="number" min="1"
-         (change)="onKeyRows($event)">
+         (change)="onKeyRows($event)" maxlength="2" max="50">
 
   <label for="gap">{{this.multilinguismService.translate("chooseGapBetweenPictograms")}}:</label>
   <input id="gap" value="{{this.boardService.getGapSize()}}" type="number" min="0"
-         (change)="onKeyGap($event)">
+         (change)="onKeyGap($event)" maxlength="2" max="50">
 </div>
 
 

@@ -17,7 +17,7 @@ function clickElementOf(compiled: any, fixture: any, selector: any, textIncluded
 }
 
 function expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled: any, openElementName: any) {
-  const tabNameList = ['app-page-title-management', 'app-saves', 'app-language', 'app-palettes', 'app-share', 'app-settings', 'app-pictogram-style', 'app-grid-format-management'];
+  const tabNameList = ['app-page-title-management', 'app-saves', 'app-language', 'app-palettes', 'app-share', 'app-settings', 'app-pictogram-style'];
   tabNameList.forEach(tabName => {
     if (tabName === openElementName) {
       expect(compiled.querySelector(tabName)).not.toBe(null);
@@ -37,7 +37,8 @@ describe('AccountMenuComponent', () => {
         'paletteManagement',
         'interactions',
         'language',
-        'share']
+        'share',
+        'resetconfig']
     ],
     ['Grids',
       ['PageTitle'
@@ -85,12 +86,13 @@ describe('AccountMenuComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     component.selectedNewMenu = component.newMenu[0][0];
     fixture.detectChanges();
-    expect(compiled.querySelectorAll('.title').length).toEqual(5);
+    expect(compiled.querySelectorAll('.title').length).toEqual(6);
     expect(compiled.querySelectorAll('.title')[0].textContent).toContain(component.multilinguismService.translate(component.newMenu[0][1][0]));
     expect(compiled.querySelectorAll('.title')[1].textContent).toContain(component.multilinguismService.translate(component.newMenu[0][1][1]));
     expect(compiled.querySelectorAll('.title')[2].textContent).toContain(component.multilinguismService.translate(component.newMenu[0][1][2]));
     expect(compiled.querySelectorAll('.title')[3].textContent).toContain(component.multilinguismService.translate(component.newMenu[0][1][3]));
     expect(compiled.querySelectorAll('.title')[4].textContent).toContain(component.multilinguismService.translate(component.newMenu[0][1][4]));
+    expect(compiled.querySelectorAll('.title')[5].textContent).toContain(component.multilinguismService.translate(component.newMenu[0][1][5]));
   });
 
   it('should display app-grid-format-management when GridFormat section of Grid is selected', () => {
@@ -100,7 +102,7 @@ describe('AccountMenuComponent', () => {
     compiled.querySelectorAll('.title')[1].click(); // Pictogram-style
     fixture.detectChanges();
     expect(component.selectedNewMenu).toEqual("Grids");
-    expect(component.selectedSection).toEqual("GridFormat");
+    expect(component.selectedSection).toEqual("DeletePage");
     expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled, 'app-grid-format-management');
   });
 

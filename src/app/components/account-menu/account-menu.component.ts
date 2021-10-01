@@ -17,7 +17,8 @@ export class AccountMenuComponent implements OnInit {
         'paletteManagement',
         'interactions',
         'language',
-        'share']
+        'share',
+        'resetconfig']
     ],
     // ['Barre de phrase',
     //   ['Paramètres de la phrase',
@@ -44,14 +45,17 @@ export class AccountMenuComponent implements OnInit {
         // ['nom/picto ou les deux'],
         // ['chemin absolu ou juste nom de la page']
         ,
-        'GridFormat' // ,
+        'DeletePage',
+        'GridFormat',
+        'clearGrid'// ,
         // ['taille de la grille'],
         // ['espace entre les picto'],
         // ['thème du fond']
       ]
     ],
     ['Pictograms',
-      ['PictogramStyle'// ,
+      ['PictogramStyle',
+        'Mention'// ,
         // ['pictogramme de base',
         //   ['couleur principale'],
         //   ['texte',

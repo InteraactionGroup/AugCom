@@ -1,6 +1,6 @@
 <app-snap-bar></app-snap-bar>
 <app-dialogbar></app-dialogbar>
-
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.5/dist/semantic.min.css">
 <!-- edit settings toolbar displayed on top on keyboard when on edition mode -->
 <div class="editionSettings width-100" *ngIf="this.userToolBarService.edit"  >
 
@@ -41,19 +41,21 @@
 
   <!-- input fields for column and row size, have to be changed with a button number incrementer -->
   <div class="gridSettings">
-    <input class="inputSize floatLeft centerText" value="{{this.boardService.getNumberOfCols()}}" type="number" min="1"
-           (change)="onKeyCols($event)">
-    <div class="x floatLeft">
-      x
+    <div class="gridSettingsImage floatLeft centerText " [ngStyle]="{'background-image':'url(assets/icons/colomns.svg)'}">
     </div>
+    <input class="inputSize floatLeft centerText" value="{{this.boardService.getNumberOfCols()}}" type="number" min="1"
+           (change)="onKeyCols($event)" max="50">
+    <div class="gridSettingsImage floatLeft centerText " [ngStyle]="{'background-image':'url(assets/icons/lines.svg)'}">
+    </div>
+
     <input class="inputSize floatLeft centerText" value="{{this.boardService.getNumberOfRows()}}" type="number" min="1"
-           (change)="onKeyRows($event)">
-    <div class="x floatLeft">
-      +
+           (change)="onKeyRows($event)" max="50">
+    <div class="gridSettingsImage floatLeft centerText " [ngStyle]="{'background-image':'url(assets/icons/margin.svg)'}">
     </div>
     <input class="inputSize floatLeft centerText" value="{{this.boardService.getGapSize()}}" type="number" min="0"
-           (change)="onKeyGap($event)">
+           (change)="onKeyGap($event)" max="50">
   </div>
+
 </div>
 
 <!-- the keyboard containing the element wrapper -->

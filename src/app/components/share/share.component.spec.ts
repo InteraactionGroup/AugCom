@@ -7,6 +7,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {Router} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
+import {MatDialogModule} from "@angular/material/dialog";
 
 describe('ShareComponent', () => {
   let component: ShareComponent;
@@ -20,7 +21,7 @@ describe('ShareComponent', () => {
           navigate = jasmine.createSpy('navigate');
         }
       }],
-      imports: [FormsModule, HttpClientModule, Ng2ImgMaxModule, RouterTestingModule],
+      imports: [FormsModule, HttpClientModule, Ng2ImgMaxModule, RouterTestingModule, MatDialogModule],
       declarations: [ShareComponent]
     })
       .compileComponents();
@@ -30,7 +31,7 @@ describe('ShareComponent', () => {
     fixture = TestBed.createComponent(ShareComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    component.indexedDBacess.init();
+    component.indexedDBacess.loadUsersList();
   });
 
   it('should create', () => {
@@ -49,13 +50,14 @@ describe('ShareComponent', () => {
   //   expect(allListElements[5].textContent).toContain(component.multilinguism.translate('importProloquo'));
   // });
 
-  it('should create the 3 different options components', () => {
+  it('should create the 4 different options components', () => {
     const compiled = fixture.debugElement.nativeElement;
     const allListElements = compiled.querySelectorAll('.listElement');
-    expect(allListElements.length).toEqual(3/*6*/);
+    expect(allListElements.length).toEqual(4/*6*/);
     expect(allListElements[0].textContent).toContain(component.multilinguism.translate('importSave'));
-    expect(allListElements[1].textContent).toContain(component.multilinguism.translate('exportSave'));
-    expect(allListElements[2].textContent).toContain(component.multilinguism.translate('exportPDF'));
+    expect(allListElements[1].textContent).toContain(component.multilinguism.translate('import save from snap core first'));
+    expect(allListElements[2].textContent).toContain(component.multilinguism.translate('exportSave'));
+    expect(allListElements[3].textContent).toContain(component.multilinguism.translate('exportPDF'));
   });
 
 });

@@ -15,7 +15,7 @@ export class PrintService {
   buttonHTML = '<input id="print" type="button" value="cliquez pour imprimer" style="margin-left: 25%; height: 50px; width: 50%; font-size: x-large;">\n';
 
   printDiv() {
-    const wind = window.open('/#/print');
+    const wind = window.open('stable/#/print');
     wind.onload = () => {
       wind.document.body.innerHTML =
         '<style>' + this.getCSSKeyboard() + '</style>'
@@ -31,7 +31,6 @@ export class PrintService {
     wind.document.getElementById('print').onclick = () => {
       wind.document.getElementById('print').hidden = true;
       wind.print();
-      // wind.close();
       wind.document.body.innerHTML = this.buttonHTML + wind.document.body.innerHTML;
       this.recEventSettingFunction(wind);
     }
@@ -103,6 +102,7 @@ export class PrintService {
 
   innerHTML(elementList: GridElement[]) {
     let innerValue = '';
+
     elementList.forEach(element => {
       if (element.Type !== 'empty') {
         const url = this.boardService.getSimpleImgUrl(element);
