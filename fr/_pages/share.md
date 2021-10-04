@@ -117,7 +117,7 @@ Télécharger la grille : <br>
   La piscine
 </a>
 
-## Sentiments
+## Salle d'attente
 
 {% include figure image_path="/assets/images/grids/salleDattente2.png" alt="grille Salle d'attente pour AugCom" %}
 
