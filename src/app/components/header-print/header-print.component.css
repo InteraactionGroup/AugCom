@@ -1,0 +1,28 @@
+.header {
+  opacity: 1;
+}
+
+.header-page {
+  margin-top: 20px;
+}
+
+.header-item {
+  margin: 20px;
+  width: fit-content;
+}
+
+.space{
+  margin-left: 10px;
+}
+
+label {
+  margin-right: 10px;
+}
+
+textarea{
+  resize: none;
+}
+
+#labelTextArea{
+  transform: translateY(-50px);
+}

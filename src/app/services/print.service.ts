@@ -14,6 +14,13 @@ export class PrintService {
   urlList: any[] = [];
   buttonHTML = '<input id="print" type="button" value="cliquez pour imprimer" style="margin-left: 25%; height: 50px; width: 50%; font-size: x-large;">\n';
 
+  footer = "";
+  header = "";
+  buttonEnableHeader = false;
+  buttonEnableFooter = false;
+  typeChoiceHeader = "text";
+  typeChoiceFooter = "text";
+
   printDiv() {
     const wind = window.open('stable/#/print');
     wind.onload = () => {
@@ -76,7 +83,7 @@ export class PrintService {
     let numberOfRows = this.boardService.getNumberOfRowsForPage(page);
     let id = page.ID + '- page ' + (((i as number) + (1 as number)) as number);
 
-    return '<div class="id section-to-print">' + id + '</div>\n' +
+    return '<div class="id section-to-print">' + id + '<br>' + this.getHeader() + '</div>\n' +
       '<div class="keyboard section-to-print" id="' + id + '">\n' +
       '<div class="wrapper height-width-100"' +
       'style="grid-template-columns: repeat(' + numberOfCols +
@@ -130,10 +137,32 @@ export class PrintService {
     return innerValue;
   }
 
-
   wrapperEnd() {
-    return '</div>\n' +
-      '</div>';
+    return '</div>' + this.getFooter() + '</div>' + '<br>';
+  }
+
+  getHeader(){
+    if (this.buttonEnableHeader){
+      if (this.typeChoiceHeader == 'text'){
+        return this.header;
+      }else {
+        return "<img src='" + this.header + "' alt=''>";
+      }
+    }else {
+      return "";
+    }
+  }
+
+  getFooter(){
+    if (this.buttonEnableFooter){
+      if (this.typeChoiceFooter == 'text'){
+        return this.footer;
+      }else {
+        return "<img src='" + this.footer + "' alt=''>";
+      }
+    }else {
+      return "";
+    }
   }
 
   getCSSPrint() {

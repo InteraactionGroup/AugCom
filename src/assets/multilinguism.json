@@ -161,6 +161,17 @@
     { "id" : "resetconfig", "FR": "Rétablir la configuration par défaut", "EN" : "Reset the configuration by default"},
     { "id" : "VoulezVousVraimentSupprimerLaGrille?", "FR" : "Voulez vous vraiment supprimer la grille?", "EN" : "Do you want to delete the grid?"},
     { "id" : "clearGrid", "FR" : "Vider la grille", "EN" : "Clear the grid"},
-    { "id" :  "validate", "FR" : "Valider", "EN" :  "Validate"}
+    { "id" :  "validate", "FR" : "Valider", "EN" :  "Validate"},
+    { "id":  "Print", "FR" :  "Impression", "EN" :  "Print"},
+    { "id":  "Header", "FR" :  "En-tête", "EN" :  "Header"},
+    { "id":  "Footer", "FR" :  "Pied de page", "EN" :  "Footer"},
+    { "id":  "enableHeader", "FR" :  "Activer l'en-tête", "EN" :  "Enable header "},
+    { "id":  "enableFooter", "FR" :  "Activer le pied de page", "EN" :  "Enable footer "},
+    { "id":  "text", "FR" :  "Texte", "EN" :  "Text"},
+    { "id":  "image", "FR" :  "Image", "EN" :  "Image"},
+    { "id":  "textHeader", "FR" :  "Texte pour l'en-tête ", "EN" :  "Text for header "},
+    { "id":  "imageHeader", "FR" :  "Image pour l'en-tête ", "EN" :  "Image for header "},
+    { "id":  "textFooter", "FR" :  "Texte pour le pied de page ", "EN" :  "Text for footer "},
+    { "id":  "imageFooter", "FR" :  "Image pour le pied de page ", "EN" :  "Image for footer "}
   ]
 }
