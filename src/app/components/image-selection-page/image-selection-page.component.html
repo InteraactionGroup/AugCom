@@ -38,7 +38,7 @@
         </div>
         <label class="label" for="imagefromLib">{{this.multilinguism.translate("fromLibrary")}}: </label>
         <div class="input">
-          <input #search class="searchField" type="search" id="imagefromLib"
+          <input #search class="searchField" type="search" id="imagefromLib" (keyup.enter)="searchInLib(search.value)"
                  placeholder="{{this.multilinguism.translate('searchForWord')}}">
           <input class="searchLib" type="button" value="search" (click)="searchInLib(search.value)">
         </div>
