@@ -51,13 +51,12 @@ export class HeaderPrintComponent implements OnInit {
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.selectedFile = reader.result;
+      this.printService.header = reader.result;
     };
 
     reader.onerror = (error) => {
       console.log('Error: ', error);
     };
-
-    this.printService.header = this.selectedFile;
   }
 
 }

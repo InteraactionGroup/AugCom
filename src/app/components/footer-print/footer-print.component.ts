@@ -52,12 +52,11 @@ export class FooterPrintComponent implements OnInit {
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.selectedFile = reader.result;
+      this.printService.footer = reader.result;
     };
 
     reader.onerror = (error) => {
       console.log('Error: ', error);
     };
-
-    this.printService.footer = this.selectedFile;
   }
 }
