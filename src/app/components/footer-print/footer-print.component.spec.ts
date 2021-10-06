@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FooterPrintComponent } from './footer-print.component';
+import {Ng2ImgMaxModule} from "ng2-img-max";
 
 describe('FooterPrintComponent', () => {
   let component: FooterPrintComponent;
@@ -8,7 +9,8 @@ describe('FooterPrintComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FooterPrintComponent ]
+      declarations: [ FooterPrintComponent ],
+      imports: [Ng2ImgMaxModule]
     })
     .compileComponents();
   }));
