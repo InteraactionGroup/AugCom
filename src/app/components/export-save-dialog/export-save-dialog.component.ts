@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ExportManagerService} from "../../services/export-manager.service";
 import JSZip from "jszip";
 import {saveAs as importedSaveAs} from 'file-saver';
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-export-save-dialog',
@@ -12,7 +13,7 @@ export class ExportSaveDialogComponent implements OnInit {
 
   name: String = "Save.augcom";
 
-  constructor(public  exportManagerService: ExportManagerService) {
+  constructor(public  exportManagerService: ExportManagerService, public multilinguism: MultilinguismService) {
   }
 
   ngOnInit(): void {
