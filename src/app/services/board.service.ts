@@ -481,7 +481,7 @@ export class BoardService {
    */
   copy(element: GridElement): GridElement {
     console.log(element.ID + ' ' + element.x + ' ' + element.y);
-    const tempGridElement = new GridElement(element.ID, element.Type, element.PartOfSpeech,
+    const tempGridElement = new GridElement(element.ID + element.x + element.y, element.Type, element.PartOfSpeech,
       this.gridElementService.getStyle(element).BackgroundColor, this.gridElementService.getStyle(element).BorderColor
       , element.VisibilityLevel,
       element.ElementFormsList.copyWithin(0, 0), element.InteractionsList.copyWithin(0, 0));
