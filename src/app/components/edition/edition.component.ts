@@ -81,6 +81,9 @@ export class EditionComponent implements OnInit {
    */
   async save() {
     if (this.editionService.name != ""){
+      if (this.editionService.newPage == ""){
+        this.editionService.newPage = this.editionService.name;
+      }
       if (this.editionService.currentEditPage !== '') {
         this.editionService.currentEditPage = ''
       }
