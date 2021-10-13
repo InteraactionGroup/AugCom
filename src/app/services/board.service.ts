@@ -381,6 +381,16 @@ export class BoardService {
     return currentPage;
   }
 
+  currentIndexPage(){
+    let index = 0;
+    for (let i = 0; i < this.board.PageList.length; i++){
+      if (this.board.PageList[i].ID == this.getCurrentFolder()){
+        index = i;
+      }
+    }
+    return index;
+  }
+
   /**
    * process the different functions when the element identified by the index activatedElement want to display
    * its variant forms.
@@ -481,7 +491,7 @@ export class BoardService {
    */
   copy(element: GridElement): GridElement {
     console.log(element.ID + ' ' + element.x + ' ' + element.y);
-    const tempGridElement = new GridElement(element.ID + element.x + element.y, element.Type, element.PartOfSpeech,
+    const tempGridElement = new GridElement(element.ID, element.Type, element.PartOfSpeech,
       this.gridElementService.getStyle(element).BackgroundColor, this.gridElementService.getStyle(element).BorderColor
       , element.VisibilityLevel,
       element.ElementFormsList.copyWithin(0, 0), element.InteractionsList.copyWithin(0, 0));
@@ -490,6 +500,16 @@ export class BoardService {
     return tempGridElement;
   }
 
+  copyButtonFolder(element: GridElement): GridElement {
+    console.log(element.ID + ' ' + element.x + ' ' + element.y);
+    const tempGridElement = new GridElement(element.ID + element.x + element.y, element.Type, element.PartOfSpeech,
+      this.gridElementService.getStyle(element).BackgroundColor, this.gridElementService.getStyle(element).BorderColor
+      , element.VisibilityLevel,
+      element.ElementFormsList.copyWithin(0, 0), element.InteractionsList.copyWithin(0, 0));
+    this.gridElementService.setCoordinates(tempGridElement, element.x, element.y);
+    this.gridElementService.setSize(tempGridElement, element.cols, element.rows);
+    return tempGridElement;
+  }
 
   getNumberOfCols(): number {
     const currentPage: Page = this.currentPage();

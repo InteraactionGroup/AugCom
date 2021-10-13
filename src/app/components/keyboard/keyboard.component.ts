@@ -329,7 +329,7 @@ export class KeyboardComponent implements OnInit{
     if (this.userToolBarService.edit){
       this.copyElements = [];
       this.editionService.selectedElements.forEach((elt) => {
-        this.copyElements.push(this.boardService.copy(elt));
+        this.copyElements.push(this.boardService.copyButtonFolder(elt));
       });
     }
   }
@@ -339,13 +339,15 @@ export class KeyboardComponent implements OnInit{
       this.copyElements.forEach((elt) => {
         this.boardService.elementList.push(elt);
         this.boardService.board.ElementList.push(elt);
+        console.log(this.boardService.currentIndexPage());
+        this.boardService.board.PageList[this.boardService.currentIndexPage()].ElementIDsList.push(elt.ID);
       });
-      console.log(this.boardService.board);
-      /*this.indexedDBacess.update();
+
+      this.indexedDBacess.update();
       await this.delay(500);
       this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
       await this.delay(1000);
-      this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());*/
+      this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
       this.copyElements = [];
     }
   }
