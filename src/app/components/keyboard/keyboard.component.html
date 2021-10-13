@@ -34,7 +34,7 @@
   </div>
 
   <!-- button used to paste all the selected elements -->
-  <div class="editSettingsButton floatLeft" (click)="pasteAll()">
+  <div *ngIf="isCopy" class="editSettingsButton floatLeft" (click)="pasteAll()">
     <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("pasteSelected")}}</div>-->
     <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('paste')">
     </div>
