@@ -43,6 +43,10 @@
     <div class="save centerText floatLeft" (click)="this.save()">
       {{this.multilinguism.translate("save")}}
     </div>
+    <br>
+    <div *ngIf="nameEmpty" class="messageError floatLeft">
+      {{this.multilinguism.translate("nameEmpty")}}
+    </div>
 
   </div>
 

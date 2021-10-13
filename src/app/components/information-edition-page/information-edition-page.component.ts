@@ -14,6 +14,9 @@ import {FunctionsService} from '../../services/functions.service';
 })
 export class InformationEditionPageComponent implements OnInit {
 
+  nameInput = "";
+  name = "";
+
   constructor(public multilinguism: MultilinguismService,
               public editionService: EditionService,
               public board: BoardService,
@@ -22,6 +25,13 @@ export class InformationEditionPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.editionService.name == ""){
+      this.nameInput = this.multilinguism.translate('enterElementName');
+      this.editionService.newPage = "";
+      this.editionService.pageLink = '@NEW@';
+    }else {
+      this.nameInput = this.editionService.name;
+    }
   }
 
   /**
@@ -31,5 +41,11 @@ export class InformationEditionPageComponent implements OnInit {
    */
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
+  }
+
+  getName(event){
+    this.name = event.target.value;
+    this.editionService.name = this.name;
+    this.editionService.newPage = this.name;
   }
 }
