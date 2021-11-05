@@ -1,0 +1,27 @@
+<div class="footer width-100">
+  <div class="footer-page">
+
+    <div class="footer-item">
+      <label for="enableFooter">{{this.multilinguism.translate("enableFooter")}}</label>
+      <input type="checkbox" id="enableFooter" name="enableFooter" (click)="enableFooter()" [checked]="buttonEnableFooter">
+    </div>
+
+    <div class="footer-item" *ngIf="buttonEnableFooter">
+      <label for="btnText">{{this.multilinguism.translate("text")}}</label>
+      <input type="radio" id="btnText" name="typeChoice" (click)="choiceType('text')" [checked]="textButton">
+      <label class="space" for="btnImg">{{this.multilinguism.translate("image")}}</label>
+      <input type="radio" id="btnImg" name="typeChoice" (click)="choiceType('img')" [checked]="imgButton">
+    </div>
+
+    <div class="footer-item" *ngIf="typeChoice == 'text' && buttonEnableFooter">
+      <label id="labelTextArea" for="textArea">{{this.multilinguism.translate("textFooter")}}</label>
+      <textarea id="textArea" name="textFooter" rows="4" cols="50" (keyup)="getText($event)">{{this.footer}}</textarea>
+    </div>
+
+    <div class="footer-item" *ngIf="typeChoice == 'img' && buttonEnableFooter">
+      <label>{{this.multilinguism.translate("imageFooter")}}</label>
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" [value]="selectedFile">
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,28 @@
+.footer {
+  opacity: 1;
+}
+
+.footer-page {
+  margin-top: 20px;
+}
+
+.footer-item {
+  margin: 20px;
+  width: fit-content;
+}
+
+.space{
+  margin-left: 10px;
+}
+
+label {
+  margin-right: 10px;
+}
+
+textarea{
+  resize: none;
+}
+
+#labelTextArea{
+  transform: translateY(-50px);
+}

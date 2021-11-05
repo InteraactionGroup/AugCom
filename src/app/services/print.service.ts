@@ -8,13 +8,26 @@ import {GridElementService} from './grid-element.service';
 })
 export class PrintService {
 
-  constructor(public boardService: BoardService, public gridElementService: GridElementService) {
+  constructor(public boardService: BoardService,
+              public gridElementService: GridElementService) {
   }
 
   urlList: any[] = [];
   buttonHTML = '<input id="print" type="button" value="cliquez pour imprimer" style="margin-left: 25%; height: 50px; width: 50%; font-size: x-large;">\n';
 
+  footer: string | ArrayBuffer = "";
+  header: string | ArrayBuffer = "";
+  buttonEnableHeader = false;
+  buttonEnableFooter = false;
+  typeChoiceHeader = "text";
+  typeChoiceFooter = "text";
+
+  heightHeader = "5%";
+  heightFooter = "0%";
+  height = "90%";
+
   printDiv() {
+    this.checkSize();
     const wind = window.open('stable/#/print');
     wind.onload = () => {
       wind.document.body.innerHTML =
@@ -28,6 +41,48 @@ export class PrintService {
       this.recEventSettingFunction(wind);
     };
 
+  }
+
+  checkSize(){
+    if (this.buttonEnableHeader && this.buttonEnableFooter){
+      if (this.typeChoiceHeader == "text" && this.typeChoiceFooter == "text"){
+        this.heightHeader = "5%";
+        this.heightFooter = "5%"
+        this.height = "90%";
+      }else if (this.typeChoiceHeader == "img" && this.typeChoiceFooter == "text"){
+        this.heightHeader = "25%";
+        this.heightFooter = "5%"
+        this.height = "65%";
+      }else if (this.typeChoiceHeader == "text" && this.typeChoiceFooter == "img"){
+        this.heightHeader = "5%";
+        this.heightFooter = "25%"
+        this.height = "70%";
+      }else {
+        this.heightHeader = "25%";
+        this.heightFooter = "25%"
+        this.height = "50%";
+      }
+    }else if (this.buttonEnableHeader && !this.buttonEnableFooter){
+      if (this.typeChoiceHeader == "text"){
+        this.heightHeader = "5%";
+        this.heightFooter = "0%"
+        this.height = "95%";
+      }else {
+        this.heightHeader = "25%";
+        this.heightFooter = "0%"
+        this.height = "75%";
+      }
+    }else if (!this.buttonEnableHeader && this.buttonEnableFooter){
+      if (this.typeChoiceFooter == "text"){
+        this.heightHeader = "5%";
+        this.heightFooter = "5%"
+        this.height = "90%";
+      }else {
+        this.heightHeader = "5%";
+        this.heightFooter = "25%"
+        this.height = "70%";
+      }
+    }
   }
 
   recEventSettingFunction(wind) {
@@ -79,7 +134,7 @@ export class PrintService {
     let numberOfRows = this.boardService.getNumberOfRowsForPage(page);
     let id = page.ID + '- page ' + (((i as number) + (1 as number)) as number);
 
-    return '<div class="id section-to-print">' + id + '</div>\n' +
+    return '<div class="idHeader section-to-print">' + id + this.getHeader() + '</div>\n' +
       '<div class="keyboard section-to-print" id="' + id + '">\n' +
       '<div class="wrapper height-width-100"' +
       'style="grid-template-columns: repeat(' + numberOfCols +
@@ -133,10 +188,35 @@ export class PrintService {
     return innerValue;
   }
 
-
   wrapperEnd() {
-    return '</div>\n' +
-      '</div>';
+    return '</div>' + '</div>'  + this.getFooter() + '<br>';
+  }
+
+  getHeader(){
+    if (this.buttonEnableHeader){
+      if (this.typeChoiceHeader == 'text'){
+        return '<br>' + this.header;
+      }else {
+        return "<img class='adjustableText sizeHeaderFooter' src='" + this.header + "' alt=''>";
+      }
+    }else {
+      return "";
+    }
+  }
+
+  getFooter(){
+    if (this.buttonEnableFooter){
+      if (this.typeChoiceFooter == 'text'){
+        return '<br>' + '<div class="idFooter section-to-print">' + this.footer + '</div>';
+      }else {
+        return '<br>' +
+          '<div class="idFooter section-to-print">' +
+              '<img class="adjustableText sizeHeaderFooter" src="' + this.footer + '" alt="">' +
+          '</div>';
+      }
+    }else {
+      return "";
+    }
   }
 
   getCSSPrint() {
@@ -158,11 +238,14 @@ export class PrintService {
   }
 
   getCSSKeyboard() {
-    return '.id{\n' +
-      '  height: 5%;\n' +
+    return '.idHeader{\n' +
+      '  height: ' + this.heightHeader + ';\n' +
+      '  width: 100%;\n' +
+      '}\n' + '.idFooter{\n' +
+      '  height: ' + this.heightFooter + ';\n' +
       '  width: 100%;\n' +
       '}\n' + '.keyboard{\n' +
-      '  height: 95%;\n' +
+      '  height: ' + this.height + ';\n' +
       '  width: 100%;\n' +
       'box-sizing: border-box;\n' +
       'border-color: black;\n' +
@@ -242,8 +325,15 @@ export class PrintService {
       '  vertical-align: middle;\n' +
       '  overflow-wrap: break-word ;\n' +
       '  word-break: break-all;\n' +
-      '}'
-      ;
+      '}\n' +
+      '\n' +
+      '.sizeHeaderFooter {\n' +
+      '  max-width: 200px;\n' +
+      '  max-height: 200px;\n' +
+      '  display: block;\n' +
+      '  margin: auto;\n' +
+      '  width: auto;\n' +
+      '}\n';
   }
 
   getCSSIndex() {
