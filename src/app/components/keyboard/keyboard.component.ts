@@ -28,6 +28,9 @@ export class KeyboardComponent implements OnInit{
   pressedElement: GridElement = null;
   down = 0;
 
+  copyElements = [];
+  isCopy = false;
+
   // tslint:disable-next-line:max-line-length
   constructor(
     public searchService: SearchService,
@@ -41,7 +44,8 @@ export class KeyboardComponent implements OnInit{
     public layoutService: LayoutService,
     public multilinguism: MultilinguismService,
     public gridElementService: GridElementService,
-    public configurationService: ConfigurationService
+    public configurationService: ConfigurationService,
+    public indexedDBacess: IndexeddbaccessService
   ) {
     this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
   }
@@ -320,6 +324,33 @@ export class KeyboardComponent implements OnInit{
         this.delete(elt);
       });
     }
+  }
+
+  copyAll(){
+    if (this.userToolBarService.edit){
+      this.copyElements = [];
+      this.editionService.selectedElements.forEach((elt) => {
+        this.copyElements.push(this.boardService.copyButtonFolder(elt));
+      });
+      if (this.copyElements.length > 0){
+        this.isCopy = true;
+      }
+    }
+  }
+
+  async pasteAll() {
+    this.copyElements.forEach((elt) => {
+      this.boardService.elementList.push(elt);
+      this.boardService.board.ElementList.push(elt);
+      this.boardService.board.PageList[this.boardService.currentIndexPage()].ElementIDsList.push(elt.ID);
+    });
+    this.isCopy = false;
+    this.indexedDBacess.update();
+    await this.delay(500);
+    this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
+    await this.delay(1000);
+    this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
+    this.copyElements = [];
   }
 
   /**

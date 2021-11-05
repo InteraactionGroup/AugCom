@@ -172,6 +172,7 @@
     { "id":  "textHeader", "FR" :  "Texte pour l'en-tête ", "EN" :  "Text for header "},
     { "id":  "imageHeader", "FR" :  "Image pour l'en-tête ", "EN" :  "Image for header "},
     { "id":  "textFooter", "FR" :  "Texte pour le pied de page ", "EN" :  "Text for footer "},
-    { "id":  "imageFooter", "FR" :  "Image pour le pied de page ", "EN" :  "Image for footer "}
+    { "id":  "imageFooter", "FR" :  "Image pour le pied de page ", "EN" :  "Image for footer "},
+    { "id" :  "nameEmpty", "FR" : "Nom vide !", "EN" :  "Name empty !"}
   ]
 }

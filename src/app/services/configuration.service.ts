@@ -9,10 +9,10 @@ export class ConfigurationService {
 
   DEFAULT_DWELL_TIME_ENABLED = false;
   DEFAULT_PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE = 'default'; // can be 'default' 'imageOnly' and 'textOnly'
-  DEFAULT_PICTO_IMAGE_POSITION_VALUE = 'down'; // can take 'down', 'left', 'right' if imageAndTextVisibiliy is 'default'
+  DEFAULT_PICTO_IMAGE_POSITION_VALUE = 'up'; // can take 'down', 'left', 'right', 'up' if imageAndTextVisibiliy is 'default'
   DEFAULT_PICTO_TEXT_STYLE_VALUE = 'default'; // default is taking the font style of the application while other styles applyies only to pictograms
   DEFAULT_REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE = 'default'; // can be 'default' 'imageOnly' and 'textOnly'
-  DEFAULT_REPO_IMAGE_POSITION_VALUE = 'down'; // can take 'down', 'left', 'right' if imageAndTextVisibiliy is 'default'
+  DEFAULT_REPO_IMAGE_POSITION_VALUE = 'up'; // can take 'down', 'left', 'right', 'up' if imageAndTextVisibiliy is 'default'
   DEFAULT_REPO_TEXT_STYLE_VALUE = 'default'; // default is taking the font style of the application while other styles applyies only to pictograms
   DEFAULT_LANGUAGE_VALUE = 'FR';
   DEFAULT_STYLE_BACKGROUNDCOLOR_VALUE = 'lightgrey';
