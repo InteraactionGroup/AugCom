@@ -428,14 +428,21 @@ export class TileComponent implements OnInit {
     }
   }
 
-  displayImage(element) {
+  displayImage(element: GridElement) {
+    let foundImage = this.boardService.board.ImageList.find(image => image.ID === element.ElementFormsList[0].ImageID);
+    if(foundImage === undefined){
+      return false;
+    }
+    if(foundImage.Path === '') {
+      return false;
+    }
     return (
       (!this.isFolder(element) && this.configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE !== 'textOnly') ||
       (this.isFolder(element) && this.configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE !== 'textOnly')
     );
   }
 
-  displayTopLabel(element) {
+  displayTopLabel(element: GridElement) {
     return (
       (!this.isFolder(element) && this.configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default' &&
         (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'down' || this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'right')
@@ -446,7 +453,7 @@ export class TileComponent implements OnInit {
     );
   }
 
-  displayBottomLabel(element) {
+  displayBottomLabel(element: GridElement) {
     return (
       (!this.isFolder(element) &&
         (
