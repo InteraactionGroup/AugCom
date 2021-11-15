@@ -30,6 +30,7 @@ export class PrintService {
     this.checkSize();
     const wind = window.open('stable/#/print');
     wind.onload = () => {
+      wind.document.head.innerHTML = "";
       wind.document.body.innerHTML =
         '<style type="text/css" media="print">\n' +
         '  @page { size: landscape; }\n' +
