@@ -91,6 +91,19 @@
   gap: 5px;
 }
 
+.flexPreview {
+  display: flex;
+  margin-left: 10px;
+  width: 100%;
+  height: 150px;
+  background-color: whitesmoke;
+  overflow-y: auto;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-content: space-around;
+}
+
 
 .waitVariant {
   margin-left: 5px;
@@ -120,7 +133,7 @@
 
 .variantList .variant {
   cursor: pointer;
-  width: 90%;
+  width: fit-content;
   margin-left: auto;
   margin-right: auto;
   height: 30px;
@@ -130,7 +143,7 @@
 }
 
 .variantName {
-  width: calc(100% - 25px);
+  width: fit-content;
   margin-top: 5px;
   height: 100%;
 }

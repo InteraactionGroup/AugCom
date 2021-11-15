@@ -122,6 +122,7 @@ export class ConfigurationService {
   }
 
   public setConfiguration(configuration: Configuration) {
+    let lang = (configuration.LANGUAGE_VALUE == 'FR' || configuration.LANGUAGE_VALUE == 'EN') ? configuration.LANGUAGE_VALUE : this.DEFAULT_LANGUAGE_VALUE;
     this.DWELL_TIME_ENABLED = configuration.DWELL_TIME_ENABLED;
     this.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE = configuration.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE;
     this.PICTO_IMAGE_POSITION_VALUE = configuration.PICTO_IMAGE_POSITION_VALUE;
@@ -129,7 +130,7 @@ export class ConfigurationService {
     this.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE = configuration.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE;
     this.REPO_IMAGE_POSITION_VALUE = configuration.REPO_IMAGE_POSITION_VALUE;
     this.REPO_TEXT_STYLE_VALUE = configuration.REPO_TEXT_STYLE_VALUE;
-    this.LANGUAGE_VALUE = configuration.LANGUAGE_VALUE;
+    this.LANGUAGE_VALUE = lang;
     this.STYLE_BACKGROUNDCOLOR_VALUE = configuration.DEFAULT_STYLE_BACKGROUNDCOLOR_VALUE;
     this.STYLE_BORDERCOLOR_VALUE = configuration.DEFAULT_STYLE_BORDERCOLOR_VALUE;
     this.STYLE_TEXTCOLOR_VALUE = configuration.DEFAULT_STYLE_TEXTCOLOR_VALUE;
