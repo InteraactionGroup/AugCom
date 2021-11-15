@@ -17,6 +17,7 @@ export class PrintService {
   printDiv() {
     const wind = window.open('stable/#/print');
     wind.onload = () => {
+      wind.document.head.innerHTML = "";
       wind.document.body.innerHTML =
         '<style>' + this.getCSSKeyboard() + '</style>'
         + '<style>' + this.getCSSIndex() + '</style>'
