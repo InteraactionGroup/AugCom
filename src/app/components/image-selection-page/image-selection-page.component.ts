@@ -44,16 +44,17 @@ export class ImageSelectionPageComponent implements OnInit {
   ngOnInit() {
 
     this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
-    if(this.editionService.defaultBorderColor != undefined){
+        .pipe(
+            startWith(''),
+            map(value => this._filter(value))
+        );
+    if (this.editionService.defaultBorderColor != undefined) {
       this.editionService.curentBorderColor = this.editionService.defaultBorderColor;
     }
-    if(this.editionService.defaultInsideColor != undefined){
+    if (this.editionService.defaultInsideColor != undefined) {
       this.editionService.curentColor = this.editionService.defaultInsideColor;
     }
+
   }
 
   /**
