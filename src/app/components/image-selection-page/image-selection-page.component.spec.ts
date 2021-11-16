@@ -6,6 +6,7 @@ import {FormsModule, NgControl, ReactiveFormsModule} from '@angular/forms';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {MatAutocomplete, MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDialogModule} from "@angular/material/dialog";
+import {Router} from "@angular/router";
 
 
 describe('ImageSelectionPageComponent', () => {
@@ -16,7 +17,12 @@ describe('ImageSelectionPageComponent', () => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [FormsModule, Ng2ImgMaxModule, ReactiveFormsModule, MatAutocompleteModule, MatDialogModule],
-      declarations: [ImageSelectionPageComponent]
+      declarations: [ImageSelectionPageComponent],
+      providers: [{
+        provide: Router, useClass: class {
+          navigate = jasmine.createSpy('navigate');
+        }
+      }]
     })
       .compileComponents();
   }));
@@ -40,8 +46,7 @@ describe('ImageSelectionPageComponent', () => {
 
   it('should change the image from mulberry', () => {
     const compiled = fixture.debugElement.nativeElement;
-    compiled.querySelector('#imagefromLib').value = 'dog';
-    compiled.querySelector('.searchLib').click();
+    component.searchInLib('dog');
     fixture.detectChanges();
     compiled.querySelector('.pictoImg').click();
     expect(component.editionService.imageURL).toContain('dog');

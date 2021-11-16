@@ -6,6 +6,7 @@ import {FormsModule} from '@angular/forms';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {GridElement} from '../../types';
 import {Board} from '../../data/ExempleOfBoard';
+import {Router} from "@angular/router";
 
 describe('SavesComponent', () => {
   let component: SavesComponent;
@@ -15,7 +16,12 @@ describe('SavesComponent', () => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [FormsModule, Ng2ImgMaxModule],
-      declarations: [SavesComponent]
+      declarations: [SavesComponent],
+      providers: [{
+        provide: Router, useClass: class {
+          navigate = jasmine.createSpy('navigate');
+        }
+      }]
     })
       .compileComponents();
   }));

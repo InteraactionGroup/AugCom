@@ -242,24 +242,6 @@ export class TileComponent implements OnInit {
   }
 
   /**
-   * if we are in edit mode
-   * set the information of the element we want to modify with the current 'element' informations
-   * open the edition panel to modify the information of element 'element'
-   * @param element, the Element we want to edit
-   */
-  edit(element: GridElement) {
-    console.log('double click on ' + element.ID);
-    if (this.userToolBarService.edit) {
-      this.router.navigate(['/edit']).then(() => {
-        this.editionService.clearEditionPane();
-        this.editionService.selectedElements.push(element);
-        this.editionService.ElementListener.next(element);
-        this.editionService.add = false;
-      });
-    }
-  }
-
-  /**
    * if not in edit mode
    * process the pointerDown event triggered by 'element' and starts the longpress timer
    * @param element, the element triggering the event

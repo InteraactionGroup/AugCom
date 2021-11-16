@@ -39,15 +39,24 @@ export class ImageSelectionPageComponent implements OnInit {
               public editionService: EditionService,
               public configurationService: ConfigurationService,
               public dialog: MatDialog) {
+    this.searchInLib(this.editionService.imageTextField);
   }
 
   ngOnInit() {
 
     this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      )
+        .pipe(
+            startWith(''),
+            map(value => this._filter(value))
+        );
+
+    if (this.editionService.defaultBorderColor != undefined) {
+      this.editionService.curentBorderColor = this.editionService.defaultBorderColor;
+    }
+    if (this.editionService.defaultInsideColor != undefined) {
+      this.editionService.curentColor = this.editionService.defaultInsideColor;
+    }
+
   }
 
   /**
@@ -146,6 +155,7 @@ export class ImageSelectionPageComponent implements OnInit {
   * */
 
   searchInLib(text: string) {
+    this.editionService.imageTextField = text;
     this.imageList = [];
     let tempList = [];
 
@@ -180,18 +190,13 @@ export class ImageSelectionPageComponent implements OnInit {
     // this.wordList = tempList;
     tempList.forEach(couple => {
       this.wordList.push(couple.word);
-    })
+    });
 
     this.imageList = tempList.slice(0, 100);
   }
 
   /*s can be 'inside' or 'border', used to open the corresponding color picker popup  */
-  pickAColor(s: string) {
-    this.editionService.colorPicked = s;
-  }
-
   openDialogModifyInside() {
-    this.editionService.colorPicked = 'inside';
     this.dialog.open(DialogModifyColorInsideComponent, {
       height: '50%',
       width: '60%'
@@ -199,7 +204,6 @@ export class ImageSelectionPageComponent implements OnInit {
   }
 
   openDialogModifyBorder() {
-    this.editionService.colorPicked = 'border';
     this.dialog.open(DialogModifyColorBorderComponent, {
       height: '50%',
       width: '60%'

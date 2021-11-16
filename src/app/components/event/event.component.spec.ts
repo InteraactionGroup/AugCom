@@ -3,6 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {EventComponent} from './event.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import {Router} from "@angular/router";
 
 describe('EventComponent', () => {
   let component: EventComponent;
@@ -12,7 +13,12 @@ describe('EventComponent', () => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [FormsModule],
-      declarations: [EventComponent]
+      declarations: [EventComponent],
+      providers: [{
+        provide: Router, useClass: class {
+          navigate = jasmine.createSpy('navigate');
+        }
+      }]
     })
       .compileComponents();
   }));

@@ -45,13 +45,14 @@
                  matInput
                  [formControl]="myControl"
                  [matAutocomplete]="auto"
+                 [ngModel]="this.editionService.imageTextField"
                  placeholder="{{this.multilinguism.translate('searchForWord')}}">
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
               {{option}}
             </mat-option>
           </mat-autocomplete>
-          <input class="searchLib" type="button" value="search" (click)="searchInLib(search.value)">
+          <input class="searchLib" type="button" value="search">
         </div>
       </div>
 
