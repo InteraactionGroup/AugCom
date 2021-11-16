@@ -26,6 +26,20 @@
     </div>
   </div>
 
+  <!-- button used to copy all the selected elements -->
+  <div class="editSettingsButton floatLeft" (click)="copyAll()">
+    <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("copySelected")}}</div>-->
+    <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('copy')">
+    </div>
+  </div>
+
+  <!-- button used to paste all the selected elements -->
+  <div *ngIf="isCopy" class="editSettingsButton floatLeft" (click)="pasteAll()">
+    <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("pasteSelected")}}</div>-->
+    <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('paste')">
+    </div>
+  </div>
+
   <!-- button used in order to change the background of the keyboard-->
   <!-- note: if we does not use this function for visual scene display we will have to move
         this function have to be moved in the setting of augCom -->

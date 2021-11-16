@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MultilinguismService} from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-dialog-help',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DialogHelpComponent implements OnInit {
 
-  constructor() { }
+  constructor(public multilinguism: MultilinguismService) { }
 
   ngOnInit(): void {
   }

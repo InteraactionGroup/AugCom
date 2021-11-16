@@ -23,6 +23,8 @@ import {LayoutService} from "../../services/layout.service";
 })
 export class EditionComponent implements OnInit {
 
+  nameEmpty = false;
+
   constructor(public editionService: EditionService, public  paletteService: PaletteService,
               public router: Router, public multilinguism: MultilinguismService,
               public indexedDBacess: IndexeddbaccessService, public functionsService: FunctionsService,
@@ -43,6 +45,12 @@ export class EditionComponent implements OnInit {
         this.updateModifications();
       }
     });
+    if(this.editionService.defaultBorderColor != undefined){
+      this.editionService.curentBorderColor = this.editionService.defaultBorderColor;
+    }
+    if(this.editionService.defaultInsideColor != undefined){
+      this.editionService.curentColor = this.editionService.defaultInsideColor;
+    }
   }
 
   /*select given edit page menu item*/
@@ -54,6 +62,8 @@ export class EditionComponent implements OnInit {
    * Clear the informtation of the edition panel, reset all the information to their initial value
    */
   clear() {
+    this.editionService.borderCheck = false;
+    this.editionService.insideCheck = false;
     this.editionService.name = '';
     this.editionService.curentColor = '#d3d3d3';
     this.editionService.imageURL = '';
@@ -78,9 +88,13 @@ export class EditionComponent implements OnInit {
    *
    */
   async save() {
-    if (this.editionService.currentEditPage !== '') {
-      this.editionService.currentEditPage = ''
-    }
+    if (this.editionService.name != ""){
+      if (this.editionService.newPage == ""){
+        this.editionService.newPage = this.editionService.name;
+      }
+      if (this.editionService.currentEditPage !== '') {
+        this.editionService.currentEditPage = ''
+      }
       if (this.editionService.add) {
         this.createNewButton();
       } else if (this.editionService.selectedElements.length === 1) {
@@ -92,12 +106,13 @@ export class EditionComponent implements OnInit {
       this.clear();
       this.indexedDBacess.update();
       this.router.navigate(['keyboard']);
-
       await this.delay(500);
       this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
       await this.delay(1000);
       this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
-
+    }else {
+      this.nameEmpty = true;
+    }
   }
 
   delay(ms: number) {

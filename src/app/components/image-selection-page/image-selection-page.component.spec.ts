@@ -2,9 +2,11 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ImageSelectionPageComponent} from './image-selection-page.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, NgControl, ReactiveFormsModule} from '@angular/forms';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
+import {MatAutocomplete, MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDialogModule} from "@angular/material/dialog";
+
 
 describe('ImageSelectionPageComponent', () => {
   let component: ImageSelectionPageComponent;
@@ -13,7 +15,7 @@ describe('ImageSelectionPageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [FormsModule, Ng2ImgMaxModule,MatDialogModule],
+      imports: [FormsModule, Ng2ImgMaxModule, ReactiveFormsModule, MatAutocompleteModule, MatDialogModule],
       declarations: [ImageSelectionPageComponent]
     })
       .compileComponents();
@@ -38,8 +40,7 @@ describe('ImageSelectionPageComponent', () => {
 
   it('should change the image from mulberry', () => {
     const compiled = fixture.debugElement.nativeElement;
-    compiled.querySelector('#imagefromLib').value = 'dog';
-    compiled.querySelector('.searchLib').click();
+    component.searchInLib('dog');
     fixture.detectChanges();
     compiled.querySelector('.pictoImg').click();
     expect(component.editionService.imageURL).toContain('dog');
