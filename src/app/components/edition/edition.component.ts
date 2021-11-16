@@ -23,6 +23,8 @@ import {LayoutService} from "../../services/layout.service";
 })
 export class EditionComponent implements OnInit {
 
+  nameEmpty = false;
+
   constructor(public editionService: EditionService, public  paletteService: PaletteService,
               public router: Router, public multilinguism: MultilinguismService,
               public indexedDBacess: IndexeddbaccessService, public functionsService: FunctionsService,
@@ -84,9 +86,13 @@ export class EditionComponent implements OnInit {
    *
    */
   async save() {
-    if (this.editionService.currentEditPage !== '') {
-      this.editionService.currentEditPage = ''
-    }
+    if (this.editionService.name != ""){
+      if (this.editionService.newPage == ""){
+        this.editionService.newPage = this.editionService.name;
+      }
+      if (this.editionService.currentEditPage !== '') {
+        this.editionService.currentEditPage = ''
+      }
       if (this.editionService.add) {
         this.createNewButton();
       } else if (this.editionService.selectedElements.length === 1) {
@@ -98,12 +104,13 @@ export class EditionComponent implements OnInit {
       this.clear();
       this.indexedDBacess.update();
       this.router.navigate(['keyboard']);
-
       await this.delay(500);
       this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
       await this.delay(1000);
       this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
-
+    }else {
+      this.nameEmpty = true;
+    }
   }
 
   delay(ms: number) {

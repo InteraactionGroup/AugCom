@@ -88,6 +88,11 @@ export class AccountMenuComponent implements OnInit {
       //   //   // ]
       //   // ]
       // ]
+    ],
+    ['Print',
+      ['Header',
+        'Footer'
+      ]
     ]
   ];
 
@@ -102,7 +107,7 @@ export class AccountMenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getMovingSelectorIndex() {
+  getMovingSelectorIndexHorizontally() {
     switch (this.selectedNewMenu) {
       case 'Application' :
         return '0';
@@ -113,6 +118,21 @@ export class AccountMenuComponent implements OnInit {
         return '33%';
       case 'Pictograms' :
         return '66%';
+      case 'Print' :
+        return '0'
+    }
+  }
+
+  getMovingSelectorIndexVertically(){
+    switch (this.selectedNewMenu) {
+      case 'Application' :
+        return '0';
+      case 'Grids' :
+        return '0';
+      case 'Pictograms' :
+        return '0';
+      case 'Print' :
+        return '50px'
     }
   }
 

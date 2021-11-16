@@ -1,0 +1,27 @@
+<div class="header width-100">
+  <div class="header-page">
+
+    <div class="header-item">
+      <label for="enableHeader">{{this.multilinguism.translate("enableHeader")}}</label>
+      <input type="checkbox" id="enableHeader" name="enableHeader" (click)="enableHeader()" [checked]="buttonEnableHeader">
+    </div>
+
+    <div class="header-item" *ngIf="buttonEnableHeader">
+      <label for="btnText">{{this.multilinguism.translate("text")}}</label>
+      <input type="radio" id="btnText" name="typeChoice" (click)="choiceType('text')" [checked]="textButton">
+      <label class="space" for="btnImg">{{this.multilinguism.translate("image")}}</label>
+      <input type="radio" id="btnImg" name="typeChoice" (click)="choiceType('img')" [checked]="imgButton">
+    </div>
+
+    <div class="header-item" *ngIf="typeChoice == 'text' && buttonEnableHeader">
+      <label id="labelTextArea" for="textArea">{{this.multilinguism.translate("textHeader")}}</label>
+      <textarea id="textArea" name="textFooter" rows="4" cols="50" (keyup)="getText($event)">{{this.header}}</textarea>
+    </div>
+
+    <div class="header-item" *ngIf="typeChoice == 'img' && buttonEnableHeader">
+      <label>{{this.multilinguism.translate("imageHeader")}}</label>
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" [value]="selectedFile">
+    </div>
+
+  </div>
+</div>
