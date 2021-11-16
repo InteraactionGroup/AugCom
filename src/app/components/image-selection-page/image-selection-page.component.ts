@@ -39,6 +39,7 @@ export class ImageSelectionPageComponent implements OnInit {
               public editionService: EditionService,
               public configurationService: ConfigurationService,
               public dialog: MatDialog) {
+    this.searchInLib(this.editionService.imageTextField);
   }
 
   ngOnInit() {
@@ -48,6 +49,7 @@ export class ImageSelectionPageComponent implements OnInit {
             startWith(''),
             map(value => this._filter(value))
         );
+
     if (this.editionService.defaultBorderColor != undefined) {
       this.editionService.curentBorderColor = this.editionService.defaultBorderColor;
     }
@@ -153,6 +155,7 @@ export class ImageSelectionPageComponent implements OnInit {
   * */
 
   searchInLib(text: string) {
+    this.editionService.imageTextField = text;
     this.imageList = [];
     let tempList = [];
 
@@ -187,7 +190,7 @@ export class ImageSelectionPageComponent implements OnInit {
     // this.wordList = tempList;
     tempList.forEach(couple => {
       this.wordList.push(couple.word);
-    })
+    });
 
     this.imageList = tempList.slice(0, 100);
   }

@@ -7,7 +7,7 @@
        (pointerleave)="exit()"
        [class.searched]="searchStarted()&&isSearched(element)"
        [class.blurredElt]="element.ID==='#disable'"
-       (dblclick)="this.edit(element)"
+       (dblclick)="this.editionService.edit(element)"
        (touchstart)="this.pointerDown(element,0)"
        (touchend)="this.pointerUp(element,0)"
        (pointerdown)="this.pointerDown(element,1)"

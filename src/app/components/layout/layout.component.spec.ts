@@ -3,6 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {LayoutComponent} from './layout.component';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA} from '@angular/core';
+import {Router} from "@angular/router";
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;
@@ -12,7 +13,12 @@ describe('LayoutComponent', () => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       declarations: [LayoutComponent],
-      imports: [Ng2ImgMaxModule]
+      imports: [Ng2ImgMaxModule],
+      providers: [{
+        provide: Router, useClass: class {
+          navigate = jasmine.createSpy('navigate');
+        }
+      }]
     })
       .compileComponents();
   }));

@@ -6,6 +6,7 @@ import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {ElementForm, GridElement} from '../../types';
+import {Router} from "@angular/router";
 
 function updateModifications(component: any) {
   if (component.editionService.selectedElements.length === 1) {
@@ -55,7 +56,12 @@ describe('AlternativeFormsComponent', () => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [FormsModule, Ng2ImgMaxModule, HttpClientModule],
-      declarations: [AlternativeFormsComponent]
+      declarations: [AlternativeFormsComponent],
+      providers: [{
+        provide: Router, useClass: class {
+          navigate = jasmine.createSpy('navigate');
+        }
+      }]
     })
       .compileComponents();
   }));

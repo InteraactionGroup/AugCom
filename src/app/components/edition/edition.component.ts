@@ -62,6 +62,7 @@ export class EditionComponent implements OnInit {
    * Clear the informtation of the edition panel, reset all the information to their initial value
    */
   clear() {
+    this.editionService.imageTextField = "";
     this.editionService.borderCheck = false;
     this.editionService.insideCheck = false;
     this.editionService.name = '';

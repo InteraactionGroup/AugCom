@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import {ElementForm, GridElement, Interaction, Page} from '../types';
 import {PaletteService} from './palette.service';
+import {UsertoolbarService} from "./usertoolbar.service";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +25,8 @@ export class EditionService {
   defaultBorderColor: string;
 
   defaultInsideColor: string;
+
+  imageTextField = "";
 
   /**
    * current grammatical class type of the element (empty by default)
@@ -74,7 +78,7 @@ export class EditionService {
   insideCheck: boolean = false;
   borderCheck: boolean = false;
 
-  constructor(public paletteService: PaletteService) {
+  constructor(public paletteService: PaletteService,  public userToolBarService: UsertoolbarService, public router: Router) {
   }
 
   /* get the default name of an element */
@@ -189,6 +193,24 @@ export class EditionService {
     this.borderCheck = !this.borderCheck;
     if(this.borderCheck){
       this.defaultBorderColor = this.curentBorderColor;
+    }
+  }
+
+  /**
+   * if we are in edit mode
+   * set the information of the element we want to modify with the current 'element' informations
+   * open the edition panel to modify the information of element 'element'
+   * @param element, the Element we want to edit
+   */
+  edit(element: GridElement) {
+    if (this.userToolBarService.edit) {
+      this.router.navigate(['/edit']).then(() => {
+        this.clearEditionPane();
+        this.selectedElements.push(element);
+        this.ElementListener.next(element);
+        this.add = false;
+        this.imageTextField = this.getDefaultForm(element.ElementFormsList).DisplayedText;
+      });
     }
   }
 }
