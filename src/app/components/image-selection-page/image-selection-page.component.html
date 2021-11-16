@@ -45,7 +45,6 @@
                  matInput
                  [formControl]="myControl"
                  [matAutocomplete]="auto"
-                 (keyup.enter)="searchInLib(search.value)"
                  placeholder="{{this.multilinguism.translate('searchForWord')}}">
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
