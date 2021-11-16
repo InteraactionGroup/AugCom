@@ -47,7 +47,13 @@ export class ImageSelectionPageComponent implements OnInit {
       .pipe(
         startWith(''),
         map(value => this._filter(value))
-      )
+      );
+    if(this.editionService.defaultBorderColor != undefined){
+      this.editionService.curentBorderColor = this.editionService.defaultBorderColor;
+    }
+    if(this.editionService.defaultInsideColor != undefined){
+      this.editionService.curentColor = this.editionService.defaultInsideColor;
+    }
   }
 
   /**
@@ -186,12 +192,7 @@ export class ImageSelectionPageComponent implements OnInit {
   }
 
   /*s can be 'inside' or 'border', used to open the corresponding color picker popup  */
-  pickAColor(s: string) {
-    this.editionService.colorPicked = s;
-  }
-
   openDialogModifyInside() {
-    this.editionService.colorPicked = 'inside';
     this.dialog.open(DialogModifyColorInsideComponent, {
       height: '50%',
       width: '60%'
@@ -199,7 +200,6 @@ export class ImageSelectionPageComponent implements OnInit {
   }
 
   openDialogModifyBorder() {
-    this.editionService.colorPicked = 'border';
     this.dialog.open(DialogModifyColorBorderComponent, {
       height: '50%',
       width: '60%'

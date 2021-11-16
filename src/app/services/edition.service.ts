@@ -20,6 +20,10 @@ export class EditionService {
 
   sentencedToBeDeletedElement: GridElement[] = [];
 
+  defaultBorderColor: string;
+
+  defaultInsideColor: string;
+
   /**
    * current grammatical class type of the element (empty by default)
    */
@@ -56,9 +60,6 @@ export class EditionService {
 
   currentEditPage = 'information';
 
-
-  colorPicked = null;
-
   /**
    * current element color (#d3d3d3 = grey by default)
    */
@@ -70,6 +71,8 @@ export class EditionService {
   newPage = '';
 
   selectedPalette = this.paletteService.defaultPalette;
+  insideCheck: boolean = false;
+  borderCheck: boolean = false;
 
   constructor(public paletteService: PaletteService) {
   }
@@ -108,7 +111,6 @@ export class EditionService {
     this.imageURL = '';
     this.radioTypeFormat = 'button';
     this.currentEditPage = 'information';
-    this.colorPicked = null;
     this.curentColor = '#d3d3d3';
     this.curentBorderColor = 'black';
     this.selectedPalette = this.paletteService.defaultPalette;
@@ -156,11 +158,17 @@ export class EditionService {
     this.sentencedToBeDeletedElement.push(element);
   }
 
-  selectColor(color) {
-    if (this.colorPicked === 'inside') {
+  selectInsideColor(color) {
       this.curentColor = color;
-    } else if (this.colorPicked === 'border') {
+    if(this.insideCheck) {
+      this.defaultInsideColor = color;
+    }
+  }
+
+  selectBorderColor(color) {
       this.curentBorderColor = color;
+    if(this.borderCheck){
+      this.defaultBorderColor = color;
     }
   }
 
@@ -169,6 +177,18 @@ export class EditionService {
       this.selectedPalette = null;
     } else {
       this.selectedPalette = name;
+    }
+  }
+  checkInsideColor(){
+    this.insideCheck = !this.insideCheck;
+    if(this.insideCheck){
+      this.defaultInsideColor = this.curentColor;
+    }
+  }
+  checkBorderColor(){
+    this.borderCheck = !this.borderCheck;
+    if(this.borderCheck){
+      this.defaultBorderColor = this.curentBorderColor;
     }
   }
 }

@@ -45,6 +45,12 @@ export class EditionComponent implements OnInit {
         this.updateModifications();
       }
     });
+    if(this.editionService.defaultBorderColor != undefined){
+      this.editionService.curentBorderColor = this.editionService.defaultBorderColor;
+    }
+    if(this.editionService.defaultInsideColor != undefined){
+      this.editionService.curentColor = this.editionService.defaultInsideColor;
+    }
   }
 
   /*select given edit page menu item*/
@@ -56,6 +62,8 @@ export class EditionComponent implements OnInit {
    * Clear the informtation of the edition panel, reset all the information to their initial value
    */
   clear() {
+    this.editionService.borderCheck = false;
+    this.editionService.insideCheck = false;
     this.editionService.name = '';
     this.editionService.curentColor = '#d3d3d3';
     this.editionService.imageURL = '';
