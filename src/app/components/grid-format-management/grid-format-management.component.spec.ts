@@ -2,6 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {GridFormatManagementComponent} from './grid-format-management.component';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
+import {Router} from "@angular/router";
 
 describe('GridFormatManagementComponent', () => {
   let component: GridFormatManagementComponent;
@@ -10,7 +11,12 @@ describe('GridFormatManagementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [Ng2ImgMaxModule],
-      declarations: [GridFormatManagementComponent]
+      declarations: [GridFormatManagementComponent],
+      providers: [{
+        provide: Router, useClass: class {
+          navigate = jasmine.createSpy('navigate');
+        }
+      }]
     })
       .compileComponents();
   }));
