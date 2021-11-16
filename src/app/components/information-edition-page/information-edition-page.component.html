@@ -6,8 +6,8 @@
       <div class="tableTitle"> {{multilinguism.translate("modifInfo")}}</div>
       <div class="element">
         <label class="label" for="namefield">{{multilinguism.translate("elementName")}}: </label>
-        <input id="namefield" [(ngModel)]="this.editionService.name" class="input width-100"
-               placeholder="{{multilinguism.translate('enterElementName')}}"
+        <input id="namefield" (keyup)="getName($event)" class="input width-100"
+               [placeholder]="nameInput"
                type="text">
 
         <label class="label" for="typefield">{{multilinguism.translate("elementType")}} : </label>
@@ -22,7 +22,6 @@
           <select class="selectBox" [(ngModel)]="this.editionService.pageLink"
                   *ngIf="this.editionService.radioTypeFormat=='folder'"
                   [ngModelOptions]="{standalone: true}">
-            <option value="@" selected>--{{multilinguism.translate("choosePage")}}--</option>
             <option value="@NEW@">-{{multilinguism.translate("createNewPage")}}-</option>
             <ng-container *ngFor="let p of this.board.board.PageList">
               <option value="{{p.ID}}"> {{p.ID}} </option>

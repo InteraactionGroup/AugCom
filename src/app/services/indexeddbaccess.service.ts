@@ -28,7 +28,7 @@ export class IndexeddbaccessService {
       this.userPageService.currentUser.id != null &&
       this.userPageService.currentUser.id != 1) {
 
-      this.openRequest = indexedDB.open('Saves', 1);
+      this.openRequest = indexedDB.open('saveAugcom', 1);
 
       // ERROR
       this.openRequest.onerror = event => {
@@ -72,7 +72,7 @@ export class IndexeddbaccessService {
 
 
   updateUserList() {
-    this.openRequest = indexedDB.open('Saves', 1);
+    this.openRequest = indexedDB.open('saveAugcom', 1);
 
     // ERROR
     this.openRequest.onerror = event => {
@@ -96,7 +96,7 @@ export class IndexeddbaccessService {
   // INITIALISATION
   loadUsersList() {
 
-    this.openRequest = indexedDB.open('Saves', 1);
+    this.openRequest = indexedDB.open('saveAugcom', 1);
 
     // ERROR
     this.openRequest.onerror = event => {
@@ -164,7 +164,7 @@ export class IndexeddbaccessService {
     if (this.userPageService.currentUser == null) {
       this.userPageService.currentUser = this.userPageService.defaultUser;
     }
-    this.openRequest = indexedDB.open('Saves', 1);
+    this.openRequest = indexedDB.open('saveAugcom', 1);
 
     // ERROR
     this.openRequest.onerror = event => {
@@ -224,7 +224,7 @@ export class IndexeddbaccessService {
 
 
   deleteUserInformation(id: number) {
-    this.openRequest = indexedDB.open('Saves', 1);
+    this.openRequest = indexedDB.open('saveAugcom', 1);
 
     // ERROR
     this.openRequest.onerror = event => {

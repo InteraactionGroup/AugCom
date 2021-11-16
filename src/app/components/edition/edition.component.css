@@ -231,3 +231,8 @@
   height: 100%;
   width: 100%;
 }
+
+.messageError{
+  color: red;
+  margin-left: calc(40% - 10px);
+}

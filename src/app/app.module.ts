@@ -71,6 +71,8 @@ import { DialogResetGridComponent } from './components/dialog-reset-grid/dialog-
 import { DialogModifyColorInsideComponent } from './components/dialog-modify-color-inside/dialog-modify-color-inside.component';
 import { DialogModifyColorBorderComponent } from './components/dialog-modify-color-border/dialog-modify-color-border.component';
 import { ExportSaveDialogComponent } from './components/export-save-dialog/export-save-dialog.component';
+import { HeaderPrintComponent } from './components/header-print/header-print.component';
+import { FooterPrintComponent } from './components/footer-print/footer-print.component';
 
 @NgModule({
   declarations: [
@@ -124,7 +126,9 @@ import { ExportSaveDialogComponent } from './components/export-save-dialog/expor
     DialogModifyColorInsideComponent,
     DialogModifyColorBorderComponent,
     DialogResetGridComponent,
-    ExportSaveDialogComponent
+    ExportSaveDialogComponent,
+    HeaderPrintComponent,
+    FooterPrintComponent
   ],
   imports: [
     BrowserModule,
