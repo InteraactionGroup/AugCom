@@ -169,12 +169,7 @@ export class ImageSelectionPageComponent implements OnInit {
   }
 
   /*s can be 'inside' or 'border', used to open the corresponding color picker popup  */
-  pickAColor(s: string) {
-    this.editionService.colorPicked = s;
-  }
-
   openDialogModifyInside() {
-    this.editionService.colorPicked = 'inside';
     this.dialog.open(DialogModifyColorInsideComponent, {
       height: '50%',
       width: '60%'
@@ -182,7 +177,6 @@ export class ImageSelectionPageComponent implements OnInit {
   }
 
   openDialogModifyBorder() {
-    this.editionService.colorPicked = 'border';
     this.dialog.open(DialogModifyColorBorderComponent, {
       height: '50%',
       width: '60%'

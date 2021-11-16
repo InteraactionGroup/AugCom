@@ -12,13 +12,13 @@
              [ngStyle]="{'grid-template-rows': 'repeat(' + this.paletteService.rowNumber(palette.colors.length) + ',30px)'}">
           <div class="color floatLeft" [class.realcolor]="color!==null" *ngFor="let color of palette.colors"
                [ngStyle]="{'background-color': color}"
-               (click)="this.editionService.selectColor(color);">
+               (click)="this.editionService.selectInsideColor(color);">
           </div>
         </div>
       </ng-container>
     </div>
     <mat-action-list>
-      <input type="checkbox" name="defaultInside" id="defaultInside" [checked]="this.editionService.insideCheck" (click)="this.editionService.checkInsideColor()">
+      <input type="checkbox" name="defaultInside" id="defaultInside" [checked]="this.editionService.insideCheck" (click)="this.editionService.checkInsideColor(); ;">
       <label for="defaultInside"> {{this.multilinguism.translate("setAsDefault")}}</label>
     </mat-action-list>
   </div>

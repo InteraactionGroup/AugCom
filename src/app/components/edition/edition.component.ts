@@ -62,6 +62,8 @@ export class EditionComponent implements OnInit {
    * Clear the informtation of the edition panel, reset all the information to their initial value
    */
   clear() {
+    this.editionService.borderCheck = false;
+    this.editionService.insideCheck = false;
     this.editionService.name = '';
     this.editionService.curentColor = '#d3d3d3';
     this.editionService.imageURL = '';
