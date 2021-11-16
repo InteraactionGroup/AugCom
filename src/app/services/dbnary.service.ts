@@ -55,25 +55,20 @@ export class DbnaryService {
   sparkql(query) {
     this.typeList = [];
     const headers = new HttpHeaders({
-      'Content-type': 'application/x-www-form-urlencoded',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': 'true',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT',
-      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+      "Access-Control-Allow-Origin": "localhost:4200",
+      "Access-Control-Allow-Credentials": "true",
+      "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
+      "Access-Control-Allow-Headers": "Access-Control-Allow-Origin, Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
     });
-
     const params = new HttpParams();
     params.append('format', 'json');
 
     const httpOptions = {
-      headers,
-      params,
-      withCreditals: false
+      params
     };
 
-    const proxy = 'https://cors-anywhere.herokuapp.com/';
     this.http
-      .get(proxy + 'http://kaiko.getalp.org/sparql' + '?query=' + encodeURIComponent(query), httpOptions)
+      .get('http://kaiko.getalp.org/sparql' + '?query=' + encodeURIComponent(query), httpOptions)
       .subscribe(
         data => {
           this.sparkqlData = data as ResultJson1;
