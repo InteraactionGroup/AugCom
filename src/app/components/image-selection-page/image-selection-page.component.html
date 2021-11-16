@@ -38,8 +38,20 @@
         </div>
         <label class="label" for="imagefromLib">{{this.multilinguism.translate("fromLibrary")}}: </label>
         <div class="input">
-          <input #search class="searchField" type="search" id="imagefromLib" (keyup.enter)="searchInLib(search.value)"
+          <input #search
+                 class="searchField"
+                 type="search"
+                 id="imagefromLib"
+                 matInput
+                 [formControl]="myControl"
+                 [matAutocomplete]="auto"
+                 (keyup.enter)="searchInLib(search.value)"
                  placeholder="{{this.multilinguism.translate('searchForWord')}}">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
           <input class="searchLib" type="button" value="search" (click)="searchInLib(search.value)">
         </div>
       </div>

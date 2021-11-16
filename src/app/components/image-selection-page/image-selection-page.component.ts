@@ -6,6 +6,10 @@ import arasaacJson from '../../../assets/arasaac-symbol-info.json';
 import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
 import {ArasaacObject, MulBerryObject} from '../../libTypes';
 import {MultilinguismService} from '../../services/multilinguism.service';
+import {ConfigurationService} from "../../services/configuration.service";
+import {Observable} from "rxjs";
+import {FormControl} from "@angular/forms";
+import {map, startWith} from "rxjs/operators";
 import {DialogAddUserComponent} from "../dialog-add-user/dialog-add-user.component";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogModifyColorInsideComponent} from "../dialog-modify-color-inside/dialog-modify-color-inside.component";
@@ -25,14 +29,25 @@ export class ImageSelectionPageComponent implements OnInit {
    */
   imageList: { lib, word }[];
 
+  myControl = new FormControl();
+  filteredOptions: Observable<string[]>;
+
+  wordList: string[] = [];
 
   constructor(public multilinguism: MultilinguismService,
               public ng2ImgMaxService: Ng2ImgMaxService,
               public editionService: EditionService,
+              public configurationService: ConfigurationService,
               public dialog: MatDialog) {
   }
 
   ngOnInit() {
+
+    this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      )
   }
 
   /**
@@ -134,30 +149,38 @@ export class ImageSelectionPageComponent implements OnInit {
     this.imageList = [];
     let tempList = [];
 
-    (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
-      if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase())) {
-        const url = word;
-        tempList.push({lib: 'arasaacNB', word: this.cleanString(url)});
-      }
-    }, this);
+    if(this.configurationService.LANGUAGE_VALUE === 'FR') {
+      (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
+        if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase())) {
+          const url = word;
+          tempList.push({lib: 'arasaacNB', word: this.cleanString(url)});
+        }
+      }, this);
 
-    (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
-      if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase())) {
-        const url = word;
-        tempList.push({lib: 'arasaacColor', word: this.cleanString(url)});
-      }
-    }, this);
+      (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
+        if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase())) {
+          const url = word;
+          tempList.push({lib: 'arasaacColor', word: this.cleanString(url)});
+        }
+      }, this);
+    }
+    else{
+      (mullberryJson as unknown as MulBerryObject[]).forEach(value => {
+        if (text !== null && text !== '' && value.symbol.toLowerCase().includes(text.toLocaleLowerCase())) {
+          const url = value.symbol;
+          tempList.push({lib: 'mulberry', word: this.cleanString(url)});
+        }
+      }, this);
+    }
 
-    (mullberryJson as unknown as MulBerryObject[]).forEach(value => {
-      if (text !== null && text !== '' && value.symbol.toLowerCase().includes(text.toLocaleLowerCase())) {
-        const url = value.symbol;
-        tempList.push({lib: 'mulberry', word: this.cleanString(url)});
-      }
-    }, this);
-
-    tempList = tempList.sort((a: { lib, word }, b: { lib, word }) => {
+    tempList = tempList.sort((a: { lib: any, word: string | any[] }, b: { lib: any, word: string | any[] }) => {
       return a.word.length - b.word.length;
     });
+
+    // this.wordList = tempList;
+    tempList.forEach(couple => {
+      this.wordList.push(couple.word);
+    })
 
     this.imageList = tempList.slice(0, 100);
   }
@@ -184,4 +207,11 @@ export class ImageSelectionPageComponent implements OnInit {
   }
 
 
+  private _filter(value: string): string[] {
+    if(value.length > 1){
+      this.wordList = [];
+      this.searchInLib(value);
+      return this.wordList;
+    }
+  }
 }
