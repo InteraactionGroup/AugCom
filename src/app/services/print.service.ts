@@ -24,7 +24,7 @@ export class PrintService {
 
   heightHeader = "5%";
   heightFooter = "0%";
-  height = "90%";
+  height = "95%";
 
   printDiv() {
     this.checkSize();
@@ -48,41 +48,45 @@ export class PrintService {
     if (this.buttonEnableHeader && this.buttonEnableFooter){
       if (this.typeChoiceHeader == "text" && this.typeChoiceFooter == "text"){
         this.heightHeader = "5%";
-        this.heightFooter = "5%"
+        this.heightFooter = "5%";
         this.height = "90%";
       }else if (this.typeChoiceHeader == "img" && this.typeChoiceFooter == "text"){
         this.heightHeader = "25%";
-        this.heightFooter = "5%"
-        this.height = "65%";
+        this.heightFooter = "5%";
+        this.height = "70%";
       }else if (this.typeChoiceHeader == "text" && this.typeChoiceFooter == "img"){
         this.heightHeader = "5%";
-        this.heightFooter = "25%"
+        this.heightFooter = "25%";
         this.height = "70%";
       }else {
         this.heightHeader = "25%";
-        this.heightFooter = "25%"
+        this.heightFooter = "25%";
         this.height = "50%";
       }
     }else if (this.buttonEnableHeader && !this.buttonEnableFooter){
       if (this.typeChoiceHeader == "text"){
         this.heightHeader = "5%";
-        this.heightFooter = "0%"
+        this.heightFooter = "0%";
         this.height = "95%";
       }else {
         this.heightHeader = "25%";
-        this.heightFooter = "0%"
+        this.heightFooter = "0%";
         this.height = "75%";
       }
     }else if (!this.buttonEnableHeader && this.buttonEnableFooter){
       if (this.typeChoiceFooter == "text"){
         this.heightHeader = "5%";
-        this.heightFooter = "5%"
+        this.heightFooter = "5%";
         this.height = "90%";
       }else {
         this.heightHeader = "5%";
-        this.heightFooter = "25%"
+        this.heightFooter = "25%";
         this.height = "70%";
       }
+    } else {
+      this.heightHeader = "5%";
+      this.heightFooter = "0%";
+      this.height = "95%";
     }
   }
 
@@ -96,8 +100,12 @@ export class PrintService {
   }
 
   getAllHTML() {
-    let tempHTML = this.buttonHTML;
-
+    let tempHTML = this.buttonHTML +
+      '<div class="table" style="height: 100vh ; display: grid;' +
+      'grid-template-rows: repeat('+ this.boardService.board.PageList.length + ', ' +
+      this.heightHeader + ' '+
+      this.height+' '+
+      this.heightFooter+' );">';
     this.boardService.board.PageList.forEach(page => {
       const tempList = [];
       if (page !== null && page !== undefined) {
@@ -110,7 +118,7 @@ export class PrintService {
       }
     });
 
-    return tempHTML;
+    return tempHTML +"</div>";
   }
 
   getHTML(page: Page, elementList: any[]) {
@@ -190,13 +198,13 @@ export class PrintService {
   }
 
   wrapperEnd() {
-    return '</div>' + '</div>'  + this.getFooter() + '<br>';
+    return '</div>' + '</div>'  + this.getFooter();
   }
 
   getHeader(){
     if (this.buttonEnableHeader){
       if (this.typeChoiceHeader == 'text'){
-        return '<br>' + this.header;
+        return this.header;
       }else {
         return "<img class='adjustableText sizeHeaderFooter' src='" + this.header + "' alt=''>";
       }
@@ -208,15 +216,14 @@ export class PrintService {
   getFooter(){
     if (this.buttonEnableFooter){
       if (this.typeChoiceFooter == 'text'){
-        return '<br>' + '<div class="idFooter section-to-print">' + this.footer + '</div>';
+        return  '<div class="idFooter section-to-print">' + this.footer + '</div>';
       }else {
-        return '<br>' +
-          '<div class="idFooter section-to-print">' +
+        return  '<div class="idFooter section-to-print">' +
               '<img class="adjustableText sizeHeaderFooter" src="' + this.footer + '" alt="">' +
           '</div>';
       }
     }else {
-      return "";
+      return "<div></div>";
     }
   }
 
@@ -240,18 +247,21 @@ export class PrintService {
 
   getCSSKeyboard() {
     return '.idHeader{\n' +
-      '  height: ' + this.heightHeader + ';\n' +
-      '  width: 100%;\n' +
+      '    height: 100%;\n' +
+      '    width: 100%;\n' +
+      '    display: flex;\n' +
+      '    flex-direction: row;\n' +
+      '    flex-wrap: nowrap;\n' +
+      '    align-content: flex-start;\n' +
+      '    align-items: flex-start;\n' +
+      '    justify-content: center;' +
       '}\n' + '.idFooter{\n' +
-      '  height: ' + this.heightFooter + ';\n' +
+      '  height: 100%;\n' +
       '  width: 100%;\n' +
       '}\n' + '.keyboard{\n' +
-      '  height: ' + this.height + ';\n' +
+      '  height: 100%;\n' +
       '  width: 100%;\n' +
       'box-sizing: border-box;\n' +
-      'border-color: black;\n' +
-      'border-width: 1px;\n' +
-      'border-style: solid;\n' +
       '-webkit-print-color-adjust: exact;\n' +
       'color-adjust: exact;\n' +
       '}\n' +
@@ -329,11 +339,11 @@ export class PrintService {
       '}\n' +
       '\n' +
       '.sizeHeaderFooter {\n' +
-      '  max-width: 200px;\n' +
-      '  max-height: 200px;\n' +
-      '  display: block;\n' +
-      '  margin: auto;\n' +
-      '  width: auto;\n' +
+      '    max-width: 200px;\n'+
+      '    max-height: 100%;\n'+
+      '    display: block;\n'+
+      '    margin: auto;\n'+
+      '    width: auto;\n' +
       '}\n';
   }
 
