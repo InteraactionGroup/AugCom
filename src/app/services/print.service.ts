@@ -258,7 +258,7 @@ export class PrintService {
       '    flex-wrap: nowrap;\n' +
       '    align-content: flex-start;\n' +
       '    align-items: flex-start;\n' +
-      '    justify-content: center;' +
+      '    justify-content: space-between;\n' +
       '}\n' + '.idFooter{\n' +
       '  height: 100%;\n' +
       '  width: 100%;\n' +
