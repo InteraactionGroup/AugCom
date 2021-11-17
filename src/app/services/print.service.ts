@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {BoardService} from './board.service';
 import {FolderGoTo, GridElement, Page} from '../types';
 import {GridElementService} from './grid-element.service';
+import {MultilinguismService} from "./multilinguism.service";
+import {ConfigurationService} from "./configuration.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +11,13 @@ import {GridElementService} from './grid-element.service';
 export class PrintService {
 
   constructor(public boardService: BoardService,
-              public gridElementService: GridElementService) {
+              public gridElementService: GridElementService,
+              public multilinguism: MultilinguismService,
+              public configuration: ConfigurationService) {
   }
 
   urlList: any[] = [];
-  buttonHTML = '<input id="print" type="button" value="cliquez pour imprimer" style="margin-left: 25%; height: 50px; width: 50%; font-size: x-large;">\n';
+  buttonHTML = '<input id="print" type="button" value="' +this.multilinguism.translate('exportPDF')+'" style="margin-left: 25%; height: 50px; width: 50%; font-size: x-large;">\n';
 
   footer: string | ArrayBuffer = "";
   header: string | ArrayBuffer = "";
@@ -48,39 +52,39 @@ export class PrintService {
     if (this.buttonEnableHeader && this.buttonEnableFooter){
       if (this.typeChoiceHeader == "text" && this.typeChoiceFooter == "text"){
         this.heightHeader = "5%";
-        this.heightFooter = "5%"
+        this.heightFooter = "5%";
         this.height = "90%";
       }else if (this.typeChoiceHeader == "img" && this.typeChoiceFooter == "text"){
         this.heightHeader = "25%";
-        this.heightFooter = "5%"
+        this.heightFooter = "5%";
         this.height = "65%";
       }else if (this.typeChoiceHeader == "text" && this.typeChoiceFooter == "img"){
         this.heightHeader = "5%";
-        this.heightFooter = "25%"
+        this.heightFooter = "25%";
         this.height = "70%";
       }else {
         this.heightHeader = "25%";
-        this.heightFooter = "25%"
+        this.heightFooter = "25%";
         this.height = "50%";
       }
     }else if (this.buttonEnableHeader && !this.buttonEnableFooter){
       if (this.typeChoiceHeader == "text"){
         this.heightHeader = "5%";
-        this.heightFooter = "0%"
+        this.heightFooter = "0%";
         this.height = "95%";
       }else {
         this.heightHeader = "25%";
-        this.heightFooter = "0%"
+        this.heightFooter = "0%";
         this.height = "75%";
       }
     }else if (!this.buttonEnableHeader && this.buttonEnableFooter){
       if (this.typeChoiceFooter == "text"){
         this.heightHeader = "5%";
-        this.heightFooter = "5%"
+        this.heightFooter = "5%";
         this.height = "90%";
       }else {
         this.heightHeader = "5%";
-        this.heightFooter = "25%"
+        this.heightFooter = "25%";
         this.height = "70%";
       }
     }
@@ -135,7 +139,7 @@ export class PrintService {
     let numberOfRows = this.boardService.getNumberOfRowsForPage(page);
     let id = page.ID + '- page ' + (((i as number) + (1 as number)) as number);
 
-    return '<div class="idHeader section-to-print">' + id + this.getHeader() + '</div>\n' +
+    return '<div class="idHeader section-to-print">' + id + this.getHeader() + '<div class="version">'+this.configuration.VERSION+'</div></div>\n' +
       '<div class="keyboard section-to-print" id="' + id + '">\n' +
       '<div class="wrapper height-width-100"' +
       'style="grid-template-columns: repeat(' + numberOfCols +
