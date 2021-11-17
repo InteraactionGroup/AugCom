@@ -7,6 +7,8 @@ import {StyleService} from "./style.service";
 })
 export class ConfigurationService {
 
+  public VERSION = "AugCom v.2021.11.17";
+
   DEFAULT_DWELL_TIME_ENABLED = false;
   DEFAULT_PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE = 'default'; // can be 'default' 'imageOnly' and 'textOnly'
   DEFAULT_PICTO_IMAGE_POSITION_VALUE = 'up'; // can take 'down', 'left', 'right', 'up' if imageAndTextVisibiliy is 'default'

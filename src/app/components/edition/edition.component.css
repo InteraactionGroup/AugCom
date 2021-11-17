@@ -1,5 +1,5 @@
 .edition {
-  height: calc(100vh - 50px);
+  height: calc(100vh - 50px - 30px);
   opacity: 1;
   background-color: white;
 }

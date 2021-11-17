@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GeticonService} from '../../services/geticon.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
+import {ConfigurationService} from "../../services/configuration.service";
 
 @Component({
   selector: 'app-account',
@@ -26,7 +27,8 @@ export class AccountComponent implements OnInit {
 
 
   constructor(public multilinguism: MultilinguismService,
-              public getIconService: GeticonService) {
+              public getIconService: GeticonService,
+              public configuration: ConfigurationService) {
   }
 
 
