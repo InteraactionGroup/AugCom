@@ -150,7 +150,7 @@
     { "id" : "retour", "FR" : "Retour", "EN" : "Back"},
     { "id" : "Close", "FR" : "Fermer", "EN" : "Close"},
     { "id" : "Restart", "FR" : "Recommencer", "EN" : "Restart"},
-    { "id" : "speechToText", "FR" : "Reconnaissance vocal", "EN" : "Speech to text"},
+    { "id" : "speechToText", "FR" : "Reconnaissance vocale", "EN" : "Speech to text"},
     { "id" : "Listening", "FR" : "En train d'écouter", "EN" : "Listening"},
     { "id" : "Start talking", "FR" : "Commence à parler", "EN" : "Start talking"},
     { "id" : "Didnt catch that", "FR" : "Je n'ai pas compris", "EN" : "Didn't catch that"},
