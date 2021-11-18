@@ -140,6 +140,36 @@ export class ShareComponent implements OnInit {
 
   }
 
+
+  exploreAugcomZip(zip) { // TODO change the folderPath implementation
+    const zipFolder: JSZip = new JSZip();
+    let tempBoard;
+    zipFolder.loadAsync(zip[0]).then((zipFiles) => {
+      zipFiles.forEach((fileName) => {
+        zipFolder
+          .file(fileName)
+          .async('base64')
+          .then((content) => {
+              tempBoard = JSON.parse(this.b64DecodeUnicode(content));
+              tempBoard.ElementList.forEach(element => {
+                this.checkAndUpdateElementDefaultForm(element);
+              });
+              this.boardService.board = this.jsonValidator.getCheckedGrid(tempBoard);
+              this.indexedDBacess.update();
+              this.router.navigate(['keyboard']);
+            }
+          );
+      });
+    });
+  }
+
+  b64DecodeUnicode(str) {
+    return decodeURIComponent(atob(str).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+  }
+
+
   /**
    * create and add a new element and a new image to the bard using information contained in parameters
    * @param name, the name of the new element
