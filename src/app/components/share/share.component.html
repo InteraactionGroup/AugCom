@@ -5,7 +5,7 @@
       <label>
         {{this.multilinguism.translate("importSave") + ":"}}
       </label>
-      <input #file (change)="exploreAugcomZip(file.files)" onclick="this.value=null" type="file">
+      <input #file (change)="exploreAugcomZip(file.files)" accept=".augcom" onclick="this.value=null" type="file">
     </div>
 
     <div class="import listElement">

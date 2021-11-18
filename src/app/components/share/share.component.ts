@@ -150,7 +150,7 @@ export class ShareComponent implements OnInit {
           .file(fileName)
           .async('base64')
           .then((content) => {
-              tempBoard = JSON.parse(atob(content));
+              tempBoard = JSON.parse(this.b64DecodeUnicode(content));
               tempBoard.ElementList.forEach(element => {
                 this.checkAndUpdateElementDefaultForm(element);
               });
@@ -161,6 +161,12 @@ export class ShareComponent implements OnInit {
           );
       });
     });
+  }
+
+  b64DecodeUnicode(str) {
+    return decodeURIComponent(atob(str).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
   }
 
 

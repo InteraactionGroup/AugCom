@@ -11,7 +11,7 @@ import {MultilinguismService} from "../../services/multilinguism.service";
 })
 export class ExportSaveDialogComponent implements OnInit {
 
-  name: String = "Save.augcom";
+  name: String = "save";
 
   constructor(public  exportManagerService: ExportManagerService, public multilinguism: MultilinguismService) {
   }
@@ -25,6 +25,8 @@ export class ExportSaveDialogComponent implements OnInit {
       tempName = this.name.slice(0, this.name.length - 5);
     } else if (this.name.endsWith(".augcom")) {
       tempName = this.name.slice(0, this.name.length - 7);
+    } else {
+      tempName = this.name;
     }
     if (tempName.length == 0) {
       tempName = "save";
