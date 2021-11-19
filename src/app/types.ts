@@ -174,6 +174,12 @@ export class Configuration {
   'VOLUME': number;
   'RATE': number;
   'PITCH': number;
+  'HEADER' : string | ArrayBuffer;
+  'HEADER_BUTTON' : boolean;
+  'HEADER_CHOICE' : string;
+  'FOOTER' : string | ArrayBuffer;
+  'FOOTER_BUTTON' : boolean;
+  'FOOTER_CHOICE' : string
 
 }
 
