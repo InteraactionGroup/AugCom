@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import {MultilinguismService} from "../../services/multilinguism.service";
+import {ConfigurationService} from "../../services/configuration.service";
 import {Grid, Page} from "../../types";
 import {BoardService} from "../../services/board.service";
 
 @Component({
-  selector: 'app-dialog-reset-grid',
-  templateUrl: './dialog-reset-grid.component.html',
-  styleUrls: ['./dialog-reset-grid.component.css']
+  selector: 'app-generator-grid',
+  templateUrl: './generator-grid.component.html',
+  styleUrls: ['./generator-grid.component.css']
 })
-export class DialogResetGridComponent implements OnInit {
+export class GeneratorGridComponent implements OnInit {
 
-  constructor(public multilinguism: MultilinguismService,
-              private boardService: BoardService,) {
+  constructor(public configuration: ConfigurationService,
+              private boardService: BoardService) {
   }
 
   ngOnInit(): void {
   }
 
-  clearBoard(){
+  clearActualGrid(){
     const homePage: Page = new Page();
     homePage.ID = '#HOME';
     homePage.Name = 'Acceuil';
@@ -28,5 +28,4 @@ export class DialogResetGridComponent implements OnInit {
     this.boardService.board = new Grid('nothing','Grid',0,0,[],[],[homePage]);
     this.boardService.updateElementList();
   }
-
 }

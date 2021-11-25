@@ -73,6 +73,7 @@ import { DialogModifyColorBorderComponent } from './components/dialog-modify-col
 import { ExportSaveDialogComponent } from './components/export-save-dialog/export-save-dialog.component';
 import { HeaderPrintComponent } from './components/header-print/header-print.component';
 import { FooterPrintComponent } from './components/footer-print/footer-print.component';
+import { GeneratorGridComponent } from './components/generator-grid/generator-grid.component';
 
 @NgModule({
   declarations: [
@@ -128,7 +129,8 @@ import { FooterPrintComponent } from './components/footer-print/footer-print.com
     DialogResetGridComponent,
     ExportSaveDialogComponent,
     HeaderPrintComponent,
-    FooterPrintComponent
+    FooterPrintComponent,
+    GeneratorGridComponent
   ],
   imports: [
     BrowserModule,

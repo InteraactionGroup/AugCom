@@ -10,6 +10,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {PrintComponent} from './components/print/print.component';
 import {UserPageComponent} from "./components/user-page/user-page.component";
 import {AuthGuardService} from "./services/auth-guard.service";
+import {GeneratorGridComponent} from "./components/generator-grid/generator-grid.component";
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'share',canActivate:[AuthGuardService], component: ShareComponent, data: {animation: 'x'}},
   {path: 'print',canActivate:[AuthGuardService], component: PrintComponent, data: {animation: 'x'}},
   {path: 'edit',canActivate:[AuthGuardService], component: EditionComponent, data: {animation: 'x'}},
+  {path: 'generatorGrid',canActivate:[AuthGuardService], component: GeneratorGridComponent, data: {animation: 'x'}},
   {path: 'settings',canActivate:[AuthGuardService], component: SettingsComponent, data: {animation: 'x'}},
   {path: 'account',canActivate:[AuthGuardService], component: AccountComponent, data: {animation: 'x'}},
   {path: '', redirectTo: '/logging', pathMatch: 'full', data: {animation: 'empty'}}
