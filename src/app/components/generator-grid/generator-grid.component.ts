@@ -25,10 +25,10 @@ export class GeneratorGridComponent implements OnInit {
   nbCols = 0;
   nbRows = 0;
   sentence = "";
-  wordsFromSentence;
+  wordsFromSentence = [];
   indexWordsFromSentence = 0;
 
-  imageList: { lib, word }[];
+  imageList = [];
   imageUrlList = [];
 
   constructor(public configuration: ConfigurationService,
