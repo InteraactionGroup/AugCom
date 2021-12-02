@@ -31,6 +31,8 @@ export class GeneratorGridComponent implements OnInit {
   imageList = [];
   imageUrlList = [];
 
+  addOnlyOneImage;
+
   constructor(public configuration: ConfigurationService,
               public boardService: BoardService,
               public editionService: EditionService,
@@ -51,8 +53,8 @@ export class GeneratorGridComponent implements OnInit {
     generatedPage.ID = '#HOME';
     generatedPage.Name = this.nameGrid;
     generatedPage.ElementIDsList = [];
-    generatedPage.NumberOfCols = this.nbCols;
-    generatedPage.NumberOfRows = this.nbRows;
+    generatedPage.NumberOfCols = Number(this.nbCols);
+    generatedPage.NumberOfRows = Number(this.nbRows);
     generatedPage.GapSize = 6;
     this.boardService.board = new Grid('nothing','Grid',0,0,[],[],[generatedPage]);
     this.boardService.updateElementList();
@@ -89,15 +91,26 @@ export class GeneratorGridComponent implements OnInit {
   }
 
   searchInLib(text: string) {
-
+    this.addOnlyOneImage = false;
     if(this.configuration.LANGUAGE_VALUE === 'FR') {
       (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
-        if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase())) {
+        if (text !== null && text !== '' && word.toLowerCase() === text.toLocaleLowerCase()) {
+          this.addOnlyOneImage = true;
           const url = word;
           this.imageList.push({lib: 'arasaacNB', word: this.cleanString(url)});
           return;
         }
       }, this);
+      if (!this.addOnlyOneImage){
+        (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
+          if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase())){
+            this.addOnlyOneImage = true;
+            const url = word;
+            this.imageList.push({lib: 'arasaacNB', word: this.cleanString(url)});
+            return;
+          }
+        });
+      }
 
       /*(arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
         if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase())) {
@@ -157,11 +170,13 @@ export class GeneratorGridComponent implements OnInit {
 
   createNewButton(image: string) {
     let name = this.wordsFromSentence[this.indexWordsFromSentence];
-    let i = 0;
+
     let tempId = name;
+
+    let i = 0;
     while (this.boardService.board.ElementList.findIndex(elt => elt.ID === tempId) !== -1) {
       tempId = name + i;
-      i = i + 1;
+      i ++;
     }
 
     this.editionService.variantList.push(
@@ -174,6 +189,7 @@ export class GeneratorGridComponent implements OnInit {
     );
 
     const elementFormsList = Object.assign([], this.editionService.variantList);
+    this.editionService.variantList = [];
 
     for (const interaction of this.functionsService.interactionIDs) {
       const temp: Interaction = this.editionService.interractionList.find(inter => {
@@ -287,4 +303,5 @@ export class GeneratorGridComponent implements OnInit {
     await this.delay(1000);
     this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
   }
+
 }
