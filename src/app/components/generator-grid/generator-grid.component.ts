@@ -58,7 +58,7 @@ export class GeneratorGridComponent implements OnInit {
     generatedPage.NumberOfCols = Number(this.nbCols);
     generatedPage.NumberOfRows = Number(this.nbRows);
     generatedPage.GapSize = 6;
-    this.boardService.board = new Grid('nothing','Grid',0,0,[],[],[generatedPage]);
+    this.boardService.board = new Grid('nothing','Grid',Number(this.nbCols),Number(this.nbRows),[],[],[generatedPage]);
     this.boardService.updateElementList();
   }
 
@@ -230,19 +230,19 @@ export class GeneratorGridComponent implements OnInit {
     const elementFormsList = Object.assign([], this.editionService.variantList);
     this.editionService.variantList = [];
 
-    for (const interaction of this.functionsService.interactionIDs) {
-      this.editionService.interractionList.push({
-        ID: 'click',
-        ActionList: [
-          {ID: 'say', Options: []},
-        ]
-      });
-    }
+    this.editionService.interractionList.push({
+      ID: 'click',
+      ActionList: [
+        {ID: 'display', Options: []},
+      ]
+    });
 
     this.boardService.board.ElementList.push(
       new GridElement(tempId, this.returnTypeOf(tempId), this.editionService.classe,
         this.editionService.curentColor, this.editionService.curentBorderColor, 0, elementFormsList, this.editionService.interractionList)
     );
+
+    this.editionService.interractionList = [];
 
     this.boardService.board.ImageList.push(
       {
@@ -331,8 +331,9 @@ export class GeneratorGridComponent implements OnInit {
     this.indexedDBacess.update();
     this.router.navigate(['keyboard']);
     await this.delay(500);
-    this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
+    this.layoutService.refreshAll(Number(this.nbCols), Number(this.nbRows), this.boardService.getGapSize());
     await this.delay(1000);
-    this.boardService.updateElementList();
+    this.layoutService.refreshAll(Number(this.nbCols), Number(this.nbRows), this.boardService.getGapSize());
   }
+
 }
