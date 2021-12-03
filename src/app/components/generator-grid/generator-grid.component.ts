@@ -333,14 +333,14 @@ export class GeneratorGridComponent implements OnInit {
     this.clearActualGrid();
     this.getWordsFromSentence();
     this.getImageFromSentence();
-    /*this.setButtonOnGrid();
+    this.setButtonOnGrid();
     this.clear();
     this.indexedDBacess.update();
     this.router.navigate(['keyboard']);
     await this.delay(500);
     this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
     await this.delay(1000);
-    this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());*/
+    this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
   }
 
 }
