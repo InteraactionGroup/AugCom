@@ -25,8 +25,6 @@ export class GeneratorGridComponent implements OnInit {
   nameGrid = "";
   nbCols = 0;
   nbRows = 0;
-  posX = 0;
-  posY = 0;
   sentence = "";
   wordsFromSentence = [];
   indexWordsFromSentence = 0;
@@ -241,13 +239,10 @@ export class GeneratorGridComponent implements OnInit {
       });
     }
 
-    let generatedGrid = new GridElement(tempId, this.returnTypeOf(tempId), this.editionService.classe, this.editionService.curentColor, this.editionService.curentBorderColor, 0, elementFormsList, this.editionService.interractionList);
-    generatedGrid.x = this.posX;
-    generatedGrid.y = this.posY;
-
-    this.updatePositionGrid();
-
-    this.boardService.board.ElementList.push(generatedGrid);
+    this.boardService.board.ElementList.push(
+      new GridElement(tempId, this.returnTypeOf(tempId), this.editionService.classe,
+        this.editionService.curentColor, this.editionService.curentBorderColor, 0, elementFormsList, this.editionService.interractionList)
+    );
 
     this.boardService.board.ImageList.push(
       {
@@ -297,15 +292,6 @@ export class GeneratorGridComponent implements OnInit {
     return currentPage;
   }
 
-  updatePositionGrid(){
-    if (this.posX != this.nbCols){
-      this.posX += 1;
-    }else {
-      this.posX = 0;
-      this.posY += 1;
-    }
-  }
-
   clear() {
     this.editionService.imageTextField = "";
     this.editionService.borderCheck = false;
@@ -347,7 +333,6 @@ export class GeneratorGridComponent implements OnInit {
     await this.delay(500);
     this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
     await this.delay(1000);
-    this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
+    this.boardService.updateElementList();
   }
-
 }
