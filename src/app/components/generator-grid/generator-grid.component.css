@@ -1,0 +1,21 @@
+.edition {
+  height: calc(100vh - 50px - 30px);
+  opacity: 1;
+  background-color: white;
+}
+
+.selectLibrairy input{
+  margin-right: 10px;
+}
+
+.selectLibrairy label{
+  margin-right: 10px;
+}
+
+.optionsGenerateGrid input{
+  width: auto;
+}
+
+.optionsGenerateGrid label{
+  margin-right: 10px;
+}

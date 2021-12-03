@@ -13,6 +13,7 @@ import {Router} from "@angular/router";
 import {MultilinguismService} from "../../services/multilinguism.service";
 import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 import {LayoutService} from "../../services/layout.service";
+import {ifStmt} from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: 'app-generator-grid',
@@ -27,6 +28,7 @@ export class GeneratorGridComponent implements OnInit {
   sentence = "";
   wordsFromSentence = [];
   indexWordsFromSentence = 0;
+  libToUse = "arasaacNB";
 
   imageList = [];
   imageUrlList = [];
@@ -62,6 +64,8 @@ export class GeneratorGridComponent implements OnInit {
 
   getWordsFromSentence(){
     this.wordsFromSentence = this.sentence.split(" ");
+    this.wordsFromSentence = this.wordsFromSentence.filter(word => word != "");
+    console.log(this.wordsFromSentence);
   }
 
   getNameGrid(event){
@@ -82,7 +86,7 @@ export class GeneratorGridComponent implements OnInit {
 
   getImageFromSentence(){
     this.wordsFromSentence.forEach(words => {
-      this.searchInLib(words);
+      this.searchExactWordInLib(words);
     });
 
     this.imageList.forEach(image => {
@@ -90,38 +94,71 @@ export class GeneratorGridComponent implements OnInit {
     });
   }
 
-  searchInLib(text: string) {
+  getLibrairy(lib){
+    this.libToUse = lib;
+  }
+
+  searchExactWordInLib(text: string) {
     this.addOnlyOneImage = false;
-    if(this.configuration.LANGUAGE_VALUE === 'FR') {
+    console.log("Search the exact word : ");
+    if(this.libToUse === "arasaacNB"){
       (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
-        if (text !== null && text !== '' && word.toLowerCase() === text.toLocaleLowerCase()) {
+          if (text !== null && text !== '' && word.toLowerCase() === text.toLocaleLowerCase() && !this.addOnlyOneImage) {
+            this.addOnlyOneImage = true;
+            const url = word;
+            this.imageList.push({lib: 'arasaacNB', word: this.cleanString(url)});
+            return;
+          }
+        }, this);
+    }else if (this.libToUse === "arasaacColor"){
+      (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
+          if (text !== null && text !== '' && word.toLowerCase() === text.toLocaleLowerCase() && !this.addOnlyOneImage) {
+            this.addOnlyOneImage = true;
+            const url = word;
+            this.imageList.push({lib: 'arasaacColor', word: this.cleanString(url)});
+          }
+        }, this);
+      }
+    if (!this.addOnlyOneImage){
+      console.log("No find in arasaac lib !");
+      (mullberryJson as unknown as MulBerryObject[]).forEach(value => {
+        if (text !== null && text !== '' && value.symbol.toLowerCase() === text.toLocaleLowerCase() && !this.addOnlyOneImage) {
+          this.addOnlyOneImage = true;
+          const url = value.symbol;
+          this.imageList.push({lib: 'mulberry', word: this.cleanString(url)});
+          return;
+        }
+      }, this);
+      if (!this.addOnlyOneImage){
+        this.searchTheClosestWordInLib(text);
+      }
+    }
+  }
+
+  searchTheClosestWordInLib(text : string){
+    console.log("Search the closest word :");
+    if(this.libToUse === "arasaacNB"){
+      (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
+        if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && !this.addOnlyOneImage) {
           this.addOnlyOneImage = true;
           const url = word;
           this.imageList.push({lib: 'arasaacNB', word: this.cleanString(url)});
           return;
         }
       }, this);
-      if (!this.addOnlyOneImage){
-        (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
-          if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase())){
-            this.addOnlyOneImage = true;
-            const url = word;
-            this.imageList.push({lib: 'arasaacNB', word: this.cleanString(url)});
-            return;
-          }
-        });
-      }
-
-      /*(arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
-        if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase())) {
+    }else if (this.libToUse === "arasaacColor"){
+      (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
+        if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && !this.addOnlyOneImage) {
+          this.addOnlyOneImage = true;
           const url = word;
           this.imageList.push({lib: 'arasaacColor', word: this.cleanString(url)});
         }
-      }, this);*/
+      }, this);
     }
-    else{
+    if (!this.addOnlyOneImage){
       (mullberryJson as unknown as MulBerryObject[]).forEach(value => {
-        if (text !== null && text !== '' && value.symbol.toLowerCase().includes(text.toLocaleLowerCase())) {
+        if (text !== null && text !== '' && value.symbol.toLowerCase().includes(text.toLocaleLowerCase()) && !this.addOnlyOneImage) {
+          this.addOnlyOneImage = true;
           const url = value.symbol;
           this.imageList.push({lib: 'mulberry', word: this.cleanString(url)});
           return;
@@ -146,14 +183,16 @@ export class GeneratorGridComponent implements OnInit {
 
   previewMullberry(t: string) {
     this.previewWithURL('assets/libs/mulberry-symbols/EN-symbols/' + t + '.svg');
+    console.log('assets/libs/mulberry-symbols/EN-symbols/' + t + '.svg');
   }
 
   previewArasaac(t: string, isColored: boolean) {
     if (isColored) {
       this.previewWithURL('assets/libs/FR_Pictogrammes_couleur/' + t + '.png');
+      console.log('assets/libs/FR_Pictogrammes_couleur/' + t + '.png');
     } else {
-      console.log('assets/libs/FR_Noir_et_blanc_pictogrammes/' + t + '.png');
       this.previewWithURL('assets/libs/FR_Noir_et_blanc_pictogrammes/' + t + '.png');
+      console.log('assets/libs/FR_Noir_et_blanc_pictogrammes/' + t + '.png');
     }
   }
 
@@ -294,14 +333,14 @@ export class GeneratorGridComponent implements OnInit {
     this.clearActualGrid();
     this.getWordsFromSentence();
     this.getImageFromSentence();
-    this.setButtonOnGrid();
+    /*this.setButtonOnGrid();
     this.clear();
     this.indexedDBacess.update();
     this.router.navigate(['keyboard']);
     await this.delay(500);
     this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
     await this.delay(1000);
-    this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
+    this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());*/
   }
 
 }

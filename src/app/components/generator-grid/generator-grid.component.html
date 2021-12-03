@@ -1,18 +1,35 @@
 <app-back-home-bar></app-back-home-bar>
 <div class="edition width-100">
 
-  <label class="label" for="namefield">Name grid generated : </label>
-  <input id="namefield" (keyup)="getNameGrid($event)" class="input width-100" [placeholder]="" type="text">
+  <div class="selectLibrairy">
+    <input checked id="radioAraasac" name="typeFormat" type="radio" (click)="getLibrairy('arasaacNB')">
+    <label class="radio" for="radioAraasac">Arasaac</label>
 
-  <label class="label" for="colsfield">Number of columns fo the grid : </label>
-  <input id="colsfield" (keyup)="getColsGrid($event)" class="input width-100" [placeholder]="" type="number" min="1">
+    <input id="radioAraasacColored" name="typeFormat" type="radio" (click)="getLibrairy('arasaacColor')">
+    <label class="radio" for="radioAraasacColored">Araasac Colored</label>
+  </div>
 
-  <label class="label" for="rowsfield">Number of rows for the grid : </label>
-  <input id="rowsfield" (keyup)="getRowsGrid($event)" class="input width-100" [placeholder]="" type="number" min="1">
+  <div class="optionsGenerateGrid">
+    <label class="label" for="namefield">Name grid generated : </label>
+    <input id="namefield" (keyup)="getNameGrid($event)" class="input width-100" [placeholder]="" type="text">
+  </div>
 
-  <label class="label" for="sentencefield">The sentence : </label>
-  <input id="sentencefield" (keyup)="getSentence($event)" class="input width-100" [placeholder]="" type="text">
+  <div class="optionsGenerateGrid">
+    <label class="label" for="colsfield">Number of columns fo the grid : </label>
+    <input id="colsfield" (keyup)="getColsGrid($event)" class="input width-100" [placeholder]="" type="number" min="1">
+  </div>
 
-  <input class="searchLib" type="button" value="Submit" (click)="submit()"><input>
+  <div class="optionsGenerateGrid">
+    <label class="label" for="rowsfield">Number of rows for the grid : </label>
+    <input id="rowsfield" (keyup)="getRowsGrid($event)" class="input width-100" [placeholder]="" type="number" min="1">
+  </div>
+
+  <div class="optionsGenerateGrid">
+    <label class="label" for="sentencefield">The sentence : </label>
+    <input id="sentencefield" (keyup)="getSentence($event)" class="input width-100" [placeholder]="" type="text">
+  </div>
+
+  <button (click)="submit()">Générer</button>
+
 </div>
 {{this.configuration.VERSION}}
