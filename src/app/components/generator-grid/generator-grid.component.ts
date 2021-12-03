@@ -25,6 +25,8 @@ export class GeneratorGridComponent implements OnInit {
   nameGrid = "";
   nbCols = 0;
   nbRows = 0;
+  posX = 0;
+  posY = 0;
   sentence = "";
   wordsFromSentence = [];
   indexWordsFromSentence = 0;
@@ -231,25 +233,21 @@ export class GeneratorGridComponent implements OnInit {
     this.editionService.variantList = [];
 
     for (const interaction of this.functionsService.interactionIDs) {
-      const temp: Interaction = this.editionService.interractionList.find(inter => {
-        return inter.ID === interaction.ID
+      this.editionService.interractionList.push({
+        ID: 'click',
+        ActionList: [
+          {ID: 'say', Options: []},
+        ]
       });
-      if (temp !== null && temp !== undefined) {
-        interaction.ActionList.forEach(act => {
-          temp.ActionList.push(act);
-        });
-      } else {
-        this.editionService.interractionList.push({
-          ID: interaction.ID,
-          ActionList: interaction.ActionList
-        });
-      }
     }
 
-    this.boardService.board.ElementList.push(
-      new GridElement(tempId, this.returnTypeOf(tempId), this.editionService.classe,
-        this.editionService.curentColor, this.editionService.curentBorderColor, 0, elementFormsList, this.editionService.interractionList)
-    );
+    let generatedGrid = new GridElement(tempId, this.returnTypeOf(tempId), this.editionService.classe, this.editionService.curentColor, this.editionService.curentBorderColor, 0, elementFormsList, this.editionService.interractionList);
+    generatedGrid.x = this.posX;
+    generatedGrid.y = this.posY;
+
+    this.updatePositionGrid();
+
+    this.boardService.board.ElementList.push(generatedGrid);
 
     this.boardService.board.ImageList.push(
       {
@@ -297,6 +295,15 @@ export class GeneratorGridComponent implements OnInit {
       currentPage = this.createAndGetNewPage();
     }
     return currentPage;
+  }
+
+  updatePositionGrid(){
+    if (this.posX != this.nbCols){
+      this.posX += 1;
+    }else {
+      this.posX = 0;
+      this.posY += 1;
+    }
   }
 
   clear() {

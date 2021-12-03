@@ -266,6 +266,13 @@
     { "id" :  "pictogrammes", "FR" : "Pictogrammes", "EN" :  "Pictograms"},
     { "id" :  "pictogrammesStyle", "FR" : "Style du Pictogramme", "EN" :  "Pictogram Style"},
     { "id" :  "formatStyle", "FR" : "Définissez ici le style des deux formats de boutons, les boutons simples et les boutons dossier (ou pictogrammes et pictogrammes-répertoire). Pour chacun de ces deux types de boutons vous pouvez choisir d’afficher l’image et le texte du bouton ou une seule des deux valeurs, vous pouvez également choisir la disposition du texte par rapport à l’image (en bas, en haut, a gauche ou a droite). Pour finir vous pouvez choisir la police d’écriture du texte contenu dans ce bouton", "EN" :  "Here you can define the style of the two button formats, simple buttons and folder buttons (or pictograms and directory pictograms). For each of these two types of buttons you can choose to display the image and the text of the button or only one of the two values, you can also choose the disposition of the text in relation to the image (bottom, top, left or right). Finally you can choose the font of the text contained in this button"},
-    { "id" : "setAsDefault", "FR" : "Mettre par défaut", "EN" : "Set as default"}
+    { "id" : "setAsDefault", "FR" : "Mettre par défaut", "EN" : "Set as default"},
+    { "id" :  "arasaacNB", "FR" : "Arasaac noir et blanc", "EN" :  "Arasaac black and white"},
+    { "id" :  "arasaacColored", "FR" : "Arasaac en couleur", "EN" :  "Arasaac in colour"},
+    { "id" :  "nameGeneratedGrid", "FR" : "Nom de la grille : ", "EN" :  "Name of the grid : "},
+    { "id" :  "nbColsGeneratedGrid", "FR" : "Nombre de colonnes pour la grille : ", "EN" :  "Number of columns for the grid : "},
+    { "id" :  "nbRowsGeneratedGrid", "FR" : "Nombre de lignes pour la grille : ", "EN" :  "Number of rows for the grid : "},
+    { "id" :  "listOfWords", "FR" : "Liste de mots : ", "EN" :  "List of words : "},
+    { "id" :  "generateGrid", "FR" : "Générer", "EN" :  "Generate"}
   ]
 }
