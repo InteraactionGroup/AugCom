@@ -35,6 +35,9 @@ export class GeneratorGridComponent implements OnInit {
 
   addOnlyOneImage;
 
+  error = false;
+  errorType = "";
+
   constructor(public configuration: ConfigurationService,
               public boardService: BoardService,
               public editionService: EditionService,
@@ -323,17 +326,42 @@ export class GeneratorGridComponent implements OnInit {
   }
 
   async submit(){
-    this.clearActualGrid();
-    this.getWordsFromSentence();
-    this.getImageFromSentence();
-    this.setButtonOnGrid();
-    this.clear();
-    this.indexedDBacess.update();
-    this.router.navigate(['keyboard']);
-    await this.delay(500);
-    this.layoutService.refreshAll(Number(this.nbCols), Number(this.nbRows), this.boardService.getGapSize());
-    await this.delay(1000);
-    this.layoutService.refreshAll(Number(this.nbCols), Number(this.nbRows), this.boardService.getGapSize());
+    if (this.nameGrid != ""){
+      if (this.nbRows != 0){
+        if (this.nbCols != 0){
+          this.getWordsFromSentence();
+          if (this.wordsFromSentence.length != 0){
+            if ((this.nbCols * this.nbRows ) >= this.wordsFromSentence.length){
+              this.clearActualGrid();
+              this.getImageFromSentence();
+              this.setButtonOnGrid();
+              this.clear();
+              this.indexedDBacess.update();
+              this.router.navigate(['keyboard']);
+              await this.delay(500);
+              this.layoutService.refreshAll(Number(this.nbCols), Number(this.nbRows), this.boardService.getGapSize());
+              await this.delay(1000);
+              this.layoutService.refreshAll(Number(this.nbCols), Number(this.nbRows), this.boardService.getGapSize());
+            }else {
+              this.error = true;
+              this.errorType = "sizeToSmall";
+            }
+          }else {
+            this.error = true;
+            this.errorType = "noWords";
+          }
+        }else {
+          this.error = true;
+          this.errorType = "noCols";
+        }
+      }else {
+        this.error = true;
+        this.errorType = "noRows";
+      }
+    }else {
+      this.error = true;
+      this.errorType = "noNameGid";
+    }
   }
 
 }

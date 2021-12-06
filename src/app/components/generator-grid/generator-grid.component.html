@@ -31,5 +31,8 @@
 
   <button (click)="submit()">{{this.multilinguism.translate("generateGrid")}}</button>
 
+  <div *ngIf="error" class="messageError">
+    {{this.multilinguism.translate(errorType)}}
+  </div>
 </div>
 {{this.configuration.VERSION}}
