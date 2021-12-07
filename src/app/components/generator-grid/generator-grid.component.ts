@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ConfigurationService} from "../../services/configuration.service";
-import {FolderGoTo, Grid, GridElement, Interaction, Page} from "../../types";
+import {FolderGoTo, Grid, GridElement, Page} from "../../types";
 import {BoardService} from "../../services/board.service";
 import arasaacJson from "../../../assets/arasaac-symbol-info.json";
 import {ArasaacObject, MulBerryObject} from "../../libTypes";
@@ -13,7 +13,7 @@ import {Router} from "@angular/router";
 import {MultilinguismService} from "../../services/multilinguism.service";
 import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 import {LayoutService} from "../../services/layout.service";
-import {ifStmt} from "@angular/compiler/src/output/output_ast";
+import {JsonValidatorService} from "../../services/json-validator.service";
 
 @Component({
   selector: 'app-generator-grid',
@@ -25,6 +25,8 @@ export class GeneratorGridComponent implements OnInit {
   nameGrid = "";
   nbCols = 0;
   nbRows = 0;
+  posX = 0;
+  posY = 0;
   sentence = "";
   wordsFromSentence = [];
   indexWordsFromSentence = 0;
@@ -44,6 +46,7 @@ export class GeneratorGridComponent implements OnInit {
               public functionsService: FunctionsService,
               public dbnaryService: DbnaryService,
               public router: Router,
+              public jsonValidator: JsonValidatorService,
               public multilinguism: MultilinguismService,
               public indexedDBacess: IndexeddbaccessService,
               public layoutService: LayoutService) {
@@ -62,7 +65,6 @@ export class GeneratorGridComponent implements OnInit {
     generatedPage.NumberOfRows = Number(this.nbRows);
     generatedPage.GapSize = 6;
     this.boardService.board = new Grid('nothing','Grid',Number(this.nbCols),Number(this.nbRows),[],[],[generatedPage]);
-    this.boardService.updateElementList();
   }
 
   getWordsFromSentence(){
@@ -73,6 +75,7 @@ export class GeneratorGridComponent implements OnInit {
 
   getNameGrid(event){
     this.nameGrid = event.target.value;
+    this.nameGrid.split(" ").join("");
   }
 
   getColsGrid(event){
@@ -327,10 +330,10 @@ export class GeneratorGridComponent implements OnInit {
 
   async submit(){
     if (this.nameGrid != ""){
-      if (this.nbRows != 0){
-        if (this.nbCols != 0){
+      if (this.nbCols > 0){
+        if (this.nbRows > 0){
           this.getWordsFromSentence();
-          if (this.wordsFromSentence.length != 0){
+          if (this.wordsFromSentence.length > 0){
             if ((this.nbCols * this.nbRows ) >= this.wordsFromSentence.length){
               this.clearActualGrid();
               this.getImageFromSentence();
@@ -339,9 +342,9 @@ export class GeneratorGridComponent implements OnInit {
               this.indexedDBacess.update();
               this.router.navigate(['keyboard']);
               await this.delay(500);
-              this.layoutService.refreshAll(Number(this.nbCols), Number(this.nbRows), this.boardService.getGapSize());
+              this.boardService.updateElementList();
               await this.delay(1000);
-              this.layoutService.refreshAll(Number(this.nbCols), Number(this.nbRows), this.boardService.getGapSize());
+              this.boardService.updateElementList();
             }else {
               this.error = true;
               this.errorType = "sizeToSmall";
@@ -352,16 +355,15 @@ export class GeneratorGridComponent implements OnInit {
           }
         }else {
           this.error = true;
-          this.errorType = "noCols";
+          this.errorType = "noRows";
         }
       }else {
         this.error = true;
-        this.errorType = "noRows";
+        this.errorType = "noCols";
       }
     }else {
       this.error = true;
-      this.errorType = "noNameGid";
+      this.errorType = "noNameGrid";
     }
   }
-
 }
