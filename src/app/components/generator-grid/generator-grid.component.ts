@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ConfigurationService} from "../../services/configuration.service";
-import {FolderGoTo, Grid, GridElement, Page} from "../../types";
+import {FolderGoTo, Grid, GridElement, GridElementGenerated, Page} from "../../types";
 import {BoardService} from "../../services/board.service";
 import arasaacJson from "../../../assets/arasaac-symbol-info.json";
 import {ArasaacObject, MulBerryObject} from "../../libTypes";
@@ -65,6 +65,9 @@ export class GeneratorGridComponent implements OnInit {
     generatedPage.NumberOfRows = Number(this.nbRows);
     generatedPage.GapSize = 6;
     this.boardService.board = new Grid('nothing','Grid',Number(this.nbCols),Number(this.nbRows),[],[],[generatedPage]);
+    this.boardService.board.NumberOfCols = Number(this.nbCols);
+    this.boardService.board.NumberOfRows = Number(this.nbRows);
+    this.boardService.updateElementList();
   }
 
   getWordsFromSentence(){
@@ -213,6 +216,15 @@ export class GeneratorGridComponent implements OnInit {
     });
   }
 
+  updatePositionButton(){
+    if ((this.posX + 1) < this.nbCols){
+      this.posX = this.posX + 1;
+    }else {
+      this.posX = 0;
+      this.posY = this.posY + 1;
+    }
+  }
+
   createNewButton(image: string) {
     let name = this.wordsFromSentence[this.indexWordsFromSentence];
 
@@ -244,9 +256,11 @@ export class GeneratorGridComponent implements OnInit {
     });
 
     this.boardService.board.ElementList.push(
-      new GridElement(tempId, this.returnTypeOf(tempId), this.editionService.classe,
-        this.editionService.curentColor, this.editionService.curentBorderColor, 0, elementFormsList, this.editionService.interractionList)
+      new GridElementGenerated(tempId, this.returnTypeOf(tempId), this.editionService.classe,
+        this.editionService.curentColor, this.editionService.curentBorderColor, 0, elementFormsList, this.editionService.interractionList, this.posX, this.posY)
     );
+
+    this.updatePositionButton();
 
     this.editionService.interractionList = [];
 
@@ -340,11 +354,12 @@ export class GeneratorGridComponent implements OnInit {
               this.setButtonOnGrid();
               this.clear();
               this.indexedDBacess.update();
-              this.router.navigate(['keyboard']);
               await this.delay(500);
               this.boardService.updateElementList();
               await this.delay(1000);
               this.boardService.updateElementList();
+              await this.delay(1500);
+              this.router.navigate(['keyboard']);
             }else {
               this.error = true;
               this.errorType = "sizeToSmall";
