@@ -31,6 +31,8 @@ body {
   --main-bg-color4: dimgrey;
   --main-font: Arial, sans-serif;
   --main-picto-font: Arial, sans-serif;
+
+  --main-size-font: 16px;
 }
 
 .height-width-100 {

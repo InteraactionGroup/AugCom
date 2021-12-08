@@ -49,6 +49,29 @@
         </select>
       </div>
 
+      <div> {{this.multilinguismService.translate("FontSize")}} </div>
+
+      <div class="fontSize" style="margin: 10px 10px 10px 20px;">
+        <label for="font">{{this.multilinguismService.translate("ChooseSizeFont") + ":"}}</label>
+        <select #optionFont id="font" class="variantListBox" [(ngModel)]="selectedSize" (input)="changeSizeFont(optionFont.value)" >
+          <option value="8px" > 8 </option>
+          <option value="9px" > 9 </option>
+          <option value="10px" > 10 </option>
+          <option value="11px" > 11 </option>
+          <option value="12px" > 12 </option>
+          <option value="14px" > 14 </option>
+          <option value="16px" > 16 </option>
+          <option value="18px" > 18 </option>
+          <option value="20px" > 20 </option>
+          <option value="22px" > 22 </option>
+          <!--<option value="24px" > 24 </option>
+          <option value="26px" > 26 </option>
+          <option value="28px" > 28 </option>
+          <option value="36px" > 36 </option>
+          <option value="48px" > 48 </option>
+          <option value="72px" > 72 </option>-->
+        </select>
+      </div>
     </div>
 
     <div class="rightSide" style="width: 100%">
