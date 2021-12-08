@@ -30,6 +30,9 @@ export class PrintService {
   heightFooter = "0%";
   height = "95%";
 
+  textAlignHeader = "left";
+  textAlignFooter = "left";
+
   printDiv() {
     this.checkSize();
     const wind = window.open('stable/#/print');
@@ -45,7 +48,6 @@ export class PrintService {
         + this.getAllHTML();
       this.recEventSettingFunction(wind);
     };
-
   }
 
   checkSize(){
@@ -262,6 +264,7 @@ export class PrintService {
       '}\n' + '.idFooter{\n' +
       '  height: 100%;\n' +
       '  width: 100%;\n' +
+      '  text-align: ' + this.textAlignFooter +
       '}\n' + '.keyboard{\n' +
       '  height: 100%;\n' +
       '  width: 100%;\n' +

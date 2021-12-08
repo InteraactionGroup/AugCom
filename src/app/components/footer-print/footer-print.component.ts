@@ -15,6 +15,7 @@ export class FooterPrintComponent implements OnInit {
   selectedFile;
   textButton = true;
   imgButton = false;
+  textPosition = "left";
 
   constructor(public multilinguism: MultilinguismService,
               public printService: PrintService) {
@@ -44,6 +45,11 @@ export class FooterPrintComponent implements OnInit {
 
   getText(event){
     this.printService.footer = event.target.value;
+  }
+
+  getPosition(value){
+    this.textPosition = value;
+    this.printService.textAlignFooter = value;
   }
 
   onFileSelected(event) {

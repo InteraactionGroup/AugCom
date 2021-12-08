@@ -266,6 +266,10 @@
     { "id" :  "pictogrammes", "FR" : "Pictogrammes", "EN" :  "Pictograms"},
     { "id" :  "pictogrammesStyle", "FR" : "Style du Pictogramme", "EN" :  "Pictogram Style"},
     { "id" :  "formatStyle", "FR" : "Définissez ici le style des deux formats de boutons, les boutons simples et les boutons dossier (ou pictogrammes et pictogrammes-répertoire). Pour chacun de ces deux types de boutons vous pouvez choisir d’afficher l’image et le texte du bouton ou une seule des deux valeurs, vous pouvez également choisir la disposition du texte par rapport à l’image (en bas, en haut, a gauche ou a droite). Pour finir vous pouvez choisir la police d’écriture du texte contenu dans ce bouton", "EN" :  "Here you can define the style of the two button formats, simple buttons and folder buttons (or pictograms and directory pictograms). For each of these two types of buttons you can choose to display the image and the text of the button or only one of the two values, you can also choose the disposition of the text in relation to the image (bottom, top, left or right). Finally you can choose the font of the text contained in this button"},
-    { "id" : "setAsDefault", "FR" : "Mettre par défaut", "EN" : "Set as default"}
+    { "id" :  "setAsDefault", "FR" : "Mettre par défaut", "EN" : "Set as default"},
+    { "id" :  "choosePosition", "FR" : "Choisir la position", "EN" : "Choose the position"},
+    { "id" :  "leftPosition", "FR" : "A gauche", "EN" : "Left"},
+    { "id" :  "middlePosition", "FR" : "Au milieu", "EN" : "Middle"},
+    { "id" :  "rightPosition", "FR" : "A droite", "EN" : "Right"}
   ]
 }
