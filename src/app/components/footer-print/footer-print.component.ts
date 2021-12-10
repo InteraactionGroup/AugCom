@@ -24,6 +24,7 @@ export class FooterPrintComponent implements OnInit {
   ngOnInit(): void {
     this.buttonEnableFooter = this.printService.buttonEnableFooter;
     this.typeChoice = this.printService.typeChoiceFooter;
+    this.textPosition = this.printService.textAlignFooter;
     if (this.typeChoice == "text"){
       this.footer = this.printService.footer;
     }else {

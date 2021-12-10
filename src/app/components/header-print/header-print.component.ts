@@ -27,6 +27,7 @@ export class HeaderPrintComponent implements OnInit {
     this.buttonEnablePageName = this.printService.enablePageName;
     this.buttonEnableVersion = this.printService.enableVersion;
     this.typeChoice = this.printService.typeChoiceHeader;
+    this.textPosition = this.printService.textAlignHeader;
     if (this.typeChoice == "text"){
       this.header = this.printService.header;
     }else {
