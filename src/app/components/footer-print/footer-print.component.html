@@ -24,7 +24,7 @@
     </div>
 
     <div class="footer-item" *ngIf="buttonEnableFooter">
-      <label for="positionFooter">{{this.multilinguism.translate("ChoosePosition")}}</label>
+      <label for="positionFooter">{{this.multilinguism.translate("choosePosition")}}</label>
       <select #option id="positionFooter" class="variantListBox" (input)="getPosition(option.value)" [(ngModel)]="textPosition">
         <option value="left">{{this.multilinguism.translate("leftPosition")}}</option>
         <option value="center">{{this.multilinguism.translate("middlePosition")}}</option>

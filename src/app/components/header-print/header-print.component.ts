@@ -15,12 +15,17 @@ export class HeaderPrintComponent implements OnInit {
   selectedFile;
   textButton = true;
   imgButton = false;
+  textPosition = "left";
+  buttonEnablePageName;
+  buttonEnableVersion;
 
   constructor(public multilinguism: MultilinguismService,
               public printService: PrintService) { }
 
   ngOnInit(): void {
     this.buttonEnableHeader = this.printService.buttonEnableHeader;
+    this.buttonEnablePageName = this.printService.enablePageName;
+    this.buttonEnableVersion = this.printService.enableVersion;
     this.typeChoice = this.printService.typeChoiceHeader;
     if (this.typeChoice == "text"){
       this.header = this.printService.header;
@@ -36,6 +41,16 @@ export class HeaderPrintComponent implements OnInit {
     this.printService.typeChoiceHeader = type;
   }
 
+  enablePageName(){
+    this.printService.enablePageName = !this.printService.enablePageName;
+    this.buttonEnablePageName = this.printService.enablePageName;
+  }
+
+  enableVersion(){
+    this.printService.enableVersion = !this.printService.enableVersion;
+    this.buttonEnableVersion = this.printService.enableVersion;
+  }
+
   enableHeader(){
     this.printService.buttonEnableHeader = !this.printService.buttonEnableHeader;
     this.buttonEnableHeader = this.printService.buttonEnableHeader;
@@ -43,6 +58,11 @@ export class HeaderPrintComponent implements OnInit {
 
   getText(event){
     this.printService.header = event.target.value;
+  }
+
+  getPosition(value){
+    this.textPosition = value;
+    this.printService.textAlignHeader = value;
   }
 
   onFileSelected(event) {

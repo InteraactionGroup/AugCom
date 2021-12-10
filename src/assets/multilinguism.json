@@ -167,6 +167,8 @@
     { "id":  "Footer", "FR" :  "Pied de page", "EN" :  "Footer"},
     { "id":  "enableHeader", "FR" :  "Activer l'en-tête", "EN" :  "Enable header "},
     { "id":  "enableFooter", "FR" :  "Activer le pied de page", "EN" :  "Enable footer "},
+    { "id":  "addPageName", "FR" :  "Ajouter le nom de la page", "EN" :  "Add page name "},
+    { "id":  "addVersion", "FR" :  "Ajouter la version d'AugCom", "EN" :  "Add version of AugCom "},
     { "id":  "text", "FR" :  "Texte", "EN" :  "Text"},
     { "id":  "image", "FR" :  "Image", "EN" :  "Image"},
     { "id":  "textHeader", "FR" :  "Texte pour l'en-tête ", "EN" :  "Text for header "},

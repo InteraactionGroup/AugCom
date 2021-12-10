@@ -33,6 +33,9 @@ export class PrintService {
   textAlignHeader = "left";
   textAlignFooter = "left";
 
+  enablePageName = true;
+  enableVersion = true;
+
   printDiv() {
     this.checkSize();
     const wind = window.open('stable/#/print');
@@ -149,9 +152,9 @@ export class PrintService {
     let numberOfRows = this.boardService.getNumberOfRowsForPage(page);
     let id = page.ID + '- page ' + (((i as number) + (1 as number)) as number);
 
-    return '<div class="idHeader section-to-print">' + id + this.getHeader() + '<div class="version">'+this.configuration.VERSION+'</div></div>\n' +
+    return '<div class="section-to-print">' + id + " " + this.configuration.VERSION + '<div class="headerPosition">' + this.getHeader() + '</div></div>\n' +
       '<div class="keyboard section-to-print" id="' + id + '">\n' +
-      '<div class="wrapper height-width-100"' +
+      '<div class="wrapper height-width-100" ' +
       'style="grid-template-columns: repeat(' + numberOfCols +
       ', 1fr) ;grid-template-rows: repeat(100, ' +
       (100 / numberOfRows) + '%) ;"' + '>\n';
@@ -253,14 +256,14 @@ export class PrintService {
 
   getCSSKeyboard() {
     return '.idHeader{\n' +
-      '    height: 100%;\n' +
-      '    width: 100%;\n' +
-      '    display: flex;\n' +
-      '    flex-direction: row;\n' +
-      '    flex-wrap: nowrap;\n' +
-      '    align-content: flex-start;\n' +
-      '    align-items: flex-start;\n' +
-      '    justify-content: space-between;\n' +
+      ' height: 100%;\n' +
+      ' width: 100%;\n' +
+      ' display: flex;\n' +
+      ' flex-direction: row;\n' +
+      ' flex-wrap: nowrap;\n' +
+      ' align-content: flex-start;\n' +
+      ' align-items: flex-start;\n' +
+      ' justify-content: space-between;\n' +
       '}\n' + '.idFooter{\n' +
       '  height: 100%;\n' +
       '  width: 100%;\n' +
@@ -351,6 +354,13 @@ export class PrintService {
       '    display: block;\n'+
       '    margin: auto;\n'+
       '    width: auto;\n' +
+      '}\n' +
+      '\n' +
+      '.version {\n' +
+      ' text-align: right;\n' +
+      '}\n' +
+      '.headerPosition {\n' +
+      ' text-align:' + this.textAlignHeader +'\n' +
       '}\n';
   }
 
