@@ -99,7 +99,7 @@
                   <div class="input">
                     <input #search class="searchField" type="search" id="imagefromLib"
                            placeholder="{{this.multilinguism.translate('searchForWord')}}">
-                    <input class="searchLib" type="button" value="search" (click)="searchInLib(search.value)">
+                    <input class="searchLib" type="button" value="search" (click)="searchInLibApi(search.value)">
                   </div>
                 </div>
               </div>
@@ -108,7 +108,7 @@
                 <ng-container *ngFor="let b of this.imageList ">
 
                   <div class="pictoImg haveBackgroundImage"
-                       [ngStyle]="{'background-image':'url(assets/libs/mulberry-symbols/EN-symbols/'+b+'.svg)'}"
+                       [ngStyle]="{'background-image': 'url(' + b + ')'}"
                        (click)="previewMullberry(b)"></div>
                 </ng-container>
               </div>

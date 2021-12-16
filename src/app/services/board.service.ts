@@ -280,7 +280,11 @@ export class BoardService {
           if (s.replace(/ /g, '') === '') {
             return '';
           }
-          return this.sanitizer.bypassSecurityTrustStyle('url(\'' + s + '\')');
+          if(path.Path.includes('http')){
+            return s
+          }else{
+            return this.sanitizer.bypassSecurityTrustStyle('url(\'' + s + '\')');
+          }
         } else {
           return '';
         }
@@ -301,7 +305,7 @@ export class BoardService {
         if (s.replace(/ /g, '') === '') {
           return '';
         }
-        return 'url(\'' + s + '\')';
+        return 'url('+s+')';
       } else {
         return '';
       }

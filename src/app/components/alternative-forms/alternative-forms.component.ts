@@ -9,6 +9,9 @@ import {Ng2ImgMaxService} from 'ng2-img-max';
 import {ElementForm} from '../../types';
 import {BoardService} from '../../services/board.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
+declare var getUrlPicto:any;
+declare var clearUrlImageJS:any;
+declare var monitorInput:any;
 
 @Component({
   selector: 'app-alternative-forms',
@@ -255,7 +258,7 @@ export class AlternativeFormsComponent implements OnInit {
    */
   previewMullberry(t: string) {
     this.imageSelectionStarted = true;
-    this.previewWithURL('assets/libs/mulberry-symbols/EN-symbols/' + t + '.svg');
+    this.previewWithURL(t);
   }
 
   /**
@@ -287,5 +290,20 @@ export class AlternativeFormsComponent implements OnInit {
     this.imageList = tempList.slice(0, 100);
   }
 
-
+  /**
+   * Return the list of 100 first mullberry library images, sorted by length name, matching with string 'text'
+   *
+   * @param text, the string researched text
+   * @return list of 100 mulberry library images
+   */
+  searchInLibApi(text: string){
+    this.imageList = [];
+    let tempList: any[];
+    clearUrlImageJS();
+    monitorInput(text, 'fra');
+    setTimeout(() => {
+      tempList = getUrlPicto();
+      this.imageList = tempList[0].slice(0,100);
+    }, 500);
+  }
 }

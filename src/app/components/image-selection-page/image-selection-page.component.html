@@ -38,9 +38,9 @@
         </div>
         <label class="label" for="imagefromLib">{{this.multilinguism.translate("fromLibrary")}}: </label>
         <div class="input">
-          <input #search class="searchField" type="search" id="imagefromLib" (keyup.enter)="searchInLib(search.value)"
+          <input #search class="searchField" type="search" id="imagefromLib" (keyup.enter)="searchInLibApi(search.value)"
                  placeholder="{{this.multilinguism.translate('searchForWord')}}">
-          <input class="searchLib" type="button" value="search" (click)="searchInLib(search.value)">
+          <input class="searchLib" type="button" value="search" (click)="searchInLibApi(search.value)">
         </div>
       </div>
 
@@ -48,8 +48,8 @@
         <ng-container *ngFor="let b of this.imageList ">
 
           <div class="pictoImg haveBackgroundImage"
-               [ngStyle]="{'background-image': this.getThumbnailPreviewLibrary(b)}"
-               (click)="this.previewLibrary(b)"></div>
+               [ngStyle]="{'background-image': this.getPictoFromApi(b)}"
+               (click)="this.previewLibraryFromAPI(b)"></div>
         </ng-container>
       </div>
     </div>
