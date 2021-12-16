@@ -9,6 +9,7 @@ import {Ng2ImgMaxService} from 'ng2-img-max';
 import {ElementForm} from '../../types';
 import {BoardService} from '../../services/board.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
+import {ConfigurationService} from '../../services/configuration.service';
 declare var getUrlPicto:any;
 declare var clearUrlImageJS:any;
 declare var monitorInput:any;
@@ -26,7 +27,8 @@ export class AlternativeFormsComponent implements OnInit {
               public boardService: BoardService,
               public getIconService: GeticonService,
               public dbnaryService: DbnaryService,
-              public editionService: EditionService) {
+              public editionService: EditionService,
+              public configurationService: ConfigurationService) {
   }
 
   imageList = [];
@@ -300,7 +302,11 @@ export class AlternativeFormsComponent implements OnInit {
     this.imageList = [];
     let tempList: any[];
     clearUrlImageJS();
-    monitorInput(text, 'fra');
+    if(this.configurationService.LANGUAGE_VALUE === 'FR'){
+      monitorInput(text, "fra");
+    }else{
+      monitorInput(text, "eng");
+    }
     setTimeout(() => {
       tempList = getUrlPicto();
       this.imageList = tempList[0].slice(0,100);

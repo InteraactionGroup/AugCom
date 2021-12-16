@@ -210,12 +210,14 @@ export class ImageSelectionPageComponent implements OnInit {
     this.imageList = [];
     let tempList: any[];
     clearUrlImageJS();
-    monitorInput(text, 'fra');
+    if(this.configurationService.LANGUAGE_VALUE === 'FR'){
+      monitorInput(text, "fra");
+    }else{
+      monitorInput(text, "eng");
+    }
     setTimeout(() => {
       tempList = getUrlPicto();
-      console.log('tempList', tempList);
       this.imageList = tempList[0].slice(0,100);
-      console.log('imageList', this.imageList);
     }, 500);
   }
 

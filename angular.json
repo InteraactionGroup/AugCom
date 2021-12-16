@@ -36,7 +36,8 @@
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "src/assets/js/sql.js",
-              "src/assets/js/annyang.min.js"
+              "src/assets/js/annyang.min.js",
+              "src/assets/js/index.js"
             ]
           },
           "configurations": {
@@ -110,7 +111,8 @@
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "src/assets/js/sql.js",
-              "src/assets/js/annyang.min.js"
+              "src/assets/js/annyang.min.js",
+              "src/assets/js/index.js"
             ]
           }
         },
