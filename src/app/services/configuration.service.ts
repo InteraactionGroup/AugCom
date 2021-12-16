@@ -7,6 +7,8 @@ import {StyleService} from "./style.service";
 })
 export class ConfigurationService {
 
+  public VERSION = "AugCom v.2021.11.17";
+
   DEFAULT_DWELL_TIME_ENABLED = false;
   DEFAULT_PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE = 'default'; // can be 'default' 'imageOnly' and 'textOnly'
   DEFAULT_PICTO_IMAGE_POSITION_VALUE = 'up'; // can take 'down', 'left', 'right', 'up' if imageAndTextVisibiliy is 'default'
@@ -19,7 +21,7 @@ export class ConfigurationService {
   DEFAULT_STYLE_BORDERCOLOR_VALUE = 'black';
   DEFAULT_STYLE_TEXTCOLOR_VALUE = 'black';
   DEFAULT_STYLE_FONTFAMILY_VALUE = 'Arial';
-  DEFAULT_DWELL_TIME_TIMEOUT_VALUE = 500;
+  DEFAULT_DWELL_TIME_TIMEOUT_VALUE = 2000;
   DEFAULT_LONGPRESS_TIMEOUT_VALUE = 1000;
   DEFAULT_DOUBLE_CLICK_TIMEOUT_VALUE = 200;
   DEFAULT_CURRENT_VOICE_VALUE = '@';
@@ -122,6 +124,7 @@ export class ConfigurationService {
   }
 
   public setConfiguration(configuration: Configuration) {
+    let lang = (configuration.LANGUAGE_VALUE == 'FR' || configuration.LANGUAGE_VALUE == 'EN') ? configuration.LANGUAGE_VALUE : this.DEFAULT_LANGUAGE_VALUE;
     this.DWELL_TIME_ENABLED = configuration.DWELL_TIME_ENABLED;
     this.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE = configuration.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE;
     this.PICTO_IMAGE_POSITION_VALUE = configuration.PICTO_IMAGE_POSITION_VALUE;
@@ -129,7 +132,7 @@ export class ConfigurationService {
     this.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE = configuration.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE;
     this.REPO_IMAGE_POSITION_VALUE = configuration.REPO_IMAGE_POSITION_VALUE;
     this.REPO_TEXT_STYLE_VALUE = configuration.REPO_TEXT_STYLE_VALUE;
-    this.LANGUAGE_VALUE = configuration.LANGUAGE_VALUE;
+    this.LANGUAGE_VALUE = lang;
     this.STYLE_BACKGROUNDCOLOR_VALUE = configuration.DEFAULT_STYLE_BACKGROUNDCOLOR_VALUE;
     this.STYLE_BORDERCOLOR_VALUE = configuration.DEFAULT_STYLE_BORDERCOLOR_VALUE;
     this.STYLE_TEXTCOLOR_VALUE = configuration.DEFAULT_STYLE_TEXTCOLOR_VALUE;

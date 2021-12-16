@@ -6,6 +6,7 @@ import {FormsModule} from '@angular/forms';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {Vignette} from '../../types';
 import {MatDialogModule} from "@angular/material/dialog";
+import {Router} from "@angular/router";
 
 function addVignette(component: any) {
   component.historicService.historic.push(new Vignette());
@@ -19,7 +20,12 @@ describe('DialogbarComponent', () => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [FormsModule, Ng2ImgMaxModule, MatDialogModule ],
-      declarations: [DialogbarComponent]
+      declarations: [DialogbarComponent],
+      providers: [{
+        provide: Router, useClass: class {
+          navigate = jasmine.createSpy('navigate');
+        }
+      }]
     })
       .compileComponents();
   }));

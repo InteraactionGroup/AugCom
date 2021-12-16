@@ -8,7 +8,7 @@ import {KeyboardComponent} from './components/keyboard/keyboard.component';
 import {DialogbarComponent} from './components/dialogbar/dialogbar.component';
 import {ShareComponent} from './components/share/share.component';
 import {PopupComponent} from './components/popup/popup.component';
-import {FormBuilder, FormsModule} from '@angular/forms';
+import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {HttpClientModule} from '@angular/common/http';
 import {ServiceWorkerModule} from '@angular/service-worker';
@@ -43,6 +43,7 @@ import {GridFormatManagementComponent} from './components/grid-format-management
 import {PictogramStyleComponent} from './components/pictogram-style/pictogram-style.component';
 import {DwellCursorComponent} from './components/dwell-cursor/dwell-cursor.component';
 import { MainComponent } from './components/main/main.component';
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { UserPageComponent } from './components/user-page/user-page.component';
 import {MatCardModule} from "@angular/material/card";
 import {MatGridListModule} from "@angular/material/grid-list";
@@ -72,7 +73,6 @@ import { DialogModifyColorBorderComponent } from './components/dialog-modify-col
 import { ExportSaveDialogComponent } from './components/export-save-dialog/export-save-dialog.component';
 import { HeaderPrintComponent } from './components/header-print/header-print.component';
 import { FooterPrintComponent } from './components/footer-print/footer-print.component';
-
 
 @NgModule({
   declarations: [
@@ -141,6 +141,8 @@ import { FooterPrintComponent } from './components/footer-print/footer-print.com
     AppRoutingModule,
     BrowserAnimationsModule,
     GridsterModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
     MatInputModule,
     MatListModule,
     MatButtonModule,

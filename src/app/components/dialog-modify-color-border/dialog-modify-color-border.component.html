@@ -12,10 +12,14 @@
              [ngStyle]="{'grid-template-rows': 'repeat(' + this.paletteService.rowNumber(palette.colors.length) + ',30px)'}">
           <div class="color floatLeft" [class.realcolor]="color!==null" *ngFor="let color of palette.colors"
                [ngStyle]="{'background-color': color}"
-               (click)="this.editionService.selectColor(color);">
+               (click)="this.editionService.selectBorderColor(color);">
           </div>
         </div>
       </ng-container>
     </div>
+    <mat-action-list>
+      <input type="checkbox" name="defaultBorder" id="defaultBorder" [checked]="this.editionService.borderCheck" (click)="this.editionService.checkBorderColor()">
+      <label for="defaultBorder"> {{this.multilinguism.translate("setAsDefault")}}</label>
+    </mat-action-list>
   </div>
 </div>

@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DeletePageComponent } from './delete-page.component';
 import {Ng2ImgMaxModule} from "ng2-img-max";
 import {MatDialogModule} from "@angular/material/dialog";
+import {Router} from "@angular/router";
 
 describe('DeletePageComponent', () => {
   let component: DeletePageComponent;
@@ -11,7 +12,12 @@ describe('DeletePageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ DeletePageComponent ],
-      imports: [Ng2ImgMaxModule, MatDialogModule]
+      imports: [Ng2ImgMaxModule, MatDialogModule],
+      providers: [{
+        provide: Router, useClass: class {
+          navigate = jasmine.createSpy('navigate');
+        }
+      }]
     })
     .compileComponents();
   }));

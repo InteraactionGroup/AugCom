@@ -2,6 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {PrintComponent} from './print.component';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
+import {Router} from "@angular/router";
 
 describe('PrintComponent', () => {
   let component: PrintComponent;
@@ -11,6 +12,11 @@ describe('PrintComponent', () => {
     TestBed.configureTestingModule({
       declarations: [PrintComponent],
       imports: [Ng2ImgMaxModule],
+      providers: [{
+        provide: Router, useClass: class {
+          navigate = jasmine.createSpy('navigate');
+        }
+      }]
     })
       .compileComponents();
   }));

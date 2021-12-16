@@ -1,53 +1,149 @@
 <mat-dialog-content>
-<h1>Comment fonctionne cette application?</h1>
-<h2> Lecture </h2>
-<img src="assets/icons/play.svg" alt="play" width="5%" height="5%">
-<p> En haut à droite vous avez le bouton play.</p>
-<p> Lorsque vous cliquez dessus, il lit les mots dans l'ordre qui se trouve dans la barre.</p>
-<h2> Retour </h2>
-<img src="assets/icons/back.svg" alt="back" width="5%" height="5%">
-<p> En haut à droite vous avez le bouton retour.</p>
-<p> Lorsque vous cliquez dessus, il efface le dernier mot que vous avez mis dans la barre. </p>
-<h2> Effacer </h2>
-<img src="assets/icons/clear.svg" alt="clear" width="5%" height="5%">
-<p> En haut à droite vous avez le bouton clear.</p>
-<p> Lorsque vous cliquez dessus, il efface tout ce que vous avez mis dans la barre. </p>
-<h2> Retour dossier </h2>
-<img src="assets/icons/retour.svg" alt="retour" width="5%" height="5%">
-<p> En bas à gauche vous avez le bouton retour dossier.</p>
-<p>Lorsque vous cliquez dessus vous revenez au dossier précédent.</p>
-<h2> Verrouiller/Déverrouiller </h2>
-<img src="assets/icons/lock.svg" alt="verrou" width="5%" height="5%">
-<img src="assets/icons/unlock.svg" alt="déverrou" width="5%" height="5%">
-<p> En bas à droite vous avez le bouton verrou.</p>
-<p>Lorsque vous cliquez dessus vous verrouillez/déverrouillez les fonctionnalités ci-dessous.</p>
-<h2> Options </h2>
-<img src="assets/icons/settings.svg" alt="settings" width="5%" height="5%">
-<p> En bas à droite vous avez le bouton options.</p>
-<p> Lorsque vous cliquez dessus vous allez dans les options.</p>
-<h2> Edition </h2>
-<img src="assets/icons/edit.svg" alt="edit" width="5%" height="5%">
-<p> En bas à droite vous avez le bouton d'édition.</p>
-<p> Lorsque vous cliquez dessus vous pouvez ajouter, supprimer, modifier, déplacer les boutons. </p>
-<h2> Recherche </h2>
-<img src="assets/icons/search.svg" alt="search" width="5%" height="5%">
-<p> En bas à gauche vous avez le bouton de recherche.</p>
-<p>Lorsque vous cliquez sur la flèche à sa droite vous pouvez rechercher un bouton présent dans la page ou les pages dans les dossiers. </p>
-<h2> Vue </h2>
-<img src="assets/icons/show.svg" alt="hide" width="5%" height="5%">
-<img src="assets/icons/hide.svg" alt="hide" width="5%" height="5%">
-<p> En bas à droite vous avez le montrer/cacher. </p>
-<p> Lorsque vous cliquez dessus cache les boutons qui ont le tag cacher, lorsque vous appuyez de nouveau, affiche tous les boutons de la grille</p>
-<h2> Plein écran </h2>
-<img src="assets/icons/fullscreen.svg" alt="fullscreen" width="5%" height="5%">
-<img src="assets/icons/exitfullscreen.svg" alt="fullscreen" width="5%" height="5%">
-<p> En bas à droite vous avez le bouton plein écran.</p>
-<p> Lorsque vous cliquez dessus vous passer en plein écran, re-cliquez pour passer en mode fenêtré.</p>
-<h2> Langue </h2>
-<img src="assets/icons/france.svg" alt="french" width="5%" height="5%">
-<img src="assets/icons/uk.svg" alt="fullscreen" width="5%" height="5%">
-<p> En bas à droite vous avez le bouton avec le drapeau de la langue utilisée.</p>
-<p> Lorsque vous cliquez dessus vous passer vous échanger entre la langue courante avec l'anglais ou le français.</p>
+  <h2>{{this.multilinguism.translate("userGuide")}}</h2>
+  <img src="assets/tuto/home.png" height="50%" width="50%" alt="home">
+  <h2>{{this.multilinguism.translate("keyboard")}}</h2>
+  <p>{{this.multilinguism.translate("keyboardAugcom")}}</p>
+  <img src="assets/tuto/keyboard.png" alt="keyboard">
+  <br>
+  <br>
+  <p>{{this.multilinguism.translate("enterFolder")}}</p>
+  <p>{{this.multilinguism.translate("rightOfTheButton")}}</p>
+  <p>{{this.multilinguism.translate("lockButton")}}</p>
+  <h2>{{this.multilinguism.translate("textBar")}}</h2>
+  <p>{{this.multilinguism.translate("simpleButtonActivated")}}</p>
+  <img src="assets/tuto/bar.png" height="50%" width="50%" alt="bar">
+  <br>
+  <br>
+  <p>{{this.multilinguism.translate("playButton")}}</p>
+  <p>{{this.multilinguism.translate("buttonT")}}</p>
+  <p>{{this.multilinguism.translate("arrowButton")}}</p>
+  <p>{{this.multilinguism.translate("crossButton")}}</p>
+  <p>{{this.multilinguism.translate("helpButton")}}</p>
+  <h2>{{this.multilinguism.translate("menuBar")}}</h2>
+  <p>{{this.multilinguism.translate("functionnalitiesUnlocked")}}</p>
+  <p>{{this.multilinguism.translate("languageButton")}}</p>
+  <p>{{this.multilinguism.translate("fullscreenButton")}}</p>
+  <p>{{this.multilinguism.translate("hideButton")}}</p>
+  <h3>{{this.multilinguism.translate("modifButton")}}</h3>
+  <p>{{this.multilinguism.translate("editButton")}}</p>
+  <p>{{this.multilinguism.translate("editionMode")}}</p>
+  <img src="assets/tuto/editionMode.png" alt="editionMode">
+  <br>
+  <br>
+  <p>{{this.multilinguism.translate("blueButton")}}</p>
+  <p>{{this.multilinguism.translate("editButtonGrid")}}</p>
+  <p>{{this.multilinguism.translate("trashButton")}}</p>
+  <p>{{this.multilinguism.translate("sizeGrid")}}</p>
+  <p>{{this.multilinguism.translate("sizeGridDimension")}}</p>
+  <p>{{this.multilinguism.translate("editModeButtonDisplay")}}</p>
+  <img src="assets/tuto/editModeButtonDisplay.png" alt="editModeButtonDisplay">
+  <br>
+  <br>
+  <ul>
+    <li>{{this.multilinguism.translate("trashButtonGrid")}}</li>
+    <li>{{this.multilinguism.translate("hideButtonGrid")}}</li>
+    <li>{{this.multilinguism.translate("replaceButtonGrid")}}</li>
+    <li>{{this.multilinguism.translate("resizeButtonGrid")}}</li>
+  </ul>
+  <p>{{this.multilinguism.translate("clickToSelectAnElement")}}</p>
+  <p>{{this.multilinguism.translate("doubleClickButtonGrid")}}</p>
+  <p>{{this.multilinguism.translate("settingsButton")}}</p>
+  <h2>{{this.multilinguism.translate("editionPage")}}</h2>
+  <h3>{{this.multilinguism.translate("infoMenu")}}</h3>
+  <img src="assets/tuto/info.png" height="50%" width="50%" alt="info">
+  <br>
+  <br>
+  <p>{{this.multilinguism.translate("infoMenuModif")}}</p>
+  <p>{{this.multilinguism.translate("editButtonName")}}</p>
+  <img src="assets/tuto/modifInfo.png" alt="modifInfo">
+  <br>
+  <br>
+  <p>{{this.multilinguism.translate("radioButtonFolder")}}</p>
+  <img src="assets/tuto/folderSelected.png" alt="folderSelected">
+  <h3>{{this.multilinguism.translate("displayMenu")}}</h3>
+  <h4>{{this.multilinguism.translate("colorModif")}}</h4>
+  <p>{{this.multilinguism.translate("changeGraphique")}}</p>
+  <img src="assets/tuto/modifColor.png" alt="modifColors">
+  <br>
+  <br>
+  <p>{{this.multilinguism.translate("colorInAndOut")}}</p>
+  <h4>{{this.multilinguism.translate("pictureModif")}}</h4>
+  <p>{{this.multilinguism.translate("possibilitesToModify")}}</p>
+  <img src="assets/tuto/modifImage.png" alt="modifImage">
+  <br>
+  <br>
+  <ul>
+    <li>{{this.multilinguism.translate("importSelfImages")}}</li>
+    <li>{{this.multilinguism.translate("importFromUrl")}}</li>
+    <li>{{this.multilinguism.translate("imageFromBank")}}</li>
+  </ul>
+  <img src="assets/tuto/searchBank.png" height="50%" width="50%" alt="searchBank">
+  <br>
+  <br>
+  <p>{{this.multilinguism.translate("previewButton")}}</p>
+  <img src="assets/tuto/previewButton.png" height="50%" width="50%" alt="previewButton">
+  <h3>{{this.multilinguism.translate("menuOthersForm")}}</h3>
+  <p>{{this.multilinguism.translate("menuOthersFormAtYourWorld")}}</p>
+  <img src="assets/tuto/modifVariantes.png" alt="modifVariantes">
+  <br>
+  <br>
+  <p>{{this.multilinguism.translate("twoPossibilities")}}</p>
+  <ul>
+    <li>{{this.multilinguism.translate("manual")}}</li>
+    <li>{{this.multilinguism.translate("searchOnline")}}</li>
+  </ul>
+  <img src="assets/tuto/addVariante.png" height="20%" width="20%" alt="addVariante">
+  <br>
+  <br>
+  <p>{{this.multilinguism.translate("chooseImageForVariante")}}</p>
+  <p>{{this.multilinguism.translate("deleteVariante")}}</p>
+  <h3>{{this.multilinguism.translate("interactionMenu")}}</h3>
+  <p>{{this.multilinguism.translate("interactionMenuDef")}}</p>
+  <img src="assets/tuto/modifInteract.png" alt="interactionModif">
+  <br>
+  <br>
+  <p>{{this.multilinguism.translate("plusButtonInteraction")}}</p>
+  <img src="assets/tuto/plusButtonInteraction.png" alt="plusButtonInteraction">
+  <br>
+  <br>
+  <p>{{this.multilinguism.translate("differentAction")}}</p>
+  <ul>
+    <li>{{this.multilinguism.translate("addSentence")}}</li>
+    <li>{{this.multilinguism.translate("prononce")}}</li>
+    <li>{{this.multilinguism.translate("return")}}</li>
+    <li>{{this.multilinguism.translate("returnLastPage")}}</li>
+    <li>{{this.multilinguism.translate("displayFormAlternative")}}</li>
+  </ul>
+  <h2>{{this.multilinguism.translate("settingsApp")}}</h2>
+  <h3>{{this.multilinguism.translate("App")}}</h3>
+  <h4>{{this.multilinguism.translate("themeApp")}}</h4>
+  <p>{{this.multilinguism.translate("generalAspect")}}</p>
+  <img src="assets/tuto/AspectClassique.png" height="50%" width="50%" alt="AspectClassique">
+  <br>
+  <br>
+  <img src="assets/tuto/AspectAfterChange.png" height="50%" width="50%" alt="AspectAfterChange">
+  <h4>{{this.multilinguism.translate("gestionPalette")}}</h4>
+  <p>{{this.multilinguism.translate("gestPalette")}}</p>
+  <p>{{this.multilinguism.translate("addPalette")}}</p>
+  <h4>{{this.multilinguism.translate("interaction")}}</h4>
+  <p>{{this.multilinguism.translate("interactionSection")}}</p>
+  <h4>{{this.multilinguism.translate("language")}}</h4>
+  <p>{{this.multilinguism.translate("outputVocal")}}</p>
+  <p>{{this.multilinguism.translate("defaultLanguage")}}</p>
+  <h4>{{this.multilinguism.translate("share")}}</h4>
+  <p>{{this.multilinguism.translate("exportGrid")}}</p>
+  <p>{{this.multilinguism.translate("importSave")}}</p>
+  <p>{{this.multilinguism.translate("exportPDF")}}</p>
+  <p>{{this.multilinguism.translate("importSnapCore")}}</p>
+  <h3>{{this.multilinguism.translate("Grid")}}</h3>
+  <h4>{{this.multilinguism.translate("titlePage")}}</h4>
+  <p>{{this.multilinguism.translate("typeOfDisplayPath")}}</p>
+  <p>{{this.multilinguism.translate("changeFormat")}}</p>
+  <h4>{{this.multilinguism.translate("gridFormat")}}</h4>
+  <p>{{this.multilinguism.translate("formatGrid")}}</p>
+  <p>{{this.multilinguism.translate("backgroundColorPicto")}}</p>
+  <h3>{{this.multilinguism.translate("pictogrammes")}}</h3>
+  <h4>{{this.multilinguism.translate("pictogrammesStyle")}}</h4>
+  <p>{{this.multilinguism.translate("formatStyle")}}</p>
 </mat-dialog-content>
 <button mat-raised-button [mat-dialog-close]="true">Fermer</button>
-

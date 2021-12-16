@@ -14,6 +14,7 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 import {FunctionsService} from '../../services/functions.service';
 import {GridElementService} from '../../services/grid-element.service';
 import {LayoutService} from "../../services/layout.service";
+import {ConfigurationService} from "../../services/configuration.service";
 
 @Component({
   selector: 'app-edition',
@@ -30,7 +31,8 @@ export class EditionComponent implements OnInit {
               public indexedDBacess: IndexeddbaccessService, public functionsService: FunctionsService,
               public sanitizer: DomSanitizer, public getIconService: GeticonService,
               public dbnaryService: DbnaryService, public boardService: BoardService,
-              public  gridElementService: GridElementService, public layoutService: LayoutService) {
+              public  gridElementService: GridElementService, public layoutService: LayoutService,
+              public configuration: ConfigurationService) {
 
   }
 
@@ -45,6 +47,12 @@ export class EditionComponent implements OnInit {
         this.updateModifications();
       }
     });
+    if(this.editionService.defaultBorderColor != undefined){
+      this.editionService.curentBorderColor = this.editionService.defaultBorderColor;
+    }
+    if(this.editionService.defaultInsideColor != undefined){
+      this.editionService.curentColor = this.editionService.defaultInsideColor;
+    }
   }
 
   /*select given edit page menu item*/
@@ -56,6 +64,9 @@ export class EditionComponent implements OnInit {
    * Clear the informtation of the edition panel, reset all the information to their initial value
    */
   clear() {
+    this.editionService.imageTextField = "";
+    this.editionService.borderCheck = false;
+    this.editionService.insideCheck = false;
     this.editionService.name = '';
     this.editionService.curentColor = '#d3d3d3';
     this.editionService.imageURL = '';

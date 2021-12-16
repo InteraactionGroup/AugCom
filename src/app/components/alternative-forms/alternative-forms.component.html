@@ -159,10 +159,10 @@
               </div>
             </div>
 
-            <div class="wrapperPreview centerText" style="width: calc(100% - 20px)">
+            <div class="flexPreview centerText" style="width: calc(100% - 20px)">
               <ng-container *ngIf="this.dbnaryService.searchStarted==0">
                 <ng-container *ngFor="let b of this.dbnaryService.wordList">
-                  <li class="variantList width-100">
+                  <li class="variantList">
                     <div (click)="b.selected=!b.selected" class="variant"
                          [ngStyle]="{'background-color': b.selected?'#d1d5da': '#eef4f9'}">
                       <div class="variantName floatLeft centerText">

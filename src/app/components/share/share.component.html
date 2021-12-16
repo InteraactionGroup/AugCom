@@ -5,7 +5,7 @@
       <label>
         {{this.multilinguism.translate("importSave") + ":"}}
       </label>
-      <input #file type="file" (change)="import(file.files)" onclick="this.value=null">
+      <input #file (change)="exploreAugcomZip(file.files)" accept=".augcom" onclick="this.value=null" type="file">
     </div>
 
     <div class="import listElement">
@@ -15,25 +15,25 @@
       <app-spb2aug></app-spb2aug>
     </div>
 
-    <!--      <div>-->
-    <!--        <label class="floatLeft">-->
-    <!--          {{this.multilinguism.translate("importZip") + ":"}}-->
-    <!--        </label>-->
-    <!--        <input #zip type="file" (change)="exploreZip(zip.files)">-->
-    <!--      </div>-->
+    <!--          <div>-->
+    <!--            <label class="floatLeft">-->
+    <!--              {{this.multilinguism.translate("importZip") + ":"}}-->
+    <!--            </label>-->
+    <!--            <input #zip type="file" (change)="exploreZip(zip.files)">-->
+    <!--          </div>-->
 
     <div class="export listElement">
       <label>
         {{this.multilinguism.translate("exportSave") + ":"}}
       </label>
-      <input type="button" value="Export" (click)="export()">
+      <input (click)="export()" type="button" value="Export">
     </div>
 
     <div class="exportTo listElement">
       <label>
         {{this.multilinguism.translate("exportPDF") + ":"}}
       </label>
-      <input type="button" value="Export" (click)="this.printToPDF()">
+      <input (click)="this.printToPDF()" type="button" value="Export">
     </div>
 
     <!--      <div>-->

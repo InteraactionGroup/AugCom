@@ -242,24 +242,6 @@ export class TileComponent implements OnInit {
   }
 
   /**
-   * if we are in edit mode
-   * set the information of the element we want to modify with the current 'element' informations
-   * open the edition panel to modify the information of element 'element'
-   * @param element, the Element we want to edit
-   */
-  edit(element: GridElement) {
-    console.log('double click on ' + element.ID);
-    if (this.userToolBarService.edit) {
-      this.router.navigate(['/edit']).then(() => {
-        this.editionService.clearEditionPane();
-        this.editionService.selectedElements.push(element);
-        this.editionService.ElementListener.next(element);
-        this.editionService.add = false;
-      });
-    }
-  }
-
-  /**
    * if not in edit mode
    * process the pointerDown event triggered by 'element' and starts the longpress timer
    * @param element, the element triggering the event
@@ -428,14 +410,21 @@ export class TileComponent implements OnInit {
     }
   }
 
-  displayImage(element) {
+  displayImage(element: GridElement) {
+    let foundImage = this.boardService.board.ImageList.find(image => image.ID === element.ElementFormsList[0].ImageID);
+    if(foundImage === undefined){
+      return false;
+    }
+    if(foundImage.Path === '') {
+      return false;
+    }
     return (
       (!this.isFolder(element) && this.configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE !== 'textOnly') ||
       (this.isFolder(element) && this.configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE !== 'textOnly')
     );
   }
 
-  displayTopLabel(element) {
+  displayTopLabel(element: GridElement) {
     return (
       (!this.isFolder(element) && this.configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE === 'default' &&
         (this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'down' || this.configurationService.PICTO_IMAGE_POSITION_VALUE === 'right')
@@ -446,7 +435,7 @@ export class TileComponent implements OnInit {
     );
   }
 
-  displayBottomLabel(element) {
+  displayBottomLabel(element: GridElement) {
     return (
       (!this.isFolder(element) &&
         (
