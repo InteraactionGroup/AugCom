@@ -6,21 +6,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./life-companion2aug.component.css']
 })
 export class LifeCompanion2augComponent implements OnInit {
+  private fileData: string = "";
+  private folder: string[] = [];
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  /**
-   * convert a spb file into a grid
-   * @param file file imported
-   */
   convert(file) {
-    const myFile = file[0];
-    const fileReader = new FileReader();
-    fileReader.onload = (e) => {
-    };
-    fileReader.readAsArrayBuffer(myFile);
+    const jsZip = require('jszip');
+    jsZip.loadAsync(file[0]).then((zip) => {
+      Object.keys(zip.files).forEach((filename) => {
+        zip.files[filename].async('string').then((fileData) => {
+          this.fileData = this.fileData + '**$$##$$**' + fileData;
+          this.folder.push(fileData);
+        });
+      });
+    });
+    //give time to read the file
+    setTimeout(()=> {
+        console.log('folder[3] : ', this.folder[3]);
+        },200);
   }
 }
