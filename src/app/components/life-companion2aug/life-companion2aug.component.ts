@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {NgxXmlToJsonService} from 'ngx-xml-to-json';
 
 @Component({
   selector: 'app-life-companion2aug',
@@ -9,12 +10,17 @@ export class LifeCompanion2augComponent implements OnInit {
   private fileData: string = "";
   private folder: string[] = [];
 
-  constructor() { }
+  constructor(private ngxXmlToJsonService: NgxXmlToJsonService) {}
 
   ngOnInit(): void {
   }
 
   convert(file) {
+    const options = { // set up the default options
+      textKey: 'text', // tag name for text nodes
+      attrKey: 'attr', // tag for attr groups
+      cdataKey: 'cdata', // tag for cdata nodes (ignored if mergeCDATA is true)
+    };
     const jsZip = require('jszip');
     jsZip.loadAsync(file[0]).then((zip) => {
       Object.keys(zip.files).forEach((filename) => {
@@ -26,7 +32,9 @@ export class LifeCompanion2augComponent implements OnInit {
     });
     //give time to read the file
     setTimeout(()=> {
-        console.log('folder[3] : ', this.folder[3]);
-        },200);
+      const fileJson = this.ngxXmlToJsonService.xmlToJson(this.folder[3], options);
+      console.log('folder[3] : ', this.folder[3]);
+      console.log('fileJson : ', fileJson);
+      },200);
   }
 }

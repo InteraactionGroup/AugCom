@@ -45,6 +45,7 @@
     "ng-connection-service": "^1.0.4",
     "ng2-dragula": "^2.1.1",
     "ng2-img-max": "^2.2.4",
+    "ngx-xml-to-json": "^1.0.1",
     "node-forge": "^0.10.0",
     "rxjs": "^6.6.7",
     "save": "^2.4.0",
