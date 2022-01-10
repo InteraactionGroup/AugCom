@@ -13,7 +13,6 @@ import {ArasaacObject} from '../../libTypes';
   styleUrls: ['./life-companion2aug.component.css']
 })
 export class LifeCompanion2augComponent implements OnInit {
-  private fileData: string = "";
   private folder: string[] = [];
   private grid: Grid;
   private pageHome: Page;
@@ -27,6 +26,8 @@ export class LifeCompanion2augComponent implements OnInit {
   }
 
   convert(file) {
+    this.folder = [];
+    //this.fileData = "";
     const options = { // set up the default options
       textKey: 'text', // tag name for text nodes
       attrKey: 'attr', // tag for attr groups
@@ -35,15 +36,16 @@ export class LifeCompanion2augComponent implements OnInit {
     const jsZip = require('jszip');
     jsZip.loadAsync(file[0]).then((zip) => {
       Object.keys(zip.files).forEach((filename) => {
-        zip.files[filename].async('string').then((fileData) => {
-          this.fileData = this.fileData + '**$$##$$**' + fileData;
-          this.folder.push(fileData);
-        });
+        if(filename === 'lifecompanion-configuration.xml'){
+          zip.files[filename].async('string').then((fileData) => {
+            this.folder.push(fileData);
+          });
+        }
       });
     });
     //give time to read the file
     setTimeout(()=> {
-      const fileJson = this.ngxXmlToJsonService.xmlToJson(this.folder[3], options);
+      const fileJson = this.ngxXmlToJsonService.xmlToJson(this.folder[0], options);
       // at this line the file is convert to Json, now we need to read in and extract the grid, elements to do the new grid
       this.jsonToGrid(fileJson);
       },200);
@@ -51,7 +53,7 @@ export class LifeCompanion2augComponent implements OnInit {
   }
 
   private jsonToGrid(fileJson: any) {
-    //console.log('fileJson', fileJson);
+    console.log('fileJson', fileJson);
     console.log('test : ', fileJson.Component.Components.Component.StackGrid.Component.Grid);
     this.newGrid(fileJson);
     this.setPageHome(fileJson);
