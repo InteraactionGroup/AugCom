@@ -4,6 +4,8 @@ import {BoardService} from '../../services/board.service';
 import {Grid, GridElement, Page} from '../../types';
 import {LayoutService} from '../../services/layout.service';
 import {Router} from '@angular/router';
+import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
+import {ArasaacObject} from '../../libTypes';
 
 @Component({
   selector: 'app-life-companion2aug',
@@ -112,7 +114,28 @@ export class LifeCompanion2augComponent implements OnInit {
     gridElement.y = element.attr.column;
     gridElement.rows = 1;
     gridElement.cols = 1;
+    this.addImageButton(element);
 
     return gridElement;
+  }
+
+  private getPathImageArsaacLibrary(textContent: any): string {
+    if (textContent !== null) {
+      const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
+        return textContent.toLowerCase() === word.toLowerCase();
+      });
+      if (index > -1) {
+        return 'assets/libs/FR_Pictogrammes_couleur/' + (arasaacColoredJson as unknown as ArasaacObject)[0].wordList[index] + '.png';
+      }
+    }
+  }
+
+  private addImageButton(element: any){
+    const pathImage = this.getPathImageArsaacLibrary(element.attr.textContent);
+    this.grid.ImageList.push({
+      ID: element.attr.textContent,
+      OriginalName: element.attr.textContent,
+      Path: pathImage,
+    });
   }
 }
