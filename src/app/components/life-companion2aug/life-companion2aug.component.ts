@@ -6,6 +6,7 @@ import {LayoutService} from '../../services/layout.service';
 import {Router} from '@angular/router';
 import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
 import {ArasaacObject} from '../../libTypes';
+import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 
 @Component({
   selector: 'app-life-companion2aug',
@@ -16,11 +17,18 @@ export class LifeCompanion2augComponent implements OnInit {
   private folder: string[] = [];
   private grid: Grid;
   private pageHome: Page;
+  private pageHomeId:string = '';
+
+  //mask color
+  B_MASK = 255;
+  G_MASK = 255 << 8; // 65280
+  R_MASK = 255 << 16; // 16711680
 
   constructor(private ngxXmlToJsonService: NgxXmlToJsonService,
               private boardService: BoardService,
               private layoutService: LayoutService,
-              private router: Router) {}
+              private router: Router,
+              private indexedDBacess: IndexeddbaccessService) {}
 
   ngOnInit(): void {
   }
@@ -54,50 +62,107 @@ export class LifeCompanion2augComponent implements OnInit {
 
   private jsonToGrid(fileJson: any) {
     console.log('fileJson', fileJson);
-    console.log('test : ', fileJson.Component.Components.Component.StackGrid.Component.Grid);
+    console.log('test : ', fileJson.Component.Components.Component[0].StackGrid.Component);
     this.newGrid(fileJson);
     this.setPageHome(fileJson);
-    this.boardService.board = this.grid;
-    this.layoutService.refreshAll(this.grid.NumberOfCols,this.grid.NumberOfRows, this.grid.GapSize);
-    this.boardService.backHome();
     this.router.navigate(['keyboard']);
-    console.log(this.boardService.board);
+    let that = this;
+    setTimeout(function() {
+      that.boardService.board = that.grid;
+      that.layoutService.refreshAll(that.grid.NumberOfCols,that.grid.NumberOfRows, that.grid.GapSize);
+      that.boardService.backHome();
+      that.indexedDBacess.update();
+      console.log(that.boardService.board);
+    },50);
+
   }
+
   // get grid information from fileJson and set it in the new grid
   private newGrid(fileJson: any) {
-    this.grid = new Grid('importedGrid','Grid',fileJson.Component.Components.Component.StackGrid.Component.Grid.attr.column,fileJson.Component.Components.Component.StackGrid.Component.Grid.attr.row,[],[],[]);
+    this.grid = new Grid('importedGrid','Grid',fileJson.Component.Components.Component[0].StackGrid.Component[0][0].Grid.attr.column,fileJson.Component.Components.Component[0].StackGrid.Component[0][0].Grid.attr.row,[],[],[]);
+    this.grid.GapSize = 5;
   }
 
   // first page when the file is imported
   private setPageHome(fileJson: any){
     this.pageHome = new Page();
     this.pageHome.ID = '#HOME';
+    this.pageHomeId = fileJson.Component.Components.Component[0].StackGrid.Component[0][0].attr.id;
     this.pageHome.Name = 'Accueil';
     this.pageHome.ElementIDsList = [];
 
-    const elementsOfFirstPage: any[] = fileJson.Component.Components.Component.StackGrid.Component.Grid.Component;
+    let elementsOfFirstPage: any[] = fileJson.Component.Components.Component[0].StackGrid.Component[0][0].Grid.Component;
     // pour l'instant on ne s'occupe que des boutons et pas des dossiers
+    console.log('vue depuis elementOfFirstPage : ', fileJson.Component.Components.Component[0].StackGrid.Component[0][0].Grid.Component);
+
+    try {
+      while(true){
+        const gridElement = this.createGridButtonElement(fileJson,elementsOfFirstPage[1]);
+        //add this button to the grid
+        this.grid.ElementList.push(gridElement);
+        //add this button to the home page
+        this.pageHome.ElementIDsList.push(gridElement.ID);
+        if (typeof elementsOfFirstPage[0] === 'object'){
+          elementsOfFirstPage = elementsOfFirstPage[0];
+        }
+      }
+    } catch (e) {
+      console.log("fin de l'arbre");
+    }
+    /*
+    if(typeof elementsOfFirstPage[0] === 'object'){
+      //premier bouton + traitement
+      const gridElement = this.createGridButtonElement(fileJson,elementsOfFirstPage[1]);
+      //add this button to the grid
+      this.grid.ElementList.push(gridElement);
+      //add this button to the home page
+      this.pageHome.ElementIDsList.push(gridElement.ID);
+      //
+    }else{
+      const gridElement = this.createGridButtonElement(fileJson,elementsOfFirstPage[0]);
+      //add this button to the grid
+      this.grid.ElementList.push(gridElement);
+      //add this button to the home page
+      this.pageHome.ElementIDsList.push(gridElement.ID);
+    }
+     */
+
+    /*
     elementsOfFirstPage.forEach(element => {
       if(typeof element[0] === 'object'){
         element.forEach(subElement => {
-          const gridElement = this.createGridButtonElement(subElement);
+          const gridElement = this.createGridButtonElement(fileJson,subElement);
           //add this button to the grid
           this.grid.ElementList.push(gridElement);
           this.pageHome.ElementIDsList.push(gridElement.ID);
         });
       }else{
-        const gridElement = this.createGridButtonElement(element);
+        const gridElement = this.createGridButtonElement(fileJson,element);
         //add this button to the grid
         this.grid.ElementList.push(gridElement);
         //add this button to the home page
         this.pageHome.ElementIDsList.push(gridElement.ID);
       }
     });
+     */
     // ajouter la page à la grille
     this.grid.PageList.push(this.pageHome);
   }
 
-  createGridButtonElement(element: any){
+  createGridButtonElement(fileJson:any,element: any){
+    // Couleur qui foire
+    /*
+    const backgroundColorJson = fileJson.Component.KeyCompStyle.attr.backgroundColor.split(';');
+    const strokeColorJson = fileJson.Component.KeyCompStyle.attr.strokeColor.split(';');
+
+    const r = (strokeColorJson[0] & this.R_MASK) >> 16;
+    const g = (strokeColorJson[1] & this.G_MASK) >> 8;
+    const b = strokeColorJson[2] & this.B_MASK;
+
+    const rb = (backgroundColorJson[0] & this.R_MASK) >> 16;
+    const gb = (backgroundColorJson[1] & this.G_MASK) >> 8;
+    const bb = backgroundColorJson[2] & this.B_MASK;
+     */
     const gridElement = new GridElement(element.attr.id,
       'button',
       '',
@@ -112,10 +177,10 @@ export class LifeCompanion2augComponent implements OnInit {
           ImageID: element.attr.textContent,
         }
       ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}]);
-    gridElement.x = element.attr.row;
-    gridElement.y = element.attr.column;
-    gridElement.rows = 1;
-    gridElement.cols = 1;
+    gridElement.x = Number(element.attr.column);
+    gridElement.y = Number(element.attr.row);
+    gridElement.rows = Number(element.attr.rowSpan);
+    gridElement.cols = Number(element.attr.columnSpan);
     this.addImageButton(element);
 
     return gridElement;
@@ -124,7 +189,7 @@ export class LifeCompanion2augComponent implements OnInit {
   private getPathImageArsaacLibrary(textContent: any): string {
     if (textContent !== null) {
       const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
-        return textContent.toLowerCase() === word.toLowerCase();
+        return textContent.toLowerCase().trim() === word.toLowerCase();
       });
       if (index > -1) {
         return 'assets/libs/FR_Pictogrammes_couleur/' + (arasaacColoredJson as unknown as ArasaacObject)[0].wordList[index] + '.png';
@@ -137,7 +202,7 @@ export class LifeCompanion2augComponent implements OnInit {
     this.grid.ImageList.push({
       ID: element.attr.textContent,
       OriginalName: element.attr.textContent,
-      Path: pathImage,
+      Path: pathImage !== undefined? pathImage : '',
     });
   }
 }
