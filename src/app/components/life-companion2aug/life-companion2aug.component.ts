@@ -16,7 +16,7 @@ import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 export class LifeCompanion2augComponent implements OnInit {
   private folder: string[] = [];
   private grid: Grid;
-  private pageHome: Page;
+  private page: Page;
   private pageHomeId:string = '';
 
   //mask color
@@ -65,7 +65,7 @@ export class LifeCompanion2augComponent implements OnInit {
     console.log('test : ', fileJson.Component.Components.Component[0].StackGrid.Component);
     this.newGrid(fileJson);
     this.setPageHome(fileJson);
-    //this.setPages(fileJson);
+    this.setPages(fileJson);
     this.router.navigate(['keyboard']);
     let that = this;
     setTimeout(function() {
@@ -86,13 +86,13 @@ export class LifeCompanion2augComponent implements OnInit {
 
   // first page when the file is imported
   private setPageHome(fileJson: any){
-    this.pageHome = new Page();
-    this.pageHome.ID = '#HOME';
+    this.page = new Page();
+    this.page.ID = '#HOME';
     this.pageHomeId = fileJson.Component.Components.Component[0].StackGrid.Component[0][0].attr.id;
-    this.pageHome.Name = 'Accueil';
-    this.pageHome.ElementIDsList = [];
-    this.pageHome.NumberOfRows = fileJson.Component.Components.Component[0].StackGrid.Component[0][0].Grid.attr.row;
-    this.pageHome.NumberOfCols = fileJson.Component.Components.Component[0].StackGrid.Component[0][0].Grid.attr.column;
+    this.page.Name = 'Accueil';
+    this.page.ElementIDsList = [];
+    this.page.NumberOfRows = fileJson.Component.Components.Component[0].StackGrid.Component[0][0].Grid.attr.row;
+    this.page.NumberOfCols = fileJson.Component.Components.Component[0].StackGrid.Component[0][0].Grid.attr.column;
 
     let elementsOfFirstPage: any[] = fileJson.Component.Components.Component[0].StackGrid.Component[0][0].Grid.Component;
     // pour l'instant on ne s'occupe que des boutons et pas des dossiers
@@ -105,40 +105,38 @@ export class LifeCompanion2augComponent implements OnInit {
       try {
         if (elementsOfFirstPage[1].UseActionManager.UseActionsEvent.UseActions.UseAction.attr.nodeType === 'MoveToGridAction') {
           isFolder = true;
-          const gridElement = this.createGridButtonElement(fileJson, elementsOfFirstPage[1], isFolder);
+          const gridElement = this.createGridButtonElement(elementsOfFirstPage[1], isFolder);
           //add this button to the grid
           this.grid.ElementList.push(gridElement);
           //add this button to the home page
-          this.pageHome.ElementIDsList.push(gridElement.ID);
+          this.page.ElementIDsList.push(gridElement.ID);
         }
       } catch (e) {
-        console.error(e);
+        // console.error(e);
         isFolder = false;
         // elementsOfFirstPage[1].UseActionManager.UseActionsEvent.UseActions.UseAction.attr.targetGridId  cible la page destination
         try {
-          const gridElement = this.createGridButtonElement(fileJson, elementsOfFirstPage[1], isFolder);
+          const gridElement = this.createGridButtonElement(elementsOfFirstPage[1], isFolder);
           //add this button to the grid
           this.grid.ElementList.push(gridElement);
           //add this button to the home page
-          this.pageHome.ElementIDsList.push(gridElement.ID);
+          this.page.ElementIDsList.push(gridElement.ID);
         } catch (e) {
-          console.error(e);
+          // console.error(e);
         }
       }
 
-        if (typeof elementsOfFirstPage[0] === 'object') {
-          elementsOfFirstPage = elementsOfFirstPage[0];
-        } else {
-          searchInTree = false;
-        }
-
+      if (typeof elementsOfFirstPage[0] === 'object') {
+        elementsOfFirstPage = elementsOfFirstPage[0];
+      } else {
+        searchInTree = false;
+      }
     }
-
-    // ajouter la page à la grille
-    this.grid.PageList.push(this.pageHome);
+    // add homepage to the grid
+    this.grid.PageList.push(this.page);
   }
 
-  createGridButtonElement(fileJson:any,element: any, isFolder: boolean){
+  private createGridButtonElement(element: any, isFolder: boolean){
     // Couleur qui foire
     /*
     const backgroundColorJson = fileJson.Component.KeyCompStyle.attr.backgroundColor.split(';');
@@ -158,7 +156,6 @@ export class LifeCompanion2augComponent implements OnInit {
       if(targetPageId === this.pageHomeId){
         targetPageId = '#HOME';
       }
-      console.log('targetPageId : ',targetPageId);
       gridElement = new GridElement(element.attr.id,
         {GoTo: targetPageId},
         '',
@@ -223,15 +220,35 @@ export class LifeCompanion2augComponent implements OnInit {
 
   private setPages(fileJson: any) {
 
+    let pagesInJson = fileJson.Component.Components.Component[0].StackGrid.Component;
+
+    // this.pagesToGrid(pagesInJson);
+
+    //go next Page if exist
     let searchInTreePage:boolean = true;
+    while (searchInTreePage) {
+
+      if (typeof pagesInJson[0] === 'object') {
+        this.pagesToGrid(pagesInJson);
+        // add homepage to the grid
+        this.grid.PageList.push(this.page);
 
 
 
-    this.pageHome = new Page();
-    this.pageHome.ID = fileJson.Component.Components.Component[0].StackGrid.Component[0][0].attr.id;
-    this.pageHome.Name = 'Accueil';
-    this.pageHome.ElementIDsList = [];
-    this.pageHome.NumberOfRows = fileJson.Component.Components.Component[0].StackGrid.Component[0][0].Grid.attr.row;
-    this.pageHome.NumberOfCols = fileJson.Component.Components.Component[0].StackGrid.Component[0][0].Grid.attr.column;
+        pagesInJson = pagesInJson[0];
+
+      } else {
+        searchInTreePage = false;
+      }
+    }
+  }
+
+  private pagesToGrid(pagesInJson: any){
+    this.page = new Page();
+    this.page.ID = pagesInJson[1].attr.id;
+    this.page.Name = pagesInJson[1].attr.userName;
+    this.page.ElementIDsList = [];
+    this.page.NumberOfRows = pagesInJson[1].Grid.attr.row;
+    this.page.NumberOfCols = pagesInJson[1].Grid.attr.column;
   }
 }
