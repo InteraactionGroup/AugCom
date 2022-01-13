@@ -19,11 +19,6 @@ export class LifeCompanion2augComponent implements OnInit {
   private page: Page;
   private pageHomeId:string = '';
 
-  //mask color
-  B_MASK = 255;
-  G_MASK = 255 << 8; // 65280
-  R_MASK = 255 << 16; // 16711680
-
   constructor(private ngxXmlToJsonService: NgxXmlToJsonService,
               private boardService: BoardService,
               private layoutService: LayoutService,
@@ -105,24 +100,21 @@ export class LifeCompanion2augComponent implements OnInit {
       try {
         if (elementsOfFirstPage[1].UseActionManager.UseActionsEvent.UseActions.UseAction.attr.nodeType === 'MoveToGridAction') {
           isFolder = true;
-          const gridElement = this.createGridButtonElement(elementsOfFirstPage[1], isFolder);
+          const gridElement = this.createGridButtonElement(fileJson, elementsOfFirstPage[1], isFolder);
           //add this button to the grid
           this.grid.ElementList.push(gridElement);
           //add this button to the home page
           this.page.ElementIDsList.push(gridElement.ID);
         }
       } catch (e) {
-        // console.error(e);
         isFolder = false;
-        // elementsOfFirstPage[1].UseActionManager.UseActionsEvent.UseActions.UseAction.attr.targetGridId  cible la page destination
         try {
-          const gridElement = this.createGridButtonElement(elementsOfFirstPage[1], isFolder);
+          const gridElement = this.createGridButtonElement(fileJson, elementsOfFirstPage[1], isFolder);
           //add this button to the grid
           this.grid.ElementList.push(gridElement);
           //add this button to the home page
           this.page.ElementIDsList.push(gridElement.ID);
         } catch (e) {
-          // console.error(e);
         }
       }
 
@@ -136,20 +128,17 @@ export class LifeCompanion2augComponent implements OnInit {
     this.grid.PageList.push(this.page);
   }
 
-  private createGridButtonElement(element: any, isFolder: boolean){
-    // Couleur qui foire
-    /*
-    const backgroundColorJson = fileJson.Component.KeyCompStyle.attr.backgroundColor.split(';');
-    const strokeColorJson = fileJson.Component.KeyCompStyle.attr.strokeColor.split(';');
+  private createGridButtonElement(fileJson: any, element: any, isFolder: boolean){
+    let backgroundColorJson: string[];
+    try {
+      backgroundColorJson = element.KeyCompStyle.attr.backgroundColor.split(';');
+    }catch (e){
+      backgroundColorJson = "255;255;255;1.0".split(';');
+    }
+    const rb = Number(backgroundColorJson[0]);
+    const gb = Number(backgroundColorJson[1]);
+    const bb = Number(backgroundColorJson[2]);
 
-    const r = (strokeColorJson[0] & this.R_MASK) >> 16;
-    const g = (strokeColorJson[1] & this.G_MASK) >> 8;
-    const b = strokeColorJson[2] & this.B_MASK;
-
-    const rb = (backgroundColorJson[0] & this.R_MASK) >> 16;
-    const gb = (backgroundColorJson[1] & this.G_MASK) >> 8;
-    const bb = backgroundColorJson[2] & this.B_MASK;
-     */
     let gridElement: GridElement;
     if(isFolder){
       let targetPageId = element.UseActionManager.UseActionsEvent.UseActions.UseAction.attr.targetGridId;
@@ -159,7 +148,7 @@ export class LifeCompanion2augComponent implements OnInit {
       gridElement = new GridElement(element.attr.id,
         {GoTo: targetPageId},
         '',
-        '',
+        'rgb('+rb+','+gb+','+bb+')',
         '',
         0,
         [
@@ -174,7 +163,7 @@ export class LifeCompanion2augComponent implements OnInit {
       gridElement = new GridElement(element.attr.id,
         'button',
         '',
-        '',
+        'rgb('+rb+','+gb+','+bb+')',
         '',
         0,
         [
@@ -195,8 +184,6 @@ export class LifeCompanion2augComponent implements OnInit {
 
     return gridElement;
   }
-
-
 
   private getPathImageArsaacLibrary(textContent: any): string {
     if (textContent !== null) {
@@ -220,21 +207,51 @@ export class LifeCompanion2augComponent implements OnInit {
 
   private setPages(fileJson: any) {
 
-    let pagesInJson = fileJson.Component.Components.Component[0].StackGrid.Component;
+    let pagesInJson: any[] = fileJson.Component.Components.Component[0].StackGrid.Component;
 
-    // this.pagesToGrid(pagesInJson);
-
-    //go next Page if exist
     let searchInTreePage:boolean = true;
     while (searchInTreePage) {
 
       if (typeof pagesInJson[0] === 'object') {
         this.pagesToGrid(pagesInJson);
+
+        let elements: any[] = pagesInJson[1].Grid.Component;
+
+        let searchInTree: boolean = true;
+
+        while (searchInTree) {
+          let isFolder = false;
+          try {
+            if (elements[1].UseActionManager.UseActionsEvent.UseActions.UseAction.attr.nodeType === 'MoveToGridAction') {
+              isFolder = true;
+              const gridElement = this.createGridButtonElement(fileJson, elements[1], isFolder);
+              //add this button to the grid
+              this.grid.ElementList.push(gridElement);
+              //add this button to the home page
+              this.page.ElementIDsList.push(gridElement.ID);
+            }
+          } catch (e) {
+            isFolder = false;
+            try {
+              const gridElement = this.createGridButtonElement(fileJson, elements[1], isFolder);
+              //add this button to the grid
+              this.grid.ElementList.push(gridElement);
+              //add this button to the home page
+              this.page.ElementIDsList.push(gridElement.ID);
+            } catch (e) {
+            }
+          }
+
+          //go next Page if exist
+          if (typeof elements[0] === 'object') {
+            elements = elements[0];
+          } else {
+            searchInTree = false;
+          }
+        }
+
         // add homepage to the grid
         this.grid.PageList.push(this.page);
-
-
-
         pagesInJson = pagesInJson[0];
 
       } else {
