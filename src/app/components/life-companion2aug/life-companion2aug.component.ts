@@ -20,6 +20,8 @@ export class LifeCompanion2augComponent implements OnInit {
   private pageHomeId:string = '';
   private numberErrorImage: number = 0;
 
+  private accessStackGrid:any;
+
   constructor(private ngxXmlToJsonService: NgxXmlToJsonService,
               private boardService: BoardService,
               private layoutService: LayoutService,
@@ -58,7 +60,12 @@ export class LifeCompanion2augComponent implements OnInit {
 
   private jsonToGrid(fileJson: any) {
     console.log('fileJson', fileJson);
-    console.log('zone utile fileJson : ', fileJson.Component.Components.Component[0].StackGrid.Component);
+    try{
+      this.accessStackGrid = fileJson.Component.Components.Component[0].StackGrid.Component;
+    }catch (e) {
+      this.accessStackGrid = fileJson.Component.Components.Component.StackGrid.Component;
+    }
+    console.log('zone utile fileJson : ', this.accessStackGrid);
     this.newGrid(fileJson);
     this.setPageHome(fileJson);
     this.setPages(fileJson);
@@ -77,23 +84,35 @@ export class LifeCompanion2augComponent implements OnInit {
 
   // get grid information from fileJson and set it in the new grid
   private newGrid(fileJson: any) {
-    this.grid = new Grid('importedGrid','Grid',fileJson.Component.Components.Component[0].StackGrid.Component[0][0].Grid.attr.column,fileJson.Component.Components.Component[0].StackGrid.Component[0][0].Grid.attr.row,[],[],[]);
+    this.grid = new Grid('importedGrid','Grid',6,6,[],[],[]);
     this.grid.GapSize = 5;
   }
 
   // first page when the file is imported
   private setPageHome(fileJson: any){
+
+    let searchInTreePage:boolean = true;
+    let mainPage = this.accessStackGrid;
+    while (searchInTreePage) {
+
+      if (typeof mainPage[0] === 'object') {
+        mainPage = mainPage[0];
+      } else {
+        searchInTreePage = false;
+      }
+    }
+
     this.page = new Page();
     this.page.ID = '#HOME';
-    this.pageHomeId = fileJson.Component.Components.Component[0].StackGrid.Component[0][0].attr.id;
+    this.pageHomeId = mainPage.attr.id;
     this.page.Name = 'Accueil';
     this.page.ElementIDsList = [];
-    this.page.NumberOfRows = fileJson.Component.Components.Component[0].StackGrid.Component[0][0].Grid.attr.row;
-    this.page.NumberOfCols = fileJson.Component.Components.Component[0].StackGrid.Component[0][0].Grid.attr.column;
+    this.page.NumberOfRows = mainPage.Grid.attr.row;
+    this.page.NumberOfCols = mainPage.Grid.attr.column;
 
-    let elementsOfFirstPage: any[] = fileJson.Component.Components.Component[0].StackGrid.Component[0][0].Grid.Component;
-    // pour l'instant on ne s'occupe que des boutons et pas des dossiers
-    // console.log('vue depuis elementOfFirstPage : ', fileJson.Component.Components.Component[0].StackGrid.Component[0][0].Grid.Component);
+    let elementsOfFirstPage: any[] = mainPage.Grid.Component;
+
+    // console.log('vue depuis elementOfFirstPage : ', this.accessStackGrid[0][0].Grid.Component);
 
     let searchInTree: boolean = true;
 
@@ -227,7 +246,7 @@ export class LifeCompanion2augComponent implements OnInit {
 
   private setPages(fileJson: any) {
 
-    let pagesInJson: any[] = fileJson.Component.Components.Component[0].StackGrid.Component;
+    let pagesInJson: any[] = this.accessStackGrid;
 
     let searchInTreePage:boolean = true;
     while (searchInTreePage) {
