@@ -18,6 +18,7 @@ export class LifeCompanion2augComponent implements OnInit {
   private grid: Grid;
   private page: Page;
   private pageHomeId:string = '';
+  private numberErrorImage: number = 0;
 
   constructor(private ngxXmlToJsonService: NgxXmlToJsonService,
               private boardService: BoardService,
@@ -57,7 +58,7 @@ export class LifeCompanion2augComponent implements OnInit {
 
   private jsonToGrid(fileJson: any) {
     console.log('fileJson', fileJson);
-    console.log('test : ', fileJson.Component.Components.Component[0].StackGrid.Component);
+    console.log('zone utile fileJson : ', fileJson.Component.Components.Component[0].StackGrid.Component);
     this.newGrid(fileJson);
     this.setPageHome(fileJson);
     this.setPages(fileJson);
@@ -69,6 +70,7 @@ export class LifeCompanion2augComponent implements OnInit {
       that.boardService.backHome();
       that.indexedDBacess.update();
       console.log(that.boardService.board);
+      that.statErrorImage();
     },50);
 
   }
@@ -91,7 +93,7 @@ export class LifeCompanion2augComponent implements OnInit {
 
     let elementsOfFirstPage: any[] = fileJson.Component.Components.Component[0].StackGrid.Component[0][0].Grid.Component;
     // pour l'instant on ne s'occupe que des boutons et pas des dossiers
-    console.log('vue depuis elementOfFirstPage : ', fileJson.Component.Components.Component[0].StackGrid.Component[0][0].Grid.Component);
+    // console.log('vue depuis elementOfFirstPage : ', fileJson.Component.Components.Component[0].StackGrid.Component[0][0].Grid.Component);
 
     let searchInTree: boolean = true;
 
@@ -118,15 +120,16 @@ export class LifeCompanion2augComponent implements OnInit {
           }
         } catch (e) {
           isFolder = false;
-          try {
+        }
+        try {
+          if(!isFolder){
             const gridElement = this.createGridButtonElement(fileJson, elementsOfFirstPage[1], isFolder);
             //add this button to the grid
             this.grid.ElementList.push(gridElement);
             //add this button to the home page
             this.page.ElementIDsList.push(gridElement.ID);
-          } catch (e) {
           }
-        }
+        } catch (e) {}
       }
 
       //go next Page if exist
@@ -234,6 +237,8 @@ export class LifeCompanion2augComponent implements OnInit {
 
         let elements: any[] = pagesInJson[1].Grid.Component;
 
+        // console.log('new page view : ', elements);
+
         let searchInTree: boolean = true;
 
         while (searchInTree) {
@@ -259,15 +264,16 @@ export class LifeCompanion2augComponent implements OnInit {
               }
             } catch (e) {
               isFolder = false;
-              try {
+            }
+            try {
+              if(!isFolder){
                 const gridElement = this.createGridButtonElement(fileJson, elements[1], isFolder);
                 //add this button to the grid
                 this.grid.ElementList.push(gridElement);
                 //add this button to the home page
                 this.page.ElementIDsList.push(gridElement.ID);
-              } catch (e) {
               }
-            }
+            } catch (e) {}
           }
 
           //go next Page if exist
@@ -295,5 +301,19 @@ export class LifeCompanion2augComponent implements OnInit {
     this.page.ElementIDsList = [];
     this.page.NumberOfRows = pagesInJson[1].Grid.attr.row;
     this.page.NumberOfCols = pagesInJson[1].Grid.attr.column;
+  }
+
+  statErrorImage() {
+    this.grid.ImageList.forEach(picture => {
+      const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
+        return picture.ID !== null && picture.ID !== '' && (picture.ID.toLowerCase() === word || picture.ID.toUpperCase() === word);
+      });
+
+      if (index === -1) {
+        // console.log(picture.ID);
+        this.numberErrorImage = this.numberErrorImage + 1;
+      }
+    });
+    console.log('pourcentage d\'erreur : ', this.numberErrorImage / this.grid.ImageList.length * 100);
   }
 }
