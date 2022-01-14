@@ -121,7 +121,7 @@ export class LifeCompanion2augComponent implements OnInit {
       try {
         if (elementsOfFirstPage[1].UseActionManager.UseActionsEvent.UseActions.UseAction[1].attr.nodeType === 'MoveToGridAction') {
           isFolder = true;
-          const gridElement = this.createGridButtonElement(fileJson, elementsOfFirstPage[1], isFolder);
+          const gridElement = this.createGridButtonElement(elementsOfFirstPage[1], isFolder);
           //add this button to the grid
           this.grid.ElementList.push(gridElement);
           //add this button to the home page
@@ -131,7 +131,7 @@ export class LifeCompanion2augComponent implements OnInit {
         try {
           if (elementsOfFirstPage[1].UseActionManager.UseActionsEvent.UseActions.UseAction.attr.nodeType === 'MoveToGridAction') {
             isFolder = true;
-            const gridElement = this.createGridButtonElement(fileJson, elementsOfFirstPage[1], isFolder);
+            const gridElement = this.createGridButtonElement(elementsOfFirstPage[1], isFolder);
             //add this button to the grid
             this.grid.ElementList.push(gridElement);
             //add this button to the home page
@@ -142,7 +142,7 @@ export class LifeCompanion2augComponent implements OnInit {
         }
         try {
           if(!isFolder){
-            const gridElement = this.createGridButtonElement(fileJson, elementsOfFirstPage[1], isFolder);
+            const gridElement = this.createGridButtonElement(elementsOfFirstPage[1], isFolder);
             //add this button to the grid
             this.grid.ElementList.push(gridElement);
             //add this button to the home page
@@ -155,6 +155,40 @@ export class LifeCompanion2augComponent implements OnInit {
       if (typeof elementsOfFirstPage[0] === 'object') {
         elementsOfFirstPage = elementsOfFirstPage[0];
       } else {
+        let isFolder = false;
+        try {
+          if (elementsOfFirstPage[1].UseActionManager.UseActionsEvent.UseActions.UseAction[1].attr.nodeType === 'MoveToGridAction') {
+            isFolder = true;
+            const gridElement = this.createGridButtonElement(elementsOfFirstPage, isFolder);
+            //add this button to the grid
+            this.grid.ElementList.push(gridElement);
+            //add this button to the home page
+            this.page.ElementIDsList.push(gridElement.ID);
+          }
+        }catch (e) {
+          try {
+            if (elementsOfFirstPage[1].UseActionManager.UseActionsEvent.UseActions.UseAction.attr.nodeType === 'MoveToGridAction') {
+              isFolder = true;
+              const gridElement = this.createGridButtonElement(elementsOfFirstPage, isFolder);
+              //add this button to the grid
+              this.grid.ElementList.push(gridElement);
+              //add this button to the home page
+              this.page.ElementIDsList.push(gridElement.ID);
+            }
+          } catch (e) {
+            isFolder = false;
+          }
+          try {
+            if(!isFolder){
+              const gridElement = this.createGridButtonElement(elementsOfFirstPage, isFolder);
+              //add this button to the grid
+              this.grid.ElementList.push(gridElement);
+              //add this button to the home page
+              this.page.ElementIDsList.push(gridElement.ID);
+            }
+          } catch (e) {}
+        }
+
         searchInTree = false;
       }
     }
@@ -162,7 +196,7 @@ export class LifeCompanion2augComponent implements OnInit {
     this.grid.PageList.push(this.page);
   }
 
-  private createGridButtonElement(fileJson: any, element: any, isFolder: boolean){
+  private createGridButtonElement(element: any, isFolder: boolean){
     let backgroundColorJson: string[];
     try {
       backgroundColorJson = element.KeyCompStyle.attr.backgroundColor.split(';');
@@ -265,7 +299,7 @@ export class LifeCompanion2augComponent implements OnInit {
           try {
             if (elements[1].UseActionManager.UseActionsEvent.UseActions.UseAction[1].attr.nodeType === 'MoveToGridAction') {
               isFolder = true;
-              const gridElement = this.createGridButtonElement(fileJson, elements[1], isFolder);
+              const gridElement = this.createGridButtonElement(elements[1], isFolder);
               //add this button to the grid
               this.grid.ElementList.push(gridElement);
               //add this button to the home page
@@ -275,7 +309,7 @@ export class LifeCompanion2augComponent implements OnInit {
             try {
               if (elements[1].UseActionManager.UseActionsEvent.UseActions.UseAction.attr.nodeType === 'MoveToGridAction') {
                 isFolder = true;
-                const gridElement = this.createGridButtonElement(fileJson, elements[1], isFolder);
+                const gridElement = this.createGridButtonElement(elements[1], isFolder);
                 //add this button to the grid
                 this.grid.ElementList.push(gridElement);
                 //add this button to the home page
@@ -286,7 +320,7 @@ export class LifeCompanion2augComponent implements OnInit {
             }
             try {
               if(!isFolder){
-                const gridElement = this.createGridButtonElement(fileJson, elements[1], isFolder);
+                const gridElement = this.createGridButtonElement(elements[1], isFolder);
                 //add this button to the grid
                 this.grid.ElementList.push(gridElement);
                 //add this button to the home page
@@ -299,6 +333,40 @@ export class LifeCompanion2augComponent implements OnInit {
           if (typeof elements[0] === 'object') {
             elements = elements[0];
           } else {
+            let isFolder = false;
+            try {
+              if (elements[1].UseActionManager.UseActionsEvent.UseActions.UseAction[1].attr.nodeType === 'MoveToGridAction') {
+                isFolder = true;
+                const gridElement = this.createGridButtonElement(elements, isFolder);
+                //add this button to the grid
+                this.grid.ElementList.push(gridElement);
+                //add this button to the home page
+                this.page.ElementIDsList.push(gridElement.ID);
+              }
+            }catch (e) {
+              try {
+                if (elements[1].UseActionManager.UseActionsEvent.UseActions.UseAction.attr.nodeType === 'MoveToGridAction') {
+                  isFolder = true;
+                  const gridElement = this.createGridButtonElement(elements, isFolder);
+                  //add this button to the grid
+                  this.grid.ElementList.push(gridElement);
+                  //add this button to the home page
+                  this.page.ElementIDsList.push(gridElement.ID);
+                }
+              } catch (e) {
+                isFolder = false;
+              }
+              try {
+                if(!isFolder){
+                  const gridElement = this.createGridButtonElement(elements, isFolder);
+                  //add this button to the grid
+                  this.grid.ElementList.push(gridElement);
+                  //add this button to the home page
+                  this.page.ElementIDsList.push(gridElement.ID);
+                }
+              } catch (e) {}
+            }
+
             searchInTree = false;
           }
         }
