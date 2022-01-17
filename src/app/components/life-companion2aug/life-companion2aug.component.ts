@@ -72,9 +72,10 @@ export class LifeCompanion2augComponent implements OnInit {
       this.accessStackGrid = fileJson.Component.Components.Component.StackGrid.Component;
     }
     console.log('zone utile fileJson : ', this.accessStackGrid);
-    this.newGrid(fileJson);
+    this.newGrid();
     this.setPageHome();
     this.setPages();
+    this.addFromKeyList(keyList);
     this.router.navigate(['keyboard']);
     let that = this;
     setTimeout(function() {
@@ -89,7 +90,7 @@ export class LifeCompanion2augComponent implements OnInit {
   }
 
   // get grid information from fileJson and set it in the new grid
-  private newGrid(fileJson: any) {
+  private newGrid() {
     this.grid = new Grid('importedGrid','Grid',6,6,[],[],[]);
     this.grid.GapSize = 5;
   }
@@ -408,5 +409,33 @@ export class LifeCompanion2augComponent implements OnInit {
       }
     });
     console.log('pourcentage d\'erreur : ', this.numberErrorImage / this.grid.ImageList.length * 100);
+  }
+
+  //add every buttons form keyList file
+  private addFromKeyList(keyList: any) {
+    let treeKeyList = keyList.KeyListNode.KeyListNode[0];
+    let searchInTreeKeyList = true;
+    while(searchInTreeKeyList){
+      //si l'élément est un noeud donc un dossier on vérifie que cet élément existe déjà, si oui on le modifie pour le transformer en bouton dossier, si non on le créer
+      try{
+        if(treeKeyList[1].attr.nodeType === 'KeyListNode'){
+          for(let i = 0; i < this.grid.ElementList.length; i++){
+            const indexOfInTreeKeyList = this.grid.ElementList[i].ElementFormsList[0].DisplayedText.indexOf(treeKeyList[1].attr.text);
+            console.log('treeKeyList[1].attr.text : ', treeKeyList[1].attr.text, 'indexOfInTreeKeyList : ',indexOfInTreeKeyList);
+            if(indexOfInTreeKeyList !== -1){
+              this.grid.ElementList[i].Type = {GoTo: treeKeyList[1].attr.id};
+              //si on a trouvé le mot recherché inutile de continuer la boucle donc break
+              break;
+            }
+          }
+        }
+      }catch (e) {}
+
+      if (typeof treeKeyList[0] === 'object') {
+        treeKeyList = treeKeyList[0];
+      } else {
+        searchInTreeKeyList = false;
+      }
+    }
   }
 }
