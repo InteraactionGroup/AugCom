@@ -14,7 +14,6 @@ import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
   styleUrls: ['./life-companion2aug.component.css']
 })
 export class LifeCompanion2augComponent implements OnInit {
-  private folder: string[] = [];
   private grid: Grid;
   private page: Page;
   private pageHomeId:string = '';
@@ -32,8 +31,8 @@ export class LifeCompanion2augComponent implements OnInit {
   }
 
   convert(file) {
-    this.folder = [];
-    //this.fileData = "";
+    let fileJson:any;
+    let keyList:any;
     const options = { // set up the default options
       textKey: 'text', // tag name for text nodes
       attrKey: 'attr', // tag for attr groups
@@ -44,22 +43,29 @@ export class LifeCompanion2augComponent implements OnInit {
       Object.keys(zip.files).forEach((filename) => {
         if(filename === 'lifecompanion-configuration.xml'){
           zip.files[filename].async('string').then((fileData) => {
-            this.folder.push(fileData);
+            fileJson = fileData;
+          });
+        }
+        if(filename === 'keylist/lifecompanion-keylist.xml'){
+          zip.files[filename].async('string').then((fileData) => {
+            keyList = fileData;
           });
         }
       });
     });
     //give time to read the file
     setTimeout(()=> {
-      const fileJson = this.ngxXmlToJsonService.xmlToJson(this.folder[0], options);
+      fileJson = this.ngxXmlToJsonService.xmlToJson(fileJson, options);
+      keyList = this.ngxXmlToJsonService.xmlToJson(keyList, options);
       // at this line the file is convert to Json, now we need to read in and extract the grid, elements to do the new grid
-      this.jsonToGrid(fileJson);
+      this.jsonToGrid(fileJson, keyList);
       },200);
 
   }
 
-  private jsonToGrid(fileJson: any) {
+  private jsonToGrid(fileJson: any, keyList: any) {
     console.log('fileJson', fileJson);
+    console.log('keylist', keyList);
     try{
       this.accessStackGrid = fileJson.Component.Components.Component[0].StackGrid.Component;
     }catch (e) {
@@ -67,8 +73,8 @@ export class LifeCompanion2augComponent implements OnInit {
     }
     console.log('zone utile fileJson : ', this.accessStackGrid);
     this.newGrid(fileJson);
-    this.setPageHome(fileJson);
-    this.setPages(fileJson);
+    this.setPageHome();
+    this.setPages();
     this.router.navigate(['keyboard']);
     let that = this;
     setTimeout(function() {
@@ -89,7 +95,7 @@ export class LifeCompanion2augComponent implements OnInit {
   }
 
   // first page when the file is imported
-  private setPageHome(fileJson: any){
+  private setPageHome(){
 
     let searchInTreePage:boolean = true;
     let mainPage = this.accessStackGrid;
@@ -278,7 +284,7 @@ export class LifeCompanion2augComponent implements OnInit {
     });
   }
 
-  private setPages(fileJson: any) {
+  private setPages() {
 
     let pagesInJson: any[] = this.accessStackGrid;
 
