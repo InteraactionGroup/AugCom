@@ -11,7 +11,8 @@ import {BoardService} from "../../services/board.service";
 export class DialogResetGridComponent implements OnInit {
 
   constructor(public multilinguism: MultilinguismService,
-              private boardService: BoardService,) { }
+              private boardService: BoardService,) {
+  }
 
   ngOnInit(): void {
   }

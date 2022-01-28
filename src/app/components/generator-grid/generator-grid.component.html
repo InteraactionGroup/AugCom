@@ -1,0 +1,38 @@
+<app-back-home-bar></app-back-home-bar>
+<div class="edition width-100">
+
+  <div class="selectLibrairy">
+    <input checked id="radioAraasac" name="typeFormat" type="radio" (click)="getLibrairy('arasaacNB')">
+    <label class="radio" for="radioAraasac">{{this.multilinguism.translate("arasaacNB")}}</label>
+
+    <input id="radioAraasacColored" name="typeFormat" type="radio" (click)="getLibrairy('arasaacColor')">
+    <label class="radio" for="radioAraasacColored">{{this.multilinguism.translate("arasaacColored")}}</label>
+  </div>
+
+  <div class="optionsGenerateGrid">
+    <label class="label" for="namefield">{{this.multilinguism.translate("nameGeneratedGrid")}}</label>
+    <input id="namefield" (keyup)="getNameGrid($event)" class="input width-100" [placeholder]="" type="text">
+  </div>
+
+  <div class="optionsGenerateGrid">
+    <label class="label" for="colsfield">{{this.multilinguism.translate("nbColsGeneratedGrid")}}</label>
+    <input id="colsfield" (keyup)="getColsGrid($event)" class="input width-100" [placeholder]="" type="number" min="1">
+  </div>
+
+  <div class="optionsGenerateGrid">
+    <label class="label" for="rowsfield">{{this.multilinguism.translate("nbRowsGeneratedGrid")}}</label>
+    <input id="rowsfield" (keyup)="getRowsGrid($event)" class="input width-100" [placeholder]="" type="number" min="1">
+  </div>
+
+  <div class="optionsGenerateGrid">
+    <label class="label" for="sentencefield">{{this.multilinguism.translate("listOfWords")}}</label>
+    <input id="sentencefield" (keyup)="getSentence($event)" class="input width-100" [placeholder]="" type="text">
+  </div>
+
+  <button (click)="submit()">{{this.multilinguism.translate("generateGrid")}}</button>
+
+  <div *ngIf="error" class="messageError">
+    {{this.multilinguism.translate(errorType)}}
+  </div>
+</div>
+{{this.configuration.VERSION}}
