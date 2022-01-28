@@ -19,16 +19,28 @@ export class PrintService {
   urlList: any[] = [];
   buttonHTML = '<input id="print" type="button" value="' +this.multilinguism.translate('exportPDF')+'" style="margin-left: 25%; height: 50px; width: 50%; font-size: x-large;">\n';
 
-  footer: string | ArrayBuffer = "";
-  header: string | ArrayBuffer = "";
-  buttonEnableHeader = false;
-  buttonEnableFooter = false;
-  typeChoiceHeader = "text";
-  typeChoiceFooter = "text";
+  footer: string | ArrayBuffer = this.configuration.FOOTER;
+  header: string | ArrayBuffer = this.configuration.HEADER;
+  buttonEnableHeader = this.configuration.HEADER_BUTTON;
+  buttonEnableFooter = this.configuration.FOOTER_BUTTON;
+  typeChoiceHeader = this.configuration.HEADER_CHOICE;
+  typeChoiceFooter = this.configuration.FOOTER_CHOICE;
 
   heightHeader = "5%";
   heightFooter = "0%";
   height = "95%";
+
+  updateConfigHeader(header, headerButton, headerChoice){
+    this.configuration.HEADER = header;
+    this.configuration.HEADER_BUTTON = headerButton;
+    this.configuration.HEADER_CHOICE = headerChoice;
+  }
+
+  updateConfigFooter(footer, footerButton, footerChoice){
+    this.configuration.FOOTER = footer;
+    this.configuration.FOOTER_BUTTON = footerButton;
+    this.configuration.FOOTER_CHOICE = footerChoice;
+  }
 
   printDiv() {
     this.checkSize();

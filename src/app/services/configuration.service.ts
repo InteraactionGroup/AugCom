@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Configuration, Style} from "../types";
 import {StyleService} from "./style.service";
+import {PrintService} from "./print.service";
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,13 @@ export class ConfigurationService {
   DEFAULT_RATE = 1.0;
   DEFAULT_PITCH = 1.0;
 
+  DEFAULT_HEADER: string | ArrayBuffer = "";
+  DEFAULT_HEADER_BUTTON = false;
+  DEFAULT_HEADER_CHOICE = "text";
+  DEFAULT_FOOTER: string | ArrayBuffer = "";
+  DEFAULT_FOOTER_BUTTON = false;
+  DEFAULT_FOOTER_CHOICE = "text";
+
   DWELL_TIME_ENABLED = this.DEFAULT_DWELL_TIME_ENABLED;
   PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE = this.DEFAULT_PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE;
   PICTO_IMAGE_POSITION_VALUE = this.DEFAULT_PICTO_IMAGE_POSITION_VALUE;
@@ -58,6 +66,13 @@ export class ConfigurationService {
   VOLUME = this.DEFAULT_VOLUME;
   RATE = this.DEFAULT_RATE;
   PITCH = this.DEFAULT_PITCH;
+
+  HEADER = this.DEFAULT_HEADER;
+  HEADER_BUTTON = this.DEFAULT_HEADER_BUTTON;
+  HEADER_CHOICE = this.DEFAULT_HEADER_CHOICE;
+  FOOTER = this.DEFAULT_FOOTER;
+  FOOTER_BUTTON = this.DEFAULT_FOOTER_BUTTON;
+  FOOTER_CHOICE = this.DEFAULT_FOOTER_CHOICE;
 
 // --main-font: Arial, sans-serif;
 // --main-picto-font: Arial, sans-serif;
@@ -90,7 +105,13 @@ export class ConfigurationService {
       'MAIN_COLOR_4_VALUE': this.MAIN_COLOR_4_VALUE,
       'VOLUME': this.DEFAULT_VOLUME,
       'RATE': this.DEFAULT_RATE,
-      'PITCH': this.DEFAULT_PITCH
+      'PITCH': this.DEFAULT_PITCH,
+      'HEADER' : this.HEADER,
+      'HEADER_BUTTON' : this.HEADER_BUTTON,
+      'HEADER_CHOICE' : this.HEADER_CHOICE,
+      'FOOTER' : this.FOOTER,
+      'FOOTER_BUTTON' : this.FOOTER_BUTTON,
+      'FOOTER_CHOICE' : this.FOOTER_CHOICE
     }
   }
 
@@ -119,7 +140,13 @@ export class ConfigurationService {
       'MAIN_COLOR_4_VALUE': this.DEFAULT_MAIN_COLOR_4_VALUE,
       'VOLUME': this.DEFAULT_VOLUME,
       'RATE': this.DEFAULT_RATE,
-      'PITCH': this.DEFAULT_PITCH
+      'PITCH': this.DEFAULT_PITCH,
+      'HEADER' : this.DEFAULT_HEADER,
+      'HEADER_BUTTON' : this.DEFAULT_HEADER_BUTTON,
+      'HEADER_CHOICE' : this.DEFAULT_HEADER_CHOICE,
+      'FOOTER' : this.DEFAULT_FOOTER,
+      'FOOTER_BUTTON' : this.DEFAULT_FOOTER_BUTTON,
+      'FOOTER_CHOICE' : this.DEFAULT_FOOTER_CHOICE,
     }
   }
 
@@ -149,6 +176,12 @@ export class ConfigurationService {
     this.VOLUME = configuration.VOLUME;
     this.RATE = configuration.RATE;
     this.PITCH = configuration.PITCH;
+    this.HEADER = configuration.HEADER;
+    this.HEADER_BUTTON = configuration.HEADER_BUTTON;
+    this.HEADER_CHOICE = configuration.HEADER_CHOICE;
+    this.FOOTER = configuration.FOOTER;
+    this.FOOTER_BUTTON = configuration.FOOTER_BUTTON;
+    this.FOOTER_CHOICE = configuration.FOOTER_CHOICE;
 
 
     this.styleService.updateStyle(
