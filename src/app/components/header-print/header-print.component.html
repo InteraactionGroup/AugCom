@@ -2,6 +2,16 @@
   <div class="header-page">
 
     <div class="header-item">
+      <label for="enablePageName">{{this.multilinguism.translate("addPageName")}}</label>
+      <input type="checkbox" id="enablePageName" name="enablePageName" (click)="enablePageName()" [checked]="buttonEnablePageName">
+    </div>
+
+    <div class="header-item">
+      <label for="enableVersion">{{this.multilinguism.translate("addVersion")}}</label>
+      <input type="checkbox" id="enableVersion" name="enableVersion" (click)="enableVersion()" [checked]="buttonEnableVersion">
+    </div>
+
+    <div class="header-item">
       <label for="enableHeader">{{this.multilinguism.translate("enableHeader")}}</label>
       <input type="checkbox" id="enableHeader" name="enableHeader" (click)="enableHeader()" [checked]="buttonEnableHeader">
     </div>
@@ -21,6 +31,15 @@
     <div class="header-item" *ngIf="typeChoice == 'img' && buttonEnableHeader">
       <label>{{this.multilinguism.translate("imageHeader")}}</label>
       <input type="file" accept="image/*" (change)="onFileSelected($event)" [value]="selectedFile">
+    </div>
+
+    <div class="footer-item" *ngIf="buttonEnableHeader">
+      <label for="positionFooter">{{this.multilinguism.translate("choosePosition")}}</label>
+      <select #option id="positionFooter" class="variantListBox" (input)="getPosition(option.value)" [(ngModel)]="textPosition">
+        <option value="left">{{this.multilinguism.translate("leftPosition")}}</option>
+        <option value="center">{{this.multilinguism.translate("middlePosition")}}</option>
+        <option value="right">{{this.multilinguism.translate("rightPosition")}}</option>
+      </select>
     </div>
 
   </div>

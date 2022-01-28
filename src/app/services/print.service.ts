@@ -30,6 +30,12 @@ export class PrintService {
   heightFooter = "0%";
   height = "95%";
 
+  textAlignHeader = "left";
+  textAlignFooter = "left";
+
+  enablePageName = true;
+  enableVersion = true;
+
   updateConfigHeader(header, headerButton, headerChoice){
     this.configuration.HEADER = header;
     this.configuration.HEADER_BUTTON = headerButton;
@@ -57,7 +63,6 @@ export class PrintService {
         + this.getAllHTML();
       this.recEventSettingFunction(wind);
     };
-
   }
 
   checkSize(){
@@ -157,14 +162,27 @@ export class PrintService {
   wrapperBegin(page: Page, i: number) {
     let numberOfCols = this.boardService.getNumberOfColsForPage(page);
     let numberOfRows = this.boardService.getNumberOfRowsForPage(page);
-    let id = page.ID + '- page ' + (((i as number) + (1 as number)) as number);
+    let id = this.headerValue(page, i);
 
-    return '<div class="idHeader section-to-print">' + id + this.getHeader() + '<div class="version">'+this.configuration.VERSION+'</div></div>\n' +
+    return '<div class="section-to-print">' + id +
+      '<div class="headerPosition">' + this.getHeader() + '</div></div>\n' +
       '<div class="keyboard section-to-print" id="' + id + '">\n' +
-      '<div class="wrapper height-width-100"' +
+      '<div class="wrapper height-width-100" ' +
       'style="grid-template-columns: repeat(' + numberOfCols +
       ', 1fr) ;grid-template-rows: repeat(100, ' +
       (100 / numberOfRows) + '%) ;"' + '>\n';
+  }
+
+  headerValue(page: Page, i: number){
+    if (this.enablePageName && this.enableVersion){
+      return page.ID + '- page ' + (((i as number) + (1 as number)) as number) + " " + this.configuration.VERSION;
+    }else if (this.enablePageName && !this.enableVersion){
+      return page.ID + '- page ' + (((i as number) + (1 as number)) as number);
+    }else if (!this.enablePageName && this.enableVersion){
+      return this.configuration.VERSION;
+    }else {
+      return " ";
+    }
   }
 
   getShadow(element: GridElement) {
@@ -263,17 +281,18 @@ export class PrintService {
 
   getCSSKeyboard() {
     return '.idHeader{\n' +
-      '    height: 100%;\n' +
-      '    width: 100%;\n' +
-      '    display: flex;\n' +
-      '    flex-direction: row;\n' +
-      '    flex-wrap: nowrap;\n' +
-      '    align-content: flex-start;\n' +
-      '    align-items: flex-start;\n' +
-      '    justify-content: space-between;\n' +
+      ' height: 100%;\n' +
+      ' width: 100%;\n' +
+      ' display: flex;\n' +
+      ' flex-direction: row;\n' +
+      ' flex-wrap: nowrap;\n' +
+      ' align-content: flex-start;\n' +
+      ' align-items: flex-start;\n' +
+      ' justify-content: space-between;\n' +
       '}\n' + '.idFooter{\n' +
       '  height: 100%;\n' +
       '  width: 100%;\n' +
+      '  text-align: ' + this.textAlignFooter +
       '}\n' + '.keyboard{\n' +
       '  height: 100%;\n' +
       '  width: 100%;\n' +
@@ -360,6 +379,13 @@ export class PrintService {
       '    display: block;\n'+
       '    margin: auto;\n'+
       '    width: auto;\n' +
+      '}\n' +
+      '\n' +
+      '.version {\n' +
+      ' text-align: right;\n' +
+      '}\n' +
+      '.headerPosition {\n' +
+      ' text-align:' + this.textAlignHeader +'\n' +
       '}\n';
   }
 

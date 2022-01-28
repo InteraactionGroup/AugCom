@@ -16,6 +16,7 @@ export class FooterPrintComponent implements OnInit {
   selectedFile;
   textButton = true;
   imgButton = false;
+  textPosition = "left";
 
   constructor(public multilinguism: MultilinguismService,
               public printService: PrintService,
@@ -27,6 +28,7 @@ export class FooterPrintComponent implements OnInit {
     setTimeout(() => {
       this.buttonEnableFooter = this.printService.buttonEnableFooter;
       this.typeChoice = this.printService.typeChoiceFooter;
+      this.textPosition = this.printService.textAlignFooter;
       if (this.typeChoice == "text"){
         this.footer = this.printService.footer;
       }else {
@@ -53,6 +55,11 @@ export class FooterPrintComponent implements OnInit {
     this.footer = event.target.value;
     this.printService.footer = event.target.value;
     this.printService.updateConfigFooter(this.footer, this.buttonEnableFooter, this.typeChoice);
+  }
+
+  getPosition(value){
+    this.textPosition = value;
+    this.printService.textAlignFooter = value;
   }
 
   onFileSelected(event) {

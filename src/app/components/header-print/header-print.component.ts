@@ -16,6 +16,9 @@ export class HeaderPrintComponent implements OnInit {
   selectedFile;
   textButton = true;
   imgButton = false;
+  textPosition = "left";
+  buttonEnablePageName;
+  buttonEnableVersion;
 
   constructor(public multilinguism: MultilinguismService,
               public printService: PrintService,
@@ -25,14 +28,17 @@ export class HeaderPrintComponent implements OnInit {
     this.indexedDBacess.update();
     setTimeout(() => {
       this.buttonEnableHeader = this.printService.buttonEnableHeader;
-      this.typeChoice = this.printService.typeChoiceHeader;
-      if (this.typeChoice == "text"){
-        this.header = this.printService.header;
-      }else {
-        this.selectedFile = this.printService.header;
-        this.textButton = false;
-        this.imgButton = true;
-      }
+    this.buttonEnablePageName = this.printService.enablePageName;
+    this.buttonEnableVersion = this.printService.enableVersion;
+    this.typeChoice = this.printService.typeChoiceHeader;
+    this.textPosition = this.printService.textAlignHeader;
+    if (this.typeChoice == "text"){
+      this.header = this.printService.header;
+    }else {
+      this.selectedFile = this.printService.header;
+      this.textButton = false;
+      this.imgButton = true;
+    }
     }, 150);
   }
 
@@ -40,6 +46,16 @@ export class HeaderPrintComponent implements OnInit {
     this.typeChoice = type;
     this.printService.typeChoiceHeader = type;
     this.printService.updateConfigHeader(this.header, this.buttonEnableHeader, this.typeChoice);
+  }
+
+  enablePageName(){
+    this.printService.enablePageName = !this.printService.enablePageName;
+    this.buttonEnablePageName = this.printService.enablePageName;
+  }
+
+  enableVersion(){
+    this.printService.enableVersion = !this.printService.enableVersion;
+    this.buttonEnableVersion = this.printService.enableVersion;
   }
 
   enableHeader(){
@@ -52,6 +68,11 @@ export class HeaderPrintComponent implements OnInit {
     this.header = event.target.value;
     this.printService.header = event.target.value;
     this.printService.updateConfigHeader(this.header, this.buttonEnableHeader, this.typeChoice);
+  }
+
+  getPosition(value){
+    this.textPosition = value;
+    this.printService.textAlignHeader = value;
   }
 
   onFileSelected(event) {
