@@ -33,7 +33,7 @@ export class HeaderPrintComponent implements OnInit {
         this.textButton = false;
         this.imgButton = true;
       }
-    }, 1000);
+    }, 150);
   }
 
   choiceType(type){

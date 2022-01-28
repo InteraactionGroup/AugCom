@@ -34,7 +34,7 @@ export class FooterPrintComponent implements OnInit {
         this.textButton = false;
         this.imgButton = true;
       }
-    }, 1000);
+    }, 150);
   }
 
   choiceType(type){
