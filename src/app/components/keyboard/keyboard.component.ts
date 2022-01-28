@@ -335,6 +335,10 @@ export class KeyboardComponent implements OnInit{
     this.copyElements = [];
   }
 
+  generateGridWithSentence(){
+    this.router.navigate(['/generatorGrid'])
+  }
+
   /**
    * return the icon url corresponding to the string s
    * @param s, the string identifying the icon

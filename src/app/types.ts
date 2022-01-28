@@ -75,6 +75,45 @@ export class GridElement {
 }
 
 /**
+ * an element generated of the Board
+ */
+export class GridElementGenerated {
+  ID: string;
+  Type: 'empty' | 'button' | FolderGoTo;
+  PartOfSpeech: '-nom-' | '-nom-pr-' | 'nom de famille' | '-adv-' | 'prénom' | '-adj-' | 'variante typographique' | '-verb' | 'pronom' | 'locution-phrase' | 'interjection' | 'onomatopée' | 'pronom démonstratif' | 'adjectif indéfini' | 'pronom indéfini' | 'pronom personnel' | 'conjonction' | 'adjectif numéral' | 'préposition' | 'article partitif' | 'adverbe interrogatif' | 'conjonction de coordination' | 'pronom interrogatif' | 'pronom relatif' | 'pronom possessif' | 'erreur' | 'locution phrase' | 'proverbe' | 'adverbe relatif' | 'nom scientifique' | 'adjectif exclamatif' | 'adjectif interrogatif' | 'adjectif possessif' | 'adjectif démonstratif' | 'patronyme' | 'article défini' | 'interj' | 'locution' | 'article indéfini' |string;
+  VisibilityLevel: number;
+  x: number;
+  y: number;
+  cols: number;
+  rows: number;
+
+  style: { id: string } | Style;
+
+  ElementFormsList: ElementForm[];
+  InteractionsList: Interaction[];
+
+  dragAndResizeEnabled: boolean;
+
+
+  constructor(elementId: string, elementType, elementPartOfSpeech: string,
+              color: string, borderColor: string, visibilityLevel, elementsForms: ElementForm[], interactionList: Interaction[], numberX: number, numberY: number) {
+
+    this.ID = elementId;
+    this.Type = elementType;
+    this.PartOfSpeech = elementPartOfSpeech;
+    this.style = new Style(color, borderColor, 'black');
+    this.VisibilityLevel = visibilityLevel;
+    this.ElementFormsList = elementsForms;
+    this.InteractionsList = interactionList;
+    this.y = numberY;
+    this.x = numberX;
+    this.rows = 1;
+    this.cols = 1;
+    this.dragAndResizeEnabled = true;
+  }
+}
+
+/**
  * a vignette for the dialog bar
  */
 export class Vignette {

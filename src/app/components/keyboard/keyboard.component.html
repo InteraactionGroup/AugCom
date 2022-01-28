@@ -27,6 +27,13 @@
   </div>
 
   <!-- button used to copy all the selected elements -->
+  <div class="editSettingsButton floatLeft" (click)="generateGridWithSentence()">
+    <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("generateSelected")}}</div>-->
+    <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('generatorGrid')">
+    </div>
+  </div>
+
+  <!-- button used to copy all the selected elements -->
   <div class="editSettingsButton floatLeft" (click)="copyAll()">
     <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("copySelected")}}</div>-->
     <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('copy')">
