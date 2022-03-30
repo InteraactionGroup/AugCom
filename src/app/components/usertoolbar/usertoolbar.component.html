@@ -83,6 +83,16 @@
     </div>
   </div>
 
+  <div class="button floatLeft" id="homeButton"
+       (click)="this.boardService.backHome()"
+       (pointerenter)="enter($event)"
+       (pointerleave)="exit()"
+       [ngStyle]="{'opacity': (this.boardService.getCurrentFolder() !== '#HOME' && this.boardService.activatedElement==-1) ? '1' : '0.5'}">
+    <div class="image width-100"
+         [ngStyle]="{'background-image':this.getIcon('home')}">
+    </div>
+  </div>
+
   <div class="buttonLeftLeft floatLeft" [class.buttonLeftLeftBig]="this.userToolBarService.search"
        *ngIf="this.userToolBarService.unlock">
     <div class="image width-100"
