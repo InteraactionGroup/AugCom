@@ -276,6 +276,7 @@
     { "id" :  "noRows", "FR" : "Pas de ligne !", "EN" :  "No rows !"},
     { "id" :  "noCols", "FR" : "Pas de colonnes !", "EN" :  "No cols !"},
     { "id" :  "noWords", "FR" : "Liste de mots vide !", "EN" :  "List of words empty !"},
-    { "id" :  "sizeToSmall", "FR" : "Taille de la grille trop petite !", "EN" :  "Size of grid to small !"}
+    { "id" :  "sizeToSmall", "FR" : "Taille de la grille trop petite !", "EN" :  "Size of grid to small !"},
+    { "id" :  "Are you sure you want to reset the configuration?", "FR" : "êtes-vous sûr de vouloir réinitialiser la configuration?", "EN": "Are you sure you want to reset the configuration?"}
   ]
 }
