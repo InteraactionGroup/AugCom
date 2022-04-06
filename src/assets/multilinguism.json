@@ -113,6 +113,8 @@
     { "id" : "FontStyle",  "FR" : "Style de police", "EN" : "Font style" },
     { "id" : "GeneralTheme",  "FR" : "Thème Général", "EN" : "General Theme" },
     { "id" : "ChooseFont",  "FR" : "Choisissez la police", "EN" : "Choose the font" },
+    { "id" : "FontSize",  "FR" : "Taille de la police", "EN" : "Font size" },
+    { "id" : "ChooseSizeFont",  "FR" : "Choisissez la taille de la police", "EN" : "Choose the size font" },
     { "id" : "dwellTime",  "FR" : "Activer le temps de fixation", "EN" : "Activate the dwell-time" },
     { "id" : "chooseTitleDisplay",  "FR" : "Choisissez l'affichage du titre", "EN" : "Choose title display" },
     { "id" : "chooseTitleFormat",  "FR" : "Choisissez le format du titre", "EN" : "Choose title format" },
