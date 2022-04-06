@@ -90,7 +90,7 @@ export class ConfigurationService {
       'MAIN_COLOR_2_VALUE': this.MAIN_COLOR_2_VALUE,
       'MAIN_COLOR_3_VALUE': this.MAIN_COLOR_3_VALUE,
       'MAIN_COLOR_4_VALUE': this.MAIN_COLOR_4_VALUE,
-      'SIZE_FONT_VALUE': this.DEFAULT_SIZE_FONT_VALUE,
+      'SIZE_FONT_VALUE': this.SIZE_FONT_VALUE,
       'VOLUME': this.DEFAULT_VOLUME,
       'RATE': this.DEFAULT_RATE,
       'PITCH': this.DEFAULT_PITCH

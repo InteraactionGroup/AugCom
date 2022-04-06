@@ -11,7 +11,7 @@ import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 })
 export class ApplicationThemeComponent implements OnInit {
 
-  selectedSize;
+  selectedSize:string = this.configurationService.SIZE_FONT_VALUE;
 
   constructor(public styleService: StyleService,
               public multilinguismService: MultilinguismService,
@@ -34,15 +34,17 @@ export class ApplicationThemeComponent implements OnInit {
     // this.configurationService.MAIN_COLOR_2_VALUE = root.style.getPropertyValue('--main-bg-color2');
     // this.configurationService.MAIN_COLOR_3_VALUE = root.style.getPropertyValue('--main-bg-color3');
     // this.configurationService.MAIN_COLOR_4_VALUE = root.style.getPropertyValue('--main-bg-color4');
-
+    this.saveService.loadInfoFromCurrentUser();
     setTimeout(() => {
-      this.selectedSize = this.configurationService.DEFAULT_SIZE_FONT_VALUE;
-    }, 500);
+      console.log("this.configurationService.SIZE_FONT_VALUE", this.configurationService.SIZE_FONT_VALUE);
+      this.selectedSize = this.configurationService.SIZE_FONT_VALUE;
+    },500);
   }
 
   changeSizeFont(value){
     this.styleService.updateSizeFont(value);
-    this.configurationService.DEFAULT_SIZE_FONT_VALUE = value;
+    // this.configurationService.DEFAULT_SIZE_FONT_VALUE = value;
+    this.configurationService.SIZE_FONT_VALUE = value;
     this.saveService.updateConfig()
   }
 }

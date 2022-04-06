@@ -53,7 +53,7 @@
 
       <div class="fontSize" style="margin: 10px 10px 10px 20px;">
         <label for="font">{{this.multilinguismService.translate("ChooseSizeFont") + ":"}}</label>
-        <select #optionFont id="font" class="variantListBox" [(ngModel)]="selectedSize" (input)="changeSizeFont(optionFont.value)" >
+        <select #optionFont id="font" class="variantListBox" [value]="this.selectedSize" (input)="changeSizeFont(optionFont.value)">
           <option value="8px" > 8 </option>
           <option value="9px" > 9 </option>
           <option value="10px" > 10 </option>
