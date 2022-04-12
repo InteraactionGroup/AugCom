@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Board} from '../data/ExempleOfBoard';
-import {ElementForm, Grid, GridElement, Page} from '../types';
+import {ElementForm, FolderGoTo, Grid, GridElement, Page} from '../types';
 import {DomSanitizer} from '@angular/platform-browser';
 import {EditionService} from './edition.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
@@ -500,6 +500,7 @@ export class BoardService {
     return tempGridElement;
   }
 
+  //Shadow clone
   copyButtonFolder(element: GridElement): GridElement {
     console.log(element.ID + ' ' + element.x + ' ' + element.y);
     const tempGridElement = new GridElement(element.ID + element.x + element.y, element.Type, element.PartOfSpeech,
@@ -509,6 +510,75 @@ export class BoardService {
     this.gridElementService.setCoordinates(tempGridElement, element.x, element.y);
     this.gridElementService.setSize(tempGridElement, element.cols, element.rows);
     return tempGridElement;
+  }
+
+  //Deep clone
+  deepCopyButtonFolder(element: GridElement){
+    //case button folder
+    if((element.Type as FolderGoTo).GoTo){
+      const copyElement = this.copy(element);
+      copyElement.ID = copyElement.ID+'copy';
+      copyElement.Type = {GoTo: (copyElement.Type as FolderGoTo).GoTo + 'copy'};
+      this.copyPage(element);
+      return copyElement;
+    }else{
+      //case normal button
+      return this.copyButtonFolder(element);
+    }
+  }
+
+  copyPage(element: GridElement){
+    const IDpage = this.board.PageList.findIndex((p)=> {
+      const elementOrigin = this.replaceElemCopyToOrigin(element.ID);
+      return p.ID === elementOrigin;
+    });
+    let isFolderButton = false;
+    let arrayButtonFolder:GridElement[] = [];
+
+    // if the element isn't a folder
+    if(IDpage !== -1){
+      const copyPageForElement = new Page();
+      copyPageForElement.ID = this.board.PageList[IDpage].ID+'copy';
+      copyPageForElement.Name = this.board.PageList[IDpage].Name+'copy';
+      copyPageForElement.ElementIDsList = [];
+      if(this.board.PageList[IDpage].BackgroundColor !== undefined){
+        copyPageForElement.BackgroundColor = this.board.PageList[IDpage].BackgroundColor;
+      }
+      if(this.board.PageList[IDpage].NumberOfCols != undefined){
+        copyPageForElement.NumberOfCols = this.board.PageList[IDpage].NumberOfCols;
+        copyPageForElement.NumberOfRows = this.board.PageList[IDpage].NumberOfRows;
+      }
+      this.board.PageList[IDpage].ElementIDsList.forEach((elementGrid) => {
+        copyPageForElement.ElementIDsList.push(elementGrid+'copy');
+        this.board.ElementList.forEach((gridElem) => {
+          if(gridElem.ID === elementGrid){
+            const color = this.gridElementService.getStyle(gridElem).BackgroundColor;
+            const borderColor = this.gridElementService.getStyle(gridElem).BorderColor;
+            if((gridElem.Type as FolderGoTo).GoTo){
+              const copyGridElem = new GridElement(gridElem.ID+'copy', {GoTo: (gridElem.Type as FolderGoTo).GoTo + 'copy'}, gridElem.PartOfSpeech, color,borderColor ,gridElem.VisibilityLevel ,gridElem.ElementFormsList ,gridElem.InteractionsList);
+              arrayButtonFolder.push(copyGridElem);
+              isFolderButton = true;
+              this.board.ElementList.push(copyGridElem);
+            }else{
+              const copyGridElem = new GridElement(gridElem.ID+'copy', gridElem.Type , gridElem.PartOfSpeech, color,borderColor ,gridElem.VisibilityLevel ,gridElem.ElementFormsList ,gridElem.InteractionsList);
+              this.board.ElementList.push(copyGridElem);
+            }
+          }
+        });
+      });
+      this.board.PageList.push(copyPageForElement);
+    }
+    //copie des sous pages tant qu'il y en a
+    arrayButtonFolder.forEach((gridElemFolder) => {
+      this.deepCopyButtonFolder(gridElemFolder);
+    });
+  }
+
+  replaceElemCopyToOrigin (text) {
+    while (text.includes("copy")){
+      text = text.replace("copy", "");
+    }
+    return text;
   }
 
   getNumberOfCols(): number {
