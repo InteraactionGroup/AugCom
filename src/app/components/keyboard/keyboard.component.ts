@@ -307,12 +307,26 @@ export class KeyboardComponent implements OnInit{
       });
     }
   }
-
-  copyAll(){
+  //deep copy
+  copyFull(){
     if (this.userToolBarService.edit){
       this.copyElements = [];
       this.editionService.selectedElements.forEach((elt) => {
         this.copyElements.push(this.boardService.deepCopyButtonFolder(elt));
+      });
+      if (this.copyElements.length > 0){
+        this.isCopy = true;
+      }
+    }
+    console.log('this.copyElements :', this.copyElements);
+  }
+
+  //shadow copy
+  copyAll(){
+    if (this.userToolBarService.edit){
+      this.copyElements = [];
+      this.editionService.selectedElements.forEach((elt) => {
+        this.copyElements.push(this.boardService.copyButtonFolder(elt));
       });
       if (this.copyElements.length > 0){
         this.isCopy = true;
