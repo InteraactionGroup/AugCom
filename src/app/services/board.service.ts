@@ -516,12 +516,10 @@ export class BoardService {
   deepCopyButtonFolder(element: GridElement){
     //case button folder
     if((element.Type as FolderGoTo).GoTo){
-      console.log("je suis un dossier", (element.Type as FolderGoTo).GoTo);
       const copyElement = this.copy(element);
       copyElement.ID = copyElement.ID+'copy';
       copyElement.Type = {GoTo: (copyElement.Type as FolderGoTo).GoTo + 'copy'};
       this.copyPage(element);
-      console.info('copyElement : ', copyElement);
       return copyElement;
     }else{
       //case normal button
@@ -537,7 +535,6 @@ export class BoardService {
     let isFolderButton = false;
     let arrayButtonFolder:GridElement[] = [];
 
-    console.log('IDpage : ',IDpage);
     // if the element isn't a folder
     if(IDpage !== -1){
       const copyPageForElement = new Page();
@@ -572,14 +569,9 @@ export class BoardService {
       this.board.PageList.push(copyPageForElement);
     }
     //copie des sous pages tant qu'il y en a
-    //while(isFolderButton){
-      arrayButtonFolder.forEach((gridElemFolder) => {
-        console.log('folder : ',gridElemFolder);
-        this.deepCopyButtonFolder(gridElemFolder);
-      })
-      isFolderButton = false;
-    //}
-    console.log(this.board);
+    arrayButtonFolder.forEach((gridElemFolder) => {
+      this.deepCopyButtonFolder(gridElemFolder);
+    });
   }
 
   replaceElemCopyToOrigin (text) {
