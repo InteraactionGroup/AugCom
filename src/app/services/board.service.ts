@@ -519,8 +519,9 @@ export class BoardService {
       console.log("je suis un dossier", (element.Type as FolderGoTo).GoTo);
       const copyElement = this.copy(element);
       copyElement.ID = copyElement.ID+'copy';
-      copyElement.Type = {GoTo: copyElement.ID};
+      copyElement.Type = {GoTo: (copyElement.Type as FolderGoTo).GoTo + 'copy'};
       this.copyPage(element);
+      console.info('copyElement : ', copyElement);
       return copyElement;
     }else{
       //case normal button
@@ -530,8 +531,11 @@ export class BoardService {
 
   copyPage(element: GridElement){
     const IDpage = this.board.PageList.findIndex((p)=> {
-      return p.ID === element.ID;
+      const elementOrigin = this.replaceElemCopyToOrigin(element.ID);
+      return p.ID === elementOrigin;
     });
+    let isFolderButton = false;
+    let arrayButtonFolder:GridElement[] = [];
 
     console.log('IDpage : ',IDpage);
     // if the element isn't a folder
@@ -553,16 +557,36 @@ export class BoardService {
           if(gridElem.ID === elementGrid){
             const color = this.gridElementService.getStyle(gridElem).BackgroundColor;
             const borderColor = this.gridElementService.getStyle(gridElem).BorderColor;
-            const copyGridElem = new GridElement(gridElem.ID+'copy', gridElem.Type, gridElem.PartOfSpeech, color,borderColor ,gridElem.VisibilityLevel ,gridElem.ElementFormsList ,gridElem.InteractionsList);
-            this.board.ElementList.push(copyGridElem);
+            if((gridElem.Type as FolderGoTo).GoTo){
+              const copyGridElem = new GridElement(gridElem.ID+'copy', {GoTo: (gridElem.Type as FolderGoTo).GoTo + 'copy'}, gridElem.PartOfSpeech, color,borderColor ,gridElem.VisibilityLevel ,gridElem.ElementFormsList ,gridElem.InteractionsList);
+              arrayButtonFolder.push(copyGridElem);
+              isFolderButton = true;
+              this.board.ElementList.push(copyGridElem);
+            }else{
+              const copyGridElem = new GridElement(gridElem.ID+'copy', gridElem.Type , gridElem.PartOfSpeech, color,borderColor ,gridElem.VisibilityLevel ,gridElem.ElementFormsList ,gridElem.InteractionsList);
+              this.board.ElementList.push(copyGridElem);
+            }
           }
         });
       });
       this.board.PageList.push(copyPageForElement);
     }
     //copie des sous pages tant qu'il y en a
-
+    //while(isFolderButton){
+      arrayButtonFolder.forEach((gridElemFolder) => {
+        console.log('folder : ',gridElemFolder);
+        this.deepCopyButtonFolder(gridElemFolder);
+      })
+      isFolderButton = false;
+    //}
     console.log(this.board);
+  }
+
+  replaceElemCopyToOrigin (text) {
+    while (text.includes("copy")){
+      text = text.replace("copy", "");
+    }
+    return text;
   }
 
   getNumberOfCols(): number {
