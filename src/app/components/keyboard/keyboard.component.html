@@ -80,8 +80,20 @@
 </div>
 
 <!-- the keyboard containing the element wrapper -->
-<div id="keyboard" class="keyboard width-100"
+<div *ngIf="!boardService.AFSR" id="keyboard" class="keyboard width-100"
      [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100% - 75px - 50px - 1.5cm - 50px )':'calc(100% - 75px - 1.5cm)'}">
+
+  <!-- the wrapper displayed with elements containing pictogram and corresponding text -->
+  <div class="wrapper haveBackgroundImage height-width-100">
+
+    <!-- iterate among the list of element of the currentFolder -->
+    <app-layout></app-layout>
+
+  </div>
+  <app-snap-bar></app-snap-bar>
+</div>
+<div *ngIf="boardService.AFSR" id="keyboardAFSR" class="keyboard width-100"
+     [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100% - 150px - 50px - 1.5cm - 50px )':'calc(100% - 150px - 1.5cm)'}">
 
   <!-- the wrapper displayed with elements containing pictogram and corresponding text -->
   <div class="wrapper haveBackgroundImage height-width-100">

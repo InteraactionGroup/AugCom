@@ -93,3 +93,100 @@
   overflow-wrap: break-word;
   word-break: break-all
 }
+
+
+
+.dialogBarAFSR {
+  height: 150px;
+  width: 100%;
+  visibility: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.dialogBarAFSR .buttonAFSR {
+  cursor: pointer;
+  height: calc(100% - 10px);
+  width: calc(100% - 10px);
+  visibility: hidden;
+  margin: auto;
+}
+
+.dialogBarAFSR .textBarAFSR {
+  display: flex;
+  overflow-x: auto;
+  width: calc(100vw - 12.4cm);
+  height: 96%;
+  transform: translateY(2%);
+  margin-left: 0.2%;
+  background-color: var(--main-bg-color1);
+  visibility: visible;
+  border-radius: 5px;
+  transform-origin: right top;
+}
+
+
+.dialogBarAFSR .buttonAFSR .imageAFSR:hover {
+  background-color: var(--main-bg-color2);
+}
+
+.dialogBarAFSR .buttonAFSR .imageAFSR {
+  height: 100%;
+  width: 100%;
+  /* margin-top: 5px; */
+  /* margin-right: 2px; */
+  /* margin-left: 2px; */
+  background-color: var(--main-bg-color1);
+  border-radius: 25%;
+  visibility: visible;
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+.dialogBarAFSR .textBarAFSR .elementContainerAFSR {
+  flex: 0 0 auto;
+  height: 100%;
+  width: 10%;
+  min-width: 0.5cm;
+  visibility: hidden;
+}
+
+.dialogBarAFSR .textBarAFSR .elementContainerAFSR .elementAFSR {
+  cursor: pointer;
+  height: calc(100% - 5px);
+  width: calc(100% - 5px);
+  visibility: visible;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 3px;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 70% 30%;
+  align-items: center;
+}
+
+.dialogBarAFSR .textBarAFSR .elementContainerAFSR .noImageElementAFSR {
+  grid-template-rows: 40% 20%;
+}
+
+.dialogBarAFSR .textBarAFSR .elementContainerAFSR .elementAFSR .imageAFSR {
+  float: top;
+  height: calc(100% - 2px);
+  margin-top: 2px;
+  width: 90%;
+  margin-left: 5%;
+}
+
+.dialogBarAFSR .textBarAFSR .elementContainerAFSR .elementAFSR .adjustableTextAFSR {
+  text-align: center;
+  font-size: 1.8vmin;
+  width: 100%;
+  height: fit-content;
+  align-items: center;
+  vertical-align: middle;
+  overflow-wrap: break-word;
+  word-break: break-all
+}

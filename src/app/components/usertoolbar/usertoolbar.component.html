@@ -17,6 +17,11 @@
     </ng-container>
   </div>
 
+  <div *ngIf="boardService.AFSR" class="button floatRight" id="exitSoftwareButton" (click)="this.exitSoftware()">
+    <div class="image width-100"
+         [ngStyle]="{'background-image':this.getIconPng('logout')}">
+    </div>
+  </div>
 
   <div class="button floatRight" id="lockUnlockButton" (click)="this.setLock()">
     <div class="image width-100" [class.imageSelected]="this.userToolBarService.unlock"
@@ -52,7 +57,7 @@
     </div>
   </div>
 
-  <div class="button floatRight" id="log out" *ngIf="this.userToolBarService.unlock" (click)="this.logout()">
+  <div class="button floatRight" id="log out" *ngIf="this.userToolBarService.unlock && !boardService.AFSR" (click)="this.logout()">
     <div class="image width-100">
       <img src="assets/images/logout.png" width="50" height="50" alt="logout">
     </div>

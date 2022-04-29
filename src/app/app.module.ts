@@ -74,6 +74,7 @@ import { ExportSaveDialogComponent } from './components/export-save-dialog/expor
 import { HeaderPrintComponent } from './components/header-print/header-print.component';
 import { FooterPrintComponent } from './components/footer-print/footer-print.component';
 import { GeneratorGridComponent } from './components/generator-grid/generator-grid.component';
+import {DialogLogoutAppComponent} from './components/dialog-logout-app/dialog-logout-app.component';
 
 @NgModule({
   declarations: [
@@ -130,7 +131,8 @@ import { GeneratorGridComponent } from './components/generator-grid/generator-gr
     ExportSaveDialogComponent,
     HeaderPrintComponent,
     FooterPrintComponent,
-    GeneratorGridComponent
+    GeneratorGridComponent,
+    DialogLogoutAppComponent
   ],
   imports: [
     BrowserModule,

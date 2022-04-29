@@ -26,6 +26,8 @@ export class BoardService {
     this.updateElementList();
   }
 
+  AFSR: boolean = true;
+
   /*background url value for grid background image*/
   background: any = '';
 
