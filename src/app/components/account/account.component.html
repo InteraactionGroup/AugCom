@@ -84,5 +84,30 @@
       </div>
       {{this.configuration.VERSION}}
     </div>
+    <a *ngIf="boardService.AFSR" class="topBarAFSRText floatRight" (click)="openDialogInteraactionBoxAFSR()">
+      <div class="imageTextAFSR width-100"
+           [ngStyle]="{'background-image':this.getAFSRIcon('Text_Only_InterAACtionbox-AFSR')}"
+      >
+      </div>
+    </a>
+    <a *ngIf="boardService.AFSR" class="topBarAFSRLogo floatRight" (click)="openDialogInteraactionBoxAFSR()">
+      <div class="imageLogoAFSR width-100"
+           [ngStyle]="{'background-image':this.getAFSRIcon('Logo_Only_InterAACtionbox-AFSR')}"
+      >
+      </div>
+    </a>
+    <div *ngIf="boardService.AFSR" class="floatRight" style="width: fit-content; height: 22px">
+      <div style="
+    margin-top: 7px;
+    font-size: xx-small;
+    width: 50px;
+    height: fit-content;
+    align-items: center;
+    align-content: center;
+    text-align: center;"
+      >
+        Conçu pour
+      </div>
+    </div>
   </div>
 </div>

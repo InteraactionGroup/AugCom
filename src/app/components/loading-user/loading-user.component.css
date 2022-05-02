@@ -1,0 +1,13 @@
+.loading {
+  height: 90vh;
+  width: 100vw;
+  margin: 0;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  font-size: xx-large;
+}

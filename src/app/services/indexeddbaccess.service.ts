@@ -4,7 +4,7 @@ import {PaletteService} from './palette.service';
 import {JsonValidatorService} from './json-validator.service';
 import {ConfigurationService} from "./configuration.service";
 import {UserPageService} from "./user-page.service";
-import {Grid} from "../types";
+import {Grid, User} from '../types';
 
 @Injectable({
   providedIn: 'root'
@@ -247,6 +247,49 @@ export class IndexeddbaccessService {
       deletePaletteRequest.onsuccess = e => {
         console.log("Palette deleted");
       };
+    };
+  }
+
+  // INITIALISATION
+  loadUserOfUsersList(selecteduser: string) {
+
+    this.openRequest = indexedDB.open('saveAugcom', 1);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+      const gridRequest = db.transaction(['UserList']).objectStore('UserList').get(1);
+      gridRequest.onsuccess = e => {
+        this.userPageService.usersList = gridRequest.result;
+        let findUser = this.userPageService.usersList.find(user => user.name.toLowerCase() == selecteduser.toLowerCase());
+        if (findUser != null) {
+          this.userPageService.currentUser = findUser;
+          this.userPageService.setLoggedIn();
+          this.loadInfoFromCurrentUser();
+        } else {
+          let newUserCreated = new User(selecteduser, "", Math.floor(Math.random() * 10000000000) + Date.now());
+          this.userPageService.addUser(newUserCreated.name, newUserCreated.base64image);
+          this.updateUserList();
+          this.loadUserOfUsersList(selecteduser);
+        }
+      };
+
+    };
+
+    // NEW DATABASE VERSION
+    this.openRequest.onupgradeneeded = event => {
+      // Creaction of Store
+      const db = event.target.result;
+      const transaction = event.target.transaction;
+      this.createUsersListObject(db, transaction);
+      this.createPaletteObject(db, transaction);
+      this.createConfigurationObject(db, transaction);
+      this.createGridObject(db, transaction);
     };
   }
 }

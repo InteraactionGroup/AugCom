@@ -75,6 +75,9 @@ import { HeaderPrintComponent } from './components/header-print/header-print.com
 import { FooterPrintComponent } from './components/footer-print/footer-print.component';
 import { GeneratorGridComponent } from './components/generator-grid/generator-grid.component';
 import {DialogLogoutAppComponent} from './components/dialog-logout-app/dialog-logout-app.component';
+import {DialogLinkAFSRComponent} from './components/dialog-link-afsr/dialog-link-afsr.component';
+import {DialogLinkInteraactionboxComponent} from './components/dialog-link-interaactionbox/dialog-link-interaactionbox.component';
+import {LoadingUserComponent} from './components/loading-user/loading-user.component';
 
 @NgModule({
   declarations: [
@@ -132,7 +135,10 @@ import {DialogLogoutAppComponent} from './components/dialog-logout-app/dialog-lo
     HeaderPrintComponent,
     FooterPrintComponent,
     GeneratorGridComponent,
-    DialogLogoutAppComponent
+    DialogLogoutAppComponent,
+    DialogLinkAFSRComponent,
+    DialogLinkInteraactionboxComponent,
+    LoadingUserComponent
   ],
   imports: [
     BrowserModule,

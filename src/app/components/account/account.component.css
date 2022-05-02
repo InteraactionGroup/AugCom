@@ -212,3 +212,43 @@
 .menu-page-content::-webkit-scrollbar {
   display: none;
 }
+
+.imageLogoAFSR {
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  visibility: visible;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  /* padding: 5px;*/
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.imageTextAFSR {
+  background-size: 70px;
+  background-repeat: no-repeat;
+  background-position: center;
+  visibility: visible;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  /* padding: 5px;*/
+}
+
+.topBarAFSRLogo {
+  display: inline-block;
+  height: 22px;
+  width: 25px;
+  /* padding: 5px;*/
+}
+
+.topBarAFSRText {
+  display: inline-block;
+  height: 22px;
+  width: 70px;
+  /* padding: 5px;*/
+}
