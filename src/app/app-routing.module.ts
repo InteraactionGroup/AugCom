@@ -31,7 +31,7 @@ const routes: Routes = [
   {path: ':lang/settings', component: SettingsComponent, data: {animation: 'x'}},
   {path: ':lang/account', component: AccountComponent, data: {animation: 'x'}},
   {path: ':lang/connect/:id', component: LoadingUserComponent},
-  {path: '', redirectTo: '/logging', pathMatch: 'full', data: {animation: 'empty'}}
+  {path: '', redirectTo: 'logging', pathMatch: 'full', data: {animation: 'empty'}}
 ];
 
 @NgModule({
