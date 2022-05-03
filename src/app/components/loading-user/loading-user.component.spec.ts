@@ -1,6 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {LoadingUserComponent} from './loading-user.component';
+import {Ng2ImgMaxModule} from 'ng2-img-max';
 
 describe('LoadingUserComponent', () => {
   let component: LoadingUserComponent;
@@ -8,7 +9,7 @@ describe('LoadingUserComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [LoadingUserComponent]
+      declarations: [LoadingUserComponent, Ng2ImgMaxModule]
     })
       .compileComponents();
   }));

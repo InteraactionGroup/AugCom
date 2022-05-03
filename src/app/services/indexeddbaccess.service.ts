@@ -5,6 +5,7 @@ import {JsonValidatorService} from './json-validator.service';
 import {ConfigurationService} from "./configuration.service";
 import {UserPageService} from "./user-page.service";
 import {Grid, User} from '../types';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class IndexeddbaccessService {
               public boardService: BoardService,
               public jsonValidator: JsonValidatorService,
               public configurationService: ConfigurationService,
-              public userPageService: UserPageService) {
+              public userPageService: UserPageService,
+              public router: Router) {
     this.loadUsersList();
   }
 
@@ -219,6 +221,9 @@ export class IndexeddbaccessService {
         }
         this.boardService.updateElementList();
       };
+      if(this.boardService.AFSR){
+        this.router.navigate([this.configurationService.LANGUAGE_VALUE + '/keyboard']);
+      }
     };
   }
 
