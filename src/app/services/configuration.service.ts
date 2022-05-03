@@ -31,6 +31,7 @@ export class ConfigurationService {
   DEFAULT_MAIN_COLOR_2_VALUE = "darkgrey";
   DEFAULT_MAIN_COLOR_3_VALUE = "grey";
   DEFAULT_MAIN_COLOR_4_VALUE = "dimgrey";
+  DEFAULT_SIZE_FONT_VALUE = "16px";
   DEFAULT_VOLUME = 1.0;
   DEFAULT_RATE = 1.0;
   DEFAULT_PITCH = 1.0;
@@ -63,6 +64,7 @@ export class ConfigurationService {
   MAIN_COLOR_2_VALUE = this.DEFAULT_MAIN_COLOR_2_VALUE;
   MAIN_COLOR_3_VALUE = this.DEFAULT_MAIN_COLOR_3_VALUE;
   MAIN_COLOR_4_VALUE = this.DEFAULT_MAIN_COLOR_4_VALUE;
+  SIZE_FONT_VALUE = this.DEFAULT_SIZE_FONT_VALUE;
   VOLUME = this.DEFAULT_VOLUME;
   RATE = this.DEFAULT_RATE;
   PITCH = this.DEFAULT_PITCH;
@@ -103,6 +105,7 @@ export class ConfigurationService {
       'MAIN_COLOR_2_VALUE': this.MAIN_COLOR_2_VALUE,
       'MAIN_COLOR_3_VALUE': this.MAIN_COLOR_3_VALUE,
       'MAIN_COLOR_4_VALUE': this.MAIN_COLOR_4_VALUE,
+      'SIZE_FONT_VALUE': this.SIZE_FONT_VALUE,
       'VOLUME': this.DEFAULT_VOLUME,
       'RATE': this.DEFAULT_RATE,
       'PITCH': this.DEFAULT_PITCH,
@@ -138,6 +141,7 @@ export class ConfigurationService {
       'MAIN_COLOR_2_VALUE': this.DEFAULT_MAIN_COLOR_2_VALUE,
       'MAIN_COLOR_3_VALUE': this.DEFAULT_MAIN_COLOR_3_VALUE,
       'MAIN_COLOR_4_VALUE': this.DEFAULT_MAIN_COLOR_4_VALUE,
+      'SIZE_FONT_VALUE': this.DEFAULT_SIZE_FONT_VALUE,
       'VOLUME': this.DEFAULT_VOLUME,
       'RATE': this.DEFAULT_RATE,
       'PITCH': this.DEFAULT_PITCH,
@@ -173,6 +177,7 @@ export class ConfigurationService {
     this.MAIN_COLOR_2_VALUE = configuration.MAIN_COLOR_2_VALUE;
     this.MAIN_COLOR_3_VALUE = configuration.MAIN_COLOR_3_VALUE;
     this.MAIN_COLOR_4_VALUE = configuration.MAIN_COLOR_4_VALUE;
+    this.DEFAULT_SIZE_FONT_VALUE = configuration.SIZE_FONT_VALUE;
     this.VOLUME = configuration.VOLUME;
     this.RATE = configuration.RATE;
     this.PITCH = configuration.PITCH;
@@ -183,13 +188,13 @@ export class ConfigurationService {
     this.FOOTER_BUTTON = configuration.FOOTER_BUTTON;
     this.FOOTER_CHOICE = configuration.FOOTER_CHOICE;
 
-
     this.styleService.updateStyle(
       this.MAIN_COLOR_0_VALUE,
       this.MAIN_COLOR_1_VALUE,
       this.MAIN_COLOR_2_VALUE,
       this.MAIN_COLOR_3_VALUE,
-      this.MAIN_COLOR_4_VALUE)
+      this.MAIN_COLOR_4_VALUE,
+      this.SIZE_FONT_VALUE);
   }
 
   public getDefaultStyle() {

@@ -252,6 +252,7 @@ export class GeneratorGridComponent implements OnInit {
       ID: 'click',
       ActionList: [
         {ID: 'display', Options: []},
+        {ID: 'say', Options: []}
       ]
     });
 

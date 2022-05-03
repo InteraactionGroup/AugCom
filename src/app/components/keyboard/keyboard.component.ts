@@ -307,7 +307,21 @@ export class KeyboardComponent implements OnInit{
       });
     }
   }
+  //deep copy
+  copyFull(){
+    if (this.userToolBarService.edit){
+      this.copyElements = [];
+      this.editionService.selectedElements.forEach((elt) => {
+        this.copyElements.push(this.boardService.deepCopyButtonFolder(elt));
+      });
+      if (this.copyElements.length > 0){
+        this.isCopy = true;
+      }
+    }
+    console.log('this.copyElements :', this.copyElements);
+  }
 
+  //shadow copy
   copyAll(){
     if (this.userToolBarService.edit){
       this.copyElements = [];
@@ -318,13 +332,19 @@ export class KeyboardComponent implements OnInit{
         this.isCopy = true;
       }
     }
+    console.log('this.copyElements :', this.copyElements);
   }
 
   async pasteAll() {
     this.copyElements.forEach((elt) => {
       this.boardService.elementList.push(elt);
       this.boardService.board.ElementList.push(elt);
-      this.boardService.board.PageList[this.boardService.currentIndexPage()].ElementIDsList.push(elt.ID);
+      try{
+        this.boardService.board.PageList[this.boardService.currentIndexPage()].ElementIDsList.push(elt.ID);
+      }catch (e) {
+        this.boardService.board.PageList[this.boardService.currentIndexPage()].ElementIDsList.push(elt.ID+'copy');
+      }
+
     });
     this.isCopy = false;
     this.indexedDBacess.update();
