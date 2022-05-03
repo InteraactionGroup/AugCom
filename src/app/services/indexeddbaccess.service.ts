@@ -72,6 +72,32 @@ export class IndexeddbaccessService {
     }
   }
 
+  updateConfig(){
+    if (this.userPageService.currentUser != null &&
+      this.userPageService.currentUser.id != null &&
+      this.userPageService.currentUser.id != 1) {
+
+      this.openRequest = indexedDB.open('saveAugcom', 1);
+
+      // ERROR
+      this.openRequest.onerror = event => {
+        alert('Database error: ' + event.target.errorCode);
+      };
+
+      // SUCCESS
+      this.openRequest.onsuccess = event => {
+        const db = event.target.result;
+
+        // UPDATE THE CONFIGURATION
+        const configStore = db.transaction(['Configuration'], 'readwrite');
+        const configObjectStore = configStore.objectStore('Configuration');
+        const storeConfigRequest = configObjectStore.get(this.userPageService.currentUser.id);
+        storeConfigRequest.onsuccess = () => {
+          configObjectStore.put(this.configurationService.getConfiguration(), this.userPageService.currentUser.id);
+        };
+      };
+    }
+  }
 
   updateUserList() {
     this.openRequest = indexedDB.open('saveAugcom', 1);
@@ -118,7 +144,6 @@ export class IndexeddbaccessService {
           this.loadInfoFromCurrentUser();
         }
       };
-
     };
 
     // NEW DATABASE VERSION

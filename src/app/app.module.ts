@@ -78,6 +78,7 @@ import {DialogLogoutAppComponent} from './components/dialog-logout-app/dialog-lo
 import {DialogLinkAFSRComponent} from './components/dialog-link-afsr/dialog-link-afsr.component';
 import {DialogLinkInteraactionboxComponent} from './components/dialog-link-interaactionbox/dialog-link-interaactionbox.component';
 import {LoadingUserComponent} from './components/loading-user/loading-user.component';
+import { DialogResetSettingsComponent } from './components/dialog-reset-settings/dialog-reset-settings.component';
 
 @NgModule({
   declarations: [
@@ -138,7 +139,8 @@ import {LoadingUserComponent} from './components/loading-user/loading-user.compo
     DialogLogoutAppComponent,
     DialogLinkAFSRComponent,
     DialogLinkInteraactionboxComponent,
-    LoadingUserComponent
+    LoadingUserComponent,
+    DialogResetSettingsComponent
   ],
   imports: [
     BrowserModule,
