@@ -9,7 +9,7 @@ import {DialogbarComponent} from './components/dialogbar/dialogbar.component';
 import {ShareComponent} from './components/share/share.component';
 import {PopupComponent} from './components/popup/popup.component';
 import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {Ng2ImgMaxModule} from 'ng2-img-max';
+import {Ng2ImgMaxModule, Ng2ImgMaxService} from 'ng2-img-max';
 import {HttpClientModule} from '@angular/common/http';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
@@ -168,7 +168,7 @@ import {LoadingUserComponent} from './components/loading-user/loading-user.compo
     MatDialogModule,
   ],
   bootstrap: [AppComponent],
-  providers: [FormBuilder],
+  providers: [FormBuilder, Ng2ImgMaxService],
   entryComponents: [
     DialogDeletePageComponent,
     DialogHelpComponent
