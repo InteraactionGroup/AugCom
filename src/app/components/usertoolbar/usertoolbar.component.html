@@ -35,9 +35,18 @@
     </div>
   </nav>
 
-  <nav *ngIf="this.userToolBarService.unlock">
+  <nav *ngIf="this.userToolBarService.unlock && !this.boardService.AFSR">
     <a routerLink="/account">
       <div class="button floatRight" id="accountButton">
+        <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('settings')}">
+        </div>
+      </div>
+    </a>
+  </nav>
+
+  <nav *ngIf="this.userToolBarService.unlock && this.boardService.AFSR">
+    <a [routerLink]="'/'+configurationService.LANGUAGE_VALUE+'/account'">
+      <div class="button floatRight" id="accountButtonAFSR">
         <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('settings')}">
         </div>
       </div>

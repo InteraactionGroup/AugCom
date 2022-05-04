@@ -119,7 +119,29 @@
   <!-- nav link to the edit route-->
   <nav class="no-drag" style="height: 50px; position: absolute; width: 100%; transition: bottom 0.5s; bottom : 1.5cm">
     <!--       [ngStyle]="{'bottom': this.userToolBarService.edit ? 'calc(50% + 1.5cm)' :'1.5cm'}">-->
-    <a routerLink="/edit" class="no-drag">
+    <a *ngIf="!boardService.AFSR" routerLink="/edit" class="no-drag">
+
+      <!-- elementContainer for the add button element-->
+      <div class="elementContainer floatLeft no-drag height-width-100">
+
+        <!-- add button element -->
+        <div class="add" (click)="this.addNewElement()">
+
+          <div class="image haveBackgroundImage" [style.background-image]="this.getIcon('add')">
+
+          </div>
+
+          <div class="adjustableText">
+            {{this.multilinguism.translate("add")}}
+          </div>
+
+        </div>
+
+      </div>
+
+    </a>
+
+    <a *ngIf="boardService.AFSR" [routerLink]="'/'+configurationService.LANGUAGE_VALUE+'/edit'" class="no-drag">
 
       <!-- elementContainer for the add button element-->
       <div class="elementContainer floatLeft no-drag height-width-100">
