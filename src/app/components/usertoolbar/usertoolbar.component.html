@@ -70,7 +70,7 @@
     </div>
   </div>
 
-  <div class="button floatRight" id="language" *ngIf="this.userToolBarService.unlock"
+  <div class="button floatRight" id="language" *ngIf="this.userToolBarService.unlock && !this.boardService.AFSR"
        (click)="translate()">
     <div class="image width-100"
          [ngStyle]="{'background-image':this.getIcon(this.configurationService.LANGUAGE_VALUE==='FR'? 'france':'uk')}">

@@ -102,7 +102,8 @@ export class UsertoolbarComponent implements OnInit {
     if(this.configurationService.LANGUAGE_VALUE === 'EN'){
       annyang.setLanguage('en');
     }
-    console.log(this.configurationService.LANGUAGE_VALUE)
+    this.indexedDBacess.update();
+    console.log(this.configurationService.LANGUAGE_VALUE, this.configurationService);
   }
 
 

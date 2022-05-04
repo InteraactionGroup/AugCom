@@ -1,0 +1,73 @@
+on:
+  push:
+    branches:
+      - master
+
+name: Release AugCom
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup node
+        uses: actions/setup-node@master
+        with:
+          node-version: '10.x'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build prod
+        run: npm run build --prod
+
+      - name: Tar gz
+        run: |
+          cd ./dist/
+          tar -czvf AugCom.tar.gz *
+          mv AugCom.tar.gz ../
+
+      - name: Get Env
+        run: |
+          echo "REPO_NAME=${{ github.repository }}" >> $GITHUB_ENV
+          echo "REPO_BASENAME=$(basename ${{ github.repository }})" >> $GITHUB_ENV
+
+      - name: New tag
+        id: new-tag
+        run: |
+          LATEST_RELEASE_INFO=$(curl -s https://api.github.com/repos/${{ env.REPO_NAME }}/releases/latest)
+          NEW_VERSION_LINK=$(echo "$LATEST_RELEASE_INFO" | grep "browser_download_url.*${{ env.REPO_BASENAME }}*" | cut -d: -f2,3 | tr -d \")
+          NEW_VERSION=$( echo "${NEW_VERSION_LINK}" | cut -d/ -f9)
+          NEW_VERSION_NO_EXT=$( echo ${NEW_VERSION} | cut -d. -f1)
+          NEW_VERSION_NAME=$(echo "$LATEST_RELEASE_INFO" | grep "name.*${{ env.REPO_BASENAME }}*" | cut -d: -f2,3 | tr -d \" | head -n 1 | tr -d \,)
+          GET_TAG=$(echo "$NEW_VERSION_NAME" | cut -d " " -f3)
+          TAG_1=$(echo "$GET_TAG" | cut -d. -f1)
+          TAG_2=$(echo "$GET_TAG" | cut -d. -f2)
+          TAG_3=$(echo "$GET_TAG" | cut -d. -f3)
+          NEW_TAG=$(echo "$(( $TAG_3 + 1 ))")
+          TAG="${TAG_1}.${TAG_2}.${NEW_TAG}"
+          echo ::set-output name=tag::$(echo $TAG)
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.new-tag.outputs.tag }}
+          release_name: AugCom-AFSR ${{ steps.new-tag.outputs.tag }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release
+        id: upload-assets
+        uses: csexton/release-asset-action@v2
+        with:
+          release-url: ${{ steps.create_release.outputs.upload_url }}
+          files: |
+            AugCom.tar.gz
+          github-token: ${{ secrets.GITHUB_TOKEN }}
