@@ -9,7 +9,7 @@ import {DialogbarComponent} from './components/dialogbar/dialogbar.component';
 import {ShareComponent} from './components/share/share.component';
 import {PopupComponent} from './components/popup/popup.component';
 import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {Ng2ImgMaxModule} from 'ng2-img-max';
+import {Ng2ImgMaxModule, Ng2ImgMaxService} from 'ng2-img-max';
 import {HttpClientModule} from '@angular/common/http';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
@@ -74,6 +74,10 @@ import { ExportSaveDialogComponent } from './components/export-save-dialog/expor
 import { HeaderPrintComponent } from './components/header-print/header-print.component';
 import { FooterPrintComponent } from './components/footer-print/footer-print.component';
 import { GeneratorGridComponent } from './components/generator-grid/generator-grid.component';
+import {DialogLogoutAppComponent} from './components/dialog-logout-app/dialog-logout-app.component';
+import {DialogLinkAFSRComponent} from './components/dialog-link-afsr/dialog-link-afsr.component';
+import {DialogLinkInteraactionboxComponent} from './components/dialog-link-interaactionbox/dialog-link-interaactionbox.component';
+import {LoadingUserComponent} from './components/loading-user/loading-user.component';
 import { DialogResetSettingsComponent } from './components/dialog-reset-settings/dialog-reset-settings.component';
 
 @NgModule({
@@ -132,6 +136,10 @@ import { DialogResetSettingsComponent } from './components/dialog-reset-settings
     HeaderPrintComponent,
     FooterPrintComponent,
     GeneratorGridComponent,
+    DialogLogoutAppComponent,
+    DialogLinkAFSRComponent,
+    DialogLinkInteraactionboxComponent,
+    LoadingUserComponent,
     DialogResetSettingsComponent
   ],
   imports: [
@@ -162,7 +170,7 @@ import { DialogResetSettingsComponent } from './components/dialog-reset-settings
     MatDialogModule,
   ],
   bootstrap: [AppComponent],
-  providers: [FormBuilder],
+  providers: [FormBuilder, Ng2ImgMaxService],
   entryComponents: [
     DialogDeletePageComponent,
     DialogHelpComponent

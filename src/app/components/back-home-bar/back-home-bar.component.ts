@@ -5,6 +5,8 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 import {LayoutService} from "../../services/layout.service";
 import {BoardService} from "../../services/board.service";
 import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
+import {MatDialog} from '@angular/material/dialog';
+import {DialogLinkAFSRComponent} from '../dialog-link-afsr/dialog-link-afsr.component';
 
 @Component({
   selector: 'app-back-home-bar',
@@ -18,7 +20,8 @@ export class BackHomeBarComponent implements OnInit {
               public layoutService: LayoutService,
               public boardService: BoardService,
               public indexedDBacess: IndexeddbaccessService,
-              public editionService: EditionService) {
+              public editionService: EditionService,
+              public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -48,6 +51,21 @@ export class BackHomeBarComponent implements OnInit {
    */
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
+  }
+
+  /**
+   * return the icon url corresponding to the string s
+   * @return the AFSR logo icon url
+   */
+  getAFSRIcon() {
+    return this.getIconService.getIconUrlPng("Logo-AFSR");
+  }
+
+  openDialogAFSR() {
+    this.dialog.open(DialogLinkAFSRComponent,{
+      height: '90%',
+      width: '90%'
+    });
   }
 
 }

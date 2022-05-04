@@ -17,6 +17,7 @@ import {UserPageService} from "../../services/user-page.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogHelpComponent} from "../dialog-help/dialog-help.component";
 import {PaletteService} from "../../services/palette.service";
+import {DialogLogoutAppComponent} from '../dialog-logout-app/dialog-logout-app.component';
 
 declare const annyang: any;
 
@@ -101,7 +102,8 @@ export class UsertoolbarComponent implements OnInit {
     if(this.configurationService.LANGUAGE_VALUE === 'EN'){
       annyang.setLanguage('en');
     }
-    console.log(this.configurationService.LANGUAGE_VALUE)
+    this.indexedDBacess.update();
+    console.log(this.configurationService.LANGUAGE_VALUE, this.configurationService);
   }
 
 
@@ -190,5 +192,9 @@ export class UsertoolbarComponent implements OnInit {
       height: 'fit-content',
       width: 'fit-content'
     });
+  }
+
+  exitSoftware() : void {
+    this.dialog.open(DialogLogoutAppComponent);
   }
 }

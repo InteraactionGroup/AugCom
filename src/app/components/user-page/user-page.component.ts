@@ -44,7 +44,7 @@ export class UserPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.addUserBool = false;
-
+    this.boardService.AFSR = false;
   }
 
   clickAddUser() {

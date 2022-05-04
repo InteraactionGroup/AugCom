@@ -55,3 +55,22 @@
   display: inline-block;
   text-align: center;
 }
+
+.topBarAFSRLogo{
+  display: inline-block;
+  height: 100%;
+  width: 100px;
+  padding: 5px;
+  filter: brightness(100);
+}
+
+.imageAFSR{
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+  visibility: visible;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  padding: 5px;
+}

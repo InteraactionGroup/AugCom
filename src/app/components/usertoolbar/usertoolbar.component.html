@@ -17,6 +17,11 @@
     </ng-container>
   </div>
 
+  <div *ngIf="boardService.AFSR" class="button floatRight" id="exitSoftwareButton" (click)="this.exitSoftware()">
+    <div class="image width-100"
+         [ngStyle]="{'background-image':this.getIconPng('logout')}">
+    </div>
+  </div>
 
   <div class="button floatRight" id="lockUnlockButton" (click)="this.setLock()">
     <div class="image width-100" [class.imageSelected]="this.userToolBarService.unlock"
@@ -30,9 +35,18 @@
     </div>
   </nav>
 
-  <nav *ngIf="this.userToolBarService.unlock">
+  <nav *ngIf="this.userToolBarService.unlock && !this.boardService.AFSR">
     <a routerLink="/account">
       <div class="button floatRight" id="accountButton">
+        <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('settings')}">
+        </div>
+      </div>
+    </a>
+  </nav>
+
+  <nav *ngIf="this.userToolBarService.unlock && this.boardService.AFSR">
+    <a [routerLink]="'/'+configurationService.LANGUAGE_VALUE+'/account'">
+      <div class="button floatRight" id="accountButtonAFSR">
         <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('settings')}">
         </div>
       </div>
@@ -52,7 +66,7 @@
     </div>
   </div>
 
-  <div class="button floatRight" id="log out" *ngIf="this.userToolBarService.unlock" (click)="this.logout()">
+  <div class="button floatRight" id="log out" *ngIf="this.userToolBarService.unlock && !boardService.AFSR" (click)="this.logout()">
     <div class="image width-100">
       <img src="assets/images/logout.png" width="50" height="50" alt="logout">
     </div>
@@ -65,7 +79,7 @@
     </div>
   </div>
 
-  <div class="button floatRight" id="language" *ngIf="this.userToolBarService.unlock"
+  <div class="button floatRight" id="language" *ngIf="this.userToolBarService.unlock && !this.boardService.AFSR"
        (click)="translate()">
     <div class="image width-100"
          [ngStyle]="{'background-image':this.getIcon(this.configurationService.LANGUAGE_VALUE==='FR'? 'france':'uk')}">

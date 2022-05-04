@@ -10,7 +10,12 @@
   </div>
   <div class="topBarLabel topBackBar-centered">
     AugCom
-  </div>
+  </div>*
+  <a *ngIf="boardService.AFSR" class="topBarAFSRLogo floatRight" (click)="openDialogAFSR()">
+    <div class="imageAFSR width-100"
+         [ngStyle]="{'background-image':this.getAFSRIcon()}">
+    </div>
+  </a>
   <div class="titleContainer floatLeft">
     <svg viewBox="0 0 30 20">
       <text x="50%" y="50%" dominant-baseline="middle"

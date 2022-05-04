@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {GeticonService} from '../../services/geticon.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
 import {ConfigurationService} from "../../services/configuration.service";
+import {MatDialog} from '@angular/material/dialog';
+import {DialogLinkInteraactionboxComponent} from '../dialog-link-interaactionbox/dialog-link-interaactionbox.component';
+import {BoardService} from '../../services/board.service';
 
 @Component({
   selector: 'app-account',
@@ -28,7 +31,9 @@ export class AccountComponent implements OnInit {
 
   constructor(public multilinguism: MultilinguismService,
               public getIconService: GeticonService,
-              public configuration: ConfigurationService) {
+              public boardService: BoardService,
+              public configuration: ConfigurationService,
+              public dialog: MatDialog) {
   }
 
 
@@ -83,6 +88,21 @@ export class AccountComponent implements OnInit {
    */
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
+  }
+
+  /**
+   * return the icon url corresponding to the string s
+   * @return the AFSR logo icon url
+   */
+  getAFSRIcon(s) {
+    return this.getIconService.getIconUrlPng(s);
+  }
+
+  openDialogInteraactionBoxAFSR(){
+    this.dialog.open(DialogLinkInteraactionboxComponent,{
+      height: '90%',
+      width: '90%'
+    });
   }
 
 }
