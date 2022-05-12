@@ -63,7 +63,6 @@ export class LifeCompanion2augComponent implements OnInit {
       // at this line the file is convert to Json, now we need to read in and extract the grid, elements to do the new grid
       this.jsonToGrid(fileJson, keyList);
       },200);
-
   }
 
   private jsonToGrid(fileJson: any, keyList: any) {
@@ -308,7 +307,6 @@ export class LifeCompanion2augComponent implements OnInit {
 
     let searchInTreePage:boolean = true;
     while (searchInTreePage) {
-
       if (typeof pagesInJson[0] === 'object') {
         this.pagesToGrid(pagesInJson);
 
@@ -449,7 +447,7 @@ export class LifeCompanion2augComponent implements OnInit {
         if(treeKeyList[1].attr.nodeType === 'KeyListNode'){
           // il manque un while par là pour récupérer tous les boutons là y en a qu'un à méditer.
           for(let i = 0; i < this.grid.ElementList.length; i++){
-            indexOfInTreeKeyList = this.grid.ElementList[i].ElementFormsList[0].DisplayedText.indexOf(treeKeyList[1].attr.text)
+            indexOfInTreeKeyList = this.grid.ElementList[i].ElementFormsList[0].DisplayedText.indexOf(treeKeyList[1].attr.text);
             if(indexOfInTreeKeyList !== -1){
               this.grid.ElementList[i].Type = {GoTo: treeKeyList[1].attr.id};
               this.setPagesFromKeyList(treeKeyList);
@@ -465,7 +463,7 @@ export class LifeCompanion2augComponent implements OnInit {
           searchInSubTreeKeyList = true;
           while(searchInSubTreeKeyList){
             try {
-              console.log('subtreeKeyList : ',subtreeKeyList);
+              //console.log('subtreeKeyList : ',subtreeKeyList);
               this.createGridButtonElementFromKeyList(subtreeKeyList[1], false);
             }catch (e) {
               this.createGridButtonElementFromKeyList(subtreeKeyList, false);
@@ -474,6 +472,7 @@ export class LifeCompanion2augComponent implements OnInit {
 
             if(typeof subtreeKeyList[0] === 'object'){
               subtreeKeyList = subtreeKeyList[0];
+              this.addPageIfNecessary();
             }else{
               //this.createGridButtonElementFromKeyList(subtreeKeyList[0], false);
               searchInSubTreeKeyList = false;
@@ -548,5 +547,60 @@ export class LifeCompanion2augComponent implements OnInit {
     this.addImageButton(treeKeyListElement);
     this.grid.ElementList.push(gridElement);
     this.page.ElementIDsList.push(gridElement.ID);
+  }
+
+  private addPageIfNecessary(){
+    if(this.page.NumberOfCols !== undefined && this.page.NumberOfRows !== undefined){
+      if(this.page.NumberOfRows * this.page.NumberOfCols - 1 === this.page.ElementIDsList.length){
+        let nextPage:Page = new Page();
+        nextPage.ID = this.page.ID + '1';
+        nextPage.Name = this.page.Name + '1';
+        nextPage.NumberOfCols = this.page.NumberOfCols;
+        nextPage.NumberOfRows = this.page.NumberOfRows;
+        nextPage.ElementIDsList = [];
+        this.addButtonNextPage(nextPage);
+        this.page = nextPage;
+        this.grid.PageList.push(this.page);
+      }
+    }else{
+      if(this.grid.NumberOfCols * this.grid.NumberOfCols - 1 === this.page.ElementIDsList.length){
+        let nextPage:Page = new Page();
+        nextPage.ID = this.page.ID + '1';
+        nextPage.Name = this.page.Name + '1';
+        nextPage.ElementIDsList = [];
+        this.addButtonNextPage(nextPage);
+        this.page = nextPage;
+        this.grid.PageList.push(this.page);
+      }
+    }
+
+  }
+
+  // add the button "Page suivante" at the bottom right of full pages
+  private addButtonNextPage(nextPage: Page){
+    const buttonNextPage = new GridElement(this.page.ID+'NextPage',
+      {GoTo: nextPage.ID},
+      '',
+      '',
+      '',
+      0,
+      [
+        {
+          DisplayedText: 'Page suivante',
+          VoiceText: '',
+          LexicInfos: [{default: true}],
+          ImageID: '',
+        }
+      ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}]);
+    this.grid.ElementList.push(buttonNextPage);
+    this.page.ElementIDsList.push(buttonNextPage.ID);
+  }
+
+  //convert hexadecimal to RGB
+  public hexToRgb(hex:string) {
+    let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    let resTab = [];
+    resTab.push(parseInt(result[1], 16),parseInt(result[1], 16),parseInt(result[3], 16));
+    return resTab;
   }
 }
