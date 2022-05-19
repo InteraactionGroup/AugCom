@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
 import {ArasaacObject} from '../../libTypes';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
+import {ExportManagerService} from "../../services/export-manager.service";
 
 @Component({
   selector: 'app-life-companion2aug',
@@ -22,10 +23,13 @@ export class LifeCompanion2augComponent implements OnInit {
   private accessStackGrid:any;
   private isKeyListExist: boolean;
 
+  private wordList:string[] = [];
+
   constructor(private ngxXmlToJsonService: NgxXmlToJsonService,
               private boardService: BoardService,
               private layoutService: LayoutService,
               private router: Router,
+              public exportManagerService: ExportManagerService,
               private indexedDBacess: IndexeddbaccessService) {}
 
   ngOnInit(): void {
@@ -33,19 +37,20 @@ export class LifeCompanion2augComponent implements OnInit {
 
   convert(file) {
     this.isKeyListExist = false;
-    let fileJson:any;
+    let LCConfiguration:any;
     let keyList:any;
     const options = { // set up the default options
       textKey: 'text', // tag name for text nodes
       attrKey: 'attr', // tag for attr groups
       cdataKey: 'cdata', // tag for cdata nodes (ignored if mergeCDATA is true)
     };
+
     const jsZip = require('jszip');
     jsZip.loadAsync(file[0]).then((zip) => {
       Object.keys(zip.files).forEach((filename) => {
         if(filename === 'lifecompanion-configuration.xml'){
           zip.files[filename].async('string').then((fileData) => {
-            fileJson = fileData;
+            LCConfiguration = fileData;
           });
         }
         if(filename === 'keylist/lifecompanion-keylist.xml'){
@@ -56,24 +61,41 @@ export class LifeCompanion2augComponent implements OnInit {
         }
       });
     });
+    /*
+    // take the .json from Arasaac and other image bank
+    const jsZip = require('jszip');
+    jsZip.loadAsync(file[0]).then((zip) => {
+      Object.keys(zip.files).forEach((filename) => {
+        let filenameTab = filename.split('.');
+        filenameTab = filenameTab[0].split('/');
+        this.wordList.push(filenameTab[1]);
+      });
+    });
+     */
     //give time to read the file
     setTimeout(()=> {
-      fileJson = this.ngxXmlToJsonService.xmlToJson(fileJson, options);
+
+      LCConfiguration = this.ngxXmlToJsonService.xmlToJson(LCConfiguration, options);
       keyList = this.ngxXmlToJsonService.xmlToJson(keyList, options);
       // at this line the file is convert to Json, now we need to read in and extract the grid, elements to do the new grid
-      this.jsonToGrid(fileJson, keyList);
-      },200);
+      this.jsonToGrid(LCConfiguration, keyList);
+    },200);
+      /*
+      console.log('export json ', JSON.stringify(this.wordList));
+      this.exportManagerService.prepareExport(JSON.stringify(this.wordList));
+      },5000);
+       */
   }
 
-  private jsonToGrid(fileJson: any, keyList: any) {
-    console.log('fileJson', fileJson);
+  private jsonToGrid(LCConfiguration: any, keyList: any) {
+    console.log('LCConfiguration', LCConfiguration);
     console.log('keylist', keyList);
     try{
-      this.accessStackGrid = fileJson.Component.Components.Component[0].StackGrid.Component;
+      this.accessStackGrid = LCConfiguration.Component.Components.Component[0].StackGrid.Component;
     }catch (e) {
-      this.accessStackGrid = fileJson.Component.Components.Component.StackGrid.Component;
+      this.accessStackGrid = LCConfiguration.Component.Components.Component.StackGrid.Component;
     }
-    console.log('zone utile fileJson : ', this.accessStackGrid);
+    console.log('zone utile LCConfiguration : ', this.accessStackGrid);
     this.newGrid();
     this.setPageHome();
     this.setPages();
@@ -283,6 +305,10 @@ export class LifeCompanion2augComponent implements OnInit {
     }
   }
 
+  private getPathImageParlerpicto(textContent: any): string {
+    return '';
+  }
+
   private addImageButton(element: any){
     try{
       const pathImage = this.getPathImageArsaacLibrary(element.attr.textContent);
@@ -445,7 +471,6 @@ export class LifeCompanion2augComponent implements OnInit {
       //si l'élément est un noeud donc un dossier on vérifie que cet élément existe déjà, si oui on le modifie pour le transformer en bouton dossier, si non on le créer
       try{
         if(treeKeyList[1].attr.nodeType === 'KeyListNode'){
-          // il manque un while par là pour récupérer tous les boutons là y en a qu'un à méditer.
           for(let i = 0; i < this.grid.ElementList.length; i++){
             indexOfInTreeKeyList = this.grid.ElementList[i].ElementFormsList[0].DisplayedText.indexOf(treeKeyList[1].attr.text);
             if(indexOfInTreeKeyList !== -1){
@@ -505,6 +530,7 @@ export class LifeCompanion2augComponent implements OnInit {
     try {
       backgroundColorJson = treeKeyListElement.KeyCompStyle.attr.backgroundColor.split(';');
     }catch (e){
+      console.log('quand on ne trouve pas la couleur : ',treeKeyListElement);
       backgroundColorJson = "255;255;255;1.0".split(';');
     }
     const rb = Number(backgroundColorJson[0]);
