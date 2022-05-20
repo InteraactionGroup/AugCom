@@ -5,7 +5,9 @@ import {Grid, GridElement, Page} from '../../types';
 import {LayoutService} from '../../services/layout.service';
 import {Router} from '@angular/router';
 import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
-import {ArasaacObject} from '../../libTypes';
+import scleraJson from '../../../assets/sclera.json';
+import parlerPictoJson from '../../../assets/parlerpictos.json';
+import {ArasaacObject, ParlerPictoObject, ScleraObject} from '../../libTypes';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {ExportManagerService} from "../../services/export-manager.service";
 
@@ -61,17 +63,6 @@ export class LifeCompanion2augComponent implements OnInit {
         }
       });
     });
-    /*
-    // take the .json from Arasaac and other image bank
-    const jsZip = require('jszip');
-    jsZip.loadAsync(file[0]).then((zip) => {
-      Object.keys(zip.files).forEach((filename) => {
-        let filenameTab = filename.split('.');
-        filenameTab = filenameTab[0].split('/');
-        this.wordList.push(filenameTab[1]);
-      });
-    });
-     */
     //give time to read the file
     setTimeout(()=> {
 
@@ -79,12 +70,7 @@ export class LifeCompanion2augComponent implements OnInit {
       keyList = this.ngxXmlToJsonService.xmlToJson(keyList, options);
       // at this line the file is convert to Json, now we need to read in and extract the grid, elements to do the new grid
       this.jsonToGrid(LCConfiguration, keyList);
-    },200);
-      /*
-      console.log('export json ', JSON.stringify(this.wordList));
-      this.exportManagerService.prepareExport(JSON.stringify(this.wordList));
-      },5000);
-       */
+    },2000);
   }
 
   private jsonToGrid(LCConfiguration: any, keyList: any) {
@@ -289,7 +275,7 @@ export class LifeCompanion2augComponent implements OnInit {
     gridElement.y = Number(element.attr.row);
     gridElement.rows = Number(element.attr.rowSpan);
     gridElement.cols = Number(element.attr.columnSpan);
-    this.addImageButton(element);
+    this.addImageButtonFullLibrary(element);
 
     return gridElement;
   }
@@ -305,7 +291,34 @@ export class LifeCompanion2augComponent implements OnInit {
     }
   }
 
-  private getPathImageParlerpicto(textContent: any): string {
+  private getPathImageFromLibraries(textContent: any,idImage: any): string {
+
+    if (textContent !== null) {
+
+      //arasaac
+      let index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
+        return textContent.toLowerCase().trim() === word.toLowerCase();
+      });
+      if (index > -1) {
+        return 'assets/libs/FR_Pictogrammes_couleur/' + (arasaacColoredJson as unknown as ArasaacObject)[0].wordList[index] + '.png';
+      }
+    }
+    if (idImage !== undefined) {
+      //sclera
+      let index = (scleraJson as unknown as ScleraObject).images.findIndex(id => {
+        return idImage === id;
+      });
+      if (index > -1) {
+        return 'assets/libs/sclera/' + (scleraJson as unknown as ScleraObject).images[index].id + '.png';
+      }
+      //parlerPicto
+      index = (parlerPictoJson as unknown as ParlerPictoObject).images.findIndex(word => {
+        return idImage === word;
+      });
+      if (index > -1) {
+        return 'assets/libs/parlerpictos/' + (parlerPictoJson as unknown as ParlerPictoObject).images[index].id + '.png';
+      }
+    }
     return '';
   }
 
@@ -323,6 +336,32 @@ export class LifeCompanion2augComponent implements OnInit {
         ID: element.attr.text,
         OriginalName: element.attr.text,
         Path: pathImage !== undefined? pathImage : '',
+      });
+    }
+  }
+
+  private addImageButtonFullLibrary(element: any) {
+    if(element.attr.imageId2 === undefined){
+      try{element.attr.imageId2 = element.attr.textContent;}
+      catch (e) {
+        element.attr.imageId2 = element.attr.text;
+      }
+    }
+    console.log('imageId2 : ',element.attr.imageId2);
+    try {
+      let pathImage = this.getPathImageFromLibraries(element.attr.textContent, element.attr.imageId2);
+      this.grid.ImageList.push({
+        ID: element.attr.imageId2,
+        OriginalName: element.attr.textContent,
+        Path: pathImage !== undefined ? pathImage : '',
+      });
+    } catch (e) {
+      console.log(e);
+      let pathImage = this.getPathImageFromLibraries(element.attr.text, element.attr.imageId2);
+      this.grid.ImageList.push({
+        ID: element.attr.imageId2,
+        OriginalName: element.attr.text,
+        Path: pathImage !== undefined ? pathImage : '',
       });
     }
   }
@@ -551,7 +590,7 @@ export class LifeCompanion2augComponent implements OnInit {
             DisplayedText: treeKeyListElement.attr.text,
             VoiceText: treeKeyListElement.attr.text,
             LexicInfos: [{default: true}],
-            ImageID: treeKeyListElement.attr.text,
+            ImageID: treeKeyListElement.attr.imageId2,
           }
         ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}]);
     }else{
@@ -566,11 +605,11 @@ export class LifeCompanion2augComponent implements OnInit {
             DisplayedText: treeKeyListElement.attr.text,
             VoiceText: treeKeyListElement.attr.text,
             LexicInfos: [{default: true}],
-            ImageID: treeKeyListElement.attr.text,
+            ImageID: treeKeyListElement.attr.imageId2,
           }
         ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}]);
     }
-    this.addImageButton(treeKeyListElement);
+    this.addImageButtonFullLibrary(treeKeyListElement);
     this.grid.ElementList.push(gridElement);
     this.page.ElementIDsList.push(gridElement.ID);
   }
