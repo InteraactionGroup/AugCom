@@ -251,7 +251,7 @@ export class LifeCompanion2augComponent implements OnInit {
             DisplayedText: element.attr.textContent,
             VoiceText: element.attr.textContent,
             LexicInfos: [{default: true}],
-            ImageID: element.attr.textContent,
+            ImageID: element.attr.imageId2,
           }
         ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}]);
     }else{
@@ -266,7 +266,7 @@ export class LifeCompanion2augComponent implements OnInit {
             DisplayedText: element.attr.textContent,
             VoiceText: element.attr.textContent,
             LexicInfos: [{default: true}],
-            ImageID: element.attr.textContent,
+            ImageID: element.attr.imageId2,
           }
         ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}]);
     }
