@@ -99,7 +99,7 @@ export class LifeCompanion2augComponent implements OnInit {
       that.boardService.backHome();
       that.indexedDBacess.update();
       console.log(that.boardService.board);
-      that.statErrorImage();
+      //that.statErrorImage();
     },50);
 
   }
@@ -305,15 +305,17 @@ export class LifeCompanion2augComponent implements OnInit {
     }
     if (idImage !== undefined) {
       //sclera
-      let index = (scleraJson as unknown as ScleraObject).images.findIndex(id => {
-        return idImage === id;
+
+      let index = (scleraJson as unknown as ScleraObject).images.findIndex(word => {
+        return idImage === word.id;
       });
       if (index > -1) {
+        console.error('assets/libs/sclera/' + (scleraJson as unknown as ScleraObject).images[index].id + '.png');
         return 'assets/libs/sclera/' + (scleraJson as unknown as ScleraObject).images[index].id + '.png';
       }
       //parlerPicto
       index = (parlerPictoJson as unknown as ParlerPictoObject).images.findIndex(word => {
-        return idImage === word;
+        return idImage === word.id;
       });
       if (index > -1) {
         return 'assets/libs/parlerpictos/' + (parlerPictoJson as unknown as ParlerPictoObject).images[index].id + '.png';
@@ -341,29 +343,60 @@ export class LifeCompanion2augComponent implements OnInit {
   }
 
   private addImageButtonFullLibrary(element: any) {
+    let pathImage: string;
+
     if(element.attr.imageId2 === undefined){
-      try{element.attr.imageId2 = element.attr.textContent;}
-      catch (e) {
-        element.attr.imageId2 = element.attr.text;
+      if(element.attr.textContent !== undefined){
+        //element.attr.imageId2 = element.attr.textContent;
+        pathImage = this.getPathImageFromLibraries(element.attr.textContent, element.attr.textContent);
+        this.grid.ImageList.push({
+          ID: element.attr.textContent,
+          OriginalName: element.attr.textContent,
+          Path: pathImage !== undefined ? pathImage : '',
+        });
+      }
+      else{
+        //element.attr.imageId2 = element.attr.text;
+        pathImage = this.getPathImageFromLibraries(element.attr.text, element.attr.text);
+        this.grid.ImageList.push({
+          ID: element.attr.text,
+          OriginalName: element.attr.text,
+          Path: pathImage !== undefined ? pathImage : '',
+        });
       }
     }
-    console.log('imageId2 : ',element.attr.imageId2);
-    try {
-      let pathImage = this.getPathImageFromLibraries(element.attr.textContent, element.attr.imageId2);
-      this.grid.ImageList.push({
-        ID: element.attr.imageId2,
-        OriginalName: element.attr.textContent,
-        Path: pathImage !== undefined ? pathImage : '',
-      });
-    } catch (e) {
-      console.log(e);
-      let pathImage = this.getPathImageFromLibraries(element.attr.text, element.attr.imageId2);
-      this.grid.ImageList.push({
-        ID: element.attr.imageId2,
-        OriginalName: element.attr.text,
-        Path: pathImage !== undefined ? pathImage : '',
-      });
+    else{
+      if(element.attr.textContent !== undefined){
+        pathImage = this.getPathImageFromLibraries(element.attr.textContent, element.attr.imageId2);
+        this.grid.ImageList.push({
+          ID: element.attr.imageId2,
+          OriginalName: element.attr.textContent,
+          Path: pathImage !== undefined ? pathImage : '',
+        });
+      }else{
+        pathImage = this.getPathImageFromLibraries(element.attr.text, element.attr.imageId2);
+        this.grid.ImageList.push({
+          ID: element.attr.imageId2,
+          OriginalName: element.attr.text,
+          Path: pathImage !== undefined ? pathImage : '',
+        });
+      }
     }
+    try {
+        let pathImage = this.getPathImageFromLibraries(element.attr.textContent, element.attr.textContent);
+        this.grid.ImageList.push({
+          ID: element.attr.textContent,
+          OriginalName: element.attr.textContent,
+          Path: pathImage !== undefined ? pathImage : '',
+        });
+      } catch (e) {
+        let pathImage = this.getPathImageFromLibraries(element.attr.text, element.attr.text);
+        this.grid.ImageList.push({
+          ID: element.attr.text,
+          OriginalName: element.attr.text,
+          Path: pathImage !== undefined ? pathImage : '',
+        });
+      }
   }
 
   private setPages() {
@@ -569,7 +602,7 @@ export class LifeCompanion2augComponent implements OnInit {
     try {
       backgroundColorJson = treeKeyListElement.KeyCompStyle.attr.backgroundColor.split(';');
     }catch (e){
-      console.log('quand on ne trouve pas la couleur : ',treeKeyListElement);
+      //console.log('quand on ne trouve pas la couleur : ',treeKeyListElement);
       backgroundColorJson = "255;255;255;1.0".split(';');
     }
     const rb = Number(backgroundColorJson[0]);
