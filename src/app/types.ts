@@ -204,6 +204,24 @@ export class ImageParlerPicto{
   kws:Kws;
 }
 
+export class ImagearasaacLCC{
+  nm: string;
+  id: string;
+  kws:Kws;
+}
+
+export class ImageMulberry{
+  nm: string;
+  id: string;
+  kws:Kws;
+}
+
+export class ImageFontawesome{
+  nm: string;
+  id: string;
+  kws:Kws;
+}
+
 export class Kws{
   fr:string[];
 }

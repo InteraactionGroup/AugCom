@@ -7,7 +7,17 @@ import {Router} from '@angular/router';
 import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
 import scleraJson from '../../../assets/sclera.json';
 import parlerPictoJson from '../../../assets/parlerpictos.json';
-import {ArasaacObject, ParlerPictoObject, ScleraObject} from '../../libTypes';
+import arasaacJson from '../../../assets/arasaac.json';
+import fontawesomeJson from '../../../assets/fontawesome.json';
+import mulberryJson from '../../../assets/mulberry-symbols-lcc.json';
+import {
+  arasaacLCCObject,
+  ArasaacObject,
+  fontawesomeObject,
+  mulberryObject,
+  ParlerPictoObject,
+  ScleraObject
+} from '../../libTypes';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {ExportManagerService} from "../../services/export-manager.service";
 
@@ -292,10 +302,10 @@ export class LifeCompanion2augComponent implements OnInit {
   }
 
   private getPathImageFromLibraries(textContent: any,idImage: any): string {
-
+    /*
     if (textContent !== null) {
 
-      //arasaac
+      //arasaac from us
       let index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
         return textContent.toLowerCase().trim() === word.toLowerCase();
       });
@@ -303,14 +313,13 @@ export class LifeCompanion2augComponent implements OnInit {
         return 'assets/libs/FR_Pictogrammes_couleur/' + (arasaacColoredJson as unknown as ArasaacObject)[0].wordList[index] + '.png';
       }
     }
+     */
     if (idImage !== undefined) {
       //sclera
-
       let index = (scleraJson as unknown as ScleraObject).images.findIndex(word => {
         return idImage === word.id;
       });
       if (index > -1) {
-        console.error('assets/libs/sclera/' + (scleraJson as unknown as ScleraObject).images[index].id + '.png');
         return 'assets/libs/sclera/' + (scleraJson as unknown as ScleraObject).images[index].id + '.png';
       }
       //parlerPicto
@@ -319,6 +328,28 @@ export class LifeCompanion2augComponent implements OnInit {
       });
       if (index > -1) {
         return 'assets/libs/parlerpictos/' + (parlerPictoJson as unknown as ParlerPictoObject).images[index].id + '.png';
+      }
+      // ca commence ici
+      //arasaac-lifecompanion
+      index = (arasaacJson as unknown as arasaacLCCObject).images.findIndex(word => {
+        return idImage === word.id;
+      });
+      if (index > -1) {
+        return 'assets/libs/arasaac/' + (arasaacJson as unknown as arasaacLCCObject).images[index].id + '.png';
+      }
+      //mulberry-lifecompanion
+      index = (mulberryJson as unknown as mulberryObject).images.findIndex(word => {
+        return idImage === word.id;
+      });
+      if (index > -1) {
+        return 'assets/libs/mulberry-symbols-lcc/' + (mulberryJson as unknown as mulberryObject).images[index].id + '.png';
+      }
+      //fontawesome
+      index = (fontawesomeJson as unknown as fontawesomeObject).images.findIndex(word => {
+        return idImage === word.id;
+      });
+      if (index > -1) {
+        return 'assets/libs/fontawesome/' + (fontawesomeJson as unknown as fontawesomeObject).images[index].id + '.png';
       }
     }
     return '';
