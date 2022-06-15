@@ -109,7 +109,7 @@ export class LifeCompanion2augComponent implements OnInit {
       that.boardService.backHome();
       that.indexedDBacess.update();
       console.log(that.boardService.board);
-      //that.statErrorImage();
+      that.statErrorImage();
     },50);
 
   }
@@ -232,8 +232,14 @@ export class LifeCompanion2augComponent implements OnInit {
     let backgroundColorJson: string[];
     try {
       backgroundColorJson = element.KeyCompStyle.attr.backgroundColor.split(';');
+      // didn't get splitted because their is no ; in the file
+      if(backgroundColorJson.length === 1){
+        const backgroundColorJsonHash = element.KeyCompStyle.attr.backgroundColor.split('');
+        backgroundColorJson.shift();
+        backgroundColorJson.push(String(parseInt(backgroundColorJsonHash[1] + backgroundColorJsonHash[2], 16)),String(parseInt(backgroundColorJsonHash[3] + backgroundColorJsonHash[4], 16)),String(parseInt(backgroundColorJsonHash[5] + backgroundColorJsonHash[6], 16)));
+      }
     }catch (e){
-      backgroundColorJson = "255;255;255;1.0".split(';');
+      backgroundColorJson = "255;255;255".split(';');
     }
     const rb = Number(backgroundColorJson[0]);
     const gb = Number(backgroundColorJson[1]);
@@ -413,21 +419,6 @@ export class LifeCompanion2augComponent implements OnInit {
         });
       }
     }
-    try {
-        let pathImage = this.getPathImageFromLibraries(element.attr.textContent, element.attr.textContent);
-        this.grid.ImageList.push({
-          ID: element.attr.textContent,
-          OriginalName: element.attr.textContent,
-          Path: pathImage !== undefined ? pathImage : '',
-        });
-      } catch (e) {
-        let pathImage = this.getPathImageFromLibraries(element.attr.text, element.attr.text);
-        this.grid.ImageList.push({
-          ID: element.attr.text,
-          OriginalName: element.attr.text,
-          Path: pathImage !== undefined ? pathImage : '',
-        });
-      }
   }
 
   private setPages() {
@@ -543,16 +534,13 @@ export class LifeCompanion2augComponent implements OnInit {
 
   statErrorImage() {
     this.grid.ImageList.forEach(picture => {
-      const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
-        return picture.ID !== null && picture.ID !== '' && (picture.ID.toLowerCase() === word || picture.ID.toUpperCase() === word);
-      });
 
-      if (index === -1) {
-        // console.log(picture.ID);
+
+      if (picture.Path === '') {
         this.numberErrorImage = this.numberErrorImage + 1;
       }
     });
-    console.log('pourcentage d\'erreur : ', this.numberErrorImage / this.grid.ImageList.length * 100);
+    console.log('pourcentage de bouton sans image : ', this.numberErrorImage / this.grid.ImageList.length * 100);
   }
 
   //add every buttons form keyList file
@@ -595,14 +583,12 @@ export class LifeCompanion2augComponent implements OnInit {
               this.createGridButtonElementFromKeyList(subtreeKeyList[1], false);
             }catch (e) {
               this.createGridButtonElementFromKeyList(subtreeKeyList, false);
-              //console.error(e);
             }
 
             if(typeof subtreeKeyList[0] === 'object'){
               subtreeKeyList = subtreeKeyList[0];
               this.addPageIfNecessary();
             }else{
-              //this.createGridButtonElementFromKeyList(subtreeKeyList[0], false);
               searchInSubTreeKeyList = false;
             }
           }
@@ -612,7 +598,6 @@ export class LifeCompanion2augComponent implements OnInit {
 
       if (typeof treeKeyList[0] === 'object') {
         treeKeyList = treeKeyList[0];
-        // subtreeKeyList = treeKeyList[0].KeyListNode;
       } else {
         searchInTreeKeyList = false;
       }
@@ -633,7 +618,6 @@ export class LifeCompanion2augComponent implements OnInit {
     try {
       backgroundColorJson = treeKeyListElement.KeyCompStyle.attr.backgroundColor.split(';');
     }catch (e){
-      //console.log('quand on ne trouve pas la couleur : ',treeKeyListElement);
       backgroundColorJson = "255;255;255;1.0".split(';');
     }
     const rb = Number(backgroundColorJson[0]);
@@ -723,13 +707,5 @@ export class LifeCompanion2augComponent implements OnInit {
       ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}]);
     this.grid.ElementList.push(buttonNextPage);
     this.page.ElementIDsList.push(buttonNextPage.ID);
-  }
-
-  //convert hexadecimal to RGB
-  public hexToRgb(hex:string) {
-    let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    let resTab = [];
-    resTab.push(parseInt(result[1], 16),parseInt(result[1], 16),parseInt(result[3], 16));
-    return resTab;
   }
 }
