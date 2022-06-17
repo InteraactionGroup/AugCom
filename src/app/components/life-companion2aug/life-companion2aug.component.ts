@@ -19,7 +19,7 @@ import {
   ScleraObject
 } from '../../libTypes';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {ExportManagerService} from "../../services/export-manager.service";
+import {Ng2ImgMaxService} from "ng2-img-max";
 
 @Component({
   selector: 'app-life-companion2aug',
@@ -37,11 +37,14 @@ export class LifeCompanion2augComponent implements OnInit {
 
   private wordList:string[] = [];
 
+
+  private imageImportedFromFile:any[][] = [] ;
+
   constructor(private ngxXmlToJsonService: NgxXmlToJsonService,
+              public ng2ImgMaxService: Ng2ImgMaxService,
               private boardService: BoardService,
               private layoutService: LayoutService,
               private router: Router,
-              public exportManagerService: ExportManagerService,
               private indexedDBacess: IndexeddbaccessService) {}
 
   ngOnInit(): void {
@@ -60,6 +63,26 @@ export class LifeCompanion2augComponent implements OnInit {
     const jsZip = require('jszip');
     jsZip.loadAsync(file[0]).then((zip) => {
       Object.keys(zip.files).forEach((filename) => {
+        console.log("filename : ",filename);
+        if(filename.includes('images')){
+          let filenameTab = filename.split("/");
+          if(filenameTab[1] !== 'images'){
+            zip.files[filename].async('uint8array').then((fileData) => {
+              // on créer un blob lisible par le reader
+              const blobImage:Blob = new Blob([fileData],{type: "image/png"});
+
+              const reader = new FileReader();
+              reader.readAsDataURL(blobImage);
+
+              reader.onload = () => {
+                this.imageImportedFromFile.push([filenameTab[1], reader.result]);
+              };
+
+            },() => {
+              console.error('error file');
+            });
+          }
+        }
         if(filename === 'lifecompanion-configuration.xml'){
           zip.files[filename].async('string').then((fileData) => {
             LCConfiguration = fileData;
@@ -75,7 +98,7 @@ export class LifeCompanion2augComponent implements OnInit {
     });
     //give time to read the file
     setTimeout(()=> {
-
+      console.error('le troll ici : ', this.imageImportedFromFile);
       LCConfiguration = this.ngxXmlToJsonService.xmlToJson(LCConfiguration, options);
       keyList = this.ngxXmlToJsonService.xmlToJson(keyList, options);
       // at this line the file is convert to Json, now we need to read in and extract the grid, elements to do the new grid
@@ -307,19 +330,7 @@ export class LifeCompanion2augComponent implements OnInit {
     }
   }
 
-  private getPathImageFromLibraries(textContent: any,idImage: any): string {
-    /*
-    if (textContent !== null) {
-
-      //arasaac from us
-      let index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
-        return textContent.toLowerCase().trim() === word.toLowerCase();
-      });
-      if (index > -1) {
-        return 'assets/libs/FR_Pictogrammes_couleur/' + (arasaacColoredJson as unknown as ArasaacObject)[0].wordList[index] + '.png';
-      }
-    }
-     */
+  private getPathImageFromLibraries(idImage: any): string {
     if (idImage !== undefined) {
       //sclera
       let index = (scleraJson as unknown as ScleraObject).images.findIndex(word => {
@@ -357,6 +368,17 @@ export class LifeCompanion2augComponent implements OnInit {
       if (index > -1) {
         return 'assets/libs/fontawesome/' + (fontawesomeJson as unknown as fontawesomeObject).images[index].id + '.png';
       }
+      //search in imageImportedFromFile from lifecompanion
+      index = this.imageImportedFromFile.findIndex(nameImage => {
+        const nameImageSplit = nameImage[0].split('.');
+        console.log('nameImage : ',nameImageSplit[0]);
+        return idImage === nameImageSplit[0];
+      })
+      console.log('index : ',index);
+      if(index > -1){
+        return this.imageImportedFromFile[index][1];
+      }
+
     }
     return '';
   }
@@ -385,7 +407,7 @@ export class LifeCompanion2augComponent implements OnInit {
     if(element.attr.imageId2 === undefined){
       if(element.attr.textContent !== undefined){
         //element.attr.imageId2 = element.attr.textContent;
-        pathImage = this.getPathImageFromLibraries(element.attr.textContent, element.attr.textContent);
+        pathImage = this.getPathImageFromLibraries( element.attr.textContent);
         this.grid.ImageList.push({
           ID: element.attr.textContent,
           OriginalName: element.attr.textContent,
@@ -394,7 +416,7 @@ export class LifeCompanion2augComponent implements OnInit {
       }
       else{
         //element.attr.imageId2 = element.attr.text;
-        pathImage = this.getPathImageFromLibraries(element.attr.text, element.attr.text);
+        pathImage = this.getPathImageFromLibraries(element.attr.text);
         this.grid.ImageList.push({
           ID: element.attr.text,
           OriginalName: element.attr.text,
@@ -404,14 +426,14 @@ export class LifeCompanion2augComponent implements OnInit {
     }
     else{
       if(element.attr.textContent !== undefined){
-        pathImage = this.getPathImageFromLibraries(element.attr.textContent, element.attr.imageId2);
+        pathImage = this.getPathImageFromLibraries(element.attr.imageId2);
         this.grid.ImageList.push({
           ID: element.attr.imageId2,
           OriginalName: element.attr.textContent,
           Path: pathImage !== undefined ? pathImage : '',
         });
       }else{
-        pathImage = this.getPathImageFromLibraries(element.attr.text, element.attr.imageId2);
+        pathImage = this.getPathImageFromLibraries(element.attr.imageId2);
         this.grid.ImageList.push({
           ID: element.attr.imageId2,
           OriginalName: element.attr.text,
