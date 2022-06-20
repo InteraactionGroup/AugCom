@@ -228,13 +228,46 @@ export class User{
   name: string;
   base64image: string;
   constructor(name, base64image, id?) {
-    if(id == null){
+    if (id == null) {
       this.id = Math.floor(Math.random() * 10000000000) + Date.now();
-    }
-    else{
+    } else {
       this.id = id;
     }
     this.name = name;
     this.base64image = base64image;
   }
+}
+
+export class ImageSclera{
+  nm: string;
+  id: string;
+  kws:Kws;
+}
+
+export class ImageParlerPicto{
+  nm: string;
+  id: string;
+  kws:Kws;
+}
+
+export class ImagearasaacLCC{
+  nm: string;
+  id: string;
+  kws:Kws;
+}
+
+export class ImageMulberry{
+  nm: string;
+  id: string;
+  kws:Kws;
+}
+
+export class ImageFontawesome{
+  nm: string;
+  id: string;
+  kws:Kws;
+}
+
+export class Kws{
+  fr:string[];
 }

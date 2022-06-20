@@ -79,6 +79,7 @@ import {DialogLinkAFSRComponent} from './components/dialog-link-afsr/dialog-link
 import {DialogLinkInteraactionboxComponent} from './components/dialog-link-interaactionbox/dialog-link-interaactionbox.component';
 import {LoadingUserComponent} from './components/loading-user/loading-user.component';
 import { DialogResetSettingsComponent } from './components/dialog-reset-settings/dialog-reset-settings.component';
+import { LifeCompanion2augComponent } from './components/life-companion2aug/life-companion2aug.component';
 
 @NgModule({
   declarations: [
@@ -140,7 +141,8 @@ import { DialogResetSettingsComponent } from './components/dialog-reset-settings
     DialogLinkAFSRComponent,
     DialogLinkInteraactionboxComponent,
     LoadingUserComponent,
-    DialogResetSettingsComponent
+    DialogResetSettingsComponent,
+    LifeCompanion2augComponent
   ],
   imports: [
     BrowserModule,

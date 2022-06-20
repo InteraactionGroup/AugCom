@@ -248,7 +248,7 @@ export class Spb2augComponent implements OnInit {
   getPathImageArsaacLibrary(label, message): string {
     if (label !== null) {
       const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
-        return label.toLowerCase() === word.toLowerCase();
+        return label.toLowerCase().trim() === word.toLowerCase();
       });
       if (index > -1) {
         return 'assets/libs/FR_Pictogrammes_couleur/' + (arasaacColoredJson as unknown as ArasaacObject)[0].wordList[index] + '.png';
@@ -257,7 +257,7 @@ export class Spb2augComponent implements OnInit {
 
     if (message !== null) {
       const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
-        return message.toLowerCase() === word.toLowerCase();
+        return message.toLowerCase().trim() === word.toLowerCase();
       });
       if (index > -1) {
         return 'assets/libs/FR_Pictogrammes_couleur/' + (arasaacColoredJson as unknown as ArasaacObject)[0].wordList[index] + '.png';
