@@ -14,6 +14,10 @@ import {DialogAddUserComponent} from "../dialog-add-user/dialog-add-user.compone
 import {MatDialog} from "@angular/material/dialog";
 import {DialogModifyColorInsideComponent} from "../dialog-modify-color-inside/dialog-modify-color-inside.component";
 import {DialogModifyColorBorderComponent} from "../dialog-modify-color-border/dialog-modify-color-border.component";
+declare var getUrlPicto:any;
+declare var clearUrlImageJS:any;
+declare var monitorInput:any;
+
 
 @Component({
   selector: 'app-image-selection-page',
@@ -27,7 +31,7 @@ export class ImageSelectionPageComponent implements OnInit {
    * the current list of images related to the chose image library search section
    * (the image list resulting in the research in the mullbery library)
    */
-  imageList: { lib, word }[];
+  imageList = [];
 
   myControl = new FormControl();
   filteredOptions: Observable<string[]>;
@@ -101,6 +105,10 @@ export class ImageSelectionPageComponent implements OnInit {
     }
   }
 
+  getPictoFromApi(p:string){
+    return 'url(' + p + ')';
+  }
+
   /**
    * Set the current preview imageUrl with the image string Url 't' and close the chooseImage panel
    *
@@ -124,7 +132,6 @@ export class ImageSelectionPageComponent implements OnInit {
     if (isColored) {
       this.previewWithURL('assets/libs/FR_Pictogrammes_couleur/' + t + '.png');
     } else {
-      console.log('assets/libs/FR_Noir_et_blanc_pictogrammes/' + t + '.png');
       this.previewWithURL('assets/libs/FR_Noir_et_blanc_pictogrammes/' + t + '.png');
     }
   }
@@ -137,6 +144,10 @@ export class ImageSelectionPageComponent implements OnInit {
     } else if (elt.lib === 'arasaacColor') {
       this.previewArasaac(elt.word, true);
     }
+  }
+
+  previewLibraryFromAPI(picto:string){
+    this.previewWithURL('url(' + picto + ')');
   }
 
   cleanString(t: string) {
@@ -193,6 +204,21 @@ export class ImageSelectionPageComponent implements OnInit {
     });
 
     this.imageList = tempList.slice(0, 100);
+  }
+
+  searchInLibApi(text: string){
+    this.imageList = [];
+    let tempList: any[];
+    clearUrlImageJS();
+    if(this.configurationService.LANGUAGE_VALUE === 'FR'){
+      monitorInput(text, "fra");
+    }else{
+      monitorInput(text, "eng");
+    }
+    setTimeout(() => {
+      tempList = getUrlPicto();
+      this.imageList = tempList[0].slice(0,100);
+    }, 500);
   }
 
   /*s can be 'inside' or 'border', used to open the corresponding color picker popup  */
