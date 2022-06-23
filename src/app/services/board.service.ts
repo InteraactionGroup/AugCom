@@ -267,9 +267,9 @@ export class BoardService {
       })
     }
 
-
     this.board.ImageList = imageTemp;
     this.editionService.sentencedToBeDeletedElement = [];
+    this.updateElementList();
   }
 
   /*get sanitized image URL of an element*/
