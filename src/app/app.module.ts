@@ -29,7 +29,7 @@ import {AlternativeFormsComponent} from './components/alternative-forms/alternat
 import {ImageSelectionPageComponent} from './components/image-selection-page/image-selection-page.component';
 import {InformationEditionPageComponent} from './components/information-edition-page/information-edition-page.component';
 import {AVenirComponent} from './components/a-venir/a-venir.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {ErrorOnEditComponent} from './components/error-on-edit/error-on-edit.component';
 import {PrintComponent} from './components/print/print.component';
 import {TileComponent} from './components/tile/tile.component';
@@ -79,6 +79,7 @@ import {DialogLinkAFSRComponent} from './components/dialog-link-afsr/dialog-link
 import {DialogLinkInteraactionboxComponent} from './components/dialog-link-interaactionbox/dialog-link-interaactionbox.component';
 import {LoadingUserComponent} from './components/loading-user/loading-user.component';
 import { DialogResetSettingsComponent } from './components/dialog-reset-settings/dialog-reset-settings.component';
+import {LifeCompanion2augComponent} from "./components/life-companion2aug/life-companion2aug.component";
 
 @NgModule({
   declarations: [
@@ -140,7 +141,8 @@ import { DialogResetSettingsComponent } from './components/dialog-reset-settings
     DialogLinkAFSRComponent,
     DialogLinkInteraactionboxComponent,
     LoadingUserComponent,
-    DialogResetSettingsComponent
+    DialogResetSettingsComponent,
+    LifeCompanion2augComponent
   ],
   imports: [
     BrowserModule,
@@ -168,6 +170,7 @@ import { DialogResetSettingsComponent } from './components/dialog-reset-settings
     MatCardModule,
     MatGridListModule,
     MatDialogModule,
+    NoopAnimationsModule
   ],
   bootstrap: [AppComponent],
   providers: [FormBuilder, Ng2ImgMaxService],

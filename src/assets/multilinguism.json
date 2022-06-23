@@ -138,6 +138,7 @@
     { "id" : "Mention", "FR" : "Mention", "EN" : "Mention"},
     { "id" : "Mentionpourlesgraphistesquiontdessinéslespictogrammes", "FR" : "Mention pour les graphistes qui ont dessinés les pictogrammes", "EN" : "Mention for the graphic designers who designed the pictograms"},
     { "id" : "import save from snap core first",  "FR" : "Importer une sauvegarde de snap core first", "EN" : "Import save from snap core first" },
+    { "id" : "import save from life companion", "FR" : "Importer une sauvegarde de life companion", "EN" : "Import save from life companion" },
     { "id" : "Cancel", "FR" : "Annuler", "EN" : "Cancel"},
     { "id" : "Deleting selected pages", "FR" : "Supprimer les pages selectionnées", "EN" : "Deleting selected pages"},
     { "id" : "Multiple Delete Page","FR" :  "Suppression de pages", "EN" : "Delete Pages"},

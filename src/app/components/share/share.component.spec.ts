@@ -53,11 +53,12 @@ describe('ShareComponent', () => {
   it('should create the 4 different options components', () => {
     const compiled = fixture.debugElement.nativeElement;
     const allListElements = compiled.querySelectorAll('.listElement');
-    expect(allListElements.length).toEqual(4/*6*/);
+    expect(allListElements.length).toEqual(5/*6*/);
     expect(allListElements[0].textContent).toContain(component.multilinguism.translate('importSave'));
     expect(allListElements[1].textContent).toContain(component.multilinguism.translate('import save from snap core first'));
-    expect(allListElements[2].textContent).toContain(component.multilinguism.translate('exportSave'));
-    expect(allListElements[3].textContent).toContain(component.multilinguism.translate('exportPDF'));
+    expect(allListElements[2].textContent).toContain(component.multilinguism.translate('import save from life companion'));
+    expect(allListElements[3].textContent).toContain(component.multilinguism.translate('exportSave'));
+    expect(allListElements[4].textContent).toContain(component.multilinguism.translate('exportPDF'));
   });
 
 });
