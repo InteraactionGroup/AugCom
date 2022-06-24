@@ -285,6 +285,7 @@
     { "id" :  "empty", "FR" : "Vide", "EN" :  "Empty"},
     { "id" :  "default", "FR": "Defaut", "EN":"Default" },
     { "id" :  "deleteSingleOrMultiplePage", "FR": "Supprimez une ou plusieurs pages : ", "EN":"Delete single or multiple pages : " },
-    { "id" :  "clearAllTheGrid", "FR": "Videz toute la grille : ", "EN": "Clear the entire grid : "}
+    { "id" :  "clearAllTheGrid", "FR": "Videz toute la grille : ", "EN": "Clear the entire grid : "},
+    { "id" :  "modifyGridFromModel", "FR": "Attention vous allez remplacer votre grille actuel par le model, êtes vous sûr?", "EN": "Attention you will replace your current grid by the model, are you sure?"}
   ]
 }
