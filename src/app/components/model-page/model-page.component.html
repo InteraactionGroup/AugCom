@@ -1,0 +1,8 @@
+<div style="  margin: 20px ;width: fit-content;">
+  <label for="titleFormat">{{this.multilinguism.translate("chooseGridModel")}}</label>
+  <select [(ngModel)]= "this.boardService.gridModel" (change)="openDialog()" id="titleFormat" class="variantListBox">
+    <!--<option value="pas de nouvelle grille">pas de nouvelle grille</option>-->
+    <option value="empty">empty</option>
+    <option value="default">default</option>
+  </select>
+</div>

@@ -25,6 +25,7 @@ export class BoardService {
     this.board = Board;
     this.updateElementList();
   }
+  gridModel:string = 'none';
 
   AFSR: boolean = false;
 

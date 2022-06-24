@@ -124,7 +124,7 @@
     { "id" : "gridDimensions",  "FR" : "Dimensions de la grille", "EN" : "Grid dimensions" },
     { "id" : "backgroundTheme",  "FR" : "Thème du fond", "EN" : "Background theme" },
     { "id" : "chooseTheColor",  "FR" : "Choisissez la couleur", "EN" : "Choose the color" },
-    { "id" : "DeletePage", "FR" : "Supprimer des pages", "EN" : ""},
+    { "id" : "GridManagement", "FR" : "Gestion de la grille", "EN" : "Grid management"},
     { "id" : "pictogramsManagement",  "FR" : "Organisation des pictogrammes", "EN" : "Pictograms management" },
     { "id" : "choosePictogramStyle",  "FR" : "Choissez le style de pictogramme", "EN" : "Choose the pictogram style" },
     { "id" : "chooseImagePositionOfPicrogram",  "FR" : "Choissez la position de l'image du pictogramme", "EN" : "Choose the image position of the pictogram" },
@@ -280,6 +280,11 @@
     { "id" :  "noCols", "FR" : "Pas de colonnes !", "EN" :  "No cols !"},
     { "id" :  "noWords", "FR" : "Liste de mots vide !", "EN" :  "List of words empty !"},
     { "id" :  "sizeToSmall", "FR" : "Taille de la grille trop petite !", "EN" :  "Size of grid to small !"},
-    { "id" :  "Are you sure you want to reset the configuration?", "FR" : "êtes-vous sûr de vouloir réinitialiser la configuration?", "EN": "Are you sure you want to reset the configuration?"}
+    { "id" :  "Are you sure you want to reset the configuration?", "FR" : "êtes-vous sûr de vouloir réinitialiser la configuration?", "EN": "Are you sure you want to reset the configuration?"},
+    { "id" :  "chooseGridModel", "FR" :  "Choisissez un model de grille : ", "EN": "Choose a grid model : "},
+    { "id" :  "empty", "FR" : "Vide", "EN" :  "Empty"},
+    { "id" :  "default", "FR": "Defaut", "EN":"Default" },
+    { "id" :  "deleteSingleOrMultiplePage", "FR": "Supprimez une ou plusieurs pages : ", "EN":"Delete single or multiple pages : " },
+    { "id" :  "clearAllTheGrid", "FR": "Videz toute la grille : ", "EN": "Clear the entire grid : "}
   ]
 }
