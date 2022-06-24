@@ -6,10 +6,10 @@ import {DialogModelGridComponent} from "../dialog-model-grid/dialog-model-grid.c
 
 @Component({
   selector: 'app-model-page',
-  templateUrl: './model-page.component.html',
-  styleUrls: ['./model-page.component.css']
+  templateUrl: './model-grid.component.html',
+  styleUrls: ['./model-grid.component.css']
 })
-export class ModelPageComponent implements OnInit {
+export class ModelGridComponent implements OnInit {
 
   constructor(public boardService: BoardService,
               public multilinguism: MultilinguismService,

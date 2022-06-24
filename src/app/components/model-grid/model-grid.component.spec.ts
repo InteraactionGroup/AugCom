@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModelPageComponent } from './model-page.component';
+import { ModelGridComponent } from './model-grid.component';
 
 describe('ModelPageComponent', () => {
-  let component: ModelPageComponent;
-  let fixture: ComponentFixture<ModelPageComponent>;
+  let component: ModelGridComponent;
+  let fixture: ComponentFixture<ModelGridComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModelPageComponent ]
+      declarations: [ ModelGridComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModelPageComponent);
+    fixture = TestBed.createComponent(ModelGridComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
