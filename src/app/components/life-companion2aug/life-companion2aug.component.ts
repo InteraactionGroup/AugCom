@@ -161,8 +161,8 @@ export class LifeCompanion2augComponent implements OnInit {
     this.pageHomeId = mainPage.attr.id;
     this.page.Name = 'Accueil';
     this.page.ElementIDsList = [];
-    this.page.NumberOfRows = mainPage.Grid.attr.row;
-    this.page.NumberOfCols = mainPage.Grid.attr.column;
+    this.page.NumberOfRows = Number(mainPage.Grid.attr.row);
+    this.page.NumberOfCols = Number(mainPage.Grid.attr.column);
 
     let elementsOfFirstPage: any[] = mainPage.Grid.Component;
 
@@ -289,7 +289,7 @@ export class LifeCompanion2augComponent implements OnInit {
             DisplayedText: element.attr.textContent,
             VoiceText: element.attr.textContent,
             LexicInfos: [{default: true}],
-            ImageID: element.attr.imageId2,
+            ImageID: element.attr.imageId2? element.attr.imageId2 : '',
           }
         ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}]);
     }else{
@@ -304,7 +304,7 @@ export class LifeCompanion2augComponent implements OnInit {
             DisplayedText: element.attr.textContent,
             VoiceText: element.attr.textContent,
             LexicInfos: [{default: true}],
-            ImageID: element.attr.imageId2,
+            ImageID: element.attr.imageId2? element.attr.imageId2 : '',
           }
         ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}]);
     }
@@ -549,8 +549,8 @@ export class LifeCompanion2augComponent implements OnInit {
     this.page.ID = pagesInJson[1].attr.id;
     this.page.Name = pagesInJson[1].attr.userName;
     this.page.ElementIDsList = [];
-    this.page.NumberOfRows = pagesInJson[1].Grid.attr.row;
-    this.page.NumberOfCols = pagesInJson[1].Grid.attr.column;
+    this.page.NumberOfRows = Number(pagesInJson[1].Grid.attr.row);
+    this.page.NumberOfCols = Number(pagesInJson[1].Grid.attr.column);
   }
 
   statErrorImage() {
@@ -659,7 +659,7 @@ export class LifeCompanion2augComponent implements OnInit {
             DisplayedText: treeKeyListElement.attr.text,
             VoiceText: treeKeyListElement.attr.text,
             LexicInfos: [{default: true}],
-            ImageID: treeKeyListElement.attr.imageId2,
+            ImageID: treeKeyListElement.attr.imageId2? treeKeyListElement.attr.imageId2 : '',
           }
         ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}]);
     }else{
@@ -674,9 +674,12 @@ export class LifeCompanion2augComponent implements OnInit {
             DisplayedText: treeKeyListElement.attr.text,
             VoiceText: treeKeyListElement.attr.text,
             LexicInfos: [{default: true}],
-            ImageID: treeKeyListElement.attr.imageId2,
+            ImageID: treeKeyListElement.attr.imageId2? treeKeyListElement.attr.imageId2 : '',
           }
         ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}]);
+    }
+    if(gridElement.ElementFormsList[0].ImageID === undefined){
+      gridElement.ElementFormsList[0].ImageID = '';
     }
     this.addImageButtonFullLibrary(treeKeyListElement);
     this.grid.ElementList.push(gridElement);

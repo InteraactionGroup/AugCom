@@ -155,6 +155,8 @@ export class ShareComponent implements OnInit {
                 this.checkAndUpdateElementDefaultForm(element);
               });
               this.boardService.board = this.jsonValidator.getCheckedGrid(tempBoard);
+              this.boardService.updateElementList();
+            console.log(this.boardService.board);
               this.indexedDBacess.update();
               this.router.navigate(['keyboard']);
             }
