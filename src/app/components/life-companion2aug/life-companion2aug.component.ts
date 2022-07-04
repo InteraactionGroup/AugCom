@@ -19,7 +19,6 @@ import {
   ScleraObject
 } from '../../libTypes';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {Ng2ImgMaxService} from "ng2-img-max";
 
 @Component({
   selector: 'app-life-companion2aug',
@@ -41,7 +40,6 @@ export class LifeCompanion2augComponent implements OnInit {
   private imageImportedFromFile:any[][] = [] ;
 
   constructor(private ngxXmlToJsonService: NgxXmlToJsonService,
-              public ng2ImgMaxService: Ng2ImgMaxService,
               private boardService: BoardService,
               private layoutService: LayoutService,
               private router: Router,
@@ -163,6 +161,8 @@ export class LifeCompanion2augComponent implements OnInit {
     this.page.ElementIDsList = [];
     this.page.NumberOfRows = Number(mainPage.Grid.attr.row);
     this.page.NumberOfCols = Number(mainPage.Grid.attr.column);
+    this.grid.NumberOfRows = Number(mainPage.Grid.attr.row);
+    this.grid.NumberOfCols = Number(mainPage.Grid.attr.column);
 
     let elementsOfFirstPage: any[] = mainPage.Grid.Component;
 
