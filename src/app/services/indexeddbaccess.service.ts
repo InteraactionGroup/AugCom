@@ -322,4 +322,25 @@ export class IndexeddbaccessService {
       this.createGridObject(db, transaction);
     };
   }
+
+  loadDefaultGrid(){
+    this.openRequest = indexedDB.open('saveAugcom', 1);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+        let defaultgridRequest = db.transaction(['Grid']).objectStore('Grid').get(1);
+          defaultgridRequest.onsuccess = e => {
+            this.boardService.board = this.jsonValidator.getCheckedGrid(defaultgridRequest.result);
+            this.boardService.updateElementList();
+          };
+          //ELSE WE JUST TAKE THE SAVED GRID
+        this.boardService.updateElementList();
+      };
+  }
 }
