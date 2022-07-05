@@ -50,7 +50,7 @@ export class PrintService {
 
   printDiv() {
     this.checkSize();
-    const wind = window.open('stable/#/print');
+    const wind = window.open('#/print');
     wind.onload = () => {
       wind.document.head.innerHTML = "";
       wind.document.body.innerHTML =
