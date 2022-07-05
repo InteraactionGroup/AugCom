@@ -282,8 +282,8 @@
     { "id" :  "sizeToSmall", "FR" : "Taille de la grille trop petite !", "EN" :  "Size of grid to small !"},
     { "id" :  "Are you sure you want to reset the configuration?", "FR" : "êtes-vous sûr de vouloir réinitialiser la configuration?", "EN": "Are you sure you want to reset the configuration?"},
     { "id" :  "chooseGridModel", "FR" :  "Choisissez un model de grille : ", "EN": "Choose a grid model : "},
-    { "id" :  "empty", "FR" : "Vide", "EN" :  "Empty"},
-    { "id" :  "default", "FR": "Defaut", "EN":"Default" },
+    { "id" :  "empty", "FR" : "Vide", "EN" : "Empty"},
+    { "id" :  "default", "FR": "Defaut", "EN": "Default" },
     { "id" :  "deleteSingleOrMultiplePage", "FR": "Supprimez une ou plusieurs pages : ", "EN":"Delete single or multiple pages : " },
     { "id" :  "clearAllTheGrid", "FR": "Videz toute la grille : ", "EN": "Clear the entire grid : "},
     { "id" :  "modifyGridFromModel", "FR": "Attention vous allez remplacer votre grille actuel par le model, êtes vous sûr?", "EN": "Attention you will replace your current grid by the model, are you sure?"}
