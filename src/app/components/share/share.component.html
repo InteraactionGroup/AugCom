@@ -31,6 +31,18 @@
 
     <div class="export listElement">
       <label>
+        {{this.multilinguism.translate("exportPage") + ":"}}
+      </label>
+      <select (change)="exportPage()" class="selectBox" [(ngModel)]="pageIDToExport"
+              [ngModelOptions]="{standalone: true}">
+        <ng-container *ngFor="let p of this.boardService.board.PageList">
+          <option value="{{p.ID}}"> {{p.ID}} </option>
+        </ng-container>
+      </select>
+    </div>
+
+    <div class="export listElement">
+      <label>
         {{this.multilinguism.translate("exportSave") + ":"}}
       </label>
       <input (click)="export()" type="button" value="Export">

@@ -9,7 +9,7 @@ import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {SpeakForYourselfParser} from '../../services/speakForYourselfParser';
 import {HttpClient} from '@angular/common/http';
 import {Ng2ImgMaxService} from 'ng2-img-max';
-import {FolderGoTo, GridElement} from '../../types';
+import {FolderGoTo, Grid, GridElement, Image, Page} from '../../types';
 import {ProloquoParser} from '../../services/proloquoParser';
 import {JsonValidatorService} from '../../services/json-validator.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
@@ -41,6 +41,8 @@ export class ShareComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  pageIDToExport:string;
 
   /*open a new tab and display the grid in a "ready to print" format*/
   printToPDF() {
@@ -289,4 +291,33 @@ export class ShareComponent implements OnInit {
     });
   }
 
+  exportPage() {
+    console.log('pageIDToExport : ',this.pageIDToExport);
+    const pageToExport:Page = this.boardService.board.PageList.find((page)=>{ return page.ID === this.pageIDToExport});
+    let gridElementOfPage:GridElement[] = [];
+    let imageListOfPage:Image[] = [];
+    pageToExport.ElementIDsList.forEach((gridElem) => {
+      const foundElem = this.boardService.board.ElementList.find((elem) =>{
+        return gridElem === elem.ID;
+      });
+      if(foundElem !== undefined){
+        gridElementOfPage.push(foundElem);
+      }
+      const imageFound:Image = this.boardService.board.ImageList.find((image) =>{
+        return gridElem === image.ID;
+      });
+      if(foundElem !== undefined){
+        imageListOfPage.push(imageFound);
+      }
+    });
+    pageToExport.ID = '#HOME';
+    try {
+      const exportedGrid:Grid = new Grid('exportedPage', 'Grid', pageToExport.NumberOfCols, pageToExport.NumberOfRows, gridElementOfPage, imageListOfPage, [pageToExport]);
+      this.downloadFile(JSON.stringify(exportedGrid));
+    }
+    catch (e) {
+      const exportedGrid:Grid = new Grid('exportedPage', 'Grid', 10, 10, gridElementOfPage, imageListOfPage, [pageToExport]);
+      this.downloadFile(JSON.stringify(exportedGrid));
+    }
+  }
 }
