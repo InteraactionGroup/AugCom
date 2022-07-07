@@ -9,7 +9,7 @@ import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {SpeakForYourselfParser} from '../../services/speakForYourselfParser';
 import {HttpClient} from '@angular/common/http';
 import {Ng2ImgMaxService} from 'ng2-img-max';
-import {FolderGoTo, GridElement} from '../../types';
+import {FolderGoTo, Grid, GridElement, Image, Page} from '../../types';
 import {ProloquoParser} from '../../services/proloquoParser';
 import {JsonValidatorService} from '../../services/json-validator.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
@@ -41,6 +41,12 @@ export class ShareComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  pageIDToExport:string;
+  pageToExportList:Page[] = [];
+  pageToExport:Page;
+  gridElementOfPage:GridElement[] = [];
+  imageListOfPage:Image[] = [];
 
   /*open a new tab and display the grid in a "ready to print" format*/
   printToPDF() {
@@ -289,4 +295,61 @@ export class ShareComponent implements OnInit {
     });
   }
 
+  exportPage() {
+    this.exportThisPageOnly();
+    this.pageToExport.ID = '#HOME';
+    this.pageToExportList.push(this.pageToExport);
+    let exportedGrid:Grid;
+    try {
+      exportedGrid = new Grid('exportedPage', 'Grid', Number(this.pageToExport.NumberOfCols), Number(this.pageToExport.NumberOfRows), this.gridElementOfPage, this.imageListOfPage, [this.pageToExport]);
+    }
+    catch (e) {
+      exportedGrid = new Grid('exportedPage', 'Grid', 10, 10, this.gridElementOfPage, this.imageListOfPage, this.pageToExportList);
+    }
+    this.downloadFile(JSON.stringify(exportedGrid));
+  }
+
+  exportPageWithSubset(){
+    this.exportThisPageOnly();
+    this.pageToExport.ID = '#HOME';
+    const newPageHomeCol:number = this.pageToExport.NumberOfCols;
+    const newPageHomeRow:number = this.pageToExport.NumberOfRows;
+    this.pageToExportList.push(this.pageToExport);
+    this.gridElementOfPage.forEach((gridElem)=>{
+      this.boardService.board.PageList.forEach((page)=>{
+        if ((gridElem.Type as FolderGoTo).GoTo === page.ID) {
+          console.log('(gridElem.Type as FolderGoTo).GoTo : ',(gridElem.Type as FolderGoTo).GoTo);
+          this.pageIDToExport = page.ID;
+          this.exportThisPageOnly();
+          this.pageToExportList.push(this.pageToExport);
+        }
+      });
+    });
+    let exportedGrid:Grid;
+    if(newPageHomeRow !== undefined && newPageHomeCol!== undefined){
+      exportedGrid = new Grid('exportedPage', 'Grid', newPageHomeCol, newPageHomeRow, this.gridElementOfPage, this.imageListOfPage, this.pageToExportList);
+    }
+    else {
+      exportedGrid = new Grid('exportedPage', 'Grid', this.boardService.board.NumberOfCols, this.boardService.board.NumberOfRows, this.gridElementOfPage, this.imageListOfPage, this.pageToExportList);
+    }
+    this.downloadFile(JSON.stringify(exportedGrid));
+  }
+
+  exportThisPageOnly(){
+    this.pageToExport = this.boardService.board.PageList.find((page)=>{ return page.ID === this.pageIDToExport});
+    this.pageToExport.ElementIDsList.forEach((gridElem) => {
+      const foundElem = this.boardService.board.ElementList.find((elem) =>{
+        return gridElem === elem.ID;
+      });
+      if(foundElem !== undefined){
+        this.gridElementOfPage.push(foundElem);
+      }
+      const imageFound:Image = this.boardService.board.ImageList.find((image) =>{
+        return gridElem === image.ID;
+      });
+      if(foundElem !== undefined){
+        this.imageListOfPage.push(imageFound);
+      }
+    });
+  }
 }
