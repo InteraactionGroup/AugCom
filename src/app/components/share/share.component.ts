@@ -297,13 +297,13 @@ export class ShareComponent implements OnInit {
 
   exportPage() {
     this.exportThisPageOnly();
-    this.pageToExport.ID = '#HOME';
+    // this.pageToExport.ID = '#HOME';
     this.pageToExportList.push(this.pageToExport);
     let exportedGrid:Grid;
-    try {
+    if(this.pageToExport.NumberOfRows !== undefined && this.pageToExport.NumberOfCols!== undefined){
       exportedGrid = new Grid('exportedPage', 'Grid', Number(this.pageToExport.NumberOfCols), Number(this.pageToExport.NumberOfRows), this.gridElementOfPage, this.imageListOfPage, [this.pageToExport]);
     }
-    catch (e) {
+    else {
       exportedGrid = new Grid('exportedPage', 'Grid', 10, 10, this.gridElementOfPage, this.imageListOfPage, this.pageToExportList);
     }
     this.downloadFile(JSON.stringify(exportedGrid));
@@ -351,5 +351,43 @@ export class ShareComponent implements OnInit {
         this.imageListOfPage.push(imageFound);
       }
     });
+  }
+
+  importPages(zip) {
+    let importedGrid:Grid = new Grid('newGrid', 'Grid', 0, 0, [], [], []);
+    const zipFolder: JSZip = new JSZip();
+    let tempBoard;
+    zipFolder.loadAsync(zip[0]).then((zipFiles) => {
+      zipFiles.forEach((fileName) => {
+        zipFolder
+          .file(fileName)
+          .async('base64')
+          .then((content) => {
+              tempBoard = JSON.parse(this.b64DecodeUnicode(content));
+              tempBoard.ElementList.forEach(element => {
+                this.checkAndUpdateElementDefaultForm(element);
+              });
+              importedGrid = this.jsonValidator.getCheckedGrid(tempBoard);
+            }
+          );
+      });
+    });
+    setTimeout( () => {
+      this.importPageToCurrentGrid(importedGrid);
+    },200);
+  }
+
+  importPageToCurrentGrid(importedGrid:Grid){
+    importedGrid.ElementList.forEach((gridElem)=>{
+      this.boardService.board.ElementList.push(gridElem);
+    });
+    importedGrid.PageList.forEach((page) => {
+      this.boardService.board.PageList.push(page);
+    });
+    importedGrid.ImageList.forEach((image) => {
+      this.boardService.board.ImageList.push(image);
+    })
+    this.indexedDBacess.update();
+    this.router.navigate(['keyboard']);
   }
 }

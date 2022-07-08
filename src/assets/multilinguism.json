@@ -288,6 +288,7 @@
     { "id" :  "clearAllTheGrid", "FR": "Videz toute la grille : ", "EN": "Clear the entire grid : "},
     { "id" :  "modifyGridFromModel", "FR": "Attention vous allez remplacer votre grille actuel par le model, êtes vous sûr?", "EN": "Attention you will replace your current grid by the model, are you sure?"},
     { "id" :  "exportPage", "FR": "Exporter une page", "EN": "Export a page"},
-    { "id" :  "exportPageAndItsSubset", "FR": "Exporter une page et ses sous-ensembles", "EN": "Export a page and its subsets"}
+    { "id" :  "exportPageAndItsSubset", "FR": "Exporter une page et ses sous-ensembles", "EN": "Export a page and its subsets"},
+    { "id" :  "importPages", "FR": "Importer une ou plusieurs page", "EN": "Import one or many pages"}
   ]
 }
