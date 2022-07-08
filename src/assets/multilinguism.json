@@ -75,7 +75,7 @@
     { "id" : "continue" , "FR" : "Voulez vous continuer ?", "EN" : "Continue ?" },
     { "id" : "noCancel" , "FR" : "non, annuler", "EN" : "no, cancel" },
     { "id" : "No" , "FR" : "Non", "EN" : "No" },
-    { "id" : "Cancel" , "FR" : "(Annuler)", "EN" : "(Cancel)" },
+    { "id" : "Cancel" , "FR" : "Annuler", "EN" : "Cancel" },
     { "id" : "yesDelete" , "FR" : "oui, supprimer", "EN" : "yes, delete" },
     { "id" : "Yes" , "FR" : "Oui", "EN" : "Yes" },
     { "id" : "Delete" , "FR" : "(Supprimer)", "EN" : "(Delete)" },
@@ -289,6 +289,7 @@
     { "id" :  "modifyGridFromModel", "FR": "Attention vous allez remplacer votre grille actuel par le model, êtes vous sûr?", "EN": "Attention you will replace your current grid by the model, are you sure?"},
     { "id" :  "exportPage", "FR": "Exporter une page", "EN": "Export a page"},
     { "id" :  "exportPageAndItsSubset", "FR": "Exporter une page et ses sous-ensembles", "EN": "Export a page and its subsets"},
-    { "id" :  "importPages", "FR": "Importer une ou plusieurs page", "EN": "Import one or many pages"}
+    { "id" :  "importPages", "FR": "Importer une ou plusieurs page", "EN": "Import one or many pages"},
+    { "id" :  "ExportSelectedPages", "FR": "Exporter les pages sélectionnées", "EN": "Export selected pages"}
   ]
 }

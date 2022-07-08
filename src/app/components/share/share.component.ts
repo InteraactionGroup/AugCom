@@ -16,6 +16,7 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 import {MatDialog} from "@angular/material/dialog";
 import {ExportSaveDialogComponent} from "../export-save-dialog/export-save-dialog.component";
 import {ExportManagerService} from "../../services/export-manager.service";
+import {DialogExportPagesComponent} from "../dialog-export-pages/dialog-export-pages.component";
 
 @Component({
   selector: 'app-share',
@@ -297,7 +298,6 @@ export class ShareComponent implements OnInit {
 
   exportPage() {
     this.exportThisPageOnly();
-    // this.pageToExport.ID = '#HOME';
     this.pageToExportList.push(this.pageToExport);
     let exportedGrid:Grid;
     if(this.pageToExport.NumberOfRows !== undefined && this.pageToExport.NumberOfCols!== undefined){
@@ -389,5 +389,12 @@ export class ShareComponent implements OnInit {
     })
     this.indexedDBacess.update();
     this.router.navigate(['keyboard']);
+  }
+
+  openDialogExportPages() {
+    this.dialog.open(DialogExportPagesComponent, {
+      height: '40%',
+      width: '40%'
+    });
   }
 }

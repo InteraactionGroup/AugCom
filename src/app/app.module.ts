@@ -82,6 +82,7 @@ import { DialogResetSettingsComponent } from './components/dialog-reset-settings
 import {LifeCompanion2augComponent} from "./components/life-companion2aug/life-companion2aug.component";
 import { ModelGridComponent } from './components/model-grid/model-grid.component';
 import { DialogModelGridComponent } from './components/dialog-model-grid/dialog-model-grid.component';
+import { DialogExportPagesComponent } from './components/dialog-export-pages/dialog-export-pages.component';
 
 @NgModule({
   declarations: [
@@ -146,7 +147,8 @@ import { DialogModelGridComponent } from './components/dialog-model-grid/dialog-
     DialogResetSettingsComponent,
     LifeCompanion2augComponent,
     ModelGridComponent,
-    DialogModelGridComponent
+    DialogModelGridComponent,
+    DialogExportPagesComponent
   ],
   imports: [
     BrowserModule,

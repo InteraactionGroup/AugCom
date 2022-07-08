@@ -37,15 +37,13 @@
     <!--          </div>-->
 
     <div class="export listElement">
-      <label>
-        {{this.multilinguism.translate("exportPage") + ":"}}
-      </label>
-      <select (change)="exportPage()" class="selectBox" [(ngModel)]="pageIDToExport"
+      <button mat-raised-button (click)="openDialogExportPages()">{{this.multilinguism.translate("exportPage")}}</button>
+      <!--<select (change)="exportPage()" class="selectBox" [(ngModel)]="pageIDToExport"
               [ngModelOptions]="{standalone: true}">
         <ng-container *ngFor="let p of this.boardService.board.PageList">
           <option value="{{p.ID}}"> {{p.ID}} </option>
         </ng-container>
-      </select>
+      </select>-->
     </div>
 
     <div class="export listElement">
