@@ -53,7 +53,7 @@ describe('ShareComponent', () => {
   it('should create the 7 different options components', () => {
     const compiled = fixture.debugElement.nativeElement;
     const allListElements = compiled.querySelectorAll('.listElement');
-    expect(allListElements.length).toEqual(7/*6*/);
+    expect(allListElements.length).toEqual(8/*6*/);
     expect(allListElements[0].textContent).toContain(component.multilinguism.translate('importSave'));
     expect(allListElements[1].textContent).toContain(component.multilinguism.translate('import save from snap core first'));
     expect(allListElements[2].textContent).toContain(component.multilinguism.translate('import save from life companion'));

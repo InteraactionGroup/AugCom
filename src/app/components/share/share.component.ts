@@ -282,18 +282,7 @@ export class ShareComponent implements OnInit {
    * download a JSON file 'save.json' containing the json version of the board
    */
   export() {
-    this.downloadFile(JSON.stringify(this.boardService.board));
-  }
-
-  /**
-   * download a file save.json containing the the string 'data'
-   * @param data, the string text that have to be saved
-   */
-  downloadFile(data: string) {
-    this.exportManagerService.prepareExport(data);
-    this.dialog.open(ExportSaveDialogComponent, {
-      width: '600px'
-    });
+    this.exportManagerService.downloadFile(JSON.stringify(this.boardService.board));
   }
 
   exportPage() {
@@ -306,7 +295,7 @@ export class ShareComponent implements OnInit {
     else {
       exportedGrid = new Grid('exportedPage', 'Grid', 10, 10, this.gridElementOfPage, this.imageListOfPage, this.pageToExportList);
     }
-    this.downloadFile(JSON.stringify(exportedGrid));
+    this.exportManagerService.downloadFile(JSON.stringify(exportedGrid));
   }
 
   exportPageWithSubset(){
@@ -332,7 +321,7 @@ export class ShareComponent implements OnInit {
     else {
       exportedGrid = new Grid('exportedPage', 'Grid', this.boardService.board.NumberOfCols, this.boardService.board.NumberOfRows, this.gridElementOfPage, this.imageListOfPage, this.pageToExportList);
     }
-    this.downloadFile(JSON.stringify(exportedGrid));
+    this.exportManagerService.downloadFile(JSON.stringify(exportedGrid));
   }
 
   exportThisPageOnly(){
