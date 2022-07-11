@@ -44,7 +44,14 @@ export class DialogExportPagesComponent implements OnInit {
     else {
       exportedGrid = new Grid('exportedPage', 'Grid', 10, 10, this.gridElementOfPage, this.imageListOfPage, this.pageToExportList);
     }
-    this.exportManagerService.downloadFile(JSON.stringify(exportedGrid));
+    this.downloadFile(JSON.stringify(exportedGrid));
+  }
+
+  downloadFile(data: string) {
+    this.exportManagerService.prepareExport(data);
+    this.dialog.open(ExportSaveDialogComponent, {
+      width: '600px'
+    });
   }
 
   exportThisPageOnly(){

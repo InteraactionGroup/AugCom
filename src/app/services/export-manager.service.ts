@@ -10,18 +10,11 @@ export class ExportManagerService {
 
   data;
 
-  constructor(public dialog: MatDialog) {
+  constructor() {
   }
 
   prepareExport(data: String) {
     this.data = data;
-  }
-
-  downloadFile(data: string) {
-    this.prepareExport(data);
-    this.dialog.open(ExportSaveDialogComponent, {
-      width: '600px'
-    });
   }
 
 }

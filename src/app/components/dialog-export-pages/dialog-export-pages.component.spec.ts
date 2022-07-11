@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DialogExportPagesComponent } from './dialog-export-pages.component';
+import {Ng2ImgMaxModule} from "ng2-img-max";
+import {RouterTestingModule} from "@angular/router/testing";
+import {MatDialogModule} from "@angular/material/dialog";
 
 describe('DialogExportPagesComponent', () => {
   let component: DialogExportPagesComponent;
@@ -8,7 +11,8 @@ describe('DialogExportPagesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DialogExportPagesComponent ]
+      declarations: [ DialogExportPagesComponent ],
+      imports: [Ng2ImgMaxModule, RouterTestingModule, MatDialogModule]
     })
     .compileComponents();
   }));
