@@ -10,6 +10,13 @@
 
     <div class="import listElement">
       <label>
+        {{this.multilinguism.translate("importPages") + ":"}}
+      </label>
+      <input #files (change)="importPages(files.files)" accept=".augcom" onclick="this.value=null" type="file">
+    </div>
+
+    <div class="import listElement">
+      <label>
         {{this.multilinguism.translate("import save from snap core first") + ":"}}
       </label>
       <app-spb2aug></app-spb2aug>
@@ -30,15 +37,7 @@
     <!--          </div>-->
 
     <div class="export listElement">
-      <label>
-        {{this.multilinguism.translate("exportPage") + ":"}}
-      </label>
-      <select (change)="exportPage()" class="selectBox" [(ngModel)]="pageIDToExport"
-              [ngModelOptions]="{standalone: true}">
-        <ng-container *ngFor="let p of this.boardService.board.PageList">
-          <option value="{{p.ID}}"> {{p.ID}} </option>
-        </ng-container>
-      </select>
+      <button mat-raised-button (click)="openDialogExportPages()">{{this.multilinguism.translate("exportPage")}}</button>
     </div>
 
     <div class="export listElement">

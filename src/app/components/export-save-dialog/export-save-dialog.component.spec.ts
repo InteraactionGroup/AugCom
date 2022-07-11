@@ -1,6 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ExportSaveDialogComponent} from './export-save-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 describe('ExportSaveDialogComponent', () => {
   let component: ExportSaveDialogComponent;
@@ -8,7 +9,8 @@ describe('ExportSaveDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ExportSaveDialogComponent]
+      declarations: [ExportSaveDialogComponent],
+      imports: [MatDialogModule]
     })
       .compileComponents();
   }));
