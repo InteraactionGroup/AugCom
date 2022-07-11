@@ -10,9 +10,13 @@ Run `ng serve` or `ng s` for a dev server. Navigate to `http://localhost:4200/`.
 
 Run `ng generate component component-name` or `ng g c component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
+## Install
+
+Use the command -> npm install ---legacy-peer-deps to install all packages from package.json
+
 ## Build
 
-Use the commande -> ng build --prod --output-path dist/prod --base-href /stable/
+Use the command -> ng build --prod --output-path dist/prod --base-href /stable/
 
 ## Running unit tests
 
