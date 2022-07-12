@@ -16,6 +16,7 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 import {MatDialog} from "@angular/material/dialog";
 import {ExportSaveDialogComponent} from "../export-save-dialog/export-save-dialog.component";
 import {ExportManagerService} from "../../services/export-manager.service";
+import {LayoutService} from "../../services/layout.service";
 import {DialogExportPagesComponent} from "../dialog-export-pages/dialog-export-pages.component";
 
 @Component({
@@ -36,6 +37,7 @@ export class ShareComponent implements OnInit {
     public proloquoParser: ProloquoParser,
     public jsonValidator: JsonValidatorService,
     public multilinguism: MultilinguismService,
+    public layoutService: LayoutService,
     public exportManagerService: ExportManagerService,
     public dialog: MatDialog) {
   }
@@ -156,14 +158,18 @@ export class ShareComponent implements OnInit {
         zipFolder
           .file(fileName)
           .async('base64')
-          .then((content) => {
+          .then(async (content) => {
               tempBoard = JSON.parse(this.b64DecodeUnicode(content));
               tempBoard.ElementList.forEach(element => {
                 this.checkAndUpdateElementDefaultForm(element);
               });
               this.boardService.board = this.jsonValidator.getCheckedGrid(tempBoard);
+              this.layoutService.refreshAll(this.boardService.board.NumberOfCols, this.boardService.board.NumberOfRows, this.boardService.board.GapSize);
+              this.boardService.updateElementList();
+              this.boardService.backHome();
+              console.log(this.boardService.board);
               this.indexedDBacess.update();
-              this.router.navigate(['keyboard']);
+              await this.router.navigate(['keyboard']);
             }
           );
       });
