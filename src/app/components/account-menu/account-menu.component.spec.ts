@@ -102,7 +102,7 @@ describe('AccountMenuComponent', () => {
     compiled.querySelectorAll('.title')[1].click(); // Pictogram-style
     fixture.detectChanges();
     expect(component.selectedNewMenu).toEqual("Grids");
-    expect(component.selectedSection).toEqual("DeletePage");
+    expect(component.selectedSection).toEqual("GridManagement");
     expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled, 'app-grid-format-management');
   });
 

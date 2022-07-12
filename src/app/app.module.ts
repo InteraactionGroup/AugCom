@@ -80,6 +80,9 @@ import {DialogLinkInteraactionboxComponent} from './components/dialog-link-inter
 import {LoadingUserComponent} from './components/loading-user/loading-user.component';
 import { DialogResetSettingsComponent } from './components/dialog-reset-settings/dialog-reset-settings.component';
 import {LifeCompanion2augComponent} from "./components/life-companion2aug/life-companion2aug.component";
+import { ModelGridComponent } from './components/model-grid/model-grid.component';
+import { DialogModelGridComponent } from './components/dialog-model-grid/dialog-model-grid.component';
+import { DialogExportPagesComponent } from './components/dialog-export-pages/dialog-export-pages.component';
 
 @NgModule({
   declarations: [
@@ -142,7 +145,10 @@ import {LifeCompanion2augComponent} from "./components/life-companion2aug/life-c
     DialogLinkInteraactionboxComponent,
     LoadingUserComponent,
     DialogResetSettingsComponent,
-    LifeCompanion2augComponent
+    LifeCompanion2augComponent,
+    ModelGridComponent,
+    DialogModelGridComponent,
+    DialogExportPagesComponent
   ],
   imports: [
     BrowserModule,
