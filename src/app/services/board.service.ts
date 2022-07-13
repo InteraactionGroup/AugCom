@@ -339,8 +339,10 @@ export class BoardService {
   }
 
   updateElementList() {
-    this.elementList = this.getTempList();
     this.layoutService.refreshAll(this.getNumberOfCols(), this.getNumberOfRows(), this.getGapSize());
+    setTimeout(() => {
+      this.elementList = this.getTempList();
+    },500);
   }
 
   /**
