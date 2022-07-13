@@ -100,15 +100,18 @@ export class KeyboardComponent implements OnInit{
    */
   ngOnInit() {
     this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
-    this.boardService.updateElementList();
-    this.refresh();
+    this.refresh().then(r => {
+      this.delay(5000).then(r => {this.boardService.updateElementList()});
+    });
   }
 
     public async refresh() {
-      await this.delay(500);
+      //await this.delay(500);
       this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
-      await this.delay(1000);
+      await this.delay(100);
       this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
+      await this.delay(5000);
+      this.boardService.updateElementList();
     }
 
   delay(ms: number) {
@@ -169,7 +172,7 @@ export class KeyboardComponent implements OnInit{
     this.boardService.currentNounTerminaison.currentNumber = (num != null && num !== undefined) ? num.number : '';
   }
 
-  action(element: GridElement, interaction: string) {
+  async action(element: GridElement, interaction: string) {
     if (
       element.Type !== 'empty' &&
       !(
@@ -254,6 +257,8 @@ export class KeyboardComponent implements OnInit{
             '.' +
             (element.Type as FolderGoTo).GoTo;
         }
+        this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
+        await this.delay(500);
         this.boardService.updateElementList();
         // for errors
       } else {
