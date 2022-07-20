@@ -263,6 +263,7 @@ export class ProloquoParser {
 
   setUpNewGrid(tempElement, tempPage): Grid {
     return {
+      author: "", creationDate: "", modificationDate: "", software: "AugCom",
       BackgroundColor: 'default',
       ID: 'ProloquoGrid',
       Type: 'Grid',

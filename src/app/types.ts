@@ -3,6 +3,10 @@
  */
 
 export class Grid {
+  author:string = 'someone';
+  software:string = 'AugCom';
+  creationDate:string;
+  modificationDate:string;
   ID: string;
   Type: 'Grid';
   NumberOfCols: number;
@@ -14,6 +18,8 @@ export class Grid {
   PageList: Page[];
 
   BackgroundColor: string;
+
+
 
   constructor(gridId, gridType, gridCol, gridRow, elemList, imageList, pageList) {
     this.ID = gridId;

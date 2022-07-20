@@ -3,6 +3,10 @@
   "$id": "http://lig-augcom.imag.fr/stable/#/schemas/saveSchema.json",
   "type": "object",
   "properties": {
+    "author": {"type": "string"},
+    "software": {"type": "string"},
+    "creationDate": {"type": "string"},
+    "modificationDate": {"type": "string"},
     "ID": { "type": "string" },
     "Type": { "type": "string" ,
       "enum": ["Grid"]

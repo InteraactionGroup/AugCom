@@ -44,6 +44,7 @@ export class Spb2augComponent implements OnInit {
 
   ngOnInit(): void {
     this.newGrid = new Grid('newGrid', 'Grid', 0, 0, [], [], []);
+    this.newGrid.software = 'Snap Core first'
     this.page = new Page();
     this.page.ID = '#HOME';
     this.page.Name = 'Accueil';

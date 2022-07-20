@@ -52,6 +52,7 @@ export class LifeCompanion2augComponent implements OnInit {
     this.isKeyListExist = false;
     let LCConfiguration:any;
     let keyList:any;
+    let metadata:any;
     const options = { // set up the default options
       textKey: 'text', // tag name for text nodes
       attrKey: 'attr', // tag for attr groups
@@ -92,18 +93,24 @@ export class LifeCompanion2augComponent implements OnInit {
           });
           this.isKeyListExist = true;
         }
+        if(filename === 'lifecompanion-configuration-description.xml'){
+          zip.files[filename].async('string').then((fileData) => {
+            metadata = fileData;
+          });
+        }
       });
     });
     //give time to read the file
     setTimeout(()=> {
       LCConfiguration = this.ngxXmlToJsonService.xmlToJson(LCConfiguration, options);
       keyList = this.ngxXmlToJsonService.xmlToJson(keyList, options);
+      metadata = this.ngxXmlToJsonService.xmlToJson(metadata, options);
       // at this line the file is convert to Json, now we need to read in and extract the grid, elements to do the new grid
-      this.jsonToGrid(LCConfiguration, keyList);
+      this.jsonToGrid(LCConfiguration, keyList, metadata);
     },2000);
   }
 
-  private jsonToGrid(LCConfiguration: any, keyList: any) {
+  private jsonToGrid(LCConfiguration: any, keyList: any, metadata: any) {
     //console.log('LCConfiguration', LCConfiguration);
     //console.log('keylist', keyList);
     try{
@@ -112,7 +119,7 @@ export class LifeCompanion2augComponent implements OnInit {
       this.accessStackGrid = LCConfiguration.Component.Components.Component.StackGrid.Component;
     }
     //console.log('zone utile LCConfiguration : ', this.accessStackGrid);
-    this.newGrid();
+    this.newGrid(metadata);
     this.setPageHome();
     this.setPages();
     if(this.isKeyListExist){
@@ -135,8 +142,19 @@ export class LifeCompanion2augComponent implements OnInit {
   }
 
   // get grid information from fileJson and set it in the new grid
-  private newGrid() {
+  private newGrid(metadata:any) {
     this.grid = new Grid('importedGrid','Grid',6,6,[],[],[]);
+    let date:Date;
+    const lastDate:Date = new Date(parseInt(metadata.ConfigurationDescription.attr.lastDate));
+    try{
+      date = new Date(parseInt(metadata.ConfigurationDescription.ChangelogEntries.attr.when));
+    }catch (e) {
+      date = lastDate;
+    }
+    this.grid.creationDate = date.getDate().toString() + '/' + (date.getMonth() + 1).toString() + '/'+ date.getFullYear().toString();
+    this.grid.modificationDate = lastDate.getDate().toString() + '/' + (lastDate.getMonth() + 1).toString() + '/'+ lastDate.getFullYear().toString();
+    this.grid.author = metadata.ConfigurationDescription.attr.configurationAuthor;
+    this.grid.software = 'LifeCompanion';
     this.grid.GapSize = 5;
   }
 
