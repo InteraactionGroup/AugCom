@@ -44,6 +44,7 @@ export class Spb2augComponent implements OnInit {
 
   ngOnInit(): void {
     this.newGrid = new Grid('newGrid', 'Grid', 0, 0, [], [], []);
+    this.newGrid.software = 'Snap Core first'
     this.page = new Page();
     this.page.ID = '#HOME';
     this.page.Name = 'Accueil';
@@ -61,6 +62,9 @@ export class Spb2augComponent implements OnInit {
   convert(file) {
     this.newGrid.ID = 'newGrid';
     this.newGrid.GapSize = 5;
+    const date:Date = new Date();
+    this.newGrid.modificationDate = date.getDate().toString() + '/' + (date.getMonth() + 1).toString() + '/'+ date.getFullYear().toString();
+    this.newGrid.creationDate = date.getDate().toString() + '/' + (date.getMonth() + 1).toString() + '/'+ date.getFullYear().toString();
     const myFile = file[0];
     const fileReader = new FileReader();
     fileReader.onload = (e) => {

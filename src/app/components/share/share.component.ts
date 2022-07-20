@@ -288,6 +288,14 @@ export class ShareComponent implements OnInit {
    * download a JSON file 'save.json' containing the json version of the board
    */
   export() {
+    const now:Date = new Date();
+    if(this.boardService.board.software == undefined){
+      this.boardService.board.software = "AugCom";
+    }
+    if(this.boardService.board.creationDate == undefined){
+      this.boardService.board.creationDate = now.getDate().toString() + '/' + (now.getMonth() + 1).toString() + '/'+ now.getFullYear().toString();
+    }
+    this.boardService.board.modificationDate = now.getDate().toString() + '/' + (now.getMonth() + 1).toString() + '/'+ now.getFullYear().toString();
     this.downloadFile(JSON.stringify(this.boardService.board));
   }
 

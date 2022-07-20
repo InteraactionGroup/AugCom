@@ -290,6 +290,9 @@
     { "id" :  "exportPage", "FR": "Exporter une ou plusieurs pages", "EN": "Export one or more pages"},
     { "id" :  "exportPageAndItsSubset", "FR": "Exporter une page et ses sous-ensembles", "EN": "Export a page and its subsets"},
     { "id" :  "importPages", "FR": "Importer une ou plusieurs page", "EN": "Import one or many pages"},
-    { "id" :  "ExportSelectedPages", "FR": "Exporter les pages sélectionnées", "EN": "Export selected pages"}
+    { "id" :  "ExportSelectedPages", "FR": "Exporter les pages sélectionnées", "EN": "Export selected pages"},
+    { "id" :  "EnterNameOfTheSave", "FR": "Entrer le nom de la sauvegarde", "EN": "Enter name of the save"},
+    { "id" :  "EnterNameOfTheAuthor", "FR": "Enter name of the author", "EN": "Enter name of the author"},
+    { "id" :  "author", "FR": "auteur", "EN": "author"}
   ]
 }

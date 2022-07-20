@@ -20,7 +20,7 @@ export class JsonValidatorService {
       console.log('ERROR WHEN PARSING THE GRID:');
       console.log(validate.errors);
       console.log('DEFAULT GRID USED INSTEAD');
-      return defaultGrid as Grid;
+      return defaultGrid as unknown as Grid;
     } else {
       // console.log("PARSING SUCCESSFUL");
       return dataToValidate as Grid;
