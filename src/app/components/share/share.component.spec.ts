@@ -8,10 +8,13 @@ import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {Router} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {MatDialogModule} from "@angular/material/dialog";
+import LifecompSaveJson from '../../../assets/fileForTest/lifecomp.augcom';
+import {BoardService} from "../../services/board.service";
 
 describe('ShareComponent', () => {
   let component: ShareComponent;
   let fixture: ComponentFixture<ShareComponent>;
+  let boardService: jasmine.SpyObj<BoardService>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -38,22 +41,10 @@ describe('ShareComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('should create the 5 different options components', () => {
-  //   const compiled = fixture.debugElement.nativeElement;
-  //   const allListElements = compiled.querySelectorAll('.listElement');
-  //   expect(allListElements.length).toEqual(3/*6*/);
-  //   expect(allListElements[0].textContent).toContain(component.multilinguism.translate('importSave'));
-  //   expect(allListElements[1].textContent).toContain(component.multilinguism.translate('importZip'));
-  //   expect(allListElements[2].textContent).toContain(component.multilinguism.translate('exportSave'));
-  //   expect(allListElements[3].textContent).toContain(component.multilinguism.translate('exportPDF'));
-  //   expect(allListElements[4].textContent).toContain(component.multilinguism.translate('importS4Y'));
-  //   expect(allListElements[5].textContent).toContain(component.multilinguism.translate('importProloquo'));
-  // });
-
   it('should create the 8 different options components', () => {
     const compiled = fixture.debugElement.nativeElement;
     const allListElements = compiled.querySelectorAll('.listElement');
-    expect(allListElements.length).toEqual(8/*6*/);
+    expect(allListElements.length).toEqual(8);
     expect(allListElements[0].textContent).toContain(component.multilinguism.translate('importSave'));
     expect(allListElements[1].textContent).toContain(component.multilinguism.translate('importPages'));
     expect(allListElements[2].textContent).toContain(component.multilinguism.translate('import save from snap core first'));
@@ -64,4 +55,9 @@ describe('ShareComponent', () => {
     expect(allListElements[7].textContent).toContain(component.multilinguism.translate('exportPDF'));
   });
 
+  it('import a save', () => {
+    const file = LifecompSaveJson;
+    component.exploreAugcomZip(file);
+    expect(boardService.board.software == '');
+  });
 });
