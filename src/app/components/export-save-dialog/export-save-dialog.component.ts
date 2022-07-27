@@ -14,6 +14,9 @@ export class ExportSaveDialogComponent implements OnInit {
 
   name: String = "save";
   author:string = this.boardservice.board.author != undefined? this.boardservice.board.author : "";
+  owner:string = "someone";
+  translators:string[] = [];
+  licence:string = ""
 
   constructor(public  exportManagerService: ExportManagerService,
               public multilinguism: MultilinguismService,
