@@ -30,6 +30,7 @@ export class ShareComponent implements OnInit {
     public speakForYourselfParser: SpeakForYourselfParser,
     public indexedDBacess: IndexeddbaccessService,
     public printService: PrintService,
+    public http: HttpClient,
     public router: Router,
     public getIconService: GeticonService,
     public boardService: BoardService,

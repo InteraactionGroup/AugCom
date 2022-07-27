@@ -3,18 +3,15 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {ShareComponent} from './share.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HttpHeaders} from '@angular/common/http';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {Router} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {MatDialogModule} from "@angular/material/dialog";
-import LifecompSaveJson from '../../../assets/fileForTest/lifecomp.augcom';
-import {BoardService} from "../../services/board.service";
 
 describe('ShareComponent', () => {
   let component: ShareComponent;
   let fixture: ComponentFixture<ShareComponent>;
-  let boardService: jasmine.SpyObj<BoardService>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -37,9 +34,35 @@ describe('ShareComponent', () => {
     component.indexedDBacess.loadUsersList();
   });
 
+  it('import a save', () => {
+    //const headers = new HttpHeaders().set('content-type', 'application/zip');
+    var data = component.http.get("../../../assets/fileForTest/lifecomp.augcom",{responseType: 'arraybuffer'}).toPromise();
+    var blobData = new Blob([JSON.stringify(data)],{type: 'application/zip'});
+
+    const reader = new FileReader();
+    reader.readAsText(blobData, 'UTF-8');
+    reader.onload = () => {
+      component.exploreAugcomZip(reader.result);
+      expect(component.boardService.board.software).toEqual('LifeCompanion');
+    };
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // it('should create the 5 different options components', () => {
+  //   const compiled = fixture.debugElement.nativeElement;
+  //   const allListElements = compiled.querySelectorAll('.listElement');
+  //   expect(allListElements.length).toEqual(3/*6*/);
+  //   expect(allListElements[0].textContent).toContain(component.multilinguism.translate('importSave'));
+  //   expect(allListElements[1].textContent).toContain(component.multilinguism.translate('importZip'));
+  //   expect(allListElements[2].textContent).toContain(component.multilinguism.translate('exportSave'));
+  //   expect(allListElements[3].textContent).toContain(component.multilinguism.translate('exportPDF'));
+  //   expect(allListElements[4].textContent).toContain(component.multilinguism.translate('importS4Y'));
+  //   expect(allListElements[5].textContent).toContain(component.multilinguism.translate('importProloquo'));
+  // });
+
 
   it('should create the 8 different options components', () => {
     const compiled = fixture.debugElement.nativeElement;
@@ -53,11 +76,5 @@ describe('ShareComponent', () => {
     expect(allListElements[5].textContent).toContain(component.multilinguism.translate('exportPageAndItsSubset'));
     expect(allListElements[6].textContent).toContain(component.multilinguism.translate('exportSave'));
     expect(allListElements[7].textContent).toContain(component.multilinguism.translate('exportPDF'));
-  });
-
-  it('import a save', () => {
-    const file = LifecompSaveJson;
-    component.exploreAugcomZip(file);
-    expect(boardService.board.software == '');
   });
 });
