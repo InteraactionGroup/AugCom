@@ -1,8 +1,11 @@
 {
   "author": "Didier",
-  "software":"AugCom",
   "creationDate":"18/06/2022",
   "modificationDate": "18/06/2022",
+  "software":"AugCom",
+  "libraryUsed": [],
+  "licence":"no copyright",
+  "owner":"Didier",
   "ID": "gridExample",
   "Type": "Grid",
   "NumberOfCols": 5,

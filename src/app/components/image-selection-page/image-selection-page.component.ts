@@ -14,6 +14,7 @@ import {DialogAddUserComponent} from "../dialog-add-user/dialog-add-user.compone
 import {MatDialog} from "@angular/material/dialog";
 import {DialogModifyColorInsideComponent} from "../dialog-modify-color-inside/dialog-modify-color-inside.component";
 import {DialogModifyColorBorderComponent} from "../dialog-modify-color-border/dialog-modify-color-border.component";
+import {BoardService} from "../../services/board.service";
 
 @Component({
   selector: 'app-image-selection-page',
@@ -38,6 +39,7 @@ export class ImageSelectionPageComponent implements OnInit {
               public ng2ImgMaxService: Ng2ImgMaxService,
               public editionService: EditionService,
               public configurationService: ConfigurationService,
+              public boardService: BoardService,
               public dialog: MatDialog) {
     this.searchInLib(this.editionService.imageTextField);
   }
@@ -131,11 +133,20 @@ export class ImageSelectionPageComponent implements OnInit {
 
   previewLibrary(elt: { lib, word }) {
     if (elt.lib === 'mulberry') {
+      if(!this.boardService.board.libraryUsed.includes('Mulberry')){
+        this.boardService.board.libraryUsed.push('Mulberry');
+      }
       this.previewMullberry(elt.word);
     } else if (elt.lib === 'arasaacNB') {
       this.previewArasaac(elt.word, false);
+      if(!this.boardService.board.libraryUsed.includes('Arasaac')) {
+        this.boardService.board.libraryUsed.push('Arasaac');
+      }
     } else if (elt.lib === 'arasaacColor') {
       this.previewArasaac(elt.word, true);
+      if(!this.boardService.board.libraryUsed.includes('Arasaac')) {
+        this.boardService.board.libraryUsed.push('Arasaac');
+      }
     }
   }
 
