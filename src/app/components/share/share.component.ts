@@ -153,28 +153,33 @@ export class ShareComponent implements OnInit {
 
   exploreAugcomZip(zip) { // TODO change the folderPath implementation
     const zipFolder: JSZip = new JSZip();
-    let tempBoard;
+    //let tempBoard;
     zipFolder.loadAsync(zip[0]).then((zipFiles) => {
       zipFiles.forEach((fileName) => {
         zipFolder
           .file(fileName)
           .async('base64')
-          .then(async (content) => {
-              tempBoard = JSON.parse(this.b64DecodeUnicode(content));
-              tempBoard.ElementList.forEach(element => {
-                this.checkAndUpdateElementDefaultForm(element);
-              });
-              this.boardService.board = this.jsonValidator.getCheckedGrid(tempBoard);
-              this.layoutService.refreshAll(this.boardService.board.NumberOfCols, this.boardService.board.NumberOfRows, this.boardService.board.GapSize);
-              this.boardService.updateElementList();
-              this.boardService.backHome();
-              console.log(this.boardService.board);
-              this.indexedDBacess.update();
-              await this.router.navigate(['keyboard']);
+          .then((content) => {
+              this.useAugcomZip(content);
             }
           );
       });
     });
+  }
+
+  useAugcomZip(contentZip:any){
+    let tempBoard;
+    tempBoard = JSON.parse(this.b64DecodeUnicode(contentZip));
+    tempBoard.ElementList.forEach(element => {
+      this.checkAndUpdateElementDefaultForm(element);
+    });
+    this.boardService.board = this.jsonValidator.getCheckedGrid(tempBoard);
+    this.layoutService.refreshAll(this.boardService.board.NumberOfCols, this.boardService.board.NumberOfRows, this.boardService.board.GapSize);
+    this.boardService.updateElementList();
+    this.boardService.backHome();
+    console.log(this.boardService.board);
+    this.indexedDBacess.update();
+    this.router.navigate(['keyboard']);
   }
 
   b64DecodeUnicode(str) {

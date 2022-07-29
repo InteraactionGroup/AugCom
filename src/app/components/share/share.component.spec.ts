@@ -1,9 +1,9 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import {ShareComponent} from './share.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {HttpClientModule, HttpHeaders} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {Router} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -34,17 +34,30 @@ describe('ShareComponent', () => {
     component.indexedDBacess.loadUsersList();
   });
 
-  it('import a save', () => {
-    //const headers = new HttpHeaders().set('content-type', 'application/zip');
-    var data = component.http.get("../../../assets/fileForTest/lifecomp.augcom",{responseType: 'arraybuffer'}).toPromise();
-    var blobData = new Blob([JSON.stringify(data)],{type: 'application/zip'});
+  /*
+  it('import a save',() => {
+    const saveZip = new XMLHttpRequest();
+    saveZip.open('GET','../../../assets/fileForTest/lifecomp.augcom',true);
+    saveZip.send(null);
+    component.exploreAugcomZip(saveZip.response);
+    expect(component.boardService.board.software).toEqual('LifeCompanion');
+  });
+   */
 
-    const reader = new FileReader();
-    reader.readAsText(blobData, 'UTF-8');
-    reader.onload = () => {
-      component.exploreAugcomZip(reader.result);
-      expect(component.boardService.board.software).toEqual('LifeCompanion');
-    };
+  it('import a save unzip',() => {
+    const saveZip = new XMLHttpRequest();
+
+    saveZip.open('GET', '../../../assets/fileForTest/lifecompTest.opgf', false);
+    saveZip.send(null);
+
+    let tempBoard;
+    tempBoard = JSON.parse(saveZip.responseText);
+    tempBoard.ElementList.forEach(element => {
+      component.checkAndUpdateElementDefaultForm(element);
+    });
+    component.boardService.board = component.jsonValidator.getCheckedGrid(tempBoard);
+
+    expect(component.boardService.board.software).toEqual('LifeCompanion');
   });
 
   it('should create', () => {
