@@ -18,6 +18,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {DialogHelpComponent} from "../dialog-help/dialog-help.component";
 import {PaletteService} from "../../services/palette.service";
 import {DialogLogoutAppComponent} from '../dialog-logout-app/dialog-logout-app.component';
+import {DialogAddGridComponent} from "../dialog-add-grid/dialog-add-grid.component";
 
 declare const annyang: any;
 
@@ -196,5 +197,12 @@ export class UsertoolbarComponent implements OnInit {
 
   exitSoftware() : void {
     this.dialog.open(DialogLogoutAppComponent);
+  }
+
+  newGrid(): void {
+    this.dialog.open(DialogAddGridComponent, {
+      height: 'fit-content',
+      width: 'fit-content'
+    });
   }
 }

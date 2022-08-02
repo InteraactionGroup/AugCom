@@ -293,6 +293,7 @@
     { "id" :  "ExportSelectedPages", "FR": "Exporter les pages sélectionnées", "EN": "Export selected pages"},
     { "id" :  "EnterNameOfTheSave", "FR": "Entrer le nom de la sauvegarde", "EN": "Enter name of the save"},
     { "id" :  "EnterNameOfTheAuthor", "FR": "Enter name of the author", "EN": "Enter name of the author"},
-    { "id" :  "author", "FR": "auteur", "EN": "author"}
+    { "id" :  "author", "FR": "auteur", "EN": "author"},
+    { "id" :  "loadOneOfYourGrid", "FR": "Chargez une de vos grilles : ", "EN": "Load one of your Grid : "}
   ]
 }

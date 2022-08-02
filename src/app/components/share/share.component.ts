@@ -332,7 +332,6 @@ export class ShareComponent implements OnInit {
     this.gridElementOfPage.forEach((gridElem)=>{
       this.boardService.board.PageList.forEach((page)=>{
         if ((gridElem.Type as FolderGoTo).GoTo === page.ID) {
-          console.log('(gridElem.Type as FolderGoTo).GoTo : ',(gridElem.Type as FolderGoTo).GoTo);
           this.pageIDToExport = page.ID;
           this.exportThisPageOnly();
           this.pageToExportList.push(this.pageToExport);

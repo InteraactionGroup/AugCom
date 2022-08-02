@@ -1,0 +1,6 @@
+<div style="  margin: 20px ;width: fit-content;">
+  <label for="titleFormat">{{this.multilinguism.translate("loadOneOfYourGrid")}}</label>
+  <select [(ngModel)]= "this.gridChosen" (change)="changeGrid()" id="titleFormat" class="variantListBox">
+    <option *ngFor="let grid of this.userPageService.currentUser.gridsID" [value]="grid">{{grid}}</option>
+  </select>
+</div>

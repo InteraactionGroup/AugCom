@@ -12,6 +12,6 @@
     <div class="preview">
       <img *ngIf="selectedFile !== null" class="ui centered image" [src]="selectedFile" alt="">
     </div>
-    <button mat-button mat-raised-button type="submit" [mat-dialog-close]="" [disabled]="newUser.invalid">Valider</button>
+    <button mat-button mat-raised-button type="submit" (click)="onSubmit(newUser)" [mat-dialog-close]="" [disabled]="newUser.invalid">Valider</button>
   </form>
 </div>
