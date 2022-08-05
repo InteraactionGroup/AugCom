@@ -294,6 +294,8 @@
     { "id" :  "EnterNameOfTheSave", "FR": "Entrer le nom de la sauvegarde", "EN": "Enter name of the save"},
     { "id" :  "EnterNameOfTheAuthor", "FR": "Enter name of the author", "EN": "Enter name of the author"},
     { "id" :  "author", "FR": "auteur", "EN": "author"},
-    { "id" :  "loadOneOfYourGrid", "FR": "Chargez une de vos grilles : ", "EN": "Load one of your Grid : "}
+    { "id" :  "loadOneOfYourGrid", "FR": "Chargez une de vos grilles : ", "EN": "Load one of your Grid : "},
+    { "id" :  "deleteOneOfYourGrid", "FR": "Supprimez une de vos grilles : ", "EN": "Delete one of your Grid : "},
+    { "id" :  "areYouSureYouWantToDeleteThisGrid?", "FR": "Êtes vous de vouloir supprimer cette grille ", "EN": "Are you sure you want to delete this grid? "}
   ]
 }

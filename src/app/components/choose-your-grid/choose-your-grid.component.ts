@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MultilinguismService} from "../../services/multilinguism.service";
 import {UserPageService} from "../../services/user-page.service";
+import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
+import {BoardService} from "../../services/board.service";
 
 @Component({
   selector: 'app-choose-your-grid',
@@ -10,7 +12,9 @@ import {UserPageService} from "../../services/user-page.service";
 export class ChooseYourGridComponent implements OnInit {
 
   constructor(public multilinguism:MultilinguismService,
-              public userPageService:UserPageService) { }
+              public userPageService:UserPageService,
+              private indexeddbaccessService: IndexeddbaccessService,
+              public boardService: BoardService) { }
 
   gridChosen:string = '';
 
@@ -18,6 +22,9 @@ export class ChooseYourGridComponent implements OnInit {
   }
 
   changeGrid() {
+    this.boardService.gridChosen = this.gridChosen;
     console.log('this.gridChosen : ', this.gridChosen);
+    this.indexeddbaccessService.changeUserGrid(this.gridChosen);
+
   }
 }

@@ -44,9 +44,9 @@ export class IndexeddbaccessService {
         // UPDATE THE GRID
         const gridStore = db.transaction(['Grid'], 'readwrite');
         const gridObjectStore = gridStore.objectStore('Grid');
-        const storeGridRequest = gridObjectStore.get(this.userPageService.currentUser.id);
+        const storeGridRequest = gridObjectStore.get(this.boardService.gridChosen? this.boardService.gridChosen : this.userPageService.currentUser.gridsID[0]);
         storeGridRequest.onsuccess = () => {
-          gridObjectStore.put(this.boardService.board, this.userPageService.currentUser.id);
+          gridObjectStore.put(this.boardService.board, this.boardService.gridChosen? this.boardService.gridChosen : this.userPageService.currentUser.gridsID[0]);
           this.boardService.updateElementList();
         };
 
@@ -224,7 +224,9 @@ export class IndexeddbaccessService {
           this.paletteService.palettes = this.paletteService.DEFAULTPALETTELIST;
         }
       };
-      const gridRequest = db.transaction(['Grid']).objectStore('Grid').get(this.userPageService.currentUser.id);
+
+      //LOAD GRID
+      const gridRequest = db.transaction(['Grid']).objectStore('Grid').get(this.userPageService.currentUser.gridsID[0]);
       gridRequest.onsuccess = e => {
         let gridResult = gridRequest.result;
         //IF CONFIG DOES NOT EXIST YET FOR THIS DEFAULT USER
@@ -268,10 +270,12 @@ export class IndexeddbaccessService {
       deleteConfigRequest.onsuccess = e => {
         console.log("Config deleted");
       };
+      /*
       const deleteGridRequest = db.transaction(['Grid'], 'readwrite').objectStore('Grid').delete(id);
       deleteGridRequest.onsuccess = e => {
         console.log("Grid deleted");
       };
+       */
 
       const deletePaletteRequest = db.transaction(['Palette'], 'readwrite').objectStore('Palette').delete(id);
       deletePaletteRequest.onsuccess = e => {
@@ -342,5 +346,54 @@ export class IndexeddbaccessService {
           //ELSE WE JUST TAKE THE SAVED GRID
         this.boardService.updateElementList();
       };
+  }
+
+  addGrid(){
+    this.openRequest = indexedDB.open('saveAugcom', 1);
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+      const gridStore = db.transaction(['Grid'], 'readwrite');
+      const gridObjectStore = gridStore.objectStore('Grid');
+      gridObjectStore.put(this.boardService.board, this.boardService.board.ID);
+
+      // UPDATE THE USER LIST
+      const userListStore = db.transaction(['UserList'], 'readwrite');
+      const userListObjectStore = userListStore.objectStore('UserList');
+      const storeUserListRequest = userListObjectStore.get(1);
+      storeUserListRequest.onsuccess = () => {
+        userListObjectStore.put(this.userPageService.usersList, 1);
+      };
+    };
+  }
+
+  changeUserGrid(gridchosen:string){
+    this.openRequest = indexedDB.open('saveAugcom', 1);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+      const gridRequest = db.transaction(['Grid']).objectStore('Grid').get(gridchosen);
+      gridRequest.onsuccess = e => {
+        this.boardService.board = gridRequest.result;
+      }
+    }
+    setTimeout(() => {
+      console.log('this.boardService.board : ',this.boardService.board);
+      this.boardService.updateElementList();
+      this.router.navigate(['keyboard']);
+    },200);
+
+
   }
 }

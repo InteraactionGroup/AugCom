@@ -35,7 +35,8 @@ export class DialogAddGridComponent implements OnInit {
     });
     this.userPageService.usersList[indexUser] = this.userPageService.currentUser;
     setTimeout(() => {
-      this.indexeddbaccessService.updateUserList();
+      this.indexeddbaccessService.addGrid();
+      //this.indexeddbaccessService.updateUserList();
       this.boardService.updateElementList();
     },200);
   }

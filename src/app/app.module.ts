@@ -85,6 +85,8 @@ import { DialogModelGridComponent } from './components/dialog-model-grid/dialog-
 import { DialogExportPagesComponent } from './components/dialog-export-pages/dialog-export-pages.component';
 import { DialogAddGridComponent } from './components/dialog-add-grid/dialog-add-grid.component';
 import { ChooseYourGridComponent } from './components/choose-your-grid/choose-your-grid.component';
+import { DeleteGridUserComponent } from './components/delete-grid-user/delete-grid-user.component';
+import { DialogDeleteGridUserComponent } from './components/dialog-delete-grid-user/dialog-delete-grid-user.component';
 
 @NgModule({
   declarations: [
@@ -152,7 +154,9 @@ import { ChooseYourGridComponent } from './components/choose-your-grid/choose-yo
     DialogModelGridComponent,
     DialogExportPagesComponent,
     DialogAddGridComponent,
-    ChooseYourGridComponent
+    ChooseYourGridComponent,
+    DeleteGridUserComponent,
+    DialogDeleteGridUserComponent
   ],
   imports: [
     BrowserModule,
