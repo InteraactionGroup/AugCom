@@ -27,9 +27,9 @@ jobs:
 
       - name: Zip & Tar gz
         run: |
+          cd ./dist/
           zip -r AugCom.zip *
           mv AugCom.zip ../
-          cd ./dist/
           tar -czvf AugCom.tar.gz *
           mv AugCom.tar.gz ../
 
