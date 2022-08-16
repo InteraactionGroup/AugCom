@@ -4,9 +4,12 @@
   "type": "object",
   "properties": {
     "author": {"type": "string"},
-    "software": {"type": "string"},
     "creationDate": {"type": "string"},
     "modificationDate": {"type": "string"},
+    "software": {"type": "string"},
+    "libraryUsed": {"type": "array"},
+    "licence": {"type": "string"},
+    "owner": {"type": "string"},
     "ID": { "type": "string" },
     "Type": { "type": "string" ,
       "enum": ["Grid"]

@@ -263,7 +263,14 @@ export class ProloquoParser {
 
   setUpNewGrid(tempElement, tempPage): Grid {
     return {
-      author: "", creationDate: "", modificationDate: "", software: "AugCom",
+      author: "",
+      creationDate: "",
+      modificationDate: "",
+      software: "AugCom",
+      libraryUsed: [],
+      licence: "",
+      owner: "",
+      translators: "",
       BackgroundColor: 'default',
       ID: 'ProloquoGrid',
       Type: 'Grid',
