@@ -16,9 +16,15 @@ export class ChooseYourGridComponent implements OnInit {
               private indexeddbaccessService: IndexeddbaccessService,
               public boardService: BoardService) { }
 
+  listGridID:string[] = [];
   gridChosen:string = '';
 
   ngOnInit(): void {
+    try{
+      this.listGridID = this.userPageService.currentUser.gridsID;
+    }catch (e) {
+      this.listGridID = ['GridExample'];
+    }
   }
 
   changeGrid() {

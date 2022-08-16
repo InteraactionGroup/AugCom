@@ -19,7 +19,14 @@ export class DeleteGridUserComponent implements OnInit {
               public userPageService:UserPageService,
               public dialog: MatDialog) { }
 
+  listGridID:string[] = [];
+
   ngOnInit(): void {
+    try{
+      this.listGridID = this.userPageService.currentUser.gridsID;
+    }catch (e) {
+      this.listGridID = ['GridExample'];
+    }
   }
 
   openDialog(): void {

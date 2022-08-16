@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DialogAddGridComponent } from './dialog-add-grid.component';
 import {Ng2ImgMaxModule} from "ng2-img-max";
 import {RouterTestingModule} from "@angular/router/testing";
+import {FormsModule} from "@angular/forms";
 
 describe('DialogAddGridComponent', () => {
   let component: DialogAddGridComponent;
@@ -11,7 +12,7 @@ describe('DialogAddGridComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ DialogAddGridComponent ],
-      imports: [Ng2ImgMaxModule, RouterTestingModule]
+      imports: [Ng2ImgMaxModule, RouterTestingModule, FormsModule]
     })
     .compileComponents();
   }));
