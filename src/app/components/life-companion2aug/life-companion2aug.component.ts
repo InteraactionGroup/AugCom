@@ -113,6 +113,7 @@ export class LifeCompanion2augComponent implements OnInit {
   private jsonToGrid(LCConfiguration: any, keyList: any, metadata: any) {
     //console.log('LCConfiguration', LCConfiguration);
     //console.log('keylist', keyList);
+    //console.log('metadata', metadata);
     try{
       this.accessStackGrid = LCConfiguration.Component.Components.Component[0].StackGrid.Component;
     }catch (e) {

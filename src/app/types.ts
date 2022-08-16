@@ -3,10 +3,17 @@
  */
 
 export class Grid {
+  //metadata
   author:string = 'someone';
   software:string = 'AugCom';
+  libraryUsed:string[] = [];
+  licence:string = '';
+  owner:string = 'someone';
+  translators:string = "";
   creationDate:string;
   modificationDate:string;
+
+  //grid properties
   ID: string;
   Type: 'Grid';
   NumberOfCols: number;
