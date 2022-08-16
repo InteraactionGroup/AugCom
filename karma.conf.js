@@ -25,6 +25,9 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
+    proxies: {
+      '/assets/': '/assets/'
+    },
     browsers: ['ChromeHeadless'],
     customLaunchers: {
       ChromeHeadless: {
