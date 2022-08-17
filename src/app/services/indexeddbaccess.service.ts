@@ -396,4 +396,26 @@ export class IndexeddbaccessService {
 
 
   }
+
+  existingGrid():string[]{
+    let existingGrid:string[] = [];
+
+    this.openRequest = indexedDB.open('saveAugcom', 1);
+
+    this.openRequest.onsuccess = event => {
+
+      let gridRequest = event.target.result.transaction("Grid").objectStore("Grid");
+
+      gridRequest.openCursor().onsuccess = cursorEvent => {
+        let cursor = cursorEvent.target.result;
+        if (cursor) {
+          existingGrid.push(cursor.key);
+          cursor.continue();
+        }
+      }
+
+    }
+
+    return existingGrid;
+  }
 }

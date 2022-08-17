@@ -8,7 +8,7 @@ import {PrintService} from "./print.service";
 })
 export class ConfigurationService {
 
-  public VERSION = "AugCom v.2021.05.03";
+  public VERSION = "AugCom v.2022.08.17";
 
   DEFAULT_DWELL_TIME_ENABLED = false;
   DEFAULT_PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE = 'default'; // can be 'default' 'imageOnly' and 'textOnly'

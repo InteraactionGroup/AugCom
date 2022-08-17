@@ -303,6 +303,9 @@
     { "id" :  "EntrezUnNom", "FR": "Entrez un nom", "EN": "enter a name"},
     { "id" :  "translators", "FR": "Traducteurs", "EN": "Translators"},
     { "id" :  "owner", "FR": "Propriétaire", "EN": "Owner"},
-    { "id" :  "licence", "FR": "Licence", "EN": "Licence"}
+    { "id" :  "licence", "FR": "Licence", "EN": "Licence"},
+    { "id" :  "nameOfTheGrid", "FR": "Nom de la grille :", "EN": "Name of the grid :"},
+    { "id" :  "entrerLeNomDeLaGrille", "FR": "entrer le nom de la grille", "EN": "Enter the name of the grid :"},
+    { "id" :  "Valider", "FR": "Valider", "EN": "Confirm"}
   ]
 }

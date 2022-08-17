@@ -1,8 +1,13 @@
 <div class="ui centered aligned">
   <form (ngSubmit)="onSubmit(newGrid)" #newGrid="ngForm">
-    <label>Nom de la grille : </label>
-    <input id="nameGrid" type="text" class="form-control" placeholder="entrer le nom de la grille" name="nameGrid" ngModel required>
+    <label>{{this.multilinguism.translate("nameOfTheGrid")}}</label>
+    <input id="nameGrid" type="text" class="form-control" placeholder="{{this.multilinguism.translate('nameOfTheGrid')}}" name="nameGrid" ngModel required>
     <br>
-    <button mat-button mat-raised-button type="submit" (click)="onSubmit(newGrid)" [mat-dialog-close]="" [disabled]="newGrid.invalid">Valider</button>
+    <label for="titleFormat">{{this.multilinguism.translate("chooseGridModel")}}</label>
+    <select [(ngModel)]= "this.newGridModel" [ngModelOptions]="{standalone: true}" id="titleFormat" class="variantListBox">
+      <option value="empty">{{this.multilinguism.translate("empty")}}</option>
+      <option value="default">{{this.multilinguism.translate("default")}}</option>
+    </select>
+    <button mat-button mat-raised-button type="submit" (click)="onSubmit(newGrid)" [mat-dialog-close]="" [disabled]="newGrid.invalid">{{this.multilinguism.translate('Valider')}}</button>
   </form>
 </div>
