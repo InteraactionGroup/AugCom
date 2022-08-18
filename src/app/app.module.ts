@@ -22,7 +22,6 @@ import {PalettesComponent} from './components/palettes/palettes.component';
 import {LanguageComponent} from './components/langue/language.component';
 import {SavesComponent} from './components/saves/saves.component';
 import {ContactComponent} from './components/contact/contact.component';
-import {ActualitesComponent} from './components/actualites/actualites.component';
 import {BackHomeBarComponent} from './components/back-home-bar/back-home-bar.component';
 import {EventComponent} from './components/event/event.component';
 import {AlternativeFormsComponent} from './components/alternative-forms/alternative-forms.component';
@@ -37,7 +36,6 @@ import {LayoutComponent} from './components/layout/layout.component';
 import {GridsterModule} from 'angular-gridster2';
 import {AccountMenuComponent} from './components/account-menu/account-menu.component';
 import {ApplicationThemeComponent} from './components/application-theme/application-theme.component';
-import {IconsManagementComponent} from './components/icons-management/icons-management.component';
 import {PageTitleManagementComponent} from './components/page-title-management/page-title-management.component';
 import {GridFormatManagementComponent} from './components/grid-format-management/grid-format-management.component';
 import {PictogramStyleComponent} from './components/pictogram-style/pictogram-style.component';
@@ -105,7 +103,6 @@ import { DialogDeleteGridUserComponent } from './components/dialog-delete-grid-u
     LanguageComponent,
     SavesComponent,
     ContactComponent,
-    ActualitesComponent,
     BackHomeBarComponent,
     EventComponent,
     AlternativeFormsComponent,
@@ -118,7 +115,6 @@ import { DialogDeleteGridUserComponent } from './components/dialog-delete-grid-u
     LayoutComponent,
     AccountMenuComponent,
     ApplicationThemeComponent,
-    IconsManagementComponent,
     PageTitleManagementComponent,
     GridFormatManagementComponent,
     PictogramStyleComponent,
