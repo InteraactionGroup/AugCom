@@ -8,6 +8,7 @@ import {LayoutService} from './layout.service';
 import {GridElementService} from './grid-element.service';
 import {UsertoolbarService} from './usertoolbar.service';
 import {ConfigurationService} from "./configuration.service";
+import {UserPageService} from "./user-page.service";
 
 @Injectable({
   providedIn: 'root',
@@ -20,12 +21,14 @@ export class BoardService {
     public sanitizer: DomSanitizer,
     public gridElementService: GridElementService,
     public usertoolbarService: UsertoolbarService,
-    public configurationService: ConfigurationService
+    public configurationService: ConfigurationService,
+    public userPageService: UserPageService
   ) {
     this.board = Board;
     this.updateElementList();
   }
   gridModel:string = 'none';
+  gridChosen:string = '';
 
   AFSR: boolean = false;
 

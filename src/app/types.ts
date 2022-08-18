@@ -240,6 +240,7 @@ export class User{
   id: number;
   name: string;
   base64image: string;
+  gridsID:string[] = ['gridExample'];
   constructor(name, base64image, id?) {
     if (id == null) {
       this.id = Math.floor(Math.random() * 10000000000) + Date.now();

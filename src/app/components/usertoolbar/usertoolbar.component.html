@@ -59,6 +59,11 @@
     </div>
   </div>
 
+  <div class="button floatRight" id="newGrid" *ngIf="this.userToolBarService.unlock" (click)="this.newGrid()">
+    <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('add-grid')}">
+    </div>
+  </div>
+
   <div class="button floatRight" id="babbleButton" *ngIf="this.userToolBarService.unlock"
        (click)="this.userToolBarService.babble = !this.userToolBarService.babble">
     <div class="image width-100"

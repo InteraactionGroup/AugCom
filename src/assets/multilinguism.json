@@ -293,12 +293,19 @@
     { "id" :  "ExportSelectedPages", "FR": "Exporter les pages sélectionnées", "EN": "Export selected pages"},
     { "id" :  "EnterNameOfTheSave", "FR": "Entrer le nom de la sauvegarde", "EN": "Enter name of the save"},
     { "id" :  "EnterNameOfTheAuthor", "FR": "Entrer le nom de l'auteur", "EN": "Enter name of the author"},
+    { "id" :  "author", "FR": "auteur", "EN": "author"},
+    { "id" :  "loadOneOfYourGrid", "FR": "Chargez une de vos grilles : ", "EN": "Load one of your Grid : "},
+    { "id" :  "deleteOneOfYourGrid", "FR": "Supprimez une de vos grilles : ", "EN": "Delete one of your Grid : "},
+    { "id" :  "areYouSureYouWantToDeleteThisGrid?", "FR": "Êtes vous de vouloir supprimer cette grille ", "EN": "Are you sure you want to delete this grid? "},
     { "id" :  "EnterNameOfTheTranslators", "FR": "Entrer le nom des traducteurs", "EN": "Enter name of translators"},
     { "id" :  "EnterALicence", "FR": "Entrer une licence", "EN": "Enter a licence"},
     { "id" :  "author", "FR": "Auteur", "EN": "Author"},
     { "id" :  "EntrezUnNom", "FR": "Entrez un nom", "EN": "enter a name"},
     { "id" :  "translators", "FR": "Traducteurs", "EN": "Translators"},
     { "id" :  "owner", "FR": "Propriétaire", "EN": "Owner"},
-    { "id" :  "licence", "FR": "Licence", "EN": "Licence"}
+    { "id" :  "licence", "FR": "Licence", "EN": "Licence"},
+    { "id" :  "nameOfTheGrid", "FR": "Nom de la grille :", "EN": "Name of the grid :"},
+    { "id" :  "entrerLeNomDeLaGrille", "FR": "entrer le nom de la grille", "EN": "Enter the name of the grid :"},
+    { "id" :  "Valider", "FR": "Valider", "EN": "Confirm"}
   ]
 }

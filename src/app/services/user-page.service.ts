@@ -13,6 +13,7 @@ export class UserPageService {
   yes: boolean;
   isUserImageChanged:boolean;
   index: number;
+  deleteGridUser:string;
   constructor() {}
 
   addUser(name: string, image: string){

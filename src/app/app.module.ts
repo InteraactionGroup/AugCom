@@ -83,6 +83,10 @@ import {LifeCompanion2augComponent} from "./components/life-companion2aug/life-c
 import { ModelGridComponent } from './components/model-grid/model-grid.component';
 import { DialogModelGridComponent } from './components/dialog-model-grid/dialog-model-grid.component';
 import { DialogExportPagesComponent } from './components/dialog-export-pages/dialog-export-pages.component';
+import { DialogAddGridComponent } from './components/dialog-add-grid/dialog-add-grid.component';
+import { ChooseYourGridComponent } from './components/choose-your-grid/choose-your-grid.component';
+import { DeleteGridUserComponent } from './components/delete-grid-user/delete-grid-user.component';
+import { DialogDeleteGridUserComponent } from './components/dialog-delete-grid-user/dialog-delete-grid-user.component';
 
 @NgModule({
   declarations: [
@@ -148,7 +152,11 @@ import { DialogExportPagesComponent } from './components/dialog-export-pages/dia
     LifeCompanion2augComponent,
     ModelGridComponent,
     DialogModelGridComponent,
-    DialogExportPagesComponent
+    DialogExportPagesComponent,
+    DialogAddGridComponent,
+    ChooseYourGridComponent,
+    DeleteGridUserComponent,
+    DialogDeleteGridUserComponent
   ],
   imports: [
     BrowserModule,
