@@ -1,46 +1,46 @@
 <div class="width-100">
 
-  <div>{{this.multilinguismService.translate("pictogramsManagement")}}:</div>
+  <div>{{this.multilinguism.translate("pictogramsManagement")}}:</div>
 
 
   <div style=" margin: 20px ;width: fit-content;">
-    <label for="imageAndTextVisibility">{{this.multilinguismService.translate("choosePictogramStyle")}}:</label>
+    <label for="imageAndTextVisibility">{{this.multilinguism.translate("choosePictogramStyle")}}:</label>
     <select id="imageAndTextVisibility" class="variantListBox"
             [(ngModel)]="configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE">
-      <option value="default">default</option>
-      <option value="imageOnly">imageOnly</option>
-      <option value="textOnly">textOnly</option>
+      <option value="default">{{this.multilinguism.translate("default")}}</option>
+      <option value="imageOnly">{{this.multilinguism.translate("imageOnly")}}</option>
+      <option value="textOnly">{{this.multilinguism.translate("textOnly")}}</option>
     </select>
   </div>
 
   <div style=" margin: 20px ;width: fit-content;">
-    <label for="pictoImagePosition">{{this.multilinguismService.translate("chooseImagePositionOfPicrogram")}}:</label>
+    <label for="pictoImagePosition">{{this.multilinguism.translate("chooseImagePositionOfPicrogram")}}:</label>
     <select [disabled]="configurationService.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE !== 'default'"
             id="pictoImagePosition"
             class="variantListBox" [(ngModel)]="configurationService.PICTO_IMAGE_POSITION_VALUE">
-      <option value="up">up</option>
-      <option value="down">down</option>
-      <option value="right">right</option>
-      <option value="left">left</option>
+      <option value="up">{{this.multilinguism.translate('up')}}</option>
+      <option value="down">{{this.multilinguism.translate('down')}}</option>
+      <option value="right">{{this.multilinguism.translate('right')}}</option>
+      <option value="left">{{this.multilinguism.translate('left')}}</option>
     </select>
   </div>
 
 
   <div style="  margin: 20px ;width: fit-content; display: grid; grid-template-columns: max-content max-content ">
-    <label for="lang2">{{this.multilinguismService.translate("chooseTheFont")}}:</label>
+    <label for="lang2">{{this.multilinguism.translate("chooseTheFont")}}:</label>
     <select [ngStyle]="{'font-family': option.value}" #option id="lang2"
             [(ngModel)]="this.configurationService.PICTO_TEXT_STYLE_VALUE" class="variantListBox">
       <option value="default"
-              style="font-family: Arial,sans-serif">{{this.multilinguismService.translate("defaultSyleSameAsApp")}}</option>
+              style="font-family: Arial,sans-serif">{{this.multilinguism.translate("defaultSyleSameAsApp")}}</option>
       <option value="Arial" style="font-family: Arial,sans-serif">Arial</option>
       <option value="Karumbi" style="font-family: Karumbi ,sans-serif">Karumbi</option>
       <option value="Chilanka" style="font-family: Chilanka,sans-serif"> Chilanka</option>
-      <option value="Save" style="font-family: {{this.configurationService.STYLE_FONTFAMILY_VALUE}}">Save</option>
+      <option value="Save" style="font-family: {{this.configurationService.STYLE_FONTFAMILY_VALUE}}">{{this.multilinguism.translate('save')}}</option>
     </select>
   </div>
 
 
-  <div>{{this.multilinguismService.translate("pictogramDirectoryManagement")}}:</div>
+  <div>{{this.multilinguism.translate("pictogramDirectoryManagement")}}:</div>
 
 
   <!--  <div style=" margin: 20px ;width: fit-content;">-->
@@ -54,34 +54,34 @@
 
 
   <div style=" margin: 20px ;width: fit-content;">
-    <label for="imageAndTextVisibility_R">{{this.multilinguismService.translate("choosePictogramStyle")}}:</label>
+    <label for="imageAndTextVisibility_R">{{this.multilinguism.translate("choosePictogramStyle")}}:</label>
     <select id="imageAndTextVisibility_R" class="variantListBox"
             [(ngModel)]="configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE">
-      <option value="default">default</option>
-      <option value="imageOnly">imageOnly</option>
-      <option value="textOnly">textOnly</option>
+      <option value="default">{{this.multilinguism.translate("default")}}</option>
+      <option value="imageOnly">{{this.multilinguism.translate("imageOnly")}}</option>
+      <option value="textOnly">{{this.multilinguism.translate("textOnly")}}</option>
     </select>
   </div>
 
   <div style=" margin: 20px ;width: fit-content;">
-    <label for="pictoImagePosition_R">{{this.multilinguismService.translate("chooseImagePositionOfPicrogram")}}:</label>
+    <label for="pictoImagePosition_R">{{this.multilinguism.translate("chooseImagePositionOfPicrogram")}}:</label>
     <select [disabled]="configurationService.REPO_IMAGE_AND_TEXT_VISIBILITY_VALUE !== 'default'"
             id="pictoImagePosition_R"
             class="variantListBox" [(ngModel)]="configurationService.REPO_IMAGE_POSITION_VALUE">
-      <option value="up">up</option>
-      <option value="down">down</option>
-      <option value="right">right</option>
-      <option value="left">left</option>
+      <option value="up">{{this.multilinguism.translate('up')}}</option>
+      <option value="down">{{this.multilinguism.translate('down')}}</option>
+      <option value="right">{{this.multilinguism.translate('right')}}</option>
+      <option value="left">{{this.multilinguism.translate('left')}}</option>
     </select>
   </div>
 
 
   <div style="  margin: 20px ;width: fit-content; display: grid; grid-template-columns: max-content max-content ">
-    <label for="lang2_R">{{this.multilinguismService.translate("chooseTheFont")}}:</label>
+    <label for="lang2_R">{{this.multilinguism.translate("chooseTheFont")}}:</label>
     <select [ngStyle]="{'font-family': option2.value}" #option2 id="lang2_R"
             [(ngModel)]="this.configurationService.REPO_TEXT_STYLE_VALUE" class="variantListBox">
       <option value="default"
-              style="font-family: Arial,sans-serif">{{this.multilinguismService.translate("defaultSyleSameAsApp")}}</option>
+              style="font-family: Arial,sans-serif">{{this.multilinguism.translate("defaultSyleSameAsApp")}}</option>
       <option value="Arial" style="font-family: Arial,sans-serif">Arial</option>
       <option value="Karumbi" style="font-family: Karumbi ,sans-serif">Karumbi</option>
       <option value="Chilanka" style="font-family: Chilanka,sans-serif"> Chilanka</option>

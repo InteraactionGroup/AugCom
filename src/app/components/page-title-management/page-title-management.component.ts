@@ -10,7 +10,7 @@ import {MultilinguismService} from "../../services/multilinguism.service";
 export class PageTitleManagementComponent implements OnInit {
 
   constructor(public usertoolbarService: UsertoolbarService,
-              public multilinguismService: MultilinguismService) {
+              public multilinguism: MultilinguismService) {
   }
 
   ngOnInit(): void {

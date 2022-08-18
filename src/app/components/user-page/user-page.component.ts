@@ -12,6 +12,7 @@ import {DialogChangeUserComponent} from "../dialog-change-user/dialog-change-use
 import {GeticonService} from "../../services/geticon.service";
 import {UsertoolbarService} from "../../services/usertoolbar.service";
 import {DialogAddUserComponent} from "../dialog-add-user/dialog-add-user.component";
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-user-page',
@@ -39,7 +40,8 @@ export class UserPageComponent implements OnInit {
               private paletteService: PaletteService,
               private getIconService: GeticonService,
               public userToolBarService: UsertoolbarService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              public multilinguism: MultilinguismService) {
   }
 
   ngOnInit(): void {

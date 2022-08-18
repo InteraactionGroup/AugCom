@@ -29,7 +29,7 @@
     class="addPalette height-width-100">
     <div (click)="this.clickOnAdd()" *ngIf="!this.paletteService.newpalette" class="addButtonPaletteContainer">
       <div class="addButtonPalette width-100 centerText">
-        new palette
+        {{this.multilinguism.translate("newPalette")}}
       </div>
     </div>
 
