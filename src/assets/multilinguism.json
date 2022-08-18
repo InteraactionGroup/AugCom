@@ -306,6 +306,17 @@
     { "id" :  "licence", "FR": "Licence", "EN": "Licence"},
     { "id" :  "nameOfTheGrid", "FR": "Nom de la grille :", "EN": "Name of the grid :"},
     { "id" :  "entrerLeNomDeLaGrille", "FR": "entrer le nom de la grille", "EN": "Enter the name of the grid :"},
-    { "id" :  "Valider", "FR": "Valider", "EN": "Confirm"}
+    { "id" :  "Valider", "FR": "Valider", "EN": "Confirm"},
+    { "id" :  "conçuPour", "FR": "Conçu pour", "EN": "Designed for"},
+    { "id" :  "Nom", "FR": "Nom", "EN": "Name"},
+    { "id" :  "ChangerDeCompte", "FR": "Changer de compte", "EN": "Change your account"},
+    { "id" :  "search", "FR": "chercher", "EN": "search"},
+    { "id" :  "EnvoyerLeMessage", "FR": "Envoyer le message", "EN": "Send the message"},
+    { "id" :  "AddAUser", "FR": "Ajouter un utilisateur", "EN": "Add a user"},
+    { "id" :  "User'sName", "FR": "Nom de l'utilisateur", "EN": "User's name"},
+    { "id" :  "EnterYourName", "FR": "Entrer votre nom", "EN": "Enter your name"},
+    { "id" :  "YourImage", "FR": "Votre image", "EN": "Your image"},
+    { "id" :  "AreYouSureYouWantToDeleteThisProfile?", "FR": "Êtes-vous sûr de vouloir supprimer ce profil?", "EN": "Are you sure you want to delete this profile?"},
+    { "id" :  "AreYouSureYouWantToLeaveAugCom?", "FR": "Êtes-vous sûr de vouloir quitter AugCom?", "EN": "Are you sure you want to leave AugCom?"}
   ]
 }

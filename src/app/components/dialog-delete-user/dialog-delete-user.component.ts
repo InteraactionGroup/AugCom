@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserPageService} from "../../services/user-page.service";
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-dialog-delete-user',
@@ -8,7 +9,8 @@ import {UserPageService} from "../../services/user-page.service";
 })
 export class DialogDeleteUserComponent implements OnInit {
 
-  constructor(private userPageService: UserPageService) {}
+  constructor(private userPageService: UserPageService,
+              public multilinguism: MultilinguismService) {}
 
   ngOnInit(): void {
     this.userPageService.yes = false;
