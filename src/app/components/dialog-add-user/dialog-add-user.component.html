@@ -3,7 +3,7 @@
 </h2>
 <div class="ui centered aligned">
   <form (ngSubmit)="onSubmit(newUser)" #newUser="ngForm">
-    <label>{{this.multilinguism.translate('Nom de l\'utilisateur')}} : </label>
+    <label>{{this.multilinguism.translate('User\'sName')}} : </label>
     <input id="nameUser" type="text" class="form-control" placeholder="{{this.multilinguism.translate('EnterYourName')}}" name="name" ngModel required>
     <br>
     <label>{{this.multilinguism.translate('YourImage')}} : </label>
