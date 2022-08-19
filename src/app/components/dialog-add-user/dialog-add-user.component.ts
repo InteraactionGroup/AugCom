@@ -3,6 +3,7 @@ import {NgForm} from "@angular/forms";
 import {User} from "../../types";
 import {UserPageService} from "../../services/user-page.service";
 import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-dialog-add-user',
@@ -15,6 +16,7 @@ export class DialogAddUserComponent implements OnInit {
 
   constructor(private userPageService: UserPageService,
               private indexeddbaccessService: IndexeddbaccessService,
+              public multilinguism: MultilinguismService
               ) { }
 
   ngOnInit(): void {

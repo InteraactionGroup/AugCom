@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserPageService} from "../../services/user-page.service";
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-dialog-change-user',
@@ -10,7 +11,8 @@ export class DialogChangeUserComponent implements OnInit {
 
   selectedFile = null;
 
-  constructor(public userPageService: UserPageService) { }
+  constructor(public userPageService: UserPageService,
+              public multilinguism: MultilinguismService) { }
 
   ngOnInit(): void {
     this.userPageService.isUserImageChanged = false;

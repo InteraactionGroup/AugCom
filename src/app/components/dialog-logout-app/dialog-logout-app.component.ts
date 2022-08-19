@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {saveAs as importedSaveAs} from 'file-saver';
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-dialog-logout-app',
@@ -8,7 +9,7 @@ import {saveAs as importedSaveAs} from 'file-saver';
 })
 export class DialogLogoutAppComponent implements OnInit {
 
-  constructor() { }
+  constructor(public multilinguism: MultilinguismService) { }
 
   ngOnInit(): void {
   }

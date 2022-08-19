@@ -10,7 +10,7 @@ import {MultilinguismService} from "../../services/multilinguism.service";
 export class PictogramStyleComponent implements OnInit {
 
   constructor(public configurationService: ConfigurationService,
-              public multilinguismService: MultilinguismService) {
+              public multilinguism: MultilinguismService) {
   }
 
   ngOnInit(): void {

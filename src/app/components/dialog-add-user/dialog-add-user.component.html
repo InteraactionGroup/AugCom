@@ -1,17 +1,17 @@
 <h2 class="ui centered aligned">
-  Ajouter un utilisateur
+  {{this.multilinguism.translate('AddAUser')}}
 </h2>
 <div class="ui centered aligned">
   <form (ngSubmit)="onSubmit(newUser)" #newUser="ngForm">
-    <label>Nom de l'utilisateur : </label>
-    <input id="nameUser" type="text" class="form-control" placeholder="entrer votre nom" name="name" ngModel required>
+    <label>{{this.multilinguism.translate('User\'sName')}} : </label>
+    <input id="nameUser" type="text" class="form-control" placeholder="{{this.multilinguism.translate('EnterYourName')}}" name="name" ngModel required>
     <br>
-    <label>Votre image : </label>
+    <label>{{this.multilinguism.translate('YourImage')}} : </label>
     <input type="file" accept="image/*" (change)="onFileSelected($event)">
     <br>
     <div class="preview">
       <img *ngIf="selectedFile !== null" class="ui centered image" [src]="selectedFile" alt="">
     </div>
-    <button mat-button mat-raised-button type="submit" (click)="onSubmit(newUser)" [mat-dialog-close]="" [disabled]="newUser.invalid">Valider</button>
+    <button mat-button mat-raised-button type="submit" (click)="onSubmit(newUser)" [mat-dialog-close]="" [disabled]="newUser.invalid">{{this.multilinguism.translate('submit')}}</button>
   </form>
 </div>

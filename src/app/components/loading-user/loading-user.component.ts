@@ -5,6 +5,7 @@ import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 import {ConfigurationService} from "../../services/configuration.service";
 import {LanguageComponent} from "../language-component";
 import {BoardService} from '../../services/board.service';
+import {MultilinguismService} from "../../services/multilinguism.service";
 
 // @ts-ignore
 @Component({
@@ -21,7 +22,9 @@ export class LoadingUserComponent extends LanguageComponent implements OnInit {
               public configurationService: ConfigurationService,
               public boardService: BoardService,
               public route: ActivatedRoute,
-              public router: Router) {
+              public router: Router,
+              public multilinguism: MultilinguismService
+              ) {
     super(configurationService, route );
   }
 
