@@ -59,6 +59,13 @@
       <input (click)="export()" type="button" value="Export">
     </div>
 
+    <div class="export listElement">
+      <label>
+        {{this.multilinguism.translate("exportUser") + ":"}}
+      </label>
+      <input (click)="exportUser()" type="button" value="Export">
+    </div>
+
     <div class="exportTo listElement">
       <label>
         {{this.multilinguism.translate("exportPDF") + ":"}}

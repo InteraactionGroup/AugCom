@@ -13,7 +13,6 @@ import {Router} from '@angular/router';
 export class IndexeddbaccessService {
 
   openRequest;
-  currentConfiguration;
 
   constructor(public paletteService: PaletteService,
               public boardService: BoardService,
@@ -346,6 +345,27 @@ export class IndexeddbaccessService {
           //ELSE WE JUST TAKE THE SAVED GRID
         this.boardService.updateElementList();
       };
+  }
+
+  getTargetGrid(idGrid:string):Grid{
+    this.openRequest = indexedDB.open('saveAugcom', 1);
+    let grid:Grid;
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+      let gridRequest = db.transaction(['Grid']).objectStore('Grid').get(idGrid);
+      gridRequest.onsuccess = e => {
+        console.log('this.jsonValidator.getCheckedGrid(gridRequest.result) :',this.jsonValidator.getCheckedGrid(gridRequest.result));
+       return grid = this.jsonValidator.getCheckedGrid(gridRequest.result);
+      };
+    };
+    return grid;
   }
 
   addGrid(){

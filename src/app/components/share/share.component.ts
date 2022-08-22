@@ -9,7 +9,7 @@ import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {SpeakForYourselfParser} from '../../services/speakForYourselfParser';
 import {HttpClient} from '@angular/common/http';
 import {Ng2ImgMaxService} from 'ng2-img-max';
-import {FolderGoTo, Grid, GridElement, Image, Page} from '../../types';
+import {FolderGoTo, Grid, GridElement, Image, Page, User} from '../../types';
 import {ProloquoParser} from '../../services/proloquoParser';
 import {JsonValidatorService} from '../../services/json-validator.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
@@ -18,6 +18,9 @@ import {ExportSaveDialogComponent} from "../export-save-dialog/export-save-dialo
 import {ExportManagerService} from "../../services/export-manager.service";
 import {LayoutService} from "../../services/layout.service";
 import {DialogExportPagesComponent} from "../dialog-export-pages/dialog-export-pages.component";
+import {UserPageService} from "../../services/user-page.service";
+import {PaletteService} from "../../services/palette.service";
+import {ConfigurationService} from "../../services/configuration.service";
 
 @Component({
   selector: 'app-share',
@@ -40,7 +43,10 @@ export class ShareComponent implements OnInit {
     public multilinguism: MultilinguismService,
     public layoutService: LayoutService,
     public exportManagerService: ExportManagerService,
-    public dialog: MatDialog) {
+    public userPageService: UserPageService,
+    public dialog: MatDialog,
+    public paletteService: PaletteService,
+    public configurationService:ConfigurationService) {
   }
 
   ngOnInit() {
@@ -263,6 +269,7 @@ export class ShareComponent implements OnInit {
   }
 
   /*check if a default form exists for the given element, otherwise create a new one with first displayed text*/
+
   checkAndUpdateElementDefaultForm(element: GridElement) {
     const defaultForm = element.ElementFormsList.find(form => {
       const newForm = form.LexicInfos.find(info => {
@@ -306,7 +313,7 @@ export class ShareComponent implements OnInit {
   }
 
   /**
-   * download a file save.json containing the the string 'data'
+   * download a file save.json containing the string 'data'
    * @param data, the string text that have to be saved
    */
   downloadFile(data: string) {
@@ -415,5 +422,26 @@ export class ShareComponent implements OnInit {
       height: '40%',
       width: '40%'
     });
+  }
+
+  exportUser() {
+    let paletteUser = this.paletteService.palettes;
+    let configurationUser = this.configurationService.getConfiguration();
+    let gridUser:Grid[] = [];
+    let dataUser = this.userPageService.currentUser;
+
+    dataUser.gridsID.forEach((idGrid) => {
+      console.log('idGrid : ', idGrid);
+      setTimeout(() => {
+        gridUser.push(this.indexedDBacess.getTargetGrid(idGrid));
+      },500);
+    })
+
+    setTimeout(() => {
+      console.log('paletteUser : ',paletteUser);
+      console.log('configurationUser : ',configurationUser);
+      console.log('gridUser : ',gridUser);
+      console.log('dataUser : ',dataUser);
+    },800);
   }
 }
