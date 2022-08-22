@@ -346,10 +346,10 @@ export class IndexeddbaccessService {
         this.boardService.updateElementList();
       };
   }
+  listGrid:Grid[] = [];
 
-  getTargetGrid(idGrid:string):Grid{
+  getTargetGrid(idGrid:string){
     this.openRequest = indexedDB.open('saveAugcom', 1);
-    let grid:Grid;
 
     // ERROR
     this.openRequest.onerror = event => {
@@ -361,11 +361,9 @@ export class IndexeddbaccessService {
       const db = event.target.result;
       let gridRequest = db.transaction(['Grid']).objectStore('Grid').get(idGrid);
       gridRequest.onsuccess = e => {
-        console.log('this.jsonValidator.getCheckedGrid(gridRequest.result) :',this.jsonValidator.getCheckedGrid(gridRequest.result));
-       return grid = this.jsonValidator.getCheckedGrid(gridRequest.result);
+        this.listGrid.push(gridRequest.result);
       };
     };
-    return grid;
   }
 
   addGrid(){

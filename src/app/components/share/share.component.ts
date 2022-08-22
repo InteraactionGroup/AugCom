@@ -431,13 +431,13 @@ export class ShareComponent implements OnInit {
     let dataUser = this.userPageService.currentUser;
 
     dataUser.gridsID.forEach((idGrid) => {
-      console.log('idGrid : ', idGrid);
       setTimeout(() => {
-        gridUser.push(this.indexedDBacess.getTargetGrid(idGrid));
+        this.indexedDBacess.getTargetGrid(idGrid);
       },500);
     })
 
     setTimeout(() => {
+      gridUser = this.indexedDBacess.listGrid;
       console.log('paletteUser : ',paletteUser);
       console.log('configurationUser : ',configurationUser);
       console.log('gridUser : ',gridUser);
