@@ -85,6 +85,7 @@ import { DialogAddGridComponent } from './components/dialog-add-grid/dialog-add-
 import { ChooseYourGridComponent } from './components/choose-your-grid/choose-your-grid.component';
 import { DeleteGridUserComponent } from './components/delete-grid-user/delete-grid-user.component';
 import { DialogDeleteGridUserComponent } from './components/dialog-delete-grid-user/dialog-delete-grid-user.component';
+import { ExportSaveUserDialogComponent } from './components/export-save-user-dialog/export-save-user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -152,7 +153,8 @@ import { DialogDeleteGridUserComponent } from './components/dialog-delete-grid-u
     DialogAddGridComponent,
     ChooseYourGridComponent,
     DeleteGridUserComponent,
-    DialogDeleteGridUserComponent
+    DialogDeleteGridUserComponent,
+    ExportSaveUserDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,7 @@
+<div class="dialogContent">
+  <div style="display: flex; flex-wrap: nowrap; align-items: center; color: lightgray;">
+    <input [(ngModel)]="this.name" maxlength="32" placeholder="{{this.multilinguism.translate('EnterNameOfTheSave')}}" style="width: 100%"
+           type="textfield">.augcom
+  </div>
+  <input (click)="this.exportSave()" type="button" value="{{this.multilinguism.translate('validate')}}">
+</div>

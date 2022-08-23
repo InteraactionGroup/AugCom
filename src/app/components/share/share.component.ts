@@ -21,6 +21,7 @@ import {DialogExportPagesComponent} from "../dialog-export-pages/dialog-export-p
 import {UserPageService} from "../../services/user-page.service";
 import {PaletteService} from "../../services/palette.service";
 import {ConfigurationService} from "../../services/configuration.service";
+import {ExportSaveUserDialogComponent} from "../export-save-user-dialog/export-save-user-dialog.component";
 
 @Component({
   selector: 'app-share',
@@ -323,6 +324,13 @@ export class ShareComponent implements OnInit {
     });
   }
 
+  downloadFileUser(data: string) {
+    this.exportManagerService.prepareExport(data);
+    this.dialog.open(ExportSaveUserDialogComponent, {
+      width: '600px'
+    });
+  }
+
   exportPage() {
     this.exportThisPageOnly();
     this.pageToExportList.push(this.pageToExport);
@@ -429,6 +437,7 @@ export class ShareComponent implements OnInit {
     let configurationUser = this.configurationService.getConfiguration();
     let gridUser:Grid[] = [];
     let dataUser = this.userPageService.currentUser;
+    let exportedUser:any[] = [];
 
     dataUser.gridsID.forEach((idGrid) => {
       setTimeout(() => {
@@ -438,10 +447,8 @@ export class ShareComponent implements OnInit {
 
     setTimeout(() => {
       gridUser = this.indexedDBacess.listGrid;
-      console.log('paletteUser : ',paletteUser);
-      console.log('configurationUser : ',configurationUser);
-      console.log('gridUser : ',gridUser);
-      console.log('dataUser : ',dataUser);
+      exportedUser = [paletteUser,configurationUser,gridUser,dataUser];
+      this.downloadFileUser(JSON.stringify(exportedUser));
     },800);
   }
 }
