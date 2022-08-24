@@ -329,6 +329,7 @@
     { "id" :  "left", "FR": "gauche", "EN": "left"},
     { "id" :  "right", "FR": "droite", "EN": "right"},
     { "id" :  "LoginPage", "FR": "Page de connexion", "EN": "Login page"},
-    { "id" :  "Modify", "FR": "Modifier", "EN": "Modify"}
+    { "id" :  "Modify", "FR": "Modifier", "EN": "Modify"},
+    { "id" :  "importUser", "FR": "Importer un utilisateur", "EN": "Import user"}
   ]
 }

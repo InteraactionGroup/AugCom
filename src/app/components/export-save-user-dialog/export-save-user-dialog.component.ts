@@ -26,7 +26,7 @@ export class ExportSaveUserDialogComponent implements OnInit {
     let tempName;
     if (this.name.endsWith(".json")) {
       tempName = this.name.slice(0, this.name.length - 5);
-    } else if (this.name.endsWith(".augcom")) {
+    } else if (this.name.endsWith(".useraugcom")) {
       tempName = this.name.slice(0, this.name.length - 7);
     } else {
       tempName = this.name;
@@ -40,7 +40,7 @@ export class ExportSaveUserDialogComponent implements OnInit {
 
     jszip.generateAsync({type: 'blob'}).then(function (content) {
       // see FileSaver.js
-      importedSaveAs(content, tempName + '.augcom');
+      importedSaveAs(content, tempName + '.useraugcom');
     });
 
   }

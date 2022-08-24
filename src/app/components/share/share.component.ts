@@ -257,6 +257,7 @@ export class ShareComponent implements OnInit {
     const myFile = file[0];
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
+      console.log('fileReader.result : ',fileReader.result);
       const tempBoard = JSON.parse(fileReader.result.toString());
       tempBoard.ElementList.forEach(element => {
         this.checkAndUpdateElementDefaultForm(element);
