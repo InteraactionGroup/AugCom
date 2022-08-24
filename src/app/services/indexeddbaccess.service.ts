@@ -478,15 +478,6 @@ export class IndexeddbaccessService {
       const gridStore = db.transaction(['Grid'], 'readwrite');
       const gridObjectStore = gridStore.objectStore('Grid');
       listGridOfUser.forEach((gridOfUser) => {
-        /*
-        const storeGridRequest = gridObjectStore.get(gridOfUser.ID);
-        storeGridRequest.onsuccess = () => {
-          gridObjectStore.put(gridOfUser,gridOfUser.ID);
-        };
-        storeGridRequest.onerror = () => {
-          gridObjectStore.put(gridOfUser,gridOfUser.ID);
-        };
-         */
         gridObjectStore.put(gridOfUser,gridOfUser.ID);
       });
 
@@ -494,24 +485,12 @@ export class IndexeddbaccessService {
       // UPDATE THE PALETTES
       const paletteStore = db.transaction(['Palette'], 'readwrite');
       const paletteObjectStore = paletteStore.objectStore('Palette');
-      /*
-      const storePaletteRequest = paletteObjectStore.get(user.id);
-      storePaletteRequest.onsuccess = () => {
-        paletteObjectStore.put(this.paletteService.palettes, this.userPageService.currentUser.id);
-      };
-      */
       paletteObjectStore.put(palette, user.id);
 
       // UPDATE THE CONFIGURATION
       const configStore = db.transaction(['Configuration'], 'readwrite');
       const configObjectStore = configStore.objectStore('Configuration');
       configObjectStore.put(configuration, user.id);
-      /*
-      const storeConfigRequest = configObjectStore.get(this.userPageService.currentUser.id);
-      storeConfigRequest.onsuccess = () => {
-        configObjectStore.put(this.configurationService.getConfiguration(), this.userPageService.currentUser.id);
-      };
-       */
     };
   }
 }
