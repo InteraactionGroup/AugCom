@@ -13,7 +13,6 @@ import {Router} from '@angular/router';
 export class IndexeddbaccessService {
 
   openRequest;
-  currentConfiguration;
 
   constructor(public paletteService: PaletteService,
               public boardService: BoardService,
@@ -44,6 +43,7 @@ export class IndexeddbaccessService {
         // UPDATE THE GRID
         const gridStore = db.transaction(['Grid'], 'readwrite');
         const gridObjectStore = gridStore.objectStore('Grid');
+        console.log('this.boardService.gridChosen : ', this.boardService.gridChosen);
         const storeGridRequest = gridObjectStore.get(this.boardService.gridChosen? this.boardService.gridChosen : this.userPageService.currentUser.gridsID[0]);
         storeGridRequest.onsuccess = () => {
           gridObjectStore.put(this.boardService.board, this.boardService.gridChosen? this.boardService.gridChosen : this.userPageService.currentUser.gridsID[0]);
@@ -347,6 +347,25 @@ export class IndexeddbaccessService {
         this.boardService.updateElementList();
       };
   }
+  listGrid:Grid[] = [];
+
+  getTargetGrid(idGrid:string){
+    this.openRequest = indexedDB.open('saveAugcom', 1);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+      let gridRequest = db.transaction(['Grid']).objectStore('Grid').get(idGrid);
+      gridRequest.onsuccess = e => {
+        this.listGrid.push(gridRequest.result);
+      };
+    };
+  }
 
   addGrid(){
     this.openRequest = indexedDB.open('saveAugcom', 1);
@@ -417,5 +436,62 @@ export class IndexeddbaccessService {
     }
 
     return existingGrid;
+  }
+
+  importUserInDatabase(userToBeImported){
+    this.openRequest = indexedDB.open('saveAugcom', 1);
+
+    // ERROR
+    this.openRequest.onerror = event => {
+      alert('Database error: ' + event.target.errorCode);
+    };
+
+    // SUCCESS
+    this.openRequest.onsuccess = event => {
+      const palette = userToBeImported[0];
+      const configuration = userToBeImported[1];
+      const listGridOfUser = userToBeImported[2];
+      const user = userToBeImported[3];
+      const db = event.target.result;
+
+
+      // UPDATE USERLIST
+      const userListStore = db.transaction(['UserList'], 'readwrite');
+      const userListObjectStore = userListStore.objectStore('UserList');
+      const storeuserListRequest = userListObjectStore.get(1);
+      storeuserListRequest.onsuccess = () => {
+        const userListDatabase = storeuserListRequest.result;
+        let userExistInDatabase = false;
+        userListDatabase.forEach((userDatabase,index) => {
+          if(userDatabase.id === user.id){
+            userListDatabase[index] = user;
+            userExistInDatabase = true;
+          }
+        });
+        if(!userExistInDatabase){
+          userListDatabase.push(user);
+        }
+        this.userPageService.usersList = userListDatabase;
+        userListObjectStore.put(userListDatabase, 1);
+      };
+
+      // UPDATE THE GRID
+      const gridStore = db.transaction(['Grid'], 'readwrite');
+      const gridObjectStore = gridStore.objectStore('Grid');
+      listGridOfUser.forEach((gridOfUser) => {
+        gridObjectStore.put(gridOfUser,gridOfUser.ID);
+      });
+
+
+      // UPDATE THE PALETTES
+      const paletteStore = db.transaction(['Palette'], 'readwrite');
+      const paletteObjectStore = paletteStore.objectStore('Palette');
+      paletteObjectStore.put(palette, user.id);
+
+      // UPDATE THE CONFIGURATION
+      const configStore = db.transaction(['Configuration'], 'readwrite');
+      const configObjectStore = configStore.objectStore('Configuration');
+      configObjectStore.put(configuration, user.id);
+    };
   }
 }
