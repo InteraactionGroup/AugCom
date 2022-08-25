@@ -43,6 +43,7 @@ export class IndexeddbaccessService {
         // UPDATE THE GRID
         const gridStore = db.transaction(['Grid'], 'readwrite');
         const gridObjectStore = gridStore.objectStore('Grid');
+        console.log('this.boardService.gridChosen : ', this.boardService.gridChosen);
         const storeGridRequest = gridObjectStore.get(this.boardService.gridChosen? this.boardService.gridChosen : this.userPageService.currentUser.gridsID[0]);
         storeGridRequest.onsuccess = () => {
           gridObjectStore.put(this.boardService.board, this.boardService.gridChosen? this.boardService.gridChosen : this.userPageService.currentUser.gridsID[0]);
