@@ -191,6 +191,7 @@ export class IndexeddbaccessService {
     if (this.userPageService.currentUser == null) {
       this.userPageService.currentUser = this.userPageService.defaultUser;
     }
+    console.log('this.userPageService.currentUser : ',this.userPageService.currentUser);
     this.openRequest = indexedDB.open('saveAugcom', 1);
 
     // ERROR

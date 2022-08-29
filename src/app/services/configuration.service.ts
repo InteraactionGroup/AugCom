@@ -177,7 +177,7 @@ export class ConfigurationService {
     this.MAIN_COLOR_2_VALUE = configuration.MAIN_COLOR_2_VALUE;
     this.MAIN_COLOR_3_VALUE = configuration.MAIN_COLOR_3_VALUE;
     this.MAIN_COLOR_4_VALUE = configuration.MAIN_COLOR_4_VALUE;
-    this.DEFAULT_SIZE_FONT_VALUE = configuration.SIZE_FONT_VALUE;
+    this.SIZE_FONT_VALUE = configuration.SIZE_FONT_VALUE;
     this.VOLUME = configuration.VOLUME;
     this.RATE = configuration.RATE;
     this.PITCH = configuration.PITCH;

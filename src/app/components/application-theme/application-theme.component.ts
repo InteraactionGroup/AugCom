@@ -28,18 +28,9 @@ export class ApplicationThemeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // const root = document.getElementById('main');
-    // this.configurationService.MAIN_COLOR_0_VALUE = root.style.getPropertyValue('--main-bg-color0');
-    // this.configurationService.MAIN_COLOR_1_VALUE = root.style.getPropertyValue('--main-bg-color1');
-    // this.configurationService.MAIN_COLOR_2_VALUE = root.style.getPropertyValue('--main-bg-color2');
-    // this.configurationService.MAIN_COLOR_3_VALUE = root.style.getPropertyValue('--main-bg-color3');
-    // this.configurationService.MAIN_COLOR_4_VALUE = root.style.getPropertyValue('--main-bg-color4');
-    /*this.saveService.loadInfoFromCurrentUser();
     setTimeout(() => {
-     */
-      console.log("this.configurationService.SIZE_FONT_VALUE", this.configurationService.SIZE_FONT_VALUE);
       this.selectedSize = this.configurationService.SIZE_FONT_VALUE;
-    //},500);
+    },500);
   }
 
   changeSizeFont(value){
