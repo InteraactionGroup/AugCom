@@ -14,24 +14,39 @@ the key "1" in AugCom is the default user key with all default settings (configu
 This database, if you decide to delete it from the browser, will automatically reformat itself when you refresh the AugCom application page with the default values, so you will lose all other users, grids etc...
 
 The first thing you have to do for each operation on the database is to make an opening query like this:
+```ts
+this.openRequest = indexedDB.open('saveAugcom', 1);
 
-![OpenDB](src/assets/tuto/OpenDB.png)
+      // ERROR
+      this.openRequest.onerror = event => {
+        alert('Database error: ' + event.target.errorCode);
+      };
 
+      // SUCCESS
+      this.openRequest.onsuccess = event => {
+```
 
 ## Add a table to the database
 
 To add a table you just have to use the event to target the database then use the createObjectStore() function which is present in angular without package and indicate the name of the table here 'Palette' and put in auto-increment.
-![transaction](src/assets/tuto/Transaction.png)
+```ts
+const transaction = event.target.transaction;
+```
 
 ## Add/modify/delete data in a table
 
 To add data in a table, you have to use the event to make a transaction.
-![createTable](src/assets/tuto/CreateTable.png)
+```ts
+const db = event.target.result;
+db.createObjectStore('Palette', {autoIncrement: true});
+```
 
 Then, if you want to add a data in the table you have to use 'add' by giving the data as argument, even if 'put' works the same way, but it targets a key (here the 2nd argument is the key). If it exists, it will modify the content of this key, otherwise it adds a row with the key and the data.
-
-![add](src/assets/tuto/add.png)
-
-![put](src/assets/tuto/put.png)
-
 To delete a line you just have to use "delete" giving as argument the key of the data to delete.
+```ts
+const paletteObjectStore = transaction.objectStore('Palette');
+
+paletteObjectStore.add(this.paletteService.palettes);
+paletteObjectStore.put(this.paletteService.palettes, this.userPageService.currentUser.id);
+paletteObjectStore.delete(this.userPageService.currentUser.id);
+```
