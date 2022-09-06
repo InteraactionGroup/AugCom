@@ -1,7 +1,7 @@
 # Tutoriel base de donnée
 
 
-Pour ce tuto, j’utilise AugCom comme source d’exemple. Pour voir la base de données, clique droit puis “inspecter” ou pressez F12. Choisissez Appli dans les onglets du haut.
+Pour ce tuto, j’utilise AugCom comme source d’exemple ainsi que le navigateur google chrome. Pour voir la base de données, clique droit puis “inspecter” ou pressez F12. Choisissez Appli dans les onglets du haut.
 
 ![appli](src/assets/tuto/Appli.png)
 

@@ -1,7 +1,7 @@
 # Database tutorial
 
 
-For this tutorial, I use AugCom as an example source. To see the database, right click then "inspect" or press F12. Choose Appli in the top tabs.
+For this tutorial, I use AugCom as an example source and the google chrome browser. To see the database, right click then "inspect" or press F12. Choose Appli in the top tabs.
 
 ![appli](src/assets/tuto/Appli.png)
 
