@@ -27,21 +27,21 @@ jobs:
 
       - name: Zip & Tar gz Prod
         run: |
-          cd ./dist/AugCom
+          cd ./dist/
           zip -r AugCom.zip *
-          mv AugCom.zip ../../
+          mv AugCom.zip ../
           tar -czvf AugCom.tar.gz *
-          mv AugCom.tar.gz ../../
-          cd ../../
+          mv AugCom.tar.gz ../
+          cd ../
           
       - name: Build prod Ligone
         run: npm run ligone
 
       - name: Zip prod Ligone
         run: |
-          cd ./dist/AugCom
+          cd ./dist/
           zip -r AugComLigone.zip *
-          mv AugComLigone.zip ../../
+          mv AugComLigone.zip ../
 
       - name: Get Env
         run: |
