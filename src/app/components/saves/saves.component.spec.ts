@@ -7,6 +7,7 @@ import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {GridElement} from '../../types';
 import {Board} from '../../data/ExempleOfBoard';
 import {Router} from "@angular/router";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('SavesComponent', () => {
   let component: SavesComponent;
@@ -15,7 +16,7 @@ describe('SavesComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [FormsModule, Ng2ImgMaxModule],
+      imports: [FormsModule, Ng2ImgMaxModule, HttpClientModule],
       declarations: [SavesComponent],
       providers: [{
         provide: Router, useClass: class {

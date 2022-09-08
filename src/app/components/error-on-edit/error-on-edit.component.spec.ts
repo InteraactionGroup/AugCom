@@ -1,6 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ErrorOnEditComponent} from './error-on-edit.component';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('ErrorOnEditComponent', () => {
   let component: ErrorOnEditComponent;
@@ -8,7 +9,8 @@ describe('ErrorOnEditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ErrorOnEditComponent]
+      declarations: [ErrorOnEditComponent],
+      imports: [HttpClientModule]
     })
       .compileComponents();
   }));

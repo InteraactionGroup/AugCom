@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ExportSaveUserDialogComponent } from './export-save-user-dialog.component';
 import {Ng2ImgMaxModule} from "ng2-img-max";
 import {RouterTestingModule} from "@angular/router/testing";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('XportSaveUserDialogComponent', () => {
   let component: ExportSaveUserDialogComponent;
@@ -11,7 +12,7 @@ describe('XportSaveUserDialogComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ExportSaveUserDialogComponent ],
-      imports: [Ng2ImgMaxModule, RouterTestingModule]
+      imports: [Ng2ImgMaxModule, RouterTestingModule, HttpClientModule]
     })
     .compileComponents();
   }));

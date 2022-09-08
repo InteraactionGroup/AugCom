@@ -7,6 +7,7 @@ import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {MatAutocomplete, MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDialogModule} from "@angular/material/dialog";
 import {Router} from "@angular/router";
+import {HttpClientModule} from "@angular/common/http";
 
 
 describe('ImageSelectionPageComponent', () => {
@@ -16,7 +17,7 @@ describe('ImageSelectionPageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [FormsModule, Ng2ImgMaxModule, ReactiveFormsModule, MatAutocompleteModule, MatDialogModule],
+      imports: [FormsModule, Ng2ImgMaxModule, ReactiveFormsModule, MatAutocompleteModule, MatDialogModule, HttpClientModule],
       declarations: [ImageSelectionPageComponent],
       providers: [{
         provide: Router, useClass: class {

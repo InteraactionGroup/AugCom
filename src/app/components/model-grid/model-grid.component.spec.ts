@@ -4,6 +4,7 @@ import { ModelGridComponent } from './model-grid.component';
 import {Ng2ImgMaxModule} from "ng2-img-max";
 import {RouterTestingModule} from "@angular/router/testing";
 import {MatDialogModule} from "@angular/material/dialog";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('ModelPageComponent', () => {
   let component: ModelGridComponent;
@@ -12,7 +13,7 @@ describe('ModelPageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ModelGridComponent ],
-      imports: [Ng2ImgMaxModule, RouterTestingModule, MatDialogModule]
+      imports: [Ng2ImgMaxModule, RouterTestingModule, MatDialogModule, HttpClientModule]
     })
     .compileComponents();
   }));

@@ -2,10 +2,11 @@ import {TestBed} from '@angular/core/testing';
 
 import {ParametersService} from './parameters.service';
 import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('ParametersService', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    imports: [FormsModule]
+    imports: [FormsModule, HttpClientModule]
   }));
 
   it('should be created', () => {

@@ -5,6 +5,7 @@ import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {Router} from '@angular/router';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('KeyboardComponent', () => {
   let component: KeyboardComponent;
@@ -13,7 +14,7 @@ describe('KeyboardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [FormsModule, Ng2ImgMaxModule],
+      imports: [FormsModule, Ng2ImgMaxModule, HttpClientModule],
       providers: [{
         provide: Router, useClass: class {
           navigate = jasmine.createSpy('navigate');

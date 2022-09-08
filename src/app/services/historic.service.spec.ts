@@ -2,10 +2,11 @@ import {TestBed} from '@angular/core/testing';
 
 import {HistoricService} from './historic.service';
 import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('HistoricService', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    imports: [FormsModule]
+    imports: [FormsModule, HttpClientModule]
   }));
 
   it('should be created', () => {

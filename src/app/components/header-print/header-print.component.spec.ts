@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderPrintComponent } from './header-print.component';
 import {Ng2ImgMaxModule} from "ng2-img-max";
 import {Router} from "@angular/router";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('HeaderPrintComponent', () => {
   let component: HeaderPrintComponent;
@@ -11,7 +12,7 @@ describe('HeaderPrintComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ HeaderPrintComponent ],
-      imports: [Ng2ImgMaxModule],
+      imports: [Ng2ImgMaxModule, HttpClientModule],
       providers: [{
         provide: Router, useClass: class {
           navigate = jasmine.createSpy('navigate');

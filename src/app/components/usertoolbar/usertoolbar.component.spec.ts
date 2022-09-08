@@ -6,6 +6,7 @@ import {FormsModule} from '@angular/forms';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {RouterTestingModule} from "@angular/router/testing";
 import {MatDialogModule} from "@angular/material/dialog";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('UsertoolbarComponent', () => {
   let component: UsertoolbarComponent;
@@ -14,7 +15,7 @@ describe('UsertoolbarComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [FormsModule, Ng2ImgMaxModule, MatDialogModule, RouterTestingModule],
+      imports: [FormsModule, Ng2ImgMaxModule, MatDialogModule, RouterTestingModule, HttpClientModule],
       declarations: [UsertoolbarComponent]
     })
       .compileComponents();

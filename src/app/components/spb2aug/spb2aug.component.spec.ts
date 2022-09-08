@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Spb2augComponent } from './spb2aug.component';
 import {Ng2ImgMaxModule} from "ng2-img-max";
 import {RouterTestingModule} from "@angular/router/testing";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('Spb2augComponent', () => {
   let component: Spb2augComponent;
@@ -11,7 +12,7 @@ describe('Spb2augComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ Spb2augComponent ],
-      imports: [Ng2ImgMaxModule, RouterTestingModule]
+      imports: [Ng2ImgMaxModule, RouterTestingModule, HttpClientModule]
     })
     .compileComponents();
   }));

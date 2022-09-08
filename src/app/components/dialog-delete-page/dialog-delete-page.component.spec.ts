@@ -3,6 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {DialogDeletePageComponent} from './dialog-delete-page.component';
 import {Ng2ImgMaxModule} from "ng2-img-max";
 import {Router} from "@angular/router";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('DialogDeletePageComponent', () => {
   let component: DialogDeletePageComponent;
@@ -11,7 +12,7 @@ describe('DialogDeletePageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [DialogDeletePageComponent],
-      imports: [Ng2ImgMaxModule],
+      imports: [Ng2ImgMaxModule, HttpClientModule],
       providers: [{
         provide: Router, useClass: class {
           navigate = jasmine.createSpy('navigate');

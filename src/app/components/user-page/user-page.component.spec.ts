@@ -5,6 +5,7 @@ import {ImgExifService, ImgMaxPXSizeService, ImgMaxSizeService, Ng2ImgMaxModule,
 import {FormBuilder, FormsModule} from "@angular/forms";
 import {MatDialogModule} from "@angular/material/dialog";
 import {RouterTestingModule} from "@angular/router/testing";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('UserPageComponent', () => {
   let component: UserPageComponent;
@@ -14,7 +15,7 @@ describe('UserPageComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ UserPageComponent ],
       providers: [FormBuilder],
-      imports: [FormsModule, Ng2ImgMaxModule, RouterTestingModule, MatDialogModule],
+      imports: [FormsModule, Ng2ImgMaxModule, RouterTestingModule, MatDialogModule, HttpClientModule],
     })
     .compileComponents();
   }));

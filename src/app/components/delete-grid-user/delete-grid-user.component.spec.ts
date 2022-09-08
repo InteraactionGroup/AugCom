@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DeleteGridUserComponent } from './delete-grid-user.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('DeleteGridUserComponent', () => {
   let component: DeleteGridUserComponent;
@@ -10,7 +11,7 @@ describe('DeleteGridUserComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ DeleteGridUserComponent ],
-      imports:[MatDialogModule]
+      imports:[MatDialogModule, HttpClientModule]
     })
     .compileComponents();
   }));

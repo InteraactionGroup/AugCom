@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DialogDeleteGridUserComponent } from './dialog-delete-grid-user.component';
 import {Ng2ImgMaxModule} from "ng2-img-max";
 import {RouterTestingModule} from "@angular/router/testing";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('DialogDeleteGridUserComponent', () => {
   let component: DialogDeleteGridUserComponent;
@@ -11,7 +12,7 @@ describe('DialogDeleteGridUserComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ DialogDeleteGridUserComponent ],
-      imports: [Ng2ImgMaxModule, RouterTestingModule]
+      imports: [Ng2ImgMaxModule, RouterTestingModule, HttpClientModule]
     })
     .compileComponents();
   }));

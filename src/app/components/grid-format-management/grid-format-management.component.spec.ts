@@ -3,6 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {GridFormatManagementComponent} from './grid-format-management.component';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {Router} from "@angular/router";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('GridFormatManagementComponent', () => {
   let component: GridFormatManagementComponent;
@@ -10,7 +11,7 @@ describe('GridFormatManagementComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [Ng2ImgMaxModule],
+      imports: [Ng2ImgMaxModule, HttpClientModule],
       declarations: [GridFormatManagementComponent],
       providers: [{
         provide: Router, useClass: class {

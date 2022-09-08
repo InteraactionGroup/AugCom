@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LifeCompanion2augComponent } from './life-companion2aug.component';
 import {Ng2ImgMaxModule} from "ng2-img-max";
 import {RouterTestingModule} from "@angular/router/testing";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('LifeCompanion2augComponent', () => {
   let component: LifeCompanion2augComponent;
@@ -11,7 +12,7 @@ describe('LifeCompanion2augComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ LifeCompanion2augComponent ],
-      imports:[Ng2ImgMaxModule, RouterTestingModule]
+      imports:[Ng2ImgMaxModule, RouterTestingModule, HttpClientModule]
     })
     .compileComponents();
   }));

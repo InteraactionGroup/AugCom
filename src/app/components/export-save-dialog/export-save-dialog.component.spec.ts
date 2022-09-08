@@ -4,6 +4,7 @@ import {ExportSaveDialogComponent} from './export-save-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {Ng2ImgMaxModule} from "ng2-img-max";
 import {RouterTestingModule} from "@angular/router/testing";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('ExportSaveDialogComponent', () => {
   let component: ExportSaveDialogComponent;
@@ -12,7 +13,7 @@ describe('ExportSaveDialogComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ExportSaveDialogComponent],
-      imports: [MatDialogModule, Ng2ImgMaxModule, RouterTestingModule]
+      imports: [MatDialogModule, Ng2ImgMaxModule, RouterTestingModule, HttpClientModule]
     })
       .compileComponents();
   }));

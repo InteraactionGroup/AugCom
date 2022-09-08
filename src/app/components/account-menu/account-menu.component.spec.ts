@@ -4,6 +4,7 @@ import {AccountMenuComponent} from './account-menu.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {Ng2ImgMaxModule} from "ng2-img-max";
+import {HttpClientModule} from "@angular/common/http";
 
 function clickElementOf(compiled: any, fixture: any, selector: any, textIncluded: any) {
   compiled.querySelectorAll(selector).forEach(
@@ -56,7 +57,7 @@ describe('AccountMenuComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AccountMenuComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [FormsModule, Ng2ImgMaxModule],
+      imports: [FormsModule, Ng2ImgMaxModule, HttpClientModule],
     })
       .compileComponents();
   }));

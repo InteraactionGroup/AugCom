@@ -4,6 +4,7 @@ import {EventComponent} from './event.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {Router} from "@angular/router";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('EventComponent', () => {
   let component: EventComponent;
@@ -12,7 +13,7 @@ describe('EventComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [FormsModule],
+      imports: [FormsModule, HttpClientModule],
       declarations: [EventComponent],
       providers: [{
         provide: Router, useClass: class {

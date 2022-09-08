@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
 import {Configuration, Style} from "../types";
 import {StyleService} from "./style.service";
-import {PrintService} from "./print.service";
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConfigurationService {
 
-  public VERSION = "AugCom v.2022.08.17";
+  public VERSION = "";
 
   DEFAULT_DWELL_TIME_ENABLED = false;
   DEFAULT_PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE = 'default'; // can be 'default' 'imageOnly' and 'textOnly'
@@ -79,7 +79,9 @@ export class ConfigurationService {
 // --main-font: Arial, sans-serif;
 // --main-picto-font: Arial, sans-serif;
 
-  constructor(public styleService: StyleService) {
+  constructor(public styleService: StyleService,
+              private http: HttpClient) {
+    this.setVersion();
   }
 
   public getConfiguration(): Configuration {
@@ -202,5 +204,11 @@ export class ConfigurationService {
       this.STYLE_BACKGROUNDCOLOR_VALUE,
       this.STYLE_BORDERCOLOR_VALUE,
       this.STYLE_TEXTCOLOR_VALUE);
+  }
+
+  setVersion(){
+    this.http.get("https://api.github.com/repos/AFSR/AugCom-AFSR/releases/latest").subscribe(data => {
+      this.VERSION = data["name"] + " Dev v." + data["created_at"].substring(0, 10).replace("-", ".");
+    })
   }
 }
