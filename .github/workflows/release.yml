@@ -27,6 +27,7 @@ jobs:
 
       - name: Zip & Tar gz Prod
         run: |
+          chmod -R 777 ./dist/
           cd ./dist/
           zip -r AugCom.zip *
           mv AugCom.zip ../
@@ -39,6 +40,7 @@ jobs:
 
       - name: Zip prod Ligone
         run: |
+          chmod -R 777 ./dist/
           cd ./dist/
           zip -r AugComLigone.zip *
           mv AugComLigone.zip ../
