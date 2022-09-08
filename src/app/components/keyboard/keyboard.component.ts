@@ -110,7 +110,7 @@ export class KeyboardComponent implements OnInit{
       this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
       await this.delay(100);
       this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
-      await this.delay(5000);
+      await this.delay(1000);
       this.boardService.updateElementList();
     }
 

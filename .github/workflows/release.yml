@@ -25,13 +25,23 @@ jobs:
       - name: Build prod
         run: npm run build --prod
 
-      - name: Zip & Tar gz
+      - name: Zip & Tar gz Prod
         run: |
           cd ./dist/
           zip -r AugCom.zip *
           mv AugCom.zip ../
           tar -czvf AugCom.tar.gz *
           mv AugCom.tar.gz ../
+          cd ../
+          
+      - name: Build prod Ligone
+        run: npm run ligone
+
+      - name: Zip prod Ligone
+        run: |
+          cd ./dist/
+          zip -r AugComLigone.zip *
+          mv AugComLigone.zip ../
 
       - name: Get Env
         run: |
@@ -73,4 +83,5 @@ jobs:
           files: |
             AugCom.tar.gz
             AugCom.zip
+            AugComLigone.zip
           github-token: ${{ secrets.GITHUB_TOKEN }}
