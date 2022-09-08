@@ -23,11 +23,12 @@ jobs:
         run: npm install
 
       - name: Build prod
-        run: npm run build --prod
+        run: |
+          chmod -R 777 *
+          npm run build --prod
 
       - name: Zip & Tar gz Prod
         run: |
-          chmod -R 777 ./dist/
           cd ./dist/
           zip -r AugCom.zip *
           mv AugCom.zip ../
@@ -36,11 +37,12 @@ jobs:
           cd ../
           
       - name: Build prod Ligone
-        run: npm run ligone
+        run: |
+          chmod -R 777 *
+          npm run ligone
 
       - name: Zip prod Ligone
         run: |
-          chmod -R 777 ./dist/
           cd ./dist/
           zip -r AugComLigone.zip *
           mv AugComLigone.zip ../
