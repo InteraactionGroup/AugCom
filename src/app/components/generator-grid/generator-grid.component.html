@@ -27,6 +27,35 @@
   <div class="optionsGenerateGrid">
     <label class="label" for="sentencefield">{{this.multilinguism.translate("listOfWords")}}</label>
     <input id="sentencefield" (keyup)="getSentence($event)" class="input width-100" [placeholder]="" type="text">
+
+    <div *ngIf="this.voiceRecognition.voiceActiveSectionDisabled; else voicesection;">
+      <button class="backgroundWhite" mat-raised-button type="button" (click)="this.voiceRecognition.startVoiceRecognition()"><img height="60px" width="50px" src="assets/icons/microphone.svg" alt="microphone"/></button>
+    </div>
+    <ng-template #voicesection>
+      <ng-container *ngIf="!this.voiceRecognition.voiceActiveSectionError; else failure">
+        <ng-container *ngIf="this.voiceRecognition.voiceText; else start">
+          <span>{{this.voiceRecognition.voiceText}}</span>
+        </ng-container>
+        <ng-template #start>
+          <ng-container
+            *ngIf="this.voiceRecognition.voiceActiveSectionListening; else beginning">
+            <span>{{this.multilinguism.translate('Listening')}}...</span>
+          </ng-container>
+          <ng-template #beginning>
+            <span>{{this.multilinguism.translate('Start talking')}}...</span>
+          </ng-template>
+        </ng-template>
+      </ng-container>
+      <ng-template #failure>
+        <span>{{this.multilinguism.translate('Didnt catch that')}}</span>
+      </ng-template>
+      <div>
+        <button mat-raised-button color="warn" (click)="this.voiceRecognition.closeVoiceRecognition()">{{this.multilinguism.translate('Close')}}</button>
+        <button mat-raised-button color="primary" (click)="this.voiceRecognition.startVoiceRecognition()">{{this.multilinguism.translate('Restart')}}</button>
+        <button mat-raised-button color="accent" *ngIf="this.voiceRecognition.voiceText" (click)="this.submitFromSpeech()" mat-dialog-close>{{this.multilinguism.translate('submit')}}</button>
+      </div>
+    </ng-template>
+
   </div>
 
   <button (click)="submit()">{{this.multilinguism.translate("generateGrid")}}</button>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ConfigurationService} from "../../services/configuration.service";
-import {FolderGoTo, Grid, GridElement, GridElementGenerated, Page} from "../../types";
+import {FolderGoTo, Grid, GridElementGenerated, Page} from "../../types";
 import {BoardService} from "../../services/board.service";
 import arasaacJson from "../../../assets/arasaac-symbol-info.json";
 import {ArasaacObject, MulBerryObject} from "../../libTypes";
@@ -13,7 +13,7 @@ import {Router} from "@angular/router";
 import {MultilinguismService} from "../../services/multilinguism.service";
 import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 import {LayoutService} from "../../services/layout.service";
-import {JsonValidatorService} from "../../services/json-validator.service";
+import {VoiceRecognitionService} from "../../services/voice-recognition.service";
 
 @Component({
   selector: 'app-generator-grid',
@@ -46,10 +46,10 @@ export class GeneratorGridComponent implements OnInit {
               public functionsService: FunctionsService,
               public dbnaryService: DbnaryService,
               public router: Router,
-              public jsonValidator: JsonValidatorService,
               public multilinguism: MultilinguismService,
               public indexedDBacess: IndexeddbaccessService,
-              public layoutService: LayoutService) {
+              public layoutService: LayoutService,
+              public voiceRecognition: VoiceRecognitionService) {
   }
 
   ngOnInit(): void {
@@ -381,5 +381,9 @@ export class GeneratorGridComponent implements OnInit {
       this.error = true;
       this.errorType = "noNameGrid";
     }
+  }
+  //wait
+  submitFromSpeech() {
+    this.wordsFromSentence = this.voiceRecognition.voiceText.split(' ');
   }
 }
