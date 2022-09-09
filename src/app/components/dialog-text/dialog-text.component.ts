@@ -19,13 +19,12 @@ export class DialogTextComponent implements OnInit {
 
   constructor(private historicService: HistoricService,
               public multilinguism: MultilinguismService,
-              private configurationService: ConfigurationService,
               public getIconService: GeticonService,
               public userToolBarService: UsertoolbarService,
               public voiceRecognition: VoiceRecognitionService) { }
 
   ngOnInit(): void {
-    this.changeLanguage();
+    this.voiceRecognition.changeLanguage();
   }
 
   getNameUser(event){
@@ -50,15 +49,6 @@ export class DialogTextComponent implements OnInit {
       BorderColor: '',
     };
     this.historicService.push(vignette);
-  }
-
-  changeLanguage(){
-    if(this.configurationService.LANGUAGE_VALUE === 'FR'){
-      annyang.setLanguage('fr-FR');
-    }
-    if(this.configurationService.LANGUAGE_VALUE === 'EN'){
-      annyang.setLanguage('en');
-    }
   }
 
   getIcon(s: string) {

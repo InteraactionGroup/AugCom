@@ -1,4 +1,5 @@
 import {Injectable, NgZone} from '@angular/core';
+import {ConfigurationService} from "./configuration.service";
 
 declare const annyang: any;
 
@@ -13,7 +14,8 @@ export class VoiceRecognitionService {
   voiceActiveSectionListening: boolean = false;
   voiceText: any;
 
-  constructor(private ngZone: NgZone) { }
+  constructor(private configurationService: ConfigurationService,
+              private ngZone: NgZone) { }
 
   initializeVoiceRecognitionCallback(): void {
     annyang.addCallback('error', (err) => {
@@ -80,6 +82,14 @@ export class VoiceRecognitionService {
 
     if(annyang){
       annyang.abort();
+    }
+  }
+  changeLanguage(){
+    if(this.configurationService.LANGUAGE_VALUE === 'FR'){
+      annyang.setLanguage('fr-FR');
+    }
+    if(this.configurationService.LANGUAGE_VALUE === 'EN'){
+      annyang.setLanguage('en');
     }
   }
 }

@@ -53,6 +53,7 @@ export class GeneratorGridComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.voiceRecognition.changeLanguage();
   }
 
   clearActualGrid(){
@@ -382,8 +383,10 @@ export class GeneratorGridComponent implements OnInit {
       this.errorType = "noNameGrid";
     }
   }
-  //wait
+
   submitFromSpeech() {
+    this.sentence = this.voiceRecognition.voiceText;
     this.wordsFromSentence = this.voiceRecognition.voiceText.split(' ');
+    this.voiceRecognition.closeVoiceRecognition();
   }
 }

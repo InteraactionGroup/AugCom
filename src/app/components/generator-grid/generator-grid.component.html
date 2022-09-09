@@ -11,22 +11,22 @@
 
   <div class="optionsGenerateGrid">
     <label class="label" for="namefield">{{this.multilinguism.translate("nameGeneratedGrid")}}</label>
-    <input id="namefield" (keyup)="getNameGrid($event)" class="input width-100" [placeholder]="" type="text">
+    <input id="namefield" (keyup)="getNameGrid($event)" class="input width-100"  type="text">
   </div>
 
   <div class="optionsGenerateGrid">
     <label class="label" for="colsfield">{{this.multilinguism.translate("nbColsGeneratedGrid")}}</label>
-    <input id="colsfield" (keyup)="getColsGrid($event)" class="input width-100" [placeholder]="" type="number" min="1">
+    <input id="colsfield" (keyup)="getColsGrid($event)" class="input width-100"  type="number" min="1">
   </div>
 
   <div class="optionsGenerateGrid">
     <label class="label" for="rowsfield">{{this.multilinguism.translate("nbRowsGeneratedGrid")}}</label>
-    <input id="rowsfield" (keyup)="getRowsGrid($event)" class="input width-100" [placeholder]="" type="number" min="1">
+    <input id="rowsfield" (keyup)="getRowsGrid($event)" class="input width-100"  type="number" min="1">
   </div>
 
   <div class="optionsGenerateGrid">
     <label class="label" for="sentencefield">{{this.multilinguism.translate("listOfWords")}}</label>
-    <input id="sentencefield" (keyup)="getSentence($event)" class="input width-100" [placeholder]="" type="text">
+    <input id="sentencefield" (keyup)="getSentence($event)" class="input width-100" [value]="sentence" type="text">
 
     <div *ngIf="this.voiceRecognition.voiceActiveSectionDisabled; else voicesection;">
       <button class="backgroundWhite" mat-raised-button type="button" (click)="this.voiceRecognition.startVoiceRecognition()"><img height="60px" width="50px" src="assets/icons/microphone.svg" alt="microphone"/></button>
@@ -55,7 +55,6 @@
         <button mat-raised-button color="accent" *ngIf="this.voiceRecognition.voiceText" (click)="this.submitFromSpeech()" mat-dialog-close>{{this.multilinguism.translate('submit')}}</button>
       </div>
     </ng-template>
-
   </div>
 
   <button (click)="submit()">{{this.multilinguism.translate("generateGrid")}}</button>
