@@ -79,13 +79,29 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload Release
-        id: upload-assets
+      - name: Upload Tar Release
+        id: upload-tar-assets
         uses: csexton/release-asset-action@v2
         with:
           release-url: ${{ steps.create_release.outputs.upload_url }}
           files: |
             AugCom.tar.gz
-            AugCom.zip
-            AugComLigone.zip
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Upload Zip Release
+        id: upload-zip-assets
+        uses: csexton/release-asset-action@v2
+        with:
+          release-url: ${{ steps.create_release.outputs.upload_url }}
+          files: |
+            AugCom.zip
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Upload Ligone Release
+        id: upload-ligone-assets
+        uses: csexton/release-asset-action@v2
+        with:
+          release-url: ${{ steps.create_release.outputs.upload_url }}
+          files: |
+            AugComLigone.zip
+          github-token: ${{ secrets.GITHUB_TOKEN }}    
