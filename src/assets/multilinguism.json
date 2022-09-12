@@ -251,9 +251,9 @@
     { "id" :  "defaultLanguage", "FR" : "Vous pouvez également sélectionner la langue par défaut de l’application.", "EN" :  "You can also select the default language of the application."},
     { "id" :  "share", "FR" : "Partager", "EN" :  "Share"},
     { "id" :  "exportGrid", "FR" : "Ici vous pouvez importer/exporter plusieurs choses dont : ", "EN" :  "Here you can import/export several things including :"},
-    { "id" :  "importSaveTuto", "FR" : "- Importer/exporter une sauvegarde .augcom", "EN" :  "- Import/export an .augcom backup"},
-    { "id" :  "exportPDFTuto", "FR" : "- Exporter votre grille actuelle au format PDF.", "EN" :  "- Export your current grid in PDF format"},
-    { "id" :  "importSnapCore", "FR" : "- Importer des fichiers TD Snap Core First vous permet d’importer des fichiers de sauvegarde SPB données par l’application TD Snap Core First.", "EN" :  "- Import TD Snap Core First files allows you to import SPB backup files given by the TD Snap Core First application."},
+    { "id" :  "importSaveTuto", "FR" : "Importer/exporter une sauvegarde .augcom", "EN" :  "Import/export an .augcom backup"},
+    { "id" :  "exportPDFTuto", "FR" : "Exporter votre grille actuelle au format PDF.", "EN" :  "Export your current grid in PDF format"},
+    { "id" :  "importSnapCore", "FR" : "Importer des fichiers TD Snap Core First vous permet d’importer des fichiers de sauvegarde SPB données par l’application TD Snap Core First.", "EN" :  "Import TD Snap Core First files allows you to import SPB backup files given by the TD Snap Core First application."},
     { "id" :  "Grid", "FR" : "Grilles", "EN" :  "Grids"},
     { "id" :  "titlePage", "FR" : "Titre de la page", "EN" :  "Page Title"},
     { "id" :  "typeOfDisplayPath", "FR" : "Permet de choisir le type d’affichage du chemin menant à votre page actuel. par défaut l’image de votre page actuelle ainsi que le chemin y menant seront affichés. Vous pouvez choisir de n’afficher qu’une de ces deux informations.", "EN" :  "Allows you to choose the display type of the path to your current page. By default the image of your current page and the path to it will be displayed. You can choose to display only one of these two informations."},
@@ -331,9 +331,10 @@
     { "id" :  "LoginPage", "FR": "Page de connexion", "EN": "Login page"},
     { "id" :  "Modify", "FR": "Modifier", "EN": "Modify"},
     { "id" :  "importUser", "FR": "Importer un utilisateur", "EN": "Import a user"},
-    { "id" :  "importUserTuto", "FR": "- Importer/exporter un utilisateur", "EN": "- Import/export a user"},
-    { "id" :  "importLifeCompagnon", "FR" : "- Importer des fichiers LifeCompagnon qui vous permettent d’importer des fichiers de sauvegarde de grille LifeCompagnon (.lcc) par l’application LifeCompagnon.", "EN" :  "- Import LifeCompagnon files that allow you to import LifeCompagnon grid backup files (.lcc) through the LifeCompagnon application."},
-    { "id" :  "HeaderTuto", "FR": "Ici vous pouvez personnaliser le PDF générer, ajouter/supprimer le nom de la page, ajouter/supprimer la version d'AugCom, ajouter le haut de page.", "EN": "Here you can customize the generated PDF, add/remove the page name, add/remove the AugCom version, add the header."},
-    { "id" :  "FooterTuto", "FR": "Ici vous pouvez personnaliser le PDF générer, ajouter le bas de page.", "EN": "Here you can customize the generated PDF, add footer."}
+    { "id" :  "importUserTuto", "FR": "Importer/exporter un utilisateur", "EN": "- Import/export a user"},
+    { "id" :  "importLifeCompagnon", "FR" : "Importer des fichiers LifeCompagnon qui vous permettent d’importer des fichiers de sauvegarde de grille LifeCompagnon (.lcc) par l’application LifeCompagnon.", "EN" :  "Import LifeCompagnon files that allow you to import LifeCompagnon grid backup files (.lcc) through the LifeCompagnon application."},
+    { "id" :  "HeaderTuto", "FR": "Vous pouvez personnaliser le PDF générer, ajouter/supprimer le nom de la page, ajouter/supprimer la version d'AugCom, ajouter le haut de page.", "EN": "You can customize the generated PDF, add/remove the page name, add/remove the AugCom version, add the header."},
+    { "id" :  "FooterTuto", "FR": "Vous pouvez personnaliser le PDF générer, ajouter le bas de page.", "EN": "You can customize the generated PDF, add footer."},
+    { "id" :  "GridManagementTuto", "FR": "Ici vous pouvez gérer vos grilles en chargeant une grille, supprimer une grille, supprimer un ou plusieurs page de la grille courante, choisir un model de grille qui va remplacer votre grille courante, vider totalement votre grille.", "EN": "Here you can manage your grids by loading a grid, deleting a grid, deleting one or more pages from the current grid, choosing a grid model that will replace your current grid, completely emptying your grid."}
   ]
 }

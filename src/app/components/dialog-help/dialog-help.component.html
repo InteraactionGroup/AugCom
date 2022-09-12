@@ -152,11 +152,13 @@
   <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/langue(EN).png" height="50%" width="50%" alt="AspectAfterChange">
   <h4>{{this.multilinguism.translate("share")}}</h4>
   <p>{{this.multilinguism.translate("exportGrid")}}</p>
-  <p>{{this.multilinguism.translate("importSaveTuto")}}</p>
-  <p>{{this.multilinguism.translate("exportPDFTuto")}}</p>
-  <p>{{this.multilinguism.translate("importSnapCore")}}</p>
-  <p>{{this.multilinguism.translate("importLifeCompagnon")}}</p>
-  <p>{{this.multilinguism.translate("importUserTuto")}}</p>
+  <ul>
+    <li>{{this.multilinguism.translate("importSaveTuto")}}</li>
+    <li>{{this.multilinguism.translate("exportPDFTuto")}}</li>
+    <li>{{this.multilinguism.translate("importSnapCore")}}</li>
+    <li>{{this.multilinguism.translate("importLifeCompagnon")}}</li>
+    <li>{{this.multilinguism.translate("importUserTuto")}}</li>
+  </ul>
   <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/Share(FR).png" height="50%" width="50%" alt="AspectAfterChange">
   <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/Share(EN).png" height="50%" width="50%" alt="AspectAfterChange">
   <h3>{{this.multilinguism.translate("Grid")}}</h3>
@@ -165,6 +167,10 @@
   <p>{{this.multilinguism.translate("changeFormat")}}</p>
   <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/titleOfThePage(FR).png" height="50%" width="50%" alt="AspectAfterChange">
   <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/titleOfThePage(EN).png" height="50%" width="50%" alt="AspectAfterChange">
+  <h4>{{this.multilinguism.translate("GridManagement")}}</h4>
+  <p>{{this.multilinguism.translate("GridManagementTuto")}}</p>
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/GestionDeLaGrille(FR).png" height="50%" width="50%" alt="AspectAfterChange">
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/GestionDeLaGrille(EN).png" height="50%" width="50%" alt="AspectAfterChange">
   <h4>{{this.multilinguism.translate("gridFormat")}}</h4>
   <p>{{this.multilinguism.translate("formatGrid")}}</p>
   <p>{{this.multilinguism.translate("backgroundColorPicto")}}</p>
@@ -177,6 +183,10 @@
   <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/styleDuPictogramme(EN).png" height="50%" width="50%" alt="AspectAfterChange">
   <h4>{{this.multilinguism.translate("Print")}}</h4>
   <p>{{this.multilinguism.translate("HeaderTuto")}}</p>
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/printTop(FR).png" height="50%" width="50%" alt="AspectAfterChange">
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/printTop(EN).png" height="50%" width="50%" alt="AspectAfterChange">
   <p>{{this.multilinguism.translate("FooterTuto")}}</p>
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/printBottom(FR).png" height="50%" width="50%" alt="AspectAfterChange">
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/printBottom(EN).png" height="50%" width="50%" alt="AspectAfterChange">
 </mat-dialog-content>
 <button mat-raised-button [mat-dialog-close]="true">{{this.multilinguism.translate("Close")}}</button>
