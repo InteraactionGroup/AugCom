@@ -17,6 +17,6 @@ toc: true
 <img src="../assets/images/database.png" alt="database"><br>
 <a href="https://github.com/InteraactionGroup/AugCom/blob/master/DATABASE(EN).md">Our database</a>
 
-### Generation grid
+### Grid generation 
 <img src="../assets/images/logo-grille.png" alt="grid logo"><br>
-<a href="https://github.com/InteraactionGroup/AugCom/blob/master/GENERATEGRID(EN).md">Notre readme.md</a>
+<a href="https://github.com/InteraactionGroup/AugCom/blob/master/GENERATEGRID(EN).md">Grid generation</a>
