@@ -20,3 +20,7 @@ toc: true
 ### Grid generation 
 <img src="../assets/images/logo-grille.png" alt="grid logo"><br>
 <a href="https://github.com/InteraactionGroup/AugCom/blob/master/GENERATEGRID(EN).md">Grid generation</a>
+
+### Website
+<img src="../assets/images/logo-website.png" alt="Logo website"><br>
+<a href="https://github.com/GazePlay/GazePlay/blob/master/WEBSITE.MD">Our website</a>
