@@ -108,11 +108,11 @@ Press the grid generation button at the top of the screen.
 ## Fill in the fields
 
 Once in the grid generation menu, you have to fill in all the fields according to what you want to have in your grid.
-{% include figure image_path="assets/images/fillChampsEN.png" alt="fillChampsEN" %}
+{% include figure image_path="assets/images/fillChampEN.png" alt="fillChampsEN" %}
 
 ## Possible error messages
 During this step, it is possible to have several errors. The error message that will appear corresponds to the first error encountered, so once you have corrected it, if there are others, they will appear each time you press the "Generate" button.
-{% include figure image_path="src/assets/images/erreurEN.png" alt="erreurEN" %}
+{% include figure image_path="assets/images/erreurEN.png" alt="erreurEN" %}
 For each of the fields, you can with errors, here are some :
 - "No name for the grid!" -> here you have to fill in the first field which gives the name to the grid
 - "No columns" -> here you have to fill in the second field, indicate a number for the number of columns
