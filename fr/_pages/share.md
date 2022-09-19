@@ -146,3 +146,63 @@ Télécharger la grille : <br>
   <i class='fas fa-hand-point-right'></i>
   Une souris verte
 </a>
+
+## Orthoptiste
+
+{% include figure image_path="/assets/images/grids/Orthoptiste.png" alt="grille Orthoptiste pour AugCom" %}
+
+Télécharger la grille : <br>
+<a href="../assets/grids/Orthoptiste.augcom" download>
+<i class='fas fa-hand-point-right'></i>
+Orthoptiste
+</a>
+
+## Canicule
+
+{% include figure image_path="/assets/images/grids/Canicule.png" alt="grille Canicule pour AugCom" %}
+
+Télécharger la grille : <br>
+<a href="../assets/grids/Canicule.augcom" download>
+<i class='fas fa-hand-point-right'></i>
+Canicule
+</a>
+
+## Mariage
+
+{% include figure image_path="/assets/images/grids/Mariage.png" alt="grille Mariage pour AugCom" %}
+
+Télécharger la grille : <br>
+<a href="../assets/grids/Mariage.augcom" download>
+<i class='fas fa-hand-point-right'></i>
+Mariage
+</a>
+
+## Les bulles
+
+{% include figure image_path="/assets/images/grids/LesBulles.png" alt="grille Les Bulles pour AugCom" %}
+
+Télécharger la grille : <br>
+<a href="../assets/grids/LesBulles.augcom" download>
+<i class='fas fa-hand-point-right'></i>
+Les bulles
+</a>
+
+## Elections présidentielles
+
+{% include figure image_path="/assets/images/grids/ElectionsPrésidentielles.png" alt="grille ElectionsPrésidentielles pour AugCom" %}
+
+Télécharger la grille : <br>
+<a href="../assets/grids/ElectionsPrésidentielles.augcom" download>
+<i class='fas fa-hand-point-right'></i>
+Elections présidentielles
+</a>
+
+## Déménagement
+
+{% include figure image_path="/assets/images/grids/Déménagement.png" alt="grille Déménagement pour AugCom" %}
+
+Télécharger la grille : <br>
+<a href="../assets/grids/Déménagement.augcom" download>
+<i class='fas fa-hand-point-right'></i>
+Mariage
+</a>
