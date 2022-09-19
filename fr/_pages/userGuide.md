@@ -87,6 +87,42 @@ En bas de la grille, au dessus de la barre de fonctionnalités, un bouton "ajout
 
 Pour finir la roue dentée vous permet d'accéder aux paramètres plus avancées du logiciel. *Pour plus d'informations à ce sujet, veuillez vous référer à la section "Paramètres de l'application".*
 
+# Générateur de grille
+
+## Déverrouiller les options
+
+Commencez par déverrouiller les options en cliquant sur l'écrou avec un verrou.
+
+{% include figure image_path="assets/tuto/unlockSettings.png" alt="unlockSettings" %}
+
+## Activer le mode édition
+
+Ensuite, vous devez activer le mode édition pour faire apparaître le bouton de Génération de grille.
+{% include figure image_path="assets/tuto/modeEdition.png" alt="modeEdition" %}
+
+## Appuyer sur le bouton de génération de grilles
+
+Appuyez sur le bouton de génération de grilles en haut de l'écran.
+{% include figure image_path="assets/tuto/buttonGenerateGrid.png" alt="buttonGenerateGrid" %}
+
+## Remplir les champs
+
+Une fois dans le menu de génération de grilles, il faut remplir tous les champs selon ce que vous voulez avoir dans votre grille.
+{% include figure image_path="assets/tuto/fillChamps.png" alt="fillChamps" %}
+
+## Messages d'erreur possible
+Durant cette étape, il est possible d'avoir plusieurs erreurs. Le message d'erreur qui va s'afficher correspond à la première erreur rencontrée donc une fois que vous l'aurez corrigé s'il y a en d'autres, elles apparaîtront à chaque fois que vous appuierez sur le bouton "Générer".
+{% include figure image_path="assets/tuto/erreurFR.png" alt="erreurFR" %}
+Pour chacun des champs, vous pouvez avec des erreurs, voici lesquels :
+- "Pas de nom pour la grille!" -> ici il vous faut remplir le premier champs qui donne le nom à la grille
+- "Pas de colonnes" -> ici il vous faut remplir le deuxième champs, indiqué un chiffre ou un nombre pour le nombre de colonne
+- "Pas de lignes" -> ici il vous faut remplir le troisième champs, indiqué un chiffre ou un nombre pour le nombre de ligne
+- "Liste de mots vide" -> ici il vous faut remplir le quatrième champs, indiqué des mots séparé par un espace pour la liste exemple : "pomme banane"
+
+## Résultat
+
+{% include figure image_path="assets/tuto/result.png" alt="result" %}
+
 # Page édition:  création et modification de touches
 
 ## Menu Information

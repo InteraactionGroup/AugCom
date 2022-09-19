@@ -87,6 +87,42 @@ At the bottom of the grid, above the features bar, an "add" button also allows y
 
 Finally the gear wheel allows you to access the more advanced settings of the software. *For more information on this topic, please refer to the section "Application Settings".
 
+# Grid generator
+
+## Unlock options
+
+Start by unlocking the options by clicking on the nut with a lock.
+
+{% include figure image_path="assets/tuto/unlockSettings.png" alt="unlockSettings" %}
+
+## Activate the editing mode
+
+Next, you need to activate the edit mode to bring up the Generate Grid button.
+{% include figure image_path="assets/tuto/modeEdition.png" alt="modeEdition" %}
+
+## Press the grid generation button
+
+Press the grid generation button at the top of the screen.
+{% include figure image_path="assets/tuto/buttonGenerateGrid.png" alt="buttonGenerateGrid" %}
+
+## Fill in the fields
+
+Once in the grid generation menu, you have to fill in all the fields according to what you want to have in your grid.
+{% include figure image_path="assets/tuto/fillChampsEN.png" alt="fillChampsEN" %}
+
+## Possible error messages
+During this step, it is possible to have several errors. The error message that will appear corresponds to the first error encountered, so once you have corrected it, if there are others, they will appear each time you press the "Generate" button.
+{% include figure image_path="src/assets/tuto/erreurEN.png" alt="erreurEN" %}
+For each of the fields, you can with errors, here are some :
+- "No name for the grid! -> here you have to fill in the first field which gives the name to the grid
+- "No columns" -> here you have to fill in the second field, indicate a number for the number of columns
+- "No lines" -> here you have to fill in the third field, indicate a number for the number of lines
+- "Empty word list" -> here you have to fill in the fourth field, indicating words separated by a space for the list example: "apple banana"
+
+## Result
+
+{% include figure image_path="assets/tuto/resultEN.png" alt="resultEN" %}
+
 # Edit page: creation and modification of keys
 
 ## Information menu
