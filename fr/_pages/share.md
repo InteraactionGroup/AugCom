@@ -169,7 +169,7 @@ Canicule
 
 ## Mariage
 
-{% include figure image_path="/assets/images/grids/Mariage.png" alt="grille Mariage pour AugCom" %}
+{% include figure image_path="/assets/images/grids/Mariage2.png" alt="grille Mariage pour AugCom" %}
 
 Télécharger la grille : <br>
 <a href="../assets/grids/Mariage.augcom" download>
@@ -204,5 +204,5 @@ Elections présidentielles
 Télécharger la grille : <br>
 <a href="../assets/grids/Déménagement.augcom" download>
 <i class='fas fa-hand-point-right'></i>
-Mariage
+Déménagement
 </a>
