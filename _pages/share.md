@@ -9,7 +9,7 @@ toc_sticky: true
 
 ## Need
 
-{% include figure image_path="/assets/images/grids/need.png" alt="Need" %}
+{% include figure image_path="/assets/images/grids/need.png" alt="grid Need for augcom" %}
 
 Download the grid : <br>
 <a href="../assets/grids/need.augcom" download>
@@ -19,7 +19,7 @@ Need
 
 ## Need 2
 
-{% include figure image_path="/assets/images/grids/need2.png" alt="need2" %}
+{% include figure image_path="/assets/images/grids/need2.png" alt="grid Need 2 for augcom" %}
 
 Download the grid : <br>
 <a href="../assets/grids/need2.augcom" download>

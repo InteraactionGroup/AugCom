@@ -206,3 +206,13 @@ Télécharger la grille : <br>
 <i class='fas fa-hand-point-right'></i>
 Déménagement
 </a>
+
+## Piscine LCSA
+
+{% include figure image_path="/assets/images/grids/PiscineLCSA.png" alt="grille Piscine LCSA pour AugCom" %}
+
+Télécharger la grille : <br>
+<a href="../assets/grids/PiscineLCSA.augcom" download>
+<i class='fas fa-hand-point-right'></i>
+Piscine LCSA
+</a>
