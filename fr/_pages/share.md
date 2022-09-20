@@ -216,3 +216,13 @@ Télécharger la grille : <br>
 <i class='fas fa-hand-point-right'></i>
 Piscine LCSA
 </a>
+
+## Piscine 2
+
+{% include figure image_path="/assets/images/grids/Piscine2.png" alt="grille Piscine 2 pour AugCom" %}
+
+Télécharger la grille : <br>
+<a href="../assets/grids/Piscine2.augcom" download>
+<i class='fas fa-hand-point-right'></i>
+Piscine 2
+</a>
