@@ -10,12 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v3
 
       - name: Setup node
-        uses: actions/setup-node@master
+        uses: actions/setup-node@v3
         with:
           node-version: '10.x'
 
@@ -66,42 +64,16 @@ jobs:
           TAG_3=$(echo "$GET_TAG" | cut -d. -f3)
           NEW_TAG=$(echo "$(( $TAG_3 + 1 ))")
           TAG="${TAG_1}.${TAG_2}.${NEW_TAG}"
-          echo ::set-output name=tag::$(echo $TAG)
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
 
-      - name: Create Release
+      - name: Create GitHub Release
         id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: ncipollo/release-action@v1
         with:
-          tag_name: ${{ steps.new-tag.outputs.tag }}
-          release_name: ${{ env.REPO_BASENAME }} ${{ steps.new-tag.outputs.tag }}
+          tag: ${{ steps.new-tag.outputs.tag }}
+          name: ${{ env.REPO_BASENAME }} ${{ steps.new-tag.outputs.tag }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit: "master"
+          prerelease: true
           draft: false
-          prerelease: false
-
-      - name: Upload Tar Release
-        id: upload-tar-assets
-        uses: csexton/release-asset-action@v2
-        with:
-          release-url: ${{ steps.create_release.outputs.upload_url }}
-          files: |
-            AugCom.tar.gz
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: Upload Zip Release
-        id: upload-zip-assets
-        uses: csexton/release-asset-action@v2
-        with:
-          release-url: ${{ steps.create_release.outputs.upload_url }}
-          files: |
-            AugCom.zip
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: Upload Ligone Release
-        id: upload-ligone-assets
-        uses: csexton/release-asset-action@v2
-        with:
-          release-url: ${{ steps.create_release.outputs.upload_url }}
-          files: |
-            AugComLigone.zip
-          github-token: ${{ secrets.GITHUB_TOKEN }}    
+          artifacts: "AugCom.zip,AugCom.tar.gz,AugComLigone.zip"   
