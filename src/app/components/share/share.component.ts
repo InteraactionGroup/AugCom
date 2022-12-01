@@ -22,6 +22,7 @@ import {UserPageService} from "../../services/user-page.service";
 import {PaletteService} from "../../services/palette.service";
 import {ConfigurationService} from "../../services/configuration.service";
 import {ExportSaveUserDialogComponent} from "../export-save-user-dialog/export-save-user-dialog.component";
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-share',
@@ -30,6 +31,10 @@ import {ExportSaveUserDialogComponent} from "../export-save-user-dialog/export-s
   providers: [HttpClient, Ng2ImgMaxService]
 })
 export class ShareComponent implements OnInit {
+
+  listNamePage = [];
+  excelFile = [];
+
   constructor(
     public speakForYourselfParser: SpeakForYourselfParser,
     public indexedDBacess: IndexeddbaccessService,
@@ -452,4 +457,61 @@ export class ShareComponent implements OnInit {
       this.downloadFileUser(JSON.stringify(exportedUser));
     },800);
   }
+
+  exportTreeStructureAugCom() {
+    this.boardService.board.PageList.forEach(page => {
+      this.listNamePage.push(page.ID);
+    });
+
+    let defaultIndex = 0;
+    this.boardService.board.PageList[0].ElementIDsList.forEach(elem => {
+        if (this.listNamePage.includes(elem)){
+          this.excelFile.push(this.addToExcel(elem, defaultIndex));
+          this.goInFolder(elem, defaultIndex+1);
+        }else {
+          this.excelFile.push(this.addToExcel(elem, defaultIndex));
+        }
+    });
+    this.exportToExcel("AugComTreeStructure");
+  }
+
+  exportTreeStructureSnapCore(){
+    this.boardService.board.ImageList.forEach(elem => {
+      this.excelFile.push([elem.ID]);
+    })
+    this.exportToExcel("SnapCoreTreeStructure");
+  }
+
+  goInFolder(elem, index){
+    this.boardService.board.PageList.forEach(page => {
+      if (elem == page.ID){
+        page.ElementIDsList.forEach(elem => {
+          if (this.listNamePage.includes(elem)){
+            this.excelFile.push(this.addToExcel(elem, index));
+            this.goInFolder(elem, index+1);
+          }else {
+            this.excelFile.push(this.addToExcel(elem, index));
+          }
+        })
+      }
+    });
+  }
+
+  addToExcel(value, index){
+    let tab = [];
+    for (let i = 0; i < index; i++){
+      tab.push("");
+    }
+    tab.push(value);
+    return tab;
+  }
+
+  exportToExcel(name: String): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.excelFile);
+    const workbook: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'TreeStructure');
+    XLSX.writeFile(workbook, name + ".xlsx");
+    this.excelFile = [];
+  }
+
 }

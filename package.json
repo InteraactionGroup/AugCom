@@ -55,6 +55,7 @@
     "tailwindcss": "^1.9.6",
     "tslib": "^2.3.0",
     "webpack-subresource-integrity": "^1.5.2",
+    "xlsx": "^0.18.5",
     "zone.js": "^0.10.3"
   },
   "devDependencies": {

@@ -30,7 +30,7 @@
           <input type="text" [(ngModel)]="this.editionService.newPage"
                  placeholder="{{multilinguism.translate('newPageID')}}"
                  *ngIf="this.editionService.radioTypeFormat=='folder' && this.editionService.pageLink === '@NEW@'"
-                 [ngModelOptions]="{standalone: true}">
+                 [ngModelOptions]="{standalone: true}" disabled>
         </form>
       </div>
     </div>
