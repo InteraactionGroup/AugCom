@@ -87,6 +87,7 @@ import { DeleteGridUserComponent } from './components/delete-grid-user/delete-gr
 import { DialogDeleteGridUserComponent } from './components/dialog-delete-grid-user/dialog-delete-grid-user.component';
 import { ExportSaveUserDialogComponent } from './components/export-save-user-dialog/export-save-user-dialog.component';
 import { ImportUserComponent } from './components/import-user/import-user.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -156,7 +157,8 @@ import { ImportUserComponent } from './components/import-user/import-user.compon
     DeleteGridUserComponent,
     DialogDeleteGridUserComponent,
     ExportSaveUserDialogComponent,
-    ImportUserComponent
+    ImportUserComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

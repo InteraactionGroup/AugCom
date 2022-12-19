@@ -60,6 +60,7 @@ export class Spb2augComponent implements OnInit {
    * @param file file imported
    */
   convert(file) {
+    this.router.navigate(['loading']);
     this.newGrid.ID = 'newGrid';
     this.newGrid.GapSize = 5;
     const date:Date = new Date();
@@ -96,12 +97,12 @@ export class Spb2augComponent implements OnInit {
       this.router.navigate(['keyboard']);
       let that = this;
       setTimeout(function () {
+        that.db.close();
         that.boardService.board = that.newGrid;
         that.layoutService.refreshAll(that.newGrid.NumberOfCols,that.newGrid.NumberOfRows, that.newGrid.GapSize);
         that.boardService.backHome();
         that.indexedDBacess.update();
-        that.db.close();
-      }, 200);
+      }, 500);
     });
   }
 
@@ -165,7 +166,7 @@ export class Spb2augComponent implements OnInit {
 
       // check if the button is a folder button to bind him
       if (buttonId === buttonFolder && label !== null) {
-        this.gridElement = new GridElement(buttonUniqueId,
+        this.gridElement = new GridElement(label,
           {GoTo: label},
           '',
           'rgb(' + r + ',' + g + ',' + b + ')',
@@ -190,7 +191,7 @@ export class Spb2augComponent implements OnInit {
         this.newPage.ElementIDsList = [];
         this.newGrid.PageList.unshift(this.newPage);
       } else if (buttonId === buttonFolder && label === null) {
-        this.gridElement = new GridElement(buttonUniqueId,
+        this.gridElement = new GridElement(label,
           {GoTo: String(buttonFolder)},
           '', 'rgb(' + r + ',' + g + ',' + b + ')',
           'rgb(' + rb + ',' + gb + ',' + bb + ')',
@@ -214,7 +215,7 @@ export class Spb2augComponent implements OnInit {
         this.newPage.ElementIDsList = [];
         this.newGrid.PageList.unshift(this.newPage);
       } else {
-        this.gridElement = new GridElement(buttonUniqueId,
+        this.gridElement = new GridElement(label,
           'button',
           '',
           'rgb(' + r + ',' + g + ',' + b + ')',
@@ -508,7 +509,7 @@ export class Spb2augComponent implements OnInit {
       const span = buttonAllInfomations.getAsObject().GridSpan;
       const tabResSpan = span.split(',');
       const buttonPageId = Number(buttonAllInfomations.getAsObject().PageId);
-      this.gridElement = new GridElement(buttonUniqueId, 'button', '', '', ''
+      this.gridElement = new GridElement(label, 'button', '', '', ''
         , 0,
         [
           {

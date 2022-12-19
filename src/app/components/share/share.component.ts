@@ -475,13 +475,6 @@ export class ShareComponent implements OnInit {
     this.exportToExcel("AugComTreeStructure");
   }
 
-  exportTreeStructureSnapCore(){
-    this.boardService.board.ImageList.forEach(elem => {
-      this.excelFile.push([elem.ID]);
-    })
-    this.exportToExcel("SnapCoreTreeStructure");
-  }
-
   goInFolder(elem, index){
     this.boardService.board.PageList.forEach(page => {
       if (elem == page.ID){
