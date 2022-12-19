@@ -33,6 +33,7 @@ import * as XLSX from 'xlsx';
 export class ShareComponent implements OnInit {
 
   listNamePage = [];
+  listPageAlreadyVisited = [];
   excelFile = [];
 
   constructor(
@@ -467,6 +468,7 @@ export class ShareComponent implements OnInit {
     this.boardService.board.PageList[0].ElementIDsList.forEach(elem => {
         if (this.listNamePage.includes(elem)){
           this.excelFile.push(this.addToExcel(elem, defaultIndex));
+          this.listPageAlreadyVisited = [];
           this.goInFolder(elem, defaultIndex+1);
         }else {
           this.excelFile.push(this.addToExcel(elem, defaultIndex));
@@ -480,8 +482,13 @@ export class ShareComponent implements OnInit {
       if (elem == page.ID){
         page.ElementIDsList.forEach(elem => {
           if (this.listNamePage.includes(elem)){
-            this.excelFile.push(this.addToExcel(elem, index));
-            this.goInFolder(elem, index+1);
+            if (!this.listPageAlreadyVisited.includes(elem)){
+              this.listPageAlreadyVisited.push(elem);
+              this.excelFile.push(this.addToExcel(elem, index));
+              this.goInFolder(elem, index+1);
+            }else {
+              this.excelFile.push(this.addToExcel(elem, index));
+            }
           }else {
             this.excelFile.push(this.addToExcel(elem, index));
           }

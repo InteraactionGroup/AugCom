@@ -93,8 +93,7 @@ export class Spb2augComponent implements OnInit {
       this.DeleteDoublon(this.newGrid);
       console.log(this.newGrid);
       this.statErrorImage();
-      this.addColIfNeeded();
-      this.router.navigate(['keyboard']);
+      //this.addColIfNeeded();
       let that = this;
       setTimeout(function () {
         that.db.close();
@@ -102,6 +101,7 @@ export class Spb2augComponent implements OnInit {
         that.layoutService.refreshAll(that.newGrid.NumberOfCols,that.newGrid.NumberOfRows, that.newGrid.GapSize);
         that.boardService.backHome();
         that.indexedDBacess.update();
+        that.router.navigate(['keyboard']);
       }, 500);
     });
   }
@@ -547,25 +547,29 @@ export class Spb2augComponent implements OnInit {
   }
 
   /**
-   * add a colomn if we need to add a button page down and we don't have place to do it
+   * add a column if we need to add a button page down, and we don't have place to do it
    */
   addColIfNeeded() {
-    let isColAdd = false;
-    this.newGrid.PageList.forEach(page => {
-      let indexGoDownButtonPage = this.newGrid.ElementList.findIndex(element => element.ID.includes('goDown'));
-      if(indexGoDownButtonPage > -1){
-        this.newGrid.ElementList.forEach(element => {
-          if (element.y + element.rows === this.page.NumberOfRows && element.x + element.cols === this.page.NumberOfCols && this.page.ElementIDsList.indexOf(element.ID) > -1 && element.ID.includes('goDown') === false) {
-            if (isColAdd === false) {
-              this.page.NumberOfCols = this.page.NumberOfCols + 1;
-              this.newGrid.ElementList[indexGoDownButtonPage].y = this.page.NumberOfRows - 1;
-              this.newGrid.ElementList[indexGoDownButtonPage].x = this.page.NumberOfCols - 1;
-              isColAdd = true;
+    try {
+      let isColAdd = false;
+      this.newGrid.PageList.forEach(page => {
+        let indexGoDownButtonPage = this.newGrid.ElementList.findIndex(element => element.ID.includes('goDown'));
+        if(indexGoDownButtonPage > -1){
+          this.newGrid.ElementList.forEach(element => {
+            if (element.y + element.rows === this.page.NumberOfRows && element.x + element.cols === this.page.NumberOfCols && this.page.ElementIDsList.indexOf(element.ID) > -1 && element.ID.includes('goDown') === false) {
+              if (isColAdd === false) {
+                this.page.NumberOfCols = this.page.NumberOfCols + 1;
+                this.newGrid.ElementList[indexGoDownButtonPage].y = this.page.NumberOfRows - 1;
+                this.newGrid.ElementList[indexGoDownButtonPage].x = this.page.NumberOfCols - 1;
+                isColAdd = true;
+              }
             }
-          }
-        });
-      }
-    });
+          });
+        }
+      });
+    }finally {
+      console.log("No col needed");
+    }
   }
 
   /**
