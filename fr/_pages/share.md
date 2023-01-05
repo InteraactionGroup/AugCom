@@ -102,7 +102,7 @@ Télécharger la grille : <br>
 {% include figure image_path="/assets/images/grids/communikate.png" alt="grille Communikate pour AugCom" %}
 
 Télécharger la grille : <br>
-<a href="../assets/grids/communikate.augcom" download>
+<a href="../assets/grids/Communikate.augcom" download>
   <i class='fas fa-hand-point-right'></i>
   Communikate
 </a>
