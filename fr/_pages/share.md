@@ -97,6 +97,16 @@ Télécharger la grille : <br>
   Chiffres
 </a>
 
+## Communikate
+
+{% include figure image_path="/assets/images/grids/communikate.png" alt="grille Communikate pour AugCom" %}
+
+Télécharger la grille : <br>
+<a href="../assets/grids/communikate.augcom" download>
+  <i class='fas fa-hand-point-right'></i>
+  Communikate
+</a>
+
 ## Cour de récréation
 
 {% include figure image_path="/assets/images/grids/courDeRecreation.png" alt="grille Cour de récréation pour AugCom" %}
