@@ -12,6 +12,7 @@ import {UserPageComponent} from "./components/user-page/user-page.component";
 import {AuthGuardService} from "./services/auth-guard.service";
 import {GeneratorGridComponent} from "./components/generator-grid/generator-grid.component";
 import {LoadingUserComponent} from './components/loading-user/loading-user.component';
+import {LoadingComponent} from "./components/loading/loading.component";
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: ':lang/settings', component: SettingsComponent, data: {animation: 'x'}},
   {path: ':lang/account', component: AccountComponent, data: {animation: 'x'}},
   {path: ':lang/connect/:id', component: LoadingUserComponent},
+  {path: 'loading', component: LoadingComponent, data: {animation: 'x'}},
   {path: 'keyboard',canActivate:[AuthGuardService], component: KeyboardComponent, data: {animation: 'HomePage'}},
   {path: 'share',canActivate:[AuthGuardService], component: ShareComponent, data: {animation: 'x'}},
   {path: 'print',canActivate:[AuthGuardService], component: PrintComponent, data: {animation: 'x'}},

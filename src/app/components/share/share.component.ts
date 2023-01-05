@@ -23,6 +23,9 @@ import {PaletteService} from "../../services/palette.service";
 import {ConfigurationService} from "../../services/configuration.service";
 import {ExportSaveUserDialogComponent} from "../export-save-user-dialog/export-save-user-dialog.component";
 import * as XLSX from 'xlsx';
+import {element} from "protractor";
+import {backgroundRepeat} from "html2canvas/dist/types/css/property-descriptors/background-repeat";
+import {lineBreak} from "acorn";
 
 @Component({
   selector: 'app-share',
@@ -33,7 +36,9 @@ import * as XLSX from 'xlsx';
 export class ShareComponent implements OnInit {
 
   listNamePage = [];
+  listPageAlreadyVisited = [];
   excelFile = [];
+  goToValue = "";
 
   constructor(
     public speakForYourselfParser: SpeakForYourselfParser,
@@ -458,41 +463,57 @@ export class ShareComponent implements OnInit {
     },800);
   }
 
-  exportTreeStructureAugCom() {
-    this.boardService.board.PageList.forEach(page => {
-      this.listNamePage.push(page.ID);
-    });
-
+  exportTreeStructure(){
     let defaultIndex = 0;
-    this.boardService.board.PageList[0].ElementIDsList.forEach(elem => {
-        if (this.listNamePage.includes(elem)){
-          this.excelFile.push(this.addToExcel(elem, defaultIndex));
-          this.goInFolder(elem, defaultIndex+1);
-        }else {
-          this.excelFile.push(this.addToExcel(elem, defaultIndex));
+    this.listPageAlreadyVisited.push(this.boardService.board.PageList[0].ID);
+    this.boardService.board.PageList[0].ElementIDsList.forEach(elemID => {
+      this.excelFile.push(this.addToExcel(this.searchNameElem(elemID), defaultIndex));
+      if(this.checkIfIsFolder(elemID)){
+        if (!this.listPageAlreadyVisited.includes(this.goToValue)){
+          this.listPageAlreadyVisited.push(this.goToValue);
+          this.goInFolder(this.goToValue, defaultIndex+1);
         }
+      }
     });
     this.exportToExcel("AugComTreeStructure");
   }
 
-  exportTreeStructureSnapCore(){
-    this.boardService.board.ImageList.forEach(elem => {
-      this.excelFile.push([elem.ID]);
-    })
-    this.exportToExcel("SnapCoreTreeStructure");
+  searchNameElem(elemID){
+    for (let i=0; i < this.boardService.board.ElementList.length; i++){
+      if (this.boardService.board.ElementList[i].ID == elemID){
+        return this.boardService.board.ElementList[i].ElementFormsList[0].DisplayedText;
+      }
+    }
   }
 
-  goInFolder(elem, index){
-    this.boardService.board.PageList.forEach(page => {
-      if (elem == page.ID){
-        page.ElementIDsList.forEach(elem => {
-          if (this.listNamePage.includes(elem)){
-            this.excelFile.push(this.addToExcel(elem, index));
-            this.goInFolder(elem, index+1);
-          }else {
-            this.excelFile.push(this.addToExcel(elem, index));
-          }
-        })
+  checkIfIsFolder(elemID){
+    for (let i=0; i < this.boardService.board.ElementList.length; i++){
+      if (this.boardService.board.ElementList[i].ID == elemID){
+        if (this.boardService.board.ElementList[i].Type == "button"){
+          return false;
+        }else {
+          this.goToValue = Object.values(this.boardService.board.ElementList[i].Type)[0];
+          return true;
+        }
+      }
+    }
+  }
+
+  goInFolder(elemID, index){
+    let page:Page;
+    for (let i=0; i<this.boardService.board.PageList.length; i++){
+      if (this.boardService.board.PageList[i].ID == elemID){
+        page = this.boardService.board.PageList[i];
+        break;
+      }
+    }
+    page.ElementIDsList.forEach(elem => {
+      this.excelFile.push(this.addToExcel(this.searchNameElem(elem), index));
+      if(this.checkIfIsFolder(elem)){
+        if (!this.listPageAlreadyVisited.includes(this.goToValue)){
+          this.listPageAlreadyVisited.push(this.goToValue);
+          this.goInFolder(this.goToValue, index+1);
+        }
       }
     });
   }
@@ -512,6 +533,8 @@ export class ShareComponent implements OnInit {
     XLSX.utils.book_append_sheet(workbook, worksheet, 'TreeStructure');
     XLSX.writeFile(workbook, name + ".xlsx");
     this.excelFile = [];
+    this.listNamePage = [];
+    this.listPageAlreadyVisited = [];
   }
 
 }
