@@ -67,7 +67,7 @@ describe('ShareComponent', () => {
   it('should create the 8 different options components', () => {
     const compiled = fixture.debugElement.nativeElement;
     const allListElements = compiled.querySelectorAll('.listElement');
-    expect(allListElements.length).toEqual(12);
+    expect(allListElements.length).toEqual(11);
     expect(allListElements[0].textContent).toContain(component.multilinguism.translate('importSave'));
     expect(allListElements[1].textContent).toContain(component.multilinguism.translate('importPages'));
     expect(allListElements[2].textContent).toContain(component.multilinguism.translate('import save from snap core first'));
@@ -79,6 +79,5 @@ describe('ShareComponent', () => {
     expect(allListElements[8].textContent).toContain(component.multilinguism.translate('exportUser'));
     expect(allListElements[9].textContent).toContain(component.multilinguism.translate('exportPDF'));
     expect(allListElements[10].textContent).toContain(component.multilinguism.translate('exportTreeStructureAugCom'));
-    expect(allListElements[11].textContent).toContain(component.multilinguism.translate('exportTreeStructureSnapCore'));
   });
 });
