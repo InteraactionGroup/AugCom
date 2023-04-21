@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NgxXmlToJsonService} from 'ngx-xml-to-json';
+import {NgxXml2jsonService} from "ngx-xml2json";
 import {BoardService} from '../../services/board.service';
 import {Grid, GridElement, Page} from '../../types';
 import {LayoutService} from '../../services/layout.service';
@@ -39,7 +39,7 @@ export class LifeCompanion2augComponent implements OnInit {
 
   private imageImportedFromFile:any[][] = [] ;
 
-  constructor(private ngxXmlToJsonService: NgxXmlToJsonService,
+  constructor(private ngxXml2jsonService: NgxXml2jsonService,
               private boardService: BoardService,
               private layoutService: LayoutService,
               private router: Router,
@@ -102,9 +102,10 @@ export class LifeCompanion2augComponent implements OnInit {
     });
     //give time to read the file
     setTimeout(()=> {
-      LCConfiguration = this.ngxXmlToJsonService.xmlToJson(LCConfiguration, options);
-      keyList = this.ngxXmlToJsonService.xmlToJson(keyList, options);
-      metadata = this.ngxXmlToJsonService.xmlToJson(metadata, options);
+      const parser = new DOMParser();
+      LCConfiguration = this.ngxXml2jsonService.xmlToJson(parser.parseFromString(LCConfiguration, 'text/xml'));
+      keyList = this.ngxXml2jsonService.xmlToJson(parser.parseFromString(keyList, 'text/xml'));
+      metadata = this.ngxXml2jsonService.xmlToJson(parser.parseFromString(metadata, 'text/xml'));
       // at this line the file is convert to Json, now we need to read in and extract the grid, elements to do the new grid
       this.jsonToGrid(LCConfiguration, keyList, metadata);
     },2000);

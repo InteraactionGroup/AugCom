@@ -12,11 +12,11 @@ Run `ng generate component component-name` or `ng g c component-name` to generat
 
 ## Install
 
-Use the command -> npm install --legacy-peer-deps to install all packages from package.json
+Use the command -> `npm install --legacy-peer-deps to install --force` all packages from package.json
 
 ## Build
 
-Use the command -> ng build --prod --output-path dist/prod --base-href /stable/
+Use the command -> `ng build --prod --output-path dist/prod --base-href /stable/`
 
 ## Running unit tests
 
