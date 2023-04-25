@@ -31,3 +31,9 @@
   display: block;
   width: 100%;
 }
+
+.subtitle {
+  color: rgb(68, 68, 68);
+  padding-top: -10px;
+  font: 0.8em;
+}
