@@ -4,11 +4,15 @@ import {DbnaryService} from '../../services/dbnary.service';
 import {GeticonService} from '../../services/geticon.service';
 import {HttpClient} from '@angular/common/http';
 import mullberryJson from '../../../assets/symbol-info.json';
-import {MulBerryObject} from '../../libTypes';
+import arasaacJson from '../../../assets/arasaac-symbol-info.json';
+import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
+import {MulBerryObject, ArasaacObject} from '../../libTypes';
 import {Ng2ImgMaxService} from 'ng2-img-max';
 import {ElementForm} from '../../types';
 import {BoardService} from '../../services/board.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
+import {ConfigurationService} from "../../services/configuration.service";
+
 
 @Component({
   selector: 'app-alternative-forms',
@@ -23,6 +27,7 @@ export class AlternativeFormsComponent implements OnInit {
               public boardService: BoardService,
               public getIconService: GeticonService,
               public dbnaryService: DbnaryService,
+              public configurationService: ConfigurationService,
               public editionService: EditionService) {
   }
 
@@ -33,6 +38,8 @@ export class AlternativeFormsComponent implements OnInit {
   selectedItem: ElementForm = null;
   currentMode = '';
   imageSelectionStarted = false;
+
+  wordList: string[] = [];
 
   ngOnInit() {
   }
@@ -207,13 +214,8 @@ export class AlternativeFormsComponent implements OnInit {
       reader.readAsDataURL(file[0]);
       reader.onload = () => {
         this.previewWithURL(reader.result);
-
       };
     });
-
-
-    console.log(this.elementFormNameImageURL);
-    console.log(this.selectedItem.DisplayedText)
   }
 
   getSanitizeURL(elementForm: ElementForm) {
@@ -248,18 +250,57 @@ export class AlternativeFormsComponent implements OnInit {
     // this.choseImage = false;
   }
 
+
+  previewLibrary(elt: { lib, word }) {
+    this.imageSelectionStarted = true;
+    if (elt.lib === 'mulberry') {
+      if(!this.boardService.board.libraryUsed.includes('Mulberry')){
+        this.boardService.board.libraryUsed.push('Mulberry');
+      }
+      this.previewMullberry(elt.word);
+    } else if (elt.lib === 'arasaacNB') {
+      this.previewArasaac(elt.word, false);
+      if(!this.boardService.board.libraryUsed.includes('Arasaac')) {
+        this.boardService.board.libraryUsed.push('Arasaac');
+      }
+    } else if (elt.lib === 'arasaacColor') {
+      this.previewArasaac(elt.word, true);
+      if(!this.boardService.board.libraryUsed.includes('Arasaac')) {
+        this.boardService.board.libraryUsed.push('Arasaac');
+      }
+    }
+  }
+
+  getThumbnailPreviewLibrary(elt: { lib, word }) {
+    if (elt.lib === 'mulberry') {
+      return 'url(\'assets/libs/mulberry-symbols/EN-symbols/' + elt.word + '.svg\')';
+    } else if (elt.lib === 'arasaacNB') {
+      return 'url(\'assets/libs/FR_Noir_et_blanc_pictogrammes/' + elt.word + '.png\')';
+    } else if (elt.lib === 'arasaacColor') {
+      return 'url(\'assets/libs/FR_Pictogrammes_couleur/' + elt.word + '.png\')';
+    }
+  }
+
   /**
    * Set the current preview imageUrl with a mulberry library image Url according to the given string 't' and close the chooseImage panel
    *
    * @param t, the string short name of the image of the mulberry library image
    */
   previewMullberry(t: string) {
-    this.imageSelectionStarted = true;
     this.previewWithURL('assets/libs/mulberry-symbols/EN-symbols/' + t + '.svg');
   }
 
+
+  previewArasaac(t: string, isColored: boolean) {
+    if (isColored) {
+      this.previewWithURL('assets/libs/FR_Pictogrammes_couleur/' + t + '.png');
+    } else {
+      this.previewWithURL('assets/libs/FR_Noir_et_blanc_pictogrammes/' + t + '.png');
+    }
+  }
+
   /**
-   * Return the list of 100 first mullberry library images, sorted by length name, matching with string 'text'
+   * Return the list of 100 first mullberry and Arasaac library images, sorted by length name, matching with string 'text'
    *
    * @param text, the string researched text
    * @return list of 100 mulberry library images
@@ -267,25 +308,44 @@ export class AlternativeFormsComponent implements OnInit {
   searchInLib(text: string) {
     this.imageList = [];
     let tempList = [];
-    (mullberryJson as unknown as MulBerryObject[]).forEach(value => {
-      if (text !== null && text !== '' && value.symbol.toLowerCase().includes(text.toLocaleLowerCase())) {
-        const url = value.symbol;
-        tempList.push(url);
-        tempList = tempList.sort((a: string, b: string) => {
-            if (a.toLowerCase().startsWith(text.toLowerCase()) && b.toLowerCase().startsWith(text.toLowerCase())) {
-              return a.length - b.length;
-            } else if (a.toLowerCase().startsWith(text.toLowerCase())) {
-              return -1;
-            } else {
-              return 1;
-            }
 
-          }
-        );
-      }
-    }, this);
+    if(this.configurationService.LANGUAGE_VALUE === 'FR') {
+      (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
+        if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase())) {
+          const url = word;
+          tempList.push({lib: 'arasaacNB', word: this.cleanString(url)});
+        }
+      }, this);
+
+      (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
+        if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase())) {
+          const url = word;
+          tempList.push({lib: 'arasaacColor', word: this.cleanString(url)});
+        }
+      }, this);
+    }
+    else{
+      (mullberryJson as unknown as MulBerryObject[]).forEach(value => {
+        if (text !== null && text !== '' && value.symbol.toLowerCase().includes(text.toLocaleLowerCase())) {
+          const url = value.symbol;
+          tempList.push({lib: 'mulberry', word: this.cleanString(url)});
+        }
+      }, this);
+    }
+
+    tempList = tempList.sort((a: { lib: any, word: string | any[] }, b: { lib: any, word: string | any[] }) => {
+      return a.word.length - b.word.length;
+    });
+
+    // this.wordList = tempList;
+    tempList.forEach(couple => {
+      this.wordList.push(couple.word);
+    });
+
     this.imageList = tempList.slice(0, 100);
   }
 
-
+  cleanString(t: string) {
+    return t.replace(/'/g, '\\\'');
+  }
 }
