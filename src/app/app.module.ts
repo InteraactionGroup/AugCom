@@ -88,6 +88,7 @@ import { DialogDeleteGridUserComponent } from './components/dialog-delete-grid-u
 import { ExportSaveUserDialogComponent } from './components/export-save-user-dialog/export-save-user-dialog.component';
 import { ImportUserComponent } from './components/import-user/import-user.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { PendingChangesGuard } from './services/pending-changes-guard.service';
 
 @NgModule({
   declarations: [
@@ -188,8 +189,8 @@ import { LoadingComponent } from './components/loading/loading.component';
     MatDialogModule,
     NoopAnimationsModule
   ],
-  bootstrap: [AppComponent],
-  providers: [FormBuilder, Ng2ImgMaxService],
+  bootstrap: [AppComponent], 
+  providers: [FormBuilder, Ng2ImgMaxService, PendingChangesGuard],
   entryComponents: [
     DialogDeletePageComponent,
     DialogHelpComponent

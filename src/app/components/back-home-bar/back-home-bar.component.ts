@@ -28,13 +28,12 @@ export class BackHomeBarComponent implements OnInit {
   }
 
   /*go back in the browser history*/
-  async backInHistory() {
-    this.editionService.clearEditionPane();
+   backInHistory() {
+
+    console.log("f");
     window.history.back();
 
-    await this.delay(500);
-    this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
-    await this.delay(1000);
+
     this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
 
     this.indexedDBacess.update();

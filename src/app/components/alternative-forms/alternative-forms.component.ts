@@ -121,7 +121,7 @@ export class AlternativeFormsComponent implements OnInit {
       case 'image':
         return this.currentMode === 'modif' ? 'modifyImage' : 'chooseImage';
       case 'table':
-        return this.currentMode === 'addNew' ? 'addWordVariantManually' : '';
+        return  'addWordVariantManually';
       default :
         return '';
     }
@@ -134,6 +134,7 @@ export class AlternativeFormsComponent implements OnInit {
       this.imageSelectionStarted = false;
       this.elementFormDisplayedWordField = itemSelected.DisplayedText;
       this.elementFormPronouncedWordField = itemSelected.VoiceText;
+      this.elementFormNameImageURL = this.getSanitizeURL(itemSelected);
     } else {
       this.currentMode = '';
     }

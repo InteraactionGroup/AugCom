@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, HostListener} from '@angular/core';
 import {DbnaryService} from '../../services/dbnary.service';
 import {BoardService} from '../../services/board.service';
 import {GeticonService} from '../../services/geticon.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {FolderGoTo, GridElement, Interaction, Page} from '../../types';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {Router} from '@angular/router';
+import {Router, provideRoutes} from '@angular/router';
 import {PaletteService} from '../../services/palette.service';
 import {EditionService} from '../../services/edition.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
@@ -16,15 +16,25 @@ import {GridElementService} from '../../services/grid-element.service';
 import {LayoutService} from "../../services/layout.service";
 import {ConfigurationService} from "../../services/configuration.service";
 
+import { ComponentCanDeactivate, PendingChangesGuard } from 'src/app/services/pending-changes-guard.service';
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-edition',
   templateUrl: './edition.component.html',
   styleUrls: ['./edition.component.css'],
   providers: [Ng2ImgMaxService, HttpClient]
 })
-export class EditionComponent implements OnInit {
+export class EditionComponent implements OnInit, ComponentCanDeactivate {
+
+  @HostListener('window:beforeunload')
+    canDeactivate(): Observable<boolean> | boolean {
+    console.log("e");
+    return this.isInitialState();
+  }
 
   nameEmpty = false;
+  initialEditionState; initialdbnaryState;
 
   constructor(public editionService: EditionService, public  paletteService: PaletteService,
               public router: Router, public multilinguism: MultilinguismService,
@@ -116,6 +126,8 @@ export class EditionComponent implements OnInit {
     }else {
       this.nameEmpty = true;
     }
+
+    this.initialEditionState = Object.assign({}, this.editionService);
   }
 
   delay(ms: number) {
@@ -349,11 +361,35 @@ export class EditionComponent implements OnInit {
       this.editionService.imageURL = 'assets/icons/multiple-images.svg';
       this.editionService.interractionList = [];
     }
+
+
+    this.initialEditionState = Object.assign({}, this.editionService);
+    this.initialdbnaryState = Object.assign({}, this.dbnaryService);
   }
 
   /*return true if the page for alternative forms is the currentEditPage*/
   isDisplayed(page: string) {
     return this.editionService.currentEditPage === page;
+  }
+
+  isInitialState() {
+    console.log(this.initialEditionState.radioTypeFormat);
+    console.log(this.editionService.radioTypeFormat);
+
+    return this.initialEditionState == this.editionService.radioTypeFormat;
+
+
+    return (this.initialEditionState.imageTextField == this.editionService.imageTextField
+      && this.initialEditionState.curentBorderColor == this.editionService.curentBorderColor
+      && this.initialEditionState.insideCheck == this.editionService.insideCheck
+      && this.initialEditionState.name == this.editionService.name
+      && this.initialEditionState.radioTypeFormat == this.editionService.radioTypeFormat
+      && this.initialEditionState.pageLink == this.editionService.pageLink
+      && this.initialEditionState.curentBorderColor == this.editionService.curentBorderColor
+      && this.initialEditionState.imageURL == this.editionService.imageURL
+      && this.initialdbnaryState.wordList == this.dbnaryService.wordList
+      && this.initialdbnaryState.typeList == this.dbnaryService.typeList);
+    
   }
 
 }
