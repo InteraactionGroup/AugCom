@@ -1,11 +1,11 @@
-import {Component, OnInit, HostListener} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DbnaryService} from '../../services/dbnary.service';
 import {BoardService} from '../../services/board.service';
 import {GeticonService} from '../../services/geticon.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {FolderGoTo, GridElement, Interaction, Page} from '../../types';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {Router, provideRoutes} from '@angular/router';
+import {Router} from '@angular/router';
 import {PaletteService} from '../../services/palette.service';
 import {EditionService} from '../../services/edition.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
@@ -16,7 +16,7 @@ import {GridElementService} from '../../services/grid-element.service';
 import {LayoutService} from "../../services/layout.service";
 import {ConfigurationService} from "../../services/configuration.service";
 
-import { ComponentCanDeactivate, PendingChangesGuard } from 'src/app/services/pending-changes-guard.service';
+import { ComponentCanDeactivate } from 'src/app/services/pending-changes-guard.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -26,15 +26,24 @@ import { Observable } from 'rxjs';
   providers: [Ng2ImgMaxService, HttpClient]
 })
 export class EditionComponent implements OnInit, ComponentCanDeactivate {
+    canDeactivate(): Observable<boolean> | boolean | Promise<boolean> {
+      if(this.isInitialState()){
+        return true;
+      } else {
+        return new Promise((resolve, reject) => {
+          // Implement your guard logic here
+          // For example, prompt the user before leaving the route
+          const confirmation = confirm(this.multilinguism.translate('warningQuit'));
+          resolve(confirmation);
+        });
+      }
+    }
+  
 
-  @HostListener('window:beforeunload')
-    canDeactivate(): Observable<boolean> | boolean {
-    console.log("e");
-    return this.isInitialState();
-  }
 
   nameEmpty = false;
   initialEditionState; initialdbnaryState;
+  popstateFired = false;
 
   constructor(public editionService: EditionService, public  paletteService: PaletteService,
               public router: Router, public multilinguism: MultilinguismService,
@@ -105,9 +114,6 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
       if (this.editionService.newPage == ""){
         this.editionService.newPage = this.editionService.name;
       }
-      if (this.editionService.currentEditPage !== '') {
-        this.editionService.currentEditPage = ''
-      }
       if (this.editionService.add) {
         this.createNewButton();
       } else if (this.editionService.selectedElements.length === 1) {
@@ -116,18 +122,12 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
         this.modifyAllButtons();
       }
       this.editionService.add = false;
-      this.clear();
       this.indexedDBacess.update();
-      this.router.navigate(['keyboard']);
-      await this.delay(500);
-      this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
-      await this.delay(1000);
-      this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
+      this.initialEditionState = Object.assign({}, this.editionService);
+      this.initialdbnaryState = Object.assign({}, this.dbnaryService);
     }else {
       this.nameEmpty = true;
     }
-
-    this.initialEditionState = Object.assign({}, this.editionService);
   }
 
   delay(ms: number) {
@@ -231,6 +231,9 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
       this.editionService.getDefaultForm(element.ElementFormsList).DisplayedText = this.editionService.name;
       if (this.editionService.getDefaultForm(element.ElementFormsList).ImageID === '') {
         this.editionService.getDefaultForm(element.ElementFormsList).ImageID = element.ID;
+      }
+      if (this.editionService.currentEditPage !== '') {
+        this.editionService.currentEditPage = 'information';
       }
       this.boardService.board.ImageList = this.boardService.board.ImageList.filter(
         img => img.ID !== this.editionService.getDefaultForm(element.ElementFormsList).ImageID);
@@ -373,12 +376,6 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
   }
 
   isInitialState() {
-    console.log(this.initialEditionState.radioTypeFormat);
-    console.log(this.editionService.radioTypeFormat);
-
-    return this.initialEditionState == this.editionService.radioTypeFormat;
-
-
     return (this.initialEditionState.imageTextField == this.editionService.imageTextField
       && this.initialEditionState.curentBorderColor == this.editionService.curentBorderColor
       && this.initialEditionState.insideCheck == this.editionService.insideCheck
@@ -389,7 +386,6 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
       && this.initialEditionState.imageURL == this.editionService.imageURL
       && this.initialdbnaryState.wordList == this.dbnaryService.wordList
       && this.initialdbnaryState.typeList == this.dbnaryService.typeList);
-    
   }
 
 }

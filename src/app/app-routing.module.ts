@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {RouterModule, RouterPreloader, Routes} from '@angular/router';
 import {KeyboardComponent} from './components/keyboard/keyboard.component';
 import {ShareComponent} from './components/share/share.component';
 import {EditionComponent} from './components/edition/edition.component';
@@ -40,7 +40,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [BrowserModule, BrowserAnimationsModule, RouterModule.forRoot(routes, {useHash: true})],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [RouterPreloader]
 })
 
 /**

@@ -340,6 +340,7 @@
     { "id" :  "FooterTuto", "FR": "Vous pouvez personnaliser le PDF générer, ajouter le bas de page.", "EN": "You can customize the generated PDF, add footer."},
     { "id" :  "GridManagementTuto", "FR": "Ici vous pouvez gérer vos grilles en chargeant une grille, supprimer une grille, supprimer un ou plusieurs page de la grille courante, choisir un model de grille qui va remplacer votre grille courante, vider totalement votre grille.", "EN": "Here you can manage your grids by loading a grid, deleting a grid, deleting one or more pages from the current grid, choosing a grid model that will replace your current grid, completely emptying your grid."},
     { "id" : "buttonDescription", "FR": "L'élément créé sera un simple bouton", "EN": "The element will be a simple button"},
-    { "id" : "folderDescription", "FR": "L'élément créé sera un dossier pouvant contenir d'autres boutons", "EN": "The element will be a folder that can contain other buttons"}
+    { "id" : "folderDescription", "FR": "L'élément créé sera un dossier pouvant contenir d'autres boutons", "EN": "The element will be a folder that can contain other buttons"},
+    { "id" : "warningQuit", "FR": "Voulez vous vraiment quitter ? Les modifications non sauvegardées seront perdues", "EN": "Are you sure you want to quit ? Unsaved changes will be lost"}
   ]
 }

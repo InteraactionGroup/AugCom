@@ -89,6 +89,7 @@ import { ExportSaveUserDialogComponent } from './components/export-save-user-dia
 import { ImportUserComponent } from './components/import-user/import-user.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { PendingChangesGuard } from './services/pending-changes-guard.service';
+import { RouterPreloader } from '@angular/router';
 
 @NgModule({
   declarations: [
