@@ -384,6 +384,7 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
       && this.initialEditionState.pageLink == this.editionService.pageLink
       && this.initialEditionState.curentBorderColor == this.editionService.curentBorderColor
       && this.initialEditionState.imageURL == this.editionService.imageURL
+      && this.initialEditionState.variantList == this.editionService.variantList
       && this.initialdbnaryState.wordList == this.dbnaryService.wordList
       && this.initialdbnaryState.typeList == this.dbnaryService.typeList);
   }
