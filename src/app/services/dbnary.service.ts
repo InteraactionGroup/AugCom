@@ -68,7 +68,7 @@ export class DbnaryService {
     };
 
     this.http
-      .get('http://kaiko.getalp.org/sparql' + '?query=' + encodeURIComponent(query), httpOptions)
+      .get('https://kaiko.getalp.org/sparql' + '?query=' + encodeURIComponent(query), httpOptions)
       .subscribe(
         data => {
           this.sparkqlData = data as ResultJson1;
