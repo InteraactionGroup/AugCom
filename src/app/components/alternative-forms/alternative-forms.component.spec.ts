@@ -153,7 +153,7 @@ describe('AlternativeFormsComponent', () => {
     expect(compiled.querySelectorAll('.elementContainer').length).toEqual(1);
   });
 
-  it('should create add the corresponding new created element to the elementFormsList', () => {
+  it('should create and add the corresponding new created element to the elementFormsList', () => {
     const compiled = fixture.debugElement.nativeElement;
     component.editionService.selectedElements = [];
     createElements(component, 1, 1);
@@ -163,13 +163,13 @@ describe('AlternativeFormsComponent', () => {
     fixture.detectChanges();
     component.elementFormDisplayedWordField = 'newDisplayedWordTest';
     component.elementFormPronouncedWordField = 'newPronouncedWordTest';
-    component.elementFormNameImageURL = 'assets/libs/mulberry-symbols/En-symbols/test.svg';
+    component.elementFormNameImageURL = 'src\assets\libs\arasaac\0a1c2dd4ecbf4cd76cf14bedceda1b515e85d901d6fcb1f95babfd4292c90136.png';
     compiled.querySelector('#saveAlternativeFormModifButton').click();
     fixture.detectChanges();
     expect(component.editionService.variantList[1].DisplayedText).toEqual('newDisplayedWordTest');
     expect(component.editionService.variantList[1].VoiceText).toEqual('newPronouncedWordTest');
     const relatedImage = component.boardService.board.ImageList.find(image => {
-      return image.Path === 'assets/libs/mulberry-symbols/En-symbols/test.svg'
+      return image.Path === 'src\assets\libs\arasaac\0a1c2dd4ecbf4cd76cf14bedceda1b515e85d901d6fcb1f95babfd4292c90136.png'
     });
     expect(component.editionService.variantList[1].ImageID).toEqual(relatedImage.ID);
     expect(relatedImage).not.toBe(null);

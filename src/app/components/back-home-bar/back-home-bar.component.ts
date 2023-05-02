@@ -8,7 +8,6 @@ import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 import {MatDialog} from '@angular/material/dialog';
 import {DialogLinkAFSRComponent} from '../dialog-link-afsr/dialog-link-afsr.component';
 import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-back-home-bar',
@@ -24,8 +23,7 @@ export class BackHomeBarComponent implements OnInit {
               public indexedDBacess: IndexeddbaccessService,
               public editionService: EditionService,
               public dialog: MatDialog,
-              public router: Router, 
-              public activatedRoute: ActivatedRoute) {
+              public router: Router) {
   }
 
   ngOnInit() {
