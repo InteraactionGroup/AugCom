@@ -93,17 +93,17 @@ export class DbnaryService {
       if (w.po !== undefined && w.po.value === grammaticalClass) {
         const infoList = [];
         if (w.p !== undefined) {
-          infoList.push({person: w.p.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
+          infoList.push({person: w.p.value.replace('https://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
         }
         if (w.n !== undefined) {
-          infoList.push({number: w.n.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
+          infoList.push({number: w.n.value.replace('https://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
         }
         if (w.g !== undefined) {
-          infoList.push({gender: w.g.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
+          infoList.push({gender: w.g.value.replace('https://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
 
         }
         if (w.t !== undefined) {
-          infoList.push({tense: w.t.value.replace('http://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
+          infoList.push({tense: w.t.value.replace('https://www.lexinfo.net/ontology/2.0/lexinfo#', '')});
 
         }
         if (w.vFM !== undefined) {
@@ -124,8 +124,8 @@ export class DbnaryService {
   /*return true if the given verb is present of indicative */
   isIndicativePresent(verb): boolean {
     return (
-      verb.t !== undefined && verb.t.value === 'http://www.lexinfo.net/ontology/2.0/lexinfo#present' &&
-      verb.vFM !== undefined && verb.vFM.value === 'http://www.lexinfo.net/ontology/2.0/lexinfo#indicative'
+      verb.t !== undefined && verb.t.value === 'https://www.lexinfo.net/ontology/2.0/lexinfo#present' &&
+      verb.vFM !== undefined && verb.vFM.value === 'https://www.lexinfo.net/ontology/2.0/lexinfo#indicative'
     );
   }
 }
