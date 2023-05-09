@@ -225,4 +225,30 @@
   background-size: contain;
   background-position: center;
   align-items: center;
+} 
+
+.small {
+  width: 120px;
+}
+
+.big {
+  width: 240px;
+}
+
+.selectCheckBox .tooltiptext, .editSettingsButton .tooltiptext {
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 1);
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  position: absolute;
+  top: 120px;
+  z-index: 5;
+}
+
+.selectCheckBox:hover .tooltiptext, .editSettingsButton:hover .tooltiptext {
+  visibility: visible;
+  cursor: pointer;
 }

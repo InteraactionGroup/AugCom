@@ -339,6 +339,14 @@
     { "id" :  "importLifeCompagnon", "FR" : "Importer des fichiers LifeCompagnon qui vous permettent d’importer des fichiers de sauvegarde de grille LifeCompagnon (.lcc) par l’application LifeCompagnon.", "EN" :  "Import LifeCompagnon files that allow you to import LifeCompagnon grid backup files (.lcc) through the LifeCompagnon application."},
     { "id" :  "HeaderTuto", "FR": "Vous pouvez personnaliser le PDF générer, ajouter/supprimer le nom de la page, ajouter/supprimer la version d'AugCom, ajouter le haut de page.", "EN": "You can customize the generated PDF, add/remove the page name, add/remove the AugCom version, add the header."},
     { "id" :  "FooterTuto", "FR": "Vous pouvez personnaliser le PDF générer, ajouter le bas de page.", "EN": "You can customize the generated PDF, add footer."},
-    { "id" :  "GridManagementTuto", "FR": "Ici vous pouvez gérer vos grilles en chargeant une grille, supprimer une grille, supprimer un ou plusieurs page de la grille courante, choisir un model de grille qui va remplacer votre grille courante, vider totalement votre grille.", "EN": "Here you can manage your grids by loading a grid, deleting a grid, deleting one or more pages from the current grid, choosing a grid model that will replace your current grid, completely emptying your grid."}
+    { "id" :  "GridManagementTuto", "FR": "Ici vous pouvez gérer vos grilles en chargeant une grille, supprimer une grille, supprimer un ou plusieurs page de la grille courante, choisir un model de grille qui va remplacer votre grille courante, vider totalement votre grille.", "EN": "Here you can manage your grids by loading a grid, deleting a grid, deleting one or more pages from the current grid, choosing a grid model that will replace your current grid, completely emptying your grid."},
+    { "id" :  "selectAll", "FR": "Tout sélectionner/désélectionner", "EN": "Select/Unselect all"},
+    { "id" :  "edit", "FR": "Editer", "EN": "Edit"},
+    { "id" :  "delete", "FR": "Supprimer", "EN": "Delete"},
+    { "id" :  "generateGrid", "FR": "Générer une grille","EN": "Generate a new grid"},
+    { "id" :  "copy", "FR": "Copier la case", "EN": "Copy cell"},
+    { "id" :  "copyFull", "FR": "Copier la case et ses descendants", "EN": "Copy cell and its descendants"},
+    { "id" :  "paste", "FR": "Coller", "EN": "Paste"}
+
   ]
 }

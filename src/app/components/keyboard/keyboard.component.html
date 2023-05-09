@@ -6,14 +6,16 @@
 
   <!-- checkbox used to select all the elements in edition mode -->
   <div class="selectCheckBox floatLeft" (click)="this.selectAll()">
+    <span class="tooltiptext big">{{this.multilinguism.translate("selectAll")}}</span>
     <div class="image haveBackgroundImage"
          [style.background-image]="this.editionService.selectAll?this.getIcon('check'):null">
-
+        
     </div>
   </div>
 
   <!-- button used to edit all the selected elements-->
   <div class="editSettingsButton floatLeft" (click)=this.editAll()>
+    <span class="tooltiptext small">{{this.multilinguism.translate("edit")}}</span>
     <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("editSelected")}}</div>-->
     <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('edit')">
     </div>
@@ -21,6 +23,7 @@
 
   <!-- button used to delete all the selected elements -->
   <div class="editSettingsButton floatLeft" (click)=this.deleteAll()>
+    <span class="tooltiptext small">{{this.multilinguism.translate("delete")}}</span>
     <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("deleteSelected")}}</div>-->
     <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('delete')">
     </div>
@@ -28,6 +31,7 @@
 
   <!-- button used to copy all the selected elements -->
   <div class="editSettingsButton floatLeft" (click)="generateGridWithSentence()">
+    <span class="tooltiptext small">{{this.multilinguism.translate("generateGrid")}}</span>
     <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("generateSelected")}}</div>-->
     <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('generatorGrid')">
     </div>
@@ -35,6 +39,7 @@
 
   <!-- button used to copy all the selected elements -->
   <div class="editSettingsButton floatLeft" (click)="copyAll()">
+    <span class="tooltiptext small">{{this.multilinguism.translate("copy")}}</span>
     <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("copySelected")}}</div>-->
     <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('copy')">
     </div>
@@ -42,6 +47,7 @@
 
   <!-- button used to copy all the selected elements -->
   <div class="editSettingsButton floatLeft" (click)="copyFull()">
+    <span class="tooltiptext big">{{this.multilinguism.translate("copyFull")}}</span>
     <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("copySelected")}}</div>-->
     <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('copyFull')">
     </div>
@@ -49,6 +55,7 @@
 
   <!-- button used to paste all the selected elements -->
   <div *ngIf="isCopy" class="editSettingsButton floatLeft" (click)="pasteAll()">
+    <span class="tooltiptext small">{{this.multilinguism.translate("paste")}}</span>
     <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("pasteSelected")}}</div>-->
     <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('paste')">
     </div>
