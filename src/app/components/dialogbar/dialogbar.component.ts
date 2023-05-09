@@ -28,6 +28,8 @@ export class DialogbarComponent implements OnInit {
   }
 
   public dwellTimer;
+  iconSize = Number(this.configurationService.SIZE_ICON_VALUE);
+  marginSize = this.iconSize/8;
 
   /**
    * Return the icon url corresponding to the string s

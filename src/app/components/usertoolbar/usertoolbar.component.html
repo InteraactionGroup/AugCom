@@ -31,14 +31,14 @@
     </div>
   </div>
   
-    <div class="button floatRight" (click)="this.openDialog()" [ngStyle]="{'margin-left': marginSize + 'px', 'width': 1.5 + 'cm'}">
+    <div class="button floatRight" (click)="this.openDialog()" [ngStyle]="{'margin-left': marginSize + 'px'}">
       <div class="image width-100" 
       [ngStyle]="{'background-image':this.getIcon('help')}">
       </div>
     </div>
 
     <a routerLink="/account">
-      <div class="button floatRight" id="accountButton" *ngIf="this.userToolBarService.unlock && !this.boardService.AFSR" [ngStyle]="{'margin-left': marginSize + 'px', 'width': 1.5 + 'cm'}">
+      <div class="button floatRight" id="accountButton" *ngIf="this.userToolBarService.unlock && !this.boardService.AFSR" [ngStyle]="{'margin-left': marginSize + 'px'}">
         <div class="image width-100" 
         [ngStyle]="{'background-image':this.getIcon('settings')}">
         </div>
@@ -46,7 +46,7 @@
     </a>
 
     <a [routerLink]="'/'+configurationService.LANGUAGE_VALUE+'/account'">
-      <div class="button floatRight" id="accountButtonAFSR" *ngIf="this.userToolBarService.unlock && this.boardService.AFSR" [ngStyle]="{'margin-left': marginSize + 'px', 'width': 1.5 + 'cm'}">
+      <div class="button floatRight" id="accountButtonAFSR" *ngIf="this.userToolBarService.unlock && this.boardService.AFSR" [ngStyle]="{'margin-left': marginSize + 'px'}">
         <div class="image width-100" 
         [ngStyle]="{'background-image':this.getIcon('settings')}">
         </div>

@@ -88,7 +88,7 @@
 
 <!-- the keyboard containing the element wrapper -->
 <div *ngIf="!boardService.AFSR" id="keyboard" class="keyboard width-100"
-     [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100% - 75px - 50px - ' + marginBot + 'cm - 50px )':'calc(100% - 75px -  ' + marginBot + 'cm)'}">
+     [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100% - 50px - ' + margins + 'cm - 50px )':'calc(100% - ' + margins + 'cm)'}">
 
   <!-- the wrapper displayed with elements containing pictogram and corresponding text -->
   <div class="wrapper haveBackgroundImage height-width-100">
@@ -100,7 +100,7 @@
   <app-snap-bar></app-snap-bar>
 </div>
 <div *ngIf="boardService.AFSR" id="keyboardAFSR" class="keyboard width-100"
-     [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100% - 150px - 50px - ' + marginBot + 'cm - 50px )':'calc(100% - 150px - ' + marginBot + 'cm)'}">
+     [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100% - 150px - 50px - ' + margins + 'cm - 50px )':'calc(100% - 150px - ' + margins + 'cm)'}">
 
   <!-- the wrapper displayed with elements containing pictogram and corresponding text -->
   <div class="wrapper haveBackgroundImage height-width-100">

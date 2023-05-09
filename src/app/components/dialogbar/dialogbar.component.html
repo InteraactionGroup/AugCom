@@ -1,10 +1,10 @@
 <!-- the bar containing the sentence entered by the user and the play back and clear buttons -->
-<div *ngIf="!boardService.AFSR" class="dialogBar">
+<div *ngIf="!boardService.AFSR" class="dialogBar" [ngStyle]="{'height': (iconSize/60)+'cm'}">
 
   <!-- the textBar containing the sentence entered by the user -->
   <!-- *** note: the row-reverse trick is used in order to display last elements of the textBar on the right *** -->
   <div class="textBar floatLeft"
-       [ngStyle]=" {'flex-flow': this.historicService.isHistoricLengthMoreThan10() ?'row-reverse nowrap':'nowrap'}">
+       [ngStyle]=" {'width': '100vw - 8cm - ' + iconSize + 'px', 'flex-flow': this.historicService.isHistoricLengthMoreThan10() ?'row-reverse nowrap':'nowrap'}">
 
     <!-- each elementContainer contains an element composed with one pictogram and the corresponding text -->
     <div class="elementContainer"
@@ -40,7 +40,7 @@
        (pointerenter)="enterAndPlay($event)"
        (pointerleave)="exit()"
   >
-    <div class="image haveBackgroundImage" [ngStyle]="{'background-image':this.getIcon('play')}">
+    <div class="image haveBackgroundImage" [ngStyle]="{'background-image':this.getIcon('play'),'margin-right': marginSize + 'px'}">
     </div>
   </div>
   <!-- the button used to write a sentence or a world -->
@@ -49,7 +49,7 @@
        (pointerenter)="enterAndClear($event)"
        (pointerleave)="exit()"
   >
-    <div class="image haveBackgroundImage" [ngStyle]="{'background-image':this.getIcon('texte')}">
+    <div class="image haveBackgroundImage" [ngStyle]="{'background-image':this.getIcon('texte'),'margin-right': marginSize + 'px'}">
     </div>
   </div>
 
@@ -59,7 +59,7 @@
        (pointerenter)="enterAndBack($event)"
        (pointerleave)="exit()"
   >
-    <div class="image haveBackgroundImage" [ngStyle]="{'background-image':this.getIcon('back')}">
+    <div class="image haveBackgroundImage" [ngStyle]="{'background-image':this.getIcon('back'),'margin-right': marginSize + 'px'}">
     </div>
   </div>
 
@@ -69,7 +69,7 @@
        (pointerenter)="enterAndClear($event)"
        (pointerleave)="exit()"
   >
-    <div class="image haveBackgroundImage" [ngStyle]="{'background-image':this.getIcon('clear')}">
+    <div class="image haveBackgroundImage" [ngStyle]="{'background-image':this.getIcon('clear'),'margin-right': marginSize + 'px'}">
     </div>
   </div>
 
