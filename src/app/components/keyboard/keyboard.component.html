@@ -88,7 +88,7 @@
 
 <!-- the keyboard containing the element wrapper -->
 <div *ngIf="!boardService.AFSR" id="keyboard" class="keyboard width-100"
-     [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100% - 75px - 50px - 1.5cm - 50px )':'calc(100% - 75px - 1.5cm)'}">
+     [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100% - 75px - 50px - ' + marginBot + 'cm - 50px )':'calc(100% - 75px -  ' + marginBot + 'cm)'}">
 
   <!-- the wrapper displayed with elements containing pictogram and corresponding text -->
   <div class="wrapper haveBackgroundImage height-width-100">
@@ -100,7 +100,7 @@
   <app-snap-bar></app-snap-bar>
 </div>
 <div *ngIf="boardService.AFSR" id="keyboardAFSR" class="keyboard width-100"
-     [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100% - 150px - 50px - 1.5cm - 50px )':'calc(100% - 150px - 1.5cm)'}">
+     [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100% - 150px - 50px - ' + marginBot + 'cm - 50px )':'calc(100% - 150px - ' + marginBot + 'cm)'}">
 
   <!-- the wrapper displayed with elements containing pictogram and corresponding text -->
   <div class="wrapper haveBackgroundImage height-width-100">
@@ -117,7 +117,7 @@
 <ng-container *ngIf="this.userToolBarService.edit">
 
   <!-- nav link to the edit route-->
-  <nav class="no-drag" style="height: 50px; position: absolute; width: 100%; transition: bottom 0.5s; bottom : 1.5cm">
+  <nav class="no-drag" style="height: 50px; width: 100%; transition: bottom 0.5s;">
     <!--       [ngStyle]="{'bottom': this.userToolBarService.edit ? 'calc(50% + 1.5cm)' :'1.5cm'}">-->
     <a *ngIf="!boardService.AFSR" routerLink="/edit" class="no-drag">
 

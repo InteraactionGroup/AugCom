@@ -224,6 +224,7 @@ export class Configuration {
   'MAIN_COLOR_3_VALUE': string;
   'MAIN_COLOR_4_VALUE': string;
   'SIZE_FONT_VALUE': string;
+  'SIZE_ICON_VALUE': string;
   'VOLUME': number;
   'RATE': number;
   'PITCH': number;

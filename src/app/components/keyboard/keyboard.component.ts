@@ -30,6 +30,7 @@ export class KeyboardComponent implements OnInit{
 
   copyElements = [];
   isCopy = false;
+  marginBot = Number(this.configurationService.SIZE_ICON_VALUE);
 
   // tslint:disable-next-line:max-line-length
   constructor(
@@ -48,6 +49,7 @@ export class KeyboardComponent implements OnInit{
     public indexedDBacess: IndexeddbaccessService
   ) {
     this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
+    this.marginBot = Number(this.configurationService.SIZE_ICON_VALUE)/60;
   }
 
   onKeyCols(event: any) {

@@ -8,7 +8,7 @@ export class StyleService {
   constructor() {
   }
 
-  updateStyle(color0: string, color1: string, color2: string, color3: string, color4: string, sizeFont) {
+  updateStyle(color0: string, color1: string, color2: string, color3: string, color4: string, sizeFont, iconsize: string) {
     const root = document.body;
     if (root !== null) {
       root.style.setProperty('--main-bg-color1', color0);
@@ -17,6 +17,7 @@ export class StyleService {
       root.style.setProperty('--main-bg-color3', color3);
       root.style.setProperty('--main-bg-color4', color4);
       this.updateSizeFont(sizeFont);
+      this.updateIconSize(iconsize);
     }
   }
 
@@ -66,6 +67,13 @@ export class StyleService {
     const root = document.body;
     if (root !== null) {
       root.style.setProperty('--main-size-font', size);
+    }
+  }
+
+  updateIconSize(size: string){
+    const root = document.body;
+    if (root != null){
+      root.style.setProperty("--iconSize", size);
     }
   }
 }

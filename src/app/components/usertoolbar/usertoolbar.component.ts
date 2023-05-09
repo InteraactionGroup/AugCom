@@ -51,9 +51,13 @@ export class UsertoolbarComponent implements OnInit {
   /*text to search in the searchBar*/
   searchText = '';
   dwellTimer;
+  iconSize = Number(this.configurationService.SIZE_ICON_VALUE);
+  marginSize = this.iconSize/8;
 
   ngOnInit() {
     this.indexedDBacess.update();
+    this.iconSize = Number(this.configurationService.SIZE_ICON_VALUE);
+    this.marginSize = this.iconSize/8;
   }
 
   /*get size of the searched result under search bar, maximum size reached for 5 results*/

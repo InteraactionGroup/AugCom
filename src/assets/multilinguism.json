@@ -115,6 +115,7 @@
     { "id" : "FontStyle",  "FR" : "Style de police", "EN" : "Font style" },
     { "id" : "GeneralTheme",  "FR" : "Thème Général", "EN" : "General Theme" },
     { "id" : "ChooseFont",  "FR" : "Choisissez la police", "EN" : "Choose the font" },
+    { "id" : "chooseIconSize", "FR": "Choisissez la taille des boutons", "EN": "Choose buttons size"},
     { "id" : "FontSize",  "FR" : "Taille de la police", "EN" : "Font size" },
     { "id" : "ChooseSizeFont",  "FR" : "Choisissez la taille de la police", "EN" : "Choose the size font" },
     { "id" : "dwellTime",  "FR" : "Activer le temps de fixation", "EN" : "Activate the dwell-time" },
