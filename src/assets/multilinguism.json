@@ -118,7 +118,7 @@
     { "id" : "chooseIconSize", "FR": "Choisissez la taille des boutons", "EN": "Choose buttons size"},
     { "id" : "FontSize",  "FR" : "Taille de la police", "EN" : "Font size" },
     { "id" : "ChooseSizeFont",  "FR" : "Choisissez la taille de la police", "EN" : "Choose the size font" },
-    { "id" : "dwellTime",  "FR" : "Activer le temps de fixation", "EN" : "Activate the dwell-time" },
+    { "id" : "dwellTime",  "FR" : "Activer la sélection par fixation", "EN" : "Activate selection by dwell" },
     { "id" : "chooseTitleDisplay",  "FR" : "Choisissez l'affichage du titre", "EN" : "Choose title display" },
     { "id" : "chooseTitleFormat",  "FR" : "Choisissez le format du titre", "EN" : "Choose title format" },
     { "id" : "chooseNumberOfColumns",  "FR" : "Choisissez le nombre de colonnes", "EN" : "Choose the number of columns" },
@@ -284,9 +284,9 @@
     { "id" :  "noWords", "FR" : "Liste de mots vide !", "EN" :  "List of words empty !"},
     { "id" :  "sizeToSmall", "FR" : "Taille de la grille trop petite !", "EN" :  "Size of grid to small !"},
     { "id" :  "Are you sure you want to reset the configuration?", "FR" : "êtes-vous sûr de vouloir réinitialiser la configuration?", "EN": "Are you sure you want to reset the configuration?"},
-    { "id" :  "chooseGridModel", "FR" :  "Choisissez un model de grille : ", "EN": "Choose a grid model : "},
+    { "id" :  "chooseGridModel", "FR" :  "Choisissez un modèle de grille : ", "EN": "Choose a grid model : "},
     { "id" :  "empty", "FR" : "Vide", "EN" : "Empty"},
-    { "id" :  "default", "FR": "Defaut", "EN": "Default" },
+    { "id" :  "default", "FR": "Modèle par défaut", "EN": "Default model" },
     { "id" :  "deleteSingleOrMultiplePage", "FR": "Supprimez une ou plusieurs pages : ", "EN":"Delete single or multiple pages : " },
     { "id" :  "clearAllTheGrid", "FR": "Videz toute la grille : ", "EN": "Clear the entire grid : "},
     { "id" :  "modifyGridFromModel", "FR": "Attention vous allez remplacer votre grille actuel par le model, êtes vous sûr?", "EN": "Attention you will replace your current grid by the model, are you sure?"},
@@ -345,8 +345,16 @@
     { "id" :  "delete", "FR": "Supprimer", "EN": "Delete"},
     { "id" :  "generateGrid", "FR": "Générer une grille","EN": "Generate a new grid"},
     { "id" :  "copy", "FR": "Copier la case", "EN": "Copy cell"},
-    { "id" :  "copyFull", "FR": "Copier la case et ses descendants", "EN": "Copy cell and its descendants"},
-    { "id" :  "paste", "FR": "Coller", "EN": "Paste"}
-
+    { "id" :  "copyFull", "FR": "Copie profonde", "EN": "Deep copy cell"},
+    { "id" :  "paste", "FR": "Coller", "EN": "Paste"},
+    { "id" :  "unlock", "FR": "Ouvrir les options", "EN": "Open options"},
+    { "id" :  "lock", "FR": "Fermer les options", "EN": "Close options"},
+    { "id" :  "help", "FR": "Tutoriel", "EN": "Tutorial"},
+    { "id" :  "add-grid", "FR": "Nouvelle grille", "EN": "New Grid"},
+    { "id" :  "hide", "FR": "Cacher les boutons invisibles", "EN": "Hide invisible buttons"},
+    { "id" :  "add-grid", "FR": "Afficher les boutons invisibles", "EN": "Show invisible buttons"},
+    { "id" :  "exit", "FR": "Quitter", "EN": "Quit"},
+    { "id" :  "exitfullscreen", "FR": "Quitter le mode plein écran", "EN": "Exit fullscreen mod"},
+    { "id" :  "fullscreen", "FR": "Entrer en mode plein écran", "EN": "Enter fullscreen mod"}
   ]
 }

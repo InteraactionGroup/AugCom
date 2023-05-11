@@ -25,13 +25,15 @@
   </div>
 
   <div class="button floatRight" id="lockUnlockButton" (click)="this.setLock()"
-    [ngStyle]="{'margin-left': marginSize + 'px'}">
+    [ngStyle]="{'margin-left': marginSize + 'px', 'margin-right' : '10px'}">
+    <span class="tooltipbot">{{this.userToolBarService.unlock ? this.multilinguism.translate('unlock'):this.multilinguism.translate('lock')}}</span>
     <div class="image width-100" [class.imageSelected]="this.userToolBarService.unlock"
       [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.unlock?'unlock':'lock')}">
     </div>
   </div>
   
     <div class="button floatRight" (click)="this.openDialog()" [ngStyle]="{'margin-left': marginSize + 'px'}">
+      <span class="tooltipbot">{{this.multilinguism.translate('help')}}</span>
       <div class="image width-100" 
       [ngStyle]="{'background-image':this.getIcon('help')}">
       </div>
@@ -39,6 +41,7 @@
 
     <a routerLink="/account">
       <div class="button floatRight" id="accountButton" *ngIf="this.userToolBarService.unlock && !this.boardService.AFSR" [ngStyle]="{'margin-left': marginSize + 'px'}">
+        <span class="tooltipbot">{{this.multilinguism.translate('settings')}}</span>
         <div class="image width-100" 
         [ngStyle]="{'background-image':this.getIcon('settings')}">
         </div>
@@ -47,6 +50,7 @@
 
     <a [routerLink]="'/'+configurationService.LANGUAGE_VALUE+'/account'">
       <div class="button floatRight" id="accountButtonAFSR" *ngIf="this.userToolBarService.unlock && this.boardService.AFSR" [ngStyle]="{'margin-left': marginSize + 'px'}">
+        <span class="tooltipbot">{{this.multilinguism.translate('settings')}}</span>
         <div class="image width-100" 
         [ngStyle]="{'background-image':this.getIcon('settings')}">
         </div>
@@ -55,6 +59,7 @@
 
   <div class="button floatRight" id="editButton" *ngIf="this.userToolBarService.unlock" (click)="this.edit()"
     [ngStyle]="{ 'margin-left': marginSize + 'px'}">
+    <span class="tooltipbot">{{this.multilinguism.translate('edit')}}</span>
     <div class="image width-100" [class.noConnection]="!this.userToolBarService.isConnected"
       [class.imageSelected]="this.userToolBarService.edit"
       [ngStyle]="{'background-image':this.getIcon('edit')}">
@@ -63,6 +68,7 @@
 
   <div class="button floatRight" id="newGrid" *ngIf="this.userToolBarService.unlock" (click)="this.newGrid()"
     [ngStyle]="{'margin-left': marginSize + 'px'}">
+    <span class="tooltipbot">{{this.multilinguism.translate('add-grid')}}</span>
     <div class="image width-100"
       [ngStyle]="{'background-image':this.getIcon('add-grid')}">
     </div>
@@ -71,6 +77,7 @@
   <div class="button floatRight" id="babbleButton" *ngIf="this.userToolBarService.unlock"
     (click)="this.userToolBarService.babble = !this.userToolBarService.babble"
     [ngStyle]="{'margin-left': marginSize + 'px'}">
+    <span class="tooltipbot">{{this.userToolBarService.unlock ? this.multilinguism.translate('hide'):this.multilinguism.translate('show')}}</span>
     <div class="image width-100"
       [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.babble?'hide':'show')}">
     </div>
@@ -78,12 +85,14 @@
 
   <div class="button floatRight" id="log out" *ngIf="this.userToolBarService.unlock && !boardService.AFSR"
     (click)="this.logout()" [ngStyle]="{'margin-left': marginSize + 'px'}">
+    <span class="tooltipbot">{{this.multilinguism.translate('exit')}}</span>
     <div class="image width-100" [ngStyle]="{'background-image': this.getIcon('exit')}">
     </div>
   </div>
 
   <div class="button floatRight" id="fullScreenButton" *ngIf="this.userToolBarService.unlock"
     (click)="this.userToolBarService.fullScreen()" [ngStyle]="{'margin-left': marginSize + 'px'}">
+    <span class="tooltipbot">{{this.userToolBarService.unlock ? this.multilinguism.translate('exitfullscreen'):this.multilinguism.translate('fullscreen')}}</span>
     <div class="image width-100"
       [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.full?'exitfullscreen':'fullscreen')}">
     </div>
@@ -91,6 +100,7 @@
 
   <div class="button floatRight" id="language" *ngIf="this.userToolBarService.unlock && !this.boardService.AFSR"
     (click)="translate()" [ngStyle]="{'margin-left': marginSize + 'px'}">
+    <span class="tooltipbot">{{this.multilinguism.translate('language')}}</span>
     <div class="image width-100"
       [ngStyle]="{'background-image':this.getIcon(this.configurationService.LANGUAGE_VALUE==='FR'? 'france':'uk')}">
     </div>

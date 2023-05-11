@@ -215,3 +215,22 @@
   opacity: 0;
   transition: width 5s;
 }
+
+.button .tooltipbot {
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 1);
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  position: absolute;
+  top: -30px;
+  transform: translateX(-20%);
+  z-index: 5;
+}
+
+.button:hover .tooltipbot{
+  visibility: visible;
+  cursor: pointer;
+}
