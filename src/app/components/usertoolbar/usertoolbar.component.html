@@ -57,6 +57,15 @@
       </div>
     </a>
 
+    
+  <div class="button floatRight" id="language" *ngIf="this.userToolBarService.unlock && !this.boardService.AFSR"
+  (click)="translate()" [ngStyle]="{'margin-left': marginSize + 'px'}">
+  <span class="tooltipbot">{{this.multilinguism.translate('language')}}</span>
+  <div class="image width-100"
+    [ngStyle]="{'background-image':this.getIcon(this.configurationService.LANGUAGE_VALUE==='FR'? 'france':'uk')}">
+  </div>
+</div>
+
   <div class="button floatRight" id="editButton" *ngIf="this.userToolBarService.unlock" (click)="this.edit()"
     [ngStyle]="{ 'margin-left': marginSize + 'px'}">
     <span class="tooltipbot">{{this.multilinguism.translate('edit')}}</span>
@@ -83,28 +92,31 @@
     </div>
   </div>
 
-  <div class="button floatRight" id="log out" *ngIf="this.userToolBarService.unlock && !boardService.AFSR"
-    (click)="this.logout()" [ngStyle]="{'margin-left': marginSize + 'px'}">
-    <span class="tooltipbot">{{this.multilinguism.translate('exit')}}</span>
-    <div class="image width-100" [ngStyle]="{'background-image': this.getIcon('exit')}">
-    </div>
+  <div class="button floatRight" id="dwellButton" *ngIf="this.userToolBarService.unlock"
+  (click)="this.toggleFocus()"
+  [ngStyle]="{'margin-left': marginSize + 'px'}">
+  <span class="tooltipbot">{{this.configurationService.DWELL_TIME_ENABLED ? this.multilinguism.translate('deactivateDwell'):this.multilinguism.translate('activateDwell')}}</span>
+  <div class="image width-100"
+    [ngStyle]="{'background-image':this.getIcon(configurationService.DWELL_TIME_ENABLED ? 'fullstar':'emptystar')}">
   </div>
+</div>
+
 
   <div class="button floatRight" id="fullScreenButton" *ngIf="this.userToolBarService.unlock"
     (click)="this.userToolBarService.fullScreen()" [ngStyle]="{'margin-left': marginSize + 'px'}">
-    <span class="tooltipbot">{{this.userToolBarService.unlock ? this.multilinguism.translate('exitfullscreen'):this.multilinguism.translate('fullscreen')}}</span>
+    <span class="tooltipbot">{{this.userToolBarService.full ? this.multilinguism.translate('exitfullscreen'):this.multilinguism.translate('fullscreen')}}</span>
     <div class="image width-100"
       [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.full?'exitfullscreen':'fullscreen')}">
     </div>
   </div>
 
-  <div class="button floatRight" id="language" *ngIf="this.userToolBarService.unlock && !this.boardService.AFSR"
-    (click)="translate()" [ngStyle]="{'margin-left': marginSize + 'px'}">
-    <span class="tooltipbot">{{this.multilinguism.translate('language')}}</span>
-    <div class="image width-100"
-      [ngStyle]="{'background-image':this.getIcon(this.configurationService.LANGUAGE_VALUE==='FR'? 'france':'uk')}">
-    </div>
+
+  <div class="button floatRight" id="log out" *ngIf="this.userToolBarService.unlock && !boardService.AFSR"
+  (click)="this.logout()" [ngStyle]="{'margin-left': marginSize + 'px'}">
+  <span class="tooltipbot">{{this.multilinguism.translate('exit')}}</span>
+  <div class="image width-100" [ngStyle]="{'background-image': this.getIcon('exit')}">
   </div>
+</div>
 
 
   <div class="button floatLeft" id="backButton" (click)="this.boardService.backToPreviousFolder()"

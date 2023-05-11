@@ -355,6 +355,8 @@
     { "id" :  "add-grid", "FR": "Afficher les boutons invisibles", "EN": "Show invisible buttons"},
     { "id" :  "exit", "FR": "Quitter", "EN": "Quit"},
     { "id" :  "exitfullscreen", "FR": "Quitter le mode plein écran", "EN": "Exit fullscreen mod"},
-    { "id" :  "fullscreen", "FR": "Entrer en mode plein écran", "EN": "Enter fullscreen mod"}
+    { "id" :  "fullscreen", "FR": "Entrer en mode plein écran", "EN": "Enter fullscreen mod"},
+    { "id" :  "activateDwell", "FR": "Activer la sélection par focus", "EN": "Enable selection by focus"},
+    { "id" :  "deactivateDwell", "FR": "Désactiver la sélection par focus", "EN": "Disable selection by focus"}
   ]
 }

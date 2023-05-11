@@ -209,4 +209,9 @@ export class UsertoolbarComponent implements OnInit {
       width: 'fit-content'
     });
   }
+
+  toggleFocus(){
+    this.configurationService.DWELL_TIME_ENABLED= !this.configurationService.DWELL_TIME_ENABLED;
+    this.indexedDBacess.updateConfig();
+  }
 }
