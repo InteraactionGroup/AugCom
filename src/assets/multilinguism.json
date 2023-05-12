@@ -1,6 +1,6 @@
 {
   "dictionary" : [
-    { "id" : "back" , "FR" : "retour", "EN" : "back" },
+    { "id" : "back" , "FR" : "Retour", "EN" : "Back" },
     { "id" : "modifInfo" , "FR" : "Modifier les informations:", "EN" : "Modify the information:" },
     { "id" : "soon" , "FR" : "à venir...", "EN" : "available soon..." },
     { "id" : "settings" , "FR" : "Paramètres", "EN" : "Settings" },
@@ -46,7 +46,7 @@
     { "id" : "yourEmail" , "FR" : "Votre courriel electronique", "EN" : "Your e-mail adress" },
     { "id" : "subject" , "FR" : "Sujet", "EN" : "Subject" },
     { "id" : "message" , "FR" : "Message", "EN" : "Message" },
-    { "id" : "backHome" , "FR" : "retour à l'écran principal", "EN" : "back to home page" },
+    { "id" : "backHome" , "FR" : "Retour à l'écran principal", "EN" : "Back to main page" },
     { "id" : "noElementToModifySelected" , "FR" : "Aucun élément à modifier n'a été selectionné.", "EN" : "No element to modify have been selected." },
     { "id" : "modifyInteractions" , "FR" : "Modifier les interactions", "EN" : "Modify the interactions" },
     { "id" : "addToSentence" , "FR" : "ajouter à la phrase", "EN" : "add to sentence" },

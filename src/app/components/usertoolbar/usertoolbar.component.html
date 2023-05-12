@@ -19,92 +19,107 @@
 
   <div *ngIf="boardService.AFSR" class="button floatRight" id="exitSoftwareButton" (click)="this.exitSoftware()"
     [ngStyle]="{'margin-left': marginSize + 'px'}">
-    <div class="image width-100"
-      [ngStyle]="{'background-image':this.getIconPng('logout')}">
+    <div class="image width-100" [ngStyle]="{'background-image':this.getIconPng('logout')}">
+    </div>
+  </div>
+
+  <div class="button floatLeft" id="backButton" (click)="this.boardService.backToPreviousFolder()"
+    (pointerenter)="enter($event)" (pointerleave)="exit()"
+    [ngStyle]="{'opacity': (this.boardService.getCurrentFolder() !== '#HOME' && this.boardService.activatedElement==-1) ? '1' : '0.5','margin-right': marginSize + 'px'}">
+    <span class="tooltipbot">{{this.multilinguism.translate('back')}}</span>
+    <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('retour')}">
+    </div>
+  </div>
+
+  <div class="button floatLeft" id="homeButton" (click)="this.boardService.backHome()" (pointerenter)="enter($event)"
+    (pointerleave)="exit()"
+    [ngStyle]="{'opacity': (this.boardService.getCurrentFolder() !== '#HOME' && this.boardService.activatedElement==-1) ? '1' : '0.5', 'margin-right': marginSize + 'px'}">
+    <span class="tooltipbot">{{this.multilinguism.translate('backHome')}}</span>
+    <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('home')}">
     </div>
   </div>
 
   <div class="button floatRight" id="lockUnlockButton" (click)="this.setLock()"
     [ngStyle]="{'margin-left': marginSize + 'px', 'margin-right' : '10px'}">
-    <span class="tooltipbot">{{this.userToolBarService.unlock ? this.multilinguism.translate('unlock'):this.multilinguism.translate('lock')}}</span>
+    <span class="tooltipbot">{{this.userToolBarService.unlock ?
+      this.multilinguism.translate('unlock'):this.multilinguism.translate('lock')}}</span>
     <div class="image width-100" [class.imageSelected]="this.userToolBarService.unlock"
       [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.unlock?'unlock':'lock')}">
     </div>
   </div>
-  
-    <div class="button floatRight" (click)="this.openDialog()" [ngStyle]="{'margin-left': marginSize + 'px'}">
-      <span class="tooltipbot">{{this.multilinguism.translate('help')}}</span>
-      <div class="image width-100" 
-      [ngStyle]="{'background-image':this.getIcon('help')}">
+
+  <div class="button floatRight" (click)="this.openDialog()" [ngStyle]="{'margin-left': marginSize + 'px'}">
+    <span class="tooltipbot">{{this.multilinguism.translate('help')}}</span>
+    <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('help')}">
+    </div>
+  </div>
+
+  <a routerLink="/account">
+    <div class="button floatRight" id="accountButton" *ngIf="this.userToolBarService.unlock && !this.boardService.AFSR"
+      [ngStyle]="{'margin-left': marginSize + 'px'}">
+      <span class="tooltipbot">{{this.multilinguism.translate('settings')}}</span>
+      <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('settings')}">
       </div>
     </div>
+  </a>
 
-    <a routerLink="/account">
-      <div class="button floatRight" id="accountButton" *ngIf="this.userToolBarService.unlock && !this.boardService.AFSR" [ngStyle]="{'margin-left': marginSize + 'px'}">
-        <span class="tooltipbot">{{this.multilinguism.translate('settings')}}</span>
-        <div class="image width-100" 
-        [ngStyle]="{'background-image':this.getIcon('settings')}">
-        </div>
+  <a [routerLink]="'/'+configurationService.LANGUAGE_VALUE+'/account'">
+    <div class="button floatRight" id="accountButtonAFSR"
+      *ngIf="this.userToolBarService.unlock && this.boardService.AFSR" [ngStyle]="{'margin-left': marginSize + 'px'}">
+      <span class="tooltipbot">{{this.multilinguism.translate('settings')}}</span>
+      <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('settings')}">
       </div>
-    </a>
+    </div>
+  </a>
 
-    <a [routerLink]="'/'+configurationService.LANGUAGE_VALUE+'/account'">
-      <div class="button floatRight" id="accountButtonAFSR" *ngIf="this.userToolBarService.unlock && this.boardService.AFSR" [ngStyle]="{'margin-left': marginSize + 'px'}">
-        <span class="tooltipbot">{{this.multilinguism.translate('settings')}}</span>
-        <div class="image width-100" 
-        [ngStyle]="{'background-image':this.getIcon('settings')}">
-        </div>
-      </div>
-    </a>
 
-    
   <div class="button floatRight" id="language" *ngIf="this.userToolBarService.unlock && !this.boardService.AFSR"
-  (click)="translate()" [ngStyle]="{'margin-left': marginSize + 'px'}">
-  <span class="tooltipbot">{{this.multilinguism.translate('language')}}</span>
-  <div class="image width-100"
-    [ngStyle]="{'background-image':this.getIcon(this.configurationService.LANGUAGE_VALUE==='FR'? 'france':'uk')}">
+    (click)="translate()" [ngStyle]="{'margin-left': marginSize + 'px'}">
+    <span class="tooltipbot">{{this.multilinguism.translate('language')}}</span>
+    <div class="image width-100"
+      [ngStyle]="{'background-image':this.getIcon(this.configurationService.LANGUAGE_VALUE==='FR'? 'france':'uk')}">
+    </div>
   </div>
-</div>
 
   <div class="button floatRight" id="editButton" *ngIf="this.userToolBarService.unlock" (click)="this.edit()"
     [ngStyle]="{ 'margin-left': marginSize + 'px'}">
     <span class="tooltipbot">{{this.multilinguism.translate('edit')}}</span>
     <div class="image width-100" [class.noConnection]="!this.userToolBarService.isConnected"
-      [class.imageSelected]="this.userToolBarService.edit"
-      [ngStyle]="{'background-image':this.getIcon('edit')}">
+      [class.imageSelected]="this.userToolBarService.edit" [ngStyle]="{'background-image':this.getIcon('edit')}">
     </div>
   </div>
 
   <div class="button floatRight" id="newGrid" *ngIf="this.userToolBarService.unlock" (click)="this.newGrid()"
     [ngStyle]="{'margin-left': marginSize + 'px'}">
     <span class="tooltipbot">{{this.multilinguism.translate('add-grid')}}</span>
-    <div class="image width-100"
-      [ngStyle]="{'background-image':this.getIcon('add-grid')}">
+    <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('add-grid')}">
     </div>
   </div>
 
   <div class="button floatRight" id="babbleButton" *ngIf="this.userToolBarService.unlock"
     (click)="this.userToolBarService.babble = !this.userToolBarService.babble"
     [ngStyle]="{'margin-left': marginSize + 'px'}">
-    <span class="tooltipbot">{{this.userToolBarService.unlock ? this.multilinguism.translate('hide'):this.multilinguism.translate('show')}}</span>
+    <span class="tooltipbot">{{this.userToolBarService.unlock ?
+      this.multilinguism.translate('hide'):this.multilinguism.translate('show')}}</span>
     <div class="image width-100"
       [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.babble?'hide':'show')}">
     </div>
   </div>
 
-  <div class="button floatRight" id="dwellButton" *ngIf="this.userToolBarService.unlock"
-  (click)="this.toggleFocus()"
-  [ngStyle]="{'margin-left': marginSize + 'px'}">
-  <span class="tooltipbot">{{this.configurationService.DWELL_TIME_ENABLED ? this.multilinguism.translate('deactivateDwell'):this.multilinguism.translate('activateDwell')}}</span>
-  <div class="image width-100"
-    [ngStyle]="{'background-image':this.getIcon(configurationService.DWELL_TIME_ENABLED ? 'fullstar':'emptystar')}">
+  <div class="button floatRight" id="dwellButton" *ngIf="this.userToolBarService.unlock" (click)="this.toggleFocus()"
+    [ngStyle]="{'margin-left': marginSize + 'px'}">
+    <span class="tooltipbot">{{this.configurationService.DWELL_TIME_ENABLED ?
+      this.multilinguism.translate('deactivateDwell'):this.multilinguism.translate('activateDwell')}}</span>
+    <div class="image width-100"
+      [ngStyle]="{'background-image':this.getIcon(configurationService.DWELL_TIME_ENABLED ? 'fullstar':'emptystar')}">
+    </div>
   </div>
-</div>
 
 
   <div class="button floatRight" id="fullScreenButton" *ngIf="this.userToolBarService.unlock"
     (click)="this.userToolBarService.fullScreen()" [ngStyle]="{'margin-left': marginSize + 'px'}">
-    <span class="tooltipbot">{{this.userToolBarService.full ? this.multilinguism.translate('exitfullscreen'):this.multilinguism.translate('fullscreen')}}</span>
+    <span class="tooltipbot">{{this.userToolBarService.full ?
+      this.multilinguism.translate('exitfullscreen'):this.multilinguism.translate('fullscreen')}}</span>
     <div class="image width-100"
       [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.full?'exitfullscreen':'fullscreen')}">
     </div>
@@ -112,26 +127,9 @@
 
 
   <div class="button floatRight" id="log out" *ngIf="this.userToolBarService.unlock && !boardService.AFSR"
-  (click)="this.logout()" [ngStyle]="{'margin-left': marginSize + 'px'}">
-  <span class="tooltipbot">{{this.multilinguism.translate('exit')}}</span>
-  <div class="image width-100" [ngStyle]="{'background-image': this.getIcon('exit')}">
-  </div>
-</div>
-
-
-  <div class="button floatLeft" id="backButton" (click)="this.boardService.backToPreviousFolder()"
-    (pointerenter)="enter($event)" (pointerleave)="exit()"
-    [ngStyle]="{'opacity': (this.boardService.getCurrentFolder() !== '#HOME' && this.boardService.activatedElement==-1) ? '1' : '0.5','margin-right': marginSize + 'px'}">
-    <div class="image width-100"
-      [ngStyle]="{'background-image':this.getIcon('retour')}">
-    </div>
-  </div>
-
-  <div class="button floatLeft" id="homeButton" (click)="this.boardService.backHome()" (pointerenter)="enter($event)"
-    (pointerleave)="exit()"
-    [ngStyle]="{'opacity': (this.boardService.getCurrentFolder() !== '#HOME' && this.boardService.activatedElement==-1) ? '1' : '0.5', 'margin-right': marginSize + 'px'}">
-    <div class="image width-100"
-      [ngStyle]="{'background-image':this.getIcon('home')}">
+    (click)="this.logout()" [ngStyle]="{'margin-left': marginSize + 'px'}">
+    <span class="tooltipbot">{{this.multilinguism.translate('exit')}}</span>
+    <div class="image width-100" [ngStyle]="{'background-image': this.getIcon('exit')}">
     </div>
   </div>
 
