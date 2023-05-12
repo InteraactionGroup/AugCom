@@ -4,6 +4,7 @@ import {ApplicationThemeComponent} from './application-theme.component';
 import {Ng2ImgMaxModule} from "ng2-img-max";
 import {Router} from "@angular/router";
 import {HttpClientModule} from "@angular/common/http";
+import { MatMenuModule } from '@angular/material/menu';
 
 describe('ApplicationThemeComponent', () => {
   let component: ApplicationThemeComponent;
@@ -12,7 +13,7 @@ describe('ApplicationThemeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ApplicationThemeComponent],
-      imports: [Ng2ImgMaxModule, HttpClientModule],
+      imports: [Ng2ImgMaxModule, HttpClientModule, MatMenuModule],
       providers: [{
         provide: Router, useClass: class {
           navigate = jasmine.createSpy('navigate');
