@@ -1,120 +1,34 @@
 <app-snap-bar></app-snap-bar>
 <app-dialogbar></app-dialogbar>
+
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.5/dist/semantic.min.css">
-<!-- edit settings toolbar displayed on top on keyboard when on edition mode -->
-<div class="editionSettings width-100" *ngIf="this.userToolBarService.edit"  >
 
-  <!-- checkbox used to select all the elements in edition mode -->
-  <div class="selectCheckBox floatLeft" (click)="this.selectAll()">
-    <span class="tooltiptext big">{{this.multilinguism.translate("selectAll")}}</span>
-    <div class="image haveBackgroundImage"
-         [style.background-image]="this.editionService.selectAll?this.getIcon('check'):null">
-        
-    </div>
-  </div>
-
-  <!-- button used to edit all the selected elements-->
-  <div class="editSettingsButton floatLeft" (click)=this.editAll()>
-    <span class="tooltiptext small">{{this.multilinguism.translate("edit")}}</span>
-    <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("editSelected")}}</div>-->
-    <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('edit')">
-    </div>
-  </div>
-
-  <!-- button used to delete all the selected elements -->
-  <div class="editSettingsButton floatLeft" (click)=this.deleteAll()>
-    <span class="tooltiptext small">{{this.multilinguism.translate("delete")}}</span>
-    <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("deleteSelected")}}</div>-->
-    <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('delete')">
-    </div>
-  </div>
-
-  <!-- button used to copy all the selected elements -->
-  <div class="editSettingsButton floatLeft" (click)="generateGridWithSentence()">
-    <span class="tooltiptext small">{{this.multilinguism.translate("generateGrid")}}</span>
-    <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("generateSelected")}}</div>-->
-    <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('generatorGrid')">
-    </div>
-  </div>
-
-  <!-- button used to copy all the selected elements -->
-  <div class="editSettingsButton floatLeft" (click)="copyAll()">
-    <span class="tooltiptext small">{{this.multilinguism.translate("copy")}}</span>
-    <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("copySelected")}}</div>-->
-    <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('copy')">
-    </div>
-  </div>
-
-  <!-- button used to copy all the selected elements -->
-  <div class="editSettingsButton floatLeft" (click)="copyFull()">
-    <span class="tooltiptext small">{{this.multilinguism.translate("copyFull")}}</span>
-    <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("copySelected")}}</div>-->
-    <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('copyFull')">
-    </div>
-  </div>
-
-  <!-- button used to paste all the selected elements -->
-  <div *ngIf="isCopy" class="editSettingsButton floatLeft" (click)="pasteAll()">
-    <span class="tooltiptext small">{{this.multilinguism.translate("paste")}}</span>
-    <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("pasteSelected")}}</div>-->
-    <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('paste')">
-    </div>
-  </div>
-
-  <!-- button used in order to change the background of the keyboard-->
-  <!-- note: if we does not use this function for visual scene display we will have to move
-        this function have to be moved in the setting of augCom -->
-<!--  <div class="editSettingsButton floatLeft">-->
-<!--    <label for="editBckButton">-->
-<!--      &lt;!&ndash;      <div class="editButtonLabel floatLeft centerText">  {{this.multilinguism.translate("changeBackground")}}</div>&ndash;&gt;-->
-<!--      <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('photo')">-->
-<!--      </div>-->
-<!--    </label>-->
-<!--    <input #file style="width: 0" type="file" accept='image/*' id='editBckButton'-->
-<!--           (change)="this.boardService.updateBackground( file.files )">-->
-<!--  </div>-->
-
-  <!-- input fields for column and row size, have to be changed with a button number incrementer -->
-  <div class="gridSettings">
-    <div class="gridSettingsImage floatLeft centerText " [ngStyle]="{'background-image':'url(assets/icons/colomns.svg)'}">
-    </div>
-    <input class="inputSize floatLeft centerText" value="{{this.boardService.getNumberOfCols()}}" type="number" min="1"
-           (change)="onKeyCols($event)" max="50">
-    <div class="gridSettingsImage floatLeft centerText " [ngStyle]="{'background-image':'url(assets/icons/lines.svg)'}">
-    </div>
-
-    <input class="inputSize floatLeft centerText" value="{{this.boardService.getNumberOfRows()}}" type="number" min="1"
-           (change)="onKeyRows($event)" max="50">
-    <div class="gridSettingsImage floatLeft centerText " [ngStyle]="{'background-image':'url(assets/icons/margin.svg)'}">
-    </div>
-    <input class="inputSize floatLeft centerText" value="{{this.boardService.getGapSize()}}" type="number" min="0"
-           (change)="onKeyGap($event)" max="50">
-  </div>
-
-</div>
 
 <!-- the keyboard containing the element wrapper -->
 <div *ngIf="!boardService.AFSR" id="keyboard" class="keyboard width-100"
-     [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100% - 50px - ' + margins + 'cm - 50px )':'calc(100% - ' + margins + 'cm)'}">
+  [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100% - ' + margins + 'cm - 100px )':'calc(100% - ' + margins + 'cm)'}">
 
   <!-- the wrapper displayed with elements containing pictogram and corresponding text -->
   <div class="wrapper haveBackgroundImage height-width-100">
-
+    <app-usertoolbar></app-usertoolbar>
+    <div class="layout" [ngStyle]="{'height': 'calc(100% - ' + margins + 'cm )'}">
+      <app-layout></app-layout>
+    </div>
     <!-- iterate among the list of element of the currentFolder -->
-    <app-layout></app-layout>
-
   </div>
   <app-snap-bar></app-snap-bar>
 </div>
+
 <div *ngIf="boardService.AFSR" id="keyboardAFSR" class="keyboard width-100"
-     [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100% - 150px - 50px - ' + margins + 'cm - 50px )':'calc(100% - 150px - ' + margins + 'cm)'}">
+  [ngStyle]="{'height': this.userToolBarService.edit? 'calc(100% - ' + margins + 'cm - 100px )':'calc(100% - ' + margins + 'cm)'}">
 
   <!-- the wrapper displayed with elements containing pictogram and corresponding text -->
   <div class="wrapper haveBackgroundImage height-width-100">
-
+    <app-usertoolbar></app-usertoolbar>
+    <div class="layout" [ngStyle]="{'height': 'calc(100% - ' + margins + 'cm )'}">
+      <app-layout></app-layout>
+    </div>
     <!-- iterate among the list of element of the currentFolder -->
-    <app-layout></app-layout>
-
   </div>
   <app-snap-bar></app-snap-bar>
 </div>
@@ -174,7 +88,101 @@
 
 </ng-container>
 
+<!-- edit settings toolbar displayed on top on keyboard when on edition mode -->
+<div class="editionSettings width-100" *ngIf="this.userToolBarService.edit">
+
+  <!-- checkbox used to select all the elements in edition mode -->
+  <div class="selectCheckBox floatLeft" (click)="this.selectAll()">
+    <span class="tooltiptext big">{{this.multilinguism.translate("selectAll")}}</span>
+    <div class="image haveBackgroundImage"
+      [style.background-image]="this.editionService.selectAll?this.getIcon('check'):null">
+
+    </div>
+  </div>
+
+  <!-- button used to edit all the selected elements-->
+  <div class="editSettingsButton floatLeft" (click)=this.editAll()>
+    <span class="tooltiptext small">{{this.multilinguism.translate("edit")}}</span>
+    <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("editSelected")}}</div>-->
+    <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('edit')">
+    </div>
+  </div>
+
+  <!-- button used to delete all the selected elements -->
+  <div class="editSettingsButton floatLeft" (click)=this.deleteAll()>
+    <span class="tooltiptext small">{{this.multilinguism.translate("delete")}}</span>
+    <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("deleteSelected")}}</div>-->
+    <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('delete')">
+    </div>
+  </div>
+
+  <!-- button used to copy all the selected elements -->
+  <div class="editSettingsButton floatLeft" (click)="generateGridWithSentence()">
+    <span class="tooltiptext small">{{this.multilinguism.translate("generateGrid")}}</span>
+    <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("generateSelected")}}</div>-->
+    <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('generatorGrid')">
+    </div>
+  </div>
+
+  <!-- button used to copy all the selected elements -->
+  <div class="editSettingsButton floatLeft" (click)="copyAll()">
+    <span class="tooltiptext small">{{this.multilinguism.translate("copy")}}</span>
+    <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("copySelected")}}</div>-->
+    <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('copy')">
+    </div>
+  </div>
+
+  <!-- button used to copy all the selected elements -->
+  <div class="editSettingsButton floatLeft" (click)="copyFull()">
+    <span class="tooltiptext small">{{this.multilinguism.translate("copyFull")}}</span>
+    <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("copySelected")}}</div>-->
+    <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('copyFull')">
+    </div>
+  </div>
+
+  <!-- button used to paste all the selected elements -->
+  <div *ngIf="isCopy" class="editSettingsButton floatLeft" (click)="pasteAll()">
+    <span class="tooltiptext small">{{this.multilinguism.translate("paste")}}</span>
+    <!--    <div class="editButtonLabel floatLeft centerText"> {{this.multilinguism.translate("pasteSelected")}}</div>-->
+    <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('paste')">
+    </div>
+  </div>
+
+  <!-- button used in order to change the background of the keyboard-->
+  <!-- note: if we does not use this function for visual scene display we will have to move
+        this function have to be moved in the setting of augCom -->
+  <!--  <div class="editSettingsButton floatLeft">-->
+  <!--    <label for="editBckButton">-->
+  <!--      &lt;!&ndash;      <div class="editButtonLabel floatLeft centerText">  {{this.multilinguism.translate("changeBackground")}}</div>&ndash;&gt;-->
+  <!--      <div class="editButtonImg haveBackgroundImage floatLeft" [style.background-image]="this.getIcon('photo')">-->
+  <!--      </div>-->
+  <!--    </label>-->
+  <!--    <input #file style="width: 0" type="file" accept='image/*' id='editBckButton'-->
+  <!--           (change)="this.boardService.updateBackground( file.files )">-->
+  <!--  </div>-->
+
+  <!-- input fields for column and row size, have to be changed with a button number incrementer -->
+  <div class="gridSettings">
+    <div class="gridSettingsImage floatLeft centerText "
+      [ngStyle]="{'background-image':'url(assets/icons/colomns.svg)'}">
+    </div>
+    <input class="inputSize floatLeft centerText" value="{{this.boardService.getNumberOfCols()}}" type="number" min="1"
+      (change)="onKeyCols($event)" max="50">
+    <div class="gridSettingsImage floatLeft centerText " [ngStyle]="{'background-image':'url(assets/icons/lines.svg)'}">
+    </div>
+
+    <input class="inputSize floatLeft centerText" value="{{this.boardService.getNumberOfRows()}}" type="number" min="1"
+      (change)="onKeyRows($event)" max="50">
+    <div class="gridSettingsImage floatLeft centerText "
+      [ngStyle]="{'background-image':'url(assets/icons/margin.svg)'}">
+    </div>
+    <input class="inputSize floatLeft centerText" value="{{this.boardService.getGapSize()}}" type="number" min="0"
+      (change)="onKeyGap($event)" max="50">
+  </div>
+
+</div>
+
 <!--*ngIf="!this.userToolBarService.edit"-->
-<app-usertoolbar></app-usertoolbar>
+
 
 <!--<app-edition [ngStyle]="{'position': 'absolute', 'top': this.userToolBarService.edit ? 'calc( 50% - 1.5cm )' :'100%'}" style="width: 100%; transition: top 0.5s"></app-edition>-->

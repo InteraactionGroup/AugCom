@@ -3,7 +3,7 @@
   -moz-user-select: none !important;
   -ms-user-select: none !important;
   user-select: none !important;
-  overflow-y: auto;
+  overflow: visible;
 }
 
 .editionSettings {
@@ -85,12 +85,23 @@
 }
 
 .keyboard .wrapper {
-  height: 100%;
-  display: grid;
-  overflow-y: auto;
+  position: relative;
+  overflow-y: visible;
   overflow-x: hidden;
   visibility: visible;
   grid-template-rows: 1fr;
+}
+
+app-usertoolbar {
+  position: relative;
+  z-index: 5;
+}
+
+.layout {
+  position: relative;
+  overflow: visible;
+  
+  z-index: 1;
 }
 
 .elementContainer {

@@ -5,9 +5,6 @@
   max-height: 14vw;
   min-width: 7cm;
   background-color: var(--main-bg-color1);
-  position: absolute;
-  z-index: 2;
-  bottom: 0;
   transition: bottom 0.5s;
   display: flex;
   flex-wrap: nowrap;
@@ -136,6 +133,9 @@
 .buttonLeftLeft .image .searchResultContainer .searchResult {
   background-color: var(--main-bg-color4);
   opacity: 0.8;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: hidden;
 }
 
 .buttonLeftLeft .image .searchResultContainer .searchResult:hover {
@@ -144,7 +144,7 @@
 
 .buttonLeftLeft .image .searchResultContainer .searchResult .searchImage {
   height: 100%;
-  width: 50%;
+  width: 35%;
 }
 
 .buttonLeftRight .image {
@@ -199,9 +199,7 @@
 }
 
 .titleContainer {
-  position: absolute;
   height: 100%;
-  margin-left: calc(50% - 6cm);
   width: 9cm;
   opacity: 1;
 }

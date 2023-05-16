@@ -1,21 +1,6 @@
 <div class="usertoolbar width-100" [ngStyle]="{'height': (iconSize/60)+'cm'} ">
   <!--     [ngStyle]="{'bottom': this.userToolBarService.edit ? '50%' :'0'}">-->
 
-  <div class="titleContainer floatLeft" [class.width0]="this.userToolBarService.search">
-    <ng-container *ngIf="!this.userToolBarService.search && !this.userToolBarService.unlock">
-      <div class="titleandimage"
-        [ngStyle]="{'grid-template-columns': this.userToolBarService.titleDisplayValue === 'default' ? '50px 1fr' : '100%'}">
-        <div *ngIf="this.userToolBarService.titleDisplayValue!=='textOnly'" class="haveBackgroundImage"
-          style="height: 90%; width:90%" [style.background-image]="this.getCurrentPageImage()">
-
-        </div>
-        <div *ngIf="this.userToolBarService.titleDisplayValue!=='imageOnly'">
-          {{this.boardService.getCurrentTitle()}}
-        </div>
-      </div>
-    </ng-container>
-  </div>
-
 
   <div *ngIf="boardService.AFSR" class="button floatRight" id="exitSoftwareButton" (click)="this.exitSoftware()"
     [ngStyle]="{'margin-left': marginSize + 'px'}">
@@ -158,5 +143,20 @@
         [ngStyle]="{'background-image':this.userToolBarService.search? this.getIcon('search') : this.getIcon('play'), 'margin-right': marginSize + 'px'}">
       </div>
     </div>
+  </div>
+
+  <div class="titleContainer floatLeft" [class.width0]="this.userToolBarService.search">
+    <ng-container *ngIf="!this.userToolBarService.search && !this.userToolBarService.unlock">
+      <div class="titleandimage"
+        [ngStyle]="{'grid-template-columns': this.userToolBarService.titleDisplayValue === 'default' ? '50px 1fr' : '100%', 'margin-left': marginSize + 'pt'}">
+        <div *ngIf="this.userToolBarService.titleDisplayValue!=='textOnly'" class="haveBackgroundImage"
+          style="height: 90%; width:90%" [style.background-image]="this.getCurrentPageImage()">
+
+        </div>
+        <div *ngIf="this.userToolBarService.titleDisplayValue!=='imageOnly'">
+          {{this.boardService.getCurrentTitle()}}
+        </div>
+      </div>
+    </ng-container>
   </div>
 </div>
