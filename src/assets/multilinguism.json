@@ -358,7 +358,7 @@
     { "id" :  "exitfullscreen", "FR": "Quitter le mode plein écran", "EN": "Exit fullscreen mod"},
     { "id" :  "fullscreen", "FR": "Entrer en mode plein écran", "EN": "Enter fullscreen mod"},
     { "id" :  "activateDwell", "FR": "Activer la sélection par focus", "EN": "Enable selection by focus"},
-    { "id" :  "deactivateDwell", "FR": "Désactiver la sélection par focus", "EN": "Disable selection by focus"}
+    { "id" :  "deactivateDwell", "FR": "Désactiver la sélection par focus", "EN": "Disable selection by focus"},
     { "id" : "buttonDescription", "FR": "L'élément créé sera un simple bouton", "EN": "The element will be a simple button"},
     { "id" : "folderDescription", "FR": "L'élément créé sera un dossier pouvant contenir d'autres boutons", "EN": "The element will be a folder that can contain other buttons"},
     { "id" : "warningQuit", "FR": "Voulez vous vraiment quitter ? Les modifications non sauvegardées seront perdues", "EN": "Are you sure you want to quit ? Unsaved changes will be lost"}
