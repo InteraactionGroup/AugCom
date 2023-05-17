@@ -1,4 +1,4 @@
-import {Component, Input, OnInit,} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit,} from '@angular/core';
 import {HistoricService} from '../../services/historic.service';
 import {EditionService} from '../../services/edition.service';
 import {BoardService} from '../../services/board.service';
@@ -17,7 +17,7 @@ import {ConfigurationService} from "../../services/configuration.service";
   templateUrl: './tile.component.html',
   styleUrls: ['./tile.component.css']
 })
-export class TileComponent implements OnInit {
+export class TileComponent implements OnInit, OnDestroy {
   @Input() element: GridElement;
   /**
    * the current pressTimer started when pressing an element and ending on release
@@ -56,6 +56,11 @@ export class TileComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {
+      clearTimeout(this.dwellTimer);
+      this.dwellCursorService.stop();
+  }
+
   setLongPressTimer(element) {
     this.pressTimer = window.setTimeout(() => {
       this.action(element, 'longPress');
@@ -65,18 +70,19 @@ export class TileComponent implements OnInit {
   }
 
   exit() {
-    if (this.configurationService.DWELL_TIME_ENABLED) {
+    if (this.configurationService.DWELL_TIME_ENABLED && !this.userToolBarService.edit) {
       this.dwellCursorService.stop();
       window.clearTimeout(this.dwellTimer);
     }
   }
 
   enter(event, element) {
-    if (this.configurationService.DWELL_TIME_ENABLED) {
+    if (this.configurationService.DWELL_TIME_ENABLED && this.canBeFocused() && !this.userToolBarService.edit) {
       this.dwellCursorService.updatePositionHTMLElement((<HTMLElement>event.target));
       this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_TIMEOUT_VALUE);
       this.dwellTimer = window.setTimeout(() => {
         this.action(element, 'click');
+        clearTimeout(this.dwellTimer);
       }, this.configurationService.DWELL_TIME_TIMEOUT_VALUE);
     }
   }
@@ -568,5 +574,14 @@ export class TileComponent implements OnInit {
    */
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
+  }
+
+  canBeFocused() {
+    if (this.userToolBarService.babble){
+      return this.isVisible(this.element);
+    } else {
+      return true;
+    }
+    
   }
 }

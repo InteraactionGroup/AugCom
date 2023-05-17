@@ -72,6 +72,18 @@
           <option value="72px" > 72 </option>-->
         </select>
       </div>
+
+      <div class="fontSize" style="margin: 10px 10px 10px 20px;">
+        <label> {{this.multilinguismService.translate('chooseIconSize') + ":" }}</label>
+        <button id="menuButton" mat-button [matMenuTriggerFor]="menu"> {{ iconSize }} % </button>  
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="changeIconSize(100)">100%</button>
+          <button mat-menu-item (click)="changeIconSize(125)">125%</button>
+          <button mat-menu-item (click)="changeIconSize(150)">150%</button>
+          <button mat-menu-item (click)="changeIconSize(175)">175%</button>
+          <button mat-menu-item (click)="changeIconSize(200)">200%</button> 
+          </mat-menu>
+        </div>
     </div>
 
     <div class="rightSide" style="width: 100%">

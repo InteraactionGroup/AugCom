@@ -3,7 +3,7 @@
   -moz-user-select: none !important;
   -ms-user-select: none !important;
   user-select: none !important;
-  overflow-y: auto;
+  overflow: visible;
 }
 
 .editionSettings {
@@ -85,12 +85,23 @@
 }
 
 .keyboard .wrapper {
-  height: 100%;
-  display: grid;
-  overflow-y: auto;
+  position: relative;
+  overflow-y: visible;
   overflow-x: hidden;
   visibility: visible;
   grid-template-rows: 1fr;
+}
+
+app-usertoolbar {
+  position: relative;
+  z-index: 5;
+}
+
+.layout {
+  position: relative;
+  overflow: visible;
+  
+  z-index: 1;
 }
 
 .elementContainer {
@@ -225,4 +236,30 @@
   background-size: contain;
   background-position: center;
   align-items: center;
+} 
+
+.small {
+  width: 120px;
+}
+
+.big {
+  width: 240px;
+}
+
+.selectCheckBox .tooltiptext, .editSettingsButton .tooltiptext {
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 1);
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  position: absolute;
+  bottom: 60px;
+  z-index: 5;
+}
+
+.selectCheckBox:hover .tooltiptext, .editSettingsButton:hover .tooltiptext {
+  visibility: visible;
+  cursor: pointer;
 }

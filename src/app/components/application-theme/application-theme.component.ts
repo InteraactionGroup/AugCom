@@ -12,6 +12,7 @@ import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 export class ApplicationThemeComponent implements OnInit {
 
   selectedSize:string = this.configurationService.SIZE_FONT_VALUE;
+  iconSize = Number(this.configurationService.SIZE_ICON_VALUE);
 
   constructor(public styleService: StyleService,
               public multilinguismService: MultilinguismService,
@@ -30,6 +31,7 @@ export class ApplicationThemeComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       this.selectedSize = this.configurationService.SIZE_FONT_VALUE;
+      this.iconSize = Number(this.configurationService.SIZE_ICON_VALUE);
     },500);
   }
 
@@ -38,5 +40,19 @@ export class ApplicationThemeComponent implements OnInit {
     // this.configurationService.DEFAULT_SIZE_FONT_VALUE = value;
     this.configurationService.SIZE_FONT_VALUE = value;
     this.saveService.updateConfig()
+  }
+
+  changeIconSize(value){
+    if (value < 100){
+      value = 100;
+    } else if (value > 200){
+      value = 200;
+    }
+    this.iconSize = value;
+    this.styleService.updateIconSize(value);
+    this.configurationService.SIZE_ICON_VALUE = value;
+    this.saveService.updateConfig();
+    
+
   }
 }

@@ -6,7 +6,7 @@ import {Action, ElementForm, FolderGoTo, GridElement, Page, Vignette,} from '../
 import {GeticonService} from '../../services/geticon.service';
 import {UsertoolbarService} from '../../services/usertoolbar.service';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {SearchService} from '../../services/search.service';
 import {Ng2ImgMaxService} from 'ng2-img-max';
 import {LayoutService} from 'src/app/services/layout.service';
@@ -30,6 +30,7 @@ export class KeyboardComponent implements OnInit{
 
   copyElements = [];
   isCopy = false;
+  margins = Number(this.configurationService.SIZE_ICON_VALUE)/60;
 
   // tslint:disable-next-line:max-line-length
   constructor(
@@ -45,9 +46,11 @@ export class KeyboardComponent implements OnInit{
     public multilinguism: MultilinguismService,
     public gridElementService: GridElementService,
     public configurationService: ConfigurationService,
-    public indexedDBacess: IndexeddbaccessService
+    public indexedDBacess: IndexeddbaccessService,
+    public route: ActivatedRoute
   ) {
     this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
+    this.margins = Number(this.configurationService.SIZE_ICON_VALUE)/60;
   }
 
   onKeyCols(event: any) {
@@ -99,9 +102,10 @@ export class KeyboardComponent implements OnInit{
    * execute the indexeddbaccessService init fucntion to get the information of the DB or to create new entries if there is no info
    */
   ngOnInit() {
+    this.margins = Number(this.configurationService.SIZE_ICON_VALUE)/60;
     this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
     this.refresh().then(r => {
-      this.delay(5000).then(r => {this.boardService.updateElementList()});
+      this.delay(1000).then(r => {this.boardService.updateElementList()});
     });
   }
 

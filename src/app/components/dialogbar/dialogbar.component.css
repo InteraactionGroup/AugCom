@@ -18,7 +18,7 @@
 .dialogBar .textBar {
   display: flex;
   overflow-x: auto;
-  width: calc(100vw - 6.2cm);
+  width: calc(100vw - 8cm);
   height: 96%;
   transform: translateY(2%);
   margin-left: 0.2%;
