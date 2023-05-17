@@ -7,6 +7,7 @@ import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {Router} from '@angular/router';
 import {HttpClientModule} from "@angular/common/http";
 import { RouterTestingModule } from '@angular/router/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('KeyboardComponent', () => {
   let component: KeyboardComponent;
@@ -15,12 +16,8 @@ describe('KeyboardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [FormsModule, Ng2ImgMaxModule, HttpClientModule, RouterTestingModule],
-      providers: [{
-        provide: Router, useClass: class {
-          navigate = jasmine.createSpy('navigate');
-        }
-      }],
+      imports: [FormsModule, Ng2ImgMaxModule, HttpClientModule, RouterTestingModule, BrowserAnimationsModule],
+      providers: [],
       declarations: [KeyboardComponent]
     })
       .compileComponents();
