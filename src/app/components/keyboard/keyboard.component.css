@@ -255,7 +255,7 @@ app-usertoolbar {
   border-radius: 6px;
 
   position: absolute;
-  top: 120px;
+  bottom: 60px;
   z-index: 5;
 }
 
