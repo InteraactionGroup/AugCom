@@ -1,12 +1,13 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {AlternativeFormsComponent} from './alternative-forms.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {ElementForm, GridElement} from '../../types';
 import {Router} from "@angular/router";
+import {MatAutocomplete, MatAutocompleteModule} from "@angular/material/autocomplete";
 
 function updateModifications(component: any) {
   if (component.editionService.selectedElements.length === 1) {
@@ -55,8 +56,8 @@ describe('AlternativeFormsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [FormsModule, Ng2ImgMaxModule, HttpClientModule],
-      declarations: [AlternativeFormsComponent],
+      imports: [FormsModule, ReactiveFormsModule, Ng2ImgMaxModule, HttpClientModule, MatAutocompleteModule],
+      declarations: [AlternativeFormsComponent, MatAutocomplete],
       providers: [{
         provide: Router, useClass: class {
           navigate = jasmine.createSpy('navigate');
@@ -153,7 +154,7 @@ describe('AlternativeFormsComponent', () => {
     expect(compiled.querySelectorAll('.elementContainer').length).toEqual(1);
   });
 
-  it('should create add the corresponding new created element to the elementFormsList', () => {
+  it('should create and add the corresponding new created element to the elementFormsList', () => {
     const compiled = fixture.debugElement.nativeElement;
     component.editionService.selectedElements = [];
     createElements(component, 1, 1);
@@ -163,13 +164,13 @@ describe('AlternativeFormsComponent', () => {
     fixture.detectChanges();
     component.elementFormDisplayedWordField = 'newDisplayedWordTest';
     component.elementFormPronouncedWordField = 'newPronouncedWordTest';
-    component.elementFormNameImageURL = 'assets/libs/mulberry-symbols/En-symbols/test.svg';
+    component.elementFormNameImageURL = 'src\assets\libs\arasaac\0a1c2dd4ecbf4cd76cf14bedceda1b515e85d901d6fcb1f95babfd4292c90136.png';
     compiled.querySelector('#saveAlternativeFormModifButton').click();
     fixture.detectChanges();
     expect(component.editionService.variantList[1].DisplayedText).toEqual('newDisplayedWordTest');
     expect(component.editionService.variantList[1].VoiceText).toEqual('newPronouncedWordTest');
     const relatedImage = component.boardService.board.ImageList.find(image => {
-      return image.Path === 'assets/libs/mulberry-symbols/En-symbols/test.svg'
+      return image.Path === 'src\assets\libs\arasaac\0a1c2dd4ecbf4cd76cf14bedceda1b515e85d901d6fcb1f95babfd4292c90136.png'
     });
     expect(component.editionService.variantList[1].ImageID).toEqual(relatedImage.ID);
     expect(relatedImage).not.toBe(null);

@@ -16,15 +16,34 @@ import {GridElementService} from '../../services/grid-element.service';
 import {LayoutService} from "../../services/layout.service";
 import {ConfigurationService} from "../../services/configuration.service";
 
+import { ComponentCanDeactivate } from 'src/app/services/pending-changes-guard.service';
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-edition',
   templateUrl: './edition.component.html',
   styleUrls: ['./edition.component.css'],
   providers: [Ng2ImgMaxService, HttpClient]
 })
-export class EditionComponent implements OnInit {
+export class EditionComponent implements OnInit, ComponentCanDeactivate {
+    canDeactivate(): Observable<boolean> | boolean | Promise<boolean> {
+      if(this.isInitialState()){
+        return true;
+      } else {
+        return new Promise((resolve, reject) => {
+          // Implement your guard logic here
+          // For example, prompt the user before leaving the route
+          const confirmation = confirm(this.multilinguism.translate('warningQuit'));
+          resolve(confirmation);
+        });
+      }
+    }
+  
+
 
   nameEmpty = false;
+  initialEditionState; initialdbnaryState;
+  popstateFired = false;
 
   constructor(public editionService: EditionService, public  paletteService: PaletteService,
               public router: Router, public multilinguism: MultilinguismService,
@@ -95,9 +114,6 @@ export class EditionComponent implements OnInit {
       if (this.editionService.newPage == ""){
         this.editionService.newPage = this.editionService.name;
       }
-      if (this.editionService.currentEditPage !== '') {
-        this.editionService.currentEditPage = ''
-      }
       if (this.editionService.add) {
         this.createNewButton();
       } else if (this.editionService.selectedElements.length === 1) {
@@ -106,13 +122,9 @@ export class EditionComponent implements OnInit {
         this.modifyAllButtons();
       }
       this.editionService.add = false;
-      this.clear();
       this.indexedDBacess.update();
-      this.router.navigate(['keyboard']);
-      await this.delay(500);
-      this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
-      await this.delay(1000);
-      this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
+      this.initialEditionState = Object.assign({}, this.editionService);
+      this.initialdbnaryState = Object.assign({}, this.dbnaryService);
     }else {
       this.nameEmpty = true;
     }
@@ -219,6 +231,9 @@ export class EditionComponent implements OnInit {
       this.editionService.getDefaultForm(element.ElementFormsList).DisplayedText = this.editionService.name;
       if (this.editionService.getDefaultForm(element.ElementFormsList).ImageID === '') {
         this.editionService.getDefaultForm(element.ElementFormsList).ImageID = element.ID;
+      }
+      if (this.editionService.currentEditPage !== '') {
+        this.editionService.currentEditPage = 'information';
       }
       this.boardService.board.ImageList = this.boardService.board.ImageList.filter(
         img => img.ID !== this.editionService.getDefaultForm(element.ElementFormsList).ImageID);
@@ -349,11 +364,29 @@ export class EditionComponent implements OnInit {
       this.editionService.imageURL = 'assets/icons/multiple-images.svg';
       this.editionService.interractionList = [];
     }
+
+
+    this.initialEditionState = Object.assign({}, this.editionService);
+    this.initialdbnaryState = Object.assign({}, this.dbnaryService);
   }
 
   /*return true if the page for alternative forms is the currentEditPage*/
   isDisplayed(page: string) {
     return this.editionService.currentEditPage === page;
+  }
+
+  isInitialState() {
+    return (this.initialEditionState.imageTextField == this.editionService.imageTextField
+      && this.initialEditionState.curentBorderColor == this.editionService.curentBorderColor
+      && this.initialEditionState.insideCheck == this.editionService.insideCheck
+      && this.initialEditionState.name == this.editionService.name
+      && this.initialEditionState.radioTypeFormat == this.editionService.radioTypeFormat
+      && this.initialEditionState.pageLink == this.editionService.pageLink
+      && this.initialEditionState.curentBorderColor == this.editionService.curentBorderColor
+      && this.initialEditionState.imageURL == this.editionService.imageURL
+      && this.initialEditionState.variantList == this.editionService.variantList
+      && this.initialdbnaryState.wordList == this.dbnaryService.wordList
+      && this.initialdbnaryState.typeList == this.dbnaryService.typeList);
   }
 
 }

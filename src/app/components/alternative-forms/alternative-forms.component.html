@@ -23,15 +23,14 @@
                 <div class="image haveBackgroundImage" [style.background-image]="this.getIcon('delete')"></div>
               </div>
               <div class="element" style="margin-top: -30px;" [class.inModification]="b===this.selectedItem"
-                   (click)="select(b)"
-                   [ngStyle]="{'background-color': this.editionService.curentColor ,
+                (click)="select(b)" [ngStyle]="{'background-color': this.editionService.curentColor ,
                     'border-color': this.editionService.curentBorderColor}">
 
                 <div class="image haveBackgroundImage" [ngStyle]="{'background-image': getSanitizeURL(b)}"></div>
 
                 <svg viewBox="0 0 80 15">
-                  <text x="50%" y="50%" dominant-baseline="middle"
-                        text-anchor="middle">{{this.selectedItem === b ? this.elementFormDisplayedWordField : b.DisplayedText}}</text>
+                  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle">{{this.selectedItem === b ?
+                    this.elementFormDisplayedWordField : b.DisplayedText}}</text>
                 </svg>
               </div>
             </div>
@@ -43,7 +42,7 @@
 
               <svg viewBox="0 0 80 15">
                 <text x="50%" y="50%" dominant-baseline="middle"
-                      text-anchor="middle">{{this.elementFormDisplayedWordField}}</text>
+                  text-anchor="middle">{{this.elementFormDisplayedWordField}}</text>
               </svg>
             </div>
           </ng-container>
@@ -52,8 +51,8 @@
             <div class="image haveBackgroundImage" [ngStyle]="{'background-image': getIcon('add')}"></div>
 
             <svg viewBox="0 0 80 15">
-              <text x="50%" y="50%" dominant-baseline="middle"
-                    text-anchor="middle"> {{this.multilinguism.translate("add")}}</text>
+              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle">
+                {{this.multilinguism.translate("add")}}</text>
             </svg>
           </div>
         </div>
@@ -73,12 +72,10 @@
                 <div class="elementVariant">
                   <label class="label" for="displayedName"> {{this.multilinguism.translate("displayedWord")}}: </label>
                   <input [(ngModel)]="this.elementFormDisplayedWordField" class="input width-100" id="displayedName"
-                         placeholder="{{this.multilinguism.translate('enterWordToDisplay')}}"
-                         type="text">
+                    placeholder="{{this.multilinguism.translate('enterWordToDisplay')}}" type="text">
                   <label class="label" for="pronouncedName">{{this.multilinguism.translate("pronouncedWord")}}: </label>
                   <input class="input width-100" id="pronouncedName" [(ngModel)]="this.elementFormPronouncedWordField"
-                         placeholder="{{this.multilinguism.translate('enterWordPronounced')}}"
-                         type="text">
+                    placeholder="{{this.multilinguism.translate('enterWordPronounced')}}" type="text">
                 </div>
               </div>
 
@@ -87,33 +84,42 @@
                 <div class="elementVariant">
                   <label class="label" for="imagefromfile">{{this.multilinguism.translate("fromFile")}}: </label>
                   <input #selectedFile (change)="previewFile(selectedFile.files)" onclick="this.value=null"
-                         accept='image/*' class="input" type="file"
-                         id="imagefromfile">
+                    accept='image/*' class="input" type="file" id="imagefromfile">
                   <label class="label" for="imagefromURL">{{this.multilinguism.translate("fromURL")}}: </label>
                   <div class="inputURL">
                     <input class="searchField" type="search" id="imagefromURL" #text
-                           placeholder="{{this.multilinguism.translate('enterImageURL')}}">
+                      placeholder="{{this.multilinguism.translate('enterImageURL')}}">
                     <input class="searchURL" type="button" value="Ok" (click)="previewWithURL(text.value)">
                   </div>
                   <label class="label" for="imagefromLib">{{this.multilinguism.translate("fromLibrary")}} </label>
                   <div class="input">
-                    <input #search class="searchField" type="search" id="imagefromLib"
-                           placeholder="{{this.multilinguism.translate('searchForWord')}}">
-                    <input class="searchLib" type="button" value="{{this.multilinguism.translate('search')}}" (click)="searchInLib(search.value)">
+                    <div class="input">
+                      <input #search class="searchField" type="search" id="imagefromLib" matInput
+                        [formControl]="myControl" [matAutocomplete]="auto"
+                        [ngModel]="this.editionService.imageTextField"
+                        placeholder="{{this.multilinguism.translate('searchForWord')}}">
+                      <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                          {{option}}
+                        </mat-option>
+                      </mat-autocomplete>
+                      <input class="searchLib" type="button" value="{{this.multilinguism.translate('search')}}"
+                        (click)="searchInLib(search.value)">
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="wrapperPreview" style="height: 100px">
-                <ng-container *ngFor="let b of this.imageList ">
+                <div class="wrapperPreview" style="height: 100px">
+                  <ng-container *ngFor="let b of this.imageList ">
 
-                  <div class="pictoImg haveBackgroundImage"
-                       [ngStyle]="{'background-image':'url(assets/libs/mulberry-symbols/EN-symbols/'+b+'.svg)'}"
-                       (click)="previewMullberry(b)"></div>
-                </ng-container>
+                    <div class="pictoImg haveBackgroundImage"
+                      [ngStyle]="{'background-image':this.getThumbnailPreviewLibrary(b)}"
+                      (click)="this.previewLibrary(b)"></div>
+                  </ng-container>
+                </div>
+                <input id="saveAlternativeFormModifButton" type="button"
+                  value="{{this.multilinguism.translate('saveModif')}}" (click)="saveCurrentElementForm()">
               </div>
-              <input id="saveAlternativeFormModifButton" type="button"
-                     value="{{this.multilinguism.translate('saveModif')}}" (click)="saveCurrentElementForm()">
             </div>
           </div>
         </ng-container>
@@ -132,29 +138,27 @@
                   : </label>
                 <div class="width-100">
                   <input id="wordToSearch" #wordToSearch class="inputText floatLeft" type="text"
-                         placeholder="{{this.multilinguism.translate('enterWord')}}:"
-                         value="{{this.editionService.name}}">
+                    placeholder="{{this.multilinguism.translate('enterWord')}}:" value="{{this.editionService.name}}">
                   <input (click)="getWordList(wordToSearch.value)" class="search floatLeft" type="button"
-                         value="{{this.multilinguism.translate('search')}}">
+                    value="{{this.multilinguism.translate('search')}}">
                 </div>
                 <label for="classe-select">
                   <div class="floatLeft">{{this.multilinguism.translate("chooseGrammaticalClass")}}:</div>
                   <div *ngIf="this.dbnaryService.searchStarted == 1"
-                       [ngStyle]="{'background-image':'url(assets/icons/load.gif'}"
-                       class="waitVariant floatLeft haveBackgroundImage">
+                    [ngStyle]="{'background-image':'url(assets/icons/load.gif)'}"
+                    class="waitVariant floatLeft haveBackgroundImage">
                   </div>
                 </label>
                 <div class="width-100">
                   <select [disabled]="this.dbnaryService.typeList.length===0" [(ngModel)]="this.editionService.classe"
-                          class="variantListBox" id="classe-select" name="classe">
+                    class="variantListBox" id="classe-select" name="classe">
                     <option value="">--{{this.multilinguism.translate("chooseOption")}}--</option>
                     <ng-container *ngFor="let b of this.dbnaryService.typeList ">
                       <option id="{{b}}radio" name="buttonType" value="{{b}}">{{b}}</option>
                     </ng-container>
                   </select>
                   <input (click)="displayVariant(this.editionService.classe,wordToSearch.value)" class="variantOk"
-                         type="button"
-                         value="OK">
+                    type="button" value="OK">
                 </div>
               </div>
             </div>
@@ -164,7 +168,7 @@
                 <ng-container *ngFor="let b of this.dbnaryService.wordList">
                   <li class="variantList">
                     <div (click)="b.selected=!b.selected" class="variant"
-                         [ngStyle]="{'background-color': b.selected?'#d1d5da': '#eef4f9'}">
+                      [ngStyle]="{'background-color': b.selected?'#d1d5da': '#eef4f9'}">
                       <div class="variantName floatLeft centerText">
                         {{b.val}}</div>
                       <div
@@ -177,8 +181,8 @@
               </ng-container>
               <ng-container>
                 <div *ngIf="this.dbnaryService.searchStarted==2"
-                     [ngStyle]="{'background-image':'url(assets/icons/load.gif'}"
-                     class="waitVariant floatLeft haveBackgroundImage"></div>
+                  [ngStyle]="{'background-image':'url(assets/icons/load.gif'}"
+                  class="waitVariant floatLeft haveBackgroundImage"></div>
               </ng-container>
             </div>
           </div>

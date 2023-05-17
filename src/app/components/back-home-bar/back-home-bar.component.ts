@@ -7,6 +7,7 @@ import {BoardService} from "../../services/board.service";
 import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 import {MatDialog} from '@angular/material/dialog';
 import {DialogLinkAFSRComponent} from '../dialog-link-afsr/dialog-link-afsr.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-back-home-bar',
@@ -21,20 +22,18 @@ export class BackHomeBarComponent implements OnInit {
               public boardService: BoardService,
               public indexedDBacess: IndexeddbaccessService,
               public editionService: EditionService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              public router: Router) {
   }
 
   ngOnInit() {
   }
 
   /*go back in the browser history*/
-  async backInHistory() {
-    this.editionService.clearEditionPane();
-    window.history.back();
+   backInHistory() {
 
-    await this.delay(500);
-    this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
-    await this.delay(1000);
+    this.router.navigate(['keyboard']);
+
     this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
 
     this.indexedDBacess.update();

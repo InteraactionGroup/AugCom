@@ -30,7 +30,7 @@ describe('AVenirComponent', () => {
 
   it('should contain proper text in a-venir-text class component', () => {
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.a-venir-text').textContent).toContain('à venir...');
+    expect(compiled.querySelector('.a-venir-text').textContent).toContain('A venir...');
   });
 
 });

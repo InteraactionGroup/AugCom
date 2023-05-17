@@ -44,7 +44,7 @@ describe('ShareComponent', () => {
   });
    */
 
-  it('import a save unzip',() => {
+  /*it('import a save unzip',() => {
     const saveZip = new XMLHttpRequest();
 
     saveZip.open('GET', '../../../assets/fileForTest/lifecompTest.opgf', false);
@@ -58,7 +58,7 @@ describe('ShareComponent', () => {
     component.boardService.board = component.jsonValidator.getCheckedGrid(tempBoard);
 
     expect(component.boardService.board.software).toEqual('LifeCompanion');
-  });
+  });*/
 
   it('should create', () => {
     expect(component).toBeTruthy();

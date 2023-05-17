@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {EditionService} from '../../services/edition.service';
 import {GeticonService} from '../../services/geticon.service';
 import {Action, Interaction} from '../../types';
@@ -10,7 +10,7 @@ import {FunctionsService} from '../../services/functions.service';
   templateUrl: './event.component.html',
   styleUrls: ['./event.component.css']
 })
-export class EventComponent implements OnInit {
+export class EventComponent implements OnInit, OnDestroy {
   constructor(public multilinguism: MultilinguismService,
               public getIconService: GeticonService,
               public functionService: FunctionsService,
@@ -18,6 +18,10 @@ export class EventComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy(): void {
+      this.resetSelected();
   }
 
   /**
@@ -119,4 +123,9 @@ export class EventComponent implements OnInit {
     });
   }
 
+  resetSelected(){
+    this.functionService.interactionIDs.forEach(interaction => {
+      interaction.plus = false;
+    });
+  }
 }
