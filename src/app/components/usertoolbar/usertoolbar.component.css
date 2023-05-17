@@ -5,7 +5,6 @@
   max-height: 14vw;
   min-width: 7cm;
   background-color: var(--main-bg-color1);
-  transition: bottom 0.5s;
   display: flex;
   flex-wrap: nowrap;
 }
@@ -26,7 +25,6 @@
   width: 2cm;
   min-width: 1cm;
   min-height: 1cm;
-  transition: width 1s, height 1s;
   display: flex;
   flex-wrap: nowrap;
 }
@@ -37,12 +35,12 @@
   width: 1.5cm;
   min-width: 1cm;
   min-height: 1cm;
-  transition: width 1s, height 1s;
+
 }
 
 .buttonLeftRightBig {
   width: 1.5cm;
-  transition: width 1s, height 1s;
+
 }
 
 .buttonLeftLeftBig {
@@ -51,7 +49,7 @@
   width: 250px;
   min-width: 1cm;
   min-height: 1cm;
-  transition: width 1s, height 1s;
+
 }
 
 .titleandimage {
@@ -213,7 +211,6 @@
 .width0 {
   width: 0;
   opacity: 0;
-  transition: width 5s;
 }
 
 .button .tooltipbot {
