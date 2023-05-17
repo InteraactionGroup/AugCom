@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {RouterModule, RouterPreloader, Routes} from '@angular/router';
 import {KeyboardComponent} from './components/keyboard/keyboard.component';
 import {ShareComponent} from './components/share/share.component';
 import {EditionComponent} from './components/edition/edition.component';
@@ -13,6 +13,7 @@ import {AuthGuardService} from "./services/auth-guard.service";
 import {GeneratorGridComponent} from "./components/generator-grid/generator-grid.component";
 import {LoadingUserComponent} from './components/loading-user/loading-user.component';
 import {LoadingComponent} from "./components/loading/loading.component";
+import { PendingChangesGuard } from './services/pending-changes-guard.service';
 
 
 const routes: Routes = [
@@ -28,7 +29,7 @@ const routes: Routes = [
   {path: 'keyboard',canActivate:[AuthGuardService], component: KeyboardComponent, data: {animation: 'HomePage'}},
   {path: 'share',canActivate:[AuthGuardService], component: ShareComponent, data: {animation: 'x'}},
   {path: 'print',canActivate:[AuthGuardService], component: PrintComponent, data: {animation: 'x'}},
-  {path: 'edit',canActivate:[AuthGuardService], component: EditionComponent, data: {animation: 'x'}},
+  {path: 'edit',canActivate:[AuthGuardService], component: EditionComponent, data: {animation: 'x'}, canDeactivate:[PendingChangesGuard]},
   {path: 'generatorGrid',canActivate:[AuthGuardService], component: GeneratorGridComponent, data: {animation: 'x'}},
   {path: 'settings',canActivate:[AuthGuardService], component: SettingsComponent, data: {animation: 'x'}},
   {path: 'account',canActivate:[AuthGuardService], component: AccountComponent, data: {animation: 'x'}},
@@ -39,7 +40,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [BrowserModule, BrowserAnimationsModule, RouterModule.forRoot(routes, {useHash: true})],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [RouterPreloader]
 })
 
 /**

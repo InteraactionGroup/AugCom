@@ -109,9 +109,9 @@ describe('EditionComponent', () => {
     expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled, 'app-event');
   });
 
-  it('should display app-alternative-forms when Autres formes is clicked', () => {
+  it('should display app-alternative-forms when Formes Alternatives is clicked', () => {
     const compiled = fixture.debugElement.nativeElement;
-    clickElementOf(compiled, fixture, '.menu-item-title-container', 'Autres Formes');
+    clickElementOf(compiled, fixture, '.menu-item-title-container', 'Formes Alternatives');
     expectThisTabToBeTheOnlyOpenTabOfCompiled(compiled, 'app-alternative-forms');
   });
 
