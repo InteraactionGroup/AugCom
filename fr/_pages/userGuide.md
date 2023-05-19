@@ -221,7 +221,7 @@ Les différentes actions son:
 
 Dans cette section vous pouvez changer l'aspect général de l'application en sélectionnant 4 couleurs de votre choix, la police de caractère des menus de l'application ainsi que la taille des boutons concernés par la sélection par fixation.
 {% include figure image_path="assets/images/color_and_text_normal.PNG" alt="color_and_text_normal" %}
-{% include figure image_path="assets/images/color_and_text changed.png" alt="color_and_text changed" %}
+{% include figure image_path="assets/images/color_and_text_changed.png" alt="color_and_text changed" %}
 
 ### Gestion des palettes
 
