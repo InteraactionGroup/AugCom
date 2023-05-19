@@ -16,11 +16,11 @@ There are two kinds of keys on Augcom's keyboard, the simple keys, which allow y
 
 {% include figure image_path="assets/images/menu_bar_closed.PNG" alt="menu bar" %}
 
-When you enter a folder, you can go back to the previous page by using the back arrow located at the bottom left of the window.
+When you enter a folder, you can go back to the previous page by using the back arrow located at the top left of the window.
 
 To the right of the back button you will find the path you followed to get to your current page.
 
-The button with a padlock at the bottom right allows you to unlock access to several Augcom features that are hidden by default so as not to distract the user's view. 
+The button with a padlock at the top left allows you to unlock access to several AugCom features that are hidden by default so as to not distract the user's view. 
 
 # The Text Bar 
 
@@ -50,6 +50,8 @@ The button with the cross at the ends in the form of an arrow allows you to swit
 
 The eye button allows you to show or hide the elements marked as "not visible" with this feature. *For more information see the "Button Modifications" section.
 
+The star button toggles selection by focus without having to use the settings.
+
 ## Button Modifications
 
 The pencil button activates the "edit" mode of the grid.
@@ -63,6 +65,9 @@ The first button, with blue edges, allows you to select or deselect all buttons 
 The button with a pencil allows you to change all the currently selected buttons at once.
 
 The third button, with a trash can icon, allows you to delete all the currently selected buttons. *(Note: a validation request will be displayed to avoid a false manipulation.)
+
+The "grid" button allows you to create a new grid *(Note: The current grid will be lost, do not forget to save it beforehand)*
+
 
 On the right side of the bar you will find text zones that can be modified with the keyboard or with the small arrows that appear when you hover over them.
 
@@ -216,7 +221,7 @@ The different sound actions:
 
 In this section you can change the general look of the application by selecting 4 colors of your choice and the font of the application menus.
 {% include figure image_path="assets/images/color_and_text_normal.PNG" alt="color_and_text_normal" %}
-{% include figure image_path="assets/images/color_and_text changed.PNG" alt="color_and_text changed" %}
+{% include figure image_path="assets/images/color_and_text_changed.png" alt="color_and_text changed" %}
 
 ### Palette management
 
@@ -227,6 +232,12 @@ To add a palette click on "new palette", new buttons will appear.
 The "+" button allows you to add a color, you can click on the added color to modify it to your liking. 
 You can delete the added color by clicking on the cross at the top right of the color. 
 To validate your palette click on save. If you want to cancel the creation of your palette click on the trash can icon.
+
+### Edit icons size
+
+To facilitate selection by focus, the size of some buttons can be ajusted.
+
+By default, size is set to 100%.
 
 ### Interactions
 
