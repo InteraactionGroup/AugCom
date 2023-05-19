@@ -14,7 +14,7 @@ toc_sticky: true
 Augcom's keyboard allows you to generate sentences using the pictograms proposed on a grid. 
 There are two kinds of keys on Augcom's keyboard, the simple keys, which allow you to add a word to the sentence, and the "folder" keys, which will allow you to enter the corresponding folder to discover a new pictograms grid.
 
-{% include figure image_path="assets/images/menu_bar_closed.PNG" alt="menu bar" %}
+{% include figure image_path="assets/images/menu_bar_closed.png" alt="menu bar" %}
 
 When you enter a folder, you can go back to the previous page by using the back arrow located at the top left of the window.
 
@@ -26,7 +26,7 @@ The button with a padlock at the top left allows you to unlock access to several
 
 When a simple button is activated, the word and its pictogram are added to the sentence, in the grey text bar that is visible below.
 
-{% include figure image_path="assets/images/text_bar.PNG" alt="text bar" %}
+{% include figure image_path="assets/images/text_bar.png" alt="text bar" %}
 
 The button directly to the right of the text bar is the "read" button. It allows you to pronounce the sentence in its entirety, thanks to the speech synthesis.
 
@@ -40,7 +40,7 @@ The rightmost button, in the form of a question mark, displays the help menu.
 
 # The Menu Bar 
 
-{% include figure image_path="assets/images/menu_bar_open.PNG" alt="menu bar open" %}
+{% include figure image_path="assets/images/menu_bar_open.png" alt="menu bar open" %}
 
 Once you have unlocked the list of features with the locked button at the bottom right of the program, you will have access to a menu bar.
 
@@ -58,7 +58,7 @@ The pencil button activates the "edit" mode of the grid.
 
 In "edition" mode, several functionalities are available, they appear in the new bar above the grid.
 
-{% include figure image_path="assets/images/grid_bar.PNG" alt="grid bar" %}
+{% include figure image_path="assets/images/grid_bar.png" alt="grid bar" %}
 
 The first button, with blue edges, allows you to select or deselect all buttons in the current grid.
 
@@ -77,7 +77,7 @@ The last one allows to define the distance between the keys of the current grid.
 
 In "edit" mode, for each key, three new buttons appear in the corners as you can see below.
 
-{% include figure image_path="assets/images/button_edit_mode.PNG" alt="button edit mode" %}
+{% include figure image_path="assets/images/button_edit_mode.png" alt="button edit mode" %}
 
 - The red button with a trash can allows you to delete the button it is attached to. *(Note: a validation request will be displayed to avoid a false manipulation.)
 - The button with an eye allows you to mark it as "not visible" when the function with the eye is activated using the function presented in the "Menu bar" section.
@@ -132,14 +132,14 @@ For each of the fields, you can with errors, here are some :
 
 ## Information menu
 
-{% include figure image_path="assets/images/edition_pageEN.PNG" alt="edition_page" %}
+{% include figure image_path="assets/images/edition_pageEN.png" alt="edition_page" %}
 
 The information menu allows you to modify the basic information of the key.
 
 You can change its name.
 But you can also change its "type", you can choose between a "simple" key or a "folder" key (or "directory").
 
-{% include figure image_path="assets/images/change_type_buttonEN.PNG" alt="change_type_button" %}
+{% include figure image_path="assets/images/change_type_buttonEN.png" alt="change_type_button" %}
 
 If the "folder" radio button is selected, a drop-down menu appears, to choose the existing page to which the menu links or to create a new page.
 If you choose to create a new page a text box appears to define the identifier (name) of the page that will be created.
@@ -152,7 +152,7 @@ If you choose to create a new page a text box appears to define the identifier (
 
 The appearance menu allows you to change the graphic elements of a key.
 
-{% include figure image_path="assets/images/edition_color_modifEN.PNG" alt="edit color modif" %}
+{% include figure image_path="assets/images/edition_color_modifEN.png" alt="edit color modif" %}
 
 The inner and outer color of the button can be modified using user-defined palettes. *(To learn how to manage the palettes, go to the "Palette Management" section.)
 
@@ -160,49 +160,49 @@ The inner and outer color of the button can be modified using user-defined palet
 
 For image modification, 3 possibilities are available.
 
-{% include figure image_path="assets/images/modifier_l_imageEN.PNG" alt="modify image" %}
+{% include figure image_path="assets/images/modifier_l_imageEN.png" alt="modify image" %}
 
 - You can first import one of your own image files by clicking on "choose a file".
 - You can also import an image from a URL. To do this, simply enter the URL in the corresponding text box and click OK.
 - Finally you can add an image from our local library of images from several open source databases. To find the image you are interested in, enter the keyword in the corresponding text box and click on "search". Several pictograms will be proposed to you, just click on the one that suits you.
 
-{% include figure image_path="assets/images/library_fruit_search.PNG" alt="library fruit search" %}
+{% include figure image_path="assets/images/library_fruit_search.png" alt="library fruit search" %}
 
 For each of the previous changes, either for the image or the color, a preview of the button is available in the upper right, allowing you to see the changes you made.
 
-{% include figure image_path="assets/images/saved_changes.PNG" alt="saved changes" %}
+{% include figure image_path="assets/images/saved_changes.png" alt="saved changes" %}
 
 ## Other Shapes Menu
 
 Here you can add alternative forms to your word, alternative forms can be useful to add a masculine/feminine/plural version to an existing word or conjugations for a verb.
 To add a new alternate form of the word click on the add button.
 
-{% include figure image_path="assets/images/add_variantEN.PNG" alt="add variant" %}
+{% include figure image_path="assets/images/add_variantEN.png" alt="add variant" %}
 
 You can add a variant in two different ways.
 - Either manually, by choosing the word that will be displayed and the one that will be pronounced.
 - Or by searching the existing variants for this word from the net. **(this feature is currently under development and is not yet functional.)
 
-{% include figure image_path="assets/images/variant_informationsEN.PNG" alt="variant information" %}
+{% include figure image_path="assets/images/variant_informationsEN.png" alt="variant information" %}
 
 For each variant you can also choose the image that will be displayed for that variant in the same way as when you choose an image for the initial key.
 
 To delete a previously created variant, click on the red button with a trash can on the variant in question.
 
-{% include figure image_path="assets/images/variant_fruit_saved.PNG" alt="variant fruit saved" %}
+{% include figure image_path="assets/images/variant_fruit_saved.png" alt="variant fruit saved" %}
 
 ## Interaction menu
 
 The interaction menu allows you to define the actions that will be done for each of the three interactions (single click, long press and double click).
 By default a single click adds the word to the sentence and speaks it.
 
-{% include figure image_path="assets/images/interactionsEN.PNG" alt="interactions" %}
+{% include figure image_path="assets/images/interactionsEN.png" alt="interactions" %}
 
 
 
 To add an action, click on the small "+" at the bottom of the column corresponding to the interaction you want to modify.
 
-{% include figure image_path="assets/images/scroll_menu_interactionsEN.PNG" alt="scroll menu interactions" %}
+{% include figure image_path="assets/images/scroll_menu_interactionsEN.png" alt="scroll menu interactions" %}
 
 The different sound actions:
 
@@ -220,7 +220,7 @@ The different sound actions:
 ### Application theme
 
 In this section you can change the general look of the application by selecting 4 colors of your choice and the font of the application menus.
-{% include figure image_path="assets/images/color_and_text_normalEN.PNG" alt="color_and_text_normal" %}
+{% include figure image_path="assets/images/color_and_text_normalEN.png" alt="color_and_text_normal" %}
 {% include figure image_path="assets/images/color_and_text_changedEN.png" alt="color_and_text_changed" %}
 
 ### Palette management
