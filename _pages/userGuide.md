@@ -220,8 +220,8 @@ The different sound actions:
 ### Application theme
 
 In this section you can change the general look of the application by selecting 4 colors of your choice and the font of the application menus.
-{% include figure image_path="assets/images/color_and_text_normal.PNG" alt="color_and_text_normal" %}
-{% include figure image_path="assets/images/color_and_text_changed.png" alt="color_and_text_changed" %}
+{% include figure image_path="assets/images/color_and_text_normalEN.PNG" alt="color_and_text_normal" %}
+{% include figure image_path="assets/images/color_and_text_changedEN.png" alt="color_and_text_changed" %}
 
 ### Palette management
 
