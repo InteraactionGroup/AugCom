@@ -132,19 +132,19 @@ For each of the fields, you can with errors, here are some :
 
 ## Information menu
 
-{% include figure image_path="assets/images/edition_page.PNG" alt="edition_page" %}
+{% include figure image_path="assets/images/edition_pageEN.PNG" alt="edition_page" %}
 
 The information menu allows you to modify the basic information of the key.
 
 You can change its name.
 But you can also change its "type", you can choose between a "simple" key or a "folder" key (or "directory").
 
-{% include figure image_path="assets/images/change_type_button.PNG" alt="change_type_button" %}
+{% include figure image_path="assets/images/change_type_buttonEN.PNG" alt="change_type_button" %}
 
 If the "folder" radio button is selected, a drop-down menu appears, to choose the existing page to which the menu links or to create a new page.
 If you choose to create a new page a text box appears to define the identifier (name) of the page that will be created.
 
-{% include figure image_path="assets/images/add_a_new_page.PNG" alt="add a new page" %}
+{% include figure image_path="assets/images/add_a_new_pageEN.PNG" alt="add a new page" %}
 
 ## Appearance menu
 
@@ -152,7 +152,7 @@ If you choose to create a new page a text box appears to define the identifier (
 
 The appearance menu allows you to change the graphic elements of a key.
 
-{% include figure image_path="assets/images/edition_color_modif.PNG" alt="edit color modif" %}
+{% include figure image_path="assets/images/edition_color_modifEN.PNG" alt="edit color modif" %}
 
 The inner and outer color of the button can be modified using user-defined palettes. *(To learn how to manage the palettes, go to the "Palette Management" section.)
 
@@ -160,7 +160,7 @@ The inner and outer color of the button can be modified using user-defined palet
 
 For image modification, 3 possibilities are available.
 
-{% include figure image_path="assets/images/modifier_l_image.PNG" alt="modify image" %}
+{% include figure image_path="assets/images/modifier_l_imageEN.PNG" alt="modify image" %}
 
 - You can first import one of your own image files by clicking on "choose a file".
 - You can also import an image from a URL. To do this, simply enter the URL in the corresponding text box and click OK.
@@ -177,13 +177,13 @@ For each of the previous changes, either for the image or the color, a preview o
 Here you can add alternative forms to your word, alternative forms can be useful to add a masculine/feminine/plural version to an existing word or conjugations for a verb.
 To add a new alternate form of the word click on the add button.
 
-{% include figure image_path="assets/images/add_variant.PNG" alt="add variant" %}
+{% include figure image_path="assets/images/add_variantEN.PNG" alt="add variant" %}
 
 You can add a variant in two different ways.
 - Either manually, by choosing the word that will be displayed and the one that will be pronounced.
 - Or by searching the existing variants for this word from the net. **(this feature is currently under development and is not yet functional.)
 
-{% include figure image_path="assets/images/variant_informations.PNG" alt="variant information" %}
+{% include figure image_path="assets/images/variant_informationsEN.PNG" alt="variant information" %}
 
 For each variant you can also choose the image that will be displayed for that variant in the same way as when you choose an image for the initial key.
 
@@ -196,13 +196,13 @@ To delete a previously created variant, click on the red button with a trash can
 The interaction menu allows you to define the actions that will be done for each of the three interactions (single click, long press and double click).
 By default a single click adds the word to the sentence and speaks it.
 
-{% include figure image_path="assets/images/interactions.PNG" alt="interactions" %}
+{% include figure image_path="assets/images/interactionsEN.PNG" alt="interactions" %}
 
 
 
 To add an action, click on the small "+" at the bottom of the column corresponding to the interaction you want to modify.
 
-{% include figure image_path="assets/images/scroll_menu_interactions.PNG" alt="scroll menu interactions" %}
+{% include figure image_path="assets/images/scroll_menu_interactionsEN.PNG" alt="scroll menu interactions" %}
 
 The different sound actions:
 
