@@ -144,7 +144,7 @@ But you can also change its "type", you can choose between a "simple" key or a "
 If the "folder" radio button is selected, a drop-down menu appears, to choose the existing page to which the menu links or to create a new page.
 If you choose to create a new page a text box appears to define the identifier (name) of the page that will be created.
 
-{% include figure image_path="assets/images/add_a_new_pageEN.PNG" alt="add a new page" %}
+{% include figure image_path="assets/images/add_a_new_pageEN.png" alt="add a new page" %}
 
 ## Appearance menu
 
