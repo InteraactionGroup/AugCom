@@ -26,7 +26,7 @@ The button with a padlock at the top left allows you to unlock access to several
 
 When a simple button is activated, the word and its pictogram are added to the sentence, in the grey text bar that is visible below.
 
-{% include figure image_path="assets/images/text_bar.png" alt="text bar" %}
+{% include figure image_path="assets/images/text_bar.PNG" alt="text bar" %}
 
 The button directly to the right of the text bar is the "read" button. It allows you to pronounce the sentence in its entirety, thanks to the speech synthesis.
 
