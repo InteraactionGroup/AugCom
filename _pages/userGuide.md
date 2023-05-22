@@ -14,7 +14,7 @@ toc_sticky: true
 Augcom's keyboard allows you to generate sentences using the pictograms proposed on a grid. 
 There are two kinds of keys on Augcom's keyboard, the simple keys, which allow you to add a word to the sentence, and the "folder" keys, which will allow you to enter the corresponding folder to discover a new pictograms grid.
 
-{% include figure image_path="assets/images/menu_bar_closed.png" alt="menu bar" %}
+{% include figure image_path="assets/images/menu_bar_closed.PNG" alt="menu bar" %}
 
 When you enter a folder, you can go back to the previous page by using the back arrow located at the top left of the window.
 
@@ -40,7 +40,7 @@ The rightmost button, in the form of a question mark, displays the help menu.
 
 # The Menu Bar 
 
-{% include figure image_path="assets/images/menu_bar_open.png" alt="menu bar open" %}
+{% include figure image_path="assets/images/menu_bar_open.PNG" alt="menu bar open" %}
 
 Once you have unlocked the list of features with the locked button at the bottom right of the program, you will have access to a menu bar.
 
@@ -58,7 +58,7 @@ The pencil button activates the "edit" mode of the grid.
 
 In "edition" mode, several functionalities are available, they appear in the new bar above the grid.
 
-{% include figure image_path="assets/images/grid_bar.png" alt="grid bar" %}
+{% include figure image_path="assets/images/grid_bar.PNG" alt="grid bar" %}
 
 The first button, with blue edges, allows you to select or deselect all buttons in the current grid.
 
@@ -77,7 +77,7 @@ The last one allows to define the distance between the keys of the current grid.
 
 In "edit" mode, for each key, three new buttons appear in the corners as you can see below.
 
-{% include figure image_path="assets/images/button_edit_mode.png" alt="button edit mode" %}
+{% include figure image_path="assets/images/button_edit_mode.PNG" alt="button edit mode" %}
 
 - The red button with a trash can allows you to delete the button it is attached to. *(Note: a validation request will be displayed to avoid a false manipulation.)
 - The button with an eye allows you to mark it as "not visible" when the function with the eye is activated using the function presented in the "Menu bar" section.
@@ -166,7 +166,7 @@ For image modification, 3 possibilities are available.
 - You can also import an image from a URL. To do this, simply enter the URL in the corresponding text box and click OK.
 - Finally you can add an image from our local library of images from several open source databases. To find the image you are interested in, enter the keyword in the corresponding text box and click on "search". Several pictograms will be proposed to you, just click on the one that suits you.
 
-{% include figure image_path="assets/images/library_fruit_search.png" alt="library fruit search" %}
+{% include figure image_path="assets/images/library_fruit_search.PNG" alt="library fruit search" %}
 
 For each of the previous changes, either for the image or the color, a preview of the button is available in the upper right, allowing you to see the changes you made.
 
@@ -189,7 +189,7 @@ For each variant you can also choose the image that will be displayed for that v
 
 To delete a previously created variant, click on the red button with a trash can on the variant in question.
 
-{% include figure image_path="assets/images/variant_fruit_saved.png" alt="variant fruit saved" %}
+{% include figure image_path="assets/images/variant_fruit_saved.PNG" alt="variant fruit saved" %}
 
 ## Interaction menu
 
