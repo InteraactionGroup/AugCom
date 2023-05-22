@@ -285,3 +285,7 @@ You can also choose the color of the background behind your pictograms.
 Here you can define the style of the two button formats, simple buttons and folder buttons (or pictograms and directory pictograms).
 For each of these two types of buttons you can choose to display the image and the text of the button or only one of the two values, you can also choose the disposition of the text in relation to the image (bottom, top, left or right).
 Finally you can choose the font of the text contained in this button
+
+## Print
+
+You can define here the layout of the header and the footer of your exported and printed AugCom grid.

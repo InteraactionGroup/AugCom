@@ -287,3 +287,6 @@ Définissent ici le style des deux formats de boutons, les boutons simples et le
 Pour chacun de ces deux types de boutons vous pouvez choisir d'afficher l'image et le texte du bouton ou une seule des deux valeurs, vous pouvez également choisir la disposition du texte par rapport à l'image (en bas, en haut, a gauche ou a droite).
 Pour finir vous pouvez choisir la police d'écriture du texte contenu dans ce bouton
 
+## Impression
+
+Vous pouvez définir ici la mise en page de l'en-tête et du bas de page des grilles AugCom exportées et imprimées.
