@@ -1,6 +1,6 @@
 <div class="height-width-100">
 
-  <div class="movingSelector" [ngStyle]="{'left' : this.getMovingSelectorIndexHorizontally(), 'top' : this.getMovingSelectorIndexVertically()}"></div>
+  <div class="movingSelector" [ngStyle]="{'left' : this.getMovingSelectorIndexHorizontally()}"></div>
 
   <div style="position: relative;top: 0;left: 0;margin-top: -50px; background-color: transparent">
     <div class="menuelt" *ngFor="let menu of newMenu" (click)="selectNewMenu(menu)">
@@ -90,12 +90,12 @@
           <app-reset-grid></app-reset-grid>
         </ng-container>-->
 
-        <ng-container *ngIf="isSelectedSection('Header')">
-          <app-header-print></app-header-print>
+        <ng-container *ngIf="isSelectedSection('exportStyle')">
+          <app-exportStyle></app-exportStyle>
         </ng-container>
 
-        <ng-container *ngIf="isSelectedSection('Footer')">
-          <app-footer-print></app-footer-print>
+        <ng-container *ngIf="isSelectedSection('export')">
+          <app-export></app-export>
         </ng-container>
 
       </div>

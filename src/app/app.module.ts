@@ -69,7 +69,7 @@ import { DialogResetGridComponent } from './components/dialog-reset-grid/dialog-
 import { DialogModifyColorInsideComponent } from './components/dialog-modify-color-inside/dialog-modify-color-inside.component';
 import { DialogModifyColorBorderComponent } from './components/dialog-modify-color-border/dialog-modify-color-border.component';
 import { ExportSaveDialogComponent } from './components/export-save-dialog/export-save-dialog.component';
-import { HeaderPrintComponent } from './components/header-print/header-print.component';
+import { ExportStyleComponent } from './components/header-print/exportStyle.component';
 import { FooterPrintComponent } from './components/footer-print/footer-print.component';
 import { GeneratorGridComponent } from './components/generator-grid/generator-grid.component';
 import {DialogLogoutAppComponent} from './components/dialog-logout-app/dialog-logout-app.component';
@@ -90,6 +90,7 @@ import { ImportUserComponent } from './components/import-user/import-user.compon
 import { LoadingComponent } from './components/loading/loading.component';
 import { PendingChangesGuard } from './services/pending-changes-guard.service';
 import { RouterPreloader } from '@angular/router';
+import { ExportComponent } from './components/export/export.component';
 
 @NgModule({
   declarations: [
@@ -142,7 +143,7 @@ import { RouterPreloader } from '@angular/router';
     DialogModifyColorBorderComponent,
     DialogResetGridComponent,
     ExportSaveDialogComponent,
-    HeaderPrintComponent,
+    ExportStyleComponent,
     FooterPrintComponent,
     GeneratorGridComponent,
     DialogLogoutAppComponent,
@@ -160,7 +161,8 @@ import { RouterPreloader } from '@angular/router';
     DialogDeleteGridUserComponent,
     ExportSaveUserDialogComponent,
     ImportUserComponent,
-    LoadingComponent
+    LoadingComponent,
+    ExportComponent
   ],
   imports: [
     BrowserModule,

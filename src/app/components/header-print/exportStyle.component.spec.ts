@@ -1,17 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HeaderPrintComponent } from './header-print.component';
+import { ExportStyleComponent } from './exportStyle.component';
 import {Ng2ImgMaxModule} from "ng2-img-max";
 import {Router} from "@angular/router";
 import {HttpClientModule} from "@angular/common/http";
 
-describe('HeaderPrintComponent', () => {
-  let component: HeaderPrintComponent;
-  let fixture: ComponentFixture<HeaderPrintComponent>;
+describe('exportStyleComponent', () => {
+  let component: ExportStyleComponent;
+  let fixture: ComponentFixture<ExportStyleComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderPrintComponent ],
+      declarations: [ ExportStyleComponent ],
       imports: [Ng2ImgMaxModule, HttpClientModule],
       providers: [{
         provide: Router, useClass: class {
@@ -23,7 +23,7 @@ describe('HeaderPrintComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HeaderPrintComponent);
+    fixture = TestBed.createComponent(ExportStyleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

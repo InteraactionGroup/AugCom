@@ -90,8 +90,8 @@ export class AccountMenuComponent implements OnInit {
       // ]
     ],
     ['Print',
-      ['Header',
-        'Footer'
+      ['export',
+        'exportStyle'
       ]
     ]
   ];
@@ -111,19 +111,16 @@ export class AccountMenuComponent implements OnInit {
     switch (this.selectedNewMenu) {
       case 'Application' :
         return '0';
-      // case 'Barre de phrase' : return '25%';
-      // case 'Grilles' : return '50%';
-      // case 'Pictogrammes' : return '75%';
       case 'Grids' :
-        return '33%';
+        return '25%';
       case 'Pictograms' :
-        return '66%';
+        return '50%';
       case 'Print' :
-        return '0'
+        return '75%'
     }
   }
 
-  getMovingSelectorIndexVertically(){
+/*   getMovingSelectorIndexVertically(){
     switch (this.selectedNewMenu) {
       case 'Application' :
         return '0';
@@ -134,7 +131,7 @@ export class AccountMenuComponent implements OnInit {
       case 'Print' :
         return '50px'
     }
-  }
+  } */
 
   selectNewMenu(menu) {
     this.selectedNewMenu = (menu as any[]) [0];

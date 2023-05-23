@@ -58,8 +58,7 @@
 
 .menuelt {
   cursor: pointer;
-  /*width: calc(25% - 1px);*/
-  width: calc(33% - 1px);
+  width: calc(25% - 1px);
   height: 50px;
   display: inline-grid;
   /*border: 2px solid black;*/
@@ -79,8 +78,7 @@
 
 .movingSelector {
   position: relative;
-  /*width: 25%;*/
-  width: 33%;
+  width: 25%;   
   height: 50px;
   left: 0;
   z-index: 0;
