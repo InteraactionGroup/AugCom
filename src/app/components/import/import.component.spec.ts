@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {MatDialogModule} from "@angular/material/dialog";
 
-describe('ShareComponent', () => {
+describe('importComponent', () => {
   let component: ImportComponent;
   let fixture: ComponentFixture<ImportComponent>;
 
@@ -64,7 +64,7 @@ describe('ShareComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should create the 8 different options components', () => {
+  it('should create the 5 different options components', () => {
     const compiled = fixture.debugElement.nativeElement;
     const allListElements = compiled.querySelectorAll('.listElement');
     expect(allListElements.length).toEqual(5);

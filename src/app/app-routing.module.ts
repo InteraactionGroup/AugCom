@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, RouterPreloader, Routes} from '@angular/router';
 import {KeyboardComponent} from './components/keyboard/keyboard.component';
-import {ShareComponent} from './components/import/import.component';
+import {ImportComponent} from './components/import/import.component';
 import {EditionComponent} from './components/edition/edition.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SettingsComponent} from './components/settings/settings.component';
@@ -19,7 +19,7 @@ import { PendingChangesGuard } from './services/pending-changes-guard.service';
 const routes: Routes = [
   {path: 'logging', component: UserPageComponent, data: {animation: 'x'}},
   {path: ':lang/keyboard', component: KeyboardComponent, data: {animation: 'HomePage'}},
-  {path: ':lang/share', component: ShareComponent, data: {animation: 'x'}},
+  {path: ':lang/share', component: ImportComponent, data: {animation: 'x'}},
   {path: ':lang/print', component: PrintComponent, data: {animation: 'x'}},
   {path: ':lang/edit', component: EditionComponent, data: {animation: 'x'}},
   {path: ':lang/settings', component: SettingsComponent, data: {animation: 'x'}},
@@ -27,7 +27,7 @@ const routes: Routes = [
   {path: ':lang/connect/:id', component: LoadingUserComponent},
   {path: 'loading', component: LoadingComponent, data: {animation: 'x'}},
   {path: 'keyboard',canActivate:[AuthGuardService], component: KeyboardComponent, data: {animation: 'HomePage'}},
-  {path: 'share',canActivate:[AuthGuardService], component: ShareComponent, data: {animation: 'x'}},
+  {path: 'share',canActivate:[AuthGuardService], component: ImportComponent, data: {animation: 'x'}},
   {path: 'print',canActivate:[AuthGuardService], component: PrintComponent, data: {animation: 'x'}},
   {path: 'edit',canActivate:[AuthGuardService], component: EditionComponent, data: {animation: 'x'}, canDeactivate:[PendingChangesGuard]},
   {path: 'generatorGrid',canActivate:[AuthGuardService], component: GeneratorGridComponent, data: {animation: 'x'}},

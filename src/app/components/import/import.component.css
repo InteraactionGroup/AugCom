@@ -1,17 +1,17 @@
-.share {
+.import {
   opacity: 1;
 }
 
-.share .sharePanel {
+.import .importPanel {
   margin-top: 20px;
 }
 
-.share .sharePanel .listElement {
+.import .importPanel .listElement {
   margin: 20px;
   width: fit-content;
 }
 
-.share .sharePanel .listElement .image {
+.import .importPanel .listElement .image {
   height: 80%;
   width: 15%;
   transform: translateY(10%);
