@@ -8,6 +8,7 @@ import {Ng2ImgMaxModule} from 'ng2-img-max';
 import {Router} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {MatDialogModule} from "@angular/material/dialog";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('importComponent', () => {
   let component: ImportComponent;
@@ -21,7 +22,7 @@ describe('importComponent', () => {
           navigate = jasmine.createSpy('navigate');
         }
       }],
-      imports: [FormsModule, HttpClientModule, Ng2ImgMaxModule, RouterTestingModule, MatDialogModule],
+      imports: [FormsModule, HttpClientModule, Ng2ImgMaxModule, RouterTestingModule, MatDialogModule, BrowserAnimationsModule],
       declarations: [ImportComponent]
     })
       .compileComponents();

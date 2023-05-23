@@ -20,9 +20,3 @@
 label {
   margin-right: 10px;
 }
-
-/* Remove "No file chosen" tooltip*/
-/* Retire le texte "Aucun fichier choisi*/
-input[type='file'] {
-  opacity:0    
-}
