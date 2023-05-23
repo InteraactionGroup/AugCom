@@ -1,6 +1,6 @@
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
-import {ShareComponent} from './share.component';
+import {ImportComponent} from './import.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
@@ -10,8 +10,8 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {MatDialogModule} from "@angular/material/dialog";
 
 describe('ShareComponent', () => {
-  let component: ShareComponent;
-  let fixture: ComponentFixture<ShareComponent>;
+  let component: ImportComponent;
+  let fixture: ComponentFixture<ImportComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -22,13 +22,13 @@ describe('ShareComponent', () => {
         }
       }],
       imports: [FormsModule, HttpClientModule, Ng2ImgMaxModule, RouterTestingModule, MatDialogModule],
-      declarations: [ShareComponent]
+      declarations: [ImportComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ShareComponent);
+    fixture = TestBed.createComponent(ImportComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     component.indexedDBacess.loadUsersList();
@@ -67,17 +67,11 @@ describe('ShareComponent', () => {
   it('should create the 8 different options components', () => {
     const compiled = fixture.debugElement.nativeElement;
     const allListElements = compiled.querySelectorAll('.listElement');
-    expect(allListElements.length).toEqual(11);
+    expect(allListElements.length).toEqual(5);
     expect(allListElements[0].textContent).toContain(component.multilinguism.translate('importSave'));
     expect(allListElements[1].textContent).toContain(component.multilinguism.translate('importPages'));
     expect(allListElements[2].textContent).toContain(component.multilinguism.translate('import save from snap core first'));
     expect(allListElements[3].textContent).toContain(component.multilinguism.translate('import save from life companion'));
     expect(allListElements[4].textContent).toContain(component.multilinguism.translate('importUser'));
-    expect(allListElements[5].textContent).toContain(component.multilinguism.translate('exportPage'));
-    expect(allListElements[6].textContent).toContain(component.multilinguism.translate('exportPageAndItsSubset'));
-    expect(allListElements[7].textContent).toContain(component.multilinguism.translate('exportSave'));
-    expect(allListElements[8].textContent).toContain(component.multilinguism.translate('exportUser'));
-    expect(allListElements[9].textContent).toContain(component.multilinguism.translate('exportPDF'));
-    expect(allListElements[10].textContent).toContain(component.multilinguism.translate('exportTreeStructureAugCom'));
   });
 });

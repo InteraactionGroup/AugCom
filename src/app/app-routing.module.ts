@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, RouterPreloader, Routes} from '@angular/router';
 import {KeyboardComponent} from './components/keyboard/keyboard.component';
-import {ShareComponent} from './components/share/share.component';
+import {ShareComponent} from './components/import/import.component';
 import {EditionComponent} from './components/edition/edition.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SettingsComponent} from './components/settings/settings.component';

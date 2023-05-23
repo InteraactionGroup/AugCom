@@ -30,12 +30,12 @@ import { ImportUserComponent } from '../import-user/import-user.component';
 import { LifeCompanion2augComponent } from '../life-companion2aug/life-companion2aug.component';
 
 @Component({
-  selector: 'app-share',
-  templateUrl: './share.component.html',
-  styleUrls: ['./share.component.css'],
+  selector: 'app-import',
+  templateUrl: './import.component.html',
+  styleUrls: ['./import.component.css'],
   providers: [HttpClient, Ng2ImgMaxService]
 })
-export class ShareComponent implements OnInit {
+export class ImportComponent implements OnInit {
 
   constructor(
     public speakForYourselfParser: SpeakForYourselfParser,

@@ -6,7 +6,7 @@ import {UsertoolbarComponent} from './components/usertoolbar/usertoolbar.compone
 import {EditionComponent} from './components/edition/edition.component';
 import {KeyboardComponent} from './components/keyboard/keyboard.component';
 import {DialogbarComponent} from './components/dialogbar/dialogbar.component';
-import {ShareComponent} from './components/share/share.component';
+import {ImportComponent} from './components/import/import.component';
 import {PopupComponent} from './components/popup/popup.component';
 import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Ng2ImgMaxModule, Ng2ImgMaxService} from 'ng2-img-max';
@@ -98,7 +98,7 @@ import { ExportComponent } from './components/export/export.component';
     EditionComponent,
     KeyboardComponent,
     DialogbarComponent,
-    ShareComponent,
+    ImportComponent,
     PopupComponent,
     SettingsComponent,
     SnapBarComponent,
