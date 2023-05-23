@@ -99,7 +99,7 @@
     { "id" : "importProloquo" , "FR" : "Importer Proloquo", "EN" : "Import Proloquo" },
     { "id" : "function" , "FR" : "Fonction", "EN" : "Function" },
     { "id" : "chooseFunction",  "FR" : "Choisissez une fonction", "EN" : "Choose a function" },
-    { "id" : "interactions",  "FR" : "Sélection par fixation", "EN" : "Selection by focus" },
+    { "id" : "interactions",  "FR" : "Interactions", "EN" : "Interactions" },
     { "id" : "otherForms",  "FR" : "Formes Alternatives", "EN" : "Alternative Forms" },
     { "id" : "information",  "FR" : "Informations", "EN" : "Informations" },
     { "id" : "applicationLanguage",  "FR" : "Langue de l'application", "EN" : "App Language" },
@@ -363,6 +363,7 @@
     { "id" : "folderDescription", "FR": "L'élément créé sera un dossier pouvant contenir d'autres boutons", "EN": "The element will be a folder that can contain other buttons"},
     { "id" : "warningQuit", "FR": "Voulez vous vraiment quitter ? Les modifications non sauvegardées seront perdues", "EN": "Are you sure you want to quit ? Unsaved changes will be lost"},
     { "id" : "export", "FR": "Export", "EN": "Export"},
-    { "id" : "exportStyle", "FR": "Mise en page", "EN" : "Export style"}
+    { "id" : "exportStyle", "FR": "Mise en page", "EN" : "Export style"},
+    { "id" : "focusSelection", "FR": "Sélection par fixation", "EN": "Selection by focus"}
   ]
 }

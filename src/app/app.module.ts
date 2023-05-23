@@ -69,8 +69,7 @@ import { DialogResetGridComponent } from './components/dialog-reset-grid/dialog-
 import { DialogModifyColorInsideComponent } from './components/dialog-modify-color-inside/dialog-modify-color-inside.component';
 import { DialogModifyColorBorderComponent } from './components/dialog-modify-color-border/dialog-modify-color-border.component';
 import { ExportSaveDialogComponent } from './components/export-save-dialog/export-save-dialog.component';
-import { ExportStyleComponent } from './components/header-print/exportStyle.component';
-import { FooterPrintComponent } from './components/footer-print/footer-print.component';
+import { ExportStyleComponent } from './components/exportStyle/exportStyle.component';
 import { GeneratorGridComponent } from './components/generator-grid/generator-grid.component';
 import {DialogLogoutAppComponent} from './components/dialog-logout-app/dialog-logout-app.component';
 import {DialogLinkAFSRComponent} from './components/dialog-link-afsr/dialog-link-afsr.component';
@@ -144,7 +143,6 @@ import { ExportComponent } from './components/export/export.component';
     DialogResetGridComponent,
     ExportSaveDialogComponent,
     ExportStyleComponent,
-    FooterPrintComponent,
     GeneratorGridComponent,
     DialogLogoutAppComponent,
     DialogLinkAFSRComponent,
