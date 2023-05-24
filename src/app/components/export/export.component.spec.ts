@@ -1,11 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExportComponent } from './export.component';
-import { IndexeddbaccessService } from 'src/app/services/indexeddbaccess.service';
-import { BoardService } from 'src/app/services/board.service';
-import { MatDialogModule } from '@angular/material/dialog';
 import { Ng2ImgMaxModule } from 'ng2-img-max';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('ExportComponent', () => {
   let component: ExportComponent;
@@ -14,7 +15,7 @@ describe('ExportComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ExportComponent ],
-      imports: [MatDialogModule, IndexeddbaccessService, BoardService, Ng2ImgMaxModule, BrowserAnimationsModule]
+      imports: [Ng2ImgMaxModule, HttpClientModule, BrowserAnimationsModule, RouterTestingModule, MatDialogModule]
     })
     .compileComponents();
   }));
