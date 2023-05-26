@@ -12,15 +12,15 @@ toc_sticky: true
 # Le Clavier
 
 Le clavier d'Augcom permet de générer des phrases en utilisant les pictogrammes proposés sur une grille. 
-Il existe deux sortes de touches sur le clavier d'Augcom, les touches simples, qui permettent d'ajouter un mot à la phrase, et les touches "dossiers" qui vont permettre d'entrer dans le dossier correspondant pour découvrir une nouvelle grille de pictogrammes.
+Il existe deux sortes de touches sur le clavier d'Augcom, les touches simples, qui permettent d'ajouter un mot à la phrase, et les touches "dossiers" qui permettre d'entrer dans le dossier correspondant pour découvrir une nouvelle grille de pictogrammes.
 
 {% include figure image_path="assets/images/menu_bar_closed.PNG" alt="menu bar" %}
 
-Quand vous rentrez dans un dossier, vous pouvez revenir à la page précédente en utilisant la flèche de retour située en bas a gauche de la fenêtre.
+Quand vous rentrez dans un dossier, vous pouvez revenir à la page précédente en utilisant la flèche de retour située en haut a gauche de la fenêtre.
 
 À droite du bouton retour vous trouverez le chemin que vous avez suivi pour arriver à votre page courante.
 
-Le bouton avec un cadenas en bas à droite permet de débloquer l'accès à plusieurs fonctionnalités d'Augcom qui sont cachées par défaut pour ne pas distraire le regard de l'utilisateur. 
+Le bouton avec un cadenas permet de débloquer l'accès à plusieurs fonctionnalités d'Augcom qui sont cachées par défaut pour ne pas distraire le regard de l'utilisateur. 
 
 # La Barre de Texte 
 
@@ -34,21 +34,23 @@ Le bouton suivant, avec un "T" est le bouton permettant d'entrer directement un 
 
 Le bouton avec une flèche vers la gauche permet d'effacer le dernier mot ajouté à la phrase.
 
-L'avant dernier bouton, avec une croix, permet d'effacer la phrase en entier.
+L'avant dernier bouton, avec une croix, permet d'effacer l'entièreté de la phrase.
 
-Le bouton le plus à droite, en forme de point d'interrogation, permet d'afficher le menu d'aide.
+Le bouton en forme de point d'interrogation, permet d'afficher le menu d'aide.
 
 # La Barre de Menu 
 
 {% include figure image_path="assets/images/menu_bar_open.PNG" alt="menu bar open" %}
 
-Une fois la liste de fonctionnalités débloquées grâce au bouton cadenassé en bas à droite du logiciel, vous aurez accès à une barre de menu.
+Une fois la liste de fonctionnalités débloquées grâce au bouton cadenassé, vous aurez accès à une barre de menu.
 
-Le bouton avec un drapeau permet de changer la langue de l'application, pour le moment seules deux langues sont disponibles: le français et l'anglais. *(Note: ce bouton permet de changer la langue du menu uniquement, il en changera pas la langue de la grille.)*
+Le bouton avec un drapeau permet de changer la langue de l'application, pour le moment seules deux langues sont disponibles: le français et l'anglais. *(Note: ce bouton permet de changer la langue du menu uniquement, il en changera pas la langue des boutons de la grille.)*
 
 Le bouton avec la croix aux extrémités en forme de flèche permet de passer en mode plein écran. *(Note: le mode plein écran n'est pas disponible sur IOS  c'est à dire Iphone, Ipad, etc...)*
 
 Le bouton en forme d’œil permet d'afficher ou de cacher les éléments marqués comme "non visibles" avec cette fonctionnalité. *Pour plus d'informations consultez la partie "Modifications du Bouton".*
+
+Le bouton étoile permet d'activer ou de désactiver la sélection par fixation sans avoir à passer par la page d'options.
 
 ## Modifications du Bouton
 
@@ -63,6 +65,9 @@ Le premier bouton, aux bords bleus, permet de sélectionner ou désélectionner 
 Le bouton avec un crayon permet de modifier en une fois tous les boutons actuellement sélectionnés.
 
 Le troisième bouton, avec une icône de poubelle, permet de supprimer tous les boutons actuellement sélectionnés. *(Note: une demande de validation s'affichera pour éviter une fausse manipulation.)*
+
+Le bouton "grille" permet de créer une nouvelle grille. *(Note: La grille courante sera perdue, n'oubliez pas de la sauvegarder auparavent)*
+
 
 Sur la droite de la barre vous trouverez des zones de texte modifiables grâce au clavier ou grâce aux petites flèches apparaissant quand vous les survolez.
 
@@ -91,7 +96,7 @@ Pour finir la roue dentée vous permet d'accéder aux paramètres plus avancées
 
 ## Déverrouiller les options
 
-Commencez par déverrouiller les options en cliquant sur l'écrou avec un verrou.
+Commencez par déverrouiller les options en cliquant sur le bouton cadenassé.
 
 {% include figure image_path="assets/images/unlockSettings.png" alt="unlockSettings" %}
 
@@ -102,7 +107,7 @@ Ensuite, vous devez activer le mode édition pour faire apparaître le bouton de
 
 ## Appuyer sur le bouton de génération de grilles
 
-Appuyez sur le bouton de génération de grilles en haut de l'écran.
+Appuyez sur le bouton de génération de grilles en bas de l'écran.
 {% include figure image_path="assets/images/buttonGenerateGrid.png" alt="buttonGenerateGrid" %}
 
 ## Remplir les champs
@@ -169,7 +174,7 @@ Pour chacune des modifications précédentes, que ce soit pour l'image ou la cou
 
 ## Menu Autres Formes
 
-ici vous pouvez ajouter des formes alternatives à votre mot, les formes alternatives peuvent être utiles pour ajouter une version masculin/féminin/pluriel à un mot existant ou encore des conjugaisons pour un verbe.
+Ici vous pouvez ajouter des formes alternatives à votre mot, les formes alternatives peuvent être utiles pour ajouter une version masculin/féminin/pluriel à un mot existant ou encore des conjugaisons pour un verbe.
 Pour ajouter une nouvelle forme variante du mot cliquez sur le bouton ajouter.
 
 {% include figure image_path="assets/images/add_variant.PNG" alt="add variant" %}
@@ -182,7 +187,7 @@ Vous pouvez ajouter une variante de deux manières différents.
 
 Pour chaque variante vous pouvez également choisir l'image qui sera affichée pour cette variante de la même manière que lorsque vous choisissez une image pour la touche initiale.
 
-Pour supprimer une variante précédemment crée, cliquez sur le bouton rouge avec une poubelle sur la variante concernée.
+Pour supprimer une variante précédemment créée, cliquez sur le bouton rouge avec une poubelle sur la variante concernée.
 
 {% include figure image_path="assets/images/variant_fruit_saved.PNG" alt="variant fruit saved" %}
 
@@ -200,7 +205,7 @@ Pour ajouter une action, cliquez sur le petit "+" en bas de la colonne correspon
 Les différentes actions son:
 
  - *ajouter à la phrase*: ajoute le mot à la zone de texte.
- - *prononce*: prononce le mot via la synthèse vocale.
+ - *prononcer*: prononce le mot via la synthèse vocale.
  - *retour*: retourne à la page précédente.
  - *retour à l'écran principal*: retourne à la page d'accueil de votre clavier.
  - *afficher les formes alternatives*: affiche les formes alternatives du bouton si il en a. *(pour plus d'informations sur les formes alternatives, rendez vous dans la section correspondante)*
@@ -214,9 +219,9 @@ Les différentes actions son:
 
 ### Thème de l'application
 
-Dans cette section vous pouvez changer l'aspect général de l'application en sélectionnant 4 couleurs de votre choix ainsi que la police de caractère des menus de l'application.
+Dans cette section vous pouvez changer l'aspect général de l'application en sélectionnant 4 couleurs de votre choix, la police de caractère des menus de l'application ainsi que la taille des boutons concernés par la sélection par fixation.
 {% include figure image_path="assets/images/color_and_text_normal.PNG" alt="color_and_text_normal" %}
-{% include figure image_path="assets/images/color_and_text changed.PNG" alt="color_and_text changed" %}
+{% include figure image_path="assets/images/color_and_text_changed.png" alt="color_and_text changed" %}
 
 ### Gestion des palettes
 
@@ -227,6 +232,12 @@ Pour ajouter une palette cliquez sur "new palette", de nouveaux boutons vont app
 Le bouton "+" permet d'ajouter une couleur, vous pouvez cliquer sur la couleur ajoutée pour la modifier à votre convenance. 
 Vous pouvez supprimer la couleur ajoutée en cliquant sur la croix en haut a droite de celle ci. 
 Pour validez votre palette cliquez sur enregistrer. Si vous voulez annuler la création de votre palette cliquez sur l’icône ne forme de poubelle.
+
+### Modifier la taille des boutons
+
+Afin de faciliter la sélection par fixation, la taille de certains boutons peut être ajustée
+
+Par défaut, la taille est de 100%.
 
 ### Interactions
 
@@ -272,7 +283,10 @@ Vous pouvez également choisir la couleur du fond qui se trouve à l'arrière de
 
 ### Style du Pictogramme
 
-Définisses ici le style des deux formats de boutons, les boutons simples et les boutons dossier (ou pictogrammes et pictogrammes-répertoire).
+Définissent ici le style des deux formats de boutons, les boutons simples et les boutons dossier (ou pictogrammes et pictogrammes-répertoire).
 Pour chacun de ces deux types de boutons vous pouvez choisir d'afficher l'image et le texte du bouton ou une seule des deux valeurs, vous pouvez également choisir la disposition du texte par rapport à l'image (en bas, en haut, a gauche ou a droite).
 Pour finir vous pouvez choisir la police d'écriture du texte contenu dans ce bouton
 
+## Impression
+
+Vous pouvez définir ici la mise en page de l'en-tête et du bas de page des grilles AugCom exportées et imprimées.

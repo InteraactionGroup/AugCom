@@ -16,11 +16,11 @@ There are two kinds of keys on Augcom's keyboard, the simple keys, which allow y
 
 {% include figure image_path="assets/images/menu_bar_closed.PNG" alt="menu bar" %}
 
-When you enter a folder, you can go back to the previous page by using the back arrow located at the bottom left of the window.
+When you enter a folder, you can go back to the previous page by using the back arrow located at the top left of the window.
 
 To the right of the back button you will find the path you followed to get to your current page.
 
-The button with a padlock at the bottom right allows you to unlock access to several Augcom features that are hidden by default so as not to distract the user's view. 
+The button with a padlock at the top left allows you to unlock access to several AugCom features that are hidden by default so as to not distract the user's view. 
 
 # The Text Bar 
 
@@ -50,6 +50,8 @@ The button with the cross at the ends in the form of an arrow allows you to swit
 
 The eye button allows you to show or hide the elements marked as "not visible" with this feature. *For more information see the "Button Modifications" section.
 
+The star button toggles selection by focus without having to use the settings.
+
 ## Button Modifications
 
 The pencil button activates the "edit" mode of the grid.
@@ -63,6 +65,9 @@ The first button, with blue edges, allows you to select or deselect all buttons 
 The button with a pencil allows you to change all the currently selected buttons at once.
 
 The third button, with a trash can icon, allows you to delete all the currently selected buttons. *(Note: a validation request will be displayed to avoid a false manipulation.)
+
+The "grid" button allows you to create a new grid *(Note: The current grid will be lost, do not forget to save it beforehand)*
+
 
 On the right side of the bar you will find text zones that can be modified with the keyboard or with the small arrows that appear when you hover over them.
 
@@ -127,19 +132,19 @@ For each of the fields, you can with errors, here are some :
 
 ## Information menu
 
-{% include figure image_path="assets/images/edition_page.PNG" alt="edition_page" %}
+{% include figure image_path="assets/images/edition_pageEN.png" alt="edition_page" %}
 
 The information menu allows you to modify the basic information of the key.
 
 You can change its name.
 But you can also change its "type", you can choose between a "simple" key or a "folder" key (or "directory").
 
-{% include figure image_path="assets/images/change_type_button.PNG" alt="change_type_button" %}
+{% include figure image_path="assets/images/change_type_buttonEN.png" alt="change_type_button" %}
 
 If the "folder" radio button is selected, a drop-down menu appears, to choose the existing page to which the menu links or to create a new page.
 If you choose to create a new page a text box appears to define the identifier (name) of the page that will be created.
 
-{% include figure image_path="assets/images/add_a_new_page.PNG" alt="add a new page" %}
+{% include figure image_path="assets/images/add_a_new_pageEN.png" alt="add a new page" %}
 
 ## Appearance menu
 
@@ -147,7 +152,7 @@ If you choose to create a new page a text box appears to define the identifier (
 
 The appearance menu allows you to change the graphic elements of a key.
 
-{% include figure image_path="assets/images/edition_color_modif.PNG" alt="edit color modif" %}
+{% include figure image_path="assets/images/edition_color_modifEN.png" alt="edit color modif" %}
 
 The inner and outer color of the button can be modified using user-defined palettes. *(To learn how to manage the palettes, go to the "Palette Management" section.)
 
@@ -155,7 +160,7 @@ The inner and outer color of the button can be modified using user-defined palet
 
 For image modification, 3 possibilities are available.
 
-{% include figure image_path="assets/images/modifier_l_image.PNG" alt="modify image" %}
+{% include figure image_path="assets/images/modifier_l_imageEN.png" alt="modify image" %}
 
 - You can first import one of your own image files by clicking on "choose a file".
 - You can also import an image from a URL. To do this, simply enter the URL in the corresponding text box and click OK.
@@ -165,20 +170,20 @@ For image modification, 3 possibilities are available.
 
 For each of the previous changes, either for the image or the color, a preview of the button is available in the upper right, allowing you to see the changes you made.
 
-{% include figure image_path="assets/images/saved_changes.PNG" alt="saved changes" %}
+{% include figure image_path="assets/images/saved_changes.png" alt="saved changes" %}
 
 ## Other Shapes Menu
 
 Here you can add alternative forms to your word, alternative forms can be useful to add a masculine/feminine/plural version to an existing word or conjugations for a verb.
 To add a new alternate form of the word click on the add button.
 
-{% include figure image_path="assets/images/add_variant.PNG" alt="add variant" %}
+{% include figure image_path="assets/images/add_variantEN.png" alt="add variant" %}
 
 You can add a variant in two different ways.
 - Either manually, by choosing the word that will be displayed and the one that will be pronounced.
 - Or by searching the existing variants for this word from the net. **(this feature is currently under development and is not yet functional.)
 
-{% include figure image_path="assets/images/variant_informations.PNG" alt="variant information" %}
+{% include figure image_path="assets/images/variant_informationsEN.png" alt="variant information" %}
 
 For each variant you can also choose the image that will be displayed for that variant in the same way as when you choose an image for the initial key.
 
@@ -191,13 +196,13 @@ To delete a previously created variant, click on the red button with a trash can
 The interaction menu allows you to define the actions that will be done for each of the three interactions (single click, long press and double click).
 By default a single click adds the word to the sentence and speaks it.
 
-{% include figure image_path="assets/images/interactions.PNG" alt="interactions" %}
+{% include figure image_path="assets/images/interactionsEN.png" alt="interactions" %}
 
 
 
 To add an action, click on the small "+" at the bottom of the column corresponding to the interaction you want to modify.
 
-{% include figure image_path="assets/images/scroll_menu_interactions.PNG" alt="scroll menu interactions" %}
+{% include figure image_path="assets/images/scroll_menu_interactionsEN.png" alt="scroll menu interactions" %}
 
 The different sound actions:
 
@@ -215,8 +220,8 @@ The different sound actions:
 ### Application theme
 
 In this section you can change the general look of the application by selecting 4 colors of your choice and the font of the application menus.
-{% include figure image_path="assets/images/color_and_text_normal.PNG" alt="color_and_text_normal" %}
-{% include figure image_path="assets/images/color_and_text changed.PNG" alt="color_and_text changed" %}
+{% include figure image_path="assets/images/color_and_text_normalEN.png" alt="color_and_text_normal" %}
+{% include figure image_path="assets/images/color_and_text_changedEN.png" alt="color_and_text_changed" %}
 
 ### Palette management
 
@@ -227,6 +232,12 @@ To add a palette click on "new palette", new buttons will appear.
 The "+" button allows you to add a color, you can click on the added color to modify it to your liking. 
 You can delete the added color by clicking on the cross at the top right of the color. 
 To validate your palette click on save. If you want to cancel the creation of your palette click on the trash can icon.
+
+### Edit icons size
+
+To facilitate selection by focus, the size of some buttons can be ajusted.
+
+By default, size is set to 100%.
 
 ### Interactions
 
@@ -274,3 +285,7 @@ You can also choose the color of the background behind your pictograms.
 Here you can define the style of the two button formats, simple buttons and folder buttons (or pictograms and directory pictograms).
 For each of these two types of buttons you can choose to display the image and the text of the button or only one of the two values, you can also choose the disposition of the text in relation to the image (bottom, top, left or right).
 Finally you can choose the font of the text contained in this button
+
+## Print
+
+You can define here the layout of the header and the footer of your exported and printed AugCom grid.
