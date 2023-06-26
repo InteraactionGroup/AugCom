@@ -116,6 +116,7 @@ export class KeyboardComponent implements OnInit{
       this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
       await this.delay(1000);
       this.boardService.updateElementList();
+      console.log(this.boardService);
     }
 
   delay(ms: number) {

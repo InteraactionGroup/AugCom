@@ -23,14 +23,12 @@ export class ChooseYourGridComponent implements OnInit {
     try{
       this.listGridID = this.userPageService.currentUser.gridsID;
     }catch (e) {
-      this.listGridID = ['GridExample'];
+      this.listGridID = ["gridExample"];
     }
   }
 
   changeGrid() {
     this.boardService.gridChosen = this.gridChosen;
-    console.log('this.gridChosen : ', this.gridChosen);
     this.indexeddbaccessService.changeUserGrid(this.gridChosen);
-
   }
 }

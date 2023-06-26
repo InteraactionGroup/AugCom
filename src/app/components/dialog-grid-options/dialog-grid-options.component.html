@@ -1,0 +1,25 @@
+<button (click)="setSelected('create')">Créer une grille</button>
+
+<button (click)="setSelected('load')">Charger une grille</button>
+
+<button (click)="setSelected('import')">Importer une grille</button>
+
+<button (click)="setSelected('delete')">Supprimer une grille</button>
+
+
+<div *ngIf="this.selectedOption == 'create'">
+    <app-dialog-add-grid></app-dialog-add-grid>
+</div>
+
+<div *ngIf="this.selectedOption == 'load'">
+    <app-choose-your-grid></app-choose-your-grid>
+</div>
+
+<div *ngIf="this.selectedOption == 'import'">
+    <app-import></app-import>
+</div>
+
+<div *ngIf="this.selectedOption == 'delete'">
+    <app-delete-grid-user></app-delete-grid-user>
+</div>
+

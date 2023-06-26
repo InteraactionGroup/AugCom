@@ -19,6 +19,7 @@ export class DialogAddGridComponent implements OnInit {
               private indexeddbaccessService: IndexeddbaccessService) { }
 
   newGridModel = 'empty';
+  nameGrid = "";
   listOfGrid:string[] = [];
 
   ngOnInit(): void {
@@ -39,17 +40,21 @@ export class DialogAddGridComponent implements OnInit {
         page.ElementIDsList = [];
         page.NumberOfCols = 0;
         page.NumberOfRows = 0;
-        this.boardService.board = new Grid(newGrid.value['nameGrid'], 'Grid', 6, 6, [], [], [page]);
+        this.boardService.board = new Grid(this.nameGrid, 'Grid', 6, 6, [], [], [page]);
       }
       this.boardService.board.software = 'Augcom';
-      this.userPageService.currentUser.gridsID.push(this.boardService.board.ID);
+      this.boardService.board.ID = this.nameGrid;
+
+      this.userPageService.currentUser.gridsID.push(this.nameGrid);
       const indexUser = this.userPageService.usersList.findIndex((user) => {
         return this.userPageService.currentUser.id === user.id
       });
       this.userPageService.usersList[indexUser] = this.userPageService.currentUser;
-      this.boardService.gridChosen = newGrid.value['nameGrid'];
+      this.boardService.gridChosen = this.nameGrid;
+      
       setTimeout(() => {
-        this.indexeddbaccessService.addGrid();
+        this.indexeddbaccessService.addGrid(this.nameGrid);
+        this.listOfGrid = this.indexeddbaccessService.existingGrid();
         this.boardService.updateElementList();
 
       },200);
