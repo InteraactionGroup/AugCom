@@ -5,6 +5,7 @@ import { Ng2ImgMaxModule } from 'ng2-img-max';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('DialogGridOptionsComponent', () => {
   let component: DialogGridOptionsComponent;
@@ -12,7 +13,7 @@ describe('DialogGridOptionsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule, Ng2ImgMaxModule, MatDialogModule, BrowserAnimationsModule],
+      imports: [HttpClientModule, Ng2ImgMaxModule, MatDialogModule, BrowserAnimationsModule, RouterTestingModule],
       declarations: [ DialogGridOptionsComponent ]
     })
     .compileComponents();
