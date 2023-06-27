@@ -1,7 +1,7 @@
 <div class="ui centered aligned">
   <form (ngSubmit)="onSubmit(newGrid)" #newGrid="ngForm">
     <label>{{this.multilinguism.translate("nameOfTheGrid")}}</label>
-    <input [(ngModel)]="this.nameGrid" id="nameGrid" type="text" class="form-control" placeholder="{{this.multilinguism.translate('nameOfTheGrid')}}" name="nameGrid" ngModel required>
+    <input id="nameGrid" type="text" class="form-control" placeholder="{{this.multilinguism.translate('nameOfTheGrid')}}" name="nameGrid" ngModel required>
     <br>
     <label for="titleFormat">{{this.multilinguism.translate("chooseGridModel")}}</label>
     <select [(ngModel)]= "this.newGridModel" [ngModelOptions]="{standalone: true}" id="titleFormat" class="variantListBox">
