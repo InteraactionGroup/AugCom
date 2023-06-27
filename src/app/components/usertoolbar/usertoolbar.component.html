@@ -74,9 +74,10 @@
     </div>
   </div>
 
-  <div class="button floatRight" id="newGrid" *ngIf="this.userToolBarService.unlock" (click)="this.newGrid()"
+  <div class="button floatRight" id="newGrid" *ngIf="this.userToolBarService.unlock" (click)="this.openGridOptions()"
     [ngStyle]="{'margin-left': marginSize + 'px'}">
-    <span class="tooltiptop">{{this.multilinguism.translate('add-grid')}}</span>
+  
+    <span class="tooltiptop">{{this.multilinguism.translate('grid-options')}}</span>
     <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('add-grid')}">
     </div>
   </div>
@@ -84,8 +85,8 @@
   <div class="button floatRight" id="babbleButton" *ngIf="this.userToolBarService.unlock"
     (click)="this.userToolBarService.babble = !this.userToolBarService.babble"
     [ngStyle]="{'margin-left': marginSize + 'px'}">
-    <span class="tooltiptop">{{this.userToolBarService.unlock ?
-      this.multilinguism.translate('hide'):this.multilinguism.translate('show')}}</span>
+    <span class="tooltiptop">{{this.userToolBarService.babble ?
+      this.multilinguism.translate('show'):this.multilinguism.translate('hide')}}</span>
     <div class="image width-100"
       [ngStyle]="{'background-image':this.getIcon(this.userToolBarService.babble?'hide':'show')}">
     </div>

@@ -90,6 +90,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { PendingChangesGuard } from './services/pending-changes-guard.service';
 import { RouterPreloader } from '@angular/router';
 import { ExportComponent } from './components/export/export.component';
+import { DialogGridOptionsComponent } from './components/dialog-grid-options/dialog-grid-options.component';
 
 @NgModule({
   declarations: [
@@ -160,7 +161,8 @@ import { ExportComponent } from './components/export/export.component';
     ExportSaveUserDialogComponent,
     ImportUserComponent,
     LoadingComponent,
-    ExportComponent
+    ExportComponent,
+    DialogGridOptionsComponent
   ],
   imports: [
     BrowserModule,

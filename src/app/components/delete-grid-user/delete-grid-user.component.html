@@ -1,5 +1,5 @@
 <div style="  margin: 20px ;width: fit-content;">
-  <p>{{this.multilinguism.translate("areYouSureYouWantToDeleteThisGrid?")}}"{{this.userPageService.deleteGridUser}}" ?</p>
+  <label for="titleFormat">{{this.multilinguism.translate("deleteOneOfYourGrid")}}</label>
   <select [(ngModel)]= "this.gridSelected" (change)="openDialog()" id="titleFormat" class="variantListBox">
     <option *ngFor="let grid of listGridID" [value]="grid">{{grid}}</option>
   </select>

@@ -19,6 +19,7 @@ import {DialogHelpComponent} from "../dialog-help/dialog-help.component";
 import {PaletteService} from "../../services/palette.service";
 import {DialogLogoutAppComponent} from '../dialog-logout-app/dialog-logout-app.component';
 import {DialogAddGridComponent} from "../dialog-add-grid/dialog-add-grid.component";
+import { DialogGridOptionsComponent } from '../dialog-grid-options/dialog-grid-options.component';
 
 declare const annyang: any;
 
@@ -131,6 +132,13 @@ export class UsertoolbarComponent implements OnInit {
     }
     this.layoutService.setDraggable(this.userToolBarService.edit);
 
+  }
+
+  openGridOptions(): void {
+    this.dialog.open(DialogGridOptionsComponent, {
+      height: 'fit-content',
+      width: 'fit-content'
+    });
   }
 
   exit() {
