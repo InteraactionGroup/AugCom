@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DialogGridOptionsComponent } from './dialog-grid-options.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('DialogGridOptionsComponent', () => {
   let component: DialogGridOptionsComponent;
@@ -8,7 +9,7 @@ describe('DialogGridOptionsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DialogGridOptionsComponent ]
+      declarations: [ DialogGridOptionsComponent, HttpClientModule ]
     })
     .compileComponents();
   }));
