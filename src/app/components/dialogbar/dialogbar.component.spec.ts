@@ -8,6 +8,7 @@ import {Vignette} from '../../types';
 import {MatDialogModule} from "@angular/material/dialog";
 import {Router} from "@angular/router";
 import {HttpClientModule} from "@angular/common/http";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 function addVignette(component: any) {
   component.historicService.historic.push(new Vignette());
@@ -20,7 +21,7 @@ describe('DialogbarComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [FormsModule, Ng2ImgMaxModule, MatDialogModule, HttpClientModule ],
+      imports: [FormsModule, Ng2ImgMaxModule, MatDialogModule, HttpClientModule, BrowserAnimationsModule ],
       declarations: [DialogbarComponent],
       providers: [{
         provide: Router, useClass: class {

@@ -6,7 +6,7 @@ import {UsertoolbarComponent} from './components/usertoolbar/usertoolbar.compone
 import {EditionComponent} from './components/edition/edition.component';
 import {KeyboardComponent} from './components/keyboard/keyboard.component';
 import {DialogbarComponent} from './components/dialogbar/dialogbar.component';
-import {ShareComponent} from './components/share/share.component';
+import {ImportComponent} from './components/import/import.component';
 import {PopupComponent} from './components/popup/popup.component';
 import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Ng2ImgMaxModule, Ng2ImgMaxService} from 'ng2-img-max';
@@ -69,8 +69,7 @@ import { DialogResetGridComponent } from './components/dialog-reset-grid/dialog-
 import { DialogModifyColorInsideComponent } from './components/dialog-modify-color-inside/dialog-modify-color-inside.component';
 import { DialogModifyColorBorderComponent } from './components/dialog-modify-color-border/dialog-modify-color-border.component';
 import { ExportSaveDialogComponent } from './components/export-save-dialog/export-save-dialog.component';
-import { HeaderPrintComponent } from './components/header-print/header-print.component';
-import { FooterPrintComponent } from './components/footer-print/footer-print.component';
+import { ExportStyleComponent } from './components/exportStyle/exportStyle.component';
 import { GeneratorGridComponent } from './components/generator-grid/generator-grid.component';
 import {DialogLogoutAppComponent} from './components/dialog-logout-app/dialog-logout-app.component';
 import {DialogLinkAFSRComponent} from './components/dialog-link-afsr/dialog-link-afsr.component';
@@ -90,6 +89,8 @@ import { ImportUserComponent } from './components/import-user/import-user.compon
 import { LoadingComponent } from './components/loading/loading.component';
 import { PendingChangesGuard } from './services/pending-changes-guard.service';
 import { RouterPreloader } from '@angular/router';
+import { ExportComponent } from './components/export/export.component';
+import { DialogGridOptionsComponent } from './components/dialog-grid-options/dialog-grid-options.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,7 @@ import { RouterPreloader } from '@angular/router';
     EditionComponent,
     KeyboardComponent,
     DialogbarComponent,
-    ShareComponent,
+    ImportComponent,
     PopupComponent,
     SettingsComponent,
     SnapBarComponent,
@@ -142,8 +143,7 @@ import { RouterPreloader } from '@angular/router';
     DialogModifyColorBorderComponent,
     DialogResetGridComponent,
     ExportSaveDialogComponent,
-    HeaderPrintComponent,
-    FooterPrintComponent,
+    ExportStyleComponent,
     GeneratorGridComponent,
     DialogLogoutAppComponent,
     DialogLinkAFSRComponent,
@@ -160,7 +160,9 @@ import { RouterPreloader } from '@angular/router';
     DialogDeleteGridUserComponent,
     ExportSaveUserDialogComponent,
     ImportUserComponent,
-    LoadingComponent
+    LoadingComponent,
+    ExportComponent,
+    DialogGridOptionsComponent
   ],
   imports: [
     BrowserModule,

@@ -368,7 +368,7 @@ export class IndexeddbaccessService {
     };
   }
 
-  addGrid(){
+  addGrid(id:string){
     this.openRequest = indexedDB.open('saveAugcom', 1);
     // ERROR
     this.openRequest.onerror = event => {
@@ -380,8 +380,9 @@ export class IndexeddbaccessService {
       const db = event.target.result;
       const gridStore = db.transaction(['Grid'], 'readwrite');
       const gridObjectStore = gridStore.objectStore('Grid');
-      gridObjectStore.put(this.boardService.board, this.boardService.board.ID);
-
+      this.boardService.board.ID = id;
+      gridObjectStore.put(this.boardService.board, id);
+      
       // UPDATE THE USER LIST
       const userListStore = db.transaction(['UserList'], 'readwrite');
       const userListObjectStore = userListStore.objectStore('UserList');
@@ -403,19 +404,26 @@ export class IndexeddbaccessService {
     // SUCCESS
     this.openRequest.onsuccess = event => {
       const db = event.target.result;
-      const gridRequest = db.transaction(['Grid']).objectStore('Grid').get(gridchosen);
-      gridRequest.onsuccess = e => {
-        this.boardService.board = gridRequest.result;
-      }
+      if(gridchosen == "gridExample"){
+        const gridRequest = db.transaction(['Grid']).objectStore('Grid').get(1);
+        gridRequest.onsuccess = e => {
+          this.boardService.board = gridRequest.result;
+        }
+      } else {
+        const gridRequest = db.transaction(['Grid']).objectStore('Grid').get(gridchosen);
+        gridRequest.onsuccess = e => {
+          this.boardService.board = gridRequest.result;
+        }
     }
+  }
     setTimeout(() => {
-      console.log('this.boardService.board : ',this.boardService.board);
       this.boardService.updateElementList();
       this.router.navigate(['keyboard']);
     },200);
 
 
-  }
+ 
+}
 
   existingGrid():string[]{
     let existingGrid:string[] = [];
@@ -437,6 +445,18 @@ export class IndexeddbaccessService {
     }
 
     return existingGrid;
+  }
+
+  deleteGrid(gridID:string){
+    this.openRequest = indexedDB.open('saveAugcom', 1);
+
+    this.openRequest.onsuccess = event => {
+      const db = event.target.result;
+      const deleteGridRequest = db.transaction(['Grid'], 'readwrite').objectStore('Grid').delete(gridID);
+      deleteGridRequest.onsuccess = e => {
+        console.log("Grid deleted");
+      };
+    }
   }
 
   importUserInDatabase(userToBeImported){

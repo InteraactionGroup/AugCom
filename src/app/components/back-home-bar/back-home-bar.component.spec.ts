@@ -7,6 +7,7 @@ import {Ng2ImgMaxModule} from "ng2-img-max";
 import {Router} from "@angular/router";
 import {MatDialogModule} from '@angular/material/dialog';
 import {HttpClientModule} from "@angular/common/http";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('BackHomeBarComponent', () => {
   let component: BackHomeBarComponent;
@@ -15,7 +16,7 @@ describe('BackHomeBarComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [FormsModule, Ng2ImgMaxModule, MatDialogModule, HttpClientModule],
+      imports: [FormsModule, Ng2ImgMaxModule, MatDialogModule, HttpClientModule, BrowserAnimationsModule],
       declarations: [BackHomeBarComponent],
       providers: [{
         provide: Router, useClass: class {

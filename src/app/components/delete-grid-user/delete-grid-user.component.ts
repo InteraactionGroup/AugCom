@@ -22,18 +22,36 @@ export class DeleteGridUserComponent implements OnInit {
   listGridID:string[] = [];
 
   ngOnInit(): void {
-    try{
-      this.listGridID = this.userPageService.currentUser.gridsID;
-    }catch (e) {
-      this.listGridID = ['GridExample'];
+    this.initList();
+  }
+
+  initList(){
+    try {
+      //Deep clone array
+      this.listGridID = JSON.parse(JSON.stringify(this.userPageService.currentUser.gridsID));
+
+      //Exclude gridExample from the lsit of elements that can be deleted
+      const index = this.listGridID.indexOf("gridExample");
+      if (index > -1) {
+        this.listGridID.splice(index, 1);
+        console.log(this.listGridID);
+      }
+    } catch (e) {
+      this.listGridID = [];
     }
   }
 
   openDialog(): void {
     this.userPageService.deleteGridUser = this.gridSelected;
-    this.dialog.open(DialogDeleteGridUserComponent, {
+    let confirmDialog = this.dialog.open(DialogDeleteGridUserComponent, {
       height: '20%',
       width: '30%'
+    });
+
+    confirmDialog.afterClosed().subscribe(result => {
+      this.gridSelected = "";
+      this.userPageService.deleteGridUser = "";
+      this.initList();
     });
   }
 }
