@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {MultilinguismService} from "../../services/multilinguism.service";
-import {GeticonService} from "../../services/geticon.service";
+import { Component, OnInit } from '@angular/core';
+import { MultilinguismService } from "../../services/multilinguism.service";
+import { GeticonService } from "../../services/geticon.service";
 
 @Component({
   selector: 'app-account-menu',
@@ -9,7 +9,7 @@ import {GeticonService} from "../../services/geticon.service";
 })
 export class AccountMenuComponent implements OnInit {
 
-
+  /**Sets up the categories of the account menu */
   newMenu: [string, string[]][] = [
     ['Application',
       ['ApplicationTheme',
@@ -96,52 +96,56 @@ export class AccountMenuComponent implements OnInit {
     ]
   ];
 
-
   selectedNewMenu = 'Application';
   selectedSection = 'ApplicationTheme';
 
   constructor(public multilinguismService: MultilinguismService,
-              public getIconService: GeticonService) {
+    public getIconService: GeticonService) {
   }
 
   ngOnInit(): void {
   }
 
+  /**
+   * Is used to move horizontally the moving selector depending on selected menu
+   * @returns A percentage between 0, 25, 50 and 75
+   */
   getMovingSelectorIndexHorizontally() {
     switch (this.selectedNewMenu) {
-      case 'Application' :
+      case 'Application':
         return '0';
-      case 'Grids' :
+      case 'Grids':
         return '25%';
-      case 'Pictograms' :
+      case 'Pictograms':
         return '50%';
-      case 'Print' :
+      case 'Print':
         return '75%'
     }
   }
 
-/*   getMovingSelectorIndexVertically(){
-    switch (this.selectedNewMenu) {
-      case 'Application' :
-        return '0';
-      case 'Grids' :
-        return '0';
-      case 'Pictograms' :
-        return '0';
-      case 'Print' :
-        return '50px'
-    }
-  } */
-
+  /**
+   * Sets menu in parameter as selected menu
+   * @param menu Selected menu
+   */
   selectNewMenu(menu) {
-    this.selectedNewMenu = (menu as any[]) [0];
-    this.selectedSection = (menu as any[]) [1][0];
+    this.selectedNewMenu = (menu as any[])[0];
+    this.selectedSection = (menu as any[])[1][0];
   }
 
+  /**
+   * Checks if menu in parameter is currently selected
+   * @param section checked menu
+   * @returns true if checked menu is current menu, false elsewise 
+   */
   isSelectedMenu(menu) {
     return menu[0] === this.selectedNewMenu;
   }
 
+  /**
+   * Checks if section in parameter is currently selected
+   * @param section checked section
+   * @returns true if checked section is current section, false elsewise 
+   */
   isSelectedSection(section) {
     return section === this.selectedSection;
   }

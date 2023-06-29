@@ -4,7 +4,8 @@
 <div class="ui centered aligned">
   <form (ngSubmit)="onSubmit(newUser)" #newUser="ngForm">
     <label>{{this.multilinguism.translate('User\'sName')}} : </label>
-    <input id="nameUser" type="text" class="form-control" placeholder="{{this.multilinguism.translate('EnterYourName')}}" name="name" ngModel required>
+    <input id="nameUser" type="text" class="form-control"
+      placeholder="{{this.multilinguism.translate('EnterYourName')}}" name="name" ngModel required>
     <br>
     <label>{{this.multilinguism.translate('YourImage')}} : </label>
     <input type="file" accept="image/*" (change)="onFileSelected($event)">
@@ -12,6 +13,7 @@
     <div class="preview">
       <img *ngIf="selectedFile !== null" class="ui centered image" [src]="selectedFile" alt="">
     </div>
-    <button mat-button mat-raised-button type="button" (click)="onSubmit(newUser)" [mat-dialog-close]="" [disabled]="newUser.invalid">{{this.multilinguism.translate('submit')}}</button>
+    <button mat-button mat-raised-button type="button" (click)="onSubmit(newUser)" [mat-dialog-close]=""
+      [disabled]="newUser.invalid">{{this.multilinguism.translate('submit')}}</button>
   </form>
 </div>

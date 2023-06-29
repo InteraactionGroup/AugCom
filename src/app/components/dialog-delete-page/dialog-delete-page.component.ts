@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {BoardService} from '../../services/board.service';
-import {MatListOption} from '@angular/material/list';
-import {FolderGoTo, Page} from '../../types';
-import {MultilinguismService} from '../../services/multilinguism.service';
-import {LayoutService} from '../../services/layout.service';
+import { Component, OnInit } from '@angular/core';
+import { BoardService } from '../../services/board.service';
+import { MatListOption } from '@angular/material/list';
+import { FolderGoTo, Page } from '../../types';
+import { MultilinguismService } from '../../services/multilinguism.service';
+import { LayoutService } from '../../services/layout.service';
 
 @Component({
   selector: 'app-dialog-delete-page',
@@ -12,8 +12,8 @@ import {LayoutService} from '../../services/layout.service';
 })
 export class DialogDeletePageComponent implements OnInit {
   constructor(public boardService: BoardService,
-              public multilinguism: MultilinguismService,
-              public layoutService: LayoutService) {
+    public multilinguism: MultilinguismService,
+    public layoutService: LayoutService) {
   }
 
   pointer = 'none';
@@ -21,8 +21,8 @@ export class DialogDeletePageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getPageList(){
-    return this.boardService.board.PageList.filter(page =>{ return page.ID !== '#HOME'});
+  getPageList() {
+    return this.boardService.board.PageList.filter(page => { return page.ID !== '#HOME' });
   }
 
   deletePages(pages: MatListOption[]) {

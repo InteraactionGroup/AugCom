@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {GeticonService} from '../../services/geticon.service';
-import {MultilinguismService} from '../../services/multilinguism.service';
-import {ConfigurationService} from "../../services/configuration.service";
-import {MatDialog} from '@angular/material/dialog';
-import {DialogLinkInteraactionboxComponent} from '../dialog-link-interaactionbox/dialog-link-interaactionbox.component';
-import {BoardService} from '../../services/board.service';
+import { Component, OnInit } from '@angular/core';
+import { GeticonService } from '../../services/geticon.service';
+import { MultilinguismService } from '../../services/multilinguism.service';
+import { ConfigurationService } from "../../services/configuration.service";
+import { MatDialog } from '@angular/material/dialog';
+import { DialogLinkInteraactionboxComponent } from '../dialog-link-interaactionbox/dialog-link-interaactionbox.component';
+import { BoardService } from '../../services/board.service';
 
 @Component({
   selector: 'app-account',
@@ -30,10 +30,10 @@ export class AccountComponent implements OnInit {
 
 
   constructor(public multilinguism: MultilinguismService,
-              public getIconService: GeticonService,
-              public boardService: BoardService,
-              public configuration: ConfigurationService,
-              public dialog: MatDialog) {
+    public getIconService: GeticonService,
+    public boardService: BoardService,
+    public configuration: ConfigurationService,
+    public dialog: MatDialog) {
   }
 
 
@@ -98,8 +98,8 @@ export class AccountComponent implements OnInit {
     return this.getIconService.getIconUrlPng(s);
   }
 
-  openDialogInteraactionBoxAFSR(){
-    this.dialog.open(DialogLinkInteraactionboxComponent,{
+  openDialogInteraactionBoxAFSR() {
+    this.dialog.open(DialogLinkInteraactionboxComponent, {
       height: '90%',
       width: '90%'
     });

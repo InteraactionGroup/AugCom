@@ -1,21 +1,20 @@
-import {Component, OnInit} from '@angular/core';
-import {EditionService} from '../../services/edition.service';
-import {DbnaryService} from '../../services/dbnary.service';
-import {GeticonService} from '../../services/geticon.service';
-import {HttpClient} from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { EditionService } from '../../services/edition.service';
+import { DbnaryService } from '../../services/dbnary.service';
+import { GeticonService } from '../../services/geticon.service';
+import { HttpClient } from '@angular/common/http';
 import mullberryJson from '../../../assets/symbol-info.json';
 import arasaacJson from '../../../assets/arasaac-symbol-info.json';
 import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
-import {MulBerryObject, ArasaacObject} from '../../libTypes';
-import {Ng2ImgMaxService} from 'ng2-img-max';
-import {ElementForm} from '../../types';
-import {BoardService} from '../../services/board.service';
-import {MultilinguismService} from '../../services/multilinguism.service';
-import {ConfigurationService} from "../../services/configuration.service";
-
-import {Observable} from "rxjs";
-import {FormControl} from "@angular/forms";
-import {map, startWith} from "rxjs/operators";
+import { MulBerryObject, ArasaacObject } from '../../libTypes';
+import { Ng2ImgMaxService } from 'ng2-img-max';
+import { ElementForm } from '../../types';
+import { BoardService } from '../../services/board.service';
+import { MultilinguismService } from '../../services/multilinguism.service';
+import { ConfigurationService } from "../../services/configuration.service";
+import { Observable } from "rxjs";
+import { FormControl } from "@angular/forms";
+import { map, startWith } from "rxjs/operators";
 
 
 @Component({
@@ -27,12 +26,12 @@ import {map, startWith} from "rxjs/operators";
 export class AlternativeFormsComponent implements OnInit {
 
   constructor(public multilinguism: MultilinguismService,
-              public ng2ImgMaxService: Ng2ImgMaxService,
-              public boardService: BoardService,
-              public getIconService: GeticonService,
-              public dbnaryService: DbnaryService,
-              public configurationService: ConfigurationService,
-              public editionService: EditionService) {
+    public ng2ImgMaxService: Ng2ImgMaxService,
+    public boardService: BoardService,
+    public getIconService: GeticonService,
+    public dbnaryService: DbnaryService,
+    public configurationService: ConfigurationService,
+    public editionService: EditionService) {
   }
 
   imageList = [];
@@ -50,12 +49,15 @@ export class AlternativeFormsComponent implements OnInit {
 
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges
-    .pipe(
+      .pipe(
         startWith(''),
         map(value => this._filter(value))
-    );
+      );
   }
 
+  /**
+   * Saves the current form. If current mod is 'addNew' also creates a new variant, else only edit the existing one
+   */
   saveCurrentElementForm() {
     if (this.currentMode === 'modif' && this.selectedItem !== null) {
       this.selectedItem.DisplayedText = this.elementFormDisplayedWordField;
@@ -81,12 +83,20 @@ export class AlternativeFormsComponent implements OnInit {
     this.elementFormNameImageURL = '';
   }
 
+  /**
+   * Deletes the form in parameter from the variants list
+   * @param elementForm form marked to be deleted
+   */
   deleteElementForm(elementForm: ElementForm) {
     this.editionService.variantList = this.editionService.variantList.filter(elt => {
       return elt !== elementForm
     });
   }
 
+  /**
+   * Gives a name (= an ID) to the image actually selected in the form
+   * @returns created ID of the image
+   */
   getNewCreatedImageName() {
     let i = 0;
     while (-1 !== this.boardService.board.ImageList.findIndex(img => {
@@ -102,6 +112,9 @@ export class AlternativeFormsComponent implements OnInit {
     return this.elementFormDisplayedWordField + i;
   }
 
+  /**
+   * Changes selected form and resets form values
+   */
   selectNewForm() {
     if (this.currentMode !== 'addNew') {
       this.currentMode = 'addNew';
@@ -114,6 +127,11 @@ export class AlternativeFormsComponent implements OnInit {
     }
   }
 
+  /**
+   * Changes title of the form depending on parameter and current cod
+   * @param s string representing current objective (name, image, or table)
+   * @returns id of multilingism representing the chosen title
+   */
   getTitle(s: string) {
     switch (s) {
       case 'name':
@@ -121,12 +139,16 @@ export class AlternativeFormsComponent implements OnInit {
       case 'image':
         return this.currentMode === 'modif' ? 'modifyImage' : 'chooseImage';
       case 'table':
-        return  'addWordVariantManually';
-      default :
+        return 'addWordVariantManually';
+      default:
         return '';
     }
   }
 
+  /**
+   * Selects the item in parameter. Item corresponds to an alternative form
+   * @param itemSelected item to be selected
+   */
   select(itemSelected) {
     if (this.currentMode !== 'modif' || this.selectedItem !== itemSelected) {
       this.currentMode = 'modif';
@@ -248,6 +270,9 @@ export class AlternativeFormsComponent implements OnInit {
     }
   }
 
+  /**
+   * @returns an url corresponding to the current form image's name
+   */
   getPreviewURL() {
     return 'url(' + this.elementFormNameImageURL + ')';
   }
@@ -263,27 +288,35 @@ export class AlternativeFormsComponent implements OnInit {
     // this.choseImage = false;
   }
 
-
+  /**
+   * Shows the image corresponding to a combination of selected library (mulberry or arasaac) and searched word (any) 
+   * @param elt library to be used and word to be searched
+   */
   previewLibrary(elt: { lib, word }) {
     this.imageSelectionStarted = true;
     if (elt.lib === 'mulberry') {
-      if(!this.boardService.board.libraryUsed.includes('Mulberry')){
+      if (!this.boardService.board.libraryUsed.includes('Mulberry')) {
         this.boardService.board.libraryUsed.push('Mulberry');
       }
       this.previewMullberry(elt.word);
     } else if (elt.lib === 'arasaacNB') {
       this.previewArasaac(elt.word, false);
-      if(!this.boardService.board.libraryUsed.includes('Arasaac')) {
+      if (!this.boardService.board.libraryUsed.includes('Arasaac')) {
         this.boardService.board.libraryUsed.push('Arasaac');
       }
     } else if (elt.lib === 'arasaacColor') {
       this.previewArasaac(elt.word, true);
-      if(!this.boardService.board.libraryUsed.includes('Arasaac')) {
+      if (!this.boardService.board.libraryUsed.includes('Arasaac')) {
         this.boardService.board.libraryUsed.push('Arasaac');
       }
     }
   }
 
+  /**
+   * 
+   * @param elt library to be used and word to be searched
+   * @returns an url corresponding to the searched image's name in the selected library
+   */
   getThumbnailPreviewLibrary(elt: { lib, word }) {
     if (elt.lib === 'mulberry') {
       return 'url(\'assets/libs/mulberry-symbols/EN-symbols/' + elt.word + '.svg\')';
@@ -303,7 +336,12 @@ export class AlternativeFormsComponent implements OnInit {
     this.previewWithURL('assets/libs/mulberry-symbols/EN-symbols/' + t + '.svg');
   }
 
-
+  /**
+   * Set the current preview imageUrl with an arasaac library image Url according to the given string 't' and close the chooseImage panel
+   * Image can be searched in color or in black and white
+   * @param t, the string short name of the image of the arasaac library image
+   * @param isColored boolean indicating if picto should be searched in color or in black and white
+   */
   previewArasaac(t: string, isColored: boolean) {
     if (isColored) {
       this.previewWithURL('assets/libs/FR_Pictogrammes_couleur/' + t + '.png');
@@ -314,7 +352,6 @@ export class AlternativeFormsComponent implements OnInit {
 
   /**
    * Return the list of 100 first mullberry and Arasaac library images, sorted by length name, matching with string 'text'
-   *
    * @param text, the string researched text
    * @return list of 100 mulberry library images
    */
@@ -322,26 +359,26 @@ export class AlternativeFormsComponent implements OnInit {
     this.imageList = [];
     let tempList = [];
 
-    if(this.configurationService.LANGUAGE_VALUE === 'FR') {
+    if (this.configurationService.LANGUAGE_VALUE === 'FR') {
       (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
         if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && this.getSimilarity(text.toLowerCase(), word.toLowerCase()) >= 0.5) {
           const url = word;
-          tempList.push({lib: 'arasaacNB', word: this.cleanString(url)});
+          tempList.push({ lib: 'arasaacNB', word: this.cleanString(url) });
         }
       }, this);
 
       (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
         if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && this.getSimilarity(text.toLowerCase(), word.toLowerCase()) >= 0.5) {
           const url = word;
-          tempList.push({lib: 'arasaacColor', word: this.cleanString(url)});
+          tempList.push({ lib: 'arasaacColor', word: this.cleanString(url) });
         }
       }, this);
     }
-    else{
+    else {
       (mullberryJson as unknown as MulBerryObject[]).forEach(value => {
         if (text !== null && text !== '' && value.symbol.toLowerCase().includes(text.toLocaleLowerCase()) && this.getSimilarity(text.toLowerCase(), value.symbol.toLowerCase()) >= 0.5) {
           const url = value.symbol;
-          tempList.push({lib: 'mulberry', word: this.cleanString(url)});
+          tempList.push({ lib: 'mulberry', word: this.cleanString(url) });
         }
       }, this);
     }
@@ -376,7 +413,7 @@ export class AlternativeFormsComponent implements OnInit {
       longer = word2;
       shorter = word1;
     }
-    
+
     return ((longer.length - this.distance(longer, shorter)) / parseFloat(longer.length));
   }
 
@@ -412,7 +449,7 @@ export class AlternativeFormsComponent implements OnInit {
   }
 
   private _filter(value: string): string[] {
-    if(value.length > 1){
+    if (value.length > 1) {
       this.wordList = [];
       this.searchInLib(value);
       return this.wordList;

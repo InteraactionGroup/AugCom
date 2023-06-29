@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {NgForm} from "@angular/forms";
-import {BoardService} from "../../services/board.service";
-import {Grid, Page} from "../../types";
-import {UserPageService} from "../../services/user-page.service";
-import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
-import {MultilinguismService} from "../../services/multilinguism.service";
+import { NgForm } from "@angular/forms";
+import { BoardService } from "../../services/board.service";
+import { Grid, Page } from "../../types";
+import { UserPageService } from "../../services/user-page.service";
+import { IndexeddbaccessService } from "../../services/indexeddbaccess.service";
+import { MultilinguismService } from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-dialog-add-grid',
@@ -13,27 +13,32 @@ import {MultilinguismService} from "../../services/multilinguism.service";
 })
 export class DialogAddGridComponent implements OnInit {
 
-  constructor(public boardService:BoardService,
-              public userPageService:UserPageService,
-              public multilinguism: MultilinguismService,
-              private indexeddbaccessService: IndexeddbaccessService) { }
+  constructor(public boardService: BoardService,
+    public userPageService: UserPageService,
+    public multilinguism: MultilinguismService,
+    private indexeddbaccessService: IndexeddbaccessService) { }
 
   newGridModel = 'empty';
-  listOfGrid:string[] = [];
+  listOfGrid: string[] = [];
   nameGrid = "";
 
   ngOnInit(): void {
     this.listOfGrid = this.indexeddbaccessService.existingGrid();
   }
 
+  /**
+   * Creates a new grid corresponding to selected options (name and type). 
+   * If a grid already exists with the same name, not grid will be created and an error will be shown.
+   * @param newGrid Grid to be checked if already exists
+   */
   onSubmit(newGrid: NgForm) {
     const isExist = this.checkExistingGrid(newGrid);
-    if(isExist){
+    if (isExist) {
       alert('this name is already used');
-    }else{
-      if(this.newGridModel === 'default'){
+    } else {
+      if (this.newGridModel === 'default') {
         this.indexeddbaccessService.loadDefaultGrid();
-      }else if (this.newGridModel === 'empty'){
+      } else if (this.newGridModel === 'empty') {
         let page = new Page();
         page.ID = '#HOME';
         page.Name = 'Accueil';
@@ -55,12 +60,17 @@ export class DialogAddGridComponent implements OnInit {
         this.listOfGrid = this.indexeddbaccessService.existingGrid();
         this.boardService.updateElementList();
 
-      },200);
+      }, 200);
     }
 
   }
 
-  public checkExistingGrid(newGrid: NgForm):boolean {
+  /**
+   * Checks if the form in parameter has the same name as any existing grid
+   * @param newGrid form to be checked
+   * @returns true if a grid exists, false elsewise
+   */
+  public checkExistingGrid(newGrid: NgForm): boolean {
     const isExist = this.listOfGrid.findIndex((name) => {
       return name === newGrid.value['nameGrid'];
     });

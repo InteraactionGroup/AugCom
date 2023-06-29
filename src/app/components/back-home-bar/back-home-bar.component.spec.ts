@@ -1,12 +1,12 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {BackHomeBarComponent} from './back-home-bar.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {Ng2ImgMaxModule} from "ng2-img-max";
-import {Router} from "@angular/router";
-import {MatDialogModule} from '@angular/material/dialog';
-import {HttpClientModule} from "@angular/common/http";
+import { BackHomeBarComponent } from './back-home-bar.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Ng2ImgMaxModule } from "ng2-img-max";
+import { Router } from "@angular/router";
+import { MatDialogModule } from '@angular/material/dialog';
+import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('BackHomeBarComponent', () => {

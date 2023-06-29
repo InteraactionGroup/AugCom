@@ -1,4 +1,3 @@
-
 .tableTitle {
   border-top: black solid 1px;
   padding-top: 10px;
@@ -162,7 +161,8 @@
 }
 
 .pictoImg {
-  display: inline-flex;;
+  display: inline-flex;
+  ;
   cursor: pointer;
   height: 50px;
   box-sizing: border-box;

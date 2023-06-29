@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {BoardService} from '../../services/board.service';
-import {EditionService} from '../../services/edition.service';
-import {MatDialog} from '@angular/material/dialog';
-import {DialogDeletePageComponent} from '../dialog-delete-page/dialog-delete-page.component';
-import {MultilinguismService} from '../../services/multilinguism.service';
-import {LayoutService} from "../../services/layout.service";
+import { Component, OnInit } from '@angular/core';
+import { BoardService } from '../../services/board.service';
+import { EditionService } from '../../services/edition.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogDeletePageComponent } from '../dialog-delete-page/dialog-delete-page.component';
+import { MultilinguismService } from '../../services/multilinguism.service';
+import { LayoutService } from "../../services/layout.service";
 
 @Component({
   selector: 'app-delete-page',
@@ -14,15 +14,20 @@ import {LayoutService} from "../../services/layout.service";
 export class DeletePageComponent implements OnInit {
 
   constructor(public boardService: BoardService,
-              public editionService: EditionService,
-              public multilinguism: MultilinguismService,
-              public layoutService: LayoutService,
-              public dialog: MatDialog) {
+    public editionService: EditionService,
+    public multilinguism: MultilinguismService,
+    public layoutService: LayoutService,
+    public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
   }
 
+  
+  /**
+   * Opens a confirmation dialog to delete selected page.
+   * Deletion is not handled by this function, but by the component opened in the dialog.
+   */
   openDialog(): void {
     let dialogref = this.dialog.open(DialogDeletePageComponent, {
       height: '400px',

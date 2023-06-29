@@ -1,9 +1,9 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {ApplicationThemeComponent} from './application-theme.component';
-import {Ng2ImgMaxModule} from "ng2-img-max";
-import {Router} from "@angular/router";
-import {HttpClientModule} from "@angular/common/http";
+import { ApplicationThemeComponent } from './application-theme.component';
+import { Ng2ImgMaxModule } from "ng2-img-max";
+import { Router } from "@angular/router";
+import { HttpClientModule } from "@angular/common/http";
 import { MatMenuModule } from '@angular/material/menu';
 
 describe('ApplicationThemeComponent', () => {

@@ -1,7 +1,6 @@
 <div class="profileInfo width-100">
   <div class="profilePicContainer floatLeft">
-    <img class="img"
-         src="{{profilePicture}}">
+    <img class="img" src="{{profilePicture}}">
 
     <div class="timeLineSelectorDeleteContainer" (click)="resetPictureProfile()">
       <div class="TimeLineSelector">
@@ -22,7 +21,7 @@
     </label>
   </div>
   <input #file (change)="setProfilePicture(file.files)" onclick="this.value=null" type="file" id="image-profile"
-         accept='image/*' class="hidden"/>
+    accept='image/*' class="hidden" />
 
   <div class="centerText floatLeft">
     <div>
