@@ -31,6 +31,10 @@ export class DialogTextComponent implements OnInit {
     this.name = event.target.value;
   }
 
+  /**
+   * Creates a new vignette in the dialog bar
+   * A vignette contains all the mandatory informations for the word to correctly appear in the dialog bar's list 
+   */
   submit() {
     const vignette: Vignette = {
       Label: this.name,
@@ -41,6 +45,10 @@ export class DialogTextComponent implements OnInit {
     this.historicService.push(vignette);
   }
 
+  /**
+   * Creates a new vignette in the dialog bar using speech to text
+   * A vignette contains all the mandatory informations for the word to correctly appear in the dialog bar's list 
+   */
   submitFromSpeech() {
     const vignette: Vignette = {
       Label: this.voiceRecognition.voiceText,
@@ -51,6 +59,10 @@ export class DialogTextComponent implements OnInit {
     this.historicService.push(vignette);
   }
 
+  /**
+   * @param s the icon whose image is to be searched
+   * @returns The URL of the icon in parameter
+   */
   getIcon(s: string) {
     return this.getIconService.getIconUrl(s);
   }

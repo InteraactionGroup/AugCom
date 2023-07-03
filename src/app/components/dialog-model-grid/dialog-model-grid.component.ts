@@ -18,6 +18,9 @@ export class DialogModelGridComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Loads a page depending on the type chosen (default or empty)
+   */
   gridModelApplication() {
     if (this.boardService.gridModel === 'default') {
       this.indexDbAccessService.loadDefaultGrid();

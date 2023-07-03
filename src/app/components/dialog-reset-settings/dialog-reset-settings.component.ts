@@ -15,8 +15,10 @@ export class DialogResetSettingsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Resets the application's configuration back to its default state (see configurationService)
+   */
   resetConfig() {
     this.configurationService.setConfiguration(this.configurationService.getDefaultConfiguration());
-    //console.log('config reset', this.configurationService.getConfiguration());
   }
 }

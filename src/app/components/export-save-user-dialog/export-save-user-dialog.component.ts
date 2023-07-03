@@ -22,6 +22,10 @@ export class ExportSaveUserDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
+    /**
+   * Defines a temporary name for the file to be exported (without the extension part)
+   * Exports the file (an user)
+   */
   exportSave() {
     let tempName;
     if (this.name.endsWith(".json")) {

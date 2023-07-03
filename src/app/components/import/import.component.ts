@@ -179,7 +179,6 @@ export class ImportComponent implements OnInit {
     this.layoutService.refreshAll(this.boardService.board.NumberOfCols, this.boardService.board.NumberOfRows, this.boardService.board.GapSize);
     this.boardService.updateElementList();
     this.boardService.backHome();
-    console.log(this.boardService.board);
     this.indexedDBacess.update();
     this.router.navigate(['keyboard']);
   }
@@ -252,7 +251,6 @@ export class ImportComponent implements OnInit {
     const myFile = file[0];
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
-      console.log('fileReader.result : ', fileReader.result);
       const tempBoard = JSON.parse(fileReader.result.toString());
       tempBoard.ElementList.forEach(element => {
         this.checkAndUpdateElementDefaultForm(element);

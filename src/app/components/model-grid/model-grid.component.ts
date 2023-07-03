@@ -18,6 +18,9 @@ export class ModelGridComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Opens a dialog to load a page
+   */
   openDialog(): void {
     this.dialog.open(DialogModelGridComponent, {
       height: '20%',

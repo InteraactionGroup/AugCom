@@ -26,8 +26,6 @@ export class DialogGridOptionsComponent implements OnInit {
   ngOnInit(): void {
     try {
       this.listGridID = this.userPageService.currentUser.gridsID;
-      console.log(this.indexeddbaccessService.existingGrid());
-      console.log(this.listGridID);
     } catch (e) {
       this.listGridID = ['GridExample'];
     }

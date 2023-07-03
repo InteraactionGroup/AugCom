@@ -17,6 +17,9 @@ export class DialogResetGridComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Resets board to an empty state
+   */
   clearBoard() {
     const homePage: Page = new Page();
     homePage.ID = '#HOME';

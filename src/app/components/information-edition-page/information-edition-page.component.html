@@ -14,10 +14,12 @@
             type="radio" value="button">
           <label class="radio" for="radioButton">{{multilinguism.translate("button")}}</label>
           <p class="subtitle">{{ multilinguism.translate("buttonDescription") }}</p>
+
           <input [(ngModel)]="this.editionService.radioTypeFormat" id="radioFolder" name="typeFormat" type="radio"
             value="folder">
           <label class="radio" for="radioFolder">{{multilinguism.translate("folder")}}</label>
           <p class="subtitle">{{ multilinguism.translate("folderDescription") }}</p>
+
           <select class="selectBox" [(ngModel)]="this.editionService.pageLink"
             *ngIf="this.editionService.radioTypeFormat=='folder'" [ngModelOptions]="{standalone: true}">
             <option value="@NEW@">-{{multilinguism.translate("createNewPage")}}-</option>
@@ -25,6 +27,7 @@
               <option value="{{p.ID}}"> {{p.ID}} </option>
             </ng-container>
           </select>
+          
           <input type="text" [(ngModel)]="this.editionService.newPage"
             placeholder="{{multilinguism.translate('newPageID')}}"
             *ngIf="this.editionService.radioTypeFormat=='folder' && this.editionService.pageLink === '@NEW@'"

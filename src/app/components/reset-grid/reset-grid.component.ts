@@ -20,7 +20,9 @@ export class ResetGridComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
+  /**
+   * Opens a dialog to resets the board to an empty state
+   */
   openDialog(): void {
     this.dialog.open(DialogResetGridComponent, {
       height: '20%',

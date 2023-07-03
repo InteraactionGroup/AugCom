@@ -35,7 +35,7 @@ export class InformationEditionPageComponent implements OnInit {
   }
 
   /**
-   * return the icon url corresponding to the string s
+   * Returns the icon url corresponding to the string in parameter
    * @param s, the string identifying the icon
    * @return the icon url
    */
@@ -43,6 +43,9 @@ export class InformationEditionPageComponent implements OnInit {
     return this.getIconService.getIconUrl(s);
   }
 
+  /**
+   * Changes the current element's name to the one corresponding to the event
+   */
   getName(event) {
     this.name = event.target.value;
     this.editionService.name = this.name;

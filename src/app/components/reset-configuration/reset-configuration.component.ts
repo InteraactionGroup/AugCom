@@ -20,6 +20,9 @@ export class ResetConfigurationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Opens a dialog to reset the application's configuration back to its default state (see configurationService)
+   */
   openDialog(): void {
     this.dialog.open(DialogResetSettingsComponent, {
       height: '200px',

@@ -31,6 +31,10 @@ export class DwellCursorComponent implements OnInit {
 
   }
 
+  /**
+   * Checks if the progress indicator if visible or not
+   * @returns 1 if so, 0 else
+   */
   public getCursorOpacity() {
     return (this.configurationService.DWELL_TIME_ENABLED && this.dwellCursorService.visible && this.dwellCursorService.started) ? '1' : '0'
   }

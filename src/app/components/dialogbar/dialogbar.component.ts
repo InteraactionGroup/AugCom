@@ -28,12 +28,13 @@ export class DialogbarComponent implements OnInit {
   }
 
   public dwellTimer;
+
+  //Used for css positioning purposes
   iconSize = Number(this.configurationService.SIZE_ICON_VALUE);
   marginSize = this.iconSize / 8;
 
   /**
    * Return the icon url corresponding to the string s
-   *
    * @param  s, a string corresponding to the name of the icon
    * @return  Icon Url
    */
@@ -42,14 +43,16 @@ export class DialogbarComponent implements OnInit {
   }
 
   /**
-   * delete the history of the dialogue bar and display the default words
-   *
+   * Deletes the history of the dialog bar
    */
   clear() {
     this.historicService.clearHistoric();
     this.boardService.resetTerminaisons();
   }
 
+  /**
+   * Triggered when the cursor exits the boundaries of an item to cancel the selection by focus
+   */
   exit() {
     if (this.configurationService.DWELL_TIME_ENABLED) {
       this.dwellCursorService.stop();
@@ -57,6 +60,9 @@ export class DialogbarComponent implements OnInit {
     }
   }
 
+  /**
+   * Clears the dialog bar's history after the dwellTimer is complete
+   */
   enterAndClear(event: PointerEvent) {
     if (this.configurationService.DWELL_TIME_ENABLED) {
       this.dwellCursorService.updatePositionHTMLElement((<HTMLElement>event.target));
@@ -67,6 +73,9 @@ export class DialogbarComponent implements OnInit {
     }
   }
 
+  /**
+   * Pronounces the dialog bar's history after the dwellTimer is complete
+   */
   enterAndPlay(event: PointerEvent) {
     if (this.configurationService.DWELL_TIME_ENABLED) {
       this.dwellCursorService.updatePositionHTMLElement((<HTMLElement>event.target));
@@ -77,6 +86,9 @@ export class DialogbarComponent implements OnInit {
     }
   }
 
+  /**
+   * Deletes the last word from dialog bar's history after the dwellTimer is complete
+   */
   enterAndBack(event: PointerEvent) {
     if (this.configurationService.DWELL_TIME_ENABLED) {
       this.dwellCursorService.updatePositionHTMLElement((<HTMLElement>event.target));
@@ -87,6 +99,10 @@ export class DialogbarComponent implements OnInit {
     }
   }
 
+/**
+ * Pronounces the text in parameter after the dwellTimer is complete
+ * @param text text to be pronounced
+ */
   enterToSay(event: PointerEvent, text) {
     if (this.configurationService.DWELL_TIME_ENABLED) {
       this.dwellCursorService.updatePositionHTMLElement((<HTMLElement>event.target));
@@ -97,6 +113,9 @@ export class DialogbarComponent implements OnInit {
     }
   }
 
+  /**
+   * Opens a dialog to add a custom word to the dialog bar's history (from a text input or a speech to text)
+   */  
   openDialog(): void {
     this.dialog.open(DialogTextComponent, {
       width: '600px'

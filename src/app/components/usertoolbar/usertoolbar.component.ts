@@ -134,6 +134,9 @@ export class UsertoolbarComponent implements OnInit {
 
   }
 
+  /**
+   * Opens a dialog that will allow user to create, delete, import or load a grid
+   */
   openGridOptions(): void {
     this.dialog.open(DialogGridOptionsComponent, {
       height: 'fit-content',
@@ -141,6 +144,9 @@ export class UsertoolbarComponent implements OnInit {
     });
   }
 
+  /**
+   * Cancels all ongoing timer when cursor leaves the boundaries of the element that triggered the function (note : only applies to back buttons if dwellTime is activated)
+   */
   exit() {
     if (this.configurationService.DWELL_TIME_ENABLED) {
       this.dwellCursorService.stop();
@@ -148,6 +154,9 @@ export class UsertoolbarComponent implements OnInit {
     }
   }
 
+   /**
+   * If dwellTime is activated, starts a timer that will select the tile after completion (note : only applies to back buttons if dwellTime is activated)
+   */
   enter(event) {
     if (this.configurationService.DWELL_TIME_ENABLED) {
       this.dwellCursorService.updatePositionHTMLElement((<HTMLElement>event.target));
@@ -192,6 +201,9 @@ export class UsertoolbarComponent implements OnInit {
     }
   }
 
+  /**
+   * Leaves current page and sends user to the logging screen
+   */
   logout() {
     this.boardService.backHome();
     this.router.navigate(['logging']);
@@ -200,6 +212,9 @@ export class UsertoolbarComponent implements OnInit {
     localStorage.removeItem('image');
   }
 
+  /**
+   * Opens a dialog with a full tutorial of the application
+   */
   openDialog(): void {
     this.dialog.open(DialogHelpComponent, {
       height: 'fit-content',
@@ -207,17 +222,16 @@ export class UsertoolbarComponent implements OnInit {
     });
   }
 
+  /**
+   * Opens a confirmation dialog before the user leaves the application
+   */
   exitSoftware(): void {
     this.dialog.open(DialogLogoutAppComponent);
   }
 
-  newGrid(): void {
-    this.dialog.open(DialogAddGridComponent, {
-      height: 'fit-content',
-      width: 'fit-content'
-    });
-  }
-
+  /**
+   * Toggles the dwellTime selection
+   */
   toggleFocus() {
     this.configurationService.DWELL_TIME_ENABLED = !this.configurationService.DWELL_TIME_ENABLED;
     this.indexedDBacess.updateConfig();

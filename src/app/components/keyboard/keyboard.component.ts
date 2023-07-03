@@ -53,6 +53,10 @@ export class KeyboardComponent implements OnInit {
     this.margins = Number(this.configurationService.SIZE_ICON_VALUE) / 60;
   }
 
+  /**
+   * Adds or removes a column from the current board
+   * Number of columns is capped between 1 and 50
+   */
   onKeyCols(event: any) {
     if (+event.target.value >= 1 && +event.target.value <= 50) {
       const currentPage: Page = this.boardService.currentPage();
@@ -68,6 +72,10 @@ export class KeyboardComponent implements OnInit {
     }
   }
 
+  /**
+   *Adds or removes a row from the current board
+   * Number of rows is capped between 1 and 50
+   */
   onKeyRows(event: any) {
     if (+event.target.value >= 1 && +event.target.value <= 50) {
       const currentPage: Page = this.boardService.currentPage();
@@ -83,6 +91,10 @@ export class KeyboardComponent implements OnInit {
     }
   }
 
+  /**
+   * Increases or decreases the distance between each row and column of the current board
+   * Gap is capped between 1 and 50
+   */
   onKeyGap(event: any) {
     if (+event.target.value >= 1 && +event.target.value <= 50) {
       const currentPage: Page = this.boardService.currentPage();
@@ -272,6 +284,9 @@ export class KeyboardComponent implements OnInit {
     }
   }
 
+  /**
+   * Adds a new element to the board with the default informations of the edition service
+   */
   addNewElement() {
     this.editionService.add = true;
     this.editionService.clearEditionPane();

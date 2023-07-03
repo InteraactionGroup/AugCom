@@ -31,6 +31,10 @@ export class DialogExportPagesComponent implements OnInit {
   gridElementOfPage: GridElement[] = [];
   imageListOfPage: Image[] = [];
 
+  /**
+   * Prepares and export selected page(s). Format of the export is not managed by this function (see below)
+   * @param selected page(s) to be exported
+   */
   exportPage(selected: MatListOption[]) {
     selected.forEach((page) => {
       this.pageIDToExport = page.value;
@@ -47,6 +51,10 @@ export class DialogExportPagesComponent implements OnInit {
     this.downloadFile(JSON.stringify(exportedGrid));
   }
 
+  /**
+   * Opens a dialog to set up and confirm the export of the page in parameter
+   * @param data page to be exported
+   */
   downloadFile(data: string) {
     this.exportManagerService.prepareExport(data);
     this.dialog.open(ExportSaveDialogComponent, {
@@ -54,6 +62,9 @@ export class DialogExportPagesComponent implements OnInit {
     });
   }
 
+  /**
+   * Prepares the current "pageToExport"'s informations to be exported
+   */
   exportThisPageOnly() {
     this.pageToExport = this.boardService.board.PageList.find((page) => { return page.ID === this.pageIDToExport });
     this.pageToExport.ElementIDsList.forEach((gridElem) => {

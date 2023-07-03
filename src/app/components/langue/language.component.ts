@@ -20,14 +20,16 @@ export class LanguageComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Sets the language of configuraion service to be english or french
+   */
   translate() {
     this.configurationService.LANGUAGE_VALUE = (this.configurationService.LANGUAGE_VALUE === 'FR' ? 'EN' : 'FR');
-    console.log(this.configurationService.LANGUAGE_VALUE)
   }
 
 
   /**
-   * return the icon url corresponding to the string s
+   * return the icon url corresponding to the string in parameter
    * @param s, the string identifying the icon
    * @return the icon url
    */

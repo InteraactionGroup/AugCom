@@ -56,6 +56,9 @@ export class TileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
+  /**
+   * On destroy, cancels any ongoing timer to make sure element is not selected after it's disapearance
+   */
   ngOnDestroy(): void {
     clearTimeout(this.dwellTimer);
     this.dwellCursorService.stop();
@@ -69,6 +72,9 @@ export class TileComponent implements OnInit, OnDestroy {
     }, this.configurationService.LONGPRESS_TIMEOUT_VALUE);
   }
 
+  /**
+   * Cancels any ongoing timer when cursor exits the tile's boundaries (function is only relevant when dwellTime is activated)
+   */
   exit() {
     if (this.configurationService.DWELL_TIME_ENABLED && !this.userToolBarService.edit) {
       this.dwellCursorService.stop();
@@ -76,6 +82,9 @@ export class TileComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * If dwellTime is activated, starts a timer that will select the tile after completion (function is only relevant when dwellTime is activated)
+   */
   enter(event, element) {
     if (this.configurationService.DWELL_TIME_ENABLED && this.canBeFocused() && !this.userToolBarService.edit) {
       this.dwellCursorService.updatePositionHTMLElement((<HTMLElement>event.target));

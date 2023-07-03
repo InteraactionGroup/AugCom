@@ -18,6 +18,9 @@ export class GridFormatManagementComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Adds or removes a column from the current board
+   */
   onKeyCols(event: any) {
     if (+event.target.value >= 1) {
       this.boardService.board.NumberOfCols = +event.target.value;
@@ -25,6 +28,9 @@ export class GridFormatManagementComponent implements OnInit {
     }
   }
 
+  /**
+   * Adds or removes a row from the current board
+   */
   onKeyRows(event: any) {
     if (+event.target.value >= 1) {
       this.boardService.board.NumberOfRows = +event.target.value;
@@ -32,6 +38,9 @@ export class GridFormatManagementComponent implements OnInit {
     }
   }
 
+  /**
+   * Increases or decreases the distance between each row and column of the current board
+   */
   onKeyGap(event: any) {
     if (+event.target.value >= 1) {
       this.boardService.board.GapSize = +event.target.value;

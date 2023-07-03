@@ -43,18 +43,6 @@ export class ImportUserComponent implements OnInit {
   useUserAugcomZip(contentZip: any) {
     let userToBeImported;
     userToBeImported = JSON.parse(this.b64DecodeUnicode(contentZip));
-    console.log('userToBeImported : ', userToBeImported);
-    /*
-    tempBoard.ElementList.forEach(element => {
-      this.checkAndUpdateElementDefaultForm(element);
-    });
-    this.boardService.board = this.jsonValidator.getCheckedGrid(tempBoard);
-    this.layoutService.refreshAll(this.boardService.board.NumberOfCols, this.boardService.board.NumberOfRows, this.boardService.board.GapSize);
-    this.boardService.updateElementList();
-    this.boardService.backHome();
-    console.log(this.boardService.board);
-    this.indexedDBacess.update();
-     */
     this.indexedDBacess.importUserInDatabase(userToBeImported);
     this.router.navigate(['logging']);
   }

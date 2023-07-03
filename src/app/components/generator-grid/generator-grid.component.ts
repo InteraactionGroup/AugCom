@@ -57,7 +57,6 @@ export class GeneratorGridComponent implements OnInit {
   }
 
   clearActualGrid() {
-
     const generatedPage: Page = new Page();
     generatedPage.ID = '#HOME';
     generatedPage.Name = this.nameGrid;

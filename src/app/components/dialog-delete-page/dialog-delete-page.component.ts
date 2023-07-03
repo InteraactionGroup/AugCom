@@ -21,10 +21,16 @@ export class DialogDeletePageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * @returns all the pages of the current board, except the home page
+   */
   getPageList() {
     return this.boardService.board.PageList.filter(page => { return page.ID !== '#HOME' });
   }
 
+  /**
+   * @param pages page(s) to be deleted
+   */
   deletePages(pages: MatListOption[]) {
     const pagefilter = [];
     pages.forEach(pa => pagefilter.push(String(pa.value)));
@@ -33,6 +39,10 @@ export class DialogDeletePageComponent implements OnInit {
     this.boardService.backHome();
   }
 
+  /**
+   * Del=etes all links leading to the page in parameter
+   * @param page page to be deleted
+   */
   deleteLinks(page: string) {
     this.boardService.board.ElementList.forEach(elem => {
       if ((elem.Type as FolderGoTo).GoTo === page) {
@@ -41,6 +51,10 @@ export class DialogDeletePageComponent implements OnInit {
     });
   }
 
+  /**
+   * Changes current page to the one in parameter
+   * @param page page to show
+   */
   async preview(page: Page) {
     this.layoutService.isPreview = true;
     this.boardService.currentPath = '#HOME.' + page.ID;
@@ -51,6 +65,10 @@ export class DialogDeletePageComponent implements OnInit {
     this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
   }
 
+  /**
+   * Sleep function
+   * @param ms time to sleep in milliseconds
+   */
   delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
