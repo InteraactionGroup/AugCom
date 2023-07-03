@@ -1,11 +1,11 @@
-import {Component, NgZone, OnInit} from '@angular/core';
-import {HistoricService} from "../../services/historic.service";
-import {GridElement, Vignette} from "../../types";
-import {MultilinguismService} from "../../services/multilinguism.service";
-import {ConfigurationService} from "../../services/configuration.service";
-import {UsertoolbarService} from "../../services/usertoolbar.service";
-import {GeticonService} from "../../services/geticon.service";
-import {VoiceRecognitionService} from "../../services/voice-recognition.service";
+import { Component, NgZone, OnInit } from '@angular/core';
+import { HistoricService } from "../../services/historic.service";
+import { GridElement, Vignette } from "../../types";
+import { MultilinguismService } from "../../services/multilinguism.service";
+import { ConfigurationService } from "../../services/configuration.service";
+import { UsertoolbarService } from "../../services/usertoolbar.service";
+import { GeticonService } from "../../services/geticon.service";
+import { VoiceRecognitionService } from "../../services/voice-recognition.service";
 
 declare const annyang: any;
 
@@ -18,16 +18,16 @@ export class DialogTextComponent implements OnInit {
   private name: any;
 
   constructor(private historicService: HistoricService,
-              public multilinguism: MultilinguismService,
-              public getIconService: GeticonService,
-              public userToolBarService: UsertoolbarService,
-              public voiceRecognition: VoiceRecognitionService) { }
+    public multilinguism: MultilinguismService,
+    public getIconService: GeticonService,
+    public userToolBarService: UsertoolbarService,
+    public voiceRecognition: VoiceRecognitionService) { }
 
   ngOnInit(): void {
     this.voiceRecognition.changeLanguage();
   }
 
-  getNameUser(event){
+  getNameUser(event) {
     this.name = event.target.value;
   }
 

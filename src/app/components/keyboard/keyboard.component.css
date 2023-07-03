@@ -64,7 +64,7 @@
 
 .editionSettings .gridSettings {
   float: right;
-  width: calc( 40px * 6 + 5px);
+  width: calc(40px * 6 + 5px);
   height: 100%;
   margin: 0 0 0 0;
   padding: 0 0 0 0;
@@ -100,7 +100,7 @@ app-usertoolbar {
 .layout {
   position: relative;
   overflow: visible;
-  
+
   z-index: 1;
 }
 
@@ -236,7 +236,7 @@ app-usertoolbar {
   background-size: contain;
   background-position: center;
   align-items: center;
-} 
+}
 
 .small {
   width: 120px;
@@ -246,7 +246,8 @@ app-usertoolbar {
   width: 240px;
 }
 
-.selectCheckBox .tooltiptext, .editSettingsButton .tooltiptext {
+.selectCheckBox .tooltiptext,
+.editSettingsButton .tooltiptext {
   visibility: hidden;
   background-color: rgba(0, 0, 0, 1);
   color: #fff;
@@ -259,7 +260,8 @@ app-usertoolbar {
   z-index: 5;
 }
 
-.selectCheckBox:hover .tooltiptext, .editSettingsButton:hover .tooltiptext {
+.selectCheckBox:hover .tooltiptext,
+.editSettingsButton:hover .tooltiptext {
   visibility: visible;
   cursor: pointer;
 }

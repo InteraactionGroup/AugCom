@@ -1,31 +1,31 @@
 <div class="dialogContent">
   <div style="display: flex; flex-wrap: nowrap; align-items: center; color: lightgray;">
     {{this.multilinguism.translate('author')}}
-    <input [(ngModel)]="this.author" maxlength="32" placeholder="{{this.multilinguism.translate('EnterNameOfTheAuthor')}}" style="width: 100%"
-           type="textfield">
+    <input [(ngModel)]="this.author" maxlength="32"
+      placeholder="{{this.multilinguism.translate('EnterNameOfTheAuthor')}}" style="width: 100%" type="textfield">
   </div>
 
   <div style="display: flex; flex-wrap: nowrap; align-items: center; color: lightgray;">
     {{this.multilinguism.translate('owner')}}
-    <input [(ngModel)]="this.owner" maxlength="32" placeholder="{{this.multilinguism.translate('EnterNameOfTheOwner')}}" style="width: 100%"
-           type="textfield">
+    <input [(ngModel)]="this.owner" maxlength="32" placeholder="{{this.multilinguism.translate('EnterNameOfTheOwner')}}"
+      style="width: 100%" type="textfield">
   </div>
 
   <div style="display: flex; flex-wrap: nowrap; align-items: center; color: lightgray;">
     {{this.multilinguism.translate('translators')}}
-    <input [(ngModel)]="this.translators" maxlength="32" placeholder="{{this.multilinguism.translate('EnterNameOfTheTranslators')}}" style="width: 100%"
-           type="textfield">
+    <input [(ngModel)]="this.translators" maxlength="32"
+      placeholder="{{this.multilinguism.translate('EnterNameOfTheTranslators')}}" style="width: 100%" type="textfield">
   </div>
 
   <div style="display: flex; flex-wrap: nowrap; align-items: center; color: lightgray;">
     {{this.multilinguism.translate('licence')}}
-    <input [(ngModel)]="this.licence" maxlength="32" placeholder="{{this.multilinguism.translate('EnterALicence')}}" style="width: 100%"
-         type="textfield">
+    <input [(ngModel)]="this.licence" maxlength="32" placeholder="{{this.multilinguism.translate('EnterALicence')}}"
+      style="width: 100%" type="textfield">
   </div>
 
   <div style="display: flex; flex-wrap: nowrap; align-items: center; color: lightgray;">
-    <input [(ngModel)]="this.name" maxlength="32" placeholder="{{this.multilinguism.translate('EnterNameOfTheSave')}}" style="width: 100%"
-           type="textfield">.augcom
+    <input [(ngModel)]="this.name" maxlength="32" placeholder="{{this.multilinguism.translate('EnterNameOfTheSave')}}"
+      style="width: 100%" type="textfield">.augcom
   </div>
 
   <input (click)="this.exportSave()" type="button" value="{{this.multilinguism.translate('validate')}}">

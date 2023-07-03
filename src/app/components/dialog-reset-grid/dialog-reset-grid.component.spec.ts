@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DialogResetGridComponent } from './dialog-reset-grid.component';
-import {Ng2ImgMaxModule} from "ng2-img-max";
-import {Router} from "@angular/router";
-import {HttpClientModule} from "@angular/common/http";
+import { Ng2ImgMaxModule } from "ng2-img-max";
+import { Router } from "@angular/router";
+import { HttpClientModule } from "@angular/common/http";
 
 describe('DialogResetGridComponent', () => {
   let component: DialogResetGridComponent;
@@ -11,7 +11,7 @@ describe('DialogResetGridComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DialogResetGridComponent ],
+      declarations: [DialogResetGridComponent],
       imports: [Ng2ImgMaxModule, HttpClientModule],
       providers: [{
         provide: Router, useClass: class {
@@ -19,7 +19,7 @@ describe('DialogResetGridComponent', () => {
         }
       }]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

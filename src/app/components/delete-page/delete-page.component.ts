@@ -23,7 +23,7 @@ export class DeletePageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  
+
   /**
    * Opens a confirmation dialog to delete selected page.
    * Deletion is not handled by this function, but by the component opened in the dialog.

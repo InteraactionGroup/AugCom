@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -63,16 +63,16 @@ export class StyleService {
     }
   }
 
-  updateSizeFont(size: string){
+  updateSizeFont(size: string) {
     const root = document.body;
     if (root !== null) {
       root.style.setProperty('--main-size-font', size);
     }
   }
 
-  updateIconSize(size: string){
+  updateIconSize(size: string) {
     const root = document.body;
-    if (root != null){
+    if (root != null) {
       root.style.setProperty("--iconSize", size);
     }
   }

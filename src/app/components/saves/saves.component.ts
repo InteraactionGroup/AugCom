@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {BoardService} from '../../services/board.service';
-import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {Ng2ImgMaxService} from 'ng2-img-max';
-import {MultilinguismService} from '../../services/multilinguism.service';
+import { Component, OnInit } from '@angular/core';
+import { BoardService } from '../../services/board.service';
+import { IndexeddbaccessService } from '../../services/indexeddbaccess.service';
+import { Ng2ImgMaxService } from 'ng2-img-max';
+import { MultilinguismService } from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-saves',
@@ -13,8 +13,8 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 export class SavesComponent implements OnInit {
 
   constructor(public multilinguism: MultilinguismService,
-              public boardService: BoardService,
-              public indexeddbaccessService: IndexeddbaccessService) {
+    public boardService: BoardService,
+    public indexeddbaccessService: IndexeddbaccessService) {
   }
 
   ngOnInit() {

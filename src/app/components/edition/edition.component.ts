@@ -1,20 +1,20 @@
-import {Component, OnInit} from '@angular/core';
-import {DbnaryService} from '../../services/dbnary.service';
-import {BoardService} from '../../services/board.service';
-import {GeticonService} from '../../services/geticon.service';
-import {DomSanitizer} from '@angular/platform-browser';
-import {FolderGoTo, GridElement, Interaction, Page} from '../../types';
-import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {Router} from '@angular/router';
-import {PaletteService} from '../../services/palette.service';
-import {EditionService} from '../../services/edition.service';
-import {Ng2ImgMaxService} from 'ng2-img-max';
-import {HttpClient} from '@angular/common/http';
-import {MultilinguismService} from '../../services/multilinguism.service';
-import {FunctionsService} from '../../services/functions.service';
-import {GridElementService} from '../../services/grid-element.service';
-import {LayoutService} from "../../services/layout.service";
-import {ConfigurationService} from "../../services/configuration.service";
+import { Component, OnInit } from '@angular/core';
+import { DbnaryService } from '../../services/dbnary.service';
+import { BoardService } from '../../services/board.service';
+import { GeticonService } from '../../services/geticon.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { FolderGoTo, GridElement, Interaction, Page } from '../../types';
+import { IndexeddbaccessService } from '../../services/indexeddbaccess.service';
+import { Router } from '@angular/router';
+import { PaletteService } from '../../services/palette.service';
+import { EditionService } from '../../services/edition.service';
+import { Ng2ImgMaxService } from 'ng2-img-max';
+import { HttpClient } from '@angular/common/http';
+import { MultilinguismService } from '../../services/multilinguism.service';
+import { FunctionsService } from '../../services/functions.service';
+import { GridElementService } from '../../services/grid-element.service';
+import { LayoutService } from "../../services/layout.service";
+import { ConfigurationService } from "../../services/configuration.service";
 
 import { ComponentCanDeactivate } from 'src/app/services/pending-changes-guard.service';
 import { Observable } from 'rxjs';
@@ -26,32 +26,32 @@ import { Observable } from 'rxjs';
   providers: [Ng2ImgMaxService, HttpClient]
 })
 export class EditionComponent implements OnInit, ComponentCanDeactivate {
-    canDeactivate(): Observable<boolean> | boolean | Promise<boolean> {
-      if(this.isInitialState()){
-        return true;
-      } else {
-        return new Promise((resolve, reject) => {
-          // Implement your guard logic here
-          // For example, prompt the user before leaving the route
-          const confirmation = confirm(this.multilinguism.translate('warningQuit'));
-          resolve(confirmation);
-        });
-      }
+  canDeactivate(): Observable<boolean> | boolean | Promise<boolean> {
+    if (this.isInitialState()) {
+      return true;
+    } else {
+      return new Promise((resolve, reject) => {
+        // Implement your guard logic here
+        // For example, prompt the user before leaving the route
+        const confirmation = confirm(this.multilinguism.translate('warningQuit'));
+        resolve(confirmation);
+      });
     }
-  
+  }
+
 
 
   nameEmpty = false;
   initialEditionState; initialdbnaryState;
   popstateFired = false;
 
-  constructor(public editionService: EditionService, public  paletteService: PaletteService,
-              public router: Router, public multilinguism: MultilinguismService,
-              public indexedDBacess: IndexeddbaccessService, public functionsService: FunctionsService,
-              public sanitizer: DomSanitizer, public getIconService: GeticonService,
-              public dbnaryService: DbnaryService, public boardService: BoardService,
-              public  gridElementService: GridElementService, public layoutService: LayoutService,
-              public configuration: ConfigurationService) {
+  constructor(public editionService: EditionService, public paletteService: PaletteService,
+    public router: Router, public multilinguism: MultilinguismService,
+    public indexedDBacess: IndexeddbaccessService, public functionsService: FunctionsService,
+    public sanitizer: DomSanitizer, public getIconService: GeticonService,
+    public dbnaryService: DbnaryService, public boardService: BoardService,
+    public gridElementService: GridElementService, public layoutService: LayoutService,
+    public configuration: ConfigurationService) {
 
   }
 
@@ -66,10 +66,10 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
         this.updateModifications();
       }
     });
-    if(this.editionService.defaultBorderColor != undefined){
+    if (this.editionService.defaultBorderColor != undefined) {
       this.editionService.curentBorderColor = this.editionService.defaultBorderColor;
     }
-    if(this.editionService.defaultInsideColor != undefined){
+    if (this.editionService.defaultInsideColor != undefined) {
       this.editionService.curentColor = this.editionService.defaultInsideColor;
     }
   }
@@ -110,8 +110,8 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
    *
    */
   async save() {
-    if (this.editionService.name != ""){
-      if (this.editionService.newPage == ""){
+    if (this.editionService.name != "") {
+      if (this.editionService.newPage == "") {
         this.editionService.newPage = this.editionService.name;
       }
       if (this.editionService.add) {
@@ -125,7 +125,7 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
       this.indexedDBacess.update();
       this.initialEditionState = Object.assign({}, this.editionService);
       this.initialdbnaryState = Object.assign({}, this.dbnaryService);
-    }else {
+    } else {
       this.nameEmpty = true;
     }
   }
@@ -157,7 +157,7 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
           {
             DisplayedText: this.editionService.name,
             VoiceText: this.editionService.name,
-            LexicInfos: [{default: true}],
+            LexicInfos: [{ default: true }],
             ImageID: elt.ElementFormsList[0].ImageID
           }
         );
@@ -261,7 +261,7 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
       {
         DisplayedText: this.editionService.name,
         VoiceText: this.editionService.name,
-        LexicInfos: [{default: true}],
+        LexicInfos: [{ default: true }],
         ImageID: tempId
       }
     );

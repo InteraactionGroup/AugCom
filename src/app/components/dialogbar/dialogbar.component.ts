@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {HistoricService} from '../../services/historic.service';
-import {GeticonService} from '../../services/geticon.service';
-import {BoardService} from '../../services/board.service';
-import {Ng2ImgMaxService} from 'ng2-img-max';
-import {DwellCursorService} from "../../services/dwell-cursor.service";
-import {ConfigurationService} from "../../services/configuration.service";
-import {DialogTextComponent} from "../dialog-text/dialog-text.component";
-import {MatDialog} from "@angular/material/dialog";
+import { Component, OnInit } from '@angular/core';
+import { HistoricService } from '../../services/historic.service';
+import { GeticonService } from '../../services/geticon.service';
+import { BoardService } from '../../services/board.service';
+import { Ng2ImgMaxService } from 'ng2-img-max';
+import { DwellCursorService } from "../../services/dwell-cursor.service";
+import { ConfigurationService } from "../../services/configuration.service";
+import { DialogTextComponent } from "../dialog-text/dialog-text.component";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   selector: 'app-dialogbar',
@@ -17,11 +17,11 @@ import {MatDialog} from "@angular/material/dialog";
 export class DialogbarComponent implements OnInit {
 
   constructor(public getIconService: GeticonService,
-              public boardService: BoardService,
-              public historicService: HistoricService,
-              public dwellCursorService: DwellCursorService,
-              public configurationService: ConfigurationService,
-              public dialog: MatDialog) {
+    public boardService: BoardService,
+    public historicService: HistoricService,
+    public dwellCursorService: DwellCursorService,
+    public configurationService: ConfigurationService,
+    public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -29,7 +29,7 @@ export class DialogbarComponent implements OnInit {
 
   public dwellTimer;
   iconSize = Number(this.configurationService.SIZE_ICON_VALUE);
-  marginSize = this.iconSize/8;
+  marginSize = this.iconSize / 8;
 
   /**
    * Return the icon url corresponding to the string s
@@ -87,7 +87,7 @@ export class DialogbarComponent implements OnInit {
     }
   }
 
-  enterToSay(event: PointerEvent,text) {
+  enterToSay(event: PointerEvent, text) {
     if (this.configurationService.DWELL_TIME_ENABLED) {
       this.dwellCursorService.updatePositionHTMLElement((<HTMLElement>event.target));
       this.dwellCursorService.playToMax(this.configurationService.DWELL_TIME_TIMEOUT_VALUE);

@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {BoardService} from '../../services/board.service';
-import {LayoutService} from '../../services/layout.service';
-import {MultilinguismService} from "../../services/multilinguism.service";
+import { Component, OnInit } from '@angular/core';
+import { BoardService } from '../../services/board.service';
+import { LayoutService } from '../../services/layout.service';
+import { MultilinguismService } from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-grid-format-management',
@@ -10,9 +10,9 @@ import {MultilinguismService} from "../../services/multilinguism.service";
 })
 export class GridFormatManagementComponent implements OnInit {
 
-  constructor(public  boardService: BoardService,
-              public layoutService: LayoutService,
-              public multilinguismService: MultilinguismService) {
+  constructor(public boardService: BoardService,
+    public layoutService: LayoutService,
+    public multilinguismService: MultilinguismService) {
   }
 
   ngOnInit(): void {

@@ -232,7 +232,7 @@
   width: 100%;
 }
 
-.messageError{
+.messageError {
   color: red;
   margin-left: calc(40% - 10px);
 }

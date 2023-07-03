@@ -1,7 +1,7 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {SnapBarService} from './snap-bar.service';
-import {FormsModule} from '@angular/forms';
+import { SnapBarService } from './snap-bar.service';
+import { FormsModule } from '@angular/forms';
 
 describe('SnapBarService', () => {
   beforeEach(() => TestBed.configureTestingModule({

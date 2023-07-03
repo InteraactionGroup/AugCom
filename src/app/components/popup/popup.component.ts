@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {UsertoolbarService} from '../../services/usertoolbar.service';
-import {BoardService} from '../../services/board.service';
-import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {EditionService} from '../../services/edition.service';
-import {Ng2ImgMaxService} from 'ng2-img-max';
-import {MultilinguismService} from '../../services/multilinguism.service';
+import { Component, OnInit } from '@angular/core';
+import { UsertoolbarService } from '../../services/usertoolbar.service';
+import { BoardService } from '../../services/board.service';
+import { IndexeddbaccessService } from '../../services/indexeddbaccess.service';
+import { EditionService } from '../../services/edition.service';
+import { Ng2ImgMaxService } from 'ng2-img-max';
+import { MultilinguismService } from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-popup',
@@ -20,8 +20,8 @@ export class PopupComponent implements OnInit {
    */
 
   constructor(public editionService: EditionService, public indexedDBacess: IndexeddbaccessService,
-              public boardService: BoardService, public userToolBarService: UsertoolbarService,
-              public multilinguism: MultilinguismService) {
+    public boardService: BoardService, public userToolBarService: UsertoolbarService,
+    public multilinguism: MultilinguismService) {
   }
 
   ngOnInit() {

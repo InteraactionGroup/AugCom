@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {BoardService} from "../../services/board.service";
-import {Grid, Page} from "../../types";
-import {DialogResetGridComponent} from "../dialog-reset-grid/dialog-reset-grid.component";
-import {MatDialog} from "@angular/material/dialog";
-import {MultilinguismService} from "../../services/multilinguism.service";
+import { BoardService } from "../../services/board.service";
+import { Grid, Page } from "../../types";
+import { DialogResetGridComponent } from "../dialog-reset-grid/dialog-reset-grid.component";
+import { MatDialog } from "@angular/material/dialog";
+import { MultilinguismService } from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-reset-grid',

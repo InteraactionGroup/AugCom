@@ -1,48 +1,49 @@
 <div class="export width-100">
-    <div class="exportPanel">
+  <div class="exportPanel">
 
-        <div class="export listElement">
-            <button mat-raised-button (click)="openDialogExportPages()">{{this.multilinguism.translate("exportPage")}}</button>
-          </div>
-      
-          <div class="export listElement">
-            <label>
-              {{this.multilinguism.translate("exportPageAndItsSubset") + ":"}}
-            </label>
-            <select (change)="exportPageWithSubset()" class="selectBox" [(ngModel)]="pageIDToExport"
-                    [ngModelOptions]="{standalone: true}">
-              <ng-container *ngFor="let p of this.boardService.board.PageList">
-                <option value="{{p.ID}}"> {{p.ID}} </option>
-              </ng-container>
-            </select>
-          </div>
-      
-          <div class="export listElement">
-            <label>
-              {{this.multilinguism.translate("exportSave") + ":"}}
-            </label>
-            <input (click)="export()" type="button" value="Export">
-          </div>
-      
-          <div class="export listElement">
-            <label>
-              {{this.multilinguism.translate("exportUser") + ":"}}
-            </label>
-            <input (click)="exportUser()" type="button" value="Export">
-          </div>
-      
-          <div class="export listElement">
-            <label>
-              {{this.multilinguism.translate("exportPDF") + ":"}}
-            </label>
-            <input (click)="this.printToPDF()" type="button" value="Export">
-          </div>
-      
-          <div class="export listElement">
-            <label>
-              {{this.multilinguism.translate("exportTreeStructureAugCom") + ":"}}
-            </label>
-            <input (click)="exportTreeStructure()" type="button" value="Export">
-          </div>
-        </div>
-      </div>
+    <div class="export listElement">
+      <button mat-raised-button
+        (click)="openDialogExportPages()">{{this.multilinguism.translate("exportPage")}}</button>
+    </div>
+
+    <div class="export listElement">
+      <label>
+        {{this.multilinguism.translate("exportPageAndItsSubset") + ":"}}
+      </label>
+      <select (change)="exportPageWithSubset()" class="selectBox" [(ngModel)]="pageIDToExport"
+        [ngModelOptions]="{standalone: true}">
+        <ng-container *ngFor="let p of this.boardService.board.PageList">
+          <option value="{{p.ID}}"> {{p.ID}} </option>
+        </ng-container>
+      </select>
+    </div>
+
+    <div class="export listElement">
+      <label>
+        {{this.multilinguism.translate("exportSave") + ":"}}
+      </label>
+      <input (click)="export()" type="button" value="Export">
+    </div>
+
+    <div class="export listElement">
+      <label>
+        {{this.multilinguism.translate("exportUser") + ":"}}
+      </label>
+      <input (click)="exportUser()" type="button" value="Export">
+    </div>
+
+    <div class="export listElement">
+      <label>
+        {{this.multilinguism.translate("exportPDF") + ":"}}
+      </label>
+      <input (click)="this.printToPDF()" type="button" value="Export">
+    </div>
+
+    <div class="export listElement">
+      <label>
+        {{this.multilinguism.translate("exportTreeStructureAugCom") + ":"}}
+      </label>
+      <input (click)="exportTreeStructure()" type="button" value="Export">
+    </div>
+  </div>
+</div>

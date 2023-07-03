@@ -1,10 +1,10 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {IndexeddbaccessService} from './indexeddbaccess.service';
-import {FormsModule} from '@angular/forms';
-import {Ng2ImgMaxModule} from 'ng2-img-max';
-import {Router} from "@angular/router";
-import {HttpClientModule} from "@angular/common/http";
+import { IndexeddbaccessService } from './indexeddbaccess.service';
+import { FormsModule } from '@angular/forms';
+import { Ng2ImgMaxModule } from 'ng2-img-max';
+import { Router } from "@angular/router";
+import { HttpClientModule } from "@angular/common/http";
 
 describe('IndexeddbaccessService', () => {
   beforeEach(() => TestBed.configureTestingModule({

@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {GeticonService} from '../../services/geticon.service';
-import {PaletteService} from '../../services/palette.service';
-import {MultilinguismService} from '../../services/multilinguism.service';
+import { Component, OnInit } from '@angular/core';
+import { IndexeddbaccessService } from '../../services/indexeddbaccess.service';
+import { GeticonService } from '../../services/geticon.service';
+import { PaletteService } from '../../services/palette.service';
+import { MultilinguismService } from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-palettes',
@@ -12,9 +12,9 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 export class PalettesComponent implements OnInit {
 
   constructor(public multilinguism: MultilinguismService,
-              public indexeddbaccessService: IndexeddbaccessService,
-              public getIconService: GeticonService,
-              public paletteService: PaletteService) {
+    public indexeddbaccessService: IndexeddbaccessService,
+    public getIconService: GeticonService,
+    public paletteService: PaletteService) {
   }
 
   ngOnInit() {

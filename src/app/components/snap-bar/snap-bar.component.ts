@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {SnapBarService} from '../../services/snap-bar.service';
+import { Component, OnInit } from '@angular/core';
+import { SnapBarService } from '../../services/snap-bar.service';
 
 @Component({
   selector: 'app-snap-bar',

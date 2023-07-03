@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {ParametersService} from '../../services/parameters.service';
-import {MultilinguismService} from '../../services/multilinguism.service';
-import {GeticonService} from '../../services/geticon.service';
-import {ConfigurationService} from "../../services/configuration.service";
+import { Component, OnInit } from '@angular/core';
+import { ParametersService } from '../../services/parameters.service';
+import { MultilinguismService } from '../../services/multilinguism.service';
+import { GeticonService } from '../../services/geticon.service';
+import { ConfigurationService } from "../../services/configuration.service";
 
 @Component({
   selector: 'app-language',
@@ -12,9 +12,9 @@ import {ConfigurationService} from "../../services/configuration.service";
 export class LanguageComponent implements OnInit {
 
   constructor(public multilinguism: MultilinguismService,
-              public parametersService: ParametersService,
-              public getIconService: GeticonService,
-              public configurationService: ConfigurationService) {
+    public parametersService: ParametersService,
+    public getIconService: GeticonService,
+    public configurationService: ConfigurationService) {
   }
 
   ngOnInit() {

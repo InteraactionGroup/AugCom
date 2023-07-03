@@ -1,18 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {UserPageService} from "../../services/user-page.service";
-import {FormBuilder} from "@angular/forms";
-import {User} from "../../types";
-import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
-import {BoardService} from "../../services/board.service";
-import {ConfigurationService} from "../../services/configuration.service";
-import {PaletteService} from "../../services/palette.service";
-import {DialogDeleteUserComponent} from "../dialog-delete-user/dialog-delete-user.component";
-import {MatDialog} from "@angular/material/dialog";
-import {DialogChangeUserComponent} from "../dialog-change-user/dialog-change-user.component";
-import {GeticonService} from "../../services/geticon.service";
-import {UsertoolbarService} from "../../services/usertoolbar.service";
-import {DialogAddUserComponent} from "../dialog-add-user/dialog-add-user.component";
-import {MultilinguismService} from "../../services/multilinguism.service";
+import { Component, OnInit } from '@angular/core';
+import { UserPageService } from "../../services/user-page.service";
+import { FormBuilder } from "@angular/forms";
+import { User } from "../../types";
+import { IndexeddbaccessService } from "../../services/indexeddbaccess.service";
+import { BoardService } from "../../services/board.service";
+import { ConfigurationService } from "../../services/configuration.service";
+import { PaletteService } from "../../services/palette.service";
+import { DialogDeleteUserComponent } from "../dialog-delete-user/dialog-delete-user.component";
+import { MatDialog } from "@angular/material/dialog";
+import { DialogChangeUserComponent } from "../dialog-change-user/dialog-change-user.component";
+import { GeticonService } from "../../services/geticon.service";
+import { UsertoolbarService } from "../../services/usertoolbar.service";
+import { DialogAddUserComponent } from "../dialog-add-user/dialog-add-user.component";
+import { MultilinguismService } from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-user-page',
@@ -33,15 +33,15 @@ export class UserPageComponent implements OnInit {
   });
 
   constructor(public userPageService: UserPageService,
-              private formBuilder: FormBuilder,
-              private indexeddbaccessService: IndexeddbaccessService,
-              private boardService: BoardService,
-              public configurationService: ConfigurationService,
-              private paletteService: PaletteService,
-              private getIconService: GeticonService,
-              public userToolBarService: UsertoolbarService,
-              public dialog: MatDialog,
-              public multilinguism: MultilinguismService) {
+    private formBuilder: FormBuilder,
+    private indexeddbaccessService: IndexeddbaccessService,
+    private boardService: BoardService,
+    public configurationService: ConfigurationService,
+    private paletteService: PaletteService,
+    private getIconService: GeticonService,
+    public userToolBarService: UsertoolbarService,
+    public dialog: MatDialog,
+    public multilinguism: MultilinguismService) {
   }
 
   ngOnInit(): void {

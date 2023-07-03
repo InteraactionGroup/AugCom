@@ -3,17 +3,20 @@
 
     <div class="header-item">
       <label for="enablePageName">{{this.multilinguism.translate("addPageName")}}</label>
-      <input type="checkbox" id="enablePageName" name="enablePageName" (click)="enablePageName()" [checked]="buttonEnablePageName">
+      <input type="checkbox" id="enablePageName" name="enablePageName" (click)="enablePageName()"
+        [checked]="buttonEnablePageName">
     </div>
 
     <div class="header-item">
       <label for="enableVersion">{{this.multilinguism.translate("addVersion")}}</label>
-      <input type="checkbox" id="enableVersion" name="enableVersion" (click)="enableVersion()" [checked]="buttonEnableVersion">
+      <input type="checkbox" id="enableVersion" name="enableVersion" (click)="enableVersion()"
+        [checked]="buttonEnableVersion">
     </div>
 
     <div class="header-item">
       <label for="enableHeader">{{this.multilinguism.translate("enableHeader")}}</label>
-      <input type="checkbox" id="enableHeader" name="enableHeader" (click)="enableHeader()" [checked]="buttonEnableHeader">
+      <input type="checkbox" id="enableHeader" name="enableHeader" (click)="enableHeader()"
+        [checked]="buttonEnableHeader">
     </div>
 
     <div class="header-item" *ngIf="buttonEnableHeader">
@@ -35,7 +38,8 @@
 
     <div class="footer-item" *ngIf="buttonEnableHeader">
       <label for="positionFooter">{{this.multilinguism.translate("choosePosition")}}</label>
-      <select #option id="positionFooter" class="variantListBox" (input)="getPosition(option.value)" [(ngModel)]="textPosition">
+      <select #option id="positionFooter" class="variantListBox" (input)="getPosition(option.value)"
+        [(ngModel)]="textPosition">
         <option value="left">{{this.multilinguism.translate("leftPosition")}}</option>
         <option value="center">{{this.multilinguism.translate("middlePosition")}}</option>
         <option value="right">{{this.multilinguism.translate("rightPosition")}}</option>
@@ -50,7 +54,8 @@
 
     <div class="footer-item">
       <label for="enableFooter">{{this.multilinguism.translate("enableFooter")}}</label>
-      <input type="checkbox" id="enableFooter" name="enableFooter" (click)="enableFooter()" [checked]="buttonEnableFooter">
+      <input type="checkbox" id="enableFooter" name="enableFooter" (click)="enableFooter()"
+        [checked]="buttonEnableFooter">
     </div>
 
     <div class="footer-item" *ngIf="buttonEnableFooter">
@@ -72,7 +77,8 @@
 
     <div class="footer-item" *ngIf="buttonEnableFooter">
       <label for="positionFooter">{{this.multilinguism.translate("choosePosition")}}</label>
-      <select #option id="positionFooter" class="variantListBox" (input)="getPosition(option.value)" [(ngModel)]="textPositionFooter">
+      <select #option id="positionFooter" class="variantListBox" (input)="getPosition(option.value)"
+        [(ngModel)]="textPositionFooter">
         <option value="left">{{this.multilinguism.translate("leftPosition")}}</option>
         <option value="center">{{this.multilinguism.translate("middlePosition")}}</option>
         <option value="right">{{this.multilinguism.translate("rightPosition")}}</option>
@@ -81,4 +87,3 @@
 
   </div>
 </div>
-

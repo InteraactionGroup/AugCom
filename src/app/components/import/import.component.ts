@@ -1,31 +1,31 @@
-import {Component, OnInit} from '@angular/core';
-import {BoardService} from '../../services/board.service';
-import {UsertoolbarService} from '../../services/usertoolbar.service';
-import {GeticonService} from '../../services/geticon.service';
+import { Component, OnInit } from '@angular/core';
+import { BoardService } from '../../services/board.service';
+import { UsertoolbarService } from '../../services/usertoolbar.service';
+import { GeticonService } from '../../services/geticon.service';
 import * as JSZip from 'jszip';
-import {Router} from '@angular/router';
-import {PrintService} from '../../services/print.service';
-import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {SpeakForYourselfParser} from '../../services/speakForYourselfParser';
-import {HttpClient} from '@angular/common/http';
-import {Ng2ImgMaxService} from 'ng2-img-max';
-import {FolderGoTo, Grid, GridElement, Image, Page, User} from '../../types';
-import {ProloquoParser} from '../../services/proloquoParser';
-import {JsonValidatorService} from '../../services/json-validator.service';
-import {MultilinguismService} from '../../services/multilinguism.service';
-import {MatDialog} from "@angular/material/dialog";
-import {ExportSaveDialogComponent} from "../export-save-dialog/export-save-dialog.component";
-import {ExportManagerService} from "../../services/export-manager.service";
-import {LayoutService} from "../../services/layout.service";
-import {DialogExportPagesComponent} from "../dialog-export-pages/dialog-export-pages.component";
-import {UserPageService} from "../../services/user-page.service";
-import {PaletteService} from "../../services/palette.service";
-import {ConfigurationService} from "../../services/configuration.service";
-import {ExportSaveUserDialogComponent} from "../export-save-user-dialog/export-save-user-dialog.component";
+import { Router } from '@angular/router';
+import { PrintService } from '../../services/print.service';
+import { IndexeddbaccessService } from '../../services/indexeddbaccess.service';
+import { SpeakForYourselfParser } from '../../services/speakForYourselfParser';
+import { HttpClient } from '@angular/common/http';
+import { Ng2ImgMaxService } from 'ng2-img-max';
+import { FolderGoTo, Grid, GridElement, Image, Page, User } from '../../types';
+import { ProloquoParser } from '../../services/proloquoParser';
+import { JsonValidatorService } from '../../services/json-validator.service';
+import { MultilinguismService } from '../../services/multilinguism.service';
+import { MatDialog } from "@angular/material/dialog";
+import { ExportSaveDialogComponent } from "../export-save-dialog/export-save-dialog.component";
+import { ExportManagerService } from "../../services/export-manager.service";
+import { LayoutService } from "../../services/layout.service";
+import { DialogExportPagesComponent } from "../dialog-export-pages/dialog-export-pages.component";
+import { UserPageService } from "../../services/user-page.service";
+import { PaletteService } from "../../services/palette.service";
+import { ConfigurationService } from "../../services/configuration.service";
+import { ExportSaveUserDialogComponent } from "../export-save-user-dialog/export-save-user-dialog.component";
 import * as XLSX from 'xlsx';
-import {element} from "protractor";
-import {backgroundRepeat} from "html2canvas/dist/types/css/property-descriptors/background-repeat";
-import {lineBreak} from "acorn";
+import { element } from "protractor";
+import { backgroundRepeat } from "html2canvas/dist/types/css/property-descriptors/background-repeat";
+import { lineBreak } from "acorn";
 import { ImportUserComponent } from '../import-user/import-user.component';
 import { LifeCompanion2augComponent } from '../life-companion2aug/life-companion2aug.component';
 
@@ -54,7 +54,7 @@ export class ImportComponent implements OnInit {
     public userPageService: UserPageService,
     public dialog: MatDialog,
     public paletteService: PaletteService,
-    public configurationService:ConfigurationService) {
+    public configurationService: ConfigurationService) {
   }
 
   ngOnInit() {
@@ -91,59 +91,59 @@ export class ImportComponent implements OnInit {
       this.boardService.board.ElementList = [];
       this.boardService.board.ImageList = [];
       zipFiles.forEach((fileName) => {
-          if (fileName[fileName.length - 1] !== '/') {
-            zipFolder
-              .file(fileName)
-              .async('base64')
-              .then((content) => {
-                const split = fileName.split('.');
-                let fileType = split[split.length - 1];
+        if (fileName[fileName.length - 1] !== '/') {
+          zipFolder
+            .file(fileName)
+            .async('base64')
+            .then((content) => {
+              const split = fileName.split('.');
+              let fileType = split[split.length - 1];
 
-                if (fileType !== null && fileType !== undefined) {
-                  if (fileType === 'svg') {
-                    fileType = 'svg+xml';
-                  }
-                  const imageURL =
-                    'data:image/' + fileType + ';base64,' + content;
-
-                  const folder = split[split.length - 2];
-                  if (folder !== null && folder !== undefined) {
-                    let folderPath = folder.split('/');
-
-                    const name = folderPath[folderPath.length - 1];
-
-                    let path = '';
-                    folderPath = folderPath.slice(0, folderPath.length - 1);
-                    folderPath.forEach((s) => {
-                      path = path + '.' + s;
-                    });
-
-                    let type;
-                    if (folderPath.length === 0) {
-                      type = new FolderGoTo(name);
-                    } else {
-                      type = 'button';
-                    }
-                    this.createNewButtonFromInfoInZIP(name, imageURL, path, type);
-
-                  }
+              if (fileType !== null && fileType !== undefined) {
+                if (fileType === 'svg') {
+                  fileType = 'svg+xml';
                 }
-              });
-          } else {
-            const imageURL = 'assets/libs/mulberry-symbols/EN-symbols/computer_folder_open_,_to.svg';
-            let splitName = fileName.split('/');
-            const name = splitName[splitName.length - 2];
-            let path = '';
-            splitName = splitName.slice(0, splitName.length - 2);
-            if (splitName.length === 0) {
-              path = '.';
-            }
-            splitName.forEach(s => {
-              path = path + '.' + s;
+                const imageURL =
+                  'data:image/' + fileType + ';base64,' + content;
+
+                const folder = split[split.length - 2];
+                if (folder !== null && folder !== undefined) {
+                  let folderPath = folder.split('/');
+
+                  const name = folderPath[folderPath.length - 1];
+
+                  let path = '';
+                  folderPath = folderPath.slice(0, folderPath.length - 1);
+                  folderPath.forEach((s) => {
+                    path = path + '.' + s;
+                  });
+
+                  let type;
+                  if (folderPath.length === 0) {
+                    type = new FolderGoTo(name);
+                  } else {
+                    type = 'button';
+                  }
+                  this.createNewButtonFromInfoInZIP(name, imageURL, path, type);
+
+                }
+              }
             });
-            this.createNewButtonFromInfoInZIP(name, imageURL, path, new FolderGoTo(name));
+        } else {
+          const imageURL = 'assets/libs/mulberry-symbols/EN-symbols/computer_folder_open_,_to.svg';
+          let splitName = fileName.split('/');
+          const name = splitName[splitName.length - 2];
+          let path = '';
+          splitName = splitName.slice(0, splitName.length - 2);
+          if (splitName.length === 0) {
+            path = '.';
           }
+          splitName.forEach(s => {
+            path = path + '.' + s;
+          });
+          this.createNewButtonFromInfoInZIP(name, imageURL, path, new FolderGoTo(name));
         }
+      }
       );
     });
 
@@ -162,14 +162,14 @@ export class ImportComponent implements OnInit {
           .file(fileName)
           .async('base64')
           .then((content) => {
-              this.useAugcomZip(content);
-            }
+            this.useAugcomZip(content);
+          }
           );
       });
     });
   }
 
-  useAugcomZip(contentZip:any){
+  useAugcomZip(contentZip: any) {
     let tempBoard;
     tempBoard = JSON.parse(this.b64DecodeUnicode(contentZip));
     tempBoard.ElementList.forEach(element => {
@@ -185,7 +185,7 @@ export class ImportComponent implements OnInit {
   }
 
   b64DecodeUnicode(str) {
-    return decodeURIComponent(atob(str).split('').map(function(c) {
+    return decodeURIComponent(atob(str).split('').map(function (c) {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
   }
@@ -210,10 +210,10 @@ export class ImportComponent implements OnInit {
           {
             DisplayedText: name,
             VoiceText: name,
-            LexicInfos: [{default: true}],
+            LexicInfos: [{ default: true }],
             ImageID: theID,
           }
-        ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}]}])
+        ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }] }])
     );
 
     this.boardService.board.ImageList.push(
@@ -252,7 +252,7 @@ export class ImportComponent implements OnInit {
     const myFile = file[0];
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
-      console.log('fileReader.result : ',fileReader.result);
+      console.log('fileReader.result : ', fileReader.result);
       const tempBoard = JSON.parse(fileReader.result.toString());
       tempBoard.ElementList.forEach(element => {
         this.checkAndUpdateElementDefaultForm(element);
@@ -279,7 +279,7 @@ export class ImportComponent implements OnInit {
         element.ElementFormsList.push({
           DisplayedText: element.ElementFormsList[0].DisplayedText,
           VoiceText: element.ElementFormsList[0].VoiceText,
-          LexicInfos: [{default: true}],
+          LexicInfos: [{ default: true }],
           ImageID: element.ElementFormsList[0].ImageID
         });
       } else {
@@ -287,7 +287,7 @@ export class ImportComponent implements OnInit {
         element.ElementFormsList.push({
           DisplayedText: element.ID,
           VoiceText: element.ID,
-          LexicInfos: [{default: true}],
+          LexicInfos: [{ default: true }],
           ImageID: element.ID
         });
       }
@@ -295,7 +295,7 @@ export class ImportComponent implements OnInit {
   }
 
   importPages(zip) {
-    let importedGrid:Grid = new Grid('newGrid', 'Grid', 0, 0, [], [], []);
+    let importedGrid: Grid = new Grid('newGrid', 'Grid', 0, 0, [], [], []);
     const zipFolder: JSZip = new JSZip();
     let tempBoard;
     zipFolder.loadAsync(zip[0]).then((zipFiles) => {
@@ -304,22 +304,22 @@ export class ImportComponent implements OnInit {
           .file(fileName)
           .async('base64')
           .then((content) => {
-              tempBoard = JSON.parse(this.b64DecodeUnicode(content));
-              tempBoard.ElementList.forEach(element => {
-                this.checkAndUpdateElementDefaultForm(element);
-              });
-              importedGrid = this.jsonValidator.getCheckedGrid(tempBoard);
-            }
+            tempBoard = JSON.parse(this.b64DecodeUnicode(content));
+            tempBoard.ElementList.forEach(element => {
+              this.checkAndUpdateElementDefaultForm(element);
+            });
+            importedGrid = this.jsonValidator.getCheckedGrid(tempBoard);
+          }
           );
       });
     });
-    setTimeout( () => {
+    setTimeout(() => {
       this.importPageToCurrentGrid(importedGrid);
-    },200);
+    }, 200);
   }
 
-  importPageToCurrentGrid(importedGrid:Grid){
-    importedGrid.ElementList.forEach((gridElem)=>{
+  importPageToCurrentGrid(importedGrid: Grid) {
+    importedGrid.ElementList.forEach((gridElem) => {
       this.boardService.board.ElementList.push(gridElem);
     });
     importedGrid.PageList.forEach((page) => {

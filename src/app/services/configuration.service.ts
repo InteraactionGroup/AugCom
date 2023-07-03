@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {Configuration, Style} from "../types";
-import {StyleService} from "./style.service";
-import {HttpClient} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Configuration, Style } from "../types";
+import { StyleService } from "./style.service";
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -78,11 +78,11 @@ export class ConfigurationService {
   FOOTER_BUTTON = this.DEFAULT_FOOTER_BUTTON;
   FOOTER_CHOICE = this.DEFAULT_FOOTER_CHOICE;
 
-// --main-font: Arial, sans-serif;
-// --main-picto-font: Arial, sans-serif;
+  // --main-font: Arial, sans-serif;
+  // --main-picto-font: Arial, sans-serif;
 
   constructor(public styleService: StyleService,
-              private http: HttpClient) {
+    private http: HttpClient) {
     this.setVersion();
   }
 
@@ -114,12 +114,12 @@ export class ConfigurationService {
       'VOLUME': this.DEFAULT_VOLUME,
       'RATE': this.DEFAULT_RATE,
       'PITCH': this.DEFAULT_PITCH,
-      'HEADER' : this.HEADER,
-      'HEADER_BUTTON' : this.HEADER_BUTTON,
-      'HEADER_CHOICE' : this.HEADER_CHOICE,
-      'FOOTER' : this.FOOTER,
-      'FOOTER_BUTTON' : this.FOOTER_BUTTON,
-      'FOOTER_CHOICE' : this.FOOTER_CHOICE
+      'HEADER': this.HEADER,
+      'HEADER_BUTTON': this.HEADER_BUTTON,
+      'HEADER_CHOICE': this.HEADER_CHOICE,
+      'FOOTER': this.FOOTER,
+      'FOOTER_BUTTON': this.FOOTER_BUTTON,
+      'FOOTER_CHOICE': this.FOOTER_CHOICE
     }
   }
 
@@ -151,12 +151,12 @@ export class ConfigurationService {
       'VOLUME': this.DEFAULT_VOLUME,
       'RATE': this.DEFAULT_RATE,
       'PITCH': this.DEFAULT_PITCH,
-      'HEADER' : this.DEFAULT_HEADER,
-      'HEADER_BUTTON' : this.DEFAULT_HEADER_BUTTON,
-      'HEADER_CHOICE' : this.DEFAULT_HEADER_CHOICE,
-      'FOOTER' : this.DEFAULT_FOOTER,
-      'FOOTER_BUTTON' : this.DEFAULT_FOOTER_BUTTON,
-      'FOOTER_CHOICE' : this.DEFAULT_FOOTER_CHOICE,
+      'HEADER': this.DEFAULT_HEADER,
+      'HEADER_BUTTON': this.DEFAULT_HEADER_BUTTON,
+      'HEADER_CHOICE': this.DEFAULT_HEADER_CHOICE,
+      'FOOTER': this.DEFAULT_FOOTER,
+      'FOOTER_BUTTON': this.DEFAULT_FOOTER_BUTTON,
+      'FOOTER_CHOICE': this.DEFAULT_FOOTER_CHOICE,
     }
   }
 
@@ -212,7 +212,7 @@ export class ConfigurationService {
       this.STYLE_TEXTCOLOR_VALUE);
   }
 
-  setVersion(){
+  setVersion() {
     this.http.get("https://api.github.com/repos/AFSR/AugCom-AFSR/releases/latest").subscribe(data => {
       this.VERSION = data["name"] + " Dev v." + data["created_at"].substring(0, 10).replace("-", ".");
     })

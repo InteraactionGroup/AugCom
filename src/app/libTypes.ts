@@ -1,7 +1,7 @@
 /**
  * the description of a mulberry element from the mulberry library
  */
-import {ImageMulberry, ImageParlerPicto, ImageSclera, ImagearasaacLCC, ImageFontawesome} from "./types";
+import { ImageMulberry, ImageParlerPicto, ImageSclera, ImagearasaacLCC, ImageFontawesome } from "./types";
 
 export class MulBerryObject {
   id: number;

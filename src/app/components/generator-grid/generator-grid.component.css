@@ -4,32 +4,33 @@
   background-color: white;
 }
 
-.selectLibrairy input{
+.selectLibrairy input {
   margin-right: 10px;
 }
 
-.selectLibrairy label{
+.selectLibrairy label {
   margin-right: 10px;
 }
 
-.optionsGenerateGrid input{
+.optionsGenerateGrid input {
   width: auto;
 }
 
-.optionsGenerateGrid label{
+.optionsGenerateGrid label {
   margin-right: 10px;
 }
 
-input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
   -webkit-appearance: none;
-  margin : 0;
+  margin: 0;
 }
 
-input[type = number]{
+input[type=number] {
   -moz-appearance: textfield;
 }
 
-.messageError{
+.messageError {
   color: red;
   margin-left: calc(40% - 10px);
 }

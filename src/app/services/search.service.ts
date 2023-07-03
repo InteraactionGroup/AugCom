@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {BoardService} from './board.service';
-import {FolderGoTo, GridElement} from '../types';
+import { Injectable } from '@angular/core';
+import { BoardService } from './board.service';
+import { FolderGoTo, GridElement } from '../types';
 
 @Injectable({
   providedIn: 'root'

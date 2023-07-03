@@ -6,12 +6,13 @@
   margin-top: 20px;
 }
 
-.header-item, .footer-item {
+.header-item,
+.footer-item {
   margin: 20px;
   width: fit-content;
 }
 
-.space{
+.space {
   margin-left: 10px;
 }
 
@@ -19,11 +20,10 @@ label {
   margin-right: 10px;
 }
 
-textarea{
+textarea {
   resize: none;
 }
 
-#labelTextArea{
+#labelTextArea {
   transform: translateY(-50px);
 }
-

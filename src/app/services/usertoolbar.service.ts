@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {ConnectionService} from 'ng-connection-service';
+import { Injectable } from '@angular/core';
+import { ConnectionService } from 'ng-connection-service';
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,7 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {PaletteService} from './palette.service';
-import {FormsModule} from '@angular/forms';
+import { PaletteService } from './palette.service';
+import { FormsModule } from '@angular/forms';
 
 describe('PaletteService', () => {
   beforeEach(() => TestBed.configureTestingModule({

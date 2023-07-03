@@ -11,11 +11,11 @@ export class Traduction {
       bindings: [
         {
           tradword:
-            {
-              type: string,
-              xml: any,
-              value: string
-            }
+          {
+            type: string,
+            xml: any,
+            value: string
+          }
         }]
     };
 }
@@ -35,7 +35,7 @@ export class ResultJson1 {
       distinct: false,
       ordered: true,
       bindings:
-        any[]
+      any[]
     };
 }
 
@@ -53,7 +53,7 @@ export class ResultJson2 {
       distinct: false,
       ordered: true,
       bindings:
-        any[]
+      any[]
     };
 }
 

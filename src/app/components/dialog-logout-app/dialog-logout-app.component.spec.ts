@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DialogLogoutAppComponent } from './dialog-logout-app.component';
-import {HttpClientModule} from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http";
 
 describe('DialogLogoutAppComponent', () => {
   let component: DialogLogoutAppComponent;
@@ -9,10 +9,10 @@ describe('DialogLogoutAppComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DialogLogoutAppComponent ],
+      declarations: [DialogLogoutAppComponent],
       imports: [HttpClientModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

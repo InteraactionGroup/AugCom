@@ -18,10 +18,10 @@ export class DialogChangeUserComponent implements OnInit {
     this.userPageService.isUserImageChanged = false;
   }
 
-    /**
-   * Opens the file explorer to let the user select an image to use as profile picture
-   * @param event the file explorer closing
-   */
+  /**
+ * Opens the file explorer to let the user select an image to use as profile picture
+ * @param event the file explorer closing
+ */
   onFileSelected(event) {
     const file = event.target.files[0];
     const reader = new FileReader();

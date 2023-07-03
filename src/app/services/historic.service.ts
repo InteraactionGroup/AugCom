@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {Vignette} from '../types';
-import {ParametersService} from './parameters.service';
-import {ConfigurationService} from "./configuration.service";
+import { Injectable } from '@angular/core';
+import { Vignette } from '../types';
+import { ParametersService } from './parameters.service';
+import { ConfigurationService } from "./configuration.service";
 
 @Injectable({
   providedIn: 'root'

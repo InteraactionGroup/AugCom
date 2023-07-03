@@ -1,7 +1,8 @@
 <h3>{{this.multilinguismService.translate('Are you sure you want to reset the configuration?')}}</h3>
 <div>
   <mat-dialog-actions>
-    <button mat-button mat-raised-button color="warn" (click)="resetConfig()" [mat-dialog-close]="true">{{this.multilinguismService.translate('Yes')}}</button>
+    <button mat-button mat-raised-button color="warn" (click)="resetConfig()"
+      [mat-dialog-close]="true">{{this.multilinguismService.translate('Yes')}}</button>
     <button mat-button mat-raised-button mat-dialog-close>{{this.multilinguismService.translate('No')}}</button>
   </mat-dialog-actions>
 </div>

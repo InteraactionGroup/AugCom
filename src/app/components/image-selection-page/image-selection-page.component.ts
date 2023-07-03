@@ -1,20 +1,20 @@
-import {Component, OnInit} from '@angular/core';
-import {EditionService} from '../../services/edition.service';
-import {Ng2ImgMaxService} from 'ng2-img-max';
+import { Component, OnInit } from '@angular/core';
+import { EditionService } from '../../services/edition.service';
+import { Ng2ImgMaxService } from 'ng2-img-max';
 import mullberryJson from '../../../assets/symbol-info.json';
 import arasaacJson from '../../../assets/arasaac-symbol-info.json';
 import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
-import {ArasaacObject, MulBerryObject} from '../../libTypes';
-import {MultilinguismService} from '../../services/multilinguism.service';
-import {ConfigurationService} from "../../services/configuration.service";
-import {Observable} from "rxjs";
-import {FormControl} from "@angular/forms";
-import {map, startWith} from "rxjs/operators";
-import {DialogAddUserComponent} from "../dialog-add-user/dialog-add-user.component";
-import {MatDialog} from "@angular/material/dialog";
-import {DialogModifyColorInsideComponent} from "../dialog-modify-color-inside/dialog-modify-color-inside.component";
-import {DialogModifyColorBorderComponent} from "../dialog-modify-color-border/dialog-modify-color-border.component";
-import {BoardService} from "../../services/board.service";
+import { ArasaacObject, MulBerryObject } from '../../libTypes';
+import { MultilinguismService } from '../../services/multilinguism.service';
+import { ConfigurationService } from "../../services/configuration.service";
+import { Observable } from "rxjs";
+import { FormControl } from "@angular/forms";
+import { map, startWith } from "rxjs/operators";
+import { DialogAddUserComponent } from "../dialog-add-user/dialog-add-user.component";
+import { MatDialog } from "@angular/material/dialog";
+import { DialogModifyColorInsideComponent } from "../dialog-modify-color-inside/dialog-modify-color-inside.component";
+import { DialogModifyColorBorderComponent } from "../dialog-modify-color-border/dialog-modify-color-border.component";
+import { BoardService } from "../../services/board.service";
 
 @Component({
   selector: 'app-image-selection-page',
@@ -36,21 +36,21 @@ export class ImageSelectionPageComponent implements OnInit {
   wordList: string[] = [];
 
   constructor(public multilinguism: MultilinguismService,
-              public ng2ImgMaxService: Ng2ImgMaxService,
-              public editionService: EditionService,
-              public configurationService: ConfigurationService,
-              public boardService: BoardService,
-              public dialog: MatDialog) {
+    public ng2ImgMaxService: Ng2ImgMaxService,
+    public editionService: EditionService,
+    public configurationService: ConfigurationService,
+    public boardService: BoardService,
+    public dialog: MatDialog) {
     this.searchInLib(this.editionService.imageTextField);
   }
 
   ngOnInit() {
 
     this.filteredOptions = this.myControl.valueChanges
-        .pipe(
-            startWith(''),
-            map(value => this._filter(value))
-        );
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
 
     if (this.editionService.defaultBorderColor != undefined) {
       this.editionService.curentBorderColor = this.editionService.defaultBorderColor;
@@ -133,18 +133,18 @@ export class ImageSelectionPageComponent implements OnInit {
 
   previewLibrary(elt: { lib, word }) {
     if (elt.lib === 'mulberry') {
-      if(!this.boardService.board.libraryUsed.includes('Mulberry')){
+      if (!this.boardService.board.libraryUsed.includes('Mulberry')) {
         this.boardService.board.libraryUsed.push('Mulberry');
       }
       this.previewMullberry(elt.word);
     } else if (elt.lib === 'arasaacNB') {
       this.previewArasaac(elt.word, false);
-      if(!this.boardService.board.libraryUsed.includes('Arasaac')) {
+      if (!this.boardService.board.libraryUsed.includes('Arasaac')) {
         this.boardService.board.libraryUsed.push('Arasaac');
       }
     } else if (elt.lib === 'arasaacColor') {
       this.previewArasaac(elt.word, true);
-      if(!this.boardService.board.libraryUsed.includes('Arasaac')) {
+      if (!this.boardService.board.libraryUsed.includes('Arasaac')) {
         this.boardService.board.libraryUsed.push('Arasaac');
       }
     }
@@ -170,12 +170,12 @@ export class ImageSelectionPageComponent implements OnInit {
     this.imageList = [];
     let tempList = [];
 
-    if(this.configurationService.LANGUAGE_VALUE === 'FR') {
+    if (this.configurationService.LANGUAGE_VALUE === 'FR') {
       (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
         if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && this.getSimilarity(text.toLowerCase(), word.toLowerCase()) >= 0.5) {
           console.log(word + "; " + text + "; " + this.getSimilarity(text, word));
           const url = word;
-          tempList.push({lib: 'arasaacNB', word: this.cleanString(url)});
+          tempList.push({ lib: 'arasaacNB', word: this.cleanString(url) });
         }
       }, this);
 
@@ -183,16 +183,16 @@ export class ImageSelectionPageComponent implements OnInit {
         if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && this.getSimilarity(text.toLowerCase(), word.toLowerCase()) >= 0.5) {
           console.log(word + "; " + text + "; " + this.getSimilarity(text, word));
           const url = word;
-          tempList.push({lib: 'arasaacColor', word: this.cleanString(url)});
+          tempList.push({ lib: 'arasaacColor', word: this.cleanString(url) });
         }
       }, this);
     }
-    else{
+    else {
       (mullberryJson as unknown as MulBerryObject[]).forEach(value => {
         if (text !== null && text !== '' && value.symbol.toLowerCase().includes(text.toLocaleLowerCase()) && this.getSimilarity(text.toLowerCase(), value.symbol.toLowerCase()) >= 0.5) {
           console.log(value.symbol + "; " + text + "; " + this.getSimilarity(text, value.symbol));
           const url = value.symbol;
-          tempList.push({lib: 'mulberry', word: this.cleanString(url)});
+          tempList.push({ lib: 'mulberry', word: this.cleanString(url) });
         }
       }, this);
     }
@@ -224,7 +224,7 @@ export class ImageSelectionPageComponent implements OnInit {
       longer = word2;
       shorter = word1;
     }
-    
+
     return ((longer.length - this.distance(longer, shorter)) / parseFloat(longer.length));
   }
 
@@ -276,7 +276,7 @@ export class ImageSelectionPageComponent implements OnInit {
 
 
   private _filter(value: string): string[] {
-    if(value.length > 1){
+    if (value.length > 1) {
       this.wordList = [];
       this.searchInLib(value);
       return this.wordList;

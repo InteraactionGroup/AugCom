@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {ExportManagerService} from "../../services/export-manager.service";
+import { Component, OnInit } from '@angular/core';
+import { ExportManagerService } from "../../services/export-manager.service";
 import JSZip from "jszip";
-import {saveAs as importedSaveAs} from 'file-saver';
-import {MultilinguismService} from "../../services/multilinguism.service";
-import {BoardService} from "../../services/board.service";
+import { saveAs as importedSaveAs } from 'file-saver';
+import { MultilinguismService } from "../../services/multilinguism.service";
+import { BoardService } from "../../services/board.service";
 
 @Component({
   selector: 'app-xport-save-user-dialog',
@@ -14,9 +14,9 @@ export class ExportSaveUserDialogComponent implements OnInit {
 
   name: String = "save";
 
-  constructor(public  exportManagerService: ExportManagerService,
-              public multilinguism: MultilinguismService,
-              public boardservice: BoardService) {
+  constructor(public exportManagerService: ExportManagerService,
+    public multilinguism: MultilinguismService,
+    public boardservice: BoardService) {
   }
 
   ngOnInit(): void {
@@ -38,7 +38,7 @@ export class ExportSaveUserDialogComponent implements OnInit {
     const jszip = new JSZip();
     jszip.file(tempName + '.opgf', this.exportManagerService.data);
 
-    jszip.generateAsync({type: 'blob'}).then(function (content) {
+    jszip.generateAsync({ type: 'blob' }).then(function (content) {
       // see FileSaver.js
       importedSaveAs(content, tempName + '.useraugcom');
     });

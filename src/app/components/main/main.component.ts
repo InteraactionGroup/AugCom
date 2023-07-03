@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {RouterOutlet} from "@angular/router";
-import {UsertoolbarService} from "../../services/usertoolbar.service";
-import {slideInAnimation} from "../../animations";
+import { Component, OnInit } from '@angular/core';
+import { RouterOutlet } from "@angular/router";
+import { UsertoolbarService } from "../../services/usertoolbar.service";
+import { slideInAnimation } from "../../animations";
 
 @Component({
   selector: 'app-main',

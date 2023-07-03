@@ -8,11 +8,11 @@ export interface ComponentCanDeactivate {
 
 @Injectable()
 export class PendingChangesGuard implements CanDeactivate<ComponentCanDeactivate> {
-  constructor(){}
+  constructor() { }
 
-   canDeactivate(component: ComponentCanDeactivate): boolean | Observable<boolean> | Promise<boolean> {
+  canDeactivate(component: ComponentCanDeactivate): boolean | Observable<boolean> | Promise<boolean> {
     // if there are no pending changes, just allow deactivation; else confirm first
-    
+
 
     return component.canDeactivate ? component.canDeactivate() : true;
   }

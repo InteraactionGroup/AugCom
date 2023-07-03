@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {GridElement, Style} from '../types';
-import {ConfigurationService} from "./configuration.service";
+import { Injectable } from '@angular/core';
+import { GridElement, Style } from '../types';
+import { ConfigurationService } from "./configuration.service";
 
 @Injectable({
   providedIn: 'root'

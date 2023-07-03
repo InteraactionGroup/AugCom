@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {GridsterConfig} from 'angular-gridster2';
+import { Injectable } from '@angular/core';
+import { GridsterConfig } from 'angular-gridster2';
 
 @Injectable({
   providedIn: 'root',

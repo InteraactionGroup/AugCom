@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {MultilinguismService} from "../../services/multilinguism.service";
-import {Grid, Page} from "../../types";
-import {BoardService} from "../../services/board.service";
+import { MultilinguismService } from "../../services/multilinguism.service";
+import { Grid, Page } from "../../types";
+import { BoardService } from "../../services/board.service";
 
 @Component({
   selector: 'app-dialog-reset-grid',
@@ -11,13 +11,13 @@ import {BoardService} from "../../services/board.service";
 export class DialogResetGridComponent implements OnInit {
 
   constructor(public multilinguism: MultilinguismService,
-              private boardService: BoardService,) {
+    private boardService: BoardService,) {
   }
 
   ngOnInit(): void {
   }
 
-  clearBoard(){
+  clearBoard() {
     const homePage: Page = new Page();
     homePage.ID = '#HOME';
     homePage.Name = 'Acceuil';
@@ -25,7 +25,7 @@ export class DialogResetGridComponent implements OnInit {
     homePage.NumberOfCols = 3;
     homePage.NumberOfRows = 3;
     homePage.GapSize = 6;
-    this.boardService.board = new Grid('nothing','Grid',0,0,[],[],[homePage]);
+    this.boardService.board = new Grid('nothing', 'Grid', 0, 0, [], [], [homePage]);
     this.boardService.updateElementList();
   }
 

@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {EditionService} from '../../services/edition.service';
-import {GeticonService} from '../../services/geticon.service';
-import {HttpClient} from '@angular/common/http';
-import {BoardService} from '../../services/board.service';
-import {MultilinguismService} from '../../services/multilinguism.service';
-import {FunctionsService} from '../../services/functions.service';
+import { Component, OnInit } from '@angular/core';
+import { EditionService } from '../../services/edition.service';
+import { GeticonService } from '../../services/geticon.service';
+import { HttpClient } from '@angular/common/http';
+import { BoardService } from '../../services/board.service';
+import { MultilinguismService } from '../../services/multilinguism.service';
+import { FunctionsService } from '../../services/functions.service';
 
 @Component({
   selector: 'app-information-edition-page',
@@ -18,18 +18,18 @@ export class InformationEditionPageComponent implements OnInit {
   name = "";
 
   constructor(public multilinguism: MultilinguismService,
-              public editionService: EditionService,
-              public board: BoardService,
-              public functionsService: FunctionsService,
-              public getIconService: GeticonService) {
+    public editionService: EditionService,
+    public board: BoardService,
+    public functionsService: FunctionsService,
+    public getIconService: GeticonService) {
   }
 
   ngOnInit() {
-    if (this.editionService.name == ""){
+    if (this.editionService.name == "") {
       this.nameInput = this.multilinguism.translate('enterElementName');
       this.editionService.newPage = "";
       this.editionService.pageLink = '@NEW@';
-    }else {
+    } else {
       this.nameInput = this.editionService.name;
     }
   }
@@ -43,7 +43,7 @@ export class InformationEditionPageComponent implements OnInit {
     return this.getIconService.getIconUrl(s);
   }
 
-  getName(event){
+  getName(event) {
     this.name = event.target.value;
     this.editionService.name = this.name;
     this.editionService.newPage = this.name;

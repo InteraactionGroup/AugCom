@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {DwellCursorService} from "../../services/dwell-cursor.service";
-import {ConfigurationService} from "../../services/configuration.service";
+import { Component, OnInit } from '@angular/core';
+import { DwellCursorService } from "../../services/dwell-cursor.service";
+import { ConfigurationService } from "../../services/configuration.service";
 
 @Component({
   selector: 'app-dwell-cursor',
@@ -10,7 +10,7 @@ import {ConfigurationService} from "../../services/configuration.service";
 export class DwellCursorComponent implements OnInit {
 
   constructor(public dwellCursorService: DwellCursorService,
-              public configurationService: ConfigurationService) {
+    public configurationService: ConfigurationService) {
 
   }
 
@@ -21,10 +21,10 @@ export class DwellCursorComponent implements OnInit {
         //cursor.setAttribute("style", "top: " + (e.pageY - 10) + "px; left: " + (e.pageX - 10) + "px;opacity:" + this.getCursorOpacity())
         cursor.setAttribute(
           "style",
-          "top: " + this.dwellCursorService.y + "px;"+
-          " left: " + this.dwellCursorService.x + "px;"+
-          " width: " + this.dwellCursorService.diameter + "px;"+
-          " height: " + this.dwellCursorService.diameter + "px;"+
+          "top: " + this.dwellCursorService.y + "px;" +
+          " left: " + this.dwellCursorService.x + "px;" +
+          " width: " + this.dwellCursorService.diameter + "px;" +
+          " height: " + this.dwellCursorService.diameter + "px;" +
           "opacity:" + this.getCursorOpacity())
       }
     });

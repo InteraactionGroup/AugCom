@@ -1,4 +1,3 @@
-
 .tableTitle {
   border-top: black solid 1px;
   padding-top: 10px;
@@ -76,14 +75,16 @@
 
 .wrapperPreview {
   list-style-type: none;
-  width: calc(100% - 10px);;
+  width: calc(100% - 10px);
+  ;
   height: 300px;
   background-color: whitesmoke;
   overflow-y: scroll;
 }
 
 .pictoImg {
-  display: inline-flex;;
+  display: inline-flex;
+  ;
   cursor: pointer;
   width: 10%;
   padding-top: 10%;

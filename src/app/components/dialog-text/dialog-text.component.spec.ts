@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DialogTextComponent } from './dialog-text.component';
-import {HttpClientModule} from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http";
 
 describe('DialogTextComponent', () => {
   let component: DialogTextComponent;
@@ -9,10 +9,10 @@ describe('DialogTextComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DialogTextComponent ],
-      imports:[HttpClientModule]
+      declarations: [DialogTextComponent],
+      imports: [HttpClientModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

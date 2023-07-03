@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs';
-import {ElementForm, GridElement, Interaction, Page} from '../types';
-import {PaletteService} from './palette.service';
-import {UsertoolbarService} from "./usertoolbar.service";
-import {Router} from "@angular/router";
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { ElementForm, GridElement, Interaction, Page } from '../types';
+import { PaletteService } from './palette.service';
+import { UsertoolbarService } from "./usertoolbar.service";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -78,7 +78,7 @@ export class EditionService {
   insideCheck: boolean = false;
   borderCheck: boolean = false;
 
-  constructor(public paletteService: PaletteService,  public userToolBarService: UsertoolbarService, public router: Router) {
+  constructor(public paletteService: PaletteService, public userToolBarService: UsertoolbarService, public router: Router) {
   }
 
   /* get the default name of an element */
@@ -128,12 +128,11 @@ export class EditionService {
     this.selectAll = !this.selectAll;
   }
 
-  selectAllElementsOfThePage(elementList, currentPage: Page){
+  selectAllElementsOfThePage(elementList, currentPage: Page) {
     this.selectedElements = [];
     if (!this.selectAll) {
       elementList.forEach(elt => {
-        if(currentPage.ElementIDsList.find(element => elt.ID === element))
-        {this.addToSelected(elt)}
+        if (currentPage.ElementIDsList.find(element => elt.ID === element)) { this.addToSelected(elt) }
       });
     }
     this.selectAll = !this.selectAll;
@@ -163,15 +162,15 @@ export class EditionService {
   }
 
   selectInsideColor(color) {
-      this.curentColor = color;
-    if(this.insideCheck) {
+    this.curentColor = color;
+    if (this.insideCheck) {
       this.defaultInsideColor = color;
     }
   }
 
   selectBorderColor(color) {
-      this.curentBorderColor = color;
-    if(this.borderCheck){
+    this.curentBorderColor = color;
+    if (this.borderCheck) {
       this.defaultBorderColor = color;
     }
   }
@@ -183,15 +182,15 @@ export class EditionService {
       this.selectedPalette = name;
     }
   }
-  checkInsideColor(){
+  checkInsideColor() {
     this.insideCheck = !this.insideCheck;
-    if(this.insideCheck){
+    if (this.insideCheck) {
       this.defaultInsideColor = this.curentColor;
     }
   }
-  checkBorderColor(){
+  checkBorderColor() {
     this.borderCheck = !this.borderCheck;
-    if(this.borderCheck){
+    if (this.borderCheck) {
       this.defaultBorderColor = this.curentBorderColor;
     }
   }

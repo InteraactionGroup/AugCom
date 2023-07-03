@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import multilinguism from '../../assets/multilinguism.json'
-import {Dictionary} from '../types';
-import {ConfigurationService} from "./configuration.service";
+import { Dictionary } from '../types';
+import { ConfigurationService } from "./configuration.service";
 
 @Injectable({
   providedIn: 'root'

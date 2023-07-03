@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {BoardService} from './board.service';
-import {FolderGoTo, GridElement, Page} from '../types';
-import {GridElementService} from './grid-element.service';
-import {MultilinguismService} from "./multilinguism.service";
-import {ConfigurationService} from "./configuration.service";
+import { Injectable } from '@angular/core';
+import { BoardService } from './board.service';
+import { FolderGoTo, GridElement, Page } from '../types';
+import { GridElementService } from './grid-element.service';
+import { MultilinguismService } from "./multilinguism.service";
+import { ConfigurationService } from "./configuration.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +11,13 @@ import {ConfigurationService} from "./configuration.service";
 export class PrintService {
 
   constructor(public boardService: BoardService,
-              public gridElementService: GridElementService,
-              public multilinguism: MultilinguismService,
-              public configuration: ConfigurationService) {
+    public gridElementService: GridElementService,
+    public multilinguism: MultilinguismService,
+    public configuration: ConfigurationService) {
   }
 
   urlList: any[] = [];
-  buttonHTML = '<input id="print" type="button" value="' +this.multilinguism.translate('exportPDF')+'" style="margin-left: 25%; height: 50px; width: 50%; font-size: x-large;">\n';
+  buttonHTML = '<input id="print" type="button" value="' + this.multilinguism.translate('exportPDF') + '" style="margin-left: 25%; height: 50px; width: 50%; font-size: x-large;">\n';
 
   footer: string | ArrayBuffer = this.configuration.FOOTER;
   header: string | ArrayBuffer = this.configuration.HEADER;
@@ -36,13 +36,13 @@ export class PrintService {
   enablePageName = true;
   enableVersion = true;
 
-  updateConfigHeader(header, headerButton, headerChoice){
+  updateConfigHeader(header, headerButton, headerChoice) {
     this.configuration.HEADER = header;
     this.configuration.HEADER_BUTTON = headerButton;
     this.configuration.HEADER_CHOICE = headerChoice;
   }
 
-  updateConfigFooter(footer, footerButton, footerChoice){
+  updateConfigFooter(footer, footerButton, footerChoice) {
     this.configuration.FOOTER = footer;
     this.configuration.FOOTER_BUTTON = footerButton;
     this.configuration.FOOTER_CHOICE = footerChoice;
@@ -56,7 +56,7 @@ export class PrintService {
       wind.document.body.innerHTML =
         '<style type="text/css" media="print">\n' +
         '  @page { size: landscape; }\n' +
-        '</style>'+
+        '</style>' +
         '<style>' + this.getCSSKeyboard() + '</style>'
         + '<style>' + this.getCSSIndex() + '</style>'
         + '<style>' + this.getCSSPrint() + '</style>'
@@ -65,41 +65,41 @@ export class PrintService {
     };
   }
 
-  checkSize(){
-    if (this.buttonEnableHeader && this.buttonEnableFooter){
-      if (this.typeChoiceHeader == "text" && this.typeChoiceFooter == "text"){
+  checkSize() {
+    if (this.buttonEnableHeader && this.buttonEnableFooter) {
+      if (this.typeChoiceHeader == "text" && this.typeChoiceFooter == "text") {
         this.heightHeader = "5%";
         this.heightFooter = "5%";
         this.height = "90%";
-      }else if (this.typeChoiceHeader == "img" && this.typeChoiceFooter == "text"){
+      } else if (this.typeChoiceHeader == "img" && this.typeChoiceFooter == "text") {
         this.heightHeader = "25%";
         this.heightFooter = "5%";
         this.height = "70%";
-      }else if (this.typeChoiceHeader == "text" && this.typeChoiceFooter == "img"){
+      } else if (this.typeChoiceHeader == "text" && this.typeChoiceFooter == "img") {
         this.heightHeader = "5%";
         this.heightFooter = "25%";
         this.height = "70%";
-      }else {
+      } else {
         this.heightHeader = "25%";
         this.heightFooter = "25%";
         this.height = "50%";
       }
-    }else if (this.buttonEnableHeader && !this.buttonEnableFooter){
-      if (this.typeChoiceHeader == "text"){
+    } else if (this.buttonEnableHeader && !this.buttonEnableFooter) {
+      if (this.typeChoiceHeader == "text") {
         this.heightHeader = "5%";
         this.heightFooter = "0%";
         this.height = "95%";
-      }else {
+      } else {
         this.heightHeader = "25%";
         this.heightFooter = "0%";
         this.height = "75%";
       }
-    }else if (!this.buttonEnableHeader && this.buttonEnableFooter){
-      if (this.typeChoiceFooter == "text"){
+    } else if (!this.buttonEnableHeader && this.buttonEnableFooter) {
+      if (this.typeChoiceFooter == "text") {
         this.heightHeader = "5%";
         this.heightFooter = "5%";
         this.height = "90%";
-      }else {
+      } else {
         this.heightHeader = "5%";
         this.heightFooter = "25%";
         this.height = "70%";
@@ -123,10 +123,10 @@ export class PrintService {
   getAllHTML() {
     let tempHTML = this.buttonHTML +
       '<div class="table" style="height: 100vh ; display: grid;' +
-      'grid-template-rows: repeat('+ this.boardService.board.PageList.length + ', ' +
-      this.heightHeader + ' '+
-      this.height+' '+
-      this.heightFooter+' );">';
+      'grid-template-rows: repeat(' + this.boardService.board.PageList.length + ', ' +
+      this.heightHeader + ' ' +
+      this.height + ' ' +
+      this.heightFooter + ' );">';
     this.boardService.board.PageList.forEach(page => {
       const tempList = [];
       if (page !== null && page !== undefined) {
@@ -139,7 +139,7 @@ export class PrintService {
       }
     });
 
-    return tempHTML +"</div>";
+    return tempHTML + "</div>";
   }
 
   getHTML(page: Page, elementList: any[]) {
@@ -173,14 +173,14 @@ export class PrintService {
       (100 / numberOfRows) + '%) ;"' + '>\n';
   }
 
-  headerValue(page: Page, i: number){
-    if (this.enablePageName && this.enableVersion){
+  headerValue(page: Page, i: number) {
+    if (this.enablePageName && this.enableVersion) {
       return page.ID + '- page ' + (((i as number) + (1 as number)) as number) + " " + this.configuration.VERSION;
-    }else if (this.enablePageName && !this.enableVersion){
+    } else if (this.enablePageName && !this.enableVersion) {
       return page.ID + '- page ' + (((i as number) + (1 as number)) as number);
-    }else if (!this.enablePageName && this.enableVersion){
+    } else if (!this.enablePageName && this.enableVersion) {
       return this.configuration.VERSION;
-    }else {
+    } else {
       return " ";
     }
   }
@@ -189,11 +189,11 @@ export class PrintService {
     if ((element.Type as FolderGoTo).GoTo !== undefined) {
       let s = '; box-shadow: 3px -3px 0px -2px '
         + (this.gridElementService.getStyle(element).BackgroundColor === undefined ||
-        this.gridElementService.getStyle(element).BackgroundColor == null ?
+          this.gridElementService.getStyle(element).BackgroundColor == null ?
           '#d3d3d3' : this.gridElementService.getStyle(element).BackgroundColor);
       s = s + ' , 4px -4px '
         + (this.gridElementService.getStyle(element).BorderColor === undefined ||
-        this.gridElementService.getStyle(element).BorderColor == null ?
+          this.gridElementService.getStyle(element).BorderColor == null ?
           'black' : this.gridElementService.getStyle(element).BorderColor);
       return s;
     } else {
@@ -232,31 +232,31 @@ export class PrintService {
   }
 
   wrapperEnd() {
-    return '</div>' + '</div>'  + this.getFooter();
+    return '</div>' + '</div>' + this.getFooter();
   }
 
-  getHeader(){
-    if (this.buttonEnableHeader){
-      if (this.typeChoiceHeader == 'text'){
+  getHeader() {
+    if (this.buttonEnableHeader) {
+      if (this.typeChoiceHeader == 'text') {
         return this.header;
-      }else {
+      } else {
         return "<img class='adjustableText sizeHeaderFooter' src='" + this.header + "' alt=''>";
       }
-    }else {
+    } else {
       return "";
     }
   }
 
-  getFooter(){
-    if (this.buttonEnableFooter){
-      if (this.typeChoiceFooter == 'text'){
-        return  '<div class="idFooter section-to-print">' + this.footer + '</div>';
-      }else {
-        return  '<div class="idFooter section-to-print">' +
-              '<img class="adjustableText sizeHeaderFooter" src="' + this.footer + '" alt="">' +
+  getFooter() {
+    if (this.buttonEnableFooter) {
+      if (this.typeChoiceFooter == 'text') {
+        return '<div class="idFooter section-to-print">' + this.footer + '</div>';
+      } else {
+        return '<div class="idFooter section-to-print">' +
+          '<img class="adjustableText sizeHeaderFooter" src="' + this.footer + '" alt="">' +
           '</div>';
       }
-    }else {
+    } else {
       return "<div></div>";
     }
   }
@@ -374,10 +374,10 @@ export class PrintService {
       '}\n' +
       '\n' +
       '.sizeHeaderFooter {\n' +
-      '    max-width: 200px;\n'+
-      '    max-height: 100%;\n'+
-      '    display: block;\n'+
-      '    margin: auto;\n'+
+      '    max-width: 200px;\n' +
+      '    max-height: 100%;\n' +
+      '    display: block;\n' +
+      '    margin: auto;\n' +
       '    width: auto;\n' +
       '}\n' +
       '\n' +
@@ -385,7 +385,7 @@ export class PrintService {
       ' text-align: right;\n' +
       '}\n' +
       '.headerPosition {\n' +
-      ' text-align:' + this.textAlignHeader +'\n' +
+      ' text-align:' + this.textAlignHeader + '\n' +
       '}\n';
   }
 

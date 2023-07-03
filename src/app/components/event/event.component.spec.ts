@@ -1,10 +1,10 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {EventComponent} from './event.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {Router} from "@angular/router";
-import {HttpClientModule} from "@angular/common/http";
+import { EventComponent } from './event.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router } from "@angular/router";
+import { HttpClientModule } from "@angular/common/http";
 
 describe('EventComponent', () => {
   let component: EventComponent;
