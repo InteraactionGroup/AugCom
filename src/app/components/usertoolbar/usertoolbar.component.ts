@@ -185,6 +185,9 @@ export class UsertoolbarComponent implements OnInit {
     this.layoutService.setDraggable(this.userToolBarService.edit);
   }
 
+  /**
+   * Returns the icon corresponding to the current page/folder
+   */
   getCurrentPageImage() {
     const currentFolder = this.boardService.getCurrentFolder();
     if (currentFolder === '#HOME') {
