@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {DwellCursorService} from "../../services/dwell-cursor.service";
 import {ConfigurationService} from "../../services/configuration.service";
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 @Component({
   selector: 'app-dwell-cursor',
@@ -18,13 +20,10 @@ export class DwellCursorComponent implements OnInit {
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', e => {
       if (this.configurationService.DWELL_TIME_ENABLED) {
-        //cursor.setAttribute("style", "top: " + (e.pageY - 10) + "px; left: " + (e.pageX - 10) + "px;opacity:" + this.getCursorOpacity())
         cursor.setAttribute(
           "style",
           "top: " + this.dwellCursorService.y + "px;"+
           " left: " + this.dwellCursorService.x + "px;"+
-          " width: " + this.dwellCursorService.diameter + "px;"+
-          " height: " + this.dwellCursorService.diameter + "px;"+
           "opacity:" + this.getCursorOpacity())
       }
     });

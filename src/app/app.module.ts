@@ -91,6 +91,8 @@ import { PendingChangesGuard } from './services/pending-changes-guard.service';
 import { RouterPreloader } from '@angular/router';
 import { ExportComponent } from './components/export/export.component';
 import { DialogGridOptionsComponent } from './components/dialog-grid-options/dialog-grid-options.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 @NgModule({
   declarations: [
@@ -190,7 +192,8 @@ import { DialogGridOptionsComponent } from './components/dialog-grid-options/dia
     MatCardModule,
     MatGridListModule,
     MatDialogModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    MatProgressSpinnerModule
   ],
   bootstrap: [AppComponent], 
   providers: [FormBuilder, Ng2ImgMaxService, PendingChangesGuard],

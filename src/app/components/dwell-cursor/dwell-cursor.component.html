@@ -1,5 +1,5 @@
 <div id="cursor" class="cursor"
 >
-  <progress id="file" [max]="dwellCursorService.maxValue" [value]="dwellCursorService.currentValue">
-  </progress>
+  <mat-progress-spinner id="file" mode="determinate" [color]="dwellCursorService.color" [diameter]="dwellCursorService.diameter" [strokeWidth]="dwellCursorService.strokeWidth"  [value]="dwellCursorService.percentage">
+  </mat-progress-spinner>
 </div>
