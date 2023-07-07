@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class PaletteService {
 
+  //Lists of all the colors available in the application
 
   public paletteCodamne = null;
 

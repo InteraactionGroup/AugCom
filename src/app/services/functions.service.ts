@@ -19,6 +19,9 @@ export class FunctionsService {
     this.reset();
   }
 
+  /**
+   * Resets the interactions of the selected elements
+   */
   reset() {
     this.interactionIDs = [
       { ID: 'click', plus: false, ActionList: [] },
@@ -26,6 +29,9 @@ export class FunctionsService {
       { ID: 'doubleClick', plus: false, ActionList: [] }];
   }
 
+  /**
+   * Initializes all available interactions of the selected element(s)
+   */
   initFunctionList() {
     this.functionList.push(
       'display',
@@ -33,19 +39,14 @@ export class FunctionsService {
       'otherforms',
       'back',
       'backHome',
-
-      /*
-      'changeGenre',
-      'changeNumber',
-      'changePerson',
-      'changeTime',
-      'changeLevel'*/
     )
   }
 
-
+/**
+ * Selects an interaction and adds it to the action list
+ * @param interId interaction to be selected
+ */
   selectFunction2(interId: { ID: string, plus: boolean, ActionList: Action[] }) {
-    console.log(this.selectedFunction);
     interId.ActionList.push({ ID: this.selectedFunction, Options: [] });
     interId.plus = false;
     this.selectedFunction = '@'

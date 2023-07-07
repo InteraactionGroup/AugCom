@@ -120,6 +120,10 @@ export class EditionService {
     this.selectedPalette = this.paletteService.defaultPalette;
   }
 
+  /**
+   * Selects all elements of the list in parameter
+   * @param elementList List of buttons / folders to be selected
+   */
   selectAllElementsOf(elementList) {
     this.selectedElements = [];
     if (!this.selectAll) {
@@ -128,6 +132,11 @@ export class EditionService {
     this.selectAll = !this.selectAll;
   }
 
+  /**
+   * Selects all elements of the list in parameter, from the page in parameter
+   * @param elementList List of buttons / folders to be selected
+   * @param currentPage page from which the element will be selected
+   */
   selectAllElementsOfThePage(elementList, currentPage: Page) {
     this.selectedElements = [];
     if (!this.selectAll) {
@@ -138,12 +147,20 @@ export class EditionService {
     this.selectAll = !this.selectAll;
   }
 
+  /**
+   * Adds an element to the list of selected elements
+   * @param element element to be selected
+   */
   addToSelected(element: GridElement) {
     if (!this.selectedElements.includes(element)) {
       this.selectedElements.push(element);
     }
   }
 
+  /**
+   * Selects an element
+   * @param element element to be selected
+   */
   select(element: GridElement) {
     if (this.selectedElements.includes(element)) {
       this.selectedElements = this.selectedElements.filter(elt => elt !== element);
@@ -153,14 +170,28 @@ export class EditionService {
     }
   }
 
+  /**
+   * Checks if the element in parameter is selected
+   * @param element element to be checked
+   * @returns true if element is selected, false elsewise
+   */
   isSelected(element: GridElement) {
     return this.selectedElements.includes(element);
   }
 
+
+  /**
+   * Deletes the element in parameter
+   * @param element element to be deleted
+   */
   delete(element: GridElement) {
     this.sentencedToBeDeletedElement.push(element);
   }
 
+  /**
+   * Selects the color in parameter to be the inside color of tiles
+   * @param color color to be selected
+   */
   selectInsideColor(color) {
     this.curentColor = color;
     if (this.insideCheck) {
@@ -168,6 +199,10 @@ export class EditionService {
     }
   }
 
+  /**
+   * Selects the color in parameter to be the border color of tiles
+   * @param color color to be selected
+   */
   selectBorderColor(color) {
     this.curentBorderColor = color;
     if (this.borderCheck) {
@@ -175,6 +210,10 @@ export class EditionService {
     }
   }
 
+  /**
+   * Selects the palette in parameter, if the palette is already selected, unselects it
+   * @param name palette to be selected
+   */
   selectThePalette(name) {
     if (this.selectedPalette === name) {
       this.selectedPalette = null;
@@ -182,12 +221,20 @@ export class EditionService {
       this.selectedPalette = name;
     }
   }
+
+  /**
+   * Toggles the inside color check
+   */
   checkInsideColor() {
     this.insideCheck = !this.insideCheck;
     if (this.insideCheck) {
       this.defaultInsideColor = this.curentColor;
     }
   }
+
+/**
+ * Toggles the border color check
+ */
   checkBorderColor() {
     this.borderCheck = !this.borderCheck;
     if (this.borderCheck) {
