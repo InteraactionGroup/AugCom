@@ -21,7 +21,6 @@ export class DwellCursorService {
   public diameter = 20;
   public strokeWidth = this.diameter/5;
 
-
   constructor() {
   }
 
