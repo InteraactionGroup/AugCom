@@ -1,10 +1,10 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {ProloquoParser} from './proloquoParser';
-import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
-import {Ng2ImgMaxModule} from 'ng2-img-max';
-import {Router} from '@angular/router';
+import { ProloquoParser } from './proloquoParser';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { Ng2ImgMaxModule } from 'ng2-img-max';
+import { Router } from '@angular/router';
 
 describe('ProloquoParserService', () => {
   beforeEach(() => TestBed.configureTestingModule({

@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {BackLinksCSV, ButtonLinksCSV, PageLinksCSV, WordsCSV} from '../csvType';
-import {FolderGoTo, Grid, GridElement, Interaction, Page} from '../types';
-import {BoardService} from './board.service';
-import {IndexeddbaccessService} from './indexeddbaccess.service';
-import {Router} from '@angular/router';
-import {JsonValidatorService} from './json-validator.service';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { BackLinksCSV, ButtonLinksCSV, PageLinksCSV, WordsCSV } from '../csvType';
+import { FolderGoTo, Grid, GridElement, Interaction, Page } from '../types';
+import { BoardService } from './board.service';
+import { IndexeddbaccessService } from './indexeddbaccess.service';
+import { Router } from '@angular/router';
+import { JsonValidatorService } from './json-validator.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +13,10 @@ import {JsonValidatorService} from './json-validator.service';
 export class ProloquoParser {
 
   constructor(public http: HttpClient,
-              public boardService: BoardService,
-              public indexedDBacess: IndexeddbaccessService,
-              public router: Router,
-              public jsonValidator: JsonValidatorService) {
+    public boardService: BoardService,
+    public indexedDBacess: IndexeddbaccessService,
+    public router: Router,
+    public jsonValidator: JsonValidatorService) {
   }
 
   public words: WordsCSV[] = [];
@@ -26,25 +26,25 @@ export class ProloquoParser {
 
   public createGridFromProloquoCSVs(): void {
     /*WORD CSV DATA*/
-    this.http.get('assets/libs/proloquo/proloquoMots.csv', {responseType: 'text'}).subscribe(wordData => {
+    this.http.get('assets/libs/proloquo/proloquoMots.csv', { responseType: 'text' }).subscribe(wordData => {
       const csvWordRecordsArray = (wordData as string).split(/\r\n|\n/);
       const headerWord = this.getHeaderArray(csvWordRecordsArray);
       this.getDataRecordsArrayFromWordsCSV(csvWordRecordsArray, headerWord.length);
 
       /*PAGE CSV DATA*/
-      this.http.get('assets/libs/proloquo/proloquoPageLinks.csv', {responseType: 'text'}).subscribe(pageData => {
+      this.http.get('assets/libs/proloquo/proloquoPageLinks.csv', { responseType: 'text' }).subscribe(pageData => {
         const csvPageRecordsArray = (pageData as string).split(/\r\n|\n/);
         const headerPage = this.getHeaderArray(csvPageRecordsArray);
         this.getDataRecordsArrayFromPageLinksCSV(csvPageRecordsArray, headerPage.length);
 
         /*BUTTON CSV DATA*/
-        this.http.get('assets/libs/proloquo/proloquoButtonLinks.csv', {responseType: 'text'}).subscribe(buttonData => {
+        this.http.get('assets/libs/proloquo/proloquoButtonLinks.csv', { responseType: 'text' }).subscribe(buttonData => {
           const csvButtonRecordsArray = (buttonData as string).split(/\r\n|\n/);
           const headerButton = this.getHeaderArray(csvButtonRecordsArray);
           this.getDataRecordsArrayFromButtonLinksCSV(csvButtonRecordsArray, headerButton.length);
 
           /*BACK CSV DATA*/
-          this.http.get('assets/libs/proloquo/proloquoBackLinks.csv', {responseType: 'text'}).subscribe(backData => {
+          this.http.get('assets/libs/proloquo/proloquoBackLinks.csv', { responseType: 'text' }).subscribe(backData => {
             const csvBackRecordsArray = (backData as string).split(/\r\n|\n/);
             const headerBack = this.getHeaderArray(csvBackRecordsArray);
             this.getDataRecordsArrayFromBackLinksCSV(csvBackRecordsArray, headerBack.length);
@@ -215,7 +215,7 @@ export class ProloquoParser {
           }
         }
 
-        tempPage.push({ID: word.page, Name: name, ElementIDsList: []})
+        tempPage.push({ ID: word.page, Name: name, ElementIDsList: [] })
       }
     });
   }
@@ -223,7 +223,7 @@ export class ProloquoParser {
   setUpNewGridElement(idOfWord, type, word) {
 
     const interList: Interaction[] = [
-      {ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}
+      { ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }
     ];
 
     return new GridElement(
@@ -237,7 +237,7 @@ export class ProloquoParser {
         {
           DisplayedText: word.mot,
           VoiceText: word.mot,
-          LexicInfos: [{default: true}],
+          LexicInfos: [{ default: true }],
           ImageID: word.wordID
         }
       ],
@@ -286,15 +286,15 @@ export class ProloquoParser {
   getColor(wordID: string) {
     const name = wordID.split('@%')[0];
     switch (name) {
-      case 'fermer' :
+      case 'fermer':
         return 'darkgray';
-      case 'plus' :
+      case 'plus':
         return 'dimgrey';
-      case 'retour' :
+      case 'retour':
         return 'red';
-      case 'page_suivante' :
+      case 'page_suivante':
         return 'yellow';
-      case 'page_précédente' :
+      case 'page_précédente':
         return 'orange';
       default:
         return 'white';

@@ -1,18 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {HistoricService} from '../../services/historic.service';
-import {EditionService} from '../../services/edition.service';
-import {BoardService} from '../../services/board.service';
-import {Action, ElementForm, FolderGoTo, GridElement, Page, Vignette,} from '../../types';
-import {GeticonService} from '../../services/geticon.service';
-import {UsertoolbarService} from '../../services/usertoolbar.service';
-import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {SearchService} from '../../services/search.service';
-import {Ng2ImgMaxService} from 'ng2-img-max';
-import {LayoutService} from 'src/app/services/layout.service';
-import {MultilinguismService} from '../../services/multilinguism.service';
-import {GridElementService} from '../../services/grid-element.service';
-import {ConfigurationService} from "../../services/configuration.service";
+import { Component, OnInit } from '@angular/core';
+import { HistoricService } from '../../services/historic.service';
+import { EditionService } from '../../services/edition.service';
+import { BoardService } from '../../services/board.service';
+import { Action, ElementForm, FolderGoTo, GridElement, Page, Vignette, } from '../../types';
+import { GeticonService } from '../../services/geticon.service';
+import { UsertoolbarService } from '../../services/usertoolbar.service';
+import { IndexeddbaccessService } from '../../services/indexeddbaccess.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SearchService } from '../../services/search.service';
+import { Ng2ImgMaxService } from 'ng2-img-max';
+import { LayoutService } from 'src/app/services/layout.service';
+import { MultilinguismService } from '../../services/multilinguism.service';
+import { GridElementService } from '../../services/grid-element.service';
+import { ConfigurationService } from "../../services/configuration.service";
 
 @Component({
   selector: 'app-keyboard',
@@ -20,7 +20,7 @@ import {ConfigurationService} from "../../services/configuration.service";
   styleUrls: ['./keyboard.component.css'],
   providers: [Ng2ImgMaxService]
 })
-export class KeyboardComponent implements OnInit{
+export class KeyboardComponent implements OnInit {
 
   /**
    * element currently pressed
@@ -30,7 +30,7 @@ export class KeyboardComponent implements OnInit{
 
   copyElements = [];
   isCopy = false;
-  margins = Number(this.configurationService.SIZE_ICON_VALUE)/60;
+  margins = Number(this.configurationService.SIZE_ICON_VALUE) / 60;
 
   // tslint:disable-next-line:max-line-length
   constructor(
@@ -50,9 +50,13 @@ export class KeyboardComponent implements OnInit{
     public route: ActivatedRoute
   ) {
     this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
-    this.margins = Number(this.configurationService.SIZE_ICON_VALUE)/60;
+    this.margins = Number(this.configurationService.SIZE_ICON_VALUE) / 60;
   }
 
+  /**
+   * Adds or removes a column from the current board
+   * Number of columns is capped between 1 and 50
+   */
   onKeyCols(event: any) {
     if (+event.target.value >= 1 && +event.target.value <= 50) {
       const currentPage: Page = this.boardService.currentPage();
@@ -68,6 +72,10 @@ export class KeyboardComponent implements OnInit{
     }
   }
 
+  /**
+   *Adds or removes a row from the current board
+   * Number of rows is capped between 1 and 50
+   */
   onKeyRows(event: any) {
     if (+event.target.value >= 1 && +event.target.value <= 50) {
       const currentPage: Page = this.boardService.currentPage();
@@ -83,6 +91,10 @@ export class KeyboardComponent implements OnInit{
     }
   }
 
+  /**
+   * Increases or decreases the distance between each row and column of the current board
+   * Gap is capped between 1 and 50
+   */
   onKeyGap(event: any) {
     if (+event.target.value >= 1 && +event.target.value <= 50) {
       const currentPage: Page = this.boardService.currentPage();
@@ -102,21 +114,21 @@ export class KeyboardComponent implements OnInit{
    * execute the indexeddbaccessService init fucntion to get the information of the DB or to create new entries if there is no info
    */
   ngOnInit() {
-    this.margins = Number(this.configurationService.SIZE_ICON_VALUE)/60;
+    this.margins = Number(this.configurationService.SIZE_ICON_VALUE) / 60;
     this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
     this.refresh().then(r => {
-      this.delay(1000).then(r => {this.boardService.updateElementList()});
+      this.delay(1000).then(r => { this.boardService.updateElementList() });
     });
   }
 
-    public async refresh() {
-      //await this.delay(500);
-      this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
-      await this.delay(100);
-      this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
-      await this.delay(1000);
-      this.boardService.updateElementList();
-    }
+  public async refresh() {
+    //await this.delay(500);
+    this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
+    await this.delay(100);
+    this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
+    await this.delay(1000);
+    this.boardService.updateElementList();
+  }
 
   delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -272,6 +284,9 @@ export class KeyboardComponent implements OnInit{
     }
   }
 
+  /**
+   * Adds a new element to the board with the default informations of the edition service
+   */
   addNewElement() {
     this.editionService.add = true;
     this.editionService.clearEditionPane();
@@ -279,13 +294,13 @@ export class KeyboardComponent implements OnInit{
       {
         ID: 'click',
         ActionList: [
-          {ID: 'display', Options: []},
-          {ID: 'say', Options: []},
+          { ID: 'display', Options: [] },
+          { ID: 'say', Options: [] },
         ],
       },
       {
         ID: 'longPress',
-        ActionList: [{ID: 'otherforms', Options: []}],
+        ActionList: [{ ID: 'otherforms', Options: [] }],
       },
     ];
   }
@@ -317,13 +332,13 @@ export class KeyboardComponent implements OnInit{
     }
   }
   //deep copy
-  copyFull(){
-    if (this.userToolBarService.edit){
+  copyFull() {
+    if (this.userToolBarService.edit) {
       this.copyElements = [];
       this.editionService.selectedElements.forEach((elt) => {
         this.copyElements.push(this.boardService.deepCopyButtonFolder(elt));
       });
-      if (this.copyElements.length > 0){
+      if (this.copyElements.length > 0) {
         this.isCopy = true;
       }
     }
@@ -331,13 +346,13 @@ export class KeyboardComponent implements OnInit{
   }
 
   //shadow copy
-  copyAll(){
-    if (this.userToolBarService.edit){
+  copyAll() {
+    if (this.userToolBarService.edit) {
       this.copyElements = [];
       this.editionService.selectedElements.forEach((elt) => {
         this.copyElements.push(this.boardService.copyButtonFolder(elt));
       });
-      if (this.copyElements.length > 0){
+      if (this.copyElements.length > 0) {
         this.isCopy = true;
       }
     }
@@ -348,10 +363,10 @@ export class KeyboardComponent implements OnInit{
     this.copyElements.forEach((elt) => {
       this.boardService.elementList.push(elt);
       this.boardService.board.ElementList.push(elt);
-      try{
+      try {
         this.boardService.board.PageList[this.boardService.currentIndexPage()].ElementIDsList.push(elt.ID);
-      }catch (e) {
-        this.boardService.board.PageList[this.boardService.currentIndexPage()].ElementIDsList.push(elt.ID+'copy');
+      } catch (e) {
+        this.boardService.board.PageList[this.boardService.currentIndexPage()].ElementIDsList.push(elt.ID + 'copy');
       }
 
     });
@@ -362,7 +377,7 @@ export class KeyboardComponent implements OnInit{
     this.copyElements = [];
   }
 
-  generateGridWithSentence(){
+  generateGridWithSentence() {
     this.router.navigate(['/generatorGrid'])
   }
 

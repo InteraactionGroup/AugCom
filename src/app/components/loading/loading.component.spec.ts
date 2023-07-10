@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoadingComponent } from './loading.component';
-import {HttpClientModule} from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http";
 
 describe('LoadingComponent', () => {
   let component: LoadingComponent;
@@ -10,9 +10,9 @@ describe('LoadingComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule],
-      declarations: [ LoadingComponent ]
+      declarations: [LoadingComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

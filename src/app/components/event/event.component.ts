@@ -1,9 +1,9 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {EditionService} from '../../services/edition.service';
-import {GeticonService} from '../../services/geticon.service';
-import {Action, Interaction} from '../../types';
-import {MultilinguismService} from '../../services/multilinguism.service';
-import {FunctionsService} from '../../services/functions.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { EditionService } from '../../services/edition.service';
+import { GeticonService } from '../../services/geticon.service';
+import { Action, Interaction } from '../../types';
+import { MultilinguismService } from '../../services/multilinguism.service';
+import { FunctionsService } from '../../services/functions.service';
 
 @Component({
   selector: 'app-event',
@@ -12,16 +12,16 @@ import {FunctionsService} from '../../services/functions.service';
 })
 export class EventComponent implements OnInit, OnDestroy {
   constructor(public multilinguism: MultilinguismService,
-              public getIconService: GeticonService,
-              public functionService: FunctionsService,
-              public editionService: EditionService) {
+    public getIconService: GeticonService,
+    public functionService: FunctionsService,
+    public editionService: EditionService) {
   }
 
   ngOnInit() {
   }
 
   ngOnDestroy(): void {
-      this.resetSelected();
+    this.resetSelected();
   }
 
   /**
@@ -45,17 +45,17 @@ export class EventComponent implements OnInit, OnDestroy {
     switch (codeName) {
       case 'display':
         return 'addToSentence';
-      case'say':
+      case 'say':
         return 'pronounce';
       case 'otherforms':
         return 'displayAlternativeForms';
-      case 'click' :
+      case 'click':
         return 'click';
-      case'longPress':
+      case 'longPress':
         return 'longPress';
       case 'doubleClick':
         return 'dblClick';
-      default :
+      default:
         return codeName;
     }
 
@@ -84,10 +84,10 @@ export class EventComponent implements OnInit, OnDestroy {
     if ((currentInterraction === null || currentInterraction === undefined)) {
       this.editionService.interractionList.push({
         ID: interactionId,
-        ActionList: [{ID: actionId, Options: []}]
+        ActionList: [{ ID: actionId, Options: [] }]
       });
     } else {
-      currentInterraction.ActionList.push({ID: actionId, Options: []});
+      currentInterraction.ActionList.push({ ID: actionId, Options: [] });
     }
   }
 
@@ -123,7 +123,7 @@ export class EventComponent implements OnInit, OnDestroy {
     });
   }
 
-  resetSelected(){
+  resetSelected() {
     this.functionService.interactionIDs.forEach(interaction => {
       interaction.plus = false;
     });

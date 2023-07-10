@@ -1,10 +1,11 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PaletteService {
 
+  //Lists of all the colors available in the application
 
   public paletteCodamne = null;
 
@@ -62,7 +63,7 @@ export class PaletteService {
 
   newpalette = false;
 
-  newTempPalette = {name: '', colors: []};
+  newTempPalette = { name: '', colors: [] };
 
   constructor() {
     this.palettes = this.DEFAULTPALETTELIST;
@@ -74,7 +75,7 @@ export class PaletteService {
   }
 
   addColor() {
-    this.newTempPalette.colors.push({color: '#ffffff'});
+    this.newTempPalette.colors.push({ color: '#ffffff' });
   }
 
 
@@ -97,8 +98,8 @@ export class PaletteService {
       this.newTempPalette.colors.forEach(color => {
         newColors.push(color.color);
       });
-      this.palettes.push({name: this.newTempPalette.name, colors: newColors});
-      this.newTempPalette = {name: '', colors: []};
+      this.palettes.push({ name: this.newTempPalette.name, colors: newColors });
+      this.newTempPalette = { name: '', colors: [] };
       this.newpalette = false;
     }
   }
@@ -108,7 +109,7 @@ export class PaletteService {
   }
 
   close() {
-    this.newTempPalette = {name: '', colors: []};
+    this.newTempPalette = { name: '', colors: [] };
     this.newpalette = false;
   }
 

@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import {ConfigurationService} from "../../services/configuration.service";
-import {FolderGoTo, Grid, GridElementGenerated, Page} from "../../types";
-import {BoardService} from "../../services/board.service";
+import { ConfigurationService } from "../../services/configuration.service";
+import { FolderGoTo, Grid, GridElementGenerated, Page } from "../../types";
+import { BoardService } from "../../services/board.service";
 import arasaacJson from "../../../assets/arasaac-symbol-info.json";
-import {ArasaacObject, MulBerryObject} from "../../libTypes";
+import { ArasaacObject, MulBerryObject } from "../../libTypes";
 import arasaacColoredJson from "../../../assets/arasaac-color-symbol-info.json";
 import mullberryJson from "../../../assets/symbol-info.json";
-import {EditionService} from "../../services/edition.service";
-import {FunctionsService} from "../../services/functions.service";
-import {DbnaryService} from "../../services/dbnary.service";
-import {Router} from "@angular/router";
-import {MultilinguismService} from "../../services/multilinguism.service";
-import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
-import {LayoutService} from "../../services/layout.service";
-import {VoiceRecognitionService} from "../../services/voice-recognition.service";
+import { EditionService } from "../../services/edition.service";
+import { FunctionsService } from "../../services/functions.service";
+import { DbnaryService } from "../../services/dbnary.service";
+import { Router } from "@angular/router";
+import { MultilinguismService } from "../../services/multilinguism.service";
+import { IndexeddbaccessService } from "../../services/indexeddbaccess.service";
+import { LayoutService } from "../../services/layout.service";
+import { VoiceRecognitionService } from "../../services/voice-recognition.service";
 
 @Component({
   selector: 'app-generator-grid',
@@ -41,23 +41,22 @@ export class GeneratorGridComponent implements OnInit {
   errorType = "";
 
   constructor(public configuration: ConfigurationService,
-              public boardService: BoardService,
-              public editionService: EditionService,
-              public functionsService: FunctionsService,
-              public dbnaryService: DbnaryService,
-              public router: Router,
-              public multilinguism: MultilinguismService,
-              public indexedDBacess: IndexeddbaccessService,
-              public layoutService: LayoutService,
-              public voiceRecognition: VoiceRecognitionService) {
+    public boardService: BoardService,
+    public editionService: EditionService,
+    public functionsService: FunctionsService,
+    public dbnaryService: DbnaryService,
+    public router: Router,
+    public multilinguism: MultilinguismService,
+    public indexedDBacess: IndexeddbaccessService,
+    public layoutService: LayoutService,
+    public voiceRecognition: VoiceRecognitionService) {
   }
 
   ngOnInit(): void {
     this.voiceRecognition.changeLanguage();
   }
 
-  clearActualGrid(){
-
+  clearActualGrid() {
     const generatedPage: Page = new Page();
     generatedPage.ID = '#HOME';
     generatedPage.Name = this.nameGrid;
@@ -65,36 +64,36 @@ export class GeneratorGridComponent implements OnInit {
     generatedPage.NumberOfCols = Number(this.nbCols);
     generatedPage.NumberOfRows = Number(this.nbRows);
     generatedPage.GapSize = 6;
-    this.boardService.board = new Grid('nothing','Grid',Number(this.nbCols),Number(this.nbRows),[],[],[generatedPage]);
+    this.boardService.board = new Grid('nothing', 'Grid', Number(this.nbCols), Number(this.nbRows), [], [], [generatedPage]);
     this.boardService.board.NumberOfCols = Number(this.nbCols);
     this.boardService.board.NumberOfRows = Number(this.nbRows);
     this.boardService.updateElementList();
   }
 
-  getWordsFromSentence(){
+  getWordsFromSentence() {
     this.wordsFromSentence = this.sentence.split(" ");
     this.wordsFromSentence = this.wordsFromSentence.filter(word => word != "");
     console.log(this.wordsFromSentence);
   }
 
-  getNameGrid(event){
+  getNameGrid(event) {
     this.nameGrid = event.target.value;
     this.nameGrid.split(" ").join("");
   }
 
-  getColsGrid(event){
+  getColsGrid(event) {
     this.nbCols = event.target.value;
   }
 
-  getRowsGrid(event){
+  getRowsGrid(event) {
     this.nbRows = event.target.value;
   }
 
-  getSentence(event){
+  getSentence(event) {
     this.sentence = event.target.value;
   }
 
-  getImageFromSentence(){
+  getImageFromSentence() {
     this.wordsFromSentence.forEach(words => {
       this.searchExactWordInLib(words);
     });
@@ -104,73 +103,73 @@ export class GeneratorGridComponent implements OnInit {
     });
   }
 
-  getLibrairy(lib){
+  getLibrairy(lib) {
     this.libToUse = lib;
   }
 
   searchExactWordInLib(text: string) {
     this.addOnlyOneImage = false;
     console.log("Search the exact word : ");
-    if(this.libToUse === "arasaacNB"){
+    if (this.libToUse === "arasaacNB") {
       (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
-          if (text !== null && text !== '' && word.toLowerCase() === text.toLocaleLowerCase() && !this.addOnlyOneImage) {
-            this.addOnlyOneImage = true;
-            const url = word;
-            this.imageList.push({lib: 'arasaacNB', word: this.cleanString(url)});
-            return;
-          }
-        }, this);
-    }else if (this.libToUse === "arasaacColor"){
+        if (text !== null && text !== '' && word.toLowerCase() === text.toLocaleLowerCase() && !this.addOnlyOneImage) {
+          this.addOnlyOneImage = true;
+          const url = word;
+          this.imageList.push({ lib: 'arasaacNB', word: this.cleanString(url) });
+          return;
+        }
+      }, this);
+    } else if (this.libToUse === "arasaacColor") {
       (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
-          if (text !== null && text !== '' && word.toLowerCase() === text.toLocaleLowerCase() && !this.addOnlyOneImage) {
-            this.addOnlyOneImage = true;
-            const url = word;
-            this.imageList.push({lib: 'arasaacColor', word: this.cleanString(url)});
-          }
-        }, this);
-      }
-    if (!this.addOnlyOneImage){
+        if (text !== null && text !== '' && word.toLowerCase() === text.toLocaleLowerCase() && !this.addOnlyOneImage) {
+          this.addOnlyOneImage = true;
+          const url = word;
+          this.imageList.push({ lib: 'arasaacColor', word: this.cleanString(url) });
+        }
+      }, this);
+    }
+    if (!this.addOnlyOneImage) {
       console.log("No find in arasaac lib !");
       (mullberryJson as unknown as MulBerryObject[]).forEach(value => {
         if (text !== null && text !== '' && value.symbol.toLowerCase() === text.toLocaleLowerCase() && !this.addOnlyOneImage) {
           this.addOnlyOneImage = true;
           const url = value.symbol;
-          this.imageList.push({lib: 'mulberry', word: this.cleanString(url)});
+          this.imageList.push({ lib: 'mulberry', word: this.cleanString(url) });
           return;
         }
       }, this);
-      if (!this.addOnlyOneImage){
+      if (!this.addOnlyOneImage) {
         this.searchTheClosestWordInLib(text);
       }
     }
   }
 
-  searchTheClosestWordInLib(text : string){
+  searchTheClosestWordInLib(text: string) {
     console.log("Search the closest word :");
-    if(this.libToUse === "arasaacNB"){
+    if (this.libToUse === "arasaacNB") {
       (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
         if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && !this.addOnlyOneImage) {
           this.addOnlyOneImage = true;
           const url = word;
-          this.imageList.push({lib: 'arasaacNB', word: this.cleanString(url)});
+          this.imageList.push({ lib: 'arasaacNB', word: this.cleanString(url) });
           return;
         }
       }, this);
-    }else if (this.libToUse === "arasaacColor"){
+    } else if (this.libToUse === "arasaacColor") {
       (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
         if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && !this.addOnlyOneImage) {
           this.addOnlyOneImage = true;
           const url = word;
-          this.imageList.push({lib: 'arasaacColor', word: this.cleanString(url)});
+          this.imageList.push({ lib: 'arasaacColor', word: this.cleanString(url) });
         }
       }, this);
     }
-    if (!this.addOnlyOneImage){
+    if (!this.addOnlyOneImage) {
       (mullberryJson as unknown as MulBerryObject[]).forEach(value => {
         if (text !== null && text !== '' && value.symbol.toLowerCase().includes(text.toLocaleLowerCase()) && !this.addOnlyOneImage) {
           this.addOnlyOneImage = true;
           const url = value.symbol;
-          this.imageList.push({lib: 'mulberry', word: this.cleanString(url)});
+          this.imageList.push({ lib: 'mulberry', word: this.cleanString(url) });
           return;
         }
       }, this);
@@ -210,17 +209,17 @@ export class GeneratorGridComponent implements OnInit {
     this.imageUrlList.push(t);
   }
 
-  setButtonOnGrid(){
+  setButtonOnGrid() {
     this.imageUrlList.forEach(image => {
       this.createNewButton(image);
       this.indexWordsFromSentence += 1;
     });
   }
 
-  updatePositionButton(){
-    if ((this.posX + 1) < this.nbCols){
+  updatePositionButton() {
+    if ((this.posX + 1) < this.nbCols) {
       this.posX = this.posX + 1;
-    }else {
+    } else {
       this.posX = 0;
       this.posY = this.posY + 1;
     }
@@ -234,14 +233,14 @@ export class GeneratorGridComponent implements OnInit {
     let i = 0;
     while (this.boardService.board.ElementList.findIndex(elt => elt.ID === tempId) !== -1) {
       tempId = name + i;
-      i ++;
+      i++;
     }
 
     this.editionService.variantList.push(
       {
         DisplayedText: name,
         VoiceText: name,
-        LexicInfos: [{default: true}],
+        LexicInfos: [{ default: true }],
         ImageID: tempId
       }
     );
@@ -252,8 +251,8 @@ export class GeneratorGridComponent implements OnInit {
     this.editionService.interractionList.push({
       ID: 'click',
       ActionList: [
-        {ID: 'display', Options: []},
-        {ID: 'say', Options: []}
+        { ID: 'display', Options: [] },
+        { ID: 'say', Options: [] }
       ]
     });
 
@@ -344,13 +343,13 @@ export class GeneratorGridComponent implements OnInit {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  async submit(){
-    if (this.nameGrid != ""){
-      if (this.nbCols > 0){
-        if (this.nbRows > 0){
+  async submit() {
+    if (this.nameGrid != "") {
+      if (this.nbCols > 0) {
+        if (this.nbRows > 0) {
           this.getWordsFromSentence();
-          if (this.wordsFromSentence.length > 0){
-            if ((this.nbCols * this.nbRows ) >= this.wordsFromSentence.length){
+          if (this.wordsFromSentence.length > 0) {
+            if ((this.nbCols * this.nbRows) >= this.wordsFromSentence.length) {
               this.clearActualGrid();
               this.getImageFromSentence();
               this.setButtonOnGrid();
@@ -362,23 +361,23 @@ export class GeneratorGridComponent implements OnInit {
               this.boardService.updateElementList();
               await this.delay(1500);
               this.router.navigate(['keyboard']);
-            }else {
+            } else {
               this.error = true;
               this.errorType = "sizeToSmall";
             }
-          }else {
+          } else {
             this.error = true;
             this.errorType = "noWords";
           }
-        }else {
+        } else {
           this.error = true;
           this.errorType = "noRows";
         }
-      }else {
+      } else {
         this.error = true;
         this.errorType = "noCols";
       }
-    }else {
+    } else {
       this.error = true;
       this.errorType = "noNameGrid";
     }

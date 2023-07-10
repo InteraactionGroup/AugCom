@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 
 @Injectable({
@@ -32,11 +32,10 @@ export class DwellCursorService {
   public updatePositionHTMLElement(element: HTMLElement){
     let bodyRect = document.body.getBoundingClientRect();
     let elemRect = element.getBoundingClientRect();
-    let  offsetTop  = elemRect.top - bodyRect.top;
-    let  offsetLeft  = elemRect.left - bodyRect.left;
-    let  offsetBottom  = elemRect.bottom - bodyRect.top;
-    let  offsetRight  = elemRect.right - bodyRect.left;
-
+    let offsetTop = elemRect.top - bodyRect.top;
+    let offsetLeft = elemRect.left - bodyRect.left;
+    let offsetBottom = elemRect.bottom - bodyRect.top;
+    let offsetRight = elemRect.right - bodyRect.left;
     let tempDiameter = Math.min( offsetRight - offsetLeft,offsetBottom - offsetTop)*0.7;
     this.diameter = (tempDiameter<20) ? 20 : Math.trunc(tempDiameter) ;
     this.strokeWidth = this.diameter/5;

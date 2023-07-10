@@ -1,8 +1,9 @@
-.wordOrSentence{
+.wordOrSentence {
   text-align: center;
   height: 100%;
   width: 100%;
 }
+
 .img {
   height: 80%;
   width: 80%;
@@ -15,6 +16,7 @@
   background-position: center;
   visibility: visible;
 }
-.backgroundWhite{
+
+.backgroundWhite {
   background: lightgrey;
 }

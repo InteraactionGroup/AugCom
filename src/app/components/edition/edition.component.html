@@ -11,7 +11,7 @@
      'border-style': 'solid',
      'border-color': this.editionService.curentBorderColor}">
         <div class="image haveBackgroundImage"
-             [style.background-image]="this.sanitizer.bypassSecurityTrustStyle('url(\'' +this.editionService.imageURL+'\')')">
+          [style.background-image]="this.sanitizer.bypassSecurityTrustStyle('url(\'' +this.editionService.imageURL+'\')')">
 
         </div>
         <div class="label centerText">
@@ -26,9 +26,8 @@
         <ng-container *ngFor="let section of this.editionService.menu">
           <div>
             <div>
-              <div class="menu-item-title-container"
-                   [class.selected]="this.editionService.currentEditPage===section"
-                   (click)="this.selectMenu(section)">
+              <div class="menu-item-title-container" [class.selected]="this.editionService.currentEditPage===section"
+                (click)="this.selectMenu(section)">
                 <div>
                   {{this.multilinguism.translate(section)}}
                 </div>

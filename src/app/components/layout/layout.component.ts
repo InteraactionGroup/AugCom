@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {GridsterConfig} from 'angular-gridster2';
-import {LayoutService} from '../../services/layout.service';
-import {BoardService} from '../../services/board.service';
-import {EditionService} from '../../services/edition.service';
+import { Component, OnInit } from '@angular/core';
+import { GridsterConfig } from 'angular-gridster2';
+import { LayoutService } from '../../services/layout.service';
+import { BoardService } from '../../services/board.service';
+import { EditionService } from '../../services/edition.service';
 
 @Component({
   selector: 'app-layout',

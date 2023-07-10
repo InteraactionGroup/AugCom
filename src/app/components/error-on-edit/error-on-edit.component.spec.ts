@@ -1,7 +1,7 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {ErrorOnEditComponent} from './error-on-edit.component';
-import {HttpClientModule} from "@angular/common/http";
+import { ErrorOnEditComponent } from './error-on-edit.component';
+import { HttpClientModule } from "@angular/common/http";
 
 describe('ErrorOnEditComponent', () => {
   let component: ErrorOnEditComponent;

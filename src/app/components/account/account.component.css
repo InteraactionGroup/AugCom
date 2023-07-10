@@ -5,7 +5,8 @@
   background-color: white;
 }
 
-.account-page:after, .account-page:before {
+.account-page:after,
+.account-page:before {
   display: table;
   content: "";
 }
@@ -195,7 +196,8 @@
   flex-shrink: 0 !important;
 }
 
-.menu-page-content-container:after, .menu-page-content-container:before {
+.menu-page-content-container:after,
+.menu-page-content-container:before {
   display: table;
   content: "";
 }

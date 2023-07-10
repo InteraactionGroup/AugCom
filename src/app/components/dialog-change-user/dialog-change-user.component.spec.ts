@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DialogChangeUserComponent } from './dialog-change-user.component';
-import {HttpClientModule} from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http";
 
 describe('DialogChangeUserComponent', () => {
   let component: DialogChangeUserComponent;
@@ -9,10 +9,10 @@ describe('DialogChangeUserComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DialogChangeUserComponent ],
+      declarations: [DialogChangeUserComponent],
       imports: [HttpClientModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

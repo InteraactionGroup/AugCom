@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {BoardService} from './board.service';
-import {PaletteService} from './palette.service';
-import {JsonValidatorService} from './json-validator.service';
-import {ConfigurationService} from "./configuration.service";
-import {UserPageService} from "./user-page.service";
-import {Grid, User} from '../types';
-import {Router} from '@angular/router';
+import { Injectable } from '@angular/core';
+import { BoardService } from './board.service';
+import { PaletteService } from './palette.service';
+import { JsonValidatorService } from './json-validator.service';
+import { ConfigurationService } from "./configuration.service";
+import { UserPageService } from "./user-page.service";
+import { Grid, User } from '../types';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +15,11 @@ export class IndexeddbaccessService {
   openRequest;
 
   constructor(public paletteService: PaletteService,
-              public boardService: BoardService,
-              public jsonValidator: JsonValidatorService,
-              public configurationService: ConfigurationService,
-              public userPageService: UserPageService,
-              public router: Router) {
+    public boardService: BoardService,
+    public jsonValidator: JsonValidatorService,
+    public configurationService: ConfigurationService,
+    public userPageService: UserPageService,
+    public router: Router) {
     this.loadUsersList();
   }
 
@@ -44,9 +44,9 @@ export class IndexeddbaccessService {
         const gridStore = db.transaction(['Grid'], 'readwrite');
         const gridObjectStore = gridStore.objectStore('Grid');
         console.log('this.boardService.gridChosen : ', this.boardService.gridChosen);
-        const storeGridRequest = gridObjectStore.get(this.boardService.gridChosen? this.boardService.gridChosen : this.userPageService.currentUser.gridsID[0]);
+        const storeGridRequest = gridObjectStore.get(this.boardService.gridChosen ? this.boardService.gridChosen : this.userPageService.currentUser.gridsID[0]);
         storeGridRequest.onsuccess = () => {
-          gridObjectStore.put(this.boardService.board, this.boardService.gridChosen? this.boardService.gridChosen : this.userPageService.currentUser.gridsID[0]);
+          gridObjectStore.put(this.boardService.board, this.boardService.gridChosen ? this.boardService.gridChosen : this.userPageService.currentUser.gridsID[0]);
           this.boardService.updateElementList();
         };
 
@@ -72,7 +72,7 @@ export class IndexeddbaccessService {
     }
   }
 
-  updateConfig(){
+  updateConfig() {
     if (this.userPageService.currentUser != null &&
       this.userPageService.currentUser.id != null &&
       this.userPageService.currentUser.id != 1) {
@@ -160,28 +160,28 @@ export class IndexeddbaccessService {
 
 
   createPaletteObject(db, transaction) {
-    db.createObjectStore('Palette', {autoIncrement: true});
+    db.createObjectStore('Palette', { autoIncrement: true });
     const paletteStore = transaction.objectStore('Palette');
     paletteStore.add(this.paletteService.palettes);
   }
 
 
   createGridObject(db, transaction) {
-    db.createObjectStore('Grid', {autoIncrement: true});
+    db.createObjectStore('Grid', { autoIncrement: true });
     const gridStore = transaction.objectStore('Grid');
     gridStore.add(this.boardService.board);
   }
 
 
   createConfigurationObject(db, transaction) {
-    db.createObjectStore('Configuration', {autoIncrement: true});
+    db.createObjectStore('Configuration', { autoIncrement: true });
     const configurationStore = transaction.objectStore('Configuration');
     configurationStore.add(this.configurationService.getConfiguration());
   }
 
 
   createUsersListObject(db, transaction) {
-    db.createObjectStore('UserList', {autoIncrement: true});
+    db.createObjectStore('UserList', { autoIncrement: true });
     const userList = transaction.objectStore('UserList');
     userList.add(this.userPageService.usersList);
   }
@@ -191,7 +191,7 @@ export class IndexeddbaccessService {
     if (this.userPageService.currentUser == null) {
       this.userPageService.currentUser = this.userPageService.defaultUser;
     }
-    console.log('this.userPageService.currentUser : ',this.userPageService.currentUser);
+    console.log('this.userPageService.currentUser : ', this.userPageService.currentUser);
     this.openRequest = indexedDB.open('saveAugcom', 1);
 
     // ERROR
@@ -242,14 +242,14 @@ export class IndexeddbaccessService {
             this.boardService.board = this.jsonValidator.getCheckedGrid(defaultgridRequest.result);
             this.boardService.updateElementList();
           };
-        //ELSE WE JUST TAKE THE SAVED GRID
+          //ELSE WE JUST TAKE THE SAVED GRID
         } else {
           this.boardService.board = this.jsonValidator.getCheckedGrid(gridResult);
           this.boardService.updateElementList();
         }
         this.boardService.updateElementList();
       };
-      if(this.boardService.AFSR){
+      if (this.boardService.AFSR) {
         this.router.navigate([this.configurationService.LANGUAGE_VALUE + '/keyboard']);
       }
     };
@@ -328,7 +328,7 @@ export class IndexeddbaccessService {
     };
   }
 
-  loadDefaultGrid(){
+  loadDefaultGrid() {
     this.openRequest = indexedDB.open('saveAugcom', 1);
 
     // ERROR
@@ -339,18 +339,18 @@ export class IndexeddbaccessService {
     // SUCCESS
     this.openRequest.onsuccess = event => {
       const db = event.target.result;
-        let defaultgridRequest = db.transaction(['Grid']).objectStore('Grid').get(1);
-          defaultgridRequest.onsuccess = e => {
-            this.boardService.board = this.jsonValidator.getCheckedGrid(defaultgridRequest.result);
-            this.boardService.updateElementList();
-          };
-          //ELSE WE JUST TAKE THE SAVED GRID
+      let defaultgridRequest = db.transaction(['Grid']).objectStore('Grid').get(1);
+      defaultgridRequest.onsuccess = e => {
+        this.boardService.board = this.jsonValidator.getCheckedGrid(defaultgridRequest.result);
         this.boardService.updateElementList();
       };
+      //ELSE WE JUST TAKE THE SAVED GRID
+      this.boardService.updateElementList();
+    };
   }
-  listGrid:Grid[] = [];
+  listGrid: Grid[] = [];
 
-  getTargetGrid(idGrid:string){
+  getTargetGrid(idGrid: string) {
     this.openRequest = indexedDB.open('saveAugcom', 1);
 
     // ERROR
@@ -368,7 +368,7 @@ export class IndexeddbaccessService {
     };
   }
 
-  addGrid(id:string){
+  addGrid(id: string) {
     this.openRequest = indexedDB.open('saveAugcom', 1);
     // ERROR
     this.openRequest.onerror = event => {
@@ -382,7 +382,7 @@ export class IndexeddbaccessService {
       const gridObjectStore = gridStore.objectStore('Grid');
       this.boardService.board.ID = id;
       gridObjectStore.put(this.boardService.board, id);
-      
+
       // UPDATE THE USER LIST
       const userListStore = db.transaction(['UserList'], 'readwrite');
       const userListObjectStore = userListStore.objectStore('UserList');
@@ -393,7 +393,7 @@ export class IndexeddbaccessService {
     };
   }
 
-  changeUserGrid(gridchosen:string){
+  changeUserGrid(gridchosen: string) {
     this.openRequest = indexedDB.open('saveAugcom', 1);
 
     // ERROR
@@ -404,7 +404,7 @@ export class IndexeddbaccessService {
     // SUCCESS
     this.openRequest.onsuccess = event => {
       const db = event.target.result;
-      if(gridchosen == "gridExample"){
+      if (gridchosen == "gridExample") {
         const gridRequest = db.transaction(['Grid']).objectStore('Grid').get(1);
         gridRequest.onsuccess = e => {
           this.boardService.board = gridRequest.result;
@@ -414,19 +414,19 @@ export class IndexeddbaccessService {
         gridRequest.onsuccess = e => {
           this.boardService.board = gridRequest.result;
         }
+      }
     }
-  }
     setTimeout(() => {
       this.boardService.updateElementList();
       this.router.navigate(['keyboard']);
-    },200);
+    }, 200);
 
 
- 
-}
 
-  existingGrid():string[]{
-    let existingGrid:string[] = [];
+  }
+
+  existingGrid(): string[] {
+    let existingGrid: string[] = [];
 
     this.openRequest = indexedDB.open('saveAugcom', 1);
 
@@ -447,7 +447,7 @@ export class IndexeddbaccessService {
     return existingGrid;
   }
 
-  deleteGrid(gridID:string){
+  deleteGrid(gridID: string) {
     this.openRequest = indexedDB.open('saveAugcom', 1);
 
     this.openRequest.onsuccess = event => {
@@ -459,7 +459,7 @@ export class IndexeddbaccessService {
     }
   }
 
-  importUserInDatabase(userToBeImported){
+  importUserInDatabase(userToBeImported) {
     this.openRequest = indexedDB.open('saveAugcom', 1);
 
     // ERROR
@@ -483,13 +483,13 @@ export class IndexeddbaccessService {
       storeuserListRequest.onsuccess = () => {
         const userListDatabase = storeuserListRequest.result;
         let userExistInDatabase = false;
-        userListDatabase.forEach((userDatabase,index) => {
-          if(userDatabase.id === user.id){
+        userListDatabase.forEach((userDatabase, index) => {
+          if (userDatabase.id === user.id) {
             userListDatabase[index] = user;
             userExistInDatabase = true;
           }
         });
-        if(!userExistInDatabase){
+        if (!userExistInDatabase) {
           userListDatabase.push(user);
         }
         this.userPageService.usersList = userListDatabase;
@@ -500,7 +500,7 @@ export class IndexeddbaccessService {
       const gridStore = db.transaction(['Grid'], 'readwrite');
       const gridObjectStore = gridStore.objectStore('Grid');
       listGridOfUser.forEach((gridOfUser) => {
-        gridObjectStore.put(gridOfUser,gridOfUser.ID);
+        gridObjectStore.put(gridOfUser, gridOfUser.ID);
       });
 
 

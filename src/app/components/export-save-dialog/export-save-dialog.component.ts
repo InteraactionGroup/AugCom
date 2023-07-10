@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {ExportManagerService} from "../../services/export-manager.service";
+import { Component, OnInit } from '@angular/core';
+import { ExportManagerService } from "../../services/export-manager.service";
 import JSZip from "jszip";
-import {saveAs as importedSaveAs} from 'file-saver';
-import {MultilinguismService} from "../../services/multilinguism.service";
-import {BoardService} from "../../services/board.service";
+import { saveAs as importedSaveAs } from 'file-saver';
+import { MultilinguismService } from "../../services/multilinguism.service";
+import { BoardService } from "../../services/board.service";
 
 @Component({
   selector: 'app-export-save-dialog',
@@ -13,19 +13,23 @@ import {BoardService} from "../../services/board.service";
 export class ExportSaveDialogComponent implements OnInit {
 
   name: String = "save";
-  author:string = this.boardservice.board.author != undefined? this.boardservice.board.author : "";
-  owner:string = "someone";
-  translators:string[] = [];
-  licence:string = ""
+  author: string = this.boardservice.board.author != undefined ? this.boardservice.board.author : "";
+  owner: string = "someone";
+  translators: string[] = [];
+  licence: string = ""
 
-  constructor(public  exportManagerService: ExportManagerService,
-              public multilinguism: MultilinguismService,
-              public boardservice: BoardService) {
+  constructor(public exportManagerService: ExportManagerService,
+    public multilinguism: MultilinguismService,
+    public boardservice: BoardService) {
   }
 
   ngOnInit(): void {
   }
 
+  /**
+   * Defines a temporary name for the file to be exported (without the extension part)
+   * Exports the file (a grid)
+   */
   exportSave() {
     this.boardservice.board.author = this.author;
     let tempName;
@@ -43,7 +47,7 @@ export class ExportSaveDialogComponent implements OnInit {
     const jszip = new JSZip();
     jszip.file(tempName + '.opgf', this.exportManagerService.data);
 
-    jszip.generateAsync({type: 'blob'}).then(function (content) {
+    jszip.generateAsync({ type: 'blob' }).then(function (content) {
       // see FileSaver.js
       importedSaveAs(content, tempName + '.augcom');
     });

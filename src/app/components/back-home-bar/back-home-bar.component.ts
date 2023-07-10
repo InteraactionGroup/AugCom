@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {GeticonService} from '../../services/geticon.service';
-import {EditionService} from '../../services/edition.service';
-import {MultilinguismService} from '../../services/multilinguism.service';
-import {LayoutService} from "../../services/layout.service";
-import {BoardService} from "../../services/board.service";
-import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
-import {MatDialog} from '@angular/material/dialog';
-import {DialogLinkAFSRComponent} from '../dialog-link-afsr/dialog-link-afsr.component';
+import { Component, OnInit } from '@angular/core';
+import { GeticonService } from '../../services/geticon.service';
+import { EditionService } from '../../services/edition.service';
+import { MultilinguismService } from '../../services/multilinguism.service';
+import { LayoutService } from "../../services/layout.service";
+import { BoardService } from "../../services/board.service";
+import { IndexeddbaccessService } from "../../services/indexeddbaccess.service";
+import { MatDialog } from '@angular/material/dialog';
+import { DialogLinkAFSRComponent } from '../dialog-link-afsr/dialog-link-afsr.component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,20 +17,22 @@ import { Router } from '@angular/router';
 export class BackHomeBarComponent implements OnInit {
 
   constructor(public multilinguism: MultilinguismService,
-              public getIconService: GeticonService,
-              public layoutService: LayoutService,
-              public boardService: BoardService,
-              public indexedDBacess: IndexeddbaccessService,
-              public editionService: EditionService,
-              public dialog: MatDialog,
-              public router: Router) {
+    public getIconService: GeticonService,
+    public layoutService: LayoutService,
+    public boardService: BoardService,
+    public indexedDBacess: IndexeddbaccessService,
+    public editionService: EditionService,
+    public dialog: MatDialog,
+    public router: Router) {
   }
 
   ngOnInit() {
   }
 
-  /*go back in the browser history*/
-   backInHistory() {
+  /**
+   * Updates routing to send user back to the main page of the application (keyboard)
+   */
+  backInHistory() {
 
     this.router.navigate(['keyboard']);
 
@@ -39,6 +41,11 @@ export class BackHomeBarComponent implements OnInit {
     this.indexedDBacess.update();
   }
 
+  /**
+   * Sleep function
+   * @param ms milliseconds to be waited
+   * @returns a promise the will be resolved after ms milliseconds
+   */
   delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -60,8 +67,11 @@ export class BackHomeBarComponent implements OnInit {
     return this.getIconService.getIconUrlPng("Logo-AFSR");
   }
 
+  /**
+   * Opens a new dialog of the Dialog Link AFSR component
+   */
   openDialogAFSR() {
-    this.dialog.open(DialogLinkAFSRComponent,{
+    this.dialog.open(DialogLinkAFSRComponent, {
       height: '90%',
       width: '90%'
     });

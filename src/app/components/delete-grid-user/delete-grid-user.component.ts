@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {MultilinguismService} from "../../services/multilinguism.service";
-import {UserPageService} from "../../services/user-page.service";
-import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
-import {DialogModelGridComponent} from "../dialog-model-grid/dialog-model-grid.component";
-import {MatDialog} from "@angular/material/dialog";
-import {DialogDeleteGridUserComponent} from "../dialog-delete-grid-user/dialog-delete-grid-user.component";
+import { MultilinguismService } from "../../services/multilinguism.service";
+import { UserPageService } from "../../services/user-page.service";
+import { IndexeddbaccessService } from "../../services/indexeddbaccess.service";
+import { DialogModelGridComponent } from "../dialog-model-grid/dialog-model-grid.component";
+import { MatDialog } from "@angular/material/dialog";
+import { DialogDeleteGridUserComponent } from "../dialog-delete-grid-user/dialog-delete-grid-user.component";
 
 @Component({
   selector: 'app-delete-grid-user',
@@ -13,19 +13,23 @@ import {DialogDeleteGridUserComponent} from "../dialog-delete-grid-user/dialog-d
 })
 export class DeleteGridUserComponent implements OnInit {
 
-  gridSelected:string;
+  gridSelected: string;
 
-  constructor(public multilinguism:MultilinguismService,
-              public userPageService:UserPageService,
-              public dialog: MatDialog) { }
+  constructor(public multilinguism: MultilinguismService,
+    public userPageService: UserPageService,
+    public dialog: MatDialog) { }
 
-  listGridID:string[] = [];
+  listGridID: string[] = [];
 
   ngOnInit(): void {
     this.initList();
   }
 
-  initList(){
+  /**
+   * Initialize the list of grids that can be deleted.
+   * This function excludes the default grid from the options 
+   */
+  initList() {
     try {
       //Deep clone array
       this.listGridID = JSON.parse(JSON.stringify(this.userPageService.currentUser.gridsID));
@@ -41,6 +45,11 @@ export class DeleteGridUserComponent implements OnInit {
     }
   }
 
+  /**
+   * Opens a confirmation dialog to delete selected grid.
+   * Deletion is not handled by this function, but by the component opened in the dialog.
+   * Once dialog is closed, resets selected grid and udates list of grids
+   */
   openDialog(): void {
     this.userPageService.deleteGridUser = this.gridSelected;
     let confirmDialog = this.dialog.open(DialogDeleteGridUserComponent, {

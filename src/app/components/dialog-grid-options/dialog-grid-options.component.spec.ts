@@ -14,9 +14,9 @@ describe('DialogGridOptionsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule, Ng2ImgMaxModule, MatDialogModule, BrowserAnimationsModule, RouterTestingModule],
-      declarations: [ DialogGridOptionsComponent ]
+      declarations: [DialogGridOptionsComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

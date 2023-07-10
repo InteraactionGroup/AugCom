@@ -1,4 +1,3 @@
-
 .palette-item {
   display: inline-block;
   margin: 10px;
@@ -129,7 +128,8 @@
   background-color: var(--main-bg-color1);
   color: var(--main-bg-color4);
   font-size: 18px;
-  font-weight: 600;;
+  font-weight: 600;
+  ;
   border-radius: 3px 0 0 0;
   padding-left: 5px;
   padding-top: 2px;

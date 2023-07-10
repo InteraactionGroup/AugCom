@@ -12,7 +12,7 @@
   <div style="  margin: 20px ;width: fit-content;">
     <label for="titleFormat">{{this.multilinguism.translate("chooseTitleFormat")}}:</label>
     <select [disabled]="usertoolbarService.titleDisplayValue==='imageOnly'" id="titleFormat" class="variantListBox"
-            [(ngModel)]="usertoolbarService.titleFormat">
+      [(ngModel)]="usertoolbarService.titleFormat">
       <option value="default">{{this.multilinguism.translate("default")}}</option>
       <option value="nameOnly">{{this.multilinguism.translate("nameOnly")}}</option>
     </select>

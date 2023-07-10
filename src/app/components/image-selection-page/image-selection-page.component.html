@@ -8,8 +8,7 @@
         <label class="label" for="borderColor">{{this.multilinguism.translate("internalColor")}}: </label>
         <div (click)="openDialogModifyInside()">
           <div id="borderColor" class="colorPickerContainer floatLeft">
-            <div class="colorPicker"
-                 [ngStyle]="{'background-color':this.editionService.curentColor}">
+            <div class="colorPicker" [ngStyle]="{'background-color':this.editionService.curentColor}">
             </div>
           </div>
           <label for="borderColor"> {{this.editionService.curentColor}} </label>
@@ -17,8 +16,7 @@
         <label class="label" for="insideColor">{{this.multilinguism.translate("externalColor")}}: </label>
         <div (click)="openDialogModifyBorder()">
           <div id="insideColor" class="colorPickerContainerDown floatLeft">
-            <div class="colorPicker"
-                 [ngStyle]="{'background-color':this.editionService.curentBorderColor}">
+            <div class="colorPicker" [ngStyle]="{'background-color':this.editionService.curentBorderColor}">
             </div>
           </div>
           <label for="insideColor"> {{this.editionService.curentBorderColor}} </label>
@@ -29,24 +27,18 @@
       <div class="element">
         <label class="label" for="imagefromfile">{{this.multilinguism.translate("fromFile")}}: </label>
         <input #file (change)="previewFile(file.files)" onclick="this.value=null" accept='image/*' class="input"
-               type="file" id="imagefromfile">
+          type="file" id="imagefromfile">
         <label class="label" for="imagefromURL">{{this.multilinguism.translate("fromURL")}}: </label>
         <div class="inputURL">
           <input class="searchField" type="search" id="imagefromURL" #text
-                 placeholder="{{this.multilinguism.translate('enterImageURL')}}">
+            placeholder="{{this.multilinguism.translate('enterImageURL')}}">
           <input class="searchURL" type="button" value="Ok" (click)="previewWithURL(text.value)">
         </div>
         <label class="label" for="imagefromLib">{{this.multilinguism.translate("fromLibrary")}}: </label>
         <div class="input">
-          <input #search
-                 class="searchField"
-                 type="search"
-                 id="imagefromLib"
-                 matInput
-                 [formControl]="myControl"
-                 [matAutocomplete]="auto"
-                 [ngModel]="this.editionService.imageTextField"
-                 placeholder="{{this.multilinguism.translate('searchForWord')}}">
+          <input #search class="searchField" type="search" id="imagefromLib" matInput [formControl]="myControl"
+            [matAutocomplete]="auto" [ngModel]="this.editionService.imageTextField"
+            placeholder="{{this.multilinguism.translate('searchForWord')}}">
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
               {{option}}
@@ -59,9 +51,8 @@
       <div class="wrapperPreview ">
         <ng-container *ngFor="let b of this.imageList ">
 
-          <div class="pictoImg haveBackgroundImage"
-               [ngStyle]="{'background-image': this.getThumbnailPreviewLibrary(b)}"
-               (click)="this.previewLibrary(b)"></div>
+          <div class="pictoImg haveBackgroundImage" [ngStyle]="{'background-image': this.getThumbnailPreviewLibrary(b)}"
+            (click)="this.previewLibrary(b)"></div>
         </ng-container>
       </div>
     </div>

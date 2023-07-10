@@ -19,8 +19,7 @@
         <div class="" *ngIf="isSelectedMenu(menu)">
           <hr class="hrs">
           <ng-container *ngFor="let menu2 of menu[1]">
-            <div class="title" [class.titleSelected]="selectedSection===menu2"
-                 (click)="selectedSection=menu2">
+            <div class="title" [class.titleSelected]="selectedSection===menu2" (click)="selectedSection=menu2">
               {{this.multilinguismService.translate(menu2)}}
             </div>
             <hr class="hrs">

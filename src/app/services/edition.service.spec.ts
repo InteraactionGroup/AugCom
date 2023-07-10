@@ -1,9 +1,9 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {EditionService} from './edition.service';
-import {FormsModule} from '@angular/forms';
-import {Router} from "@angular/router";
-import {RouterTestingModule} from "@angular/router/testing";
+import { EditionService } from './edition.service';
+import { FormsModule } from '@angular/forms';
+import { Router } from "@angular/router";
+import { RouterTestingModule } from "@angular/router/testing";
 
 describe('EditionService', () => {
   beforeEach(() => TestBed.configureTestingModule({

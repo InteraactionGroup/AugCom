@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {MultilinguismService} from '../../services/multilinguism.service';
-import {Grid, GridElement, Page} from '../../types';
-import {BoardService} from '../../services/board.service';
-import {Router} from '@angular/router';
-import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {ConfigurationService} from '../../services/configuration.service';
-import {SafeUrl} from '@angular/platform-browser';
+import { Component, OnInit } from '@angular/core';
+import { MultilinguismService } from '../../services/multilinguism.service';
+import { Grid, GridElement, Page } from '../../types';
+import { BoardService } from '../../services/board.service';
+import { Router } from '@angular/router';
+import { IndexeddbaccessService } from '../../services/indexeddbaccess.service';
+import { ConfigurationService } from '../../services/configuration.service';
+import { SafeUrl } from '@angular/platform-browser';
 import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
-import {ArasaacObject} from '../../libTypes';
-import {LayoutService} from '../../services/layout.service';
+import { ArasaacObject } from '../../libTypes';
+import { LayoutService } from '../../services/layout.service';
 declare const initSqlJs: any;
 
 @Component({
@@ -63,9 +63,9 @@ export class Spb2augComponent implements OnInit {
     this.router.navigate(['loading']);
     this.newGrid.ID = 'newGrid';
     this.newGrid.GapSize = 5;
-    const date:Date = new Date();
-    this.newGrid.modificationDate = date.getDate().toString() + '/' + (date.getMonth() + 1).toString() + '/'+ date.getFullYear().toString();
-    this.newGrid.creationDate = date.getDate().toString() + '/' + (date.getMonth() + 1).toString() + '/'+ date.getFullYear().toString();
+    const date: Date = new Date();
+    this.newGrid.modificationDate = date.getDate().toString() + '/' + (date.getMonth() + 1).toString() + '/' + date.getFullYear().toString();
+    this.newGrid.creationDate = date.getDate().toString() + '/' + (date.getMonth() + 1).toString() + '/' + date.getFullYear().toString();
     const myFile = file[0];
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
@@ -98,7 +98,7 @@ export class Spb2augComponent implements OnInit {
       setTimeout(function () {
         that.db.close();
         that.boardService.board = that.newGrid;
-        that.layoutService.refreshAll(that.newGrid.NumberOfCols,that.newGrid.NumberOfRows, that.newGrid.GapSize);
+        that.layoutService.refreshAll(that.newGrid.NumberOfCols, that.newGrid.NumberOfRows, that.newGrid.GapSize);
         that.boardService.backHome();
         that.indexedDBacess.update();
         that.router.navigate(['keyboard']);
@@ -167,7 +167,7 @@ export class Spb2augComponent implements OnInit {
       // check if the button is a folder button to bind him
       if (buttonId === buttonFolder && label !== null) {
         this.gridElement = new GridElement(label,
-          {GoTo: label},
+          { GoTo: label },
           '',
           'rgb(' + r + ',' + g + ',' + b + ')',
           'rgb(' + rb + ',' + gb + ',' + bb + ')',
@@ -176,10 +176,10 @@ export class Spb2augComponent implements OnInit {
             {
               DisplayedText: label,
               VoiceText: (message) !== null ? message : label,
-              LexicInfos: [{default: true}],
+              LexicInfos: [{ default: true }],
               ImageID: (label) !== null ? label : message,
             }
-          ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
+          ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }])
         const pageUniqueIdFromButtonFolder = buttonsFolder.getAsObject().PageUniqueId;
         const querySearchTitle = this.db.prepare('SELECT Title FROM Page WHERE UniqueId == "' + String(pageUniqueIdFromButtonFolder) + '"');
         querySearchTitle.step();
@@ -192,7 +192,7 @@ export class Spb2augComponent implements OnInit {
         this.newGrid.PageList.unshift(this.newPage);
       } else if (buttonId === buttonFolder && label === null) {
         this.gridElement = new GridElement(label,
-          {GoTo: String(buttonFolder)},
+          { GoTo: String(buttonFolder) },
           '', 'rgb(' + r + ',' + g + ',' + b + ')',
           'rgb(' + rb + ',' + gb + ',' + bb + ')',
           0,
@@ -200,10 +200,10 @@ export class Spb2augComponent implements OnInit {
             {
               DisplayedText: (message) !== null ? message : label,
               VoiceText: (message) !== null ? message : label,
-              LexicInfos: [{default: true}],
+              LexicInfos: [{ default: true }],
               ImageID: (label) !== null ? label : message,
             }
-          ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
+          ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }])
         const pageUniqueIdFromButtonFolder = buttonsFolder.getAsObject().PageUniqueId;
         const querySearchTitle = this.db.prepare('SELECT Title FROM Page WHERE UniqueId == "' + String(pageUniqueIdFromButtonFolder) + '"');
         querySearchTitle.step();
@@ -225,10 +225,10 @@ export class Spb2augComponent implements OnInit {
             {
               DisplayedText: (label) !== null ? label : message,
               VoiceText: (message) !== null ? message : label,
-              LexicInfos: [{default: true}],
+              LexicInfos: [{ default: true }],
               ImageID: (label) !== null ? label : message,
             }
-          ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
+          ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }])
       }
       this.gridElement.x = Number(tabResPos[0]);
       this.gridElement.y = Number(tabResPos[1]);
@@ -431,7 +431,7 @@ export class Spb2augComponent implements OnInit {
         const numberNewPage = Math.floor(RowMaxPage / this.newGrid.PageList[pageid - 4].NumberOfRows);
         if (numberNewPage > 0) {
           this.gridElement = new GridElement('goDown' + this.newGrid.PageList[pageid - 4].ID + numeroPage,
-            {GoTo: this.newGrid.PageList[pageid - 4].ID + numeroPage},
+            { GoTo: this.newGrid.PageList[pageid - 4].ID + numeroPage },
             '',
             '',
             '',
@@ -440,10 +440,10 @@ export class Spb2augComponent implements OnInit {
               {
                 DisplayedText: 'go Down',
                 VoiceText: '',
-                LexicInfos: [{default: true}],
+                LexicInfos: [{ default: true }],
                 ImageID: '',
               }
-            ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
+            ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }])
           this.gridElement.cols = 1;
           this.gridElement.rows = 1;
           this.gridElement.y = this.page.NumberOfRows - 1;
@@ -463,7 +463,7 @@ export class Spb2augComponent implements OnInit {
             // numberNewPage - 1 !== i because we don't want a down button in the last page
             if (numberNewPage - 1 !== i) {
               this.gridElement = new GridElement('goDown ' + this.newGrid.PageList[pageid - 4].ID + (numeroPage + 1),
-                {GoTo: this.newGrid.PageList[pageid - 4].ID + (numeroPage + 1)},
+                { GoTo: this.newGrid.PageList[pageid - 4].ID + (numeroPage + 1) },
                 '',
                 '',
                 '',
@@ -472,10 +472,10 @@ export class Spb2augComponent implements OnInit {
                   {
                     DisplayedText: 'go Down',
                     VoiceText: '',
-                    LexicInfos: [{default: true}],
+                    LexicInfos: [{ default: true }],
                     ImageID: '',
                   }
-                ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
+                ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }])
               this.gridElement.cols = 1;
               this.gridElement.rows = 1;
               this.gridElement.y = nextPages.NumberOfRows - 1;
@@ -515,10 +515,10 @@ export class Spb2augComponent implements OnInit {
           {
             DisplayedText: label,
             VoiceText: label,
-            LexicInfos: [{default: true}],
+            LexicInfos: [{ default: true }],
             ImageID: label,
           }
-        ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
+        ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }])
       this.gridElement.x = Number(tabResPos[0]);
       this.gridElement.y = Number(tabResPos[1]);
       this.gridElement.rows = Number(tabResSpan[1]);
@@ -554,7 +554,7 @@ export class Spb2augComponent implements OnInit {
       let isColAdd = false;
       this.newGrid.PageList.forEach(page => {
         let indexGoDownButtonPage = this.newGrid.ElementList.findIndex(element => element.ID.includes('goDown'));
-        if(indexGoDownButtonPage > -1){
+        if (indexGoDownButtonPage > -1) {
           this.newGrid.ElementList.forEach(element => {
             if (element.y + element.rows === this.page.NumberOfRows && element.x + element.cols === this.page.NumberOfCols && this.page.ElementIDsList.indexOf(element.ID) > -1 && element.ID.includes('goDown') === false) {
               if (isColAdd === false) {
@@ -567,7 +567,7 @@ export class Spb2augComponent implements OnInit {
           });
         }
       });
-    }finally {
+    } finally {
       console.log("No col needed");
     }
   }

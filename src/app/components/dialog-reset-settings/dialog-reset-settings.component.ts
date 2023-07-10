@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ConfigurationService} from '../../services/configuration.service';
-import {MultilinguismService} from '../../services/multilinguism.service';
+import { ConfigurationService } from '../../services/configuration.service';
+import { MultilinguismService } from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-dialog-reset-settings',
@@ -10,13 +10,15 @@ import {MultilinguismService} from '../../services/multilinguism.service';
 export class DialogResetSettingsComponent implements OnInit {
 
   constructor(private configurationService: ConfigurationService,
-              public multilinguismService: MultilinguismService) { }
+    public multilinguismService: MultilinguismService) { }
 
   ngOnInit(): void {
   }
 
+  /**
+   * Resets the application's configuration back to its default state (see configurationService)
+   */
   resetConfig() {
     this.configurationService.setConfiguration(this.configurationService.getDefaultConfiguration());
-    //console.log('config reset', this.configurationService.getConfiguration());
   }
 }

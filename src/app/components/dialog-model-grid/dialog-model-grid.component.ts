@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {MultilinguismService} from "../../services/multilinguism.service";
-import {Grid, Page} from "../../types";
-import {BoardService} from "../../services/board.service";
-import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
+import { MultilinguismService } from "../../services/multilinguism.service";
+import { Grid, Page } from "../../types";
+import { BoardService } from "../../services/board.service";
+import { IndexeddbaccessService } from "../../services/indexeddbaccess.service";
 
 @Component({
   selector: 'app-dialog-model-grid',
@@ -12,16 +12,19 @@ import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
 export class DialogModelGridComponent implements OnInit {
 
   constructor(public boardService: BoardService,
-              public multilinguism: MultilinguismService,
-              public indexDbAccessService: IndexeddbaccessService) { }
+    public multilinguism: MultilinguismService,
+    public indexDbAccessService: IndexeddbaccessService) { }
 
   ngOnInit(): void {
   }
 
-  gridModelApplication(){
-    if(this.boardService.gridModel === 'default'){
+  /**
+   * Loads a page depending on the type chosen (default or empty)
+   */
+  gridModelApplication() {
+    if (this.boardService.gridModel === 'default') {
       this.indexDbAccessService.loadDefaultGrid();
-    }else if (this.boardService.gridModel === 'empty'){
+    } else if (this.boardService.gridModel === 'empty') {
       let page = new Page();
       page.ID = '#HOME';
       page.Name = 'Accueil';

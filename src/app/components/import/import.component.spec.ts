@@ -1,13 +1,13 @@
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
-import {ImportComponent} from './import.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
-import {Ng2ImgMaxModule} from 'ng2-img-max';
-import {Router} from '@angular/router';
-import {RouterTestingModule} from '@angular/router/testing';
-import {MatDialogModule} from "@angular/material/dialog";
+import { ImportComponent } from './import.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { Ng2ImgMaxModule } from 'ng2-img-max';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatDialogModule } from "@angular/material/dialog";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('importComponent', () => {

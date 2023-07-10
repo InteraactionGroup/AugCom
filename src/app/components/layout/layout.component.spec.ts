@@ -1,10 +1,10 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LayoutComponent} from './layout.component';
-import {Ng2ImgMaxModule} from 'ng2-img-max';
-import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA} from '@angular/core';
-import {Router} from "@angular/router";
-import {HttpClientModule} from "@angular/common/http";
+import { LayoutComponent } from './layout.component';
+import { Ng2ImgMaxModule } from 'ng2-img-max';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Router } from "@angular/router";
+import { HttpClientModule } from "@angular/common/http";
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;

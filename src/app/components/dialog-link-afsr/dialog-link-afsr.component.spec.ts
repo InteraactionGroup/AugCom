@@ -8,9 +8,9 @@ describe('DialogLinkAFSRComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DialogLinkAFSRComponent ]
+      declarations: [DialogLinkAFSRComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

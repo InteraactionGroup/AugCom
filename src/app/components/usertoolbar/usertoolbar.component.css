@@ -226,7 +226,7 @@
   z-index: 5;
 }
 
-.button:hover .tooltiptop{
+.button:hover .tooltiptop {
   visibility: visible;
   cursor: pointer;
 }

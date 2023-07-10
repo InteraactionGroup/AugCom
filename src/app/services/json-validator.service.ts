@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import Ajv from 'ajv';
 import schema from '../../assets/schemas/saveSchema.json';
 import defaultGrid from '../../assets/defaultsave.json';
-import {Grid} from '../types';
+import { Grid } from '../types';
 
 @Injectable({
   providedIn: 'root'

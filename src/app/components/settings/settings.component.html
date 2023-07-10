@@ -4,25 +4,24 @@
     <div class="settings-item">
       <label for="longPressTime">{{this.multilinguism.translate("longPressValue")}}:</label>
       <input id="longPressTime" type="number" [(ngModel)]="this.configurationService.LONGPRESS_TIMEOUT_VALUE"
-             placeholder="{{this.multilinguism.translate('enterValue')}}" min="0" max="15000" maxlength="5">
+        placeholder="{{this.multilinguism.translate('enterValue')}}" min="0" max="15000" maxlength="5">
     </div>
 
     <div class="settings-item">
       <label for="doubleClickTime">{{this.multilinguism.translate("dblClickValue")}}:</label>
       <input id="doubleClickTime" type="number" [(ngModel)]="this.configurationService.DOUBLE_CLICK_TIMEOUT_VALUE"
-             placeholder="{{this.multilinguism.translate('enterValue')}}" min="0" max="15000" maxlength="5">
+        placeholder="{{this.multilinguism.translate('enterValue')}}" min="0" max="15000" maxlength="5">
     </div>
 
     <div class="settings-item">
       <label for="dwellTime">{{this.multilinguism.translate("dwellTime")}}:</label>
-      <input id="dwellTime" type="checkbox" [(ngModel)]="this.configurationService.DWELL_TIME_ENABLED"
-      >
+      <input id="dwellTime" type="checkbox" [(ngModel)]="this.configurationService.DWELL_TIME_ENABLED">
     </div>
 
     <div class="settings-item" *ngIf="this.configurationService.DWELL_TIME_ENABLED">
       <label for="dwellTimeLength">{{this.multilinguism.translate("dwellTimeValue")}}:</label>
       <input id="dwellTimeLength" type="number" [(ngModel)]="this.configurationService.DWELL_TIME_TIMEOUT_VALUE"
-             placeholder="{{this.multilinguism.translate('enterValue')}}" min="0" max="15000" maxlength="5">
+        placeholder="{{this.multilinguism.translate('enterValue')}}" min="0" max="15000" maxlength="5">
     </div>
 
   </div>

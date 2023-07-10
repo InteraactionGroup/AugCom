@@ -1,13 +1,13 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {DialogbarComponent} from './dialogbar.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {Ng2ImgMaxModule} from 'ng2-img-max';
-import {Vignette} from '../../types';
-import {MatDialogModule} from "@angular/material/dialog";
-import {Router} from "@angular/router";
-import {HttpClientModule} from "@angular/common/http";
+import { DialogbarComponent } from './dialogbar.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Ng2ImgMaxModule } from 'ng2-img-max';
+import { Vignette } from '../../types';
+import { MatDialogModule } from "@angular/material/dialog";
+import { Router } from "@angular/router";
+import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 function addVignette(component: any) {
@@ -21,7 +21,7 @@ describe('DialogbarComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [FormsModule, Ng2ImgMaxModule, MatDialogModule, HttpClientModule, BrowserAnimationsModule ],
+      imports: [FormsModule, Ng2ImgMaxModule, MatDialogModule, HttpClientModule, BrowserAnimationsModule],
       declarations: [DialogbarComponent],
       providers: [{
         provide: Router, useClass: class {

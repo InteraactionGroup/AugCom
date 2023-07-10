@@ -1,4 +1,4 @@
-import {Grid} from '../types';
+import { Grid } from '../types';
 import defaultgrid from '../../assets/defaultsave.json';
 
 /**

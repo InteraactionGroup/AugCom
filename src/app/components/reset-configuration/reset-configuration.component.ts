@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {ConfigurationService} from "../../services/configuration.service";
-import {IndexeddbaccessService} from "../../services/indexeddbaccess.service";
-import {MultilinguismService} from "../../services/multilinguism.service";
-import {DialogDeletePageComponent} from '../dialog-delete-page/dialog-delete-page.component';
-import {MatDialog} from '@angular/material/dialog';
-import {DialogResetSettingsComponent} from '../dialog-reset-settings/dialog-reset-settings.component';
+import { ConfigurationService } from "../../services/configuration.service";
+import { IndexeddbaccessService } from "../../services/indexeddbaccess.service";
+import { MultilinguismService } from "../../services/multilinguism.service";
+import { DialogDeletePageComponent } from '../dialog-delete-page/dialog-delete-page.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogResetSettingsComponent } from '../dialog-reset-settings/dialog-reset-settings.component';
 
 @Component({
   selector: 'app-reset-configuration',
@@ -14,12 +14,15 @@ import {DialogResetSettingsComponent} from '../dialog-reset-settings/dialog-rese
 export class ResetConfigurationComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
-              public multilinguismService: MultilinguismService) {
+    public multilinguismService: MultilinguismService) {
   }
 
   ngOnInit(): void {
   }
 
+  /**
+   * Opens a dialog to reset the application's configuration back to its default state (see configurationService)
+   */
   openDialog(): void {
     this.dialog.open(DialogResetSettingsComponent, {
       height: '200px',

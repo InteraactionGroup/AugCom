@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DialogHelpComponent } from './dialog-help.component';
-import {HttpClientModule} from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http";
 
 describe('DialogHelpComponent', () => {
   let component: DialogHelpComponent;
@@ -9,10 +9,10 @@ describe('DialogHelpComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DialogHelpComponent ],
+      declarations: [DialogHelpComponent],
       imports: [HttpClientModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

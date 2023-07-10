@@ -14,10 +14,10 @@ describe('ExportComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExportComponent ],
+      declarations: [ExportComponent],
       imports: [Ng2ImgMaxModule, HttpClientModule, BrowserAnimationsModule, RouterTestingModule, MatDialogModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -4,14 +4,14 @@
 
 export class Grid {
   //metadata
-  author:string = 'someone';
-  software:string = 'AugCom';
-  libraryUsed:string[] = [];
-  licence:string = '';
-  owner:string = 'someone';
-  translators:string = "";
-  creationDate:string;
-  modificationDate:string;
+  author: string = 'someone';
+  software: string = 'AugCom';
+  libraryUsed: string[] = [];
+  licence: string = '';
+  owner: string = 'someone';
+  translators: string = "";
+  creationDate: string;
+  modificationDate: string;
 
   //grid properties
   ID: string;
@@ -54,7 +54,7 @@ export class FolderGoTo {
 export class GridElement {
   ID: string;
   Type: 'empty' | 'button' | FolderGoTo;
-  PartOfSpeech: '-nom-' | '-nom-pr-' | 'nom de famille' | '-adv-' | 'prénom' | '-adj-' | 'variante typographique' | '-verb' | 'pronom' | 'locution-phrase' | 'interjection' | 'onomatopée' | 'pronom démonstratif' | 'adjectif indéfini' | 'pronom indéfini' | 'pronom personnel' | 'conjonction' | 'adjectif numéral' | 'préposition' | 'article partitif' | 'adverbe interrogatif' | 'conjonction de coordination' | 'pronom interrogatif' | 'pronom relatif' | 'pronom possessif' | 'erreur' | 'locution phrase' | 'proverbe' | 'adverbe relatif' | 'nom scientifique' | 'adjectif exclamatif' | 'adjectif interrogatif' | 'adjectif possessif' | 'adjectif démonstratif' | 'patronyme' | 'article défini' | 'interj' | 'locution' | 'article indéfini' |string;
+  PartOfSpeech: '-nom-' | '-nom-pr-' | 'nom de famille' | '-adv-' | 'prénom' | '-adj-' | 'variante typographique' | '-verb' | 'pronom' | 'locution-phrase' | 'interjection' | 'onomatopée' | 'pronom démonstratif' | 'adjectif indéfini' | 'pronom indéfini' | 'pronom personnel' | 'conjonction' | 'adjectif numéral' | 'préposition' | 'article partitif' | 'adverbe interrogatif' | 'conjonction de coordination' | 'pronom interrogatif' | 'pronom relatif' | 'pronom possessif' | 'erreur' | 'locution phrase' | 'proverbe' | 'adverbe relatif' | 'nom scientifique' | 'adjectif exclamatif' | 'adjectif interrogatif' | 'adjectif possessif' | 'adjectif démonstratif' | 'patronyme' | 'article défini' | 'interj' | 'locution' | 'article indéfini' | string;
   VisibilityLevel: number;
   x: number;
   y: number;
@@ -70,7 +70,7 @@ export class GridElement {
 
 
   constructor(elementId: string, elementType, elementPartOfSpeech: string,
-              color: string, borderColor: string, visibilityLevel, elementsForms: ElementForm[], interactionList: Interaction[]) {
+    color: string, borderColor: string, visibilityLevel, elementsForms: ElementForm[], interactionList: Interaction[]) {
 
     this.ID = elementId;
     this.Type = elementType;
@@ -93,7 +93,7 @@ export class GridElement {
 export class GridElementGenerated {
   ID: string;
   Type: 'empty' | 'button' | FolderGoTo;
-  PartOfSpeech: '-nom-' | '-nom-pr-' | 'nom de famille' | '-adv-' | 'prénom' | '-adj-' | 'variante typographique' | '-verb' | 'pronom' | 'locution-phrase' | 'interjection' | 'onomatopée' | 'pronom démonstratif' | 'adjectif indéfini' | 'pronom indéfini' | 'pronom personnel' | 'conjonction' | 'adjectif numéral' | 'préposition' | 'article partitif' | 'adverbe interrogatif' | 'conjonction de coordination' | 'pronom interrogatif' | 'pronom relatif' | 'pronom possessif' | 'erreur' | 'locution phrase' | 'proverbe' | 'adverbe relatif' | 'nom scientifique' | 'adjectif exclamatif' | 'adjectif interrogatif' | 'adjectif possessif' | 'adjectif démonstratif' | 'patronyme' | 'article défini' | 'interj' | 'locution' | 'article indéfini' |string;
+  PartOfSpeech: '-nom-' | '-nom-pr-' | 'nom de famille' | '-adv-' | 'prénom' | '-adj-' | 'variante typographique' | '-verb' | 'pronom' | 'locution-phrase' | 'interjection' | 'onomatopée' | 'pronom démonstratif' | 'adjectif indéfini' | 'pronom indéfini' | 'pronom personnel' | 'conjonction' | 'adjectif numéral' | 'préposition' | 'article partitif' | 'adverbe interrogatif' | 'conjonction de coordination' | 'pronom interrogatif' | 'pronom relatif' | 'pronom possessif' | 'erreur' | 'locution phrase' | 'proverbe' | 'adverbe relatif' | 'nom scientifique' | 'adjectif exclamatif' | 'adjectif interrogatif' | 'adjectif possessif' | 'adjectif démonstratif' | 'patronyme' | 'article défini' | 'interj' | 'locution' | 'article indéfini' | string;
   VisibilityLevel: number;
   x: number;
   y: number;
@@ -109,7 +109,7 @@ export class GridElementGenerated {
 
 
   constructor(elementId: string, elementType, elementPartOfSpeech: string,
-              color: string, borderColor: string, visibilityLevel, elementsForms: ElementForm[], interactionList: Interaction[], numberX: number, numberY: number) {
+    color: string, borderColor: string, visibilityLevel, elementsForms: ElementForm[], interactionList: Interaction[], numberX: number, numberY: number) {
 
     this.ID = elementId;
     this.Type = elementType;
@@ -187,7 +187,7 @@ export class Style {
   BorderColor: string;
   BorderWidth: string;
   BorderRadius: string;
-  FontFamily:string;
+  FontFamily: string;
   TextColor: string;
 
   constructor(backgroundColor: string, borderColor: string, textColor: string) {
@@ -228,20 +228,20 @@ export class Configuration {
   'VOLUME': number;
   'RATE': number;
   'PITCH': number;
-  'HEADER' : string | ArrayBuffer;
-  'HEADER_BUTTON' : boolean;
-  'HEADER_CHOICE' : string;
-  'FOOTER' : string | ArrayBuffer;
-  'FOOTER_BUTTON' : boolean;
-  'FOOTER_CHOICE' : string
+  'HEADER': string | ArrayBuffer;
+  'HEADER_BUTTON': boolean;
+  'HEADER_CHOICE': string;
+  'FOOTER': string | ArrayBuffer;
+  'FOOTER_BUTTON': boolean;
+  'FOOTER_CHOICE': string
 
 }
 
-export class User{
+export class User {
   id: number;
   name: string;
   base64image: string;
-  gridsID:string[] = ['gridExample'];
+  gridsID: string[] = ['gridExample'];
   constructor(name, base64image, id?) {
     if (id == null) {
       this.id = Math.floor(Math.random() * 10000000000) + Date.now();
@@ -253,36 +253,36 @@ export class User{
   }
 }
 
-export class ImageSclera{
+export class ImageSclera {
   nm: string;
   id: string;
-  kws:Kws;
+  kws: Kws;
 }
 
-export class ImageParlerPicto{
+export class ImageParlerPicto {
   nm: string;
   id: string;
-  kws:Kws;
+  kws: Kws;
 }
 
-export class ImagearasaacLCC{
+export class ImagearasaacLCC {
   nm: string;
   id: string;
-  kws:Kws;
+  kws: Kws;
 }
 
-export class ImageMulberry{
+export class ImageMulberry {
   nm: string;
   id: string;
-  kws:Kws;
+  kws: Kws;
 }
 
-export class ImageFontawesome{
+export class ImageFontawesome {
   nm: string;
   id: string;
-  kws:Kws;
+  kws: Kws;
 }
 
-export class Kws{
-  fr:string[];
+export class Kws {
+  fr: string[];
 }

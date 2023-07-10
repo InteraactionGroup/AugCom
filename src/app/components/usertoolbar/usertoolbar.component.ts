@@ -1,24 +1,24 @@
-import {Component, OnInit} from '@angular/core';
-import {UsertoolbarService} from '../../services/usertoolbar.service';
-import {GeticonService} from '../../services/geticon.service';
-import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {SnapBarService} from '../../services/snap-bar.service';
-import {SearchService} from '../../services/search.service';
-import {BoardService} from '../../services/board.service';
-import {Ng2ImgMaxService} from 'ng2-img-max';
-import {LayoutService} from '../../services/layout.service';
-import {MultilinguismService} from '../../services/multilinguism.service';
-import {FolderGoTo} from '../../types';
-import {EditionService} from '../../services/edition.service';
-import {DwellCursorService} from "../../services/dwell-cursor.service";
-import {ConfigurationService} from "../../services/configuration.service";
-import {Router} from "@angular/router";
-import {UserPageService} from "../../services/user-page.service";
-import {MatDialog} from "@angular/material/dialog";
-import {DialogHelpComponent} from "../dialog-help/dialog-help.component";
-import {PaletteService} from "../../services/palette.service";
-import {DialogLogoutAppComponent} from '../dialog-logout-app/dialog-logout-app.component';
-import {DialogAddGridComponent} from "../dialog-add-grid/dialog-add-grid.component";
+import { Component, OnInit } from '@angular/core';
+import { UsertoolbarService } from '../../services/usertoolbar.service';
+import { GeticonService } from '../../services/geticon.service';
+import { IndexeddbaccessService } from '../../services/indexeddbaccess.service';
+import { SnapBarService } from '../../services/snap-bar.service';
+import { SearchService } from '../../services/search.service';
+import { BoardService } from '../../services/board.service';
+import { Ng2ImgMaxService } from 'ng2-img-max';
+import { LayoutService } from '../../services/layout.service';
+import { MultilinguismService } from '../../services/multilinguism.service';
+import { FolderGoTo } from '../../types';
+import { EditionService } from '../../services/edition.service';
+import { DwellCursorService } from "../../services/dwell-cursor.service";
+import { ConfigurationService } from "../../services/configuration.service";
+import { Router } from "@angular/router";
+import { UserPageService } from "../../services/user-page.service";
+import { MatDialog } from "@angular/material/dialog";
+import { DialogHelpComponent } from "../dialog-help/dialog-help.component";
+import { PaletteService } from "../../services/palette.service";
+import { DialogLogoutAppComponent } from '../dialog-logout-app/dialog-logout-app.component';
+import { DialogAddGridComponent } from "../dialog-add-grid/dialog-add-grid.component";
 import { DialogGridOptionsComponent } from '../dialog-grid-options/dialog-grid-options.component';
 
 declare const annyang: any;
@@ -53,12 +53,12 @@ export class UsertoolbarComponent implements OnInit {
   searchText = '';
   dwellTimer;
   iconSize = Number(this.configurationService.SIZE_ICON_VALUE);
-  marginSize = this.iconSize/8;
+  marginSize = this.iconSize / 8;
 
   ngOnInit() {
     this.indexedDBacess.update();
     this.iconSize = Number(this.configurationService.SIZE_ICON_VALUE);
-    this.marginSize = this.iconSize/8;
+    this.marginSize = this.iconSize / 8;
   }
 
   /*get size of the searched result under search bar, maximum size reached for 5 results*/
@@ -102,10 +102,10 @@ export class UsertoolbarComponent implements OnInit {
 
   translate() {
     this.configurationService.LANGUAGE_VALUE = (this.configurationService.LANGUAGE_VALUE === 'FR' ? 'EN' : 'FR');
-    if(this.configurationService.LANGUAGE_VALUE === 'FR'){
+    if (this.configurationService.LANGUAGE_VALUE === 'FR') {
       annyang.setLanguage('fr-FR');
     }
-    if(this.configurationService.LANGUAGE_VALUE === 'EN'){
+    if (this.configurationService.LANGUAGE_VALUE === 'EN') {
       annyang.setLanguage('en');
     }
     this.indexedDBacess.update();
@@ -134,6 +134,9 @@ export class UsertoolbarComponent implements OnInit {
 
   }
 
+  /**
+   * Opens a dialog that will allow user to create, delete, import or load a grid
+   */
   openGridOptions(): void {
     this.dialog.open(DialogGridOptionsComponent, {
       height: 'fit-content',
@@ -141,6 +144,9 @@ export class UsertoolbarComponent implements OnInit {
     });
   }
 
+  /**
+   * Cancels all ongoing timer when cursor leaves the boundaries of the element that triggered the function (note : only applies to back buttons if dwellTime is activated)
+   */
   exit() {
     if (this.configurationService.DWELL_TIME_ENABLED) {
       this.dwellCursorService.stop();
@@ -148,6 +154,9 @@ export class UsertoolbarComponent implements OnInit {
     }
   }
 
+   /**
+   * If dwellTime is activated, starts a timer that will select the tile after completion (note : only applies to back buttons if dwellTime is activated)
+   */
   enter(event) {
     if (this.configurationService.DWELL_TIME_ENABLED) {
       this.dwellCursorService.updatePositionHTMLElement((<HTMLElement>event.target));
@@ -176,6 +185,9 @@ export class UsertoolbarComponent implements OnInit {
     this.layoutService.setDraggable(this.userToolBarService.edit);
   }
 
+  /**
+   * Returns the icon corresponding to the current page/folder
+   */
   getCurrentPageImage() {
     const currentFolder = this.boardService.getCurrentFolder();
     if (currentFolder === '#HOME') {
@@ -192,6 +204,9 @@ export class UsertoolbarComponent implements OnInit {
     }
   }
 
+  /**
+   * Leaves current page and sends user to the logging screen
+   */
   logout() {
     this.boardService.backHome();
     this.router.navigate(['logging']);
@@ -200,6 +215,9 @@ export class UsertoolbarComponent implements OnInit {
     localStorage.removeItem('image');
   }
 
+  /**
+   * Opens a dialog with a full tutorial of the application
+   */
   openDialog(): void {
     this.dialog.open(DialogHelpComponent, {
       height: 'fit-content',
@@ -207,19 +225,18 @@ export class UsertoolbarComponent implements OnInit {
     });
   }
 
-  exitSoftware() : void {
+  /**
+   * Opens a confirmation dialog before the user leaves the application
+   */
+  exitSoftware(): void {
     this.dialog.open(DialogLogoutAppComponent);
   }
 
-  newGrid(): void {
-    this.dialog.open(DialogAddGridComponent, {
-      height: 'fit-content',
-      width: 'fit-content'
-    });
-  }
-
-  toggleFocus(){
-    this.configurationService.DWELL_TIME_ENABLED= !this.configurationService.DWELL_TIME_ENABLED;
+  /**
+   * Toggles the dwellTime selection
+   */
+  toggleFocus() {
+    this.configurationService.DWELL_TIME_ENABLED = !this.configurationService.DWELL_TIME_ENABLED;
     this.indexedDBacess.updateConfig();
   }
 }

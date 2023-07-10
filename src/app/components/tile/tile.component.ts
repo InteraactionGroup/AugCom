@@ -1,16 +1,16 @@
-import {Component, Input, OnDestroy, OnInit,} from '@angular/core';
-import {HistoricService} from '../../services/historic.service';
-import {EditionService} from '../../services/edition.service';
-import {BoardService} from '../../services/board.service';
-import {ElementForm, FolderGoTo, GridElement, Vignette} from '../../types';
-import {GeticonService} from '../../services/geticon.service';
-import {UsertoolbarService} from '../../services/usertoolbar.service';
-import {Router} from '@angular/router';
-import {SearchService} from '../../services/search.service';
-import {LayoutService} from '../../services/layout.service';
-import {GridElementService} from '../../services/grid-element.service';
-import {DwellCursorService} from "../../services/dwell-cursor.service";
-import {ConfigurationService} from "../../services/configuration.service";
+import { Component, Input, OnDestroy, OnInit, } from '@angular/core';
+import { HistoricService } from '../../services/historic.service';
+import { EditionService } from '../../services/edition.service';
+import { BoardService } from '../../services/board.service';
+import { ElementForm, FolderGoTo, GridElement, Vignette } from '../../types';
+import { GeticonService } from '../../services/geticon.service';
+import { UsertoolbarService } from '../../services/usertoolbar.service';
+import { Router } from '@angular/router';
+import { SearchService } from '../../services/search.service';
+import { LayoutService } from '../../services/layout.service';
+import { GridElementService } from '../../services/grid-element.service';
+import { DwellCursorService } from "../../services/dwell-cursor.service";
+import { ConfigurationService } from "../../services/configuration.service";
 
 @Component({
   selector: 'app-tile',
@@ -56,9 +56,12 @@ export class TileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
+  /**
+   * On destroy, cancels any ongoing timer to make sure element is not selected after it's disapearance
+   */
   ngOnDestroy(): void {
-      clearTimeout(this.dwellTimer);
-      this.dwellCursorService.stop();
+    clearTimeout(this.dwellTimer);
+    this.dwellCursorService.stop();
   }
 
   setLongPressTimer(element) {
@@ -69,6 +72,9 @@ export class TileComponent implements OnInit, OnDestroy {
     }, this.configurationService.LONGPRESS_TIMEOUT_VALUE);
   }
 
+  /**
+   * Cancels any ongoing timer when cursor exits the tile's boundaries (function is only relevant when dwellTime is activated)
+   */
   exit() {
     if (this.configurationService.DWELL_TIME_ENABLED && !this.userToolBarService.edit) {
       this.dwellCursorService.stop();
@@ -76,6 +82,9 @@ export class TileComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * If dwellTime is activated, starts a timer that will select the tile after completion (function is only relevant when dwellTime is activated)
+   */
   enter(event, element) {
     if (this.configurationService.DWELL_TIME_ENABLED && this.canBeFocused() && !this.userToolBarService.edit) {
       this.dwellCursorService.updatePositionHTMLElement((<HTMLElement>event.target));
@@ -335,7 +344,7 @@ export class TileComponent implements OnInit, OnDestroy {
       '0px ' +
       (isFolder ? '-2px ' : '0px ') +
       (this.gridElementService.getStyle(element).BackgroundColor === undefined
-      || this.gridElementService.getStyle(element).BackgroundColor == null
+        || this.gridElementService.getStyle(element).BackgroundColor == null
         ? '#d3d3d3'
         : this.gridElementService.getStyle(element).BackgroundColor);
 
@@ -418,10 +427,10 @@ export class TileComponent implements OnInit, OnDestroy {
 
   displayImage(element: GridElement) {
     let foundImage = this.boardService.board.ImageList.find(image => image.ID === element.ElementFormsList[0].ImageID);
-    if(foundImage === undefined){
+    if (foundImage === undefined) {
       return false;
     }
-    if(foundImage.Path === '') {
+    if (foundImage.Path === '') {
       return false;
     }
     return (
@@ -577,11 +586,11 @@ export class TileComponent implements OnInit, OnDestroy {
   }
 
   canBeFocused() {
-    if (this.userToolBarService.babble){
+    if (this.userToolBarService.babble) {
       return this.isVisible(this.element);
     } else {
       return true;
     }
-    
+
   }
 }

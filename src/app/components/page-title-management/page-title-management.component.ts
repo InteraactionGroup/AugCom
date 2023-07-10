@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {UsertoolbarService} from '../../services/usertoolbar.service';
-import {MultilinguismService} from "../../services/multilinguism.service";
+import { Component, OnInit } from '@angular/core';
+import { UsertoolbarService } from '../../services/usertoolbar.service';
+import { MultilinguismService } from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-page-title-management',
@@ -10,7 +10,7 @@ import {MultilinguismService} from "../../services/multilinguism.service";
 export class PageTitleManagementComponent implements OnInit {
 
   constructor(public usertoolbarService: UsertoolbarService,
-              public multilinguism: MultilinguismService) {
+    public multilinguism: MultilinguismService) {
   }
 
   ngOnInit(): void {

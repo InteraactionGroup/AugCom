@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {BoardService} from "../../services/board.service";
-import {MultilinguismService} from "../../services/multilinguism.service";
-import {MatDialog} from "@angular/material/dialog";
-import {DialogModelGridComponent} from "../dialog-model-grid/dialog-model-grid.component";
+import { BoardService } from "../../services/board.service";
+import { MultilinguismService } from "../../services/multilinguism.service";
+import { MatDialog } from "@angular/material/dialog";
+import { DialogModelGridComponent } from "../dialog-model-grid/dialog-model-grid.component";
 
 @Component({
   selector: 'app-model-page',
@@ -12,12 +12,15 @@ import {DialogModelGridComponent} from "../dialog-model-grid/dialog-model-grid.c
 export class ModelGridComponent implements OnInit {
 
   constructor(public boardService: BoardService,
-              public multilinguism: MultilinguismService,
-              public dialog: MatDialog) { }
+    public multilinguism: MultilinguismService,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
 
+  /**
+   * Opens a dialog to load a page
+   */
   openDialog(): void {
     this.dialog.open(DialogModelGridComponent, {
       height: '20%',

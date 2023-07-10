@@ -1,5 +1,5 @@
-import {Injectable, NgZone} from '@angular/core';
-import {ConfigurationService} from "./configuration.service";
+import { Injectable, NgZone } from '@angular/core';
+import { ConfigurationService } from "./configuration.service";
 
 declare const annyang: any;
 
@@ -15,11 +15,11 @@ export class VoiceRecognitionService {
   voiceText: any;
 
   constructor(private configurationService: ConfigurationService,
-              private ngZone: NgZone) { }
+    private ngZone: NgZone) { }
 
   initializeVoiceRecognitionCallback(): void {
     annyang.addCallback('error', (err) => {
-      if(err.error === 'network'){
+      if (err.error === 'network') {
         this.voiceText = "Internet is require";
         annyang.abort();
         this.ngZone.run(() => this.voiceActiveSectionSuccess = true);
@@ -80,15 +80,15 @@ export class VoiceRecognitionService {
     this.voiceActiveSectionListening = false;
     this.voiceText = undefined;
 
-    if(annyang){
+    if (annyang) {
       annyang.abort();
     }
   }
-  changeLanguage(){
-    if(this.configurationService.LANGUAGE_VALUE === 'FR'){
+  changeLanguage() {
+    if (this.configurationService.LANGUAGE_VALUE === 'FR') {
       annyang.setLanguage('fr-FR');
     }
-    if(this.configurationService.LANGUAGE_VALUE === 'EN'){
+    if (this.configurationService.LANGUAGE_VALUE === 'EN') {
       annyang.setLanguage('en');
     }
   }

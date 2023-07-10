@@ -86,14 +86,12 @@
     </div>
     <a *ngIf="boardService.AFSR" class="topBarAFSRText floatRight" (click)="openDialogInteraactionBoxAFSR()">
       <div class="imageTextAFSR width-100"
-           [ngStyle]="{'background-image':this.getAFSRIcon('Text_Only_InterAACtionbox-AFSR')}"
-      >
+        [ngStyle]="{'background-image':this.getAFSRIcon('Text_Only_InterAACtionbox-AFSR')}">
       </div>
     </a>
     <a *ngIf="boardService.AFSR" class="topBarAFSRLogo floatRight" (click)="openDialogInteraactionBoxAFSR()">
       <div class="imageLogoAFSR width-100"
-           [ngStyle]="{'background-image':this.getAFSRIcon('Logo_Only_InterAACtionbox-AFSR')}"
-      >
+        [ngStyle]="{'background-image':this.getAFSRIcon('Logo_Only_InterAACtionbox-AFSR')}">
       </div>
     </a>
     <div *ngIf="boardService.AFSR" class="floatRight" style="width: fit-content; height: 22px">
@@ -104,8 +102,7 @@
     height: fit-content;
     align-items: center;
     align-content: center;
-    text-align: center;"
-      >
+    text-align: center;">
         {{this.multilinguism.translate('conçuPour')}}
       </div>
     </div>

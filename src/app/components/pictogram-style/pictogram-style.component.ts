@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {ConfigurationService} from "../../services/configuration.service";
-import {MultilinguismService} from "../../services/multilinguism.service";
+import { Component, OnInit } from '@angular/core';
+import { ConfigurationService } from "../../services/configuration.service";
+import { MultilinguismService } from "../../services/multilinguism.service";
 
 @Component({
   selector: 'app-pictogram-style',
@@ -10,7 +10,7 @@ import {MultilinguismService} from "../../services/multilinguism.service";
 export class PictogramStyleComponent implements OnInit {
 
   constructor(public configurationService: ConfigurationService,
-              public multilinguism: MultilinguismService) {
+    public multilinguism: MultilinguismService) {
   }
 
   ngOnInit(): void {

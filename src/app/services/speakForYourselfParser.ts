@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import jsonSpeak4Yourself from '../../assets/csvjson.json';
-import {CSVRecord} from '../csvType';
-import {FolderGoTo, Grid, GridElement} from '../types';
-import {IndexeddbaccessService} from './indexeddbaccess.service';
-import {Router} from '@angular/router';
-import {BoardService} from './board.service';
-import {JsonValidatorService} from './json-validator.service';
+import { CSVRecord } from '../csvType';
+import { FolderGoTo, Grid, GridElement } from '../types';
+import { IndexeddbaccessService } from './indexeddbaccess.service';
+import { Router } from '@angular/router';
+import { BoardService } from './board.service';
+import { JsonValidatorService } from './json-validator.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class SpeakForYourselfParser {
   speak4Yourself: CSVRecord[];
 
   constructor(public indexedDBacess: IndexeddbaccessService, public jsonValidator: JsonValidatorService,
-              private router: Router, public boardService: BoardService) {
+    private router: Router, public boardService: BoardService) {
     this.speak4Yourself = jsonSpeak4Yourself;
   }
 
@@ -72,12 +72,12 @@ export class SpeakForYourselfParser {
           [{
             DisplayedText: element.mot,
             VoiceText: element.mot,
-            LexicInfos: [{default: true}],
+            LexicInfos: [{ default: true }],
             ImageID: ''
           }],
           [{
             ID: 'click',
-            ActionList: [{ID: 'say', Options: []}, {ID: 'display', Options: []}]
+            ActionList: [{ ID: 'say', Options: [] }, { ID: 'display', Options: [] }]
           }]
         )
       );

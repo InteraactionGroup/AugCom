@@ -1,5 +1,5 @@
-import {ConfigurationService} from "../services/configuration.service";
-import {ActivatedRoute} from "@angular/router";
+import { ConfigurationService } from "../services/configuration.service";
+import { ActivatedRoute } from "@angular/router";
 
 export class LanguageComponent {
 

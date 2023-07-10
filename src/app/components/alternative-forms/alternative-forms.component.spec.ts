@@ -1,13 +1,13 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {AlternativeFormsComponent} from './alternative-forms.component';
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
-import {Ng2ImgMaxModule} from 'ng2-img-max';
-import {ElementForm, GridElement} from '../../types';
-import {Router} from "@angular/router";
-import {MatAutocomplete, MatAutocompleteModule} from "@angular/material/autocomplete";
+import { AlternativeFormsComponent } from './alternative-forms.component';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { Ng2ImgMaxModule } from 'ng2-img-max';
+import { ElementForm, GridElement } from '../../types';
+import { Router } from "@angular/router";
+import { MatAutocomplete, MatAutocompleteModule } from "@angular/material/autocomplete";
 
 function updateModifications(component: any) {
   if (component.editionService.selectedElements.length === 1) {

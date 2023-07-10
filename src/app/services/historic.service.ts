@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {Vignette} from '../types';
-import {ParametersService} from './parameters.service';
-import {ConfigurationService} from "./configuration.service";
+import { Injectable } from '@angular/core';
+import { Vignette } from '../types';
+import { ParametersService } from './parameters.service';
+import { ConfigurationService } from "./configuration.service";
 
 @Injectable({
   providedIn: 'root'
@@ -23,10 +23,17 @@ export class HistoricService {
     return this.isHistoricLengthMoreThan10() ? this.historic.reverse() : this.historic;
   }
 
+  /**
+   * Adds an element to the pronounciation history
+   * @param element element to be added
+   */
   push(element) {
     this.historic.push(element);
   }
 
+    /**
+   * Removes all elements of the pronounciation history
+   */
   clearHistoric() {
     this.historic = [];
     if (this.speechSynthesis !== null && this.speechSynthesis !== undefined) {
@@ -34,6 +41,9 @@ export class HistoricService {
     }
   }
 
+  /**
+   * Removes the last element of the pronounciation history
+   */
   backHistoric() {
     this.historic.pop();
     if (this.speechSynthesis !== null && this.speechSynthesis !== undefined) {
@@ -41,7 +51,9 @@ export class HistoricService {
     }
   }
 
-
+/**
+ * Transforms the history to a text that will be pronounced
+ */
   playHistoric() {
     let text = '';
     for (const historicElement of this.historic) {
@@ -50,6 +62,10 @@ export class HistoricService {
     this.say(text);
   }
 
+  /**
+   * Prnounces the text in parameter using a text to speech voice
+   * @param text text to be pronounced
+   */
   say(text: string) {
     this.speechSynthesis = window.speechSynthesis;
     this.x = new SpeechSynthesisUtterance(text + ' ');

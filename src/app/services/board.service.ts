@@ -1,14 +1,14 @@
-import {Injectable} from '@angular/core';
-import {Board} from '../data/ExempleOfBoard';
-import {ElementForm, FolderGoTo, Grid, GridElement, Page} from '../types';
-import {DomSanitizer} from '@angular/platform-browser';
-import {EditionService} from './edition.service';
-import {Ng2ImgMaxService} from 'ng2-img-max';
-import {LayoutService} from './layout.service';
-import {GridElementService} from './grid-element.service';
-import {UsertoolbarService} from './usertoolbar.service';
-import {ConfigurationService} from "./configuration.service";
-import {UserPageService} from "./user-page.service";
+import { Injectable } from '@angular/core';
+import { Board } from '../data/ExempleOfBoard';
+import { ElementForm, FolderGoTo, Grid, GridElement, Page } from '../types';
+import { DomSanitizer } from '@angular/platform-browser';
+import { EditionService } from './edition.service';
+import { Ng2ImgMaxService } from 'ng2-img-max';
+import { LayoutService } from './layout.service';
+import { GridElementService } from './grid-element.service';
+import { UsertoolbarService } from './usertoolbar.service';
+import { ConfigurationService } from "./configuration.service";
+import { UserPageService } from "./user-page.service";
 
 @Injectable({
   providedIn: 'root',
@@ -27,8 +27,8 @@ export class BoardService {
     this.board = Board;
     this.updateElementList();
   }
-  gridModel:string = 'none';
-  gridChosen:string = '';
+  gridModel: string = 'none';
+  gridChosen: string = '';
 
   AFSR: boolean = false;
 
@@ -39,8 +39,8 @@ export class BoardService {
   currentPath = '#HOME';
 
   /*the current forms that verb and noun have to use to conjugate*/
-  currentVerbTerminaison: { currentPerson: string, currentNumber: string } = {currentPerson: '', currentNumber: ''};
-  currentNounTerminaison: { currentGender: string, currentNumber: string } = {currentGender: '', currentNumber: ''};
+  currentVerbTerminaison: { currentPerson: string, currentNumber: string } = { currentPerson: '', currentNumber: '' };
+  currentNounTerminaison: { currentGender: string, currentNumber: string } = { currentGender: '', currentNumber: '' };
 
   /*element that is displaying its alternative forms*/
   activatedElement = -1;
@@ -217,12 +217,12 @@ export class BoardService {
   /*reset default end of word*/
   resetTerminaisons() {
     this.resetVerbTerminaisons();
-    this.currentNounTerminaison = {currentGender: '', currentNumber: ''};
+    this.currentNounTerminaison = { currentGender: '', currentNumber: '' };
   }
 
   /*reset default end of word for verbs*/
   resetVerbTerminaisons() {
-    this.currentVerbTerminaison = {currentPerson: '', currentNumber: ''};
+    this.currentVerbTerminaison = { currentPerson: '', currentNumber: '' };
   }
 
   /*delete the element that is sentenced to death*/
@@ -345,7 +345,7 @@ export class BoardService {
     this.layoutService.refreshAll(this.getNumberOfCols(), this.getNumberOfRows(), this.getGapSize());
     setTimeout(() => {
       this.elementList = this.getTempList();
-    },500);
+    }, 500);
   }
 
   /**
@@ -390,10 +390,10 @@ export class BoardService {
     return currentPage;
   }
 
-  currentIndexPage(){
+  currentIndexPage() {
     let index = 0;
-    for (let i = 0; i < this.board.PageList.length; i++){
-      if (this.board.PageList[i].ID == this.getCurrentFolder()){
+    for (let i = 0; i < this.board.PageList.length; i++) {
+      if (this.board.PageList[i].ID == this.getCurrentFolder()) {
         index = i;
       }
     }
@@ -443,7 +443,7 @@ export class BoardService {
           elt.x = places[indexOfForm].x;
           elt.y = places[indexOfForm].y;
         }
-        elt.InteractionsList.push({ID: 'click', ActionList: [{ID: 'backFromVariant', Options: []}]});
+        elt.InteractionsList.push({ ID: 'click', ActionList: [{ ID: 'backFromVariant', Options: [] }] });
         temporaryElementList.push(this.copy(elt));
         indexOfForm = indexOfForm + 1;
       }
@@ -451,7 +451,7 @@ export class BoardService {
 
     this.gridElementService.setBackgroundColor(compElt, '#123548');
     compElt.PartOfSpeech = '';
-    compElt.InteractionsList = [{ID: 'click', ActionList: [{ID: 'backFromVariant', Options: []}]}];
+    compElt.InteractionsList = [{ ID: 'click', ActionList: [{ ID: 'backFromVariant', Options: [] }] }];
     compElt.ElementFormsList = [{
       DisplayedText: 'back',
       VoiceText: 'back',
@@ -475,16 +475,16 @@ export class BoardService {
     const slider: number = Number(this.board.NumberOfCols);
     const places = [];
     for (let row = 0; row < rows + 2; row++) {
-      const tempCoupleLeft = {x: x - 1, y: 0};
-      const tempCoupleRight = {x: x + cols, y: 0};
+      const tempCoupleLeft = { x: x - 1, y: 0 };
+      const tempCoupleRight = { x: x + cols, y: 0 };
       tempCoupleLeft.y = y - 1 + row;
       tempCoupleRight.y = y - 1 + row;
       places.push(tempCoupleLeft);
       places.push(tempCoupleRight);
     }
     for (let col = 0; col < cols; col++) {
-      const tempCoupleTop = {x: 0, y: y - 1};
-      const tempCoupleBottom = {x: 0, y: y + rows};
+      const tempCoupleTop = { x: 0, y: y - 1 };
+      const tempCoupleBottom = { x: 0, y: y + rows };
       tempCoupleTop.x = x + col;
       tempCoupleBottom.x = x + col;
       places.push(tempCoupleTop);
@@ -522,54 +522,54 @@ export class BoardService {
   }
 
   //Deep clone
-  deepCopyButtonFolder(element: GridElement){
+  deepCopyButtonFolder(element: GridElement) {
     //case button folder
-    if((element.Type as FolderGoTo).GoTo){
+    if ((element.Type as FolderGoTo).GoTo) {
       const copyElement = this.copy(element);
-      copyElement.ID = copyElement.ID+'copy';
-      copyElement.Type = {GoTo: (copyElement.Type as FolderGoTo).GoTo + 'copy'};
+      copyElement.ID = copyElement.ID + 'copy';
+      copyElement.Type = { GoTo: (copyElement.Type as FolderGoTo).GoTo + 'copy' };
       this.copyPage(element);
       return copyElement;
-    }else{
+    } else {
       //case normal button
       return this.copyButtonFolder(element);
     }
   }
 
-  copyPage(element: GridElement){
-    const IDpage = this.board.PageList.findIndex((p)=> {
+  copyPage(element: GridElement) {
+    const IDpage = this.board.PageList.findIndex((p) => {
       const elementOrigin = this.replaceElemCopyToOrigin(element.ID);
       return p.ID === elementOrigin;
     });
     let isFolderButton = false;
-    let arrayButtonFolder:GridElement[] = [];
+    let arrayButtonFolder: GridElement[] = [];
 
     // if the element isn't a folder
-    if(IDpage !== -1){
+    if (IDpage !== -1) {
       const copyPageForElement = new Page();
-      copyPageForElement.ID = this.board.PageList[IDpage].ID+'copy';
-      copyPageForElement.Name = this.board.PageList[IDpage].Name+'copy';
+      copyPageForElement.ID = this.board.PageList[IDpage].ID + 'copy';
+      copyPageForElement.Name = this.board.PageList[IDpage].Name + 'copy';
       copyPageForElement.ElementIDsList = [];
-      if(this.board.PageList[IDpage].BackgroundColor !== undefined){
+      if (this.board.PageList[IDpage].BackgroundColor !== undefined) {
         copyPageForElement.BackgroundColor = this.board.PageList[IDpage].BackgroundColor;
       }
-      if(this.board.PageList[IDpage].NumberOfCols != undefined){
+      if (this.board.PageList[IDpage].NumberOfCols != undefined) {
         copyPageForElement.NumberOfCols = this.board.PageList[IDpage].NumberOfCols;
         copyPageForElement.NumberOfRows = this.board.PageList[IDpage].NumberOfRows;
       }
       this.board.PageList[IDpage].ElementIDsList.forEach((elementGrid) => {
-        copyPageForElement.ElementIDsList.push(elementGrid+'copy');
+        copyPageForElement.ElementIDsList.push(elementGrid + 'copy');
         this.board.ElementList.forEach((gridElem) => {
-          if(gridElem.ID === elementGrid){
+          if (gridElem.ID === elementGrid) {
             const color = this.gridElementService.getStyle(gridElem).BackgroundColor;
             const borderColor = this.gridElementService.getStyle(gridElem).BorderColor;
-            if((gridElem.Type as FolderGoTo).GoTo){
-              const copyGridElem = new GridElement(gridElem.ID+'copy', {GoTo: (gridElem.Type as FolderGoTo).GoTo + 'copy'}, gridElem.PartOfSpeech, color,borderColor ,gridElem.VisibilityLevel ,gridElem.ElementFormsList ,gridElem.InteractionsList);
+            if ((gridElem.Type as FolderGoTo).GoTo) {
+              const copyGridElem = new GridElement(gridElem.ID + 'copy', { GoTo: (gridElem.Type as FolderGoTo).GoTo + 'copy' }, gridElem.PartOfSpeech, color, borderColor, gridElem.VisibilityLevel, gridElem.ElementFormsList, gridElem.InteractionsList);
               arrayButtonFolder.push(copyGridElem);
               isFolderButton = true;
               this.board.ElementList.push(copyGridElem);
-            }else{
-              const copyGridElem = new GridElement(gridElem.ID+'copy', gridElem.Type , gridElem.PartOfSpeech, color,borderColor ,gridElem.VisibilityLevel ,gridElem.ElementFormsList ,gridElem.InteractionsList);
+            } else {
+              const copyGridElem = new GridElement(gridElem.ID + 'copy', gridElem.Type, gridElem.PartOfSpeech, color, borderColor, gridElem.VisibilityLevel, gridElem.ElementFormsList, gridElem.InteractionsList);
               this.board.ElementList.push(copyGridElem);
             }
           }
@@ -583,8 +583,8 @@ export class BoardService {
     });
   }
 
-  replaceElemCopyToOrigin (text) {
-    while (text.includes("copy")){
+  replaceElemCopyToOrigin(text) {
+    while (text.includes("copy")) {
       text = text.replace("copy", "");
     }
     return text;

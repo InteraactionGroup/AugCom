@@ -1,6 +1,6 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {JsonValidatorService} from './json-validator.service';
+import { JsonValidatorService } from './json-validator.service';
 
 describe('JsonValidatorService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

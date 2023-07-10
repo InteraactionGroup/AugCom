@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {ConnectionService} from 'ng-connection-service';
+import { Injectable } from '@angular/core';
+import { ConnectionService } from 'ng-connection-service';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +39,9 @@ export class UsertoolbarService {
   public titleDisplayValue = 'default'; // can be 'default, 'imageOnly' and 'textOnly'
   public titleFormat = 'default'; // 'nameOnly'
 
+  /**
+   * Toggles fullscreen
+   */
   fullScreen() {
     if (document.fullscreenElement !== null || (document as any).webkitIsFullScreen || (document as any).mozFullScreen) {
       if (document.exitFullscreen) {
@@ -59,6 +62,9 @@ export class UsertoolbarService {
     }
   }
 
+  /**
+   * Toggles edition mod
+   */
   switchEditValue() {
     this.edit = !this.edit;
   }

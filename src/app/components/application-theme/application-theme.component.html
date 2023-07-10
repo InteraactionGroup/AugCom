@@ -1,39 +1,35 @@
 <div class="width-100">
   <div>
     <div class="leftSide" style="width: 100%; margin: 10px">
-      <div>  {{this.multilinguismService.translate("GeneralTheme")}}</div>
+      <div> {{this.multilinguismService.translate("GeneralTheme")}}</div>
       <div style="display: grid; grid-template-columns: max-content 20px; margin: 10px 10px 10px 20px;">
 
         <div> {{this.multilinguismService.translate("Color") + " 1:"}} </div>
         <div class="newColor">
           <div class="mainColorPicker" [ngStyle]="{'background-color': 'var(--main-bg-color1)'}"></div>
           <input [(ngModel)]="this.configurationService.MAIN_COLOR_1_VALUE" class="colorPicker height-width-100"
-                 type="color"
-                 (input)="styleService.updateStyleColor1(this.configurationService.MAIN_COLOR_1_VALUE)">
+            type="color" (input)="styleService.updateStyleColor1(this.configurationService.MAIN_COLOR_1_VALUE)">
         </div>
 
         <div> {{this.multilinguismService.translate("Color") + " 2:"}}</div>
         <div class="newColor">
           <div class="mainColorPicker" [ngStyle]="{'background-color': 'var(--main-bg-color2)'}"></div>
           <input [(ngModel)]="this.configurationService.MAIN_COLOR_2_VALUE" class="colorPicker height-width-100"
-                 type="color"
-                 (input)="styleService.updateStyleColor2(this.configurationService.MAIN_COLOR_2_VALUE)">
+            type="color" (input)="styleService.updateStyleColor2(this.configurationService.MAIN_COLOR_2_VALUE)">
         </div>
 
         <div> {{this.multilinguismService.translate("Color") + " 3:"}}</div>
         <div class="newColor">
           <div class="mainColorPicker" [ngStyle]="{'background-color': 'var(--main-bg-color3)'}"></div>
           <input [(ngModel)]="this.configurationService.MAIN_COLOR_3_VALUE" class="colorPicker height-width-100"
-                 type="color"
-                 (input)="styleService.updateStyleColor3(this.configurationService.MAIN_COLOR_3_VALUE)">
+            type="color" (input)="styleService.updateStyleColor3(this.configurationService.MAIN_COLOR_3_VALUE)">
         </div>
 
         <div> {{this.multilinguismService.translate("Color") + " 4:"}}</div>
         <div class="newColor">
           <div class="mainColorPicker" [ngStyle]="{'background-color': 'var(--main-bg-color4)'}"></div>
           <input [(ngModel)]="this.configurationService.MAIN_COLOR_4_VALUE" class="colorPicker height-width-100"
-                 type="color"
-                 (input)="styleService.updateStyleColor4(this.configurationService.MAIN_COLOR_4_VALUE)">
+            type="color" (input)="styleService.updateStyleColor4(this.configurationService.MAIN_COLOR_4_VALUE)">
         </div>
       </div>
 
@@ -44,7 +40,7 @@
       <div class="languageSelection" style="margin: 10px 10px 10px 20px;">
         <label for="lang2">{{this.multilinguismService.translate("ChooseFont") + ":"}}</label>
         <select [ngStyle]="{'font-family': option.value}" #option id="lang2"
-                (input)="styleService.updateFont(option.value)" class="variantListBox">
+          (input)="styleService.updateFont(option.value)" class="variantListBox">
           <option value="Arial" style="font-family: Arial,sans-serif">Arial</option>
           <option value="Karumbi" style="font-family: Karumbi ,sans-serif">Karumbi</option>
           <option value="Chilanka" style="font-family: Chilanka,sans-serif"> Chilanka</option>
@@ -55,37 +51,32 @@
 
       <div class="fontSize" style="margin: 10px 10px 10px 20px;">
         <label for="font">{{this.multilinguismService.translate("ChooseSizeFont") + ":"}}</label>
-        <select #optionFont id="font" class="variantListBox" [value]="this.selectedSize" (input)="changeSizeFont(optionFont.value)">
-          <option value="8px" > 8 </option>
-          <option value="9px" > 9 </option>
-          <option value="10px" > 10 </option>
-          <option value="11px" > 11 </option>
-          <option value="12px" > 12 </option>
-          <option value="14px" > 14 </option>
-          <option value="16px" > 16 </option>
-          <option value="18px" > 18 </option>
-          <option value="20px" > 20 </option>
-          <option value="22px" > 22 </option>
-          <!--<option value="24px" > 24 </option>
-          <option value="26px" > 26 </option>
-          <option value="28px" > 28 </option>
-          <option value="36px" > 36 </option>
-          <option value="48px" > 48 </option>
-          <option value="72px" > 72 </option>-->
+        <select #optionFont id="font" class="variantListBox" [value]="this.selectedSize"
+          (input)="changeSizeFont(optionFont.value)">
+          <option value="8px"> 8 </option>
+          <option value="9px"> 9 </option>
+          <option value="10px"> 10 </option>
+          <option value="11px"> 11 </option>
+          <option value="12px"> 12 </option>
+          <option value="14px"> 14 </option>
+          <option value="16px"> 16 </option>
+          <option value="18px"> 18 </option>
+          <option value="20px"> 20 </option>
+          <option value="22px"> 22 </option>
         </select>
       </div>
 
       <div class="fontSize" style="margin: 10px 10px 10px 20px;">
         <label> {{this.multilinguismService.translate('chooseIconSize') + ":" }}</label>
-        <button id="menuButton" mat-button [matMenuTriggerFor]="menu"> {{ iconSize }} % </button>  
+        <button id="menuButton" mat-button [matMenuTriggerFor]="menu"> {{ iconSize }} % </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="changeIconSize(100)">100%</button>
           <button mat-menu-item (click)="changeIconSize(125)">125%</button>
           <button mat-menu-item (click)="changeIconSize(150)">150%</button>
           <button mat-menu-item (click)="changeIconSize(175)">175%</button>
-          <button mat-menu-item (click)="changeIconSize(200)">200%</button> 
-          </mat-menu>
-        </div>
+          <button mat-menu-item (click)="changeIconSize(200)">200%</button>
+        </mat-menu>
+      </div>
     </div>
 
     <div class="rightSide" style="width: 100%">

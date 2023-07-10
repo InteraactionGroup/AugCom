@@ -8,9 +8,9 @@ describe('DialogLinkInteraactionboxComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DialogLinkInteraactionboxComponent ]
+      declarations: [DialogLinkInteraactionboxComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,20 +1,20 @@
-import {Component, OnInit} from '@angular/core';
-import {DbnaryService} from '../../services/dbnary.service';
-import {BoardService} from '../../services/board.service';
-import {GeticonService} from '../../services/geticon.service';
-import {DomSanitizer} from '@angular/platform-browser';
-import {FolderGoTo, GridElement, Interaction, Page} from '../../types';
-import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
-import {Router} from '@angular/router';
-import {PaletteService} from '../../services/palette.service';
-import {EditionService} from '../../services/edition.service';
-import {Ng2ImgMaxService} from 'ng2-img-max';
-import {HttpClient} from '@angular/common/http';
-import {MultilinguismService} from '../../services/multilinguism.service';
-import {FunctionsService} from '../../services/functions.service';
-import {GridElementService} from '../../services/grid-element.service';
-import {LayoutService} from "../../services/layout.service";
-import {ConfigurationService} from "../../services/configuration.service";
+import { Component, OnInit } from '@angular/core';
+import { DbnaryService } from '../../services/dbnary.service';
+import { BoardService } from '../../services/board.service';
+import { GeticonService } from '../../services/geticon.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { FolderGoTo, GridElement, Interaction, Page } from '../../types';
+import { IndexeddbaccessService } from '../../services/indexeddbaccess.service';
+import { Router } from '@angular/router';
+import { PaletteService } from '../../services/palette.service';
+import { EditionService } from '../../services/edition.service';
+import { Ng2ImgMaxService } from 'ng2-img-max';
+import { HttpClient } from '@angular/common/http';
+import { MultilinguismService } from '../../services/multilinguism.service';
+import { FunctionsService } from '../../services/functions.service';
+import { GridElementService } from '../../services/grid-element.service';
+import { LayoutService } from "../../services/layout.service";
+import { ConfigurationService } from "../../services/configuration.service";
 
 import { ComponentCanDeactivate } from 'src/app/services/pending-changes-guard.service';
 import { Observable } from 'rxjs';
@@ -26,38 +26,41 @@ import { Observable } from 'rxjs';
   providers: [Ng2ImgMaxService, HttpClient]
 })
 export class EditionComponent implements OnInit, ComponentCanDeactivate {
-    canDeactivate(): Observable<boolean> | boolean | Promise<boolean> {
-      if(this.isInitialState()){
-        return true;
-      } else {
-        return new Promise((resolve, reject) => {
-          // Implement your guard logic here
-          // For example, prompt the user before leaving the route
-          const confirmation = confirm(this.multilinguism.translate('warningQuit'));
-          resolve(confirmation);
-        });
-      }
+  /**
+   * Guard that checks before the user leaves the page, if any unsaved modification has been made
+   * @returns true if (no modification has been made) or if (modifications have been made and the user confirmed his wish to quit), false elsewise 
+   */
+  canDeactivate(): Observable<boolean> | boolean | Promise<boolean> {
+    if (this.isInitialState()) {
+      return true;
+    } else {
+      return new Promise((resolve, reject) => {
+        const confirmation = confirm(this.multilinguism.translate('warningQuit'));
+        resolve(confirmation);
+      });
     }
-  
+  }
+
 
 
   nameEmpty = false;
   initialEditionState; initialdbnaryState;
   popstateFired = false;
 
-  constructor(public editionService: EditionService, public  paletteService: PaletteService,
-              public router: Router, public multilinguism: MultilinguismService,
-              public indexedDBacess: IndexeddbaccessService, public functionsService: FunctionsService,
-              public sanitizer: DomSanitizer, public getIconService: GeticonService,
-              public dbnaryService: DbnaryService, public boardService: BoardService,
-              public  gridElementService: GridElementService, public layoutService: LayoutService,
-              public configuration: ConfigurationService) {
+  constructor(public editionService: EditionService, public paletteService: PaletteService,
+    public router: Router, public multilinguism: MultilinguismService,
+    public indexedDBacess: IndexeddbaccessService, public functionsService: FunctionsService,
+    public sanitizer: DomSanitizer, public getIconService: GeticonService,
+    public dbnaryService: DbnaryService, public boardService: BoardService,
+    public gridElementService: GridElementService, public layoutService: LayoutService,
+    public configuration: ConfigurationService) {
 
   }
 
 
   /**
-   * update the informations with the elementToModify if it exist and set the elementListener for listening next element modifications
+   * Updates the informations of the elementToModify if it exists.
+   * Sets the elementListener for listening to the next element modifications
    */
   ngOnInit() {
     this.updateModifications();
@@ -66,21 +69,24 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
         this.updateModifications();
       }
     });
-    if(this.editionService.defaultBorderColor != undefined){
+    if (this.editionService.defaultBorderColor != undefined) {
       this.editionService.curentBorderColor = this.editionService.defaultBorderColor;
     }
-    if(this.editionService.defaultInsideColor != undefined){
+    if (this.editionService.defaultInsideColor != undefined) {
       this.editionService.curentColor = this.editionService.defaultInsideColor;
     }
   }
 
-  /*select given edit page menu item*/
+  /**
+   * Selects the menu corresponding to the string in parameter
+   * @param name menu to be selected
+   */
   selectMenu(name: string) {
     this.editionService.currentEditPage = name;
   }
 
   /**
-   * Clear the informtation of the edition panel, reset all the information to their initial value
+   * Resets all the informations of the edition panel to their initial value
    */
   clear() {
     this.editionService.imageTextField = "";
@@ -96,7 +102,7 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
   }
 
   /**
-   * return the icon url corresponding to the string s
+   * Returns the icon url corresponding to the string in parameter
    * @param s, the string identifying the icon
    * @return the icon url
    */
@@ -106,12 +112,11 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
 
 
   /**
-   * Save the modified or new element update the indexedDB database with it and close the edition panel
-   *
+   * Saves the modified or new element, updates the indexedDB database with it and closes the edition panel
    */
   async save() {
-    if (this.editionService.name != ""){
-      if (this.editionService.newPage == ""){
+    if (this.editionService.name != "") {
+      if (this.editionService.newPage == "") {
         this.editionService.newPage = this.editionService.name;
       }
       if (this.editionService.add) {
@@ -125,16 +130,22 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
       this.indexedDBacess.update();
       this.initialEditionState = Object.assign({}, this.editionService);
       this.initialdbnaryState = Object.assign({}, this.dbnaryService);
-    }else {
+    } else {
       this.nameEmpty = true;
     }
   }
 
+  /**
+   * Sleep function
+   * @param ms Time to sleep in milliseconds
+   */
   delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  /*open modification for all selected items of the grid*/
+  /**
+   * Opens a modification panel for all selected elements of the grid
+   */
   modifyAllButtons() {
     this.editionService.selectedElements.forEach(elt => {
 
@@ -157,7 +168,7 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
           {
             DisplayedText: this.editionService.name,
             VoiceText: this.editionService.name,
-            LexicInfos: [{default: true}],
+            LexicInfos: [{ default: true }],
             ImageID: elt.ElementFormsList[0].ImageID
           }
         );
@@ -173,6 +184,11 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
     });
   }
 
+  /**
+   * Checks if the element in parameter is a folder of a button
+   * @param elementID element to be checked
+   * @returns type of the element in parameter (folder or button)
+   */
   returnTypeOf(elementID) {
     if (this.editionService.radioTypeFormat === 'folder') {
       if (this.editionService.pageLink === '@') {
@@ -201,7 +217,7 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
   }
 
   /**
-   * Update the current modified element and load its modifications into the board,
+   * Updates the current modified element and load its modifications into the board,
    * given the information of this class, updated by the edition html panel
    */
   modifyButton() {
@@ -247,7 +263,7 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
   }
 
   /**
-   * Create a new button and add it to the board, given the information of this class, updated by the edition html panel
+   * Creates a new button and adds it to the board, given the information of this class, updated by the edition html panel
    */
   createNewButton() {
     let i = 0;
@@ -261,7 +277,7 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
       {
         DisplayedText: this.editionService.name,
         VoiceText: this.editionService.name,
-        LexicInfos: [{default: true}],
+        LexicInfos: [{ default: true }],
         ImageID: tempId
       }
     );
@@ -300,6 +316,9 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
     currentPage.ElementIDsList.push(tempId);
   }
 
+  /**
+   * @returns the current page, if no page corresponds, creates it first 
+   */
   getCurrentPage(): Page {
     let currentPage = this.boardService.board.PageList.find(page => {
       return page.ID === this.boardService.getCurrentFolder()
@@ -310,6 +329,10 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
     return currentPage;
   }
 
+  /**
+   * Creates a new page and returns it directly
+   * @returns the created page
+   */
   createAndGetNewPage(): Page {
     const name = this.boardService.getCurrentFolder();
     return {
@@ -375,6 +398,10 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
     return this.editionService.currentEditPage === page;
   }
 
+  /**
+   * Checks if any mdoification has been made by the user (aka if the current state of editionService and dbinaryService is the same as their initial state)
+   * @returns true if no modification has been made, false elsewise
+   */
   isInitialState() {
     return (this.initialEditionState.imageTextField == this.editionService.imageTextField
       && this.initialEditionState.curentBorderColor == this.editionService.curentBorderColor

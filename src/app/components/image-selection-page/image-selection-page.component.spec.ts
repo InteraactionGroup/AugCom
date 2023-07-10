@@ -1,13 +1,13 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {ImageSelectionPageComponent} from './image-selection-page.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {FormsModule, NgControl, ReactiveFormsModule} from '@angular/forms';
-import {Ng2ImgMaxModule} from 'ng2-img-max';
-import {MatAutocomplete, MatAutocompleteModule} from "@angular/material/autocomplete";
-import {MatDialogModule} from "@angular/material/dialog";
-import {Router} from "@angular/router";
-import {HttpClientModule} from "@angular/common/http";
+import { ImageSelectionPageComponent } from './image-selection-page.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { FormsModule, NgControl, ReactiveFormsModule } from '@angular/forms';
+import { Ng2ImgMaxModule } from 'ng2-img-max';
+import { MatAutocomplete, MatAutocompleteModule } from "@angular/material/autocomplete";
+import { MatDialogModule } from "@angular/material/dialog";
+import { Router } from "@angular/router";
+import { HttpClientModule } from "@angular/common/http";
 
 
 describe('ImageSelectionPageComponent', () => {

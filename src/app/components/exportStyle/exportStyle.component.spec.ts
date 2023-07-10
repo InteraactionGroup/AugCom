@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExportStyleComponent } from './exportStyle.component';
-import {Ng2ImgMaxModule} from "ng2-img-max";
-import {Router} from "@angular/router";
-import {HttpClientModule} from "@angular/common/http";
+import { Ng2ImgMaxModule } from "ng2-img-max";
+import { Router } from "@angular/router";
+import { HttpClientModule } from "@angular/common/http";
 
 describe('exportStyleComponent', () => {
   let component: ExportStyleComponent;
@@ -11,7 +11,7 @@ describe('exportStyleComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExportStyleComponent ],
+      declarations: [ExportStyleComponent],
       imports: [Ng2ImgMaxModule, HttpClientModule],
       providers: [{
         provide: Router, useClass: class {
@@ -19,7 +19,7 @@ describe('exportStyleComponent', () => {
         }
       }]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

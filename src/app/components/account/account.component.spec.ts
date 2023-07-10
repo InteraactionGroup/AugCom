@@ -1,10 +1,10 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {AccountComponent} from './account.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {Ng2ImgMaxModule} from 'ng2-img-max';
-import {HttpClientModule} from "@angular/common/http";
+import { AccountComponent } from './account.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Ng2ImgMaxModule } from 'ng2-img-max';
+import { HttpClientModule } from "@angular/common/http";
 
 
 describe('AccountComponent', () => {

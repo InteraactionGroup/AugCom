@@ -1,7 +1,7 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {DwellCursorComponent} from './dwell-cursor.component';
-import {HttpClientModule} from "@angular/common/http";
+import { DwellCursorComponent } from './dwell-cursor.component';
+import { HttpClientModule } from "@angular/common/http";
 
 describe('DwellCursorComponent', () => {
   let component: DwellCursorComponent;
@@ -10,7 +10,7 @@ describe('DwellCursorComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [DwellCursorComponent],
-      imports:[HttpClientModule]
+      imports: [HttpClientModule]
     })
       .compileComponents();
   }));
