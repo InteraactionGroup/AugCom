@@ -6,16 +6,6 @@
   pointer-events: none;
 }
 
-progress {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 100%;
-  border-radius: 100%;
-
-  overflow: hidden;
-  transform: rotate(270deg);
-}
-
 ::-webkit-progress-bar {
   background-color: rgba(255, 255, 255, 0.51);
   border-radius: 100%;
@@ -26,7 +16,6 @@ progress[value]::-webkit-progress-value {
   align-content: center;
   background-color: royalblue;
 }
-
 
 p {
   color: white;
