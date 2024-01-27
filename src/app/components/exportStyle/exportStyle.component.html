@@ -28,7 +28,7 @@
 
     <div class="header-item" *ngIf="typeChoice == 'text' && buttonEnableHeader">
       <label id="labelTextArea" for="textArea">{{this.multilinguism.translate("textHeader")}}</label>
-      <textarea id="textArea" name="textFooter" rows="4" cols="50" (keyup)="getText($event)">{{this.header}}</textarea>
+      <textarea id="textArea" name="textHeader" rows="4" cols="50" (keyup)="getText($event)">{{this.header}}</textarea>
     </div>
 
     <div class="header-item" *ngIf="typeChoice == 'img' && buttonEnableHeader">
@@ -36,9 +36,9 @@
       <input type="file" accept="image/*" (change)="onFileSelected($event)" [value]="selectedFile">
     </div>
 
-    <div class="footer-item" *ngIf="buttonEnableHeader">
-      <label for="positionFooter">{{this.multilinguism.translate("choosePosition")}}</label>
-      <select #option id="positionFooter" class="variantListBox" (input)="getPosition(option.value)"
+    <div class="header-item" *ngIf="buttonEnableHeader">
+      <label for="positionHeader">{{this.multilinguism.translate("choosePosition")}}</label>
+      <select #option id="positionHeader" class="variantListBox" (input)="getPosition(option.value)"
         [(ngModel)]="textPosition">
         <option value="left">{{this.multilinguism.translate("leftPosition")}}</option>
         <option value="center">{{this.multilinguism.translate("middlePosition")}}</option>
@@ -60,24 +60,24 @@
 
     <div class="footer-item" *ngIf="buttonEnableFooter">
       <label for="btnText">{{this.multilinguism.translate("text")}}</label>
-      <input type="radio" id="btnText" name="typeChoiceFooter" (click)="choiceType('text')" [checked]="textButton">
+      <input type="radio" id="btnText" name="typeChoiceFooter" (click)="choiceTypeFooter('text')" [checked]="textButtonFooter">
       <label class="space" for="btnImg">{{this.multilinguism.translate("image")}}</label>
-      <input type="radio" id="btnImg" name="typeChoiceFooter" (click)="choiceType('img')" [checked]="imgButton">
+      <input type="radio" id="btnImg" name="typeChoiceFooter" (click)="choiceTypeFooter('img')" [checked]="imgButtonFooter">
     </div>
 
-    <div class="footer-item" *ngIf="typeChoice == 'text' && buttonEnableFooter">
+    <div class="footer-item" *ngIf="typeChoiceFooter == 'text' && buttonEnableFooter">
       <label id="labelTextArea" for="textArea">{{this.multilinguism.translate("textFooter")}}</label>
-      <textarea id="textArea" name="textFooter" rows="4" cols="50" (keyup)="getText($event)">{{this.footer}}</textarea>
+      <textarea id="textArea" name="textFooter" rows="4" cols="50" (keyup)="getTextFooter($event)">{{this.footer}}</textarea>
     </div>
 
-    <div class="footer-item" *ngIf="typeChoice == 'img' && buttonEnableFooter">
+    <div class="footer-item" *ngIf="typeChoiceFooter == 'img' && buttonEnableFooter">
       <label>{{this.multilinguism.translate("imageFooter")}}</label>
-      <input type="file" accept="image/*" (change)="onFileSelected($event)" [value]="selectedFileFooter">
+      <input type="file" accept="image/*" (change)="onFileSelectedFooter($event)" [value]="selectedFileFooter">
     </div>
 
     <div class="footer-item" *ngIf="buttonEnableFooter">
       <label for="positionFooter">{{this.multilinguism.translate("choosePosition")}}</label>
-      <select #option id="positionFooter" class="variantListBox" (input)="getPosition(option.value)"
+      <select #option id="positionFooter" class="variantListBox" (input)="getPositionFooter(option.value)"
         [(ngModel)]="textPositionFooter">
         <option value="left">{{this.multilinguism.translate("leftPosition")}}</option>
         <option value="center">{{this.multilinguism.translate("middlePosition")}}</option>
