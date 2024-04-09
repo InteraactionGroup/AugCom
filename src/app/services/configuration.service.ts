@@ -26,23 +26,23 @@ export class ConfigurationService {
   DEFAULT_LONGPRESS_TIMEOUT_VALUE = 1000;
   DEFAULT_DOUBLE_CLICK_TIMEOUT_VALUE = 200;
   DEFAULT_CURRENT_VOICE_VALUE = '@';
-  DEFAULT_MAIN_COLOR_0_VALUE = "white";
-  DEFAULT_MAIN_COLOR_1_VALUE = "lightgrey";
-  DEFAULT_MAIN_COLOR_2_VALUE = "darkgrey";
-  DEFAULT_MAIN_COLOR_3_VALUE = "grey";
-  DEFAULT_MAIN_COLOR_4_VALUE = "dimgrey";
-  DEFAULT_SIZE_FONT_VALUE = "16px";
-  DEFAULT_SIZE_ICON_VALUE = "100";
+  DEFAULT_MAIN_COLOR_0_VALUE = 'white';
+  DEFAULT_MAIN_COLOR_1_VALUE = 'lightgrey';
+  DEFAULT_MAIN_COLOR_2_VALUE = 'darkgrey';
+  DEFAULT_MAIN_COLOR_3_VALUE = 'grey';
+  DEFAULT_MAIN_COLOR_4_VALUE = 'dimgrey';
+  DEFAULT_SIZE_FONT_VALUE = '16px';
+  DEFAULT_SIZE_ICON_VALUE = '100';
   DEFAULT_VOLUME = 1.0;
   DEFAULT_RATE = 1.0;
   DEFAULT_PITCH = 1.0;
 
-  DEFAULT_HEADER: string | ArrayBuffer = "";
+  DEFAULT_HEADER: string | ArrayBuffer = '';
   DEFAULT_HEADER_BUTTON = false;
-  DEFAULT_HEADER_CHOICE = "text";
-  DEFAULT_FOOTER: string | ArrayBuffer = "";
+  DEFAULT_HEADER_CHOICE = 'text';
+  DEFAULT_FOOTER: string | ArrayBuffer = '';
   DEFAULT_FOOTER_BUTTON = false;
-  DEFAULT_FOOTER_CHOICE = "text";
+  DEFAULT_FOOTER_CHOICE = 'text';
 
   DWELL_TIME_ENABLED = this.DEFAULT_DWELL_TIME_ENABLED;
   PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE = this.DEFAULT_PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE;
@@ -161,7 +161,7 @@ export class ConfigurationService {
   }
 
   public setConfiguration(configuration: Configuration) {
-    let lang = (configuration.LANGUAGE_VALUE == 'FR' || configuration.LANGUAGE_VALUE == 'EN') ? configuration.LANGUAGE_VALUE : this.DEFAULT_LANGUAGE_VALUE;
+    const lang = (configuration.LANGUAGE_VALUE === 'FR' || configuration.LANGUAGE_VALUE === 'EN') ? configuration.LANGUAGE_VALUE : this.DEFAULT_LANGUAGE_VALUE;
     this.DWELL_TIME_ENABLED = configuration.DWELL_TIME_ENABLED;
     this.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE = configuration.PICTO_IMAGE_AND_TEXT_VISIBILITY_VALUE;
     this.PICTO_IMAGE_POSITION_VALUE = configuration.PICTO_IMAGE_POSITION_VALUE;
@@ -213,8 +213,8 @@ export class ConfigurationService {
   }
 
   setVersion() {
-    this.http.get("https://api.github.com/repos/AFSR/AugCom-AFSR/releases/latest").subscribe(data => {
-      this.VERSION = data["name"] + " Dev v." + data["created_at"].substring(0, 10).replace("-", ".");
+    this.http.get('https://api.github.com/repos/AFSR/AugCom-AFSR/releases/latest').subscribe(data => {
+      this.VERSION = data["name"] + " Dev v." + data["created_at"].substring(0, 10).replace('-', '.');
     })
   }
 }
