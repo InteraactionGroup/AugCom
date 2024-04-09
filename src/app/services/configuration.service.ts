@@ -214,7 +214,7 @@ export class ConfigurationService {
 
   setVersion() {
     this.http.get('https://api.github.com/repos/AFSR/AugCom-AFSR/releases/latest').subscribe(data => {
-      this.VERSION = data["name"] + " Dev v." + data["created_at"].substring(0, 10).replace('-', '.');
+      this.VERSION = data["name"] + ' Dev v.' + data["created_at"].substring(0, 10).replace('-', '.');
     })
   }
 }
