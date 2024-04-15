@@ -8,11 +8,11 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { AccountComponent } from './components/account/account.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { PrintComponent } from './components/print/print.component';
-import { UserPageComponent } from "./components/user-page/user-page.component";
-import { AuthGuardService } from "./services/auth-guard.service";
-import { GeneratorGridComponent } from "./components/generator-grid/generator-grid.component";
+import { UserPageComponent } from './components/user-page/user-page.component';
+import { AuthGuardService } from './services/auth-guard.service';
+import { GeneratorGridComponent } from './components/generator-grid/generator-grid.component';
 import { LoadingUserComponent } from './components/loading-user/loading-user.component';
-import { LoadingComponent } from "./components/loading/loading.component";
+import { LoadingComponent } from './components/loading/loading.component';
 import { PendingChangesGuard } from './services/pending-changes-guard.service';
 
 

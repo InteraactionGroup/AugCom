@@ -1,229 +1,261 @@
 <mat-dialog-content>
-  <h2>{{this.multilinguism.translate("userGuide")}}</h2>
+  <h2>{{ this.multilinguism.translate("userGuide") }}</h2>
   <img src="assets/tuto/home.png" height="50%" width="50%" alt="home">
-  <h2>{{this.multilinguism.translate("keyboard")}}</h2>
-  <p>{{this.multilinguism.translate("keyboardAugcom")}}</p>
-  <img src="assets/tuto/keyboard.png" alt="keyboard">
-  <br>
-  <br>
-  <p>{{this.multilinguism.translate("enterFolder")}}</p>
-  <p>{{this.multilinguism.translate("rightOfTheButton")}}</p>
-  <p>{{this.multilinguism.translate("lockButton")}}</p>
-  <h2>{{this.multilinguism.translate("textBar")}}</h2>
-  <p>{{this.multilinguism.translate("simpleButtonActivated")}}</p>
-  <img src="assets/tuto/bar.png" height="50%" width="50%" alt="bar">
-  <br>
-  <br>
-  <p>{{this.multilinguism.translate("playButton")}}</p>
-  <p>{{this.multilinguism.translate("buttonT")}}</p>
-  <p>{{this.multilinguism.translate("arrowButton")}}</p>
-  <p>{{this.multilinguism.translate("crossButton")}}</p>
-  <p>{{this.multilinguism.translate("helpButton")}}</p>
-  <h2>{{this.multilinguism.translate("menuBar")}}</h2>
-  <p>{{this.multilinguism.translate("functionnalitiesUnlocked")}}</p>
-  <p>{{this.multilinguism.translate("languageButton")}}</p>
-  <p>{{this.multilinguism.translate("fullscreenButton")}}</p>
-  <p>{{this.multilinguism.translate("hideButton")}}</p>
-  <h3>{{this.multilinguism.translate("modifButton")}}</h3>
-  <p>{{this.multilinguism.translate("editButton")}}</p>
-  <p>{{this.multilinguism.translate("editionMode")}}</p>
-  <img src="assets/tuto/editionMode.png" alt="editionMode">
-  <br>
-  <br>
-  <p>{{this.multilinguism.translate("blueButton")}}</p>
-  <p>{{this.multilinguism.translate("editButtonGrid")}}</p>
-  <p>{{this.multilinguism.translate("trashButton")}}</p>
-  <p>{{this.multilinguism.translate("sizeGrid")}}</p>
-  <p>{{this.multilinguism.translate("sizeGridDimension")}}</p>
-  <p>{{this.multilinguism.translate("editModeButtonDisplay")}}</p>
-  <img src="assets/tuto/editModeButtonDisplay.png" alt="editModeButtonDisplay">
-  <br>
-  <br>
+  <h2>{{ this.multilinguism.translate("PrimaryUse") }}</h2>
+  <p>{{ this.multilinguism.translate("IntroAugCom") }}</p>
+  <p>{{ this.multilinguism.translate("keyboardAugcom") }}</p>
   <ul>
-    <li>{{this.multilinguism.translate("trashButtonGrid")}}</li>
-    <li>{{this.multilinguism.translate("hideButtonGrid")}}</li>
-    <li>{{this.multilinguism.translate("replaceButtonGrid")}}</li>
-    <li>{{this.multilinguism.translate("resizeButtonGrid")}}</li>
+    <li>{{ this.multilinguism.translate("SimpleButtonExpl") }}</li>
+    <li>{{ this.multilinguism.translate("FolderButtonExpl") }}</li>
   </ul>
-  <p>{{this.multilinguism.translate("clickToSelectAnElement")}}</p>
-  <p>{{this.multilinguism.translate("doubleClickButtonGrid")}}</p>
-  <p>{{this.multilinguism.translate("settingsButton")}}</p>
-  <h2>{{this.multilinguism.translate("editionPage")}}</h2>
-  <h3>{{this.multilinguism.translate("infoMenu")}}</h3>
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/info.png" height="50%" width="50%"
-    alt="info">
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/info(EN).png" height="50%" width="50%"
-    alt="info">
+  <div class="container">
+    <div class="image-container">
+      <p>{{ this.multilinguism.translate("ExampleSButton") }}</p>
+      <img src="assets/tuto/simpleButton.png" height="50%" width="50%" alt="simpleButton">
+    </div>
+    <div class="image-container">
+      <p>{{ this.multilinguism.translate("ExampleFButton") }}</p>
+      <img src="assets/tuto/folderButton.png" height="50%" width="50%" alt="folderButton">
+    </div>
+  </div>
   <br>
   <br>
-  <p>{{this.multilinguism.translate("infoMenuModif")}}</p>
-  <p>{{this.multilinguism.translate("editButtonName")}}</p>
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/modifInfo.png" alt="modifInfo">
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/modifInfo(EN).png" alt="modifInfo">
+
+  <p>{{ this.multilinguism.translate("SimpleButtonAct") }}</p>
+  <div>
+    <p>Example</p>
+    <img src="assets/tuto/keyboard.png" alt="keyboard">
+  </div>
   <br>
   <br>
-  <p>{{this.multilinguism.translate("radioButtonFolder")}}</p>
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/folderSelected.png" alt="folderSelected">
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/folderSelected(EN).png"
-    alt="folderSelected">
-  <h3>{{this.multilinguism.translate("displayMenu")}}</h3>
-  <h4>{{this.multilinguism.translate("colorModif")}}</h4>
-  <p>{{this.multilinguism.translate("changeGraphique")}}</p>
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/modifColor.png" alt="modifColors">
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/modifColor(EN).png" alt="modifColors">
+  <p>{{ this.multilinguism.translate("playButton") }}</p>
+  <p>{{ this.multilinguism.translate("buttonT") }}</p>
+  <p>{{ this.multilinguism.translate("arrowButton") }}</p>
+  <p>{{ this.multilinguism.translate("crossButton") }}</p>
+
+  <h2>{{ this.multilinguism.translate("menuBar") }}</h2>
+
+  <img src="assets/tuto/barremenu.png" alt="keyboard">
   <br>
   <br>
-  <p>{{this.multilinguism.translate("colorInAndOut")}}</p>
-  <h4>{{this.multilinguism.translate("pictureModif")}}</h4>
-  <p>{{this.multilinguism.translate("possibilitesToModify")}}</p>
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/modifImage.png" alt="modifImage">
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/modifImage(EN).png" alt="modifImage">
+  <p>{{ this.multilinguism.translate("menubarexplained") }}</p>
+  <p>{{ this.multilinguism.translate("MainButton") }}</p>
+  <p>{{ this.multilinguism.translate("functionnalitiesUnlocked") }}</p>
+  <p>{{ this.multilinguism.translate("settingsButton") }}</p>
+  <p>{{ this.multilinguism.translate("languageButton") }}</p>
+  <p>{{ this.multilinguism.translate("editButton") }}</p>
+  <p>{{ this.multilinguism.translate("createGridButton") }}</p>
+  <p>{{ this.multilinguism.translate("invisibleButton") }}</p>
+
+  <h2>{{ this.multilinguism.translate("Auxiliary") }}</h2>
+  <h3>{{ this.multilinguism.translate("editmode") }}</h3>
+
+  <img src="assets/tuto/editionMode.png" height="50%" width="50%" alt="editionMode">
   <br>
   <br>
-  <ul>
-    <li>{{this.multilinguism.translate("importSelfImages")}}</li>
-    <li>{{this.multilinguism.translate("importFromUrl")}}</li>
-    <li>{{this.multilinguism.translate("imageFromBank")}}</li>
-  </ul>
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/searchBank.png" height="50%" width="50%"
-    alt="searchBank">
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/searchBank(EN).png" height="50%"
-    width="50%" alt="searchBank">
+  <p>{{ this.multilinguism.translate("editmodeExplained") }}</p>
+  <p></p>
+  <p>{{ this.multilinguism.translate("bottomScreenEditButtons") }}</p>
+  <p>{{ this.multilinguism.translate("blueButton") }}</p>
+  <p>{{ this.multilinguism.translate("editButtonGrid") }}</p>
+  <p>{{ this.multilinguism.translate("trashButton") }}</p>
+  <p>{{ this.multilinguism.translate("generateGridButton") }}</p>
+  <p>{{ this.multilinguism.translate("copyPasteButton") }}</p>
+  <p>{{ this.multilinguism.translate("generateGridButton") }}</p>
+  <p>{{ this.multilinguism.translate("rightTextBoxes") }}</p>
+  <p>{{ this.multilinguism.translate("textBoxExpl") }}</p>
+  <p>{{ this.multilinguism.translate("EditModeButtonExplained") }}</p>
+
+  <img src="assets/tuto/EditModeButtonExample.png" alt="EditModeButtonExample">
   <br>
   <br>
-  <p>{{this.multilinguism.translate("previewButton")}}</p>
+  <p>{{ this.multilinguism.translate("trashbuttonicon") }}</p>
+  <p>{{ this.multilinguism.translate("casenotvisiblebutton") }}</p>
+  <p>{{ this.multilinguism.translate("movingbutton") }}</p>
+  <p>{{ this.multilinguism.translate("stretchfuntionnality") }}</p>
+
+  <h3>{{ this.multilinguism.translate("caseEditing") }}</h3>
+
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/caseEditing.png" height="50%" width="50%"
+       alt="caseEditing">
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/caseEditing(EN).png" height="50%"
+       width="50%"
+       alt="caseEditing">
+
+
+  <p>{{ this.multilinguism.translate("EditButtonPress") }}</p>
+  <p>{{ this.multilinguism.translate("InfoPart") }}</p>
+  <p>{{ this.multilinguism.translate("FolderOrButton") }}</p>
+  <p>{{ this.multilinguism.translate("AppearanceSection") }}</p>
+
   <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/previewButton.png" height="50%" width="50%"
-    alt="previewButton">
+       alt="previewButton">
   <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/previewButton(EN).png" height="50%"
-    width="50%" alt="previewButton">
-  <h3>{{this.multilinguism.translate("menuOthersForm")}}</h3>
-  <p>{{this.multilinguism.translate("menuOthersFormAtYourWorld")}}</p>
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/modifVariantes.png" alt="modifVariantes">
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/modifVariantes(EN).png"
-    alt="modifVariantes">
-  <br>
-  <br>
-  <p>{{this.multilinguism.translate("twoPossibilities")}}</p>
+       width="50%" alt="previewButton">
+
+  <p>{{ this.multilinguism.translate("caseColorChanging") }}</p>
+  <p>{{ this.multilinguism.translate("modifyPictureCase") }}</p>
   <ul>
-    <li>{{this.multilinguism.translate("manual")}}</li>
-    <li>{{this.multilinguism.translate("searchOnline")}}</li>
+    <li>{{ this.multilinguism.translate("hostedFile") }}</li>
+    <li>{{ this.multilinguism.translate("internetFile") }}</li>
+    <li>{{ this.multilinguism.translate("libraryFile") }}</li>
   </ul>
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/addVariante.png" height="20%" width="20%"
-    alt="addVariante">
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/addVariante(EN).png" height="20%"
-    width="20%" alt="addVariante">
-  <br>
-  <br>
-  <p>{{this.multilinguism.translate("chooseImageForVariante")}}</p>
-  <p>{{this.multilinguism.translate("deleteVariante")}}</p>
-  <h3>{{this.multilinguism.translate("interactionMenu")}}</h3>
-  <p>{{this.multilinguism.translate("interactionMenuDef")}}</p>
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/modifInteract.png" alt="interactionModif">
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/modifInteract(EN).png"
-    alt="interactionModif">
-  <br>
-  <br>
-  <p>{{this.multilinguism.translate("plusButtonInteraction")}}</p>
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/plusButtonInteraction.png"
-    alt="plusButtonInteraction">
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/plusButtonInteraction(EN).png"
-    alt="plusButtonInteraction">
-  <br>
-  <br>
-  <p>{{this.multilinguism.translate("differentAction")}}</p>
+
+  <p>{{ this.multilinguism.translate("casePreview") }}</p>
+  <p>{{ this.multilinguism.translate("doubleClickButtonGrid") }}</p>
+
+  <p>{{ this.multilinguism.translate("alternativeForms") }}</p>
+
+  <p>{{ this.multilinguism.translate("addingVariant") }}</p>
   <ul>
-    <li>{{this.multilinguism.translate("addSentence")}}</li>
-    <li>{{this.multilinguism.translate("prononce")}}</li>
-    <li>{{this.multilinguism.translate("return")}}</li>
-    <li>{{this.multilinguism.translate("returnLastPage")}}</li>
-    <li>{{this.multilinguism.translate("displayFormAlternative")}}</li>
+    <li>{{ this.multilinguism.translate("manuallyAddingVariant") }}</li>
+    <li>{{ this.multilinguism.translate("internetAddingVariant") }}</li>
   </ul>
-  <h2>{{this.multilinguism.translate("settingsApp")}}</h2>
-  <h3>{{this.multilinguism.translate("App")}}</h3>
-  <h4>{{this.multilinguism.translate("themeApp")}}</h4>
-  <p>{{this.multilinguism.translate("generalAspect")}}</p>
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/AspectClassique.png" height="50%"
-    width="50%" alt="AspectClassique">
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/AspectClassique(EN).png" height="50%"
-    width="50%" alt="AspectClassique">
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/Variant.png" height="50%" width="50%"
+       alt="searchBank">
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/Variant(EN).png" height="50%"
+       width="50%" alt="searchBank">
   <br>
   <br>
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/AspectAfterChange.png" height="50%"
-    width="50%" alt="AspectAfterChange">
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/AspectAfterChange(EN).png" height="50%"
-    width="50%" alt="AspectAfterChange">
-  <h4>{{this.multilinguism.translate("gestionPalette")}}</h4>
-  <p>{{this.multilinguism.translate("gestPalette")}}</p>
-  <img src="assets/tuto/deletePalette.png" height="50%" width="50%" alt="deletePalette">
-  <p>{{this.multilinguism.translate("addPalette")}}</p>
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/addPalette(FR).png" height="50%"
-    width="50%" alt="AspectAfterChange">
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/addPalette(EN).png" height="50%"
-    width="50%" alt="AspectAfterChange">
-  <h4>{{this.multilinguism.translate("interaction")}}</h4>
-  <p>{{this.multilinguism.translate("interactionSection")}}</p>
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/interactions(FR).png" height="50%"
-    width="50%" alt="AspectAfterChange">
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/interactions(EN).png" height="50%"
-    width="50%" alt="AspectAfterChange">
-  <h4>{{this.multilinguism.translate("language")}}</h4>
-  <p>{{this.multilinguism.translate("outputVocal")}}</p>
-  <p>{{this.multilinguism.translate("defaultLanguage")}}</p>
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/langue(FR).png" height="50%" width="50%"
-    alt="AspectAfterChange">
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/langue(EN).png" height="50%" width="50%"
-    alt="AspectAfterChange">
-  <h4>{{this.multilinguism.translate("share")}}</h4>
-  <p>{{this.multilinguism.translate("exportGrid")}}</p>
+
+  <p>{{ this.multilinguism.translate("pictoVariant") }}</p>
+  <p>{{ this.multilinguism.translate("deleteVariant") }}</p>
+  <p>{{ this.multilinguism.translate("interactVariant") }}</p>
+
+  <h2>{{ this.multilinguism.translate("applicationSettings") }}</h2>
+  <h3>{{ this.multilinguism.translate("applicationPart") }}</h3>
+
+  <p>{{ this.multilinguism.translate("applicationTheme") }}</p>
+  <p>{{ this.multilinguism.translate("youCan") }}</p>
+
   <ul>
-    <li>{{this.multilinguism.translate("importSaveTuto")}}</li>
-    <li>{{this.multilinguism.translate("exportPDFTuto")}}</li>
-    <li>{{this.multilinguism.translate("importSnapCore")}}</li>
-    <li>{{this.multilinguism.translate("importLifeCompagnon")}}</li>
-    <li>{{this.multilinguism.translate("importUserTuto")}}</li>
+    <li>{{ this.multilinguism.translate("colorTheme") }}</li>
+    <li>{{ this.multilinguism.translate("fontStyle") }}</li>
+    <li>{{ this.multilinguism.translate("fontSize") }}</li>
   </ul>
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/Share(FR).png" height="50%" width="50%"
-    alt="AspectAfterChange">
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/Share(EN).png" height="50%" width="50%"
-    alt="AspectAfterChange">
-  <h3>{{this.multilinguism.translate("Grid")}}</h3>
-  <h4>{{this.multilinguism.translate("titlePage")}}</h4>
-  <p>{{this.multilinguism.translate("typeOfDisplayPath")}}</p>
-  <p>{{this.multilinguism.translate("changeFormat")}}</p>
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/titleOfThePage(FR).png" height="50%"
-    width="50%" alt="AspectAfterChange">
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/titleOfThePage(EN).png" height="50%"
-    width="50%" alt="AspectAfterChange">
-  <h4>{{this.multilinguism.translate("GridManagement")}}</h4>
-  <p>{{this.multilinguism.translate("GridManagementTuto")}}</p>
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/GestionDeLaGrille(FR).png" height="50%"
-    width="50%" alt="AspectAfterChange">
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/GestionDeLaGrille(EN).png" height="50%"
-    width="50%" alt="AspectAfterChange">
-  <h4>{{this.multilinguism.translate("gridFormat")}}</h4>
-  <p>{{this.multilinguism.translate("formatGrid")}}</p>
-  <p>{{this.multilinguism.translate("backgroundColorPicto")}}</p>
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/formatDeLaGrille(FR).png" height="50%"
-    width="50%" alt="AspectAfterChange">
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/formatDeLaGrille(EN).png" height="50%"
-    width="50%" alt="AspectAfterChange">
-  <h3>{{this.multilinguism.translate("pictogrammes")}}</h3>
-  <h4>{{this.multilinguism.translate("pictogrammesStyle")}}</h4>
-  <p>{{this.multilinguism.translate("formatStyle")}}</p>
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/styleDuPictogramme(FR).png" height="50%"
-    width="50%" alt="AspectAfterChange">
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/styleDuPictogramme(EN).png" height="50%"
-    width="50%" alt="AspectAfterChange">
-  <h4>{{this.multilinguism.translate("Print")}}</h4>
-  <p>{{this.multilinguism.translate("HeaderTuto")}}</p>
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/printTop(FR).png" height="50%" width="50%"
-    alt="AspectAfterChange">
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/printTop(EN).png" height="50%" width="50%"
-    alt="AspectAfterChange">
-  <p>{{this.multilinguism.translate("FooterTuto")}}</p>
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/printBottom(FR).png" height="50%"
-    width="50%" alt="AspectAfterChange">
-  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/printBottom(EN).png" height="50%"
-    width="50%" alt="AspectAfterChange">
+
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/AppTheme.png" height="50%" width="50%"
+       alt="searchBank">
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/AppTheme(EN).png" height="50%"
+       width="50%" alt="searchBank">
+  <br>
+  <br>
+  <p>{{ this.multilinguism.translate("paletteManagement") }}</p>
+  <p>{{ this.multilinguism.translate("paletteButtons") }}</p>
+
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/PaletteManagement.png" height="50%"
+       width="50%"
+       alt="searchBank">
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/PaletteManagement(EN).png" height="50%"
+       width="50%" alt="searchBank">
+  <br>
+  <br>
+
+  <p>{{ this.multilinguism.translate("languagePart") }}</p>
+  <p>{{ this.multilinguism.translate("languageSettings") }}</p>
+
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/language.png" height="50%"
+       width="50%"
+       alt="searchBank">
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/language(EN).png" height="50%"
+       width="50%" alt="searchBank">
+  <br>
+  <br>
+  <p>{{ this.multilinguism.translate("importSection") }}</p>
+
+  <ul>
+    <li>{{ this.multilinguism.translate("importSave") }}</li>
+    <li>{{ this.multilinguism.translate("exportGridPdf") }}</li>
+    <li>{{ this.multilinguism.translate("importSnapCore") }}</li>
+    <li>{{ this.multilinguism.translate("importLifeCompagnon") }}</li>
+    <li>{{ this.multilinguism.translate("importexportUser") }}</li>
+  </ul>
+
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/import.png" height="50%"
+       width="50%"
+       alt="searchBank">
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/import(EN).png" height="50%"
+       width="50%" alt="searchBank">
+  <br>
+  <br>
+  <p>{{ this.multilinguism.translate("applicationLastPart") }}</p>
+  <h3>{{ this.multilinguism.translate("Grids") }}</h3>
+  <p>{{ this.multilinguism.translate("gridsTitle") }}</p>
+  <p>{{ this.multilinguism.translate("gridsImageDisplayed") }}</p>
+  <p>{{ this.multilinguism.translate("gridsDisplayed") }}</p>
+  <p>{{ this.multilinguism.translate("gridFormatTitle") }}</p>
+
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/import.png" height="50%"
+       width="50%"
+       alt="searchBank">
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/import(EN).png" height="50%"
+       width="50%" alt="searchBank">
+  <br>
+  <br>
+
+  <p>{{ this.multilinguism.translate("gridManagement") }}</p>
+
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/gridManagement.png" height="50%"
+       width="50%"
+       alt="searchBank">
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/gridManagement(EN).png" height="50%"
+       width="50%" alt="searchBank">
+  <br>
+  <br>
+
+  <p>{{ this.multilinguism.translate("gridFormat") }}</p>
+  <p>{{ this.multilinguism.translate("gridDimensions") }}</p>
+
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/gridFormat.png" height="50%"
+       width="50%"
+       alt="searchBank">
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/gridFormat(EN).png" height="50%"
+       width="50%" alt="searchBank">
+  <br>
+  <br>
+
+  <h3>{{ this.multilinguism.translate("Picto") }}</h3>
+
+  <p>{{ this.multilinguism.translate("pictoStyle") }}</p>
+  <p>{{ this.multilinguism.translate("pictoButtons") }}</p>
+  <p>{{ this.multilinguism.translate("pictoTextStyle") }}</p>
+
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/pictogrameStyle.png" height="50%"
+       width="50%"
+       alt="searchBank">
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/pictogrameStyle(EN).png" height="50%"
+       width="50%" alt="searchBank">
+  <br>
+  <br>
+
+  <p>{{ this.multilinguism.translate("pictoMentions") }}</p>
+
+  <h3>{{ this.multilinguism.translate("Export") }}</h3>
+
+  <p>{{ this.multilinguism.translate("exportGrid") }}</p>
+
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/Export.png" height="50%"
+       width="50%"
+       alt="searchBank">
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/Export(EN).png" height="50%"
+       width="50%" alt="searchBank">
+  <br>
+  <br>
+
+  <p>{{ this.multilinguism.translate("customizePDF") }}</p>
+
+  <ul>
+    <li>{{ this.multilinguism.translate("addPageName") }}</li>
+    <li>{{ this.multilinguism.translate("addAugComV") }}</li>
+    <li>{{ this.multilinguism.translate("setHeader") }}</li>
+    <li>{{ this.multilinguism.translate("setFooter") }}</li>
+  </ul>
+
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'FR'" src="assets/tuto/ExportStyle.png" height="50%"
+       width="50%"
+       alt="searchBank">
+  <img *ngIf="configurationService.LANGUAGE_VALUE === 'EN'" src="assets/tuto/ExportStyle(EN).png" height="50%"
+       width="50%" alt="searchBank">
+
 </mat-dialog-content>
-<button mat-raised-button [mat-dialog-close]="true">{{this.multilinguism.translate("Close")}}</button>
+<button mat-raised-button [mat-dialog-close]="true">{{ this.multilinguism.translate("Close") }}</button>
