@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Vignette } from '../types';
-import { ParametersService } from './parameters.service';
-import { ConfigurationService } from "./configuration.service";
+import {Injectable} from '@angular/core';
+import {Vignette} from '../types';
+import {ParametersService} from './parameters.service';
+import {ConfigurationService} from './configuration.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,7 @@ export class HistoricService {
   public historic: Vignette[] = [];
   public speechSynthesis: SpeechSynthesis;
   public x: SpeechSynthesisUtterance;
+  public isPlaying = false;
 
   constructor(public parametersService: ParametersService, private configurationService: ConfigurationService) {
   }
@@ -31,13 +32,14 @@ export class HistoricService {
     this.historic.push(element);
   }
 
-    /**
+  /**
    * Removes all elements of the pronounciation history
    */
   clearHistoric() {
     this.historic = [];
     if (this.speechSynthesis !== null && this.speechSynthesis !== undefined) {
       this.speechSynthesis.cancel();
+      this.isPlaying = false;
     }
   }
 
@@ -48,12 +50,13 @@ export class HistoricService {
     this.historic.pop();
     if (this.speechSynthesis !== null && this.speechSynthesis !== undefined) {
       this.speechSynthesis.cancel();
+      this.isPlaying = false;
     }
   }
 
-/**
- * Transforms the history to a text that will be pronounced
- */
+  /**
+   * Transforms the history to a text that will be pronounced
+   */
   playHistoric() {
     let text = '';
     for (const historicElement of this.historic) {
@@ -67,21 +70,27 @@ export class HistoricService {
    * @param text text to be pronounced
    */
   say(text: string) {
-    this.speechSynthesis = window.speechSynthesis;
-    this.x = new SpeechSynthesisUtterance(text + ' ');
-    /*checking if we can find the same voice*/
-    const newVoice = this.parametersService.getCurrentVoice();
+    if (!this.isPlaying) {
+      this.isPlaying = true;
+      this.speechSynthesis = window.speechSynthesis;
+      this.x = new SpeechSynthesisUtterance(text + ' ');
+      /*checking if we can find the same voice*/
+      const newVoice = this.parametersService.getCurrentVoice();
 
-    /*if we can't find the same lang don't change the voice*/
-    if (newVoice !== undefined && newVoice !== null) {
-      this.x.voice = newVoice;
-      this.x.lang = newVoice.lang;
+      /*if we can't find the same lang don't change the voice*/
+      if (newVoice !== undefined && newVoice !== null) {
+        this.x.voice = newVoice;
+        this.x.lang = newVoice.lang;
+      }
+      this.x.volume = this.configurationService.VOLUME;
+      this.x.pitch = this.configurationService.PITCH;
+      this.x.rate = this.configurationService.RATE;
+      this.speechSynthesis.resume();
+      this.speechSynthesis.speak(this.x);
+      this.x.onend = () => {
+        this.isPlaying = false;
+      };
     }
-    this.x.volume = this.configurationService.VOLUME;
-    this.x.pitch = this.configurationService.PITCH;
-    this.x.rate = this.configurationService.RATE;
-    this.speechSynthesis.resume();
-    this.speechSynthesis.speak(this.x);
   }
 
 

@@ -1,3 +1,22 @@
 img {
   margin-right: 50px;
 }
+
+.container {
+  display: flex;
+  align-items: start;
+  padding: 0;
+  margin: 0;
+}
+
+.image-container {
+  width: 500px;
+  padding-right: 90px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-dialog-content{
+  overflow-x: hidden;
+}

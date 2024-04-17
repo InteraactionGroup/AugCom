@@ -1,5 +1,5 @@
 <!-- display elementContainers with element having non empty type-->
-<div id="{{element.ID}}" class="elementContainer floatLeft" *ngIf="element.Type!=='empty'"
+<div id="{{element.ID}}" class="elementContainer floatLeft" *ngIf="element.Type!=='empty'" [ngClass]="{'disabled':this.historicService.isPlaying && this.element.Type =='button'}"
      (mousedown)="$event.stopPropagation()" (touchstart)="$event.stopPropagation()">
      <!-- an element composed of a pictogram and a corresponding text-->
      <div class="element" [class.notsearched]="searchStarted()&&!isSearched(element)" (click)="this.select(element)"

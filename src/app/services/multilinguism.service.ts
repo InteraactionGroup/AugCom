@@ -23,7 +23,7 @@ export class MultilinguismService {
       return entry.id === id;
     });
 
-    if (translatedEntry !== null && translatedEntry !== undefined && (lang == 'FR' || lang == 'EN')) {
+    if (translatedEntry !== null && translatedEntry !== undefined && (lang === 'FR' || lang === 'EN')) {
       return translatedEntry[lang];
     }
     return '[UNTRANSLATED] ' + id;

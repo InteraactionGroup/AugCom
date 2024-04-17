@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { ConfigurationService } from "../../services/configuration.service";
-import { FolderGoTo, Grid, GridElementGenerated, Page } from "../../types";
-import { BoardService } from "../../services/board.service";
-import arasaacJson from "../../../assets/arasaac-symbol-info.json";
-import { ArasaacObject, MulBerryObject } from "../../libTypes";
-import arasaacColoredJson from "../../../assets/arasaac-color-symbol-info.json";
-import mullberryJson from "../../../assets/symbol-info.json";
-import { EditionService } from "../../services/edition.service";
-import { FunctionsService } from "../../services/functions.service";
-import { DbnaryService } from "../../services/dbnary.service";
-import { Router } from "@angular/router";
-import { MultilinguismService } from "../../services/multilinguism.service";
-import { IndexeddbaccessService } from "../../services/indexeddbaccess.service";
-import { LayoutService } from "../../services/layout.service";
-import { VoiceRecognitionService } from "../../services/voice-recognition.service";
+import {Component, OnInit} from '@angular/core';
+import {ConfigurationService} from '../../services/configuration.service';
+import {FolderGoTo, Grid, GridElementGenerated, Page} from '../../types';
+import {BoardService} from '../../services/board.service';
+import arasaacJson from '../../../assets/arasaac-symbol-info.json';
+import {ArasaacObject, MulBerryObject} from '../../libTypes';
+import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
+import mullberryJson from '../../../assets/symbol-info.json';
+import {EditionService} from '../../services/edition.service';
+import {FunctionsService} from '../../services/functions.service';
+import {DbnaryService} from '../../services/dbnary.service';
+import {Router} from '@angular/router';
+import {MultilinguismService} from '../../services/multilinguism.service';
+import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
+import {LayoutService} from '../../services/layout.service';
+import {VoiceRecognitionService} from '../../services/voice-recognition.service';
 
 @Component({
   selector: 'app-generator-grid',
@@ -22,15 +22,15 @@ import { VoiceRecognitionService } from "../../services/voice-recognition.servic
 })
 export class GeneratorGridComponent implements OnInit {
 
-  nameGrid = "";
+  nameGrid = '';
   nbCols = 0;
   nbRows = 0;
   posX = 0;
   posY = 0;
-  sentence = "";
+  sentence = '';
   wordsFromSentence = [];
   indexWordsFromSentence = 0;
-  libToUse = "arasaacNB";
+  libToUse = 'arasaacNB';
 
   imageList = [];
   imageUrlList = [];
@@ -38,7 +38,7 @@ export class GeneratorGridComponent implements OnInit {
   addOnlyOneImage;
 
   error = false;
-  errorType = "";
+  errorType = '';
 
   constructor(public configuration: ConfigurationService,
     public boardService: BoardService,
@@ -71,14 +71,14 @@ export class GeneratorGridComponent implements OnInit {
   }
 
   getWordsFromSentence() {
-    this.wordsFromSentence = this.sentence.split(" ");
-    this.wordsFromSentence = this.wordsFromSentence.filter(word => word != "");
+    this.wordsFromSentence = this.sentence.split(' ');
+    this.wordsFromSentence = this.wordsFromSentence.filter(word => word !== '');
     console.log(this.wordsFromSentence);
   }
 
   getNameGrid(event) {
     this.nameGrid = event.target.value;
-    this.nameGrid.split(" ").join("");
+    this.nameGrid.split(' ').join('');
   }
 
   getColsGrid(event) {
@@ -109,27 +109,25 @@ export class GeneratorGridComponent implements OnInit {
 
   searchExactWordInLib(text: string) {
     this.addOnlyOneImage = false;
-    console.log("Search the exact word : ");
-    if (this.libToUse === "arasaacNB") {
+    console.log('Search the exact word : ');
+    if (this.libToUse === 'arasaacNB') {
       (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
         if (text !== null && text !== '' && word.toLowerCase() === text.toLocaleLowerCase() && !this.addOnlyOneImage) {
           this.addOnlyOneImage = true;
-          const url = word;
-          this.imageList.push({ lib: 'arasaacNB', word: this.cleanString(url) });
+          this.imageList.push({ lib: 'arasaacNB', word: this.cleanString(word) });
           return;
         }
       }, this);
-    } else if (this.libToUse === "arasaacColor") {
+    } else if (this.libToUse === 'arasaacColor') {
       (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
         if (text !== null && text !== '' && word.toLowerCase() === text.toLocaleLowerCase() && !this.addOnlyOneImage) {
           this.addOnlyOneImage = true;
-          const url = word;
-          this.imageList.push({ lib: 'arasaacColor', word: this.cleanString(url) });
+          this.imageList.push({ lib: 'arasaacColor', word: this.cleanString(word) });
         }
       }, this);
     }
     if (!this.addOnlyOneImage) {
-      console.log("No find in arasaac lib !");
+      console.log('No find in arasaac lib !');
       (mullberryJson as unknown as MulBerryObject[]).forEach(value => {
         if (text !== null && text !== '' && value.symbol.toLowerCase() === text.toLocaleLowerCase() && !this.addOnlyOneImage) {
           this.addOnlyOneImage = true;
@@ -145,22 +143,20 @@ export class GeneratorGridComponent implements OnInit {
   }
 
   searchTheClosestWordInLib(text: string) {
-    console.log("Search the closest word :");
-    if (this.libToUse === "arasaacNB") {
+    console.log('Search the closest word :');
+    if (this.libToUse === 'arasaacNB') {
       (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
         if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && !this.addOnlyOneImage) {
           this.addOnlyOneImage = true;
-          const url = word;
-          this.imageList.push({ lib: 'arasaacNB', word: this.cleanString(url) });
+          this.imageList.push({ lib: 'arasaacNB', word: this.cleanString(word) });
           return;
         }
       }, this);
-    } else if (this.libToUse === "arasaacColor") {
+    } else if (this.libToUse === 'arasaacColor') {
       (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
         if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && !this.addOnlyOneImage) {
           this.addOnlyOneImage = true;
-          const url = word;
-          this.imageList.push({ lib: 'arasaacColor', word: this.cleanString(url) });
+          this.imageList.push({ lib: 'arasaacColor', word: this.cleanString(word) });
         }
       }, this);
     }
@@ -226,7 +222,7 @@ export class GeneratorGridComponent implements OnInit {
   }
 
   createNewButton(image: string) {
-    let name = this.wordsFromSentence[this.indexWordsFromSentence];
+    const name = this.wordsFromSentence[this.indexWordsFromSentence];
 
     let tempId = name;
 
@@ -258,7 +254,8 @@ export class GeneratorGridComponent implements OnInit {
 
     this.boardService.board.ElementList.push(
       new GridElementGenerated(tempId, this.returnTypeOf(tempId), this.editionService.classe,
-        this.editionService.curentColor, this.editionService.curentBorderColor, 0, elementFormsList, this.editionService.interractionList, this.posX, this.posY)
+        this.editionService.curentColor, this.editionService.curentBorderColor, 0, elementFormsList
+        , this.editionService.interractionList, this.posX, this.posY)
     );
 
     this.updatePositionButton();
@@ -314,7 +311,7 @@ export class GeneratorGridComponent implements OnInit {
   }
 
   clear() {
-    this.editionService.imageTextField = "";
+    this.editionService.imageTextField = '';
     this.editionService.borderCheck = false;
     this.editionService.insideCheck = false;
     this.editionService.name = '';
@@ -344,7 +341,7 @@ export class GeneratorGridComponent implements OnInit {
   }
 
   async submit() {
-    if (this.nameGrid != "") {
+    if (this.nameGrid !== '') {
       if (this.nbCols > 0) {
         if (this.nbRows > 0) {
           this.getWordsFromSentence();
@@ -363,23 +360,23 @@ export class GeneratorGridComponent implements OnInit {
               this.router.navigate(['keyboard']);
             } else {
               this.error = true;
-              this.errorType = "sizeToSmall";
+              this.errorType = 'sizeToSmall';
             }
           } else {
             this.error = true;
-            this.errorType = "noWords";
+            this.errorType = 'noWords';
           }
         } else {
           this.error = true;
-          this.errorType = "noRows";
+          this.errorType = 'noRows';
         }
       } else {
         this.error = true;
-        this.errorType = "noCols";
+        this.errorType = 'noCols';
       }
     } else {
       this.error = true;
-      this.errorType = "noNameGrid";
+      this.errorType = 'noNameGrid';
     }
   }
 

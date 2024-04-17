@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { HistoricService } from '../../services/historic.service';
-import { EditionService } from '../../services/edition.service';
-import { BoardService } from '../../services/board.service';
-import { Action, ElementForm, FolderGoTo, GridElement, Page, Vignette, } from '../../types';
-import { GeticonService } from '../../services/geticon.service';
-import { UsertoolbarService } from '../../services/usertoolbar.service';
-import { IndexeddbaccessService } from '../../services/indexeddbaccess.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SearchService } from '../../services/search.service';
-import { Ng2ImgMaxService } from 'ng2-img-max';
-import { LayoutService } from 'src/app/services/layout.service';
-import { MultilinguismService } from '../../services/multilinguism.service';
-import { GridElementService } from '../../services/grid-element.service';
-import { ConfigurationService } from "../../services/configuration.service";
+import {Component, OnInit} from '@angular/core';
+import {HistoricService} from '../../services/historic.service';
+import {EditionService} from '../../services/edition.service';
+import {BoardService} from '../../services/board.service';
+import {Action, ElementForm, FolderGoTo, GridElement, Page, Vignette,} from '../../types';
+import {GeticonService} from '../../services/geticon.service';
+import {UsertoolbarService} from '../../services/usertoolbar.service';
+import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {SearchService} from '../../services/search.service';
+import {Ng2ImgMaxService} from 'ng2-img-max';
+import {LayoutService} from 'src/app/services/layout.service';
+import {MultilinguismService} from '../../services/multilinguism.service';
+import {GridElementService} from '../../services/grid-element.service';
+import {ConfigurationService} from "../../services/configuration.service";
 
 @Component({
   selector: 'app-keyboard',
@@ -117,12 +117,14 @@ export class KeyboardComponent implements OnInit {
     this.margins = Number(this.configurationService.SIZE_ICON_VALUE) / 60;
     this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
     this.refresh().then(r => {
-      this.delay(1000).then(r => { this.boardService.updateElementList() });
+      this.delay(1000).then(r => {
+        this.boardService.updateElementList()
+      });
     });
   }
 
   public async refresh() {
-    //await this.delay(500);
+    // await this.delay(500);
     this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
     await this.delay(100);
     this.layoutService.refreshAll(this.boardService.getNumberOfCols(), this.boardService.getNumberOfRows(), this.boardService.getGapSize());
@@ -294,13 +296,13 @@ export class KeyboardComponent implements OnInit {
       {
         ID: 'click',
         ActionList: [
-          { ID: 'display', Options: [] },
-          { ID: 'say', Options: [] },
+          {ID: 'display', Options: []},
+          {ID: 'say', Options: []},
         ],
       },
       {
         ID: 'longPress',
-        ActionList: [{ ID: 'otherforms', Options: [] }],
+        ActionList: [{ID: 'otherforms', Options: []}],
       },
     ];
   }
@@ -331,6 +333,7 @@ export class KeyboardComponent implements OnInit {
       });
     }
   }
+
   //deep copy
   copyFull() {
     if (this.userToolBarService.edit) {

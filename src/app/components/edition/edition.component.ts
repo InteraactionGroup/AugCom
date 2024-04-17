@@ -28,7 +28,7 @@ import { Observable } from 'rxjs';
 export class EditionComponent implements OnInit, ComponentCanDeactivate {
   /**
    * Guard that checks before the user leaves the page, if any unsaved modification has been made
-   * @returns true if (no modification has been made) or if (modifications have been made and the user confirmed his wish to quit), false elsewise 
+   * @returns true if (no modification has been made) or if (modifications have been made and the user confirmed his wish to quit), false elsewise
    */
   canDeactivate(): Observable<boolean> | boolean | Promise<boolean> {
     if (this.isInitialState()) {
@@ -115,8 +115,8 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
    * Saves the modified or new element, updates the indexedDB database with it and closes the edition panel
    */
   async save() {
-    if (this.editionService.name != "") {
-      if (this.editionService.newPage == "") {
+    if (this.editionService.name !== '') {
+      if (this.editionService.newPage === '') {
         this.editionService.newPage = this.editionService.name;
       }
       if (this.editionService.add) {
@@ -317,7 +317,7 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
   }
 
   /**
-   * @returns the current page, if no page corresponds, creates it first 
+   * @returns the current page, if no page corresponds, creates it first
    */
   getCurrentPage(): Page {
     let currentPage = this.boardService.board.PageList.find(page => {

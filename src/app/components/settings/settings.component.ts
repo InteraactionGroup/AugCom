@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MultilinguismService } from '../../services/multilinguism.service';
-import { ConfigurationService } from "../../services/configuration.service";
+import { ConfigurationService } from '../../services/configuration.service';
 
 @Component({
   selector: 'app-settings',
