@@ -39,6 +39,7 @@ export class HistoricService {
     this.historic = [];
     if (this.speechSynthesis !== null && this.speechSynthesis !== undefined) {
       this.speechSynthesis.cancel();
+      this.isPlaying = false;
     }
   }
 
@@ -49,6 +50,7 @@ export class HistoricService {
     this.historic.pop();
     if (this.speechSynthesis !== null && this.speechSynthesis !== undefined) {
       this.speechSynthesis.cancel();
+      this.isPlaying = false;
     }
   }
 
