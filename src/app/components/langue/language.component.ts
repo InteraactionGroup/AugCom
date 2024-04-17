@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ParametersService } from '../../services/parameters.service';
 import { MultilinguismService } from '../../services/multilinguism.service';
 import { GeticonService } from '../../services/geticon.service';
-import { ConfigurationService } from "../../services/configuration.service";
+import { ConfigurationService } from '../../services/configuration.service';
 
 @Component({
   selector: 'app-language',

@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { HistoricService } from '../../services/historic.service';
-import { GeticonService } from '../../services/geticon.service';
-import { BoardService } from '../../services/board.service';
-import { Ng2ImgMaxService } from 'ng2-img-max';
-import { DwellCursorService } from "../../services/dwell-cursor.service";
-import { ConfigurationService } from "../../services/configuration.service";
-import { DialogTextComponent } from "../dialog-text/dialog-text.component";
-import { MatDialog } from "@angular/material/dialog";
+import {Component, OnInit} from '@angular/core';
+import {HistoricService} from '../../services/historic.service';
+import {GeticonService} from '../../services/geticon.service';
+import {BoardService} from '../../services/board.service';
+import {Ng2ImgMaxService} from 'ng2-img-max';
+import {DwellCursorService} from '../../services/dwell-cursor.service';
+import {ConfigurationService} from '../../services/configuration.service';
+import {DialogTextComponent} from '../dialog-text/dialog-text.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dialogbar',
@@ -17,11 +17,11 @@ import { MatDialog } from "@angular/material/dialog";
 export class DialogbarComponent implements OnInit {
 
   constructor(public getIconService: GeticonService,
-    public boardService: BoardService,
-    public historicService: HistoricService,
-    public dwellCursorService: DwellCursorService,
-    public configurationService: ConfigurationService,
-    public dialog: MatDialog) {
+              public boardService: BoardService,
+              public historicService: HistoricService,
+              public dwellCursorService: DwellCursorService,
+              public configurationService: ConfigurationService,
+              public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -99,10 +99,10 @@ export class DialogbarComponent implements OnInit {
     }
   }
 
-/**
- * Pronounces the text in parameter after the dwellTimer is complete
- * @param text text to be pronounced
- */
+  /**
+   * Pronounces the text in parameter after the dwellTimer is complete
+   * @param text text to be pronounced
+   */
   enterToSay(event: PointerEvent, text) {
     if (this.configurationService.DWELL_TIME_ENABLED) {
       this.dwellCursorService.updatePositionHTMLElement((<HTMLElement>event.target));
@@ -115,7 +115,7 @@ export class DialogbarComponent implements OnInit {
 
   /**
    * Opens a dialog to add a custom word to the dialog bar's history (from a text input or a speech to text)
-   */  
+   */
   openDialog(): void {
     this.dialog.open(DialogTextComponent, {
       width: '600px'

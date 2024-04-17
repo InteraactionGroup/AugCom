@@ -1,25 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { UsertoolbarService } from '../../services/usertoolbar.service';
-import { GeticonService } from '../../services/geticon.service';
-import { IndexeddbaccessService } from '../../services/indexeddbaccess.service';
-import { SnapBarService } from '../../services/snap-bar.service';
-import { SearchService } from '../../services/search.service';
-import { BoardService } from '../../services/board.service';
-import { Ng2ImgMaxService } from 'ng2-img-max';
-import { LayoutService } from '../../services/layout.service';
-import { MultilinguismService } from '../../services/multilinguism.service';
-import { FolderGoTo } from '../../types';
-import { EditionService } from '../../services/edition.service';
-import { DwellCursorService } from '../../services/dwell-cursor.service';
-import { ConfigurationService } from '../../services/configuration.service';
-import { Router } from '@angular/router';
-import { UserPageService } from '../../services/user-page.service';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogHelpComponent } from '../dialog-help/dialog-help.component';
-import { PaletteService } from '../../services/palette.service';
-import { DialogLogoutAppComponent } from '../dialog-logout-app/dialog-logout-app.component';
-import { DialogAddGridComponent } from '../dialog-add-grid/dialog-add-grid.component';
-import { DialogGridOptionsComponent } from '../dialog-grid-options/dialog-grid-options.component';
+import {Component, OnInit} from '@angular/core';
+import {UsertoolbarService} from '../../services/usertoolbar.service';
+import {GeticonService} from '../../services/geticon.service';
+import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
+import {SnapBarService} from '../../services/snap-bar.service';
+import {SearchService} from '../../services/search.service';
+import {BoardService} from '../../services/board.service';
+import {Ng2ImgMaxService} from 'ng2-img-max';
+import {LayoutService} from '../../services/layout.service';
+import {MultilinguismService} from '../../services/multilinguism.service';
+import {FolderGoTo} from '../../types';
+import {EditionService} from '../../services/edition.service';
+import {DwellCursorService} from '../../services/dwell-cursor.service';
+import {ConfigurationService} from '../../services/configuration.service';
+import {Router} from '@angular/router';
+import {UserPageService} from '../../services/user-page.service';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogHelpComponent} from '../dialog-help/dialog-help.component';
+import {PaletteService} from '../../services/palette.service';
+import {DialogLogoutAppComponent} from '../dialog-logout-app/dialog-logout-app.component';
+import {DialogAddGridComponent} from '../dialog-add-grid/dialog-add-grid.component';
+import {DialogGridOptionsComponent} from '../dialog-grid-options/dialog-grid-options.component';
 
 declare const annyang: any;
 
@@ -154,7 +154,7 @@ export class UsertoolbarComponent implements OnInit {
     }
   }
 
-   /**
+  /**
    * If dwellTime is activated, starts a timer that will select the tile after completion (note : only applies to back buttons if dwellTime is activated)
    */
   enter(event) {

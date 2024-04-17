@@ -30,7 +30,7 @@
   </div>
 
   <!-- the button used to play the sound of the sentence entered by the user -->
-  <div class="button floatLeft" (click)="this.historicService.playHistoric()" (pointerenter)="enterAndPlay($event)"
+  <div class="button floatLeft"  [ngClass]="{'disabled':this.historicService.isPlaying}" (click)="this.historicService.playHistoric()" (pointerenter)="enterAndPlay($event)"
     (pointerleave)="exit()">
     <div class="image haveBackgroundImage"
       [ngStyle]="{'background-image':this.getIcon('play'),'margin-right': marginSize + 'px'}">
