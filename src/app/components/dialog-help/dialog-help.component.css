@@ -16,3 +16,7 @@ img {
   display: flex;
   flex-direction: column;
 }
+
+.mat-dialog-content{
+  overflow-x: hidden;
+}
