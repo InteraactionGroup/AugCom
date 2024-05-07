@@ -41,9 +41,16 @@
 
     <div class="export listElement">
       <label>
-        {{this.multilinguism.translate("exportTreeStructureAugCom") + ":"}}
+        {{this.multilinguism.translate("exportToExcell") + ":"}}
       </label>
       <input (click)="exportTreeStructure()" type="button" value="Export">
+    </div>
+
+    <div class="export listElement">
+      <label>
+        {{this.multilinguism.translate("exportToWord") + ":"}}
+      </label>
+      <input (click)="exportToWord('1er export word')" type="button" value="Export">
     </div>
   </div>
 </div>

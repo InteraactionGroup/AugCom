@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { saveAs as importedSaveAs } from 'file-saver';
-import { MultilinguismService } from "../../services/multilinguism.service";
+import { MultilinguismService } from '../../services/multilinguism.service';
 
 @Component({
   selector: 'app-dialog-logout-app',
@@ -15,10 +15,10 @@ export class DialogLogoutAppComponent implements OnInit {
   }
 
 /**
- * A Blob is a file-like object of immutable, raw data. Blobs represent data that isn't necessarily in a JavaScript-native format. 
+ * A Blob is a file-like object of immutable, raw data. Blobs represent data that isn't necessarily in a JavaScript-native format.
  */
   putYes() {
-    const blob = new Blob([""], { type: 'text/txt' });
+    const blob = new Blob([''], { type: 'text/txt' });
     importedSaveAs(blob, 'close161918.txt');
   }
 }

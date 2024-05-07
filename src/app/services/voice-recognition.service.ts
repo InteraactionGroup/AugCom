@@ -8,10 +8,10 @@ declare const annyang: any;
 })
 export class VoiceRecognitionService {
 
-  voiceActiveSectionDisabled: boolean = true;
-  voiceActiveSectionError: boolean = false;
-  voiceActiveSectionSuccess: boolean = false;
-  voiceActiveSectionListening: boolean = false;
+  voiceActiveSectionDisabled = true;
+  voiceActiveSectionError = false;
+  voiceActiveSectionSuccess = false;
+  voiceActiveSectionListening = false;
   voiceText: any;
 
   constructor(private configurationService: ConfigurationService,
@@ -41,10 +41,10 @@ export class VoiceRecognitionService {
       }
     });
 
-    annyang.addCallback('result', (userSaid) => {
+    annyang.addCallback('result', (userSaid: any[]) => {
       this.ngZone.run(() => this.voiceActiveSectionError = false);
 
-      let queryText: any = userSaid[0];
+      const queryText: any = userSaid[0];
 
       annyang.abort();
 

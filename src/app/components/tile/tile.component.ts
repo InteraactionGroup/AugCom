@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 import { SearchService } from '../../services/search.service';
 import { LayoutService } from '../../services/layout.service';
 import { GridElementService } from '../../services/grid-element.service';
-import { DwellCursorService } from "../../services/dwell-cursor.service";
-import { ConfigurationService } from "../../services/configuration.service";
+import { DwellCursorService } from '../../services/dwell-cursor.service';
+import { ConfigurationService } from '../../services/configuration.service';
 
 @Component({
   selector: 'app-tile',
