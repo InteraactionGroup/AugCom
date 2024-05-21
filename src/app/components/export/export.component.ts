@@ -21,8 +21,7 @@ import {PaletteService} from '../../services/palette.service';
 import {ConfigurationService} from '../../services/configuration.service';
 import {ExportSaveUserDialogComponent} from '../export-save-user-dialog/export-save-user-dialog.component';
 import * as XLSX from 'xlsx';
-import {Document, Packer, Paragraph, Media, HeadingLevel, Table, TableRow, TableCell, ImageRun} from 'docx';
-import * as fs from 'fs';
+import {Document, Packer, Paragraph, Media, HeadingLevel, Table, TableRow, TableCell, ImageRun, WidthType} from 'docx';
 
 
 @Component({
@@ -36,6 +35,8 @@ export class ExportComponent implements OnInit {
   listPageAlreadyVisited = [];
   excelFile = [];
   goToValue = '';
+  WordTable = [];
+  baseTable = [];
 
   constructor(
     public speakForYourselfParser: SpeakForYourselfParser,
@@ -200,14 +201,14 @@ export class ExportComponent implements OnInit {
       if (this.checkIfIsFolder(elemID)) {
         if (!this.listPageAlreadyVisited.includes(this.goToValue)) {
           this.listPageAlreadyVisited.push(this.goToValue);
-          await this.goInFolder(this.goToValue, defaultIndex + 1); // await the recursive call
+          await this.goInFolderExcell(this.goToValue, defaultIndex + 1); // await the recursive call
         }
       }
     }
     this.exportToExcel('ExcellFile');
   }
 
-  async goInFolder(elemID, index) {
+  async goInFolderExcell(elemID, index) {
     const page = this.boardService.board.PageList.find(item => item.ID === elemID);
     for (const elem of page.ElementIDsList) {
       const text = this.searchNameElem(elem);
@@ -217,7 +218,7 @@ export class ExportComponent implements OnInit {
       if (this.checkIfIsFolder(elem)) {
         if (!this.listPageAlreadyVisited.includes(this.goToValue)) {
           this.listPageAlreadyVisited.push(this.goToValue);
-          await this.goInFolder(this.goToValue, index + 1); // await the recursive call
+          await this.goInFolderExcell(this.goToValue, index + 1); // await the recursive call
         }
       }
     }
@@ -315,62 +316,141 @@ export class ExportComponent implements OnInit {
     this.listPageAlreadyVisited = [];
   }
 
-
-  exportToWord(name: string): void {
-    const table = this.makeGridWord();
-    const doc = new Document({
-      sections: [
-        {
-          properties: {},
-          children: [
-            new Paragraph({
-              text: 'Hello World',
-              heading: HeadingLevel.HEADING_1,
-            }),
-            table
-          ]
-        }
-      ]
+  makerow(text: any, imageUrl: any, imageData: any) {
+    const row = new TableRow({
+      children: [
+        new TableCell({
+          width: {
+            size: 2000,
+            type: WidthType.DXA
+          },
+          children: [new Paragraph({text})],
+        }),
+        new TableCell({
+          width: {
+            size: 2000,
+            type: WidthType.DXA
+          },
+          children: [new Paragraph({
+            children: [new ImageRun({
+              data: imageData,
+              transformation: {width: 100, height: 100}
+            })]
+          })],
+        }),
+      ],
     });
-    Packer.toBuffer(doc).then((buffer) => {
-      fs.writeFileSync(name + '.docx', buffer);
-    });
 
+    return row;
   }
 
-  makeGridWord(): Table {
+
+  async goInFolderWord(elemID, index) {
+    const page = this.boardService.board.PageList.find(item => item.ID === elemID);
+    const rows = [];
+    for (const elem of page.ElementIDsList) {
+      const text = this.searchNameElem(elem);
+      const imageUrl = this.searchImageElem(elem);
+      const imageData = await this.getImageBase64(imageUrl); // Fetch and convert image to base64
+      const row = this.makerow(text, imageUrl, imageData);
+      rows.push(row);
+      if (this.checkIfIsFolder(elem)) {
+        if (!this.listPageAlreadyVisited.includes(this.goToValue)) {
+          this.listPageAlreadyVisited.push(this.goToValue);
+          await this.goInFolderExcell(this.goToValue, index + 1); // await the recursive call
+        }
+      }
+    }
+    const TableFolder = new Table({
+      columnWidths: [2000, 2000],
+      rows,
+      width: {
+        size: 4000,
+        type: WidthType.DXA,
+      }
+    })
+    this.WordTable.push(TableFolder);
+  }
+
+  async getGridWord() {
     const defaultIndex = 0;
     this.listPageAlreadyVisited.push(this.boardService.board.PageList[0].ID);
     const page = this.boardService.board.PageList[0];
     const rows = [];
-
     for (const elemID of page.ElementIDsList) {
       const text = this.searchNameElem(elemID);
       const imageUrl = this.searchImageElem(elemID);
-
-      // Create table row for each elemID
-      const row = new TableRow({
-        children: [
-          new TableCell({
-            children: [new Paragraph({ text })],
-          }),
-          new TableCell({
-            // tslint:disable-next-line:max-line-length
-            children: [new Paragraph({ children:[new ImageRun({ data: fs.readFileSync(imageUrl), transformation: { width: 100, height: 100 } })]})],
-          }),
-        ],
-      });
-
-      // Push the row to the rows array
+      const imageData = await this.getImageBase64(imageUrl);
+      const row = this.makerow(text, imageUrl, imageData);
       rows.push(row);
+      if (this.checkIfIsFolder(elemID)) {
+        if (!this.listPageAlreadyVisited.includes(this.goToValue)) {
+          this.listPageAlreadyVisited.push(this.goToValue);
+          await this.goInFolderWord(this.goToValue, defaultIndex + 1);
+        }
+      }
     }
-
-    // Create the table with all rows
-    const grid = new Table({
+    const TableFolder = new Table({
+      columnWidths: [2000, 2000],
       rows,
+      width: {
+        size: 4000,
+        type: WidthType.DXA,
+      }
+    })
+    this.baseTable.push(TableFolder);
+  }
+
+  async exportToWord(name: string) {
+    await this.getGridWord();
+    // Créez un tableau de sections
+    const sections: any[] = [];
+
+    // Ajouter le titre et la grille de base
+    sections.push({
+      properties: {},
+      children: [
+        new Paragraph({
+          text: 'Export Grid AugCom',
+          heading: HeadingLevel.HEADING_1,
+        }),
+        this.baseTable[0]
+      ]
     });
 
-    return grid;
+    // Ajouter chaque éléments des dossiers avec un saut de page
+    this.WordTable.forEach((table) => {
+      sections.push({
+        properties: {
+          pageBreakBefore: true,
+        },
+        children: [
+          new Paragraph({
+            text: 'Folder',
+            heading: HeadingLevel.HEADING_1,
+          }),
+          table
+        ]
+      });
+    });
+
+    // Créer le document avec les sections
+    const doc = new Document({
+      sections: sections,
+    });
+    Packer.toBlob(doc).then(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = name + '.docx';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+    });
+    this.WordTable = [];
+    this.listNamePage = [];
+    this.listPageAlreadyVisited = [];
   }
+
 
 }
