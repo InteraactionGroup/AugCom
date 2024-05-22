@@ -371,7 +371,7 @@ export class ExportComponent implements OnInit {
     this.baseTable.push(TableFolder);
   }
 
-  async exportToWord(name: string) {
+  async exportToWord() {
     await this.getGridWord();
     // Créez un tableau de sections
     const sections: any[] = [];
@@ -381,7 +381,7 @@ export class ExportComponent implements OnInit {
       properties: {},
       children: [
         new Paragraph({
-          text: 'Export Grid AugCom',
+          text: this.multilinguism.translate("WordTitle"),
           heading: HeadingLevel.HEADING_1,
         }),
         this.baseTable[0]
@@ -396,7 +396,7 @@ export class ExportComponent implements OnInit {
         },
         children: [
           new Paragraph({
-            text: 'Folder',
+            text: this.multilinguism.translate("WordFolder"),
             heading: HeadingLevel.HEADING_1,
           }),
           table
@@ -412,7 +412,7 @@ export class ExportComponent implements OnInit {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = name + '.docx';
+      a.download = this.multilinguism.translate("WordNameFile") + '.docx';
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);

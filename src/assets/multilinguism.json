@@ -371,6 +371,9 @@
     { "id" : "export", "FR": "Export", "EN": "Export"},
     { "id" : "exportStyle", "FR": "Mise en page", "EN" : "Export style"},
     { "id" : "focusSelection", "FR": "Sélection par fixation", "EN": "Selection by focus"},
-    { "id" : "noElementInList", "FR": "La liste des grilles est vide", "EN": "Grid list is empty"}
+    { "id" : "WordNameFile", "FR": "ClavierAugCom", "EN": "GridFileAugcom"},
+    { "id" : "WordTitle", "FR": "Clavier Augcom", "EN": "AugCom main grid"},
+    { "id" : "WordFolder", "FR": "Sous Dossier", "EN": "Folder"}
+
   ]
 }
