@@ -195,9 +195,7 @@ export class ExportComponent implements OnInit {
     const page = this.boardService.board.PageList[0];
     for (const elemID of page.ElementIDsList) {
       const text = this.searchNameElem(elemID);
-      const imageUrl = this.searchImageElem(elemID);
-      const imageData = await this.getImageBase64(imageUrl);
-      this.excelFile.push(this.addToExcel(text, imageData, defaultIndex));
+      this.excelFile.push(this.addToExcel(text, defaultIndex));
       if (this.checkIfIsFolder(elemID)) {
         if (!this.listPageAlreadyVisited.includes(this.goToValue)) {
           this.listPageAlreadyVisited.push(this.goToValue);
@@ -205,16 +203,14 @@ export class ExportComponent implements OnInit {
         }
       }
     }
-    this.exportToExcel('ExcellFile');
+    this.exportToExcel('AugComTreeStructure');
   }
 
   async goInFolderExcell(elemID, index) {
     const page = this.boardService.board.PageList.find(item => item.ID === elemID);
     for (const elem of page.ElementIDsList) {
       const text = this.searchNameElem(elem);
-      const imageUrl = this.searchImageElem(elem);
-      const imageData = await this.getImageBase64(imageUrl); // Fetch and convert image to base64
-      this.excelFile.push(this.addToExcel(text, imageData, index));
+      this.excelFile.push(this.addToExcel(text, index));
       if (this.checkIfIsFolder(elem)) {
         if (!this.listPageAlreadyVisited.includes(this.goToValue)) {
           this.listPageAlreadyVisited.push(this.goToValue);
@@ -269,44 +265,18 @@ export class ExportComponent implements OnInit {
   }
 
 
-  addToExcel(text: string, imageData: string, index: number) {
-    const tab = [];
+  addToExcel(value, index) {
+    let tab = [];
     for (let i = 0; i < index; i++) {
-      tab.push('');
+      tab.push("");
     }
-
-    // Split the text into chunks of maximum 32767 characters
-    const chunks = this.splitTextIntoChunks(imageData);
-    tab.push(chunks[0]);
-    tab.push(text);
-    for (let i = 1; i < chunks.length; i++) {
-      const newRow = Array.from(tab);
-      newRow[index] = chunks[i]; // Replace the text in the current column
-      this.excelFile.push(newRow);
-    }
-
+    tab.push(value);
     return tab;
-  }
-
-  splitTextIntoChunks(text: string): string[] {
-    const chunkSize = 32767;
-    const chunks = [];
-    for (let i = 0; i < text.length; i += chunkSize) {
-      chunks.push(text.slice(i, i + chunkSize));
-    }
-    return chunks;
   }
 
 
   exportToExcel(name: string): void {
     const worksheet: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.excelFile);
-
-    // Modify the column width for the image column
-    const wscols = [
-      {wch: 20}, // Adjust the width of the text column if needed
-      {wpx: 100} // Adjust the width of the image column
-    ];
-    worksheet['!cols'] = wscols;
 
     const workbook: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Grid');
