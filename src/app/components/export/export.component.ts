@@ -268,7 +268,7 @@ export class ExportComponent implements OnInit {
   addToExcel(value, index) {
     let tab = [];
     for (let i = 0; i < index; i++) {
-      tab.push("");
+      tab.push('');
     }
     tab.push(value);
     return tab;
@@ -381,7 +381,7 @@ export class ExportComponent implements OnInit {
       properties: {},
       children: [
         new Paragraph({
-          text: this.multilinguism.translate("WordTitle"),
+          text: this.multilinguism.translate('WordTitle'),
           heading: HeadingLevel.HEADING_1,
         }),
         this.baseTable[0]
@@ -396,7 +396,7 @@ export class ExportComponent implements OnInit {
         },
         children: [
           new Paragraph({
-            text: this.multilinguism.translate("WordFolder"),
+            text: this.multilinguism.translate('WordFolder'),
             heading: HeadingLevel.HEADING_1,
           }),
           table
@@ -412,7 +412,7 @@ export class ExportComponent implements OnInit {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = this.multilinguism.translate("WordNameFile") + '.docx';
+      a.download = this.multilinguism.translate('WordNameFile') + '.docx';
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
