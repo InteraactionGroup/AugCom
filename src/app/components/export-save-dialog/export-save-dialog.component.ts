@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ExportManagerService } from "../../services/export-manager.service";
-import JSZip from "jszip";
+import { ExportManagerService } from '../../services/export-manager.service';
+import JSZip from 'jszip';
 import { saveAs as importedSaveAs } from 'file-saver';
-import { MultilinguismService } from "../../services/multilinguism.service";
-import { BoardService } from "../../services/board.service";
+import { MultilinguismService } from '../../services/multilinguism.service';
+import { BoardService } from '../../services/board.service';
 
 @Component({
   selector: 'app-export-save-dialog',

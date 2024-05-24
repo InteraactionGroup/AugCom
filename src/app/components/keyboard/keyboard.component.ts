@@ -12,7 +12,7 @@ import {Ng2ImgMaxService} from 'ng2-img-max';
 import {LayoutService} from 'src/app/services/layout.service';
 import {MultilinguismService} from '../../services/multilinguism.service';
 import {GridElementService} from '../../services/grid-element.service';
-import {ConfigurationService} from "../../services/configuration.service";
+import {ConfigurationService} from '../../services/configuration.service';
 
 @Component({
   selector: 'app-keyboard',
@@ -334,7 +334,7 @@ export class KeyboardComponent implements OnInit {
     }
   }
 
-  //deep copy
+  // deep copy
   copyFull() {
     if (this.userToolBarService.edit) {
       this.copyElements = [];
@@ -348,7 +348,7 @@ export class KeyboardComponent implements OnInit {
     console.log('this.copyElements :', this.copyElements);
   }
 
-  //shadow copy
+  // shadow copy
   copyAll() {
     if (this.userToolBarService.edit) {
       this.copyElements = [];
