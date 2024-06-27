@@ -367,6 +367,12 @@
     { "id" :  "deactivateDwell", "FR": "Désactiver la sélection par fixation", "EN": "Disable selection by focus"},
     { "id" : "buttonDescription", "FR": "L'élément créé sera un simple bouton", "EN": "The element will be a simple button"},
     { "id" : "folderDescription", "FR": "L'élément créé sera un dossier pouvant contenir d'autres boutons", "EN": "The element will be a folder that can contain other buttons"},
+    { "id" : "soundbuttonDescription", "FR": "L'élément créé sera un bouton qui lancera un bruit quand il sera utilisé", "EN": "The element will be a button that does a sound when used"},
+    { "id" : "videobuttonDescription", "FR": "L'élément créé sera un bouton qui lancera une vidéo quand il sera utilisé", "EN": "The element will be a button that launch a video when used"},
+    { "id" : "soundButton", "FR": "Bouton son", "EN": "Sound button"},
+    { "id" : "videoButton", "FR": "Bouton  vidéo", "EN": "Video button"},
+    { "id" : "addSoundByFile", "FR": "Ajouter le son depuis un fichier de votre ordinateur", "EN": "Add the sound by a File from your computer"},
+    { "id" : "addVideoByFile", "FR": "Ajouter la vidéo depuis un fichier de votre ordinateur", "EN": "Add the video by a File from your computer"},
     { "id" : "warningQuit", "FR": "Voulez vous vraiment quitter ? Les modifications non sauvegardées seront perdues", "EN": "Are you sure you want to quit ? Unsaved changes will be lost"},
     { "id" : "export", "FR": "Export", "EN": "Export"},
     { "id" : "exportStyle", "FR": "Mise en page", "EN" : "Export style"},
@@ -374,6 +380,5 @@
     { "id" : "WordNameFile", "FR": "ClavierAugCom", "EN": "GridFileAugcom"},
     { "id" : "WordTitle", "FR": "Clavier Augcom", "EN": "AugCom main grid"},
     { "id" : "WordFolder", "FR": "Sous Dossier", "EN": "Folder"}
-
   ]
 }

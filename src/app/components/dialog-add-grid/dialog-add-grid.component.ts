@@ -27,7 +27,7 @@ export class DialogAddGridComponent implements OnInit {
   }
 
   /**
-   * Creates a new grid corresponding to selected options (name and type). 
+   * Creates a new grid corresponding to selected options (name and type).
    * If a grid already exists with the same name, not grid will be created and an error will be shown.
    * @param newGrid Grid to be checked if already exists
    */
@@ -45,7 +45,7 @@ export class DialogAddGridComponent implements OnInit {
         page.ElementIDsList = [];
         page.NumberOfCols = 0;
         page.NumberOfRows = 0;
-        this.boardService.board = new Grid(this.nameGrid, 'Grid', 6, 6, [], [], [page]);
+        this.boardService.board = new Grid(this.nameGrid, 'Grid', 6, 6, [], [], [page], []);
       }
       this.boardService.board.software = 'Augcom';
       this.boardService.board.ID = this.nameGrid;

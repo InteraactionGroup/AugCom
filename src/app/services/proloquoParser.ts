@@ -238,7 +238,8 @@ export class ProloquoParser {
           DisplayedText: word.mot,
           VoiceText: word.mot,
           LexicInfos: [{ default: true }],
-          ImageID: word.wordID
+          ImageID: word.wordID,
+          AudioID: ''
         }
       ],
       interList
@@ -279,6 +280,7 @@ export class ProloquoParser {
       GapSize: 5,
       ElementList: tempElement,
       ImageList: [],
+      AudioList: [],
       PageList: tempPage
     };
   }

@@ -145,7 +145,7 @@ export class LifeCompanion2augComponent implements OnInit {
 
   // get grid information from fileJson and set it in the new grid
   private newGrid(metadata: any) {
-    this.grid = new Grid('importedGrid', 'Grid', 6, 6, [], [], []);
+    this.grid = new Grid('importedGrid', 'Grid', 6, 6, [], [], [], []);
     let date: Date;
     const lastDate: Date = new Date(parseInt(metadata.ConfigurationDescription.attr.lastDate));
     try {
@@ -310,6 +310,7 @@ export class LifeCompanion2augComponent implements OnInit {
             VoiceText: element.attr.textContent,
             LexicInfos: [{ default: true }],
             ImageID: element.attr.imageId2 ? element.attr.imageId2 : '',
+            AudioID: ''
           }
         ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }]);
     } else {
@@ -325,6 +326,7 @@ export class LifeCompanion2augComponent implements OnInit {
             VoiceText: element.attr.textContent,
             LexicInfos: [{ default: true }],
             ImageID: element.attr.imageId2 ? element.attr.imageId2 : '',
+            AudioID: ''
           }
         ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }]);
     }
@@ -680,6 +682,7 @@ export class LifeCompanion2augComponent implements OnInit {
             VoiceText: treeKeyListElement.attr.text,
             LexicInfos: [{ default: true }],
             ImageID: treeKeyListElement.attr.imageId2 ? treeKeyListElement.attr.imageId2 : '',
+            AudioID: ''
           }
         ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }]);
     } else {
@@ -695,6 +698,7 @@ export class LifeCompanion2augComponent implements OnInit {
             VoiceText: treeKeyListElement.attr.text,
             LexicInfos: [{ default: true }],
             ImageID: treeKeyListElement.attr.imageId2 ? treeKeyListElement.attr.imageId2 : '',
+            AudioID: ''
           }
         ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }]);
     }
@@ -747,6 +751,7 @@ export class LifeCompanion2augComponent implements OnInit {
           VoiceText: '',
           LexicInfos: [{ default: true }],
           ImageID: '',
+          AudioID: ''
         }
       ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }]);
     this.grid.ElementList.push(buttonNextPage);

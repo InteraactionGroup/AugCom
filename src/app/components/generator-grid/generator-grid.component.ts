@@ -41,15 +41,15 @@ export class GeneratorGridComponent implements OnInit {
   errorType = '';
 
   constructor(public configuration: ConfigurationService,
-    public boardService: BoardService,
-    public editionService: EditionService,
-    public functionsService: FunctionsService,
-    public dbnaryService: DbnaryService,
-    public router: Router,
-    public multilinguism: MultilinguismService,
-    public indexedDBacess: IndexeddbaccessService,
-    public layoutService: LayoutService,
-    public voiceRecognition: VoiceRecognitionService) {
+              public boardService: BoardService,
+              public editionService: EditionService,
+              public functionsService: FunctionsService,
+              public dbnaryService: DbnaryService,
+              public router: Router,
+              public multilinguism: MultilinguismService,
+              public indexedDBacess: IndexeddbaccessService,
+              public layoutService: LayoutService,
+              public voiceRecognition: VoiceRecognitionService) {
   }
 
   ngOnInit(): void {
@@ -64,7 +64,7 @@ export class GeneratorGridComponent implements OnInit {
     generatedPage.NumberOfCols = Number(this.nbCols);
     generatedPage.NumberOfRows = Number(this.nbRows);
     generatedPage.GapSize = 6;
-    this.boardService.board = new Grid('nothing', 'Grid', Number(this.nbCols), Number(this.nbRows), [], [], [generatedPage]);
+    this.boardService.board = new Grid('nothing', 'Grid', Number(this.nbCols), Number(this.nbRows), [], [], [generatedPage], []);
     this.boardService.board.NumberOfCols = Number(this.nbCols);
     this.boardService.board.NumberOfRows = Number(this.nbRows);
     this.boardService.updateElementList();
@@ -114,7 +114,7 @@ export class GeneratorGridComponent implements OnInit {
       (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
         if (text !== null && text !== '' && word.toLowerCase() === text.toLocaleLowerCase() && !this.addOnlyOneImage) {
           this.addOnlyOneImage = true;
-          this.imageList.push({ lib: 'arasaacNB', word: this.cleanString(word) });
+          this.imageList.push({lib: 'arasaacNB', word: this.cleanString(word)});
           return;
         }
       }, this);
@@ -122,7 +122,7 @@ export class GeneratorGridComponent implements OnInit {
       (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
         if (text !== null && text !== '' && word.toLowerCase() === text.toLocaleLowerCase() && !this.addOnlyOneImage) {
           this.addOnlyOneImage = true;
-          this.imageList.push({ lib: 'arasaacColor', word: this.cleanString(word) });
+          this.imageList.push({lib: 'arasaacColor', word: this.cleanString(word)});
         }
       }, this);
     }
@@ -132,7 +132,7 @@ export class GeneratorGridComponent implements OnInit {
         if (text !== null && text !== '' && value.symbol.toLowerCase() === text.toLocaleLowerCase() && !this.addOnlyOneImage) {
           this.addOnlyOneImage = true;
           const url = value.symbol;
-          this.imageList.push({ lib: 'mulberry', word: this.cleanString(url) });
+          this.imageList.push({lib: 'mulberry', word: this.cleanString(url)});
           return;
         }
       }, this);
@@ -148,7 +148,7 @@ export class GeneratorGridComponent implements OnInit {
       (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
         if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && !this.addOnlyOneImage) {
           this.addOnlyOneImage = true;
-          this.imageList.push({ lib: 'arasaacNB', word: this.cleanString(word) });
+          this.imageList.push({lib: 'arasaacNB', word: this.cleanString(word)});
           return;
         }
       }, this);
@@ -156,7 +156,7 @@ export class GeneratorGridComponent implements OnInit {
       (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
         if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && !this.addOnlyOneImage) {
           this.addOnlyOneImage = true;
-          this.imageList.push({ lib: 'arasaacColor', word: this.cleanString(word) });
+          this.imageList.push({lib: 'arasaacColor', word: this.cleanString(word)});
         }
       }, this);
     }
@@ -165,7 +165,7 @@ export class GeneratorGridComponent implements OnInit {
         if (text !== null && text !== '' && value.symbol.toLowerCase().includes(text.toLocaleLowerCase()) && !this.addOnlyOneImage) {
           this.addOnlyOneImage = true;
           const url = value.symbol;
-          this.imageList.push({ lib: 'mulberry', word: this.cleanString(url) });
+          this.imageList.push({lib: 'mulberry', word: this.cleanString(url)});
           return;
         }
       }, this);
@@ -236,8 +236,9 @@ export class GeneratorGridComponent implements OnInit {
       {
         DisplayedText: name,
         VoiceText: name,
-        LexicInfos: [{ default: true }],
-        ImageID: tempId
+        LexicInfos: [{default: true}],
+        ImageID: tempId,
+        AudioID: tempId
       }
     );
 
@@ -247,8 +248,8 @@ export class GeneratorGridComponent implements OnInit {
     this.editionService.interractionList.push({
       ID: 'click',
       ActionList: [
-        { ID: 'display', Options: [] },
-        { ID: 'say', Options: [] }
+        {ID: 'display', Options: []},
+        {ID: 'say', Options: []}
       ]
     });
 
@@ -295,6 +296,10 @@ export class GeneratorGridComponent implements OnInit {
       } else {
         return new FolderGoTo(this.editionService.pageLink);
       }
+    } else if (this.editionService.radioTypeFormat === 'sound') {
+      return 'sound';
+    } else if (this.editionService.radioTypeFormat === 'video') {
+      return 'video';
     } else {
       return 'button';
     }

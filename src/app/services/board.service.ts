@@ -228,6 +228,7 @@ export class BoardService {
   /*delete the element that is sentenced to death*/
   executer() {
     const imageTemp = [];
+    const audioTemp = [];
 
     // TODO
     // this.board.ElementList = this.board.ElementList.filter(x => {
@@ -251,6 +252,12 @@ export class BoardService {
     });
 
     this.board.ElementList.forEach((elt) => {
+      const resaud = this.board.AudioList.find(
+        (audio) => audio.ID === elt.ElementFormsList[0].AudioID
+      );
+      if (resaud !== null && resaud !== undefined) {
+        audioTemp.push(resaud);
+      }
       const res = this.board.ImageList.find(
         (img) => img.ID === elt.ElementFormsList[0].ImageID
       );
@@ -273,6 +280,7 @@ export class BoardService {
 
 
     this.board.ImageList = imageTemp;
+    this.board.AudioList = audioTemp;
     this.editionService.sentencedToBeDeletedElement = [];
     this.updateElementList();
   }
@@ -435,7 +443,8 @@ export class BoardService {
             DisplayedText: eltform.DisplayedText,
             VoiceText: eltform.VoiceText,
             LexicInfos: eltform.LexicInfos,
-            ImageID: '' + eltform.ImageID
+            ImageID: '' + eltform.ImageID,
+            AudioID: '' + eltform.AudioID
           }],
           compElt.InteractionsList.slice()
         );
@@ -456,7 +465,8 @@ export class BoardService {
       DisplayedText: 'back',
       VoiceText: 'back',
       LexicInfos: [],
-      ImageID: '#back'
+      ImageID: '#back',
+      AudioID: ''
     }];
 
 

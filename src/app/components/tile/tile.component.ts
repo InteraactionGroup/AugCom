@@ -1,16 +1,16 @@
-import { Component, Input, OnDestroy, OnInit, } from '@angular/core';
-import { HistoricService } from '../../services/historic.service';
-import { EditionService } from '../../services/edition.service';
-import { BoardService } from '../../services/board.service';
-import { ElementForm, FolderGoTo, GridElement, Vignette } from '../../types';
-import { GeticonService } from '../../services/geticon.service';
-import { UsertoolbarService } from '../../services/usertoolbar.service';
-import { Router } from '@angular/router';
-import { SearchService } from '../../services/search.service';
-import { LayoutService } from '../../services/layout.service';
-import { GridElementService } from '../../services/grid-element.service';
-import { DwellCursorService } from '../../services/dwell-cursor.service';
-import { ConfigurationService } from '../../services/configuration.service';
+import {Component, Input, OnDestroy, OnInit,} from '@angular/core';
+import {HistoricService} from '../../services/historic.service';
+import {EditionService} from '../../services/edition.service';
+import {BoardService} from '../../services/board.service';
+import {ElementForm, FolderGoTo, GridElement, Vignette} from '../../types';
+import {GeticonService} from '../../services/geticon.service';
+import {UsertoolbarService} from '../../services/usertoolbar.service';
+import {Router} from '@angular/router';
+import {SearchService} from '../../services/search.service';
+import {LayoutService} from '../../services/layout.service';
+import {GridElementService} from '../../services/grid-element.service';
+import {DwellCursorService} from '../../services/dwell-cursor.service';
+import {ConfigurationService} from '../../services/configuration.service';
 
 @Component({
   selector: 'app-tile',
@@ -208,6 +208,22 @@ export class TileComponent implements OnInit, OnDestroy {
         }
 
         // for folder
+      } else if (element.Type === 'sound') {
+        if (this.editionService.audioURL) {
+          // Création d'un nouvel élément audio
+          const audio = new Audio(this.editionService.audioURL);
+
+          // Lecture de l'audio
+          audio.play().then(() => {
+            console.log('Audio is playing');
+          }).catch(error => {
+            console.error('Error playing audio:', error);
+          });
+        } else {
+          console.error('No audio URL found in editionService');
+        }
+      } else if (element.Type === 'video') {
+
       } else if ((element.Type as FolderGoTo).GoTo !== undefined) {
         let pathTab = this.boardService.currentPath.split('.');
         if (pathTab.length >= 2) {
@@ -344,7 +360,7 @@ export class TileComponent implements OnInit, OnDestroy {
       '0px ' +
       (isFolder ? '-2px ' : '0px ') +
       (this.gridElementService.getStyle(element).BackgroundColor === undefined
-        || this.gridElementService.getStyle(element).BackgroundColor == null
+      || this.gridElementService.getStyle(element).BackgroundColor == null
         ? '#d3d3d3'
         : this.gridElementService.getStyle(element).BackgroundColor);
 

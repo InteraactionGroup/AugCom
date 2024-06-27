@@ -43,10 +43,10 @@ export class DialogExportPagesComponent implements OnInit {
     })
     let exportedGrid: Grid;
     if (this.pageToExport.NumberOfRows !== undefined && this.pageToExport.NumberOfCols !== undefined) {
-      exportedGrid = new Grid('exportedPage', 'Grid', Number(this.pageToExport.NumberOfCols), Number(this.pageToExport.NumberOfRows), this.gridElementOfPage, this.imageListOfPage, [this.pageToExport]);
+      exportedGrid = new Grid('exportedPage', 'Grid', Number(this.pageToExport.NumberOfCols), Number(this.pageToExport.NumberOfRows), this.gridElementOfPage, this.imageListOfPage, [this.pageToExport], []);
     }
     else {
-      exportedGrid = new Grid('exportedPage', 'Grid', 10, 10, this.gridElementOfPage, this.imageListOfPage, this.pageToExportList);
+      exportedGrid = new Grid('exportedPage', 'Grid', 10, 10, this.gridElementOfPage, this.imageListOfPage, this.pageToExportList, []);
     }
     this.downloadFile(JSON.stringify(exportedGrid));
   }

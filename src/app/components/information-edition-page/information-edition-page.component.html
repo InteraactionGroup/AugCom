@@ -15,6 +15,16 @@
           <label class="radio" for="radioButton">{{multilinguism.translate("button")}}</label>
           <p class="subtitle">{{ multilinguism.translate("buttonDescription") }}</p>
 
+          <input [(ngModel)]="this.editionService.radioTypeFormat" checked id="radioSoundButton" name="typeFormat"
+                 type="radio" value="sound">
+          <label class="radio" for="radioSound">{{multilinguism.translate("soundButton")}}</label>
+          <p class="subtitle">{{ multilinguism.translate("soundbuttonDescription") }}</p>
+
+          <input [(ngModel)]="this.editionService.radioTypeFormat" checked id="radioVideoButton" name="typeFormat"
+                 type="radio" value="video">
+          <label class="radio" for="radioVideo">{{multilinguism.translate("videoButton")}}</label>
+          <p class="subtitle">{{ multilinguism.translate("videobuttonDescription") }}</p>
+
           <input [(ngModel)]="this.editionService.radioTypeFormat" id="radioFolder" name="typeFormat" type="radio"
             value="folder">
           <label class="radio" for="radioFolder">{{multilinguism.translate("folder")}}</label>
@@ -27,7 +37,7 @@
               <option value="{{p.ID}}"> {{p.ID}} </option>
             </ng-container>
           </select>
-          
+
           <input type="text" [(ngModel)]="this.editionService.newPage"
             placeholder="{{multilinguism.translate('newPageID')}}"
             *ngIf="this.editionService.radioTypeFormat=='folder' && this.editionService.pageLink === '@NEW@'"

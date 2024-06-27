@@ -25,11 +25,11 @@ export class DialogModelGridComponent implements OnInit {
     if (this.boardService.gridModel === 'default') {
       this.indexDbAccessService.loadDefaultGrid();
     } else if (this.boardService.gridModel === 'empty') {
-      let page = new Page();
+      const page = new Page();
       page.ID = '#HOME';
       page.Name = 'Accueil';
       page.ElementIDsList = [];
-      this.boardService.board = new Grid('newGrid', 'Grid', 6, 6, [], [], [page]);
+      this.boardService.board = new Grid('newGrid', 'Grid', 6, 6, [], [], [page], []);
     }
     this.boardService.updateElementList();
   }

@@ -54,11 +54,14 @@ export class EditionService {
    */
   imageURL: any = '';
 
+  audioURL: any = '';
+
+  videoURL: any = '';
+
   /**
    * the type of the current element (button by default)
    */
   radioTypeFormat = 'button';
-
 
   menu: string[] = ['information', 'appearance'/*, 'grammar'*/, 'otherForms', 'interactions'];
 
@@ -113,6 +116,8 @@ export class EditionService {
     this.interractionList = [];
     this.variantList = [];
     this.imageURL = '';
+    this.audioURL = '';
+    this.videoURL = '';
     this.radioTypeFormat = 'button';
     this.currentEditPage = 'information';
     this.curentColor = '#d3d3d3';
