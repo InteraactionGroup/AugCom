@@ -90,7 +90,7 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
    * Resets all the informations of the edition panel to their initial value
    */
   clear() {
-    this.editionService.imageTextField = "";
+    this.editionService.imageTextField = '';
     this.editionService.borderCheck = false;
     this.editionService.insideCheck = false;
     this.editionService.name = '';
@@ -116,15 +116,11 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
    * Saves the modified or new element, updates the indexedDB database with it and closes the edition panel
    */
   async save() {
-    console.log("1");
     if (this.editionService.name !== '') {
-      console.log("2");
       if (this.editionService.newPage === '') {
-        console.log("3");
         this.editionService.newPage = this.editionService.name;
       }
       if (this.editionService.add) {
-        console.log("4");
         this.createNewButton();
       } else if (this.editionService.selectedElements.length === 1) {
         this.modifyButton();
@@ -429,7 +425,7 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
       if (elementToModif.Type === 'sound') {
         const videoToModif = this.boardService.board.VideoList.find(x => x.ID === elementToModif.ElementFormsList[0].AudioID);
         if (videoToModif != null) {
-          this.editionService.videoURL = audioToModif.Path;
+          this.editionService.videoURL = videoToModif.Path;
         } else {
           this.editionService.videoURL = '';
         }

@@ -75,7 +75,7 @@ export class SpeakForYourselfParser {
             LexicInfos: [{ default: true }],
             ImageID: '',
             AudioID: '',
-            videoID: ''
+            VideoID: ''
           }],
           [{
             ID: 'click',

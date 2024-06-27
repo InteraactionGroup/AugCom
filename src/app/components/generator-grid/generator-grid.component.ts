@@ -241,7 +241,7 @@ export class GeneratorGridComponent implements OnInit {
         LexicInfos: [{default: true}],
         ImageID: tempId,
         AudioID: tempId,
-        VideoID: tempid
+        VideoID: tempId
       }
     );
 

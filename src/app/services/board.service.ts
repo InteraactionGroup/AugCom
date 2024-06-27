@@ -229,6 +229,7 @@ export class BoardService {
   executer() {
     const imageTemp = [];
     const audioTemp = [];
+    const videoTemp = [];
 
     // TODO
     // this.board.ElementList = this.board.ElementList.filter(x => {
@@ -252,12 +253,21 @@ export class BoardService {
     });
 
     this.board.ElementList.forEach((elt) => {
+      const resvid = this.board.VideoList.find(
+        (video) => video.ID === elt.ElementFormsList[0].VideoID
+      );
+      if (resvid !== null && resvid !== undefined) {
+        videoTemp.push(resvid);
+      }
+
+
       const resaud = this.board.AudioList.find(
         (audio) => audio.ID === elt.ElementFormsList[0].AudioID
       );
       if (resaud !== null && resaud !== undefined) {
         audioTemp.push(resaud);
       }
+
       const res = this.board.ImageList.find(
         (img) => img.ID === elt.ElementFormsList[0].ImageID
       );
@@ -322,6 +332,23 @@ export class BoardService {
       return '';
     }
   }
+
+  /*get sanitized image URL of an element*/
+  getVideoUrl(element: GridElement) {
+    if (this.board.VideoList != null) {
+      console.log(this.board.VideoList);
+      console.log(element.ElementFormsList[0].VideoID);
+      const path = this.board.VideoList.find(x => x.ID === element.ElementFormsList[0].VideoID);
+      if (path !== null && path !== undefined) {
+        return  path.Path ;
+      } else {
+        return '';
+      }
+    } else {
+      return '';
+    }
+  }
+
 
   /*get normal image URL of an element (with no sanitizing)*/
   getSimpleImgUrl(element: GridElement) {

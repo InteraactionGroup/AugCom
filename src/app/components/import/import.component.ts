@@ -213,7 +213,7 @@ export class ImportComponent implements OnInit {
             LexicInfos: [{ default: true }],
             ImageID: theID,
             AudioID: '',
-            videoID: ''
+            VideoID: ''
           }
         ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }] }])
     );

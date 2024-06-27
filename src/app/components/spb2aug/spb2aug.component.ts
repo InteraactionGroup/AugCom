@@ -179,7 +179,7 @@ export class Spb2augComponent implements OnInit {
               LexicInfos: [{ default: true }],
               ImageID: (label) !== null ? label : message,
               AudioID: '',
-              videoID: ''
+              VideoID: ''
             }
           ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }])
         const pageUniqueIdFromButtonFolder = buttonsFolder.getAsObject().PageUniqueId;
@@ -205,7 +205,7 @@ export class Spb2augComponent implements OnInit {
               LexicInfos: [{ default: true }],
               ImageID: (label) !== null ? label : message,
               AudioID: '',
-              videoID: ''
+              VideoID: ''
             }
           ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }])
         const pageUniqueIdFromButtonFolder = buttonsFolder.getAsObject().PageUniqueId;

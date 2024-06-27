@@ -240,7 +240,7 @@ export class ProloquoParser {
           LexicInfos: [{ default: true }],
           ImageID: word.wordID,
           AudioID: '',
-          videoID: ''
+          VideoID: ''
         }
       ],
       interList
