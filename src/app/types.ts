@@ -23,13 +23,14 @@ export class Grid {
   ElementList: GridElement[];
   ImageList: Image[];
   AudioList: Audio[];
+  VideoList: Video[];
   PageList: Page[];
 
   BackgroundColor: string;
 
 
 
-  constructor(gridId, gridType, gridCol, gridRow, elemList, imageList, pageList,AudioList) {
+  constructor(gridId, gridType, gridCol, gridRow, elemList, imageList, pageList,AudioList,videoList) {
     this.ID = gridId;
     this.Type = gridType;
     this.NumberOfCols = Number(gridCol);
@@ -37,6 +38,7 @@ export class Grid {
     this.ElementList = elemList;
     this.ImageList = imageList;
     this.AudioList = AudioList;
+    this.VideoList = videoList;
     this.PageList = pageList;
   }
 
@@ -153,6 +155,12 @@ export class Audio {
   Path: string;
 }
 
+export class Video {
+  ID: string;
+  OriginalName: string;
+  Path: string;
+}
+
 export class Interaction {
   ID: string; // 'click' | 'longPress' | 'doubleClick';
   ActionList: Action[];
@@ -175,6 +183,7 @@ export class ElementForm {
   LexicInfos: any[];
   ImageID: string;
   AudioID: string;
+  VideoID: string;
 }
 
 export class Page {

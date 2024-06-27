@@ -45,7 +45,7 @@ export class DialogAddGridComponent implements OnInit {
         page.ElementIDsList = [];
         page.NumberOfCols = 0;
         page.NumberOfRows = 0;
-        this.boardService.board = new Grid(this.nameGrid, 'Grid', 6, 6, [], [], [page], []);
+        this.boardService.board = new Grid(this.nameGrid, 'Grid', 6, 6, [], [], [page], [], []);
       }
       this.boardService.board.software = 'Augcom';
       this.boardService.board.ID = this.nameGrid;

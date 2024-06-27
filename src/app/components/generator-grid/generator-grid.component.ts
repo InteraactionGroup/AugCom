@@ -33,6 +33,8 @@ export class GeneratorGridComponent implements OnInit {
   libToUse = 'arasaacNB';
 
   imageList = [];
+  audioList = [];
+  videoList = [];
   imageUrlList = [];
 
   addOnlyOneImage;
@@ -64,7 +66,7 @@ export class GeneratorGridComponent implements OnInit {
     generatedPage.NumberOfCols = Number(this.nbCols);
     generatedPage.NumberOfRows = Number(this.nbRows);
     generatedPage.GapSize = 6;
-    this.boardService.board = new Grid('nothing', 'Grid', Number(this.nbCols), Number(this.nbRows), [], [], [generatedPage], []);
+    this.boardService.board = new Grid('nothing', 'Grid', Number(this.nbCols), Number(this.nbRows), [], [], [generatedPage], [],[]);
     this.boardService.board.NumberOfCols = Number(this.nbCols);
     this.boardService.board.NumberOfRows = Number(this.nbRows);
     this.boardService.updateElementList();
@@ -238,7 +240,8 @@ export class GeneratorGridComponent implements OnInit {
         VoiceText: name,
         LexicInfos: [{default: true}],
         ImageID: tempId,
-        AudioID: tempId
+        AudioID: tempId,
+        VideoID: tempid
       }
     );
 

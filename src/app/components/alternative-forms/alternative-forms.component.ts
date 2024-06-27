@@ -35,6 +35,7 @@ export class AlternativeFormsComponent implements OnInit {
   }
 
   imageList = [];
+  AudioList = [];
   elementFormNameImageURL: any = '';
   elementFormDisplayedWordField = '';
   elementFormPronouncedWordField = '';
@@ -289,7 +290,7 @@ export class AlternativeFormsComponent implements OnInit {
   }
 
   /**
-   * Shows the image corresponding to a combination of selected library (mulberry or arasaac) and searched word (any) 
+   * Shows the image corresponding to a combination of selected library (mulberry or arasaac) and searched word (any)
    * @param elt library to be used and word to be searched
    */
   previewLibrary(elt: { lib, word }) {
@@ -313,7 +314,7 @@ export class AlternativeFormsComponent implements OnInit {
   }
 
   /**
-   * 
+   *
    * @param elt library to be used and word to be searched
    * @returns an url corresponding to the searched image's name in the selected library
    */

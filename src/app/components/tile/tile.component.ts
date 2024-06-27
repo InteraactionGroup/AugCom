@@ -209,21 +209,103 @@ export class TileComponent implements OnInit, OnDestroy {
 
         // for folder
       } else if (element.Type === 'sound') {
-        if (this.editionService.audioURL) {
-          // Création d'un nouvel élément audio
-          const audio = new Audio(this.editionService.audioURL);
+        const prononcedText = this.boardService.getLabel(element);
+        const color = this.gridElementService.getStyle(element).BackgroundColor;
+        const borderColor = this.gridElementService.getStyle(element).BorderColor;
+        const imgUrl = this.boardService.getImgUrl(element);
+        const vignette: Vignette = {
+          Label: prononcedText,
+          ImagePath: imgUrl,
+          Color: color,
+          BorderColor: borderColor,
+        };
+        let otherFormsDisplayed = false;
+        element.InteractionsList.forEach((inter) => {
+          if (inter.ID === interaction) {
+            inter.ActionList.forEach((action) => {
+              if (action.ID === 'pronomChangeInfo') {
+                this.changePronomInfo(element.ElementFormsList[0]);
+              } else if (action.ID === 'display') {
+                this.historicService.push(vignette);
+              } else if (action.ID === 'say') {
+                this.historicService.say('' + prononcedText);
+              } else if (action.ID === 'otherforms' && element.ElementFormsList.length > 1) {
+                otherFormsDisplayed = true;
+                this.boardService.activatedElement = this.boardService
+                  .getNormalTempList()
+                  .indexOf(element);
+                this.boardService.activatedElementTempList();
+                this.pressedElement = null;
+              } else if (action.ID === 'backFromVariant' && !otherFormsDisplayed) {
+                this.boardService.activatedElement = -1;
+              } else if (action.ID === 'back') {
+                this.boardService.backToPreviousFolder();
+              } else if (action.ID === 'backHome') {
+                this.boardService.backHome();
+              } else if (action.ID ==='sound'){
+                const AudioURL = this.boardService.getAudioUrl(element);
+                console.log(element);
+                if (AudioURL) {
+                  console.log(AudioURL);
+                  // Création d'un nouvel élément audioAudioURL
+                  const audio = new Audio(AudioURL);
 
-          // Lecture de l'audio
-          audio.play().then(() => {
-            console.log('Audio is playing');
-          }).catch(error => {
-            console.error('Error playing audio:', error);
-          });
-        } else {
-          console.error('No audio URL found in editionService');
-        }
+                  // Lecture de l'audio
+                  audio.play().then(() => {
+                    console.log('Audio is playing');
+                  }).catch(error => {
+                    console.error('Error playing audio:', error);
+                  });
+                } else {
+                  console.log(this.editionService);
+                  console.error('No audio URL found in editionService');
+                }
+              }
+            });
+          }
+        });
       } else if (element.Type === 'video') {
+        const prononcedText = this.boardService.getLabel(element);
+        const color = this.gridElementService.getStyle(element).BackgroundColor;
+        const borderColor = this.gridElementService.getStyle(element).BorderColor;
+        const imgUrl = this.boardService.getImgUrl(element);
+        const vignette: Vignette = {
+          Label: prononcedText,
+          ImagePath: imgUrl,
+          Color: color,
+          BorderColor: borderColor,
+        };
+        let otherFormsDisplayed = false;
+        element.InteractionsList.forEach((inter) => {
+          if (inter.ID === interaction) {
+            inter.ActionList.forEach((action) => {
+              if (action.ID === 'pronomChangeInfo') {
+                this.changePronomInfo(element.ElementFormsList[0]);
+              } else if (action.ID === 'display') {
+                this.historicService.push(vignette);
+              } else if (action.ID === 'say') {
+                this.historicService.say('' + prononcedText);
+              } else if (action.ID === 'otherforms' && element.ElementFormsList.length > 1) {
+                otherFormsDisplayed = true;
+                this.boardService.activatedElement = this.boardService
+                  .getNormalTempList()
+                  .indexOf(element);
+                this.boardService.activatedElementTempList();
+                this.pressedElement = null;
+              } else if (action.ID === 'backFromVariant' && !otherFormsDisplayed) {
+                this.boardService.activatedElement = -1;
+              } else if (action.ID === 'back') {
+                this.boardService.backToPreviousFolder();
+              } else if (action.ID === 'backHome') {
+                this.boardService.backHome();
+              } else if (action.ID === 'sound'){
+                console.log('erreur');
+              } else if (action.ID === 'video'){
 
+              }
+            });
+          }
+        });
       } else if ((element.Type as FolderGoTo).GoTo !== undefined) {
         let pathTab = this.boardService.currentPath.split('.');
         if (pathTab.length >= 2) {

@@ -307,6 +307,22 @@ export class BoardService {
     }
   }
 
+  /*get sanitized image URL of an element*/
+  getAudioUrl(element: GridElement) {
+    if (this.board.AudioList != null) {
+      console.log(this.board.AudioList);
+      console.log(element.ElementFormsList[0].AudioID);
+      const path = this.board.AudioList.find(x => x.ID === element.ElementFormsList[0].AudioID);
+      if (path !== null && path !== undefined) {
+        return  path.Path ;
+      } else {
+        return '';
+      }
+    } else {
+      return '';
+    }
+  }
+
   /*get normal image URL of an element (with no sanitizing)*/
   getSimpleImgUrl(element: GridElement) {
     if (this.board.ImageList != null) {
@@ -444,7 +460,8 @@ export class BoardService {
             VoiceText: eltform.VoiceText,
             LexicInfos: eltform.LexicInfos,
             ImageID: '' + eltform.ImageID,
-            AudioID: '' + eltform.AudioID
+            AudioID: '' + eltform.AudioID,
+            VideoID: '' + eltform.VideoID,
           }],
           compElt.InteractionsList.slice()
         );
@@ -466,7 +483,8 @@ export class BoardService {
       VoiceText: 'back',
       LexicInfos: [],
       ImageID: '#back',
-      AudioID: ''
+      AudioID: '',
+      VideoID: '',
     }];
 
 

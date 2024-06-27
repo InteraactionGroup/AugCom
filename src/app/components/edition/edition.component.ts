@@ -175,7 +175,8 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
             VoiceText: this.editionService.name,
             LexicInfos: [{default: true}],
             ImageID: elt.ElementFormsList[0].ImageID,
-            AudioID: elt.ElementFormsList[0].AudioID
+            AudioID: elt.ElementFormsList[0].AudioID,
+            videoID: elt.ElementFormsList[0].VideoID
           }
         );
       }
@@ -276,12 +277,19 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
 
       this.boardService.board.AudioList.push(
         {
-          ID: this.editionService.audioURL,
+          ID: this.editionService.getDefaultForm(element.ElementFormsList).AudioID,
           OriginalName: this.editionService.name,
           Path: this.editionService.audioURL
         }
       );
 
+      this.boardService.board.VideoList.push(
+        {
+          ID: this.editionService.getDefaultForm(element.ElementFormsList).VideoID,
+          OriginalName: this.editionService.name,
+          Path: this.editionService.videoURL
+        }
+      );
 
     }
   }
@@ -303,7 +311,8 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
         VoiceText: this.editionService.name,
         LexicInfos: [{default: true}],
         ImageID: tempId,
-        AudioID: tempId
+        AudioID: tempId,
+        VideoID: tempId
       }
     );
 
@@ -342,6 +351,14 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
         ID: tempId,
         OriginalName: this.editionService.name,
         Path: this.editionService.audioURL
+      }
+    );
+
+    this.boardService.board.VideoList.push(
+      {
+        ID: tempId,
+        OriginalName: this.editionService.name,
+        Path: this.editionService.videoURL
       }
     );
 
@@ -402,7 +419,7 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
       }
       this.editionService.pageLink = elementToModif.Type === 'button' ? '@' : (elementToModif.Type as FolderGoTo).GoTo;
       const imageToModif = this.boardService.board.ImageList.find(x => x.ID === elementToModif.ElementFormsList[0].ImageID);
-      if (imageToModif != null && imageToModif !== undefined) {
+      if (imageToModif != null) {
         this.editionService.imageURL = imageToModif.Path;
       } else {
         this.editionService.imageURL = '';
@@ -410,8 +427,20 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
 
       // Mise à jour de l'URL de l'audio
       if (elementToModif.Type === 'sound') {
-        const audioToModif = this.boardService.board.AudioList.find(x => x.ID === elementToModif.ElementFormsList[0].AudioID);
-        if (audioToModif != null && audioToModif !== undefined) {
+        const videoToModif = this.boardService.board.VideoList.find(x => x.ID === elementToModif.ElementFormsList[0].AudioID);
+        if (videoToModif != null) {
+          this.editionService.videoURL = audioToModif.Path;
+        } else {
+          this.editionService.videoURL = '';
+        }
+      } else {
+        this.editionService.videoURL = '';
+      }
+
+      // Mise à jour de l'URL de la video
+      if (elementToModif.Type === 'video') {
+        const audioToModif = this.boardService.board.VideoList.find(x => x.ID === elementToModif.ElementFormsList[0].AudioID);
+        if (audioToModif != null) {
           this.editionService.audioURL = audioToModif.Path;
         } else {
           this.editionService.audioURL = '';
@@ -420,14 +449,14 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
         this.editionService.audioURL = '';
       }
 
-      if (elementToModif.ElementFormsList != null && elementToModif.ElementFormsList !== undefined) {
+      if (elementToModif.ElementFormsList != null) {
         this.editionService.variantList = Object.assign([], elementToModif.ElementFormsList);
       } else {
         this.editionService.variantList = [];
       }
 
 
-      if (elementToModif.InteractionsList != null && elementToModif.InteractionsList !== undefined) {
+      if (elementToModif.InteractionsList != null) {
         this.editionService.interractionList = Object.assign([], elementToModif.InteractionsList);
       } else {
         this.editionService.interractionList = [];

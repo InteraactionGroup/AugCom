@@ -177,7 +177,4 @@ export class EventComponent implements OnInit, OnDestroy {
     };
   }
 
-  printAudio(){
-    console.log("URL de l'audio : " + this.editionService.audioURL);
-  }
 }

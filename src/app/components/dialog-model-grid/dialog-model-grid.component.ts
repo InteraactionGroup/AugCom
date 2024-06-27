@@ -29,7 +29,7 @@ export class DialogModelGridComponent implements OnInit {
       page.ID = '#HOME';
       page.Name = 'Accueil';
       page.ElementIDsList = [];
-      this.boardService.board = new Grid('newGrid', 'Grid', 6, 6, [], [], [page], []);
+      this.boardService.board = new Grid('newGrid', 'Grid', 6, 6, [], [], [page], [], []);
     }
     this.boardService.updateElementList();
   }

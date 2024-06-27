@@ -239,7 +239,8 @@ export class ProloquoParser {
           VoiceText: word.mot,
           LexicInfos: [{ default: true }],
           ImageID: word.wordID,
-          AudioID: ''
+          AudioID: '',
+          videoID: ''
         }
       ],
       interList
@@ -281,6 +282,7 @@ export class ProloquoParser {
       ElementList: tempElement,
       ImageList: [],
       AudioList: [],
+      VideoList: [],
       PageList: tempPage
     };
   }

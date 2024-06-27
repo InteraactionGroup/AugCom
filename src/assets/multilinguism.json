@@ -379,6 +379,8 @@
     { "id" : "focusSelection", "FR": "Sélection par fixation", "EN": "Selection by focus"},
     { "id" : "WordNameFile", "FR": "ClavierAugCom", "EN": "GridFileAugcom"},
     { "id" : "WordTitle", "FR": "Clavier Augcom", "EN": "AugCom main grid"},
-    { "id" : "WordFolder", "FR": "Sous Dossier", "EN": "Folder"}
+    { "id" : "WordFolder", "FR": "Sous Dossier", "EN": "Folder"},
+    { "id" : "sound", "FR": "Faire jouer un son", "EN": "Play a sound"},
+    { "id" : "video", "FR": "Faire jouer une vidéo", "EN": "Play a video"}
   ]
 }

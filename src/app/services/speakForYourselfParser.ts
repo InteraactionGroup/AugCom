@@ -30,7 +30,7 @@ export class SpeakForYourselfParser {
   }
 
   createGrid() {
-    const grille: Grid = new Grid('speak4yourself', 'Grid', 12, 12, [], [], [], []);
+    const grille: Grid = new Grid('speak4yourself', 'Grid', 12, 12, [], [], [], [], []);
     this.speak4Yourself.forEach(element => {
 
       if (element.page === 'HOME') {
@@ -74,7 +74,8 @@ export class SpeakForYourselfParser {
             VoiceText: element.mot,
             LexicInfos: [{ default: true }],
             ImageID: '',
-            AudioID: ''
+            AudioID: '',
+            videoID: ''
           }],
           [{
             ID: 'click',

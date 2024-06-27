@@ -67,7 +67,8 @@ export class ImportUserComponent implements OnInit {
           VoiceText: element.ElementFormsList[0].VoiceText,
           LexicInfos: [{ default: true }],
           ImageID: element.ElementFormsList[0].ImageID,
-          AudioID: element.ElementFormsList[0].AudioID
+          AudioID: element.ElementFormsList[0].AudioID,
+          VideoID: element.ElementFormsList[0].VideoID
         });
       } else {
         console.log('DEFAULT FORM NOT FOUND FOR ' + element.ID);
@@ -76,7 +77,8 @@ export class ImportUserComponent implements OnInit {
           VoiceText: element.ID,
           LexicInfos: [{ default: true }],
           ImageID: element.ID,
-          AudioID: element.ID
+          AudioID: element.ID,
+          VideoID: element.ID
         });
       }
     }
