@@ -172,7 +172,7 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
             LexicInfos: [{default: true}],
             ImageID: elt.ElementFormsList[0].ImageID,
             AudioID: elt.ElementFormsList[0].AudioID,
-            videoID: elt.ElementFormsList[0].VideoID
+            VideoID: elt.ElementFormsList[0].VideoID
           }
         );
       }
