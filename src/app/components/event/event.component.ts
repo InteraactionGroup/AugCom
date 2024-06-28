@@ -163,12 +163,11 @@ export class EventComponent implements OnInit, OnDestroy {
     }
     const reader = new FileReader();
 
-    // Lecture du fichier audio en tant que Data URL
+    // Lecture du fichier video en tant que Data URL
     reader.readAsDataURL(file[0]);
 
     reader.onload = () => {
       this.editionService.videoURL = reader.result;
-
     };
 
     // Gestion des erreurs de lecture

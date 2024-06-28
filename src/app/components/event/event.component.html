@@ -52,6 +52,7 @@
                  class="input"
                  type="file">
           <input #file *ngIf="this.editionService.radioTypeFormat=='video'" (change)="this.AddVideoByFile(file.files)"
+                 accept='video/*'
                  class="input"
                  type="file">
         </div>

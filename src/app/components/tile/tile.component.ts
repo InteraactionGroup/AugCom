@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit,} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {HistoricService} from '../../services/historic.service';
 import {EditionService} from '../../services/edition.service';
 import {BoardService} from '../../services/board.service';
@@ -25,6 +25,11 @@ export class TileComponent implements OnInit, OnDestroy {
   pressTimer;
   dwellTimer;
   dblClickTimer;
+
+  //for videos buttons
+  @ViewChild('videoPlayer') videoPlayer: ElementRef | undefined;
+  videoURL = '';
+  show = false;
 
   /**
    * element currently pressed
@@ -242,22 +247,18 @@ export class TileComponent implements OnInit, OnDestroy {
                 this.boardService.backToPreviousFolder();
               } else if (action.ID === 'backHome') {
                 this.boardService.backHome();
-              } else if (action.ID ==='sound'){
+              } else if (action.ID === 'sound') {
                 const AudioURL = this.boardService.getAudioUrl(element);
-                console.log(element);
                 if (AudioURL) {
-                  console.log(AudioURL);
                   // Création d'un nouvel élément audioAudioURL
                   const audio = new Audio(AudioURL);
 
                   // Lecture de l'audio
                   audio.play().then(() => {
-                    console.log('Audio is playing');
                   }).catch(error => {
                     console.error('Error playing audio:', error);
                   });
                 } else {
-                  console.log(this.editionService);
                   console.error('No audio URL found in editionService');
                 }
               }
@@ -265,47 +266,51 @@ export class TileComponent implements OnInit, OnDestroy {
           }
         });
       } else if (element.Type === 'video') {
-        const prononcedText = this.boardService.getLabel(element);
-        const color = this.gridElementService.getStyle(element).BackgroundColor;
-        const borderColor = this.gridElementService.getStyle(element).BorderColor;
-        const imgUrl = this.boardService.getImgUrl(element);
-        const vignette: Vignette = {
-          Label: prononcedText,
-          ImagePath: imgUrl,
-          Color: color,
-          BorderColor: borderColor,
-        };
-        let otherFormsDisplayed = false;
-        element.InteractionsList.forEach((inter) => {
-          if (inter.ID === interaction) {
-            inter.ActionList.forEach((action) => {
-              if (action.ID === 'pronomChangeInfo') {
-                this.changePronomInfo(element.ElementFormsList[0]);
-              } else if (action.ID === 'display') {
-                this.historicService.push(vignette);
-              } else if (action.ID === 'say') {
-                this.historicService.say('' + prononcedText);
-              } else if (action.ID === 'otherforms' && element.ElementFormsList.length > 1) {
-                otherFormsDisplayed = true;
-                this.boardService.activatedElement = this.boardService
-                  .getNormalTempList()
-                  .indexOf(element);
-                this.boardService.activatedElementTempList();
-                this.pressedElement = null;
-              } else if (action.ID === 'backFromVariant' && !otherFormsDisplayed) {
-                this.boardService.activatedElement = -1;
-              } else if (action.ID === 'back') {
-                this.boardService.backToPreviousFolder();
-              } else if (action.ID === 'backHome') {
-                this.boardService.backHome();
-              } else if (action.ID === 'sound'){
-                console.log('erreur');
-              } else if (action.ID === 'video'){
-
-              }
-            });
-          }
-        });
+          const prononcedText = this.boardService.getLabel(element);
+          const color = this.gridElementService.getStyle(element).BackgroundColor;
+          const borderColor = this.gridElementService.getStyle(element).BorderColor;
+          const imgUrl = this.boardService.getImgUrl(element);
+          const vignette: Vignette = {
+            Label: prononcedText,
+            ImagePath: imgUrl,
+            Color: color,
+            BorderColor: borderColor,
+          };
+          let otherFormsDisplayed = false;
+          element.InteractionsList.forEach((inter) => {
+            if (inter.ID === interaction) {
+              inter.ActionList.forEach((action) => {
+                if (action.ID === 'pronomChangeInfo') {
+                  this.changePronomInfo(element.ElementFormsList[0]);
+                } else if (action.ID === 'display') {
+                  this.historicService.push(vignette);
+                } else if (action.ID === 'say') {
+                  this.historicService.say('' + prononcedText);
+                } else if (action.ID === 'otherforms' && element.ElementFormsList.length > 1) {
+                  otherFormsDisplayed = true;
+                  this.boardService.activatedElement = this.boardService
+                    .getNormalTempList()
+                    .indexOf(element);
+                  this.boardService.activatedElementTempList();
+                  this.pressedElement = null;
+                } else if (action.ID === 'backFromVariant' && !otherFormsDisplayed) {
+                  this.boardService.activatedElement = -1;
+                } else if (action.ID === 'back') {
+                  this.boardService.backToPreviousFolder();
+                } else if (action.ID === 'backHome') {
+                  this.boardService.backHome();
+                } else if (action.ID === 'sound') {
+                } else if (action.ID === 'video') {
+                  this.videoURL = this.boardService.getVideoUrl(element);
+                  if (this.videoURL !== '') {
+                    this.show = true;
+                  } else {
+                    console.error('No video was found for this button');
+                  }
+                }
+              });
+            }
+          });
       } else if ((element.Type as FolderGoTo).GoTo !== undefined) {
         let pathTab = this.boardService.currentPath.split('.');
         if (pathTab.length >= 2) {
@@ -338,6 +343,12 @@ export class TileComponent implements OnInit, OnDestroy {
     }
 
     this.boardService.updateElementList();
+  }
+
+  // To allow the pop up of the video to be closed
+  closePopup(): void {
+    this.show = false;
+    this.videoURL = '';
   }
 
   /**
@@ -390,32 +401,34 @@ export class TileComponent implements OnInit, OnDestroy {
    * @param num, number of the event triggering the action
    */
   pointerUp(element: GridElement, num) {
-    this.release[num] = false;
-    this.release[(num + 1) % 2] = false;
-    this.press[num] = true;
-    if (
-      !this.userToolBarService.edit &&
-      this.press[num] &&
-      !this.press[(num + 1) % 2]
-    ) {
-      window.clearTimeout(this.pressTimer);
-      window.clearTimeout(this.dblClickTimer);
-      if (this.down === 1) {
-        if (this.pressedElement === element) {
-          this.setClickTimer(element);
-        } else {
-          this.down = 0;
-          this.pressedElement = null;
-        }
-      } else if (this.down > 1) {
-        if (this.pressedElement === element) {
-          this.action(element, 'doubleClick');
-          this.pressedElement = null;
-          this.down = 0;
-        } else if (this.pressedElement != null) {
-          this.down = 1;
-          this.pressedElement = element;
-          this.setClickTimer(element);
+    if(!this.show){
+      this.release[num] = false;
+      this.release[(num + 1) % 2] = false;
+      this.press[num] = true;
+      if (
+        !this.userToolBarService.edit &&
+        this.press[num] &&
+        !this.press[(num + 1) % 2]
+      ) {
+        window.clearTimeout(this.pressTimer);
+        window.clearTimeout(this.dblClickTimer);
+        if (this.down === 1) {
+          if (this.pressedElement === element) {
+            this.setClickTimer(element);
+          } else {
+            this.down = 0;
+            this.pressedElement = null;
+          }
+        } else if (this.down > 1) {
+          if (this.pressedElement === element) {
+            this.action(element, 'doubleClick');
+            this.pressedElement = null;
+            this.down = 0;
+          } else if (this.pressedElement != null) {
+            this.down = 1;
+            this.pressedElement = element;
+            this.setClickTimer(element);
+          }
         }
       }
     }

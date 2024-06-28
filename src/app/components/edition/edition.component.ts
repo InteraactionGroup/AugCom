@@ -13,8 +13,8 @@ import {HttpClient} from '@angular/common/http';
 import {MultilinguismService} from '../../services/multilinguism.service';
 import {FunctionsService} from '../../services/functions.service';
 import {GridElementService} from '../../services/grid-element.service';
-import {LayoutService} from "../../services/layout.service";
-import {ConfigurationService} from "../../services/configuration.service";
+import {LayoutService} from '../../services/layout.service';
+import {ConfigurationService} from '../../services/configuration.service';
 
 import {ComponentCanDeactivate} from 'src/app/services/pending-changes-guard.service';
 import {Observable} from 'rxjs';
@@ -262,7 +262,10 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
         img => img.ID !== this.editionService.getDefaultForm(element.ElementFormsList).ImageID);
 
       this.boardService.board.AudioList = this.boardService.board.AudioList.filter(
-        img => img.ID !== this.editionService.getDefaultForm(element.ElementFormsList).AudioID);
+        aud => aud.ID !== this.editionService.getDefaultForm(element.ElementFormsList).AudioID);
+
+      this.boardService.board.VideoList = this.boardService.board.VideoList.filter(
+        vid => vid.ID !== this.editionService.getDefaultForm(element.ElementFormsList).VideoID);
 
       this.boardService.board.ImageList.push({
         ID: this.editionService.getDefaultForm(element.ElementFormsList).ImageID,
@@ -423,11 +426,11 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
 
       // Mise à jour de l'URL de l'audio
       if (elementToModif.Type === 'sound') {
-        const videoToModif = this.boardService.board.VideoList.find(x => x.ID === elementToModif.ElementFormsList[0].AudioID);
-        if (videoToModif != null) {
-          this.editionService.videoURL = videoToModif.Path;
+        const audioToModif = this.boardService.board.AudioList.find(x => x.ID === elementToModif.ElementFormsList[0].AudioID);
+        if (audioToModif != null) {
+          this.editionService.audioURL = audioToModif.Path;
         } else {
-          this.editionService.videoURL = '';
+          this.editionService.audioURL = '';
         }
       } else {
         this.editionService.videoURL = '';
@@ -435,11 +438,11 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
 
       // Mise à jour de l'URL de la video
       if (elementToModif.Type === 'video') {
-        const audioToModif = this.boardService.board.VideoList.find(x => x.ID === elementToModif.ElementFormsList[0].AudioID);
-        if (audioToModif != null) {
-          this.editionService.audioURL = audioToModif.Path;
+        const videoToModif = this.boardService.board.VideoList.find(x => x.ID === elementToModif.ElementFormsList[0].VideoID);
+        if (videoToModif != null) {
+          this.editionService.videoURL = videoToModif.Path;
         } else {
-          this.editionService.audioURL = '';
+          this.editionService.videoURL = '';
         }
       } else {
         this.editionService.audioURL = '';
@@ -491,6 +494,7 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
       && this.initialEditionState.curentBorderColor == this.editionService.curentBorderColor
       && this.initialEditionState.imageURL == this.editionService.imageURL
       && this.initialEditionState.audioURL == this.editionService.audioURL
+      && this.initialEditionState.videoURL == this.editionService.videoURL
       && this.initialEditionState.variantList == this.editionService.variantList
       && this.initialdbnaryState.wordList == this.dbnaryService.wordList
       && this.initialdbnaryState.typeList == this.dbnaryService.typeList);
