@@ -327,7 +327,7 @@ export class ExportComponent implements OnInit {
       if (this.checkIfIsFolder(elem)) {
         if (!this.listPageAlreadyVisited.includes(this.goToValue)) {
           this.listPageAlreadyVisited.push(this.goToValue);
-          await this.goInFolderExcell(this.goToValue, index + 1); // await the recursive call
+          await this.goInFolderWord(this.goToValue, index + 1); // await the recursive call
         }
       }
     }
