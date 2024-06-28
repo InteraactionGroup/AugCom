@@ -27,7 +27,9 @@ function createElement(component: any, id: any, numberOfElementForms: number) {
       DisplayedText: id + i,
       VoiceText: id + i,
       LexicInfos: [],
-      ImageID: id + i
+      ImageID: id + i,
+      AudioID: id + i,
+      VideoID: id + i
     });
   }
   component.editionService.selectedElements.push(

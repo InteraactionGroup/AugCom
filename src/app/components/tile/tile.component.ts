@@ -1,16 +1,16 @@
-import { Component, Input, OnDestroy, OnInit, } from '@angular/core';
-import { HistoricService } from '../../services/historic.service';
-import { EditionService } from '../../services/edition.service';
-import { BoardService } from '../../services/board.service';
-import { ElementForm, FolderGoTo, GridElement, Vignette } from '../../types';
-import { GeticonService } from '../../services/geticon.service';
-import { UsertoolbarService } from '../../services/usertoolbar.service';
-import { Router } from '@angular/router';
-import { SearchService } from '../../services/search.service';
-import { LayoutService } from '../../services/layout.service';
-import { GridElementService } from '../../services/grid-element.service';
-import { DwellCursorService } from '../../services/dwell-cursor.service';
-import { ConfigurationService } from '../../services/configuration.service';
+import {Component, Input, OnDestroy, OnInit, ViewChild, ElementRef} from '@angular/core';
+import {HistoricService} from '../../services/historic.service';
+import {EditionService} from '../../services/edition.service';
+import {BoardService} from '../../services/board.service';
+import {ElementForm, FolderGoTo, GridElement, Vignette} from '../../types';
+import {GeticonService} from '../../services/geticon.service';
+import {UsertoolbarService} from '../../services/usertoolbar.service';
+import {Router} from '@angular/router';
+import {SearchService} from '../../services/search.service';
+import {LayoutService} from '../../services/layout.service';
+import {GridElementService} from '../../services/grid-element.service';
+import {DwellCursorService} from '../../services/dwell-cursor.service';
+import {ConfigurationService} from '../../services/configuration.service';
 
 @Component({
   selector: 'app-tile',
@@ -25,6 +25,11 @@ export class TileComponent implements OnInit, OnDestroy {
   pressTimer;
   dwellTimer;
   dblClickTimer;
+
+  //for videos buttons
+  @ViewChild('videoPlayer') videoPlayer: ElementRef | undefined;
+  videoURL = '';
+  show = false;
 
   /**
    * element currently pressed
@@ -208,6 +213,104 @@ export class TileComponent implements OnInit, OnDestroy {
         }
 
         // for folder
+      } else if (element.Type === 'sound') {
+        const prononcedText = this.boardService.getLabel(element);
+        const color = this.gridElementService.getStyle(element).BackgroundColor;
+        const borderColor = this.gridElementService.getStyle(element).BorderColor;
+        const imgUrl = this.boardService.getImgUrl(element);
+        const vignette: Vignette = {
+          Label: prononcedText,
+          ImagePath: imgUrl,
+          Color: color,
+          BorderColor: borderColor,
+        };
+        let otherFormsDisplayed = false;
+        element.InteractionsList.forEach((inter) => {
+          if (inter.ID === interaction) {
+            inter.ActionList.forEach((action) => {
+              if (action.ID === 'pronomChangeInfo') {
+                this.changePronomInfo(element.ElementFormsList[0]);
+              } else if (action.ID === 'display') {
+                this.historicService.push(vignette);
+              } else if (action.ID === 'say') {
+                this.historicService.say('' + prononcedText);
+              } else if (action.ID === 'otherforms' && element.ElementFormsList.length > 1) {
+                otherFormsDisplayed = true;
+                this.boardService.activatedElement = this.boardService
+                  .getNormalTempList()
+                  .indexOf(element);
+                this.boardService.activatedElementTempList();
+                this.pressedElement = null;
+              } else if (action.ID === 'backFromVariant' && !otherFormsDisplayed) {
+                this.boardService.activatedElement = -1;
+              } else if (action.ID === 'back') {
+                this.boardService.backToPreviousFolder();
+              } else if (action.ID === 'backHome') {
+                this.boardService.backHome();
+              } else if (action.ID === 'sound') {
+                const AudioURL = this.boardService.getAudioUrl(element);
+                if (AudioURL) {
+                  // Création d'un nouvel élément audioAudioURL
+                  const audio = new Audio(AudioURL);
+
+                  // Lecture de l'audio
+                  audio.play().then(() => {
+                  }).catch(error => {
+                    console.error('Error playing audio:', error);
+                  });
+                } else {
+                  console.error('No audio URL found in editionService');
+                }
+              }
+            });
+          }
+        });
+      } else if (element.Type === 'video') {
+          const prononcedText = this.boardService.getLabel(element);
+          const color = this.gridElementService.getStyle(element).BackgroundColor;
+          const borderColor = this.gridElementService.getStyle(element).BorderColor;
+          const imgUrl = this.boardService.getImgUrl(element);
+          const vignette: Vignette = {
+            Label: prononcedText,
+            ImagePath: imgUrl,
+            Color: color,
+            BorderColor: borderColor,
+          };
+          let otherFormsDisplayed = false;
+          element.InteractionsList.forEach((inter) => {
+            if (inter.ID === interaction) {
+              inter.ActionList.forEach((action) => {
+                if (action.ID === 'pronomChangeInfo') {
+                  this.changePronomInfo(element.ElementFormsList[0]);
+                } else if (action.ID === 'display') {
+                  this.historicService.push(vignette);
+                } else if (action.ID === 'say') {
+                  this.historicService.say('' + prononcedText);
+                } else if (action.ID === 'otherforms' && element.ElementFormsList.length > 1) {
+                  otherFormsDisplayed = true;
+                  this.boardService.activatedElement = this.boardService
+                    .getNormalTempList()
+                    .indexOf(element);
+                  this.boardService.activatedElementTempList();
+                  this.pressedElement = null;
+                } else if (action.ID === 'backFromVariant' && !otherFormsDisplayed) {
+                  this.boardService.activatedElement = -1;
+                } else if (action.ID === 'back') {
+                  this.boardService.backToPreviousFolder();
+                } else if (action.ID === 'backHome') {
+                  this.boardService.backHome();
+                } else if (action.ID === 'sound') {
+                } else if (action.ID === 'video') {
+                  this.videoURL = this.boardService.getVideoUrl(element);
+                  if (this.videoURL !== '') {
+                    this.show = true;
+                  } else {
+                    console.error('No video was found for this button');
+                  }
+                }
+              });
+            }
+          });
       } else if ((element.Type as FolderGoTo).GoTo !== undefined) {
         let pathTab = this.boardService.currentPath.split('.');
         if (pathTab.length >= 2) {
@@ -240,6 +343,12 @@ export class TileComponent implements OnInit, OnDestroy {
     }
 
     this.boardService.updateElementList();
+  }
+
+  // To allow the pop up of the video to be closed
+  closePopup(): void {
+    this.show = false;
+    this.videoURL = '';
   }
 
   /**
@@ -292,32 +401,34 @@ export class TileComponent implements OnInit, OnDestroy {
    * @param num, number of the event triggering the action
    */
   pointerUp(element: GridElement, num) {
-    this.release[num] = false;
-    this.release[(num + 1) % 2] = false;
-    this.press[num] = true;
-    if (
-      !this.userToolBarService.edit &&
-      this.press[num] &&
-      !this.press[(num + 1) % 2]
-    ) {
-      window.clearTimeout(this.pressTimer);
-      window.clearTimeout(this.dblClickTimer);
-      if (this.down === 1) {
-        if (this.pressedElement === element) {
-          this.setClickTimer(element);
-        } else {
-          this.down = 0;
-          this.pressedElement = null;
-        }
-      } else if (this.down > 1) {
-        if (this.pressedElement === element) {
-          this.action(element, 'doubleClick');
-          this.pressedElement = null;
-          this.down = 0;
-        } else if (this.pressedElement != null) {
-          this.down = 1;
-          this.pressedElement = element;
-          this.setClickTimer(element);
+    if(!this.show){
+      this.release[num] = false;
+      this.release[(num + 1) % 2] = false;
+      this.press[num] = true;
+      if (
+        !this.userToolBarService.edit &&
+        this.press[num] &&
+        !this.press[(num + 1) % 2]
+      ) {
+        window.clearTimeout(this.pressTimer);
+        window.clearTimeout(this.dblClickTimer);
+        if (this.down === 1) {
+          if (this.pressedElement === element) {
+            this.setClickTimer(element);
+          } else {
+            this.down = 0;
+            this.pressedElement = null;
+          }
+        } else if (this.down > 1) {
+          if (this.pressedElement === element) {
+            this.action(element, 'doubleClick');
+            this.pressedElement = null;
+            this.down = 0;
+          } else if (this.pressedElement != null) {
+            this.down = 1;
+            this.pressedElement = element;
+            this.setClickTimer(element);
+          }
         }
       }
     }
@@ -344,7 +455,7 @@ export class TileComponent implements OnInit, OnDestroy {
       '0px ' +
       (isFolder ? '-2px ' : '0px ') +
       (this.gridElementService.getStyle(element).BackgroundColor === undefined
-        || this.gridElementService.getStyle(element).BackgroundColor == null
+      || this.gridElementService.getStyle(element).BackgroundColor == null
         ? '#d3d3d3'
         : this.gridElementService.getStyle(element).BackgroundColor);
 

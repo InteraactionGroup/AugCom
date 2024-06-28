@@ -802,6 +802,20 @@
       "Path": "assets/libs/mulberry-symbols/EN-symbols/grandmother.svg"
     }
   ],
+  "AudioList": [
+    {
+      "ID": "vide",
+      "OriginalName": "vide",
+      "Path": "vide"
+    }
+  ],
+  "VideoList": [
+  {
+    "ID": "vide",
+    "OriginalName": "vide",
+    "Path": "vide"
+  }
+],
   "PageList": [
     {
       "ID": "#HOME",

@@ -43,7 +43,7 @@ export class Spb2augComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.newGrid = new Grid('newGrid', 'Grid', 0, 0, [], [], []);
+    this.newGrid = new Grid('newGrid', 'Grid', 0, 0, [], [], [],[], []);
     this.newGrid.software = 'Snap Core first'
     this.page = new Page();
     this.page.ID = '#HOME';
@@ -178,6 +178,8 @@ export class Spb2augComponent implements OnInit {
               VoiceText: (message) !== null ? message : label,
               LexicInfos: [{ default: true }],
               ImageID: (label) !== null ? label : message,
+              AudioID: '',
+              VideoID: ''
             }
           ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }])
         const pageUniqueIdFromButtonFolder = buttonsFolder.getAsObject().PageUniqueId;
@@ -202,6 +204,8 @@ export class Spb2augComponent implements OnInit {
               VoiceText: (message) !== null ? message : label,
               LexicInfos: [{ default: true }],
               ImageID: (label) !== null ? label : message,
+              AudioID: '',
+              VideoID: ''
             }
           ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }])
         const pageUniqueIdFromButtonFolder = buttonsFolder.getAsObject().PageUniqueId;
@@ -227,6 +231,8 @@ export class Spb2augComponent implements OnInit {
               VoiceText: (message) !== null ? message : label,
               LexicInfos: [{ default: true }],
               ImageID: (label) !== null ? label : message,
+              AudioID: '',
+              VideoID: ''
             }
           ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }])
       }
@@ -442,6 +448,8 @@ export class Spb2augComponent implements OnInit {
                 VoiceText: '',
                 LexicInfos: [{ default: true }],
                 ImageID: '',
+                AudioID: '',
+                VideoID: ''
               }
             ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }])
           this.gridElement.cols = 1;
@@ -474,6 +482,8 @@ export class Spb2augComponent implements OnInit {
                     VoiceText: '',
                     LexicInfos: [{ default: true }],
                     ImageID: '',
+                    AudioID: '',
+                    VideoID: ''
                   }
                 ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }])
               this.gridElement.cols = 1;
@@ -517,6 +527,8 @@ export class Spb2augComponent implements OnInit {
             VoiceText: label,
             LexicInfos: [{ default: true }],
             ImageID: label,
+            AudioID: label,
+            VideoID: label
           }
         ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }])
       this.gridElement.x = Number(tabResPos[0]);

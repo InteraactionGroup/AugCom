@@ -34,6 +34,15 @@
                {{this.boardService.getLabel(element)}}
           </div>
 
+       <div *ngIf="show" class="video-popup">
+         <div class="video-popup-content">
+           <span class="close" (click)="closePopup()">&times;</span>
+           <video #videoPlayer controls>
+             <source [src]="this.videoURL" type="video/mp4">
+           </video>
+         </div>
+       </div>
+
      </div>
 
      <!-- in edit mode this button is used to delete the associated element -->

@@ -39,6 +39,8 @@ export class FunctionsService {
       'otherforms',
       'back',
       'backHome',
+      'sound',
+      'video'
     )
   }
 

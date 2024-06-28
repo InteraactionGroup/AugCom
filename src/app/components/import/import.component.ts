@@ -90,6 +90,7 @@ export class ImportComponent implements OnInit {
       this.boardService.board.PageList = [];
       this.boardService.board.ElementList = [];
       this.boardService.board.ImageList = [];
+      this.boardService.board.AudioList = [];
       zipFiles.forEach((fileName) => {
         if (fileName[fileName.length - 1] !== '/') {
           zipFolder
@@ -211,6 +212,8 @@ export class ImportComponent implements OnInit {
             VoiceText: name,
             LexicInfos: [{ default: true }],
             ImageID: theID,
+            AudioID: '',
+            VideoID: ''
           }
         ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }] }])
     );
@@ -278,7 +281,9 @@ export class ImportComponent implements OnInit {
           DisplayedText: element.ElementFormsList[0].DisplayedText,
           VoiceText: element.ElementFormsList[0].VoiceText,
           LexicInfos: [{ default: true }],
-          ImageID: element.ElementFormsList[0].ImageID
+          ImageID: element.ElementFormsList[0].ImageID,
+          AudioID: element.ElementFormsList[0].AudioID,
+          VideoID: element.ElementFormsList[0].VideoID
         });
       } else {
         console.log('DEFAULT FORM NOT FOUND FOR ' + element.ID);
@@ -286,14 +291,16 @@ export class ImportComponent implements OnInit {
           DisplayedText: element.ID,
           VoiceText: element.ID,
           LexicInfos: [{ default: true }],
-          ImageID: element.ID
+          ImageID: element.ID,
+          AudioID: element.ID,
+          VideoID: element.ID
         });
       }
     }
   }
 
   importPages(zip) {
-    let importedGrid: Grid = new Grid('newGrid', 'Grid', 0, 0, [], [], []);
+    let importedGrid: Grid = new Grid('newGrid', 'Grid', 0, 0, [], [], [],[],[]);
     const zipFolder: JSZip = new JSZip();
     let tempBoard;
     zipFolder.loadAsync(zip[0]).then((zipFiles) => {

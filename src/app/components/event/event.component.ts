@@ -128,4 +128,52 @@ export class EventComponent implements OnInit, OnDestroy {
       interaction.plus = false;
     });
   }
+
+  AddAudioByFile(file) {
+    if (file.length === 0) {
+      return;
+    }
+    const mimeType = file[0].type;
+    if (mimeType.match(/audio\/*/) == null) {
+      return;
+    }
+    const reader = new FileReader();
+
+    // Lecture du fichier audio en tant que Data URL
+    reader.readAsDataURL(file[0]);
+
+    reader.onload = () => {
+      this.editionService.audioURL = reader.result;
+
+    };
+
+    // Gestion des erreurs de lecture
+    reader.onerror = (error) => {
+      console.error('Erreur lors de la lecture du fichier audio:', error);
+    };
+  }
+
+  AddVideoByFile(file) {
+    if (file.length === 0) {
+      return;
+    }
+    const mimeType = file[0].type;
+    if (mimeType.match(/video\/*/) == null) {
+      return;
+    }
+    const reader = new FileReader();
+
+    // Lecture du fichier video en tant que Data URL
+    reader.readAsDataURL(file[0]);
+
+    reader.onload = () => {
+      this.editionService.videoURL = reader.result;
+    };
+
+    // Gestion des erreurs de lecture
+    reader.onerror = (error) => {
+      console.error('Erreur lors de la lecture du fichier video:', error);
+    };
+  }
+
 }

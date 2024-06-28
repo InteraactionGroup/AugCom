@@ -1,23 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { DbnaryService } from '../../services/dbnary.service';
-import { BoardService } from '../../services/board.service';
-import { GeticonService } from '../../services/geticon.service';
-import { DomSanitizer } from '@angular/platform-browser';
-import { FolderGoTo, GridElement, Interaction, Page } from '../../types';
-import { IndexeddbaccessService } from '../../services/indexeddbaccess.service';
-import { Router } from '@angular/router';
-import { PaletteService } from '../../services/palette.service';
-import { EditionService } from '../../services/edition.service';
-import { Ng2ImgMaxService } from 'ng2-img-max';
-import { HttpClient } from '@angular/common/http';
-import { MultilinguismService } from '../../services/multilinguism.service';
-import { FunctionsService } from '../../services/functions.service';
-import { GridElementService } from '../../services/grid-element.service';
-import { LayoutService } from "../../services/layout.service";
-import { ConfigurationService } from "../../services/configuration.service";
+import {Component, OnInit} from '@angular/core';
+import {DbnaryService} from '../../services/dbnary.service';
+import {BoardService} from '../../services/board.service';
+import {GeticonService} from '../../services/geticon.service';
+import {DomSanitizer} from '@angular/platform-browser';
+import {FolderGoTo, GridElement, Interaction, Page} from '../../types';
+import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
+import {Router} from '@angular/router';
+import {PaletteService} from '../../services/palette.service';
+import {EditionService} from '../../services/edition.service';
+import {Ng2ImgMaxService} from 'ng2-img-max';
+import {HttpClient} from '@angular/common/http';
+import {MultilinguismService} from '../../services/multilinguism.service';
+import {FunctionsService} from '../../services/functions.service';
+import {GridElementService} from '../../services/grid-element.service';
+import {LayoutService} from '../../services/layout.service';
+import {ConfigurationService} from '../../services/configuration.service';
 
-import { ComponentCanDeactivate } from 'src/app/services/pending-changes-guard.service';
-import { Observable } from 'rxjs';
+import {ComponentCanDeactivate} from 'src/app/services/pending-changes-guard.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-edition',
@@ -26,6 +26,7 @@ import { Observable } from 'rxjs';
   providers: [Ng2ImgMaxService, HttpClient]
 })
 export class EditionComponent implements OnInit, ComponentCanDeactivate {
+
   /**
    * Guard that checks before the user leaves the page, if any unsaved modification has been made
    * @returns true if (no modification has been made) or if (modifications have been made and the user confirmed his wish to quit), false elsewise
@@ -42,18 +43,18 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
   }
 
 
-
   nameEmpty = false;
-  initialEditionState; initialdbnaryState;
+  initialEditionState;
+  initialdbnaryState;
   popstateFired = false;
 
   constructor(public editionService: EditionService, public paletteService: PaletteService,
-    public router: Router, public multilinguism: MultilinguismService,
-    public indexedDBacess: IndexeddbaccessService, public functionsService: FunctionsService,
-    public sanitizer: DomSanitizer, public getIconService: GeticonService,
-    public dbnaryService: DbnaryService, public boardService: BoardService,
-    public gridElementService: GridElementService, public layoutService: LayoutService,
-    public configuration: ConfigurationService) {
+              public router: Router, public multilinguism: MultilinguismService,
+              public indexedDBacess: IndexeddbaccessService, public functionsService: FunctionsService,
+              public sanitizer: DomSanitizer, public getIconService: GeticonService,
+              public dbnaryService: DbnaryService, public boardService: BoardService,
+              public gridElementService: GridElementService, public layoutService: LayoutService,
+              public configuration: ConfigurationService) {
 
   }
 
@@ -89,7 +90,7 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
    * Resets all the informations of the edition panel to their initial value
    */
   clear() {
-    this.editionService.imageTextField = "";
+    this.editionService.imageTextField = '';
     this.editionService.borderCheck = false;
     this.editionService.insideCheck = false;
     this.editionService.name = '';
@@ -168,8 +169,10 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
           {
             DisplayedText: this.editionService.name,
             VoiceText: this.editionService.name,
-            LexicInfos: [{ default: true }],
-            ImageID: elt.ElementFormsList[0].ImageID
+            LexicInfos: [{default: true}],
+            ImageID: elt.ElementFormsList[0].ImageID,
+            AudioID: elt.ElementFormsList[0].AudioID,
+            VideoID: elt.ElementFormsList[0].VideoID
           }
         );
       }
@@ -211,6 +214,10 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
       } else {
         return new FolderGoTo(this.editionService.pageLink);
       }
+    } else if (this.editionService.radioTypeFormat === 'sound') {
+      return 'sound';
+    } else if (this.editionService.radioTypeFormat === 'video') {
+      return 'video';
     } else {
       return 'button';
     }
@@ -254,11 +261,35 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
       this.boardService.board.ImageList = this.boardService.board.ImageList.filter(
         img => img.ID !== this.editionService.getDefaultForm(element.ElementFormsList).ImageID);
 
+      this.boardService.board.AudioList = this.boardService.board.AudioList.filter(
+        aud => aud.ID !== this.editionService.getDefaultForm(element.ElementFormsList).AudioID);
+
+      this.boardService.board.VideoList = this.boardService.board.VideoList.filter(
+        vid => vid.ID !== this.editionService.getDefaultForm(element.ElementFormsList).VideoID);
+
       this.boardService.board.ImageList.push({
         ID: this.editionService.getDefaultForm(element.ElementFormsList).ImageID,
         OriginalName: this.editionService.name,
         Path: this.editionService.imageURL
       });
+
+
+      this.boardService.board.AudioList.push(
+        {
+          ID: this.editionService.getDefaultForm(element.ElementFormsList).AudioID,
+          OriginalName: this.editionService.name,
+          Path: this.editionService.audioURL
+        }
+      );
+
+      this.boardService.board.VideoList.push(
+        {
+          ID: this.editionService.getDefaultForm(element.ElementFormsList).VideoID,
+          OriginalName: this.editionService.name,
+          Path: this.editionService.videoURL
+        }
+      );
+
     }
   }
 
@@ -277,8 +308,10 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
       {
         DisplayedText: this.editionService.name,
         VoiceText: this.editionService.name,
-        LexicInfos: [{ default: true }],
-        ImageID: tempId
+        LexicInfos: [{default: true}],
+        ImageID: tempId,
+        AudioID: tempId,
+        VideoID: tempId
       }
     );
 
@@ -311,6 +344,23 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
         OriginalName: this.editionService.name,
         Path: this.editionService.imageURL
       });
+
+    this.boardService.board.AudioList.push(
+      {
+        ID: tempId,
+        OriginalName: this.editionService.name,
+        Path: this.editionService.audioURL
+      }
+    );
+
+    this.boardService.board.VideoList.push(
+      {
+        ID: tempId,
+        OriginalName: this.editionService.name,
+        Path: this.editionService.videoURL
+      }
+    );
+
 
     const currentPage: Page = this.getCurrentPage();
     currentPage.ElementIDsList.push(tempId);
@@ -357,23 +407,55 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
       this.editionService.name = this.editionService.getDefaultForm(elementToModif.ElementFormsList).DisplayedText;
       this.editionService.curentColor = this.gridElementService.getStyle(elementToModif).BackgroundColor;
       this.editionService.curentBorderColor = this.gridElementService.getStyle(elementToModif).BorderColor;
-      this.editionService.radioTypeFormat = elementToModif.Type === 'button' ? 'button' : 'folder';
+      if (elementToModif.Type === 'button') {
+        this.editionService.radioTypeFormat = 'button';
+      } else if (elementToModif.Type === 'sound') {
+        this.editionService.radioTypeFormat = 'sound';
+      } else if (elementToModif.Type === 'video') {
+        this.editionService.radioTypeFormat = 'video';
+      } else {
+        this.editionService.radioTypeFormat = 'folder';
+      }
       this.editionService.pageLink = elementToModif.Type === 'button' ? '@' : (elementToModif.Type as FolderGoTo).GoTo;
       const imageToModif = this.boardService.board.ImageList.find(x => x.ID === elementToModif.ElementFormsList[0].ImageID);
-      if (imageToModif != null && imageToModif !== undefined) {
+      if (imageToModif != null) {
         this.editionService.imageURL = imageToModif.Path;
       } else {
         this.editionService.imageURL = '';
       }
 
-      if (elementToModif.ElementFormsList != null && elementToModif.ElementFormsList !== undefined) {
+      // Mise à jour de l'URL de l'audio
+      if (elementToModif.Type === 'sound') {
+        const audioToModif = this.boardService.board.AudioList.find(x => x.ID === elementToModif.ElementFormsList[0].AudioID);
+        if (audioToModif != null) {
+          this.editionService.audioURL = audioToModif.Path;
+        } else {
+          this.editionService.audioURL = '';
+        }
+      } else {
+        this.editionService.videoURL = '';
+      }
+
+      // Mise à jour de l'URL de la video
+      if (elementToModif.Type === 'video') {
+        const videoToModif = this.boardService.board.VideoList.find(x => x.ID === elementToModif.ElementFormsList[0].VideoID);
+        if (videoToModif != null) {
+          this.editionService.videoURL = videoToModif.Path;
+        } else {
+          this.editionService.videoURL = '';
+        }
+      } else {
+        this.editionService.audioURL = '';
+      }
+
+      if (elementToModif.ElementFormsList != null) {
         this.editionService.variantList = Object.assign([], elementToModif.ElementFormsList);
       } else {
         this.editionService.variantList = [];
       }
 
 
-      if (elementToModif.InteractionsList != null && elementToModif.InteractionsList !== undefined) {
+      if (elementToModif.InteractionsList != null) {
         this.editionService.interractionList = Object.assign([], elementToModif.InteractionsList);
       } else {
         this.editionService.interractionList = [];
@@ -411,6 +493,8 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
       && this.initialEditionState.pageLink == this.editionService.pageLink
       && this.initialEditionState.curentBorderColor == this.editionService.curentBorderColor
       && this.initialEditionState.imageURL == this.editionService.imageURL
+      && this.initialEditionState.audioURL == this.editionService.audioURL
+      && this.initialEditionState.videoURL == this.editionService.videoURL
       && this.initialEditionState.variantList == this.editionService.variantList
       && this.initialdbnaryState.wordList == this.dbnaryService.wordList
       && this.initialdbnaryState.typeList == this.dbnaryService.typeList);

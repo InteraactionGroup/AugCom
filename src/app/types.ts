@@ -22,19 +22,23 @@ export class Grid {
 
   ElementList: GridElement[];
   ImageList: Image[];
+  AudioList: Audio[];
+  VideoList: Video[];
   PageList: Page[];
 
   BackgroundColor: string;
 
 
 
-  constructor(gridId, gridType, gridCol, gridRow, elemList, imageList, pageList) {
+  constructor(gridId, gridType, gridCol, gridRow, elemList, imageList, pageList,AudioList,videoList) {
     this.ID = gridId;
     this.Type = gridType;
     this.NumberOfCols = Number(gridCol);
     this.NumberOfRows = Number(gridRow);
     this.ElementList = elemList;
     this.ImageList = imageList;
+    this.AudioList = AudioList;
+    this.VideoList = videoList;
     this.PageList = pageList;
   }
 
@@ -53,7 +57,7 @@ export class FolderGoTo {
  */
 export class GridElement {
   ID: string;
-  Type: 'empty' | 'button' | FolderGoTo;
+  Type: 'empty' | 'button' | 'sound' | 'video' | FolderGoTo;
   PartOfSpeech: '-nom-' | '-nom-pr-' | 'nom de famille' | '-adv-' | 'prénom' | '-adj-' | 'variante typographique' | '-verb' | 'pronom' | 'locution-phrase' | 'interjection' | 'onomatopée' | 'pronom démonstratif' | 'adjectif indéfini' | 'pronom indéfini' | 'pronom personnel' | 'conjonction' | 'adjectif numéral' | 'préposition' | 'article partitif' | 'adverbe interrogatif' | 'conjonction de coordination' | 'pronom interrogatif' | 'pronom relatif' | 'pronom possessif' | 'erreur' | 'locution phrase' | 'proverbe' | 'adverbe relatif' | 'nom scientifique' | 'adjectif exclamatif' | 'adjectif interrogatif' | 'adjectif possessif' | 'adjectif démonstratif' | 'patronyme' | 'article défini' | 'interj' | 'locution' | 'article indéfini' | string;
   VisibilityLevel: number;
   x: number;
@@ -92,7 +96,7 @@ export class GridElement {
  */
 export class GridElementGenerated {
   ID: string;
-  Type: 'empty' | 'button' | FolderGoTo;
+  Type: 'empty' | 'button' | 'sound' | 'video' | FolderGoTo;
   PartOfSpeech: '-nom-' | '-nom-pr-' | 'nom de famille' | '-adv-' | 'prénom' | '-adj-' | 'variante typographique' | '-verb' | 'pronom' | 'locution-phrase' | 'interjection' | 'onomatopée' | 'pronom démonstratif' | 'adjectif indéfini' | 'pronom indéfini' | 'pronom personnel' | 'conjonction' | 'adjectif numéral' | 'préposition' | 'article partitif' | 'adverbe interrogatif' | 'conjonction de coordination' | 'pronom interrogatif' | 'pronom relatif' | 'pronom possessif' | 'erreur' | 'locution phrase' | 'proverbe' | 'adverbe relatif' | 'nom scientifique' | 'adjectif exclamatif' | 'adjectif interrogatif' | 'adjectif possessif' | 'adjectif démonstratif' | 'patronyme' | 'article défini' | 'interj' | 'locution' | 'article indéfini' | string;
   VisibilityLevel: number;
   x: number;
@@ -145,6 +149,18 @@ export class Image {
   Path: string;
 }
 
+export class Audio {
+  ID: string;
+  OriginalName: string;
+  Path: string;
+}
+
+export class Video {
+  ID: string;
+  OriginalName: string;
+  Path: string;
+}
+
 export class Interaction {
   ID: string; // 'click' | 'longPress' | 'doubleClick';
   ActionList: Action[];
@@ -166,6 +182,8 @@ export class ElementForm {
   VoiceText: string;
   LexicInfos: any[];
   ImageID: string;
+  AudioID: string;
+  VideoID: string;
 }
 
 export class Page {
