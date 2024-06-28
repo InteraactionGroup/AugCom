@@ -1,12 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { EditionComponent } from './edition.component';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Ng2ImgMaxModule } from 'ng2-img-max';
-import { HttpClientModule } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { Grid, GridElement } from '../../types';
+import {EditionComponent} from './edition.component';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {Ng2ImgMaxModule} from 'ng2-img-max';
+import {HttpClientModule} from '@angular/common/http';
+import {Router} from '@angular/router';
+import {Grid, GridElement} from '../../types';
 
 function newBoard(component: any) {
   component.boardService.board = new Grid(
@@ -24,10 +24,14 @@ function newBoard(component: any) {
       [{
         DisplayedText: 'testBeforeModif',
         VoiceText: 'testBeforeModif',
-        LexicInfos: [{ default: true }],
-        ImageID: ''
+        LexicInfos: [{default: true}],
+        ImageID: '',
+        AudioID: '',
+        VideoID: ''
       }],
       [])],
+    [],
+    [],
     [],
     []
   );
@@ -45,8 +49,10 @@ function addElementToBoard(component: any) {
       [{
         DisplayedText: 'test2BeforeModif',
         VoiceText: 'test2BeforeModif',
-        LexicInfos: [{ default: true }],
-        ImageID: ''
+        LexicInfos: [{default: true}],
+        ImageID: '',
+        AudioID: '',
+        VideoID: ''
       }],
       []));
 }
@@ -95,7 +101,7 @@ describe('EditionComponent', () => {
     fixture = TestBed.createComponent(EditionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    component.boardService.board = new Grid('gridId', 'grid', 2, 2, [], [], []);
+    component.boardService.board = new Grid('gridId', 'grid', 2, 2, [], [], [],[],[]);
     component.indexedDBacess.loadUsersList();
   });
 
@@ -269,30 +275,30 @@ describe('EditionComponent', () => {
       component.editionService.colorPicked = 'inside';
       component.editionService.selectedPalette = '22 magic colors';
       fixture.detectChanges();
-  
+
       compiled.querySelector('.color').click();
       fixture.detectChanges();
-  
+
       compiled.querySelector('.close').click();
       fixture.detectChanges();
-  
+
       expect(component.editionService.curentColor).toEqual('#800000')
     });
-  
-  
+
+
     it('should change the bordercolor value when a bordercolor is selected', () => {
       const compiled = fixture.debugElement.nativeElement;
       clickElementOf(compiled, fixture, '.menu-item-title-container', 'Apparence');
       component.editionService.colorPicked = 'border';
       component.editionService.selectedPalette = '22 magic colors';
       fixture.detectChanges();
-  
+
       compiled.querySelector('.color').click();
       fixture.detectChanges();
-  
+
       compiled.querySelector('.close').click();
       fixture.detectChanges();
-  
+
       expect(component.editionService.curentBorderColor).toEqual('#800000')
     });
   */

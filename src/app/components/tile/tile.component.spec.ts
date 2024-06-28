@@ -41,7 +41,9 @@ describe('TileComponent', () => {
         DisplayedText: 'testBeforeModif',
         VoiceText: 'testBeforeModif',
         LexicInfos: [{ default: true }],
-        ImageID: ''
+        ImageID: '',
+        AudioID: '',
+        VideoID: ''
       }],
       [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }] }]);
     fixture.detectChanges();
