@@ -32,6 +32,7 @@ export class Spb2augComponent implements OnInit {
   myFile: File;
   im: SafeUrl;
   numberErrorImage: number;
+  numberOfPrediction: number = 1;
 
   constructor(
     public multilinguism: MultilinguismService,
@@ -114,7 +115,7 @@ export class Spb2augComponent implements OnInit {
     const buttonTable = this.db.prepare('SELECT Id,UniqueId,BorderColor,Label,Message FROM button');
     const elReference = this.db.prepare('SELECT PageId FROM ElementReference');
     let elPlacement = this.db.prepare('SELECT GridPosition,GridSpan,BackgroundColor FROM \'ElementReference\' INNER JOIN \'ElementPlacement\' ON ElementReference.Id = ElementPlacement.ElementReferenceId WHERE PageLayoutId == ' + pageLayoutSelected + ' ORDER BY ElementReference.Id');
-    const buttonsFolder = this.db.prepare('SELECT ButtonId,PageUniqueId FROM ButtonPageLink');
+    const buttonsFolder = this.db.prepare('SELECT ButtonId,PageUniqueId FROM ButtonPageLink ORDER BY ButtonId ASC');
     elReference.step();
     buttonsFolder.step();
     // variable that is used to know the page that is being filled in
@@ -159,13 +160,18 @@ export class Spb2augComponent implements OnInit {
 
       const tabResPos = gridPosition.split(',');
       const tabResSpan = gridSpan.split(',');
-      const label: string = buttonTable.getAsObject().Label;
+      let label: string = buttonTable.getAsObject().Label;
       const message: string = buttonTable.getAsObject().Message;
 
       const pageId = elReference.getAsObject().PageId;
 
+      if(label === null){
+        label = "Prediction" + this.numberOfPrediction.toString();
+        this.numberOfPrediction = this.numberOfPrediction + 1;
+      }
+
       // check if the button is a folder button to bind him
-      if (buttonId === buttonFolder && label !== null) {
+      if (buttonId === buttonFolder) {
         this.gridElement = new GridElement(label,
           { GoTo: label },
           '',
@@ -190,7 +196,7 @@ export class Spb2augComponent implements OnInit {
         querySearchTitle.free();
         this.newPage.ElementIDsList = [];
         this.newGrid.PageList.unshift(this.newPage);
-      } else if (buttonId === buttonFolder && label === null) {
+      } else if (buttonId === buttonFolder) {
         this.gridElement = new GridElement(label,
           { GoTo: String(buttonFolder) },
           '', 'rgb(' + r + ',' + g + ',' + b + ')',
@@ -201,10 +207,11 @@ export class Spb2augComponent implements OnInit {
               DisplayedText: (message) !== null ? message : label,
               VoiceText: (message) !== null ? message : label,
               LexicInfos: [{ default: true }],
-              ImageID: (label) !== null ? label : message,
+              ImageID: label,
             }
           ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }])
         const pageUniqueIdFromButtonFolder = buttonsFolder.getAsObject().PageUniqueId;
+        console.log("pageUniqueIdFromButtonFolder" + pageUniqueIdFromButtonFolder);
         const querySearchTitle = this.db.prepare('SELECT Title FROM Page WHERE UniqueId == "' + String(pageUniqueIdFromButtonFolder) + '"');
         querySearchTitle.step();
         buttonsFolder.step();
@@ -223,10 +230,10 @@ export class Spb2augComponent implements OnInit {
           0,
           [
             {
-              DisplayedText: (label) !== null ? label : message,
+              DisplayedText: label,
               VoiceText: (message) !== null ? message : label,
               LexicInfos: [{ default: true }],
-              ImageID: (label) !== null ? label : message,
+              ImageID: label,
             }
           ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }])
       }
@@ -239,8 +246,8 @@ export class Spb2augComponent implements OnInit {
       this.getPageHomeTitle(pageId);
       const pathImage = this.getPathImageArsaacLibrary(label, message);
       this.newGrid.ImageList.push({
-        ID: (label) !== null ? label : message,
-        OriginalName: (label) !== null ? label : message,
+        ID: label,
+        OriginalName: label,
         Path: pathImage,
       });
     }
@@ -249,7 +256,7 @@ export class Spb2augComponent implements OnInit {
     elPlacement.free();
     buttonsFolder.free();
     this.newGrid.PageList.unshift(this.page);
-    const buttonPage = this.db.prepare('SELECT ButtonId, Button.Label, Button.ElementReferenceId as ButtonElementRenceID,Page.Title, PageUniqueId, Page.Id, ElementPlacement.ElementReferenceId as ElementReferenceIdOfChild, ElementPlacement.GridPosition as ChildPosition, ElementPlacement.GridSpan as ChildSpan FROM \'Button\' JOIN \'ButtonPageLink\' ON Button.Id = ButtonPageLink.ButtonId JOIN \'PAGE\' ON ButtonPageLink.PageUniqueId = Page.UniqueID JOIN PageLayout ON PageId = Page.Id JOIN ElementPlacement ON PageLayoutId = PageLayout.ID  ORDER BY ButtonId ASC');
+    const buttonPage = this.db.prepare('SELECT ButtonId, Button.Label, Button.ElementReferenceId as ButtonElementRenceID,REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Page.Title, \'Mots de sujet : \',\'\'),\'Liste principale : \',\'\'),\'Liste en relation : \',\'\'),\'Soutiens : \',\'\'),\'Sujet : \',\'\'),\'Télécommande : \',\'\'),\'Mots de sujets: \',\'\') as Title, PageUniqueId, Page.Id, ElementPlacement.ElementReferenceId as ElementReferenceIdOfChild, ElementPlacement.GridPosition as ChildPosition, ElementPlacement.GridSpan as ChildSpan FROM \'Button\' JOIN \'ButtonPageLink\' ON Button.Id = ButtonPageLink.ButtonId JOIN \'PAGE\' ON ButtonPageLink.PageUniqueId = Page.UniqueID JOIN PageLayout ON PageId = Page.Id JOIN ElementPlacement ON PageLayoutId = PageLayout.ID GROUP BY Button.Label ORDER BY ButtonId ASC');
     this.getPageFolderButtons(buttonPage);
     buttonPage.free();
     this.goDownPageRemastered();
@@ -292,23 +299,31 @@ export class Spb2augComponent implements OnInit {
       const elementReferenceOfChild = Number(buttonPage.getAsObject().ElementReferenceIdOfChild);
       const labelFolder = String(buttonPage.getAsObject().Label);
       const labelFolderId = String(buttonPage.getAsObject().ButtonId);
+
       let index = this.newGrid.PageList.findIndex(page => page.ID === labelFolder);
       if (index === -1) {
         index = this.newGrid.PageList.findIndex(page => page.ID === labelFolderId);
       }
-      const pageId = Number(buttonPage.getAsObject().Id);
-      const pageLayout = this.db.prepare('SELECT PageLayoutSetting,Id FROM PageLayout WHERE PageId = ' + pageId);
-      const numberof = this.getPageDimensionMax(pageLayout);
-      pageLayout.free();
-      this.newGrid.PageList[index].NumberOfRows = Number(numberof[0]);
-      this.newGrid.PageList[index].NumberOfCols = Number(numberof[1]);
-      const pageLayoutSelected = Number(numberof[2]);
-      const childPositions = buttonPage.getAsObject().ChildPosition;
-      const childPositionsXY = childPositions.split(',');
-      // on ajoute tout les boutons aux différentes pages des boutons (uniquement leur première page)
-      if (Number(childPositionsXY[1]) < this.newGrid.PageList[index].NumberOfRows) {
-        this.newGrid.PageList[index].ElementIDsList.push(this.newGrid.ElementList[elementReferenceOfChild - 2].ID);
-      }
+      console.log("labelFolder : " + labelFolder);
+      console.log("labelFolderId : " + labelFolderId);
+      // si le bouton dossier a bien une page qui lui correspond
+        const pageId = Number(buttonPage.getAsObject().Id);
+      console.log("pageId :" + pageId);
+        const pageLayout = this.db.prepare('SELECT PageLayoutSetting,Id FROM PageLayout WHERE PageId = ' + pageId);
+        const numberof = this.getPageDimensionMax(pageLayout);
+        pageLayout.free();
+        console.log("numberof :"+ numberof);
+        console.log("index : " + index);
+        this.newGrid.PageList[index].NumberOfRows = Number(numberof[0]);
+        this.newGrid.PageList[index].NumberOfCols = Number(numberof[1]);
+        const pageLayoutSelected = Number(numberof[2]);
+        const childPositions = buttonPage.getAsObject().ChildPosition;
+        const childPositionsXY = childPositions.split(',');
+        console.log("taille de la liste" + this.newGrid.PageList.length);
+        // on ajoute tous les boutons aux différentes pages des boutons (uniquement leur première page)
+        if (Number(childPositionsXY[1]) < this.newGrid.PageList[index].NumberOfRows) {
+          this.newGrid.PageList[index].ElementIDsList.push(this.newGrid.ElementList[elementReferenceOfChild - 2].ID);
+        }
     }
   }
 
@@ -502,7 +517,13 @@ export class Spb2augComponent implements OnInit {
   buttonsNewPages(nextPages: Page, indicePage: number, pageid: number) {
     const buttonAllInfomations = this.db.prepare("SELECT Label,UniqueId,GridPosition,GridSpan,PageId FROM (('ElementReference' INNER JOIN 'ElementPlacement' ON ElementReference.Id = ElementPlacement.ElementReferenceId) INNER JOIN 'Button' ON ElementReference.Id = Button.ElementReferenceId) ORDER BY ElementReference.Id");
     while (buttonAllInfomations.step()) {
-      const label = buttonAllInfomations.getAsObject().Label;
+      let label = buttonAllInfomations.getAsObject().Label;
+
+      if(label === null){
+        label = "Prediction" + this.numberOfPrediction.toString();
+        this.numberOfPrediction = this.numberOfPrediction + 1;
+      }
+
       const buttonUniqueId = String(buttonAllInfomations.getAsObject().UniqueId);
       const pos = buttonAllInfomations.getAsObject().GridPosition;
       const tabResPos = pos.split(',');
@@ -588,4 +609,5 @@ export class Spb2augComponent implements OnInit {
     });
     console.log('pourcentage d\'erreur : ', this.numberErrorImage / this.newGrid.ImageList.length * 100);
   }
+
 }
