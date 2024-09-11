@@ -297,22 +297,24 @@ export class Spb2augComponent implements OnInit {
   getPageFolderButtons(buttonPage: any) {
     while (buttonPage.step()) {
       const elementReferenceOfChild = Number(buttonPage.getAsObject().ElementReferenceIdOfChild);
-      const labelFolder = String(buttonPage.getAsObject().Label);
+      let labelFolder = String(buttonPage.getAsObject().Label);
       const labelFolderId = String(buttonPage.getAsObject().ButtonId);
 
       let index = this.newGrid.PageList.findIndex(page => page.ID === labelFolder);
       if (index === -1) {
         index = this.newGrid.PageList.findIndex(page => page.ID === labelFolderId);
       }
-      console.log("labelFolder : " + labelFolder);
-      console.log("labelFolderId : " + labelFolderId);
-      // si le bouton dossier a bien une page qui lui correspond
+      // si vraiment on ne trouve pas, on l'ignore
+      if (index !== -1) {
+        console.log("labelFolder : " + labelFolder);
+        console.log("labelFolderId : " + labelFolderId);
+        // si le bouton dossier a bien une page qui lui correspond
         const pageId = Number(buttonPage.getAsObject().Id);
-      console.log("pageId :" + pageId);
+        console.log("pageId :" + pageId);
         const pageLayout = this.db.prepare('SELECT PageLayoutSetting,Id FROM PageLayout WHERE PageId = ' + pageId);
         const numberof = this.getPageDimensionMax(pageLayout);
         pageLayout.free();
-        console.log("numberof :"+ numberof);
+        console.log("numberof :" + numberof);
         console.log("index : " + index);
         this.newGrid.PageList[index].NumberOfRows = Number(numberof[0]);
         this.newGrid.PageList[index].NumberOfCols = Number(numberof[1]);
@@ -320,10 +322,24 @@ export class Spb2augComponent implements OnInit {
         const childPositions = buttonPage.getAsObject().ChildPosition;
         const childPositionsXY = childPositions.split(',');
         console.log("taille de la liste" + this.newGrid.PageList.length);
+        console.log("elementReferenceOfChild : " + elementReferenceOfChild);
+        console.log("this.newGrid.ElementList taille : " + this.newGrid.ElementList.length);
+
         // on ajoute tous les boutons aux différentes pages des boutons (uniquement leur première page)
         if (Number(childPositionsXY[1]) < this.newGrid.PageList[index].NumberOfRows) {
-          this.newGrid.PageList[index].ElementIDsList.push(this.newGrid.ElementList[elementReferenceOfChild - 2].ID);
+
+          //normal case
+          if (this.newGrid.ElementList.length > (elementReferenceOfChild - 2)) {
+            this.newGrid.PageList[index].ElementIDsList.push(this.newGrid.ElementList[elementReferenceOfChild - 2].ID);
+          } else {
+            //case they don't start their ID at 0 as usual
+            let indexOfElementReferenceOfChild = this.newGrid.ElementList.findIndex(Elem =>
+              Elem.ID === labelFolder
+            );
+            this.newGrid.PageList[index].ElementIDsList.push(this.newGrid.ElementList[indexOfElementReferenceOfChild].ID);
+          }
         }
+      }
     }
   }
 
