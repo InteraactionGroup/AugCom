@@ -30,6 +30,7 @@ export class Spb2augComponent implements OnInit {
   newPage: Page;
   myBlob: Blob;
   myFile: File;
+  myFileNameExtension;
   im: SafeUrl;
   numberErrorImage: number;
   numberOfPrediction: number = 1;
@@ -57,7 +58,7 @@ export class Spb2augComponent implements OnInit {
   }
 
   /**
-   * convert a spb file into a grid
+   * convert a spb or sps file into a grid
    * @param file file imported
    */
   convert(file) {
@@ -68,6 +69,7 @@ export class Spb2augComponent implements OnInit {
     this.newGrid.modificationDate = date.getDate().toString() + '/' + (date.getMonth() + 1).toString() + '/' + date.getFullYear().toString();
     this.newGrid.creationDate = date.getDate().toString() + '/' + (date.getMonth() + 1).toString() + '/' + date.getFullYear().toString();
     const myFile = file[0];
+    this.myFileNameExtension = myFile.name.split('.').pop();
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
       this.loadDB(fileReader);
@@ -120,6 +122,7 @@ export class Spb2augComponent implements OnInit {
     buttonsFolder.step();
     // variable that is used to know the page that is being filled in
     let pageIdSelected = 4;
+
     // read line by line the table "button"
     while (buttonTable.step()) {
       elPlacement.step();
@@ -211,7 +214,7 @@ export class Spb2augComponent implements OnInit {
             }
           ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }])
         const pageUniqueIdFromButtonFolder = buttonsFolder.getAsObject().PageUniqueId;
-        console.log("pageUniqueIdFromButtonFolder" + pageUniqueIdFromButtonFolder);
+        //console.log("pageUniqueIdFromButtonFolder" + pageUniqueIdFromButtonFolder);
         const querySearchTitle = this.db.prepare('SELECT Title FROM Page WHERE UniqueId == "' + String(pageUniqueIdFromButtonFolder) + '"');
         querySearchTitle.step();
         buttonsFolder.step();
@@ -306,24 +309,16 @@ export class Spb2augComponent implements OnInit {
       }
       // si vraiment on ne trouve pas, on l'ignore
       if (index !== -1) {
-        console.log("labelFolder : " + labelFolder);
-        console.log("labelFolderId : " + labelFolderId);
         // si le bouton dossier a bien une page qui lui correspond
         const pageId = Number(buttonPage.getAsObject().Id);
-        console.log("pageId :" + pageId);
         const pageLayout = this.db.prepare('SELECT PageLayoutSetting,Id FROM PageLayout WHERE PageId = ' + pageId);
         const numberof = this.getPageDimensionMax(pageLayout);
         pageLayout.free();
-        console.log("numberof :" + numberof);
-        console.log("index : " + index);
         this.newGrid.PageList[index].NumberOfRows = Number(numberof[0]);
         this.newGrid.PageList[index].NumberOfCols = Number(numberof[1]);
         const pageLayoutSelected = Number(numberof[2]);
         const childPositions = buttonPage.getAsObject().ChildPosition;
         const childPositionsXY = childPositions.split(',');
-        console.log("taille de la liste" + this.newGrid.PageList.length);
-        console.log("elementReferenceOfChild : " + elementReferenceOfChild);
-        console.log("this.newGrid.ElementList taille : " + this.newGrid.ElementList.length);
 
         // on ajoute tous les boutons aux différentes pages des boutons (uniquement leur première page)
         if (Number(childPositionsXY[1]) < this.newGrid.PageList[index].NumberOfRows) {
@@ -361,12 +356,29 @@ export class Spb2augComponent implements OnInit {
    * query the database and set the number of rows and columns in the main page
    */
   getMainPageDimension(): number {
-    const page = this.db.prepare('SELECT PageLayoutSetting,Id FROM PageLayout WHERE PageId == 4');
-    const numberof = this.getPageDimensionMax(page);
-    page.free();
-    this.page.NumberOfRows = Number(numberof[0]);
-    this.page.NumberOfCols = Number(numberof[1]);
-    return Number(numberof[2]);
+    let page:any;
+
+    if(this.myFileNameExtension == "sps"){
+      const PageSetProperties = this.db.prepare('SELECT DefaultHomePageUniqueId FROM PageSetProperties');
+      PageSetProperties.step();
+      const DefaultHomePageUniqueId = PageSetProperties.getAsObject().DefaultHomePageUniqueId;
+      const PageMainID = this.db.prepare('SELECT Id FROM Page WHERE UniqueId == "'+ String(DefaultHomePageUniqueId) +'"');
+      PageMainID.step();
+      const PageId = PageMainID.getAsObject().Id;
+      this.pageHome = Number(PageId);
+      page = this.db.prepare('SELECT PageLayoutSetting,Id FROM PageLayout WHERE PageId =='+ PageId);
+      PageSetProperties.free();
+      PageMainID.free();
+    }
+    else {
+      page = this.db.prepare('SELECT PageLayoutSetting,Id FROM PageLayout WHERE PageId == 4');
+    }
+      const numberof = this.getPageDimensionMax(page);
+      page.free();
+      this.page.NumberOfRows = Number(numberof[0]);
+      this.page.NumberOfCols = Number(numberof[1]);
+      return Number(numberof[2]);
+
   }
 
   /**
@@ -408,6 +420,8 @@ export class Spb2augComponent implements OnInit {
    */
   getPageHomeButtons(pageId: any, gridElement: GridElement) {
     if (pageId === this.pageHome && gridElement.y <= this.page.NumberOfRows - 1) {
+      console.log("gridELement id : " + gridElement.ID);
+      console.log("pageId : " + pageId);
       this.page.ElementIDsList.push(gridElement.ID);
     }
   }
@@ -419,7 +433,7 @@ export class Spb2augComponent implements OnInit {
   getPageHomeTitle(pageId: any) {
     let titlePage;
     if (pageId === this.pageHome) {
-      titlePage = this.db.prepare('SELECT Title FROM Page WHERE id ==' + 4);
+      titlePage = this.db.prepare('SELECT Title FROM Page WHERE id ==' + this.pageHome);
       titlePage.step();
       this.page.Name = String(titlePage.getAsObject().Title);
       titlePage.free();
