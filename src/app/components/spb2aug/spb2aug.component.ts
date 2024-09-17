@@ -116,7 +116,7 @@ export class Spb2augComponent implements OnInit {
     let pageLayoutSelected = this.getMainPageDimension();
     const buttonTable = this.db.prepare('SELECT Id,UniqueId,BorderColor,Label,Message FROM button');
     const elReference = this.db.prepare('SELECT PageId FROM ElementReference');
-    let elPlacement = this.db.prepare('SELECT GridPosition,GridSpan,BackgroundColor FROM \'ElementReference\' INNER JOIN \'ElementPlacement\' ON ElementReference.Id = ElementPlacement.ElementReferenceId WHERE PageLayoutId == ' + pageLayoutSelected + ' ORDER BY ElementReference.Id');
+    let elPlacement = this.db.prepare('SELECT GridPosition,GridSpan,BackgroundColor FROM ElementReference INNER JOIN ElementPlacement ON ElementReference.Id = ElementPlacement.ElementReferenceId WHERE PageLayoutId == ' + pageLayoutSelected + ' ORDER BY ElementReference.Id');
     const buttonsFolder = this.db.prepare('SELECT ButtonId,PageUniqueId FROM ButtonPageLink ORDER BY ButtonId ASC');
     elReference.step();
     buttonsFolder.step();
