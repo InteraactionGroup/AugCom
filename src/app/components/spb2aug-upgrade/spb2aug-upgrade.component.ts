@@ -130,6 +130,7 @@ export class Spb2augUpgradeComponent implements OnInit {
   getAllPagesFromDatabase(){
     //need to swap UniqueId and Id because folderButton target ID and we need the value UniqueId in
     const queryPage = this.db.prepare('SELECT Id as uniqueId, UniqueId as id, Title FROM Page');
+    //const buttonTable = this.db.prepare('SELECT ElementPlacement.GridPosition,ElementPlacement.GridSpan,ElementReference.BackgroundColor,Button.Id AS ButtonId,ButtonPageLink.ButtonId AS ButtonIdFromButtonPageLink,Button.UniqueId AS ButtonUniqueId,Button.BorderColor,ButtonPageLink.PageUniqueId as PageLink,Button.Label,Button.Message FROM ElementReference INNER JOIN ElementPlacement ON ElementReference.Id = ElementPlacement.ElementReferenceId AND ElementPlacement.PageLayoutId = '+ pageLayoutId+' FULL OUTER JOIN Button ON ElementReference.Id = Button.Id FULL OUTER JOIN ButtonPageLink ON Button.Id = ButtonPageLink.ButtonId WHERE ElementReference.PageId = '+ currentPage.UniquePageId+' AND ElementType = 0 ORDER BY ElementReference.Id');
     while(queryPage.step()){
       let newPage = new Page();
       newPage.ID = String(queryPage.getAsObject().id);
@@ -149,7 +150,7 @@ export class Spb2augUpgradeComponent implements OnInit {
   }
 
   addButtonsToPage(pageLayoutId:any, currentPage: Page){
-    const buttonTable = this.db.prepare('SELECT ElementPlacement.GridPosition,ElementPlacement.GridSpan,ElementReference.BackgroundColor,Button.Id AS ButtonId,ButtonPageLink.ButtonId AS ButtonIdFromButtonPageLink,Button.UniqueId AS ButtonUniqueId,Button.BorderColor,ButtonPageLink.PageUniqueId,Button.Label,Button.Message FROM ElementReference INNER JOIN ElementPlacement ON ElementReference.Id = ElementPlacement.ElementReferenceId AND ElementPlacement.PageLayoutId = '+ pageLayoutId+' FULL OUTER JOIN Button ON ElementReference.Id = Button.Id FULL OUTER JOIN ButtonPageLink ON Button.Id = ButtonPageLink.ButtonId WHERE ElementReference.PageId = '+ currentPage.UniquePageId+' AND ElementType = 0 ORDER BY ElementReference.Id');
+    const buttonTable = this.db.prepare('SELECT ElementPlacement.GridPosition,ElementPlacement.GridSpan,ElementReference.BackgroundColor,Button.Id AS ButtonId,ButtonPageLink.ButtonId AS ButtonIdFromButtonPageLink,Button.UniqueId AS ButtonUniqueId,Button.BorderColor,ButtonPageLink.PageUniqueId as PageLink,Button.Label,Button.Message FROM ElementReference INNER JOIN ElementPlacement ON ElementReference.Id = ElementPlacement.ElementReferenceId AND ElementPlacement.PageLayoutId = '+ pageLayoutId+' FULL OUTER JOIN Button ON ElementReference.Id = Button.Id FULL OUTER JOIN ButtonPageLink ON Button.Id = ButtonPageLink.ButtonId WHERE ElementReference.PageId = '+ currentPage.UniquePageId+' AND ElementType = 0 ORDER BY ElementReference.Id');
     //itère sur toute la table bouton
     let gridElement:GridElement;
     while(buttonTable.step()){
@@ -179,12 +180,12 @@ export class Spb2augUpgradeComponent implements OnInit {
       const tabResPos = gridPosition.split(',');
       const tabResSpan = gridSpan.split(',');
 
-      let buttonFolderInIdPage: string = buttonTable.getAsObject().PageUniqueId;
       //remplissage avec les boutons dossiers sinon les boutons normaux
-      if(buttonFolderInIdPage !== null) {
+      if(linkFolder !== null) {
         gridElement = new GridElement(buttonUniqueId,
           {GoTo: String(linkFolder)},
-          '', 'rgb(' + r + ',' + g + ',' + b + ')',
+          '',
+          'rgb(' + r + ',' + g + ',' + b + ')',
           'rgb(' + rb + ',' + gb + ',' + bb + ')',
           0,
           [
@@ -198,7 +199,8 @@ export class Spb2augUpgradeComponent implements OnInit {
       }else{
         gridElement = new GridElement(buttonUniqueId,
           'button',
-          '', 'rgb(' + r + ',' + g + ',' + b + ')',
+          '',
+          'rgb(' + r + ',' + g + ',' + b + ')',
           'rgb(' + rb + ',' + gb + ',' + bb + ')',
           0,
           [
@@ -233,41 +235,48 @@ export class Spb2augUpgradeComponent implements OnInit {
     console.log('gridElement.rows : '+ gridElement.rows+ ' currentPage.NumberOfRows : ' + currentPage.NumberOfRows);
     if(gridElement.y >= currentPage.NumberOfRows){
       //le bouton goDown
-      let numeroPage = '1';
-      let goDownElement = new GridElement('goDown' + currentPage.ID + numeroPage,
-        { GoTo: 'goDown' + currentPage.ID + numeroPage },
-        '',
-        '',
-        '',
-        0,
-        [
-          {
-            DisplayedText: 'go Down',
-            VoiceText: '',
-            LexicInfos: [{ default: true }],
-            ImageID: '',
-          }
-        ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }])
-      goDownElement.cols = 1;
-      goDownElement.rows = 1;
-      goDownElement.y = currentPage.NumberOfRows - 1;
-      goDownElement.x = currentPage.NumberOfCols - 1;
-      this.newGrid.ElementList.push(goDownElement);
-      currentPage.ElementIDsList.push(goDownElement.ID);
-      //la page suivante
-      //connaitre à quel page se trouve l'element dans mes goDown
-      const comprehension:string = String(Math.ceil((gridElement.y + 1) / currentPage.NumberOfRows));
-      let nextPage: Page = new Page();
-      nextPage.ID = 'goDown' + String(currentPage.ID)+ String(numeroPage);
-      nextPage.UniquePageId = currentPage.UniquePageId + numeroPage;
-      nextPage.Name = currentPage.Name + numeroPage;
-      nextPage.ElementIDsList = [];
-      nextPage.NumberOfRows = currentPage.NumberOfRows;
-      nextPage.NumberOfCols = currentPage.NumberOfCols;
-      gridElement.y = gridElement.y % currentPage.NumberOfRows;
-      nextPage.ElementIDsList.push(gridElement.ID);
-      this.newGrid.PageList.push(nextPage);
-    }else{
+      // connaitre à quel page se trouve l'element dans mes goDown
+      let numeroPage = String(Math.ceil((gridElement.y + 1) / currentPage.NumberOfRows));
+      //test si la page existe deja si oui pas besoin de goDown ni de nouvelle page
+      const indexNextPage = this.newGrid.PageList.findIndex(page => 'goDown' + currentPage.ID + numeroPage === page.ID);
+      if(indexNextPage == -1){
+        let goDownElement = new GridElement('goDown' + currentPage.ID + numeroPage,
+          { GoTo: 'goDown' + currentPage.ID + numeroPage },
+          '',
+          "rgb(253,251,250)",
+          '',
+          0,
+          [
+            {
+              DisplayedText: 'go Down',
+              VoiceText: '',
+              LexicInfos: [{ default: true }],
+              ImageID: '',
+            }
+          ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }])
+        goDownElement.cols = 1;
+        goDownElement.rows = 1;
+        goDownElement.y = currentPage.NumberOfRows - 1;
+        goDownElement.x = currentPage.NumberOfCols - 1;
+        this.newGrid.ElementList.push(goDownElement);
+        currentPage.ElementIDsList.push(goDownElement.ID);
+        //la page suivante
+
+        let nextPage: Page = new Page();
+        nextPage.ID = 'goDown' + String(currentPage.ID)+ String(numeroPage);
+        nextPage.UniquePageId = currentPage.UniquePageId + numeroPage;
+        nextPage.Name = currentPage.Name + numeroPage;
+        nextPage.ElementIDsList = [];
+        nextPage.NumberOfRows = currentPage.NumberOfRows;
+        nextPage.NumberOfCols = currentPage.NumberOfCols;
+        gridElement.y = gridElement.y % currentPage.NumberOfRows;
+        nextPage.ElementIDsList.push(gridElement.ID);
+        this.newGrid.PageList.push(nextPage);
+      }else{
+        this.newGrid.PageList[indexNextPage].ElementIDsList.push(gridElement.ID);
+      }
+    }
+    else{
       currentPage.ElementIDsList.push(gridElement.ID);
     }
   }
