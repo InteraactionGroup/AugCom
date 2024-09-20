@@ -95,6 +95,8 @@ export class Spb2augUpgradeComponent implements OnInit {
       this.getGridFromDatabase();
       //this.getPolice();
       //this.DeleteDoublon(this.newGrid);
+      const index = this.newGrid.PageList.findIndex(page => page.Name == "Mots de base");
+      console.log('elemlist : ' + index);
       console.log(this.newGrid);
       this.statErrorImage();
       //this.addColIfNeeded();
@@ -124,13 +126,15 @@ export class Spb2augUpgradeComponent implements OnInit {
     if(this.myFileNameExtension == "spb"){
       this.db.run('UPDATE ElementReference SET Id = Id -1');
       this.db.run('UPDATE ElementPlacement SET ElementReferenceId = ElementReferenceId -1');
+      console.log("Update fini");
     }
   }
 
   getAllPagesFromDatabase(){
     //need to swap UniqueId and Id because folderButton target ID and we need the value UniqueId in
-    const queryPage = this.db.prepare('SELECT Id as uniqueId, UniqueId as id, Title FROM Page');
-    //const buttonTable = this.db.prepare('SELECT ElementPlacement.GridPosition,ElementPlacement.GridSpan,ElementReference.BackgroundColor,Button.Id AS ButtonId,ButtonPageLink.ButtonId AS ButtonIdFromButtonPageLink,Button.UniqueId AS ButtonUniqueId,Button.BorderColor,ButtonPageLink.PageUniqueId as PageLink,Button.Label,Button.Message FROM ElementReference INNER JOIN ElementPlacement ON ElementReference.Id = ElementPlacement.ElementReferenceId AND ElementPlacement.PageLayoutId = '+ pageLayoutId+' FULL OUTER JOIN Button ON ElementReference.Id = Button.Id FULL OUTER JOIN ButtonPageLink ON Button.Id = ButtonPageLink.ButtonId WHERE ElementReference.PageId = '+ currentPage.UniquePageId+' AND ElementType = 0 ORDER BY ElementReference.Id');
+    const buttonTable = this.db.prepare('SELECT ElementPlacement.GridPosition,ElementPlacement.GridSpan,ElementPlacement.PageLayoutId,ElementReference.BackgroundColor,ElementReference.PageId AS ERPageId,Button.UniqueId AS ButtonUniqueId,Button.BorderColor,ButtonPageLink.PageUniqueId as PageLink,Button.Label,Button.Message FROM ElementReference INNER JOIN ElementPlacement ON ElementReference.Id = ElementPlacement.ElementReferenceId LEFT JOIN Button ON ElementReference.Id = Button.Id LEFT JOIN ButtonPageLink ON Button.Id = ButtonPageLink.ButtonId WHERE ElementReference.ElementType = 0 ORDER BY ElementReference.PageId ASC,ElementPlacement.PageLayoutId');
+    const queryPage = this.db.prepare('SELECT Id as uniqueId, UniqueId as id, Title FROM Page ');
+    buttonTable.step();
     while(queryPage.step()){
       let newPage = new Page();
       newPage.ID = String(queryPage.getAsObject().id);
@@ -142,20 +146,35 @@ export class Spb2augUpgradeComponent implements OnInit {
       queryPageLayout.free();
       newPage.NumberOfRows = Number(tabNumberOfColsRowsPagelayoutid[0]);
       newPage.NumberOfCols = Number(tabNumberOfColsRowsPagelayoutid[1]);
-      this.addButtonsToPage(tabNumberOfColsRowsPagelayoutid[2], newPage);
+      this.addButtonsToPage(tabNumberOfColsRowsPagelayoutid[2], newPage, buttonTable);
       this.newGrid.PageList.push(newPage);
+      console.log("newPage : " + newPage);
     }
+    console.log('soit ça a fini, soit ça saute le while');
+    buttonTable.free();
     queryPage.free();
 
   }
-
-  addButtonsToPage(pageLayoutId:any, currentPage: Page){
-    const buttonTable = this.db.prepare('SELECT ElementPlacement.GridPosition,ElementPlacement.GridSpan,ElementReference.BackgroundColor,Button.Id AS ButtonId,ButtonPageLink.ButtonId AS ButtonIdFromButtonPageLink,Button.UniqueId AS ButtonUniqueId,Button.BorderColor,ButtonPageLink.PageUniqueId as PageLink,Button.Label,Button.Message FROM ElementReference INNER JOIN ElementPlacement ON ElementReference.Id = ElementPlacement.ElementReferenceId AND ElementPlacement.PageLayoutId = '+ pageLayoutId+' FULL OUTER JOIN Button ON ElementReference.Id = Button.Id FULL OUTER JOIN ButtonPageLink ON Button.Id = ButtonPageLink.ButtonId WHERE ElementReference.PageId = '+ currentPage.UniquePageId+' AND ElementType = 0 ORDER BY ElementReference.Id');
-    //itère sur toute la table bouton
+  addButtonsToPage(pageLayoutId:any, currentPage: Page, buttonTable:any ){
     let gridElement:GridElement;
-    while(buttonTable.step()){
-      //elPlacement.step();
+    let ElementPlacementPageLayoutId = buttonTable.getAsObject().PageLayoutId;
+    let ElementReferencePageId = buttonTable.getAsObject().ERPageId;
 
+    if(pageLayoutId == 2340 || currentPage.Name == "Mots de base"){
+      console.log("ElementPlacementPageLayoutId : " + ElementPlacementPageLayoutId + " pageLayoutId : " + pageLayoutId + " ElementReferencePageId : " + ElementReferencePageId + " currentPage.UniquePageId " + currentPage.UniquePageId + "buttonLabel : " + buttonTable.getAsObject().Label);
+    }
+
+    // c'est la bonne page mais pas le layout qu'on veut du coup on avance jusqu'à atteindre le bon Layout
+    while(ElementPlacementPageLayoutId != pageLayoutId && ElementReferencePageId == currentPage.UniquePageId){
+      buttonTable.step();
+      ElementPlacementPageLayoutId = buttonTable.getAsObject().PageLayoutId;
+      ElementReferencePageId = buttonTable.getAsObject().ERPageId;
+    }
+      console.log("ElementPlacementPageLayoutId : " + ElementPlacementPageLayoutId + " pageLayoutId : " + pageLayoutId + " ElementReferencePageId : " + ElementReferencePageId + " currentPage.UniquePageId " + currentPage.UniquePageId + "buttonLabel : " + buttonTable.getAsObject().Label);
+    //normalement c'est le bon bouton on l'intègre
+    while(ElementPlacementPageLayoutId == pageLayoutId && ElementReferencePageId == currentPage.UniquePageId){
+      //elPlacement.step();
+      console.log('hey');
       let gridPosition = buttonTable.getAsObject().GridPosition;
       const gridSpan = buttonTable.getAsObject().GridSpan;
 
@@ -223,16 +242,24 @@ export class Spb2augUpgradeComponent implements OnInit {
         Path: pathImage,
       });
       this.newGrid.ElementList.push(gridElement);
-      console.log(gridElement);
+      //console.log(gridElement);
       //Pousse l'élément dans la bonne page, si nécessaire créer une page
       this.goDownPage(gridElement, currentPage);
+
+      buttonTable.step();
+      ElementPlacementPageLayoutId = buttonTable.getAsObject().PageLayoutId;
+      ElementReferencePageId = buttonTable.getAsObject().ERPageId;
     }
-    console.log("length : ",this.newGrid.ElementList.length);
-    buttonTable.free();
+    // c'est la bonne page mais il reste des layout a purger donc ici on passe à la page suivante
+    while(ElementPlacementPageLayoutId != pageLayoutId && ElementReferencePageId <= currentPage.UniquePageId){
+      buttonTable.step();
+      ElementPlacementPageLayoutId = buttonTable.getAsObject().PageLayoutId;
+      ElementReferencePageId = buttonTable.getAsObject().ERPageId;
+    }
+
   }
 
   goDownPage(gridElement:GridElement, currentPage:Page){
-    console.log('gridElement.rows : '+ gridElement.rows+ ' currentPage.NumberOfRows : ' + currentPage.NumberOfRows);
     if(gridElement.y >= currentPage.NumberOfRows){
       //le bouton goDown
       // connaitre à quel page se trouve l'element dans mes goDown
@@ -280,101 +307,6 @@ export class Spb2augUpgradeComponent implements OnInit {
       currentPage.ElementIDsList.push(gridElement.ID);
     }
   }
-
-  goDownPageRemastered(gridElement:GridElement) {
-    const eachPageReal = this.db.prepare('SELECT Id FROM Page');
-    eachPageReal.step();
-    eachPageReal.step();
-    while (eachPageReal.step()) {
-      const pageId = eachPageReal.getAsObject().Id;
-      const eachPage = this.db.prepare('SELECT PageLayoutSetting,Id FROM PageLayout WHERE PageId == ' + pageId);
-      let pageLayoutId;
-      const pageLayout = this.getPageDimensionMax(eachPage);
-      eachPage.free();
-      let nextPages: Page = new Page();
-      nextPages.NumberOfRows = pageLayout[0];
-      nextPages.NumberOfCols = pageLayout[1];
-      pageLayoutId = pageLayout[2];
-      nextPages.ElementIDsList = [];
-      let numeroPage = 1;
-      let RowMaxPage = 0;
-      let pageid = 0;
-      const buttonRowMaxPage = this.db.prepare('SELECT GridPosition,PageId FROM \'ElementPlacement\' INNER JOIN \'ElementReference\' ON ElementReference.Id = ElementPlacement.ElementReferenceId WHERE PageLayoutId ==  ' + pageLayoutId + ' ORDER BY ElementPlacement.Id');
-      while (buttonRowMaxPage.step()) {
-        const gridPosition = buttonRowMaxPage.getAsObject().GridPosition;
-        const buttonPosition = gridPosition.split(',');
-        const buttonRow = Number(buttonPosition[1]);
-        if (RowMaxPage < buttonRow) {
-          RowMaxPage = buttonRow;
-          pageid = buttonRowMaxPage.getAsObject().PageId;
-        }
-      }
-      buttonRowMaxPage.free();
-      if (this.newGrid.PageList[pageid - 4] != null) {
-        const numberNewPage = Math.floor(RowMaxPage / this.newGrid.PageList[pageid - 4].NumberOfRows);
-        if (numberNewPage > 0) {
-          gridElement = new GridElement('goDown' + this.newGrid.PageList[pageid - 4].ID + numeroPage,
-            { GoTo: this.newGrid.PageList[pageid - 4].ID + numeroPage },
-            '',
-            '',
-            '',
-            0,
-            [
-              {
-                DisplayedText: 'go Down',
-                VoiceText: '',
-                LexicInfos: [{ default: true }],
-                ImageID: '',
-              }
-            ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }])
-          gridElement.cols = 1;
-          gridElement.rows = 1;
-          gridElement.y = this.page.NumberOfRows - 1;
-          gridElement.x = this.page.NumberOfCols - 1;
-
-          this.newGrid.ElementList.push(gridElement);
-          this.newGrid.PageList[pageid - 4].ElementIDsList.push(gridElement.ID);
-          // conditions pour les pages de page
-          for (let i = 0; i < numberNewPage; i++) {
-            nextPages = new Page();
-            nextPages.ID = this.newGrid.PageList[pageid - 4].ID + numeroPage;
-            nextPages.Name = this.newGrid.PageList[pageid - 4].Name + numeroPage;
-            nextPages.ElementIDsList = [];
-            nextPages.NumberOfRows = this.newGrid.PageList[pageid - 4].NumberOfRows;
-            nextPages.NumberOfCols = this.newGrid.PageList[pageid - 4].NumberOfCols;
-
-            // numberNewPage - 1 !== i because we don't want a down button in the last page
-            if (numberNewPage - 1 !== i) {
-              gridElement = new GridElement('goDown ' + this.newGrid.PageList[pageid - 4].ID + (numeroPage + 1),
-                { GoTo: this.newGrid.PageList[pageid - 4].ID + (numeroPage + 1) },
-                '',
-                '',
-                '',
-                0,
-                [
-                  {
-                    DisplayedText: 'go Down',
-                    VoiceText: '',
-                    LexicInfos: [{ default: true }],
-                    ImageID: '',
-                  }
-                ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }])
-              gridElement.cols = 1;
-              gridElement.rows = 1;
-              gridElement.y = nextPages.NumberOfRows - 1;
-              gridElement.x = nextPages.NumberOfCols - 1;
-              this.newGrid.ElementList.push(gridElement);
-              nextPages.ElementIDsList.push(gridElement.ID);
-            }
-            this.buttonsNewPages(nextPages, i, pageid, gridElement);
-            this.newGrid.PageList.push(nextPages);
-            numeroPage = numeroPage + 1;
-          }
-        }
-      }
-    }
-    eachPageReal.free();
-  }
   setMainPage(){
     if(this.myFileNameExtension == "sps"){
       const pageSetProperties = this.db.prepare('SELECT DefaultHomePageUniqueId FROM PageSetProperties');
@@ -394,8 +326,6 @@ export class Spb2augUpgradeComponent implements OnInit {
   }
 
   //TODO extract extra page from the table PageExtra who should indicate the page with a second page or more (ou peut être pas)
-  getExtraPage(){}
-
   /**
    *
    * @param label the label of the button
@@ -423,52 +353,6 @@ export class Spb2augUpgradeComponent implements OnInit {
 
     return '';
   }
-
-  /**
-   * loads the buttons in the right folder on the right page
-   * @param buttonPage request for buttonFolder in every page
-   */
-  getPageFolderButtons(buttonPage: any) {
-    while (buttonPage.step()) {
-      const elementReferenceOfChild = Number(buttonPage.getAsObject().ElementReferenceIdOfChild);
-      let labelFolder = String(buttonPage.getAsObject().Label);
-      const labelFolderId = String(buttonPage.getAsObject().ButtonId);
-
-      let index = this.newGrid.PageList.findIndex(page => page.ID === labelFolder);
-      if (index === -1) {
-        index = this.newGrid.PageList.findIndex(page => page.ID === labelFolderId);
-      }
-      // si vraiment on ne trouve pas, on l'ignore
-      if (index !== -1) {
-        // si le bouton dossier a bien une page qui lui correspond
-        const pageId = Number(buttonPage.getAsObject().Id);
-        const pageLayout = this.db.prepare('SELECT PageLayoutSetting,Id FROM PageLayout WHERE PageId = ' + pageId);
-        const numberof = this.getPageDimensionMax(pageLayout);
-        pageLayout.free();
-        this.newGrid.PageList[index].NumberOfRows = Number(numberof[0]);
-        this.newGrid.PageList[index].NumberOfCols = Number(numberof[1]);
-        const pageLayoutSelected = Number(numberof[2]);
-        const childPositions = buttonPage.getAsObject().ChildPosition;
-        const childPositionsXY = childPositions.split(',');
-
-        // on ajoute tous les boutons aux différentes pages des boutons (uniquement leur première page)
-        if (Number(childPositionsXY[1]) < this.newGrid.PageList[index].NumberOfRows) {
-
-          //normal case
-          if (this.newGrid.ElementList.length > (elementReferenceOfChild - 2)) {
-            this.newGrid.PageList[index].ElementIDsList.push(this.newGrid.ElementList[elementReferenceOfChild - 2].ID);
-          } else {
-            //case they don't start their ID at 0 as usual
-            let indexOfElementReferenceOfChild = this.newGrid.ElementList.findIndex(Elem =>
-              Elem.ID === labelFolder
-            );
-            this.newGrid.PageList[index].ElementIDsList.push(this.newGrid.ElementList[indexOfElementReferenceOfChild].ID);
-          }
-        }
-      }
-    }
-  }
-
   /**
    * Search in the database and set the number of rows and colomns in the grid
    */
@@ -502,61 +386,6 @@ export class Spb2augUpgradeComponent implements OnInit {
       }
     }
     return [numberOfRowsMax, numberOfColsMax, pageLayoutId];
-  }
-
-  /**
-   * Create a button to go down in the page and load it
-   */
-
-
-
-  /**
-   * fill in the rest of the page with the corresponding buttons
-   * @param nextPages the page to fill
-   * @param indicePage index of the page to be filled
-   * @param pageid index of the page in the database
-   */
-  buttonsNewPages(nextPages: Page, indicePage: number, pageid: number, gridElement:GridElement) {
-    const buttonAllInfomations = this.db.prepare("SELECT Label,UniqueId,GridPosition,GridSpan,PageId FROM (('ElementReference' INNER JOIN 'ElementPlacement' ON ElementReference.Id = ElementPlacement.ElementReferenceId) INNER JOIN 'Button' ON ElementReference.Id = Button.ElementReferenceId) ORDER BY ElementReference.Id");
-    while (buttonAllInfomations.step()) {
-      let label = buttonAllInfomations.getAsObject().Label;
-
-      if(label === null){
-        label = "Prediction" + this.numberOfPrediction.toString();
-        this.numberOfPrediction = this.numberOfPrediction + 1;
-      }
-
-      const buttonUniqueId = String(buttonAllInfomations.getAsObject().UniqueId);
-      const pos = buttonAllInfomations.getAsObject().GridPosition;
-      const tabResPos = pos.split(',');
-      const span = buttonAllInfomations.getAsObject().GridSpan;
-      const tabResSpan = span.split(',');
-      const buttonPageId = Number(buttonAllInfomations.getAsObject().PageId);
-      gridElement = new GridElement(label, 'button', '', '', ''
-        , 0,
-        [
-          {
-            DisplayedText: label,
-            VoiceText: label,
-            LexicInfos: [{ default: true }],
-            ImageID: label,
-          }
-        ], [{ ID: 'click', ActionList: [{ ID: 'display', Options: [] }, { ID: 'say', Options: [] }] }])
-      gridElement.x = Number(tabResPos[0]);
-      gridElement.y = Number(tabResPos[1]);
-      gridElement.rows = Number(tabResSpan[1]);
-      gridElement.cols = Number(tabResSpan[0]);
-      // l'indice commence à 0 donc +1
-      if (gridElement.y >= nextPages.NumberOfRows * (indicePage + 1) && gridElement.y < nextPages.NumberOfRows * (indicePage + 2) && pageid === buttonPageId) {
-        this.newGrid.ElementList.forEach(element => {
-          if (element.ID === gridElement.ID) {
-            element.y = element.y % nextPages.NumberOfRows;
-          }
-        });
-        nextPages.ElementIDsList.push(gridElement.ID);
-      }
-    }
-    buttonAllInfomations.free();
   }
 
   /**
