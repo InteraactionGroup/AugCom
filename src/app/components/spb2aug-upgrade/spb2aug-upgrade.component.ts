@@ -22,19 +22,13 @@ export class Spb2augUpgradeComponent implements OnInit {
 
   newGrid: Grid;
   page: Page;
-  //gridElement: GridElement;
-  rowCounts: number[];
   NumberOfCols: number;
   NumberOfRows: number;
   db = null;
   pageHome: number;
-  newPage: Page;
-  myBlob: Blob;
-  myFile: File;
   myFileNameExtension;
   im: SafeUrl;
   numberErrorImage: number;
-  numberOfPrediction: number = 1;
 
   constructor(
     public multilinguism: MultilinguismService,
@@ -93,13 +87,11 @@ export class Spb2augUpgradeComponent implements OnInit {
       }
       this.getGridDimension();
       this.getGridFromDatabase();
-      //this.getPolice();
-      //this.DeleteDoublon(this.newGrid);
+      this.getPolice();
       const index = this.newGrid.PageList.findIndex(page => page.Name == "Mots de base");
       console.log('elemlist : ' + index);
       console.log(this.newGrid);
       this.statErrorImage();
-      //this.addColIfNeeded();
       let that = this;
       setTimeout(function () {
         that.db.close();
@@ -121,15 +113,22 @@ export class Spb2augUpgradeComponent implements OnInit {
     this.setMainPage();
   }
 
-  //Here i have to adjust BDD because a useless element is present in table ElementReference at pageId 3 on SPB file only
+  /**
+   * Here I have to adjust BDD because a useless element is present in table ElementReference at pageId 3 on SPB and somewhere in the base in SPS (elementType = 1)
+   */
   AdjustBDD(){
-    if(this.myFileNameExtension == "spb"){
-      this.db.run('UPDATE ElementReference SET Id = Id -1');
-      this.db.run('UPDATE ElementPlacement SET ElementReferenceId = ElementReferenceId -1');
-      console.log("Update fini");
-    }
+    const indexElementType1 = this.db.prepare('SELECT Id FROM ElementReference WHERE ElementType > 0');
+    indexElementType1.step();
+    const ElementType1Id = indexElementType1.getAsObject().Id;
+    this.db.run('DELETE FROM ElementReference WHERE Id = ' + ElementType1Id);
+    this.db.run('UPDATE ElementReference SET Id = Id - 1 WHERE Id > '+ ElementType1Id);
+    this.db.run('UPDATE ElementPlacement SET ElementReferenceId = ElementReferenceId -1 WHERE ElementReferenceId > '+ ElementType1Id);
+    console.log("Update finish");
   }
 
+  /**
+   * this function import every Pages from the Database
+   */
   getAllPagesFromDatabase(){
     //need to swap UniqueId and Id because folderButton target ID and we need the value UniqueId in
     const buttonTable = this.db.prepare('SELECT ElementPlacement.GridPosition,ElementPlacement.GridSpan,ElementPlacement.PageLayoutId,ElementReference.BackgroundColor,ElementReference.PageId AS ERPageId,Button.UniqueId AS ButtonUniqueId,Button.BorderColor,ButtonPageLink.PageUniqueId as PageLink,Button.Label,Button.Message FROM ElementReference INNER JOIN ElementPlacement ON ElementReference.Id = ElementPlacement.ElementReferenceId LEFT JOIN Button ON ElementReference.Id = Button.Id LEFT JOIN ButtonPageLink ON Button.Id = ButtonPageLink.ButtonId WHERE ElementReference.ElementType = 0 ORDER BY ElementReference.PageId ASC,ElementPlacement.PageLayoutId');
@@ -140,6 +139,9 @@ export class Spb2augUpgradeComponent implements OnInit {
       newPage.ID = String(queryPage.getAsObject().id);
       newPage.UniquePageId = String(queryPage.getAsObject().uniqueId);
       newPage.Name = queryPage.getAsObject().Title;
+      if(newPage.Name == null){
+        newPage.Name = newPage.ID;
+      }
       newPage.ElementIDsList = [];
       const queryPageLayout = this.db.prepare('SELECT Id,PageLayoutSetting FROM PageLayout WHERE PageId =' + queryPage.getAsObject().uniqueId);
       const tabNumberOfColsRowsPagelayoutid = this.getPageDimensionMax(queryPageLayout);
@@ -148,123 +150,131 @@ export class Spb2augUpgradeComponent implements OnInit {
       newPage.NumberOfCols = Number(tabNumberOfColsRowsPagelayoutid[1]);
       this.addButtonsToPage(tabNumberOfColsRowsPagelayoutid[2], newPage, buttonTable);
       this.newGrid.PageList.push(newPage);
-      console.log("newPage : " + newPage);
     }
-    console.log('soit ça a fini, soit ça saute le while');
     buttonTable.free();
     queryPage.free();
 
   }
+
+  /**
+   * function who filled current page
+   * @param pageLayoutId the pageLayoutId choose for place our buttons
+   * @param currentPage the page we are filling
+   * @param buttonTable the query who contain information about buttons
+   */
   addButtonsToPage(pageLayoutId:any, currentPage: Page, buttonTable:any ){
     let gridElement:GridElement;
     let ElementPlacementPageLayoutId = buttonTable.getAsObject().PageLayoutId;
     let ElementReferencePageId = buttonTable.getAsObject().ERPageId;
 
-    if(pageLayoutId == 2340 || currentPage.Name == "Mots de base"){
-      console.log("ElementPlacementPageLayoutId : " + ElementPlacementPageLayoutId + " pageLayoutId : " + pageLayoutId + " ElementReferencePageId : " + ElementReferencePageId + " currentPage.UniquePageId " + currentPage.UniquePageId + "buttonLabel : " + buttonTable.getAsObject().Label);
-    }
-
-    // c'est la bonne page mais pas le layout qu'on veut du coup on avance jusqu'à atteindre le bon Layout
+    //good page but bad layoutSetting, step until LayoutId is good too
     while(ElementPlacementPageLayoutId != pageLayoutId && ElementReferencePageId == currentPage.UniquePageId){
       buttonTable.step();
       ElementPlacementPageLayoutId = buttonTable.getAsObject().PageLayoutId;
       ElementReferencePageId = buttonTable.getAsObject().ERPageId;
     }
-      console.log("ElementPlacementPageLayoutId : " + ElementPlacementPageLayoutId + " pageLayoutId : " + pageLayoutId + " ElementReferencePageId : " + ElementReferencePageId + " currentPage.UniquePageId " + currentPage.UniquePageId + "buttonLabel : " + buttonTable.getAsObject().Label);
-    //normalement c'est le bon bouton on l'intègre
+    //it's the great button
     while(ElementPlacementPageLayoutId == pageLayoutId && ElementReferencePageId == currentPage.UniquePageId){
-      //elPlacement.step();
-      console.log('hey');
       let gridPosition = buttonTable.getAsObject().GridPosition;
       const gridSpan = buttonTable.getAsObject().GridSpan;
 
       let buttonUniqueId: string = buttonTable.getAsObject().ButtonUniqueId;
-      let label: string = buttonTable.getAsObject().Label;
-      let linkFolder = buttonTable.getAsObject().PageLink;
-      let message: string = buttonTable.getAsObject().Message;
-      let borderColor = buttonTable.getAsObject().BorderColor;
-      let color = buttonTable.getAsObject().BackgroundColor;
+      // si le bouton n'a pas d'id unique je saute ce bouton, on sait pas ce que c'est
+      if(buttonUniqueId != null){
+        let label: string = buttonTable.getAsObject().Label;
+        let linkFolder = buttonTable.getAsObject().PageLink;
+        let message: string = buttonTable.getAsObject().Message;
+        let borderColor = buttonTable.getAsObject().BorderColor;
+        let color = buttonTable.getAsObject().BackgroundColor;
 
-      const B_MASK = 255;
-      const G_MASK = 255 << 8; // 65280
-      const R_MASK = 255 << 16; // 16711680
-      const r = (color & R_MASK) >> 16;
-      const g = (color & G_MASK) >> 8;
-      const b = color & B_MASK;
+        //here is button prediction, they don't got label or message, but they have ButtonUniqueId
+        if(label == null && message == null){
+          label = "Prediction";
+          message = "Prediction";
+        }
 
-      const rb = (borderColor & R_MASK) >> 16;
-      const gb = (borderColor & G_MASK) >> 8;
-      const bb = borderColor & B_MASK
+        const B_MASK = 255;
+        const G_MASK = 255 << 8; // 65280
+        const R_MASK = 255 << 16; // 16711680
+        const r = (color & R_MASK) >> 16;
+        const g = (color & G_MASK) >> 8;
+        const b = color & B_MASK;
 
-      const tabResPos = gridPosition.split(',');
-      const tabResSpan = gridSpan.split(',');
+        const rb = (borderColor & R_MASK) >> 16;
+        const gb = (borderColor & G_MASK) >> 8;
+        const bb = borderColor & B_MASK
 
-      //remplissage avec les boutons dossiers sinon les boutons normaux
-      if(linkFolder !== null) {
-        gridElement = new GridElement(buttonUniqueId,
-          {GoTo: String(linkFolder)},
-          '',
-          'rgb(' + r + ',' + g + ',' + b + ')',
-          'rgb(' + rb + ',' + gb + ',' + bb + ')',
-          0,
-          [
-            {
-              DisplayedText: (message) !== null ? message : label,
-              VoiceText: (message) !== null ? message : label,
-              LexicInfos: [{default: true}],
-              ImageID: label,
-            }
-          ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
+        const tabResPos = gridPosition.split(',');
+        const tabResSpan = gridSpan.split(',');
+
+        if(linkFolder !== null) {
+          gridElement = new GridElement(buttonUniqueId,
+            {GoTo: String(linkFolder)},
+            '',
+            'rgb(' + r + ',' + g + ',' + b + ')',
+            'rgb(' + rb + ',' + gb + ',' + bb + ')',
+            0,
+            [
+              {
+                DisplayedText: (message) !== null ? message : label,
+                VoiceText: (message) !== null ? message : label,
+                LexicInfos: [{default: true}],
+                ImageID: (label) !== null? label : '',
+              }
+            ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
+        }else{
+          gridElement = new GridElement(buttonUniqueId,
+            'button',
+            '',
+            'rgb(' + r + ',' + g + ',' + b + ')',
+            'rgb(' + rb + ',' + gb + ',' + bb + ')',
+            0,
+            [
+              {
+                DisplayedText: (message) !== null ? message : label,
+                VoiceText: (message) !== null ? message : label,
+                LexicInfos: [{default: true}],
+                ImageID: (label) !== null? label : '',
+              }
+            ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
+        }
+        gridElement.x = Number(tabResPos[0]);
+        gridElement.y = Number(tabResPos[1]);
+        gridElement.rows = Number(tabResSpan[1]);
+        gridElement.cols = Number(tabResSpan[0]);
+        const pathImage = this.getPathImageArsaacLibrary(label, message);
+        this.newGrid.ImageList.push({
+          ID: (label) !== null? label : '',
+          OriginalName: (label) !== null? label : '',
+          Path: pathImage,
+        });
+        this.newGrid.ElementList.push(gridElement);
+        this.goDownPage(gridElement, currentPage);
+
+        buttonTable.step();
+        ElementPlacementPageLayoutId = buttonTable.getAsObject().PageLayoutId;
+        ElementReferencePageId = buttonTable.getAsObject().ERPageId;
       }else{
-        gridElement = new GridElement(buttonUniqueId,
-          'button',
-          '',
-          'rgb(' + r + ',' + g + ',' + b + ')',
-          'rgb(' + rb + ',' + gb + ',' + bb + ')',
-          0,
-          [
-            {
-              DisplayedText: (message) !== null ? message : label,
-              VoiceText: (message) !== null ? message : label,
-              LexicInfos: [{default: true}],
-              ImageID: label,
-            }
-          ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
+        buttonTable.step();
       }
-      gridElement.x = Number(tabResPos[0]);
-      gridElement.y = Number(tabResPos[1]);
-      gridElement.rows = Number(tabResSpan[1]);
-      gridElement.cols = Number(tabResSpan[0]);
-      const pathImage = this.getPathImageArsaacLibrary(label, message);
-      this.newGrid.ImageList.push({
-        ID: label,
-        OriginalName: label,
-        Path: pathImage,
-      });
-      this.newGrid.ElementList.push(gridElement);
-      //console.log(gridElement);
-      //Pousse l'élément dans la bonne page, si nécessaire créer une page
-      this.goDownPage(gridElement, currentPage);
-
-      buttonTable.step();
-      ElementPlacementPageLayoutId = buttonTable.getAsObject().PageLayoutId;
-      ElementReferencePageId = buttonTable.getAsObject().ERPageId;
     }
-    // c'est la bonne page mais il reste des layout a purger donc ici on passe à la page suivante
+    // still the good page but it's the next LayoutId and we don't care about it, step until next page
     while(ElementPlacementPageLayoutId != pageLayoutId && ElementReferencePageId <= currentPage.UniquePageId){
       buttonTable.step();
       ElementPlacementPageLayoutId = buttonTable.getAsObject().PageLayoutId;
       ElementReferencePageId = buttonTable.getAsObject().ERPageId;
     }
-
   }
 
+  /**
+   * this function check if we need a new page, if yes I add a new page and a button to go in
+   * @param gridElement current gridElement I am checking if he can be filled in the page or if we need more
+   * @param currentPage current page to take his weight and height
+   */
   goDownPage(gridElement:GridElement, currentPage:Page){
     if(gridElement.y >= currentPage.NumberOfRows){
-      //le bouton goDown
-      // connaitre à quel page se trouve l'element dans mes goDown
       let numeroPage = String(Math.ceil((gridElement.y + 1) / currentPage.NumberOfRows));
-      //test si la page existe deja si oui pas besoin de goDown ni de nouvelle page
+      //test if the page already exist if yes do nothing
       const indexNextPage = this.newGrid.PageList.findIndex(page => 'goDown' + currentPage.ID + numeroPage === page.ID);
       if(indexNextPage == -1){
         let goDownElement = new GridElement('goDown' + currentPage.ID + numeroPage,
@@ -307,25 +317,44 @@ export class Spb2augUpgradeComponent implements OnInit {
       currentPage.ElementIDsList.push(gridElement.ID);
     }
   }
+
+  /**
+   * function after everything is charged, will set the main page
+   */
   setMainPage(){
+    let defaultHomePageUniqueId:any;
     if(this.myFileNameExtension == "sps"){
       const pageSetProperties = this.db.prepare('SELECT DefaultHomePageUniqueId FROM PageSetProperties');
       pageSetProperties.step();
-      const defaultHomePageUniqueId = pageSetProperties.getAsObject().DefaultHomePageUniqueId;
+      defaultHomePageUniqueId = pageSetProperties.getAsObject().DefaultHomePageUniqueId;
       let homePage = this.newGrid.PageList.find(page => page.ID === defaultHomePageUniqueId);
       homePage.ID = '#HOME';
       pageSetProperties.free();
     }else{
       const queryHomePageForSpb = this.db.prepare('SELECT Id,UniqueId FROM Page WHERE Id = 4');
       queryHomePageForSpb.step();
-      const defaultHomePageUniqueId = queryHomePageForSpb.getAsObject().UniqueId;
+      defaultHomePageUniqueId = queryHomePageForSpb.getAsObject().UniqueId;
       let homePage = this.newGrid.PageList.find(page => page.ID === defaultHomePageUniqueId);
       homePage.ID = '#HOME';
       queryHomePageForSpb.free();
     }
+    this.SwitchPageLinkTargetMainPage(defaultHomePageUniqueId);
   }
 
-  //TODO extract extra page from the table PageExtra who should indicate the page with a second page or more (ou peut être pas)
+  /**
+   * Warning : This function is not tested, i don't have a test for this be careful here
+   * function who switch the link from folder button who linked on the unique ID, but I switched it to #HOME for our grid
+   * @param defaultHomePageUniqueId id unique for the home page
+   * @constructor
+   */
+  SwitchPageLinkTargetMainPage(defaultHomePageUniqueId: any){
+    this.newGrid.ElementList.forEach(elem => {
+      if(elem.Type == {GoTo : String(defaultHomePageUniqueId)}) {
+        elem.Type = {GoTo : "#HOME"}
+      }
+    });
+  }
+
   /**
    *
    * @param label the label of the button
@@ -389,42 +418,6 @@ export class Spb2augUpgradeComponent implements OnInit {
   }
 
   /**
-   * removes all duplicate buttons in the grid
-   * @param grid the current grid
-   */
-  DeleteDoublon(grid: Grid) {
-    grid.PageList.forEach(page => {
-      page.ElementIDsList = Array.from(new Set(page.ElementIDsList));
-    });
-  }
-
-  /**
-   * add a column if we need to add a button page down, and we don't have place to do it
-   */
-  addColIfNeeded() {
-    try {
-      let isColAdd = false;
-      this.newGrid.PageList.forEach(page => {
-        let indexGoDownButtonPage = this.newGrid.ElementList.findIndex(element => element.ID.includes('goDown'));
-        if (indexGoDownButtonPage > -1) {
-          this.newGrid.ElementList.forEach(element => {
-            if (element.y + element.rows === this.page.NumberOfRows && element.x + element.cols === this.page.NumberOfCols && this.page.ElementIDsList.indexOf(element.ID) > -1 && element.ID.includes('goDown') === false) {
-              if (isColAdd === false) {
-                this.page.NumberOfCols = this.page.NumberOfCols + 1;
-                this.newGrid.ElementList[indexGoDownButtonPage].y = this.page.NumberOfRows - 1;
-                this.newGrid.ElementList[indexGoDownButtonPage].x = this.page.NumberOfCols - 1;
-                isColAdd = true;
-              }
-            }
-          });
-        }
-      });
-    } finally {
-      console.log("No col needed");
-    }
-  }
-
-  /**
    * checks that each image exists in the image bank and makes the error rate
    */
   statErrorImage() {
@@ -440,5 +433,14 @@ export class Spb2augUpgradeComponent implements OnInit {
     });
     console.log('pourcentage d\'erreur : ', this.numberErrorImage / this.newGrid.ImageList.length * 100 + '%');
   }
-
+  /**
+   * query the database to set the police
+   */
+  getPolice() {
+    const po = this.db.prepare('SELECT FontFamily FROM PageSetProperties');
+    po.step();
+    const police = po.getAsObject().FontFamily;
+    this.configuration.STYLE_FONTFAMILY_VALUE = String(police);
+    po.free();
+  }
 }
