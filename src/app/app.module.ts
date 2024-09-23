@@ -92,7 +92,6 @@ import { RouterPreloader } from '@angular/router';
 import { ExportComponent } from './components/export/export.component';
 import { DialogGridOptionsComponent } from './components/dialog-grid-options/dialog-grid-options.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { Spb2augUpgradeComponent } from './components/spb2aug-upgrade/spb2aug-upgrade.component';
 
 
 @NgModule({
@@ -165,8 +164,7 @@ import { Spb2augUpgradeComponent } from './components/spb2aug-upgrade/spb2aug-up
     ImportUserComponent,
     LoadingComponent,
     ExportComponent,
-    DialogGridOptionsComponent,
-    Spb2augUpgradeComponent
+    DialogGridOptionsComponent
   ],
   imports: [
     BrowserModule,
