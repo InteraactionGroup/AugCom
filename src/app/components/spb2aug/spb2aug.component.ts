@@ -20,13 +20,8 @@ declare const initSqlJs: any;
 export class Spb2augComponent implements OnInit {
 
   newGrid: Grid;
-  page: Page;
-  NumberOfCols: number;
-  NumberOfRows: number;
   db = null;
-  pageHome: number;
   myFileNameExtension;
-  im: SafeUrl;
   numberErrorImage: number;
 
   constructor(
@@ -41,14 +36,7 @@ export class Spb2augComponent implements OnInit {
   ngOnInit(): void {
     this.newGrid = new Grid('newGrid', 'Grid', 0, 0, [], [], []);
     this.newGrid.software = 'Snap Core first'
-    this.page = new Page();
-    this.page.ID = '#HOME';
-    this.page.Name = 'Accueil';
-    this.page.ElementIDsList = [];
-    this.pageHome = 4;
     this.numberErrorImage = 0;
-    this.NumberOfCols = 0;
-    this.NumberOfRows = 0;
   }
 
   /**
@@ -117,10 +105,19 @@ export class Spb2augComponent implements OnInit {
     const indexElementType1 = this.db.prepare('SELECT Id FROM ElementReference WHERE ElementType > 0');
     indexElementType1.step();
     const ElementType1Id = indexElementType1.getAsObject().Id;
-    console.log("ElementReferenceId de l'intrus : " + ElementType1Id);
     this.db.run('DELETE FROM ElementReference WHERE Id = ' + ElementType1Id);
-    this.db.run('UPDATE ElementReference SET Id = Id - 1 WHERE Id > '+ ElementType1Id);
-    this.db.run('UPDATE ElementPlacement SET ElementReferenceId = ElementReferenceId -1 WHERE ElementReferenceId > '+ ElementType1Id);
+
+    const queryIndexButton = this.db.prepare("SELECT Id,ElementReferenceId FROM Button");
+    while(queryIndexButton.step()){
+      const indexButton = queryIndexButton.getAsObject().Id;
+      const indexElementReferenceId = queryIndexButton.getAsObject().ElementReferenceId;
+      if(indexButton+ 1 == indexElementReferenceId){
+        this.db.run('DELETE FROM ElementReference WHERE Id = ' + indexButton);
+        this.db.run('UPDATE ElementReference SET Id = Id - 1 WHERE Id >= '+ indexButton);
+        this.db.run('UPDATE ElementPlacement SET ElementReferenceId = ElementReferenceId -1 WHERE ElementReferenceId >= '+ indexButton);
+        return;
+      }
+    }
     console.log("Update finish");
   }
 
@@ -148,6 +145,7 @@ export class Spb2augComponent implements OnInit {
       newPage.NumberOfCols = Number(tabNumberOfColsRowsPagelayoutid[1]);
       this.addButtonsToPage(tabNumberOfColsRowsPagelayoutid[2], newPage, buttonTable);
       this.newGrid.PageList.push(newPage);
+      //TODO la barre de chargement ici chaque page se charge une à une, tu peux incrémenter ici, n'oublie pas que je crée une page pour les "pages suivantes" du coup le max faudra le up dynamiquement va voir la fonction goDownPage()
     }
     buttonTable.free();
     queryPage.free();
