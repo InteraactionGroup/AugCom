@@ -170,6 +170,7 @@ export class ElementForm {
 
 export class Page {
   ID: string;
+  UniquePageId?: string;
   Name: string;
   ElementIDsList: string[];
   NumberOfCols: number;
