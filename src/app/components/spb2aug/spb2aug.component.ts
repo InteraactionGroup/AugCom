@@ -180,9 +180,6 @@ export class Spb2augComponent implements OnInit {
       let buttonUniqueId: string = buttonTable.getAsObject().ButtonUniqueId;
       // si le bouton n'a pas d'id unique je saute ce bouton, on sait pas ce que c'est
       if(buttonUniqueId != null){
-        if(ElementReferencePageId == "650"){
-          console.log('ElementReferencePageId : ' + ElementReferencePageId + ' ElementPlacementPageLayoutId : ' + ElementPlacementPageLayoutId + ' label : ' + buttonTable.getAsObject().Label);
-        }
         let label: string = buttonTable.getAsObject().Label;
         let linkFolder = buttonTable.getAsObject().PageLink;
         let message: string = buttonTable.getAsObject().Message;
