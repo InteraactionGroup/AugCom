@@ -280,7 +280,6 @@ export class Spb2augComponent implements OnInit {
       let numeroPage = String(Math.ceil((gridElement.y + 1) / currentPage.NumberOfRows));
       //test if the page already exist if yes do nothing
       const indexNextPage = this.newGrid.PageList.findIndex(page => 'goDown' + currentPage.ID + numeroPage === page.ID);
-      console.log('numeroPage : ' + numeroPage);
       if(indexNextPage == -1){
         let goDownElement = new GridElement('goDown' + currentPage.ID + numeroPage,
           { GoTo: 'goDown' + currentPage.ID + numeroPage },
