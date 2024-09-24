@@ -280,6 +280,7 @@ export class Spb2augComponent implements OnInit {
       let numeroPage = String(Math.ceil((gridElement.y + 1) / currentPage.NumberOfRows));
       //test if the page already exist if yes do nothing
       const indexNextPage = this.newGrid.PageList.findIndex(page => 'goDown' + currentPage.ID + numeroPage === page.ID);
+      console.log('numeroPage : ' + numeroPage);
       if(indexNextPage == -1){
         let goDownElement = new GridElement('goDown' + currentPage.ID + numeroPage,
           { GoTo: 'goDown' + currentPage.ID + numeroPage },
@@ -300,9 +301,27 @@ export class Spb2augComponent implements OnInit {
         goDownElement.y = currentPage.NumberOfRows - 1;
         goDownElement.x = currentPage.NumberOfCols - 1;
         this.newGrid.ElementList.push(goDownElement);
-        currentPage.ElementIDsList.push(goDownElement.ID);
-        //la page suivante
 
+        if(numeroPage == "2"){
+          currentPage.ElementIDsList.push(goDownElement.ID);
+        }else{
+          let indexNextPage = this.newGrid.PageList.findIndex(page => 'goDown' + currentPage.ID + String(Number(numeroPage) - 1) === page.ID);
+          //si la page n'existe pas, elle devra l'être plus tard autant le faire dessuite
+          if(indexNextPage === -1){
+            let nextPage: Page = new Page();
+            nextPage.ID = 'goDown' + String(currentPage.ID)+ String(Number(numeroPage) - 1);
+            nextPage.UniquePageId = currentPage.UniquePageId + String(Number(numeroPage) - 1);
+            nextPage.Name = currentPage.Name + String(Number(numeroPage) - 1);
+            nextPage.ElementIDsList = [];
+            nextPage.NumberOfRows = currentPage.NumberOfRows;
+            nextPage.NumberOfCols = currentPage.NumberOfCols;
+            this.newGrid.PageList.push(nextPage);
+            this.newGrid.PageList[this.newGrid.PageList.length-1].ElementIDsList.push(goDownElement.ID);
+          }else{
+            this.newGrid.PageList[indexNextPage].ElementIDsList.push(goDownElement.ID);
+          }
+        }
+        //la page suivante
         let nextPage: Page = new Page();
         nextPage.ID = 'goDown' + String(currentPage.ID)+ String(numeroPage);
         nextPage.UniquePageId = currentPage.UniquePageId + numeroPage;
