@@ -157,7 +157,6 @@ export class Spb2augComponent implements OnInit {
     }
     buttonTable.free();
     queryPage.free();
-
   }
 
   /**
@@ -288,10 +287,10 @@ export class Spb2augComponent implements OnInit {
     if(gridElement.y >= currentPage.NumberOfRows){
       let numeroPage = String(Math.ceil((gridElement.y + 1) / currentPage.NumberOfRows));
       //test if the page already exist if yes do nothing
-      const indexNextPage = this.newGrid.PageList.findIndex(page => 'goDown' + currentPage.ID + numeroPage === page.ID);
+      const indexNextPage = this.newGrid.PageList.findIndex(page => 'goDown' + numeroPage + "Page" + currentPage.ID === page.ID);
       if(indexNextPage == -1){
-        let goDownElement = new GridElement('goDown' + currentPage.ID + numeroPage,
-          { GoTo: 'goDown' + currentPage.ID + numeroPage },
+        let goDownElement = new GridElement('goDown'+ numeroPage + "Page" + currentPage.ID ,
+          { GoTo: 'goDown'+ numeroPage + "Page" + currentPage.ID  },
           '',
           "rgb(253,251,250)",
           '',
@@ -313,13 +312,13 @@ export class Spb2augComponent implements OnInit {
         if(numeroPage == "2"){
           currentPage.ElementIDsList.push(goDownElement.ID);
         }else{
-          let indexNextPage = this.newGrid.PageList.findIndex(page => 'goDown' + currentPage.ID + String(Number(numeroPage) - 1) === page.ID);
+          let indexNextPage = this.newGrid.PageList.findIndex(page => 'goDown'+ String(Number(numeroPage) - 1) + "Page" + currentPage.ID === page.ID);
           //si la page n'existe pas, elle devra l'être plus tard autant le faire dessuite
           if(indexNextPage === -1){
             let nextPage: Page = new Page();
-            nextPage.ID = 'goDown' + String(currentPage.ID)+ String(Number(numeroPage) - 1);
-            nextPage.UniquePageId = currentPage.UniquePageId + String(Number(numeroPage) - 1);
-            nextPage.Name = currentPage.Name + String(Number(numeroPage) - 1);
+            nextPage.ID = 'goDown'+ String(Number(numeroPage) - 1) + "Page" + String(currentPage.ID);
+            nextPage.UniquePageId = currentPage.UniquePageId + String(Number(numeroPage) - 1) + "Page";
+            nextPage.Name = currentPage.Name + String(Number(numeroPage) - 1) + "Page";
             nextPage.ElementIDsList = [];
             nextPage.NumberOfRows = currentPage.NumberOfRows;
             nextPage.NumberOfCols = currentPage.NumberOfCols;
@@ -332,9 +331,9 @@ export class Spb2augComponent implements OnInit {
         }
         //la page suivante
         let nextPage: Page = new Page();
-        nextPage.ID = 'goDown' + String(currentPage.ID)+ String(numeroPage);
-        nextPage.UniquePageId = currentPage.UniquePageId + numeroPage;
-        nextPage.Name = currentPage.Name + numeroPage;
+        nextPage.ID = 'goDown'+ String(numeroPage)+ "Page" + String(currentPage.ID) ;
+        nextPage.UniquePageId = currentPage.UniquePageId + numeroPage + "Page";
+        nextPage.Name = currentPage.Name + numeroPage + "Page";
         nextPage.ElementIDsList = [];
         nextPage.NumberOfRows = currentPage.NumberOfRows;
         nextPage.NumberOfCols = currentPage.NumberOfCols;
@@ -479,9 +478,11 @@ export class Spb2augComponent implements OnInit {
   }
 
   fillPageWithDashboard() {
+    let howManyPages:number = 2;
+
     if(this.myFileNameExtension == "spb"){
       let dashboard:Page = this.newGrid.PageList.find(page => page.UniquePageId == "2");
-      this.repositionningDashboardGridElement(dashboard);
+      this.repositioningDashboardGridElement(dashboard);
       this.newGrid.PageList.forEach(page =>{
         if(page.UniquePageId != "2"){
           dashboard.ElementIDsList.forEach(el => {
@@ -490,11 +491,30 @@ export class Spb2augComponent implements OnInit {
             }
           });
         }
-      })
+      });
+      let goDownIDPage:string = "goDown"+String(howManyPages);
+      let dashboardGoDown:Page = this.newGrid.PageList.find(page => page.UniquePageId == "2" && page.ID.includes(goDownIDPage));
+      if(dashboardGoDown != undefined){
+        while(dashboardGoDown){
+          this.repositioningDashboardGridElement(dashboardGoDown);
+          this.newGrid.PageList.forEach(page => {
+            if(page.UniquePageId != "2" && page.ID.includes(goDownIDPage) == true){
+              dashboardGoDown.ElementIDsList.forEach(el => {
+                if(el.includes("goDown") == false){
+                  page.ElementIDsList.push(el);
+                }
+              });
+            }
+          });
+          howManyPages += 1;
+          goDownIDPage= "goDown"+String(howManyPages);
+          dashboardGoDown = this.newGrid.PageList.find(page => page.UniquePageId == "2" && page.ID.includes(goDownIDPage));
+        }
+      }
     }
     if(this.myFileNameExtension == "sps"){
       let dashboard:Page = this.newGrid.PageList.find(page => page.PageType == 3 && !page.ID.includes("goDown"));
-      this.repositionningDashboardGridElement(dashboard);
+      this.repositioningDashboardGridElement(dashboard);
       this.newGrid.PageList.forEach(page =>{
         if(page.PageType != 3 && page.ID.includes("goDown") == false){
           dashboard.ElementIDsList.forEach(el => {
@@ -504,37 +524,33 @@ export class Spb2augComponent implements OnInit {
           });
         }
       });
-      //ici on regarde la prochaine page si elle existe
-      // SPOILER CA BUG
-
-      let howManyPages:number = 1;
-      let goDown:string = "goDown";
-      let repeatGoDown:string = goDown.repeat(howManyPages);
-      let dashboardGoDown:Page = this.newGrid.PageList.find(page => page.PageType == 3 && page.ID.includes(repeatGoDown));
+      let goDownIDPage:string = "goDown"+String(howManyPages);
+      let dashboardGoDown:Page = this.newGrid.PageList.find(page => page.PageType == 3 && page.ID.includes(goDownIDPage));
       if(dashboardGoDown != undefined){
-        this.repositionningDashboardGridElement(dashboardGoDown);
-        this.newGrid.PageList.forEach(page => {
-
-          if(page.PageType != 3 && page.ID.includes(repeatGoDown) == true){
-
-            dashboardGoDown.ElementIDsList.forEach(el => {
-              if(el.includes("goDown") == false){
-                page.ElementIDsList.push(el);
-              }
-            });
-
-          }
-        });
+        while(dashboardGoDown){
+          this.repositioningDashboardGridElement(dashboardGoDown);
+          this.newGrid.PageList.forEach(page => {
+            if(page.PageType != 3 && page.ID.includes(goDownIDPage) == true){
+              dashboardGoDown.ElementIDsList.forEach(el => {
+                if(el.includes("goDown") == false){
+                  page.ElementIDsList.push(el);
+                }
+              });
+            }
+          });
+          howManyPages += 1;
+          goDownIDPage= "goDown"+String(howManyPages);
+          dashboardGoDown = this.newGrid.PageList.find(page => page.PageType == 3 && page.ID.includes(goDownIDPage));
+        }
       }
     }
   }
-  //TODO Check si y a une page goDown côté du dashboard, si oui et c'est là que les emmerde commence, l'ajouter à toutes les pages goDown et créer les goDown qui manquent, ALED
 
   /**
    * this function put x to 0 after importation
    * @param dashboard : the page dashboard
    */
-  repositionningDashboardGridElement(dashboard:Page){
+  repositioningDashboardGridElement(dashboard:Page){
     dashboard.ElementIDsList.forEach(el => {
       let elementTableauGauche:number = this.newGrid.ElementList.findIndex(gridElement => gridElement.ID == el)
       this.newGrid.ElementList[elementTableauGauche].x = 0;
