@@ -9,6 +9,7 @@ import { SafeUrl } from '@angular/platform-browser';
 import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
 import { ArasaacObject } from '../../libTypes';
 import { LayoutService } from '../../services/layout.service';
+import {repeat} from "rxjs/operators";
 declare const initSqlJs: any;
 
 @Component({
@@ -74,6 +75,7 @@ export class Spb2augComponent implements OnInit {
       }
       this.getGridDimension();
       this.getGridFromDatabase();
+      this.fillPageWithDashboard();
       this.getPolice();
       console.log(this.newGrid);
       this.statErrorImage();
@@ -127,12 +129,13 @@ export class Spb2augComponent implements OnInit {
   getAllPagesFromDatabase(){
     //need to swap UniqueId and Id because folderButton target ID and we need the value UniqueId in
     const buttonTable = this.db.prepare('SELECT ElementPlacement.GridPosition,ElementPlacement.GridSpan,ElementPlacement.PageLayoutId,ElementReference.BackgroundColor,ElementReference.PageId AS ERPageId,Button.UniqueId AS ButtonUniqueId,Button.BorderColor,ButtonPageLink.PageUniqueId as PageLink,Button.Label,Button.Message FROM ElementReference INNER JOIN ElementPlacement ON ElementReference.Id = ElementPlacement.ElementReferenceId LEFT JOIN Button ON ElementReference.Id = Button.Id LEFT JOIN ButtonPageLink ON Button.Id = ButtonPageLink.ButtonId WHERE ElementReference.ElementType = 0 ORDER BY ElementReference.PageId ASC,ElementPlacement.PageLayoutId');
-    const queryPage = this.db.prepare('SELECT Id as uniqueId, UniqueId as id, Title FROM Page ');
+    const queryPage = this.db.prepare('SELECT Id as uniqueId, UniqueId as id, Title, PageType FROM Page ');
     buttonTable.step();
     while(queryPage.step()){
       let newPage = new Page();
       newPage.ID = String(queryPage.getAsObject().id);
       newPage.UniquePageId = String(queryPage.getAsObject().uniqueId);
+      newPage.PageType = queryPage.getAsObject().PageType;
       newPage.Name = queryPage.getAsObject().Title;
       if(newPage.Name == null){
         newPage.Name = newPage.ID;
@@ -142,7 +145,12 @@ export class Spb2augComponent implements OnInit {
       const tabNumberOfColsRowsPagelayoutid = this.getPageDimensionMax(queryPageLayout);
       queryPageLayout.free();
       newPage.NumberOfRows = Number(tabNumberOfColsRowsPagelayoutid[0]);
-      newPage.NumberOfCols = Number(tabNumberOfColsRowsPagelayoutid[1]);
+      //page 2 (dashboard) will be placed between the 0 and 1 position
+      if(newPage.UniquePageId == "2"){
+        newPage.NumberOfCols = Number(tabNumberOfColsRowsPagelayoutid[1]);
+      }else {
+        newPage.NumberOfCols = Number(tabNumberOfColsRowsPagelayoutid[1]) + 1;
+      }
       this.addButtonsToPage(tabNumberOfColsRowsPagelayoutid[2], newPage, buttonTable);
       this.newGrid.PageList.push(newPage);
       //TODO la barre de chargement ici chaque page se charge une à une, tu peux incrémenter ici, n'oublie pas que je crée une page pour les "pages suivantes" du coup le max faudra le up dynamiquement va voir la fonction goDownPage()
@@ -237,7 +245,11 @@ export class Spb2augComponent implements OnInit {
               }
             ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
         }
-        gridElement.x = Number(tabResPos[0]);
+        if(currentPage.UniquePageId == "2"){
+          gridElement.x = Number(tabResPos[0]);
+        }else {
+          gridElement.x = Number(tabResPos[0]) + 1;
+        }
         gridElement.y = Number(tabResPos[1]);
         gridElement.rows = Number(tabResSpan[1]);
         gridElement.cols = Number(tabResSpan[0]);
@@ -311,6 +323,7 @@ export class Spb2augComponent implements OnInit {
             nextPage.ElementIDsList = [];
             nextPage.NumberOfRows = currentPage.NumberOfRows;
             nextPage.NumberOfCols = currentPage.NumberOfCols;
+            nextPage.PageType = currentPage.PageType;
             this.newGrid.PageList.push(nextPage);
             this.newGrid.PageList[this.newGrid.PageList.length-1].ElementIDsList.push(goDownElement.ID);
           }else{
@@ -327,8 +340,10 @@ export class Spb2augComponent implements OnInit {
         nextPage.NumberOfCols = currentPage.NumberOfCols;
         gridElement.y = gridElement.y % currentPage.NumberOfRows;
         nextPage.ElementIDsList.push(gridElement.ID);
+        nextPage.PageType = currentPage.PageType;
         this.newGrid.PageList.push(nextPage);
       }else{
+        gridElement.y = gridElement.y % currentPage.NumberOfRows;
         this.newGrid.PageList[indexNextPage].ElementIDsList.push(gridElement.ID);
       }
     }
@@ -409,7 +424,7 @@ export class Spb2augComponent implements OnInit {
     while (gridDim.step()) {
       const result = gridDim.getAsObject().GridDimension;
       const gridDimension = result.split(',');
-      this.newGrid.NumberOfCols = Number(gridDimension[0]);
+      this.newGrid.NumberOfCols = Number(gridDimension[0])+1;
       this.newGrid.NumberOfRows = Number(gridDimension[1]);
     }
     gridDim.free();
@@ -461,5 +476,68 @@ export class Spb2augComponent implements OnInit {
     const police = po.getAsObject().FontFamily;
     this.configuration.STYLE_FONTFAMILY_VALUE = String(police);
     po.free();
+  }
+
+  fillPageWithDashboard() {
+    if(this.myFileNameExtension == "spb"){
+      let dashboard:Page = this.newGrid.PageList.find(page => page.UniquePageId == "2");
+      this.repositionningDashboardGridElement(dashboard);
+      this.newGrid.PageList.forEach(page =>{
+        if(page.UniquePageId != "2"){
+          dashboard.ElementIDsList.forEach(el => {
+            if(el.includes("goDown") == false){
+              page.ElementIDsList.push(el);
+            }
+          });
+        }
+      })
+    }
+    if(this.myFileNameExtension == "sps"){
+      let dashboard:Page = this.newGrid.PageList.find(page => page.PageType == 3 && !page.ID.includes("goDown"));
+      this.repositionningDashboardGridElement(dashboard);
+      this.newGrid.PageList.forEach(page =>{
+        if(page.PageType != 3 && page.ID.includes("goDown") == false){
+          dashboard.ElementIDsList.forEach(el => {
+            if(el.includes("goDown") == false){
+              page.ElementIDsList.push(el);
+            }
+          });
+        }
+      });
+      //ici on regarde la prochaine page si elle existe
+      // SPOILER CA BUG
+
+      let howManyPages:number = 1;
+      let goDown:string = "goDown";
+      let repeatGoDown:string = goDown.repeat(howManyPages);
+      let dashboardGoDown:Page = this.newGrid.PageList.find(page => page.PageType == 3 && page.ID.includes(repeatGoDown));
+      if(dashboardGoDown != undefined){
+        this.repositionningDashboardGridElement(dashboardGoDown);
+        this.newGrid.PageList.forEach(page => {
+
+          if(page.PageType != 3 && page.ID.includes(repeatGoDown) == true){
+
+            dashboardGoDown.ElementIDsList.forEach(el => {
+              if(el.includes("goDown") == false){
+                page.ElementIDsList.push(el);
+              }
+            });
+
+          }
+        });
+      }
+    }
+  }
+  //TODO Check si y a une page goDown côté du dashboard, si oui et c'est là que les emmerde commence, l'ajouter à toutes les pages goDown et créer les goDown qui manquent, ALED
+
+  /**
+   * this function put x to 0 after importation
+   * @param dashboard : the page dashboard
+   */
+  repositionningDashboardGridElement(dashboard:Page){
+    dashboard.ElementIDsList.forEach(el => {
+      let elementTableauGauche:number = this.newGrid.ElementList.findIndex(gridElement => gridElement.ID == el)
+      this.newGrid.ElementList[elementTableauGauche].x = 0;
+    });
   }
 }
