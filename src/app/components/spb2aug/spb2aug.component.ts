@@ -10,6 +10,7 @@ import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
 import { ArasaacObject } from '../../libTypes';
 import { LayoutService } from '../../services/layout.service';
 import {repeat} from "rxjs/operators";
+import {visibility} from "html2canvas/dist/types/css/property-descriptors/visibility";
 declare const initSqlJs: any;
 
 @Component({
@@ -128,7 +129,7 @@ export class Spb2augComponent implements OnInit {
    */
   getAllPagesFromDatabase(){
     //need to swap UniqueId and Id because folderButton target ID and we need the value UniqueId in
-    const buttonTable = this.db.prepare('SELECT ElementPlacement.GridPosition,ElementPlacement.GridSpan,ElementPlacement.PageLayoutId,ElementReference.BackgroundColor,ElementReference.PageId AS ERPageId,Button.UniqueId AS ButtonUniqueId,Button.BorderColor,ButtonPageLink.PageUniqueId as PageLink,Button.Label,Button.Message FROM ElementReference INNER JOIN ElementPlacement ON ElementReference.Id = ElementPlacement.ElementReferenceId LEFT JOIN Button ON ElementReference.Id = Button.Id LEFT JOIN ButtonPageLink ON Button.Id = ButtonPageLink.ButtonId WHERE ElementReference.ElementType = 0 ORDER BY ElementReference.PageId ASC,ElementPlacement.PageLayoutId');
+    const buttonTable = this.db.prepare('SELECT ElementPlacement.GridPosition,ElementPlacement.GridSpan,ElementPlacement.PageLayoutId,ElementPlacement.Visible,ElementReference.BackgroundColor,ElementReference.PageId AS ERPageId,Button.UniqueId AS ButtonUniqueId,Button.BorderColor,ButtonPageLink.PageUniqueId as PageLink,Button.Label,Button.Message FROM ElementReference INNER JOIN ElementPlacement ON ElementReference.Id = ElementPlacement.ElementReferenceId LEFT JOIN Button ON ElementReference.Id = Button.Id LEFT JOIN ButtonPageLink ON Button.Id = ButtonPageLink.ButtonId WHERE ElementReference.ElementType = 0 ORDER BY ElementReference.PageId ASC,ElementPlacement.PageLayoutId');
     const queryPage = this.db.prepare('SELECT Id as uniqueId, UniqueId as id, Title, PageType FROM Page ');
     buttonTable.step();
     while(queryPage.step()){
@@ -177,7 +178,6 @@ export class Spb2augComponent implements OnInit {
       ElementReferencePageId = buttonTable.getAsObject().ERPageId;
     }
 
-
     //it's the great button
     while(ElementPlacementPageLayoutId == pageLayoutId && ElementReferencePageId == currentPage.UniquePageId){
 
@@ -192,6 +192,8 @@ export class Spb2augComponent implements OnInit {
         let message: string = buttonTable.getAsObject().Message;
         let borderColor = buttonTable.getAsObject().BorderColor;
         let color = buttonTable.getAsObject().BackgroundColor;
+        let visibilityLevel:number = buttonTable.getAsObject().Visible;
+        visibilityLevel = visibilityLevel == 0? 1 : 0;
 
         //here is button prediction, they don't got label or message, but they have ButtonUniqueId
         if(label == null && message == null){
@@ -252,6 +254,7 @@ export class Spb2augComponent implements OnInit {
         gridElement.y = Number(tabResPos[1]);
         gridElement.rows = Number(tabResSpan[1]);
         gridElement.cols = Number(tabResSpan[0]);
+        gridElement.VisibilityLevel = visibilityLevel;
         const pathImage = this.getPathImageArsaacLibrary(label, message);
         this.newGrid.ImageList.push({
           ID: (label) !== null? label : '',
