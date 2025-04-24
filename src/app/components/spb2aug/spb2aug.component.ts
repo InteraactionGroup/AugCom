@@ -527,7 +527,7 @@ export class Spb2augComponent implements OnInit {
           });
         }
       });
-      let goDownIDPage:string = "goDown"+String(howManyPages);
+      let goDownIDPage:string = "goDown"+String(howManyPages)+"Page";
       let dashboardGoDown:Page = this.newGrid.PageList.find(page => page.PageType == 3 && page.ID.includes(goDownIDPage));
       if(dashboardGoDown != undefined){
         while(dashboardGoDown){
@@ -551,7 +551,7 @@ export class Spb2augComponent implements OnInit {
 
   /**
    * this function put x to 0 after importation
-   * @param dashboard : the page dashboard
+   * @param dashboard : Page page of the dashboard
    */
   repositioningDashboardGridElement(dashboard:Page){
     dashboard.ElementIDsList.forEach(el => {
