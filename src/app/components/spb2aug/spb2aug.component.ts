@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { MultilinguismService } from '../../services/multilinguism.service';
+import {Component, OnInit} from '@angular/core';
+import {MultilinguismService} from '../../services/multilinguism.service';
 import {FolderGoTo, Grid, GridElement, Page} from '../../types';
-import { BoardService } from '../../services/board.service';
-import { Router } from '@angular/router';
-import { IndexeddbaccessService } from '../../services/indexeddbaccess.service';
-import { ConfigurationService } from '../../services/configuration.service';
+import {BoardService} from '../../services/board.service';
+import {Router} from '@angular/router';
+import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
+import {ConfigurationService} from '../../services/configuration.service';
 import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
-import { ArasaacObject } from '../../libTypes';
-import { LayoutService } from '../../services/layout.service';
+import {ArasaacObject} from '../../libTypes';
+import {LayoutService} from '../../services/layout.service';
+
 declare const initSqlJs: any;
 
 @Component({
@@ -94,32 +95,8 @@ export class Spb2augComponent implements OnInit {
    * the main function where we get the grid from the database
    */
   getGridFromDatabase() {
-    this.AdjustBDD();
     this.getAllPagesFromDatabase();
     this.setMainPage();
-  }
-
-  /**
-   * Here I have to adjust BDD because a useless element is present in table ElementReference at pageId 3 on SPB and somewhere in the base in SPS (elementType = 1)
-   */
-  AdjustBDD() {
-    const indexElementType1 = this.db.prepare('SELECT Id FROM ElementReference WHERE ElementType > 0');
-    indexElementType1.step();
-    const ElementType1Id = indexElementType1.getAsObject().Id;
-    this.db.run('DELETE FROM ElementReference WHERE Id = ' + ElementType1Id);
-
-    const queryIndexButton = this.db.prepare("SELECT Id,ElementReferenceId FROM Button");
-    while (queryIndexButton.step()) {
-      const indexButton = queryIndexButton.getAsObject().Id;
-      const indexElementReferenceId = queryIndexButton.getAsObject().ElementReferenceId;
-      if (indexButton + 1 == indexElementReferenceId) {
-        this.db.run('DELETE FROM ElementReference WHERE Id = ' + indexButton);
-        this.db.run('UPDATE ElementReference SET Id = Id - 1 WHERE Id >= ' + indexButton);
-        this.db.run('UPDATE ElementPlacement SET ElementReferenceId = ElementReferenceId -1 WHERE ElementReferenceId >= ' + indexButton);
-        return;
-      }
-    }
-    console.log("Update finish");
   }
 
   /**
@@ -127,7 +104,7 @@ export class Spb2augComponent implements OnInit {
    */
   getAllPagesFromDatabase() {
     //need to swap UniqueId and Id because folderButton target ID and we need the value UniqueId in
-    const buttonTable = this.db.prepare('SELECT ElementPlacement.GridPosition,ElementPlacement.GridSpan,ElementPlacement.PageLayoutId,ElementPlacement.Visible,ElementReference.BackgroundColor,ElementReference.PageId AS ERPageId,Button.UniqueId AS ButtonUniqueId,Button.BorderColor,ButtonPageLink.PageUniqueId as PageLink,Button.Label,Button.Message FROM ElementReference INNER JOIN ElementPlacement ON ElementReference.Id = ElementPlacement.ElementReferenceId LEFT JOIN Button ON ElementReference.Id = Button.Id LEFT JOIN ButtonPageLink ON Button.Id = ButtonPageLink.ButtonId WHERE ElementReference.ElementType = 0 ORDER BY ElementReference.PageId ASC,ElementPlacement.PageLayoutId');
+    const buttonTable = this.db.prepare('SELECT ElementPlacement.GridPosition,ElementPlacement.GridSpan,ElementPlacement.PageLayoutId,ElementPlacement.Visible,ElementReference.BackgroundColor,ElementReference.PageId AS ERPageId,Button.UniqueId AS ButtonUniqueId,Button.BorderColor,ButtonPageLink.PageUniqueId as PageLink,Button.Label,Button.Message FROM ElementReference INNER JOIN ElementPlacement ON ElementReference.Id = ElementPlacement.ElementReferenceId LEFT JOIN Button ON ElementReference.Id = Button.ElementReferenceId LEFT JOIN ButtonPageLink ON Button.Id = ButtonPageLink.ButtonId WHERE ElementReference.ElementType = 0 ORDER BY ElementReference.PageId ASC,ElementPlacement.PageLayoutId');
     const queryPage = this.db.prepare('SELECT Id as uniqueId, UniqueId as id, Title, PageType, GridDimension FROM Page ');
     buttonTable.step();
     while (queryPage.step()) {
@@ -245,7 +222,7 @@ export class Spb2augComponent implements OnInit {
               }
             ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
         }
-        if (currentPage.UniquePageId == "2") {
+        if (currentPage.UniquePageId == "2" || currentPage.PageType == 3) {
           gridElement.x = Number(tabResPos[0]);
         } else {
           gridElement.x = Number(tabResPos[0]) + 1;
@@ -503,7 +480,6 @@ export class Spb2augComponent implements OnInit {
 
     if (this.myFileNameExtension == "spb") {
       let dashboard: Page = this.newGrid.PageList.find(page => page.UniquePageId == "2");
-      this.repositioningDashboardGridElement(dashboard);
       this.newGrid.PageList.forEach(page => {
         if (page.UniquePageId != "2") {
           dashboard.ElementIDsList.forEach(el => {
@@ -517,7 +493,6 @@ export class Spb2augComponent implements OnInit {
       let dashboardGoDown: Page = this.newGrid.PageList.find(page => page.UniquePageId == "2" && page.ID.includes(goDownIDPage));
       if (dashboardGoDown != undefined) {
         while (dashboardGoDown) {
-          this.repositioningDashboardGridElement(dashboardGoDown);
           this.newGrid.PageList.forEach(page => {
             if (page.UniquePageId != "2" && page.ID.includes(goDownIDPage) == true) {
               dashboardGoDown.ElementIDsList.forEach(el => {
@@ -535,7 +510,6 @@ export class Spb2augComponent implements OnInit {
     }
     if (this.myFileNameExtension == "sps") {
       let dashboard: Page = this.newGrid.PageList.find(page => page.PageType == 3 && !page.ID.includes("goDown"));
-      this.repositioningDashboardGridElement(dashboard);
       this.newGrid.PageList.forEach(page => {
         if (page.PageType != 3 && page.ID.includes("goDown") == false) {
           dashboard.ElementIDsList.forEach(el => {
@@ -549,7 +523,6 @@ export class Spb2augComponent implements OnInit {
       let dashboardGoDown: Page = this.newGrid.PageList.find(page => page.PageType == 3 && page.ID.includes(goDownIDPage));
       if (dashboardGoDown != undefined) {
         while (dashboardGoDown) {
-          this.repositioningDashboardGridElement(dashboardGoDown);
           this.newGrid.PageList.forEach(page => {
             if (page.PageType != 3 && page.ID.includes(goDownIDPage) == true) {
               dashboardGoDown.ElementIDsList.forEach(el => {
@@ -565,17 +538,6 @@ export class Spb2augComponent implements OnInit {
         }
       }
     }
-  }
-
-  /**
-   * this function put x to 0 after importation
-   * @param dashboard : Page page of the dashboard
-   */
-  repositioningDashboardGridElement(dashboard: Page) {
-    dashboard.ElementIDsList.forEach(el => {
-      let elementTableauGauche: number = this.newGrid.ElementList.findIndex(gridElement => gridElement.ID == el)
-      this.newGrid.ElementList[elementTableauGauche].x = 0;
-    });
   }
 
   /**
