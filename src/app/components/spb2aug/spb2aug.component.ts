@@ -5,8 +5,7 @@ import {BoardService} from '../../services/board.service';
 import {Router} from '@angular/router';
 import {IndexeddbaccessService} from '../../services/indexeddbaccess.service';
 import {ConfigurationService} from '../../services/configuration.service';
-import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
-import {ArasaacObject} from '../../libTypes';
+import arasaacJson from '../../../assets/arasaac.json';
 import {LayoutService} from '../../services/layout.service';
 
 declare const initSqlJs: any;
@@ -356,25 +355,21 @@ export class Spb2augComponent implements OnInit {
    * @param message the message of the button
    */
   getPathImageArsaacLibrary(label, message): string {
-    if (label !== null) {
-      const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
-        return label.toLowerCase() === word.toLowerCase();
-      });
-      if (index > -1) {
-        return 'assets/libs/FR_Pictogrammes_couleur/' + (arasaacColoredJson as unknown as ArasaacObject)[0].wordList[index] + '.png';
+
+    if(label !== null){
+      // @ts-ignore
+      const idInArasaac = arasaacJson.filter(item => item.keywords.some(k => k.keyword === label)).map(item => item._id);
+      if(idInArasaac.length > 0){
+        return 'assets/libs/arasaac_pictos/' + idInArasaac[0] + '.png';
       }
     }
-
-    if (message !== null) {
-      const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
-        return message.toLowerCase() === word.toLowerCase();
-      });
-      if (index > -1) {
-        return 'assets/libs/FR_Pictogrammes_couleur/' + (arasaacColoredJson as unknown as ArasaacObject)[0].wordList[index] + '.png';
+    if(message !== null){
+      // @ts-ignore
+      const idInArasaac = arasaacJson.filter(item => item.keywords.some(k => k.keyword === message)).map(item => item._id);
+      if(idInArasaac.length > 0){
+        return 'assets/libs/arasaac_pictos/' + idInArasaac[0] + '.png';
       }
     }
-
-
     return '';
   }
 
@@ -449,11 +444,9 @@ export class Spb2augComponent implements OnInit {
    */
   statErrorImage() {
     this.newGrid.ImageList.forEach(picture => {
-      const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
-        return picture.ID !== null && picture.ID !== '' && (picture.ID.toLowerCase() === word || picture.ID.toUpperCase() === word);
-      });
-
-      if (index === -1) {
+      // @ts-ignore
+      const idInArasaac = arasaacJson.filter(item => item.keywords.some(k => k.keyword === picture.ID)).map(item => item._id);
+      if (idInArasaac.length == 0) {
         // console.log(picture.ID);
         this.numberErrorImage = this.numberErrorImage + 1;
       }
