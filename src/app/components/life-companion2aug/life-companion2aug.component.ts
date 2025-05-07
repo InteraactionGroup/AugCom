@@ -6,7 +6,7 @@ import { LayoutService } from '../../services/layout.service';
 import { Router } from '@angular/router';
 import scleraJson from '../../../assets/sclera.json';
 import parlerPictoJson from '../../../assets/parlerpictos.json';
-import arasaacJson from '../../../assets/arasaac.json';
+import arasaacJsonLCC from '../../../assets/arasaacLCC.json';
 import fontawesomeJson from '../../../assets/fontawesome.json';
 import mulberryJson from '../../../assets/mulberry-symbols-lcc.json';
 import {
@@ -354,11 +354,11 @@ export class LifeCompanion2augComponent implements OnInit {
       }
       // ca commence ici
       //arasaac-lifecompanion
-      index = (arasaacJson as unknown as arasaacLCCObject).images.findIndex(word => {
+      index = (arasaacJsonLCC as unknown as arasaacLCCObject).images.findIndex(word => {
         return idImage === word.id;
       });
       if (index > -1) {
-        return 'assets/libs/arasaac/' + (arasaacJson as unknown as arasaacLCCObject).images[index].id + '.png';
+        return 'assets/libs/arasaac/' + (arasaacJsonLCC as unknown as arasaacLCCObject).images[index].id + '.png';
       }
       //mulberry-lifecompanion
       index = (mulberryJson as unknown as mulberryObject).images.findIndex(word => {
