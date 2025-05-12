@@ -373,7 +373,7 @@
     { "id" : "focusSelection", "FR": "Sélection par fixation", "EN": "Selection by focus"},
     { "id" : "WordNameFile", "FR": "ClavierAugCom", "EN": "GridFileAugcom"},
     { "id" : "WordTitle", "FR": "Clavier Augcom", "EN": "AugCom main grid"},
-    { "id" : "WordFolder", "FR": "Sous Dossier", "EN": "Folder"}
-
+    { "id" : "WordFolder", "FR": "Sous Dossier", "EN": "Folder"},
+    { "id" : "generatorGrid", "FR": "Générateur de grille", "EN": "Grid generator"}
   ]
 }
