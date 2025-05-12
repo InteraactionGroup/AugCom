@@ -36,6 +36,7 @@ describe('AccountMenuComponent', () => {
     ['Application',
       ['ApplicationTheme',
         'paletteManagement',
+        'visualisation',
         'interactions',
         'language',
         'share',
