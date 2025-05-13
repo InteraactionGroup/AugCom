@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { Ng2ImgMaxModule } from 'ng2-img-max';
 import { VisualisationComponent } from './visualisation.component';
+import {RouterTestingModule} from "@angular/router/testing";
+import {HttpClientModule} from "@angular/common/http";
+
 
 describe('VisualisationComponent', () => {
   let component: VisualisationComponent;
@@ -8,7 +11,8 @@ describe('VisualisationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VisualisationComponent ]
+      declarations: [ VisualisationComponent ],
+      imports: [Ng2ImgMaxModule, RouterTestingModule, HttpClientModule]
     })
     .compileComponents();
   }));

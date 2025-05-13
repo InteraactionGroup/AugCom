@@ -88,13 +88,14 @@ describe('AccountMenuComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     component.selectedNewMenu = component.newMenu[0][0];
     fixture.detectChanges();
-    expect(compiled.querySelectorAll('.title').length).toEqual(6);
+    expect(compiled.querySelectorAll('.title').length).toEqual(7);
     expect(compiled.querySelectorAll('.title')[0].textContent).toContain(component.multilinguismService.translate(component.newMenu[0][1][0]));
     expect(compiled.querySelectorAll('.title')[1].textContent).toContain(component.multilinguismService.translate(component.newMenu[0][1][1]));
     expect(compiled.querySelectorAll('.title')[2].textContent).toContain(component.multilinguismService.translate(component.newMenu[0][1][2]));
     expect(compiled.querySelectorAll('.title')[3].textContent).toContain(component.multilinguismService.translate(component.newMenu[0][1][3]));
     expect(compiled.querySelectorAll('.title')[4].textContent).toContain(component.multilinguismService.translate(component.newMenu[0][1][4]));
     expect(compiled.querySelectorAll('.title')[5].textContent).toContain(component.multilinguismService.translate(component.newMenu[0][1][5]));
+    expect(compiled.querySelectorAll('.title')[6].textContent).toContain(component.multilinguismService.translate(component.newMenu[0][1][6]));
   });
 
   it('should display app-grid-format-management when GridFormat section of Grid is selected', () => {
