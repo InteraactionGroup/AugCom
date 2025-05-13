@@ -10,6 +10,7 @@
     { "id" : "appearance" , "FR" : "Apparence", "EN" : "Appearance" },
     { "id" : "globalAppearance" , "FR" : "Apparence générale", "EN" : "Global Appearance" },
     { "id" : "paletteManagement" , "FR" : "Gestion des palettes", "EN" : "Palette Management" },
+    { "id" : "visualisation" , "FR" : "Visualisation", "EN" : "View" },
     { "id" : "language" , "FR" : "Langue", "EN" : "Language" },
     { "id" : "grammar" , "FR" : "Grammaire", "EN" : "Grammar" },
     { "id" : "share" , "FR" : "Importer", "EN" : "Import" },
@@ -373,7 +374,9 @@
     { "id" : "focusSelection", "FR": "Sélection par fixation", "EN": "Selection by focus"},
     { "id" : "WordNameFile", "FR": "ClavierAugCom", "EN": "GridFileAugcom"},
     { "id" : "WordTitle", "FR": "Clavier Augcom", "EN": "AugCom main grid"},
-    { "id" : "WordFolder", "FR": "Sous Dossier", "EN": "Folder"}
-
+    { "id" : "WordFolder", "FR": "Sous Dossier", "EN": "Folder"},
+    { "id" : "path", "FR": "Chemin", "EN": "Path"},
+    { "id" : "titlePage", "FR": "Titre de la page", "EN": "Title of the page"},
+    { "id" : "visualisationPath", "FR": "Visualisation du chemin", "EN": "Path visualization"}
   ]
 }

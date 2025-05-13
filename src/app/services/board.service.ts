@@ -37,6 +37,7 @@ export class BoardService {
 
   board: Grid;
   currentPath = '#HOME';
+  PathDisplay:string = 'Path';
 
   /*the current forms that verb and noun have to use to conjugate*/
   currentVerbTerminaison: { currentPerson: string, currentNumber: string } = { currentPerson: '', currentNumber: '' };
@@ -83,6 +84,11 @@ export class BoardService {
         const nameSplited = name.split('/');
         name = nameSplited.length >= 2 ? nameSplited[nameSplited.length - 2] : name;
       }
+      if(this.PathDisplay == "TitlePage"){
+        const tabName:string[] = name.split('/');
+        name = tabName[tabName.length-2];
+      }
+
       return name;
     }
     return this.configurationService.LANGUAGE_VALUE === 'FR' ? 'Accueil' : 'Home';
