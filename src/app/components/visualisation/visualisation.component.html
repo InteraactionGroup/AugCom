@@ -2,10 +2,10 @@
   <div class="visualisationMargin">
     <label>{{this.multilinguism.translate("visualisationPath")}}:</label>
 
-    <input checked id="radioPath" name="typeFormat" type="radio" (click)="getView('Path')">
+    <input id="radioPath" name="typeFormat" type="radio" value="Path" [(ngModel)]="pathDisplay" (click)="getView('Path')">
     <label class="radio" for="radioPath">{{this.multilinguism.translate("path")}}</label>
 
-    <input id="radioTitlePage" name="typeFormat" type="radio" (click)="getView('TitlePage')">
+    <input id="radioTitlePage" name="typeFormat" type="radio" value="TitlePage" [(ngModel)]="pathDisplay" (click)="getView('TitlePage')">
     <label class="radio" for="radioTitlePage">{{this.multilinguism.translate("titlePage")}}</label>
   </div>
 </div>

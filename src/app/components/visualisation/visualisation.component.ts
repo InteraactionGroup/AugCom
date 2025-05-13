@@ -12,10 +12,16 @@ export class VisualisationComponent implements OnInit {
   constructor(public boardService: BoardService,
               public multilinguism: MultilinguismService) { }
 
+  pathDisplay:string = this.boardService.PathDisplay;
+
   getView(choice:string):void{
     this.boardService.PathDisplay = choice;
+    this.pathDisplay = choice;
   }
 
   ngOnInit(): void {
+    if(this.pathDisplay == null){
+      this.pathDisplay = "Path";
+    }
   }
 }
