@@ -51,4 +51,11 @@ export class InformationEditionPageComponent implements OnInit {
     this.editionService.name = this.name;
     this.editionService.newPage = this.name;
   }
+
+  setName(){
+    console.log("ça click");
+    this.nameInput = this.name;
+    this.editionService.name = this.name;
+    this.editionService.newPage = this.name;
+  }
 }

@@ -211,8 +211,10 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
       } else {
         return new FolderGoTo(this.editionService.pageLink);
       }
-    } else {
+    } else if(this.editionService.radioTypeFormat === 'button') {
       return 'button';
+    } else {
+      return 'function';
     }
   }
 
@@ -357,7 +359,17 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
       this.editionService.name = this.editionService.getDefaultForm(elementToModif.ElementFormsList).DisplayedText;
       this.editionService.curentColor = this.gridElementService.getStyle(elementToModif).BackgroundColor;
       this.editionService.curentBorderColor = this.gridElementService.getStyle(elementToModif).BorderColor;
-      this.editionService.radioTypeFormat = elementToModif.Type === 'button' ? 'button' : 'folder';
+      switch(elementToModif.Type){
+        case 'button':
+          this.editionService.radioTypeFormat = 'button';
+          break;
+        case 'folder':
+          this.editionService.radioTypeFormat = 'folder';
+          break;
+        case 'function':
+          this.editionService.radioTypeFormat = 'function';
+          break;
+      }
       this.editionService.pageLink = elementToModif.Type === 'button' ? '@' : (elementToModif.Type as FolderGoTo).GoTo;
       const imageToModif = this.boardService.board.ImageList.find(x => x.ID === elementToModif.ElementFormsList[0].ImageID);
       if (imageToModif != null && imageToModif !== undefined) {

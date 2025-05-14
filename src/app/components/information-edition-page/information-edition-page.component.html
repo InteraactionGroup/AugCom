@@ -5,8 +5,8 @@
     <div class="page-content">
       <div class="tableTitle"> {{multilinguism.translate("modifInfo")}}</div>
       <div class="element">
-        <label class="label" for="namefield">{{multilinguism.translate("elementName")}} : </label>
-        <input id="namefield" (keyup)="getName($event)" class="input width-100" [placeholder]="nameInput" type="text">
+        <label class="label" for="namefield" *ngIf="this.editionService.radioTypeFormat!='function'">{{multilinguism.translate("elementName")}} : </label>
+        <input id="namefield" (keyup)="getName($event)" class="input width-100" [placeholder]="nameInput" type="text" *ngIf="this.editionService.radioTypeFormat!='function'">
 
         <label class="label" for="typefield">{{multilinguism.translate("elementType")}} : </label>
         <form id="typefield" class="input width-100">
@@ -20,14 +20,28 @@
           <label class="radio" for="radioFolder">{{multilinguism.translate("folder")}}</label>
           <p class="subtitle">{{ multilinguism.translate("folderDescription") }}</p>
 
+          <input [(ngModel)]="this.editionService.radioTypeFormat" id="radioFunction" name="typeFormat" type="radio"
+                 value="function">
+          <label class="radio" for="radioFunction">{{multilinguism.translate("function")}}</label>
+          <p class="subtitle">{{ multilinguism.translate("functionDescription") }}</p>
+
           <select class="selectBox" [(ngModel)]="this.editionService.pageLink"
             *ngIf="this.editionService.radioTypeFormat=='folder'" [ngModelOptions]="{standalone: true}">
             <option value="@NEW@">-{{multilinguism.translate("createNewPage")}}-</option>
             <ng-container *ngFor="let p of this.board.board.PageList">
               <option value="{{p.ID}}"> {{p.ID}} </option>
             </ng-container>
+            <label class="radio">{{multilinguism.translate("OpenTheFolder")}}</label>
           </select>
-          
+
+          <select class="selectBox" [(ngModel)]="this.name" (click)="setName()"
+                  *ngIf="this.editionService.radioTypeFormat=='function'" [ngModelOptions]="{standalone: true}">
+            <ng-container *ngFor="let p of this.editionService.function">
+              <option value="{{p}}"> {{multilinguism.translate(p)}} </option>
+            </ng-container>
+            <label class="radio" >{{multilinguism.translate("OpenTheFolder")}}</label>
+          </select>
+
           <input type="text" [(ngModel)]="this.editionService.newPage"
             placeholder="{{multilinguism.translate('newPageID')}}"
             *ngIf="this.editionService.radioTypeFormat=='folder' && this.editionService.pageLink === '@NEW@'"

@@ -74,6 +74,8 @@ export class EditionService {
   pageLink = '@';
   newPage = '';
 
+  function:string[] = ["Retour", "Monter le son", "Baisser le son", "Couper le volume"];
+
   selectedPalette = this.paletteService.defaultPalette;
   insideCheck: boolean = false;
   borderCheck: boolean = false;
