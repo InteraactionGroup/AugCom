@@ -10,6 +10,7 @@
     { "id" : "appearance" , "FR" : "Apparence", "EN" : "Appearance" },
     { "id" : "globalAppearance" , "FR" : "Apparence générale", "EN" : "Global Appearance" },
     { "id" : "paletteManagement" , "FR" : "Gestion des palettes", "EN" : "Palette Management" },
+    { "id" : "visualisation" , "FR" : "Visualisation", "EN" : "View" },
     { "id" : "language" , "FR" : "Langue", "EN" : "Language" },
     { "id" : "grammar" , "FR" : "Grammaire", "EN" : "Grammar" },
     { "id" : "share" , "FR" : "Importer", "EN" : "Import" },
@@ -379,6 +380,9 @@
     { "id" : "Retour", "FR": "Retour", "EN": "Back"},
     { "id" : "turndownvolume", "FR": "Baisser le son", "EN": "Turn down the sound"},
     { "id" : "turnupvolume", "FR": "Monter le son", "EN": "Turn up the sound"},
-    { "id" : "mute", "FR": "Couper le volume", "EN": "Mute"}
+    { "id" : "mute", "FR": "Couper le volume", "EN": "Mute"},
+    { "id" : "path", "FR": "Chemin", "EN": "Path"},
+    { "id" : "titlePage", "FR": "Titre de la page", "EN": "Title of the page"},
+    { "id" : "visualisationPath", "FR": "Visualisation du chemin", "EN": "Path visualization"},
   ]
 }

@@ -15,6 +15,7 @@ export class AccountMenuComponent implements OnInit {
       ['ApplicationTheme',
         // ['Gestion des icones'],
         'paletteManagement',
+        'visualisation',
         'interactions',
         'language',
         'share',
@@ -135,7 +136,7 @@ export class AccountMenuComponent implements OnInit {
   /**
    * Checks if menu in parameter is currently selected
    * @param section checked menu
-   * @returns true if checked menu is current menu, false elsewise 
+   * @returns true if checked menu is current menu, false elsewise
    */
   isSelectedMenu(menu) {
     return menu[0] === this.selectedNewMenu;
@@ -144,7 +145,7 @@ export class AccountMenuComponent implements OnInit {
   /**
    * Checks if section in parameter is currently selected
    * @param section checked section
-   * @returns true if checked section is current section, false elsewise 
+   * @returns true if checked section is current section, false elsewise
    */
   isSelectedSection(section) {
     return section === this.selectedSection;

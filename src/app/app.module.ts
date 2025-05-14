@@ -92,6 +92,7 @@ import { RouterPreloader } from '@angular/router';
 import { ExportComponent } from './components/export/export.component';
 import { DialogGridOptionsComponent } from './components/dialog-grid-options/dialog-grid-options.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { VisualisationComponent } from './components/visualisation/visualisation.component';
 
 
 @NgModule({
@@ -164,7 +165,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ImportUserComponent,
     LoadingComponent,
     ExportComponent,
-    DialogGridOptionsComponent
+    DialogGridOptionsComponent,
+    VisualisationComponent
   ],
   imports: [
     BrowserModule,
