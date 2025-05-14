@@ -227,6 +227,9 @@ export class Spb2augComponent implements OnInit {
         } else {
           gridElement.x = Number(tabResPos[0]) + 1;
         }
+        if(gridElement.ElementFormsList[0].DisplayedText == "Retour" || gridElement.ElementFormsList[0].DisplayedText == "retour" || gridElement.ElementFormsList[0].DisplayedText == "Monter le son" || gridElement.ElementFormsList[0].DisplayedText == "Baisser le son" || gridElement.ElementFormsList[0].DisplayedText == "Couper le son"){
+          gridElement.Type = 'function';
+        }
         gridElement.y = Number(tabResPos[1]);
         gridElement.rows = Number(tabResSpan[1]);
         gridElement.cols = Number(tabResSpan[0]);

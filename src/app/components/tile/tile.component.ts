@@ -227,9 +227,28 @@ export class TileComponent implements OnInit, OnDestroy {
             (element.Type as FolderGoTo).GoTo;
         }
         this.layoutService.refresh();
-
-        // for errors
-      } else {
+      } else if (element.Type == "function") {
+        if(element.ElementFormsList[0].DisplayedText.toLowerCase() == "back" || element.ElementFormsList[0].DisplayedText.toLowerCase() == "retour"){
+          this.boardService.backToPreviousFolder();
+        }else if(element.ElementFormsList[0].DisplayedText.toLowerCase() == "monter le son"){
+          this.configurationService.VOLUME += 0.1;
+          if(this.configurationService.VOLUME > 1){
+            this.configurationService.VOLUME = 1;
+          }
+        }else if(element.ElementFormsList[0].DisplayedText.toLowerCase() == "baisser le son"){
+          this.configurationService.VOLUME -= 0.1;
+          if(this.configurationService.VOLUME < 0) {
+            this.configurationService.VOLUME = 0;
+          }
+        }else if(element.ElementFormsList[0].DisplayedText.toLowerCase() == "couper le volume"){
+          this.configurationService.VOLUME = 0;
+        }
+        else if(element.ElementFormsList[0].DisplayedText.toLowerCase() == "accueil" || element.ElementFormsList[0].DisplayedText.toLowerCase() == "home"){
+          this.boardService.backHome();
+        }
+      }
+      // for errors
+      else {
         console.error(element.Type);
         console.error(
           'ElementType : ' +
