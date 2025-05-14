@@ -228,24 +228,7 @@ export class TileComponent implements OnInit, OnDestroy {
         }
         this.layoutService.refresh();
       } else if (element.Type == "function") {
-        if(element.ElementFormsList[0].DisplayedText.toLowerCase() == "retour" || element.ElementFormsList[0].DisplayedText.toLowerCase() == "back"){
-          this.boardService.backToPreviousFolder();
-        }else if(element.ElementFormsList[0].DisplayedText.toLowerCase() == "monter le son" || element.ElementFormsList[0].DisplayedText.toLowerCase() == "turn up the sound"){
-          this.configurationService.VOLUME += 0.1;
-          if(this.configurationService.VOLUME > 1){
-            this.configurationService.VOLUME = 1;
-          }
-        }else if(element.ElementFormsList[0].DisplayedText.toLowerCase() == "baisser le son" || element.ElementFormsList[0].DisplayedText.toLowerCase() == "turn down the sound"){
-          this.configurationService.VOLUME -= 0.1;
-          if(this.configurationService.VOLUME < 0) {
-            this.configurationService.VOLUME = 0;
-          }
-        }else if(element.ElementFormsList[0].DisplayedText.toLowerCase() == "couper le volume" || element.ElementFormsList[0].DisplayedText.toLowerCase() == "mute"){
-          this.configurationService.VOLUME = 0;
-        }
-        else if(element.ElementFormsList[0].DisplayedText.toLowerCase() == "accueil" || element.ElementFormsList[0].DisplayedText.toLowerCase() == "home"){
-          this.boardService.backHome();
-        }
+        this.assignFunctionToButton(element);
       }
       // for errors
       else {
@@ -259,6 +242,31 @@ export class TileComponent implements OnInit, OnDestroy {
     }
 
     this.boardService.updateElementList();
+  }
+
+  /**
+   * assign the function to the button by mathching his text
+   * @param element current grid element
+   */
+  assignFunctionToButton(element:GridElement){
+    if(element.ElementFormsList[0].DisplayedText.toLowerCase() == "retour" || element.ElementFormsList[0].DisplayedText.toLowerCase() == "back"){
+      this.boardService.backToPreviousFolder();
+    }else if(element.ElementFormsList[0].DisplayedText.toLowerCase() == "monter le son" || element.ElementFormsList[0].DisplayedText.toLowerCase() == "turn up the sound"){
+      this.configurationService.VOLUME += 0.1;
+      if(this.configurationService.VOLUME > 1){
+        this.configurationService.VOLUME = 1;
+      }
+    }else if(element.ElementFormsList[0].DisplayedText.toLowerCase() == "baisser le son" || element.ElementFormsList[0].DisplayedText.toLowerCase() == "turn down the sound"){
+      this.configurationService.VOLUME -= 0.1;
+      if(this.configurationService.VOLUME < 0) {
+        this.configurationService.VOLUME = 0;
+      }
+    }else if(element.ElementFormsList[0].DisplayedText.toLowerCase() == "couper le volume" || element.ElementFormsList[0].DisplayedText.toLowerCase() == "mute"){
+      this.configurationService.VOLUME = 0;
+    }
+    else if(element.ElementFormsList[0].DisplayedText.toLowerCase() == "accueil" || element.ElementFormsList[0].DisplayedText.toLowerCase() == "home"){
+      this.boardService.backHome();
+    }
   }
 
   /**
