@@ -186,6 +186,18 @@ export class TileComponent implements OnInit, OnDestroy {
                 this.boardService.backToPreviousFolder();
               } else if (action.ID === 'backHome') {
                 this.boardService.backHome();
+              } else if ((action.ID) === 'turndownvolume'){
+                this.configurationService.VOLUME -= 0.1;
+                if(this.configurationService.VOLUME < 0) {
+                  this.configurationService.VOLUME = 0;
+                }
+              } else if ((action.ID) === 'turnupvolume'){
+                this.configurationService.VOLUME += 0.1;
+                if(this.configurationService.VOLUME > 1){
+                  this.configurationService.VOLUME = 1;
+                }
+              } else if ((action.ID) === 'mute'){
+                this.configurationService.VOLUME = 0;
               }
             });
           }
