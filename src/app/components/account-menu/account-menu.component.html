@@ -41,6 +41,10 @@
           <app-palettes></app-palettes>
         </ng-container>
 
+        <ng-container *ngIf="isSelectedSection('visualisation')">
+          <app-visualisation></app-visualisation>
+        </ng-container>
+
         <ng-container *ngIf="isSelectedSection('share')">
           <app-import></app-import>
         </ng-container>

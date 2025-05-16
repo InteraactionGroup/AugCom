@@ -265,6 +265,7 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
     }
   }
 
+
   /**
    * Creates a new button and adds it to the board, given the information of this class, updated by the edition html panel
    */

@@ -39,6 +39,9 @@ export class FunctionsService {
       'otherforms',
       'back',
       'backHome',
+      'turndownvolume',
+      'turnupvolume',
+      'mute',
     )
   }
 
