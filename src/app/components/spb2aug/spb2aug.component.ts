@@ -205,7 +205,17 @@ export class Spb2augComponent implements OnInit {
                 LexicInfos: [{default: true}],
                 ImageID: (label) !== null ? label : '',
               }
-            ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
+            ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}]);
+          if(label !== null){
+            if((label.toLowerCase() == "clavier" || label.toLowerCase() == "keyboard") && (currentPage.UniquePageId == "2" || currentPage.PageType == 3)){
+              console.log("clavier x 0");
+              const pageSetProperties = this.db.prepare('SELECT DefaultKeyboardPageUniqueId FROM PageSetProperties');
+              pageSetProperties.step();
+              let defaultKeyboardPageUniqueId = pageSetProperties.getAsObject().DefaultKeyboardPageUniqueId;
+              gridElement.Type = {GoTo: String(defaultKeyboardPageUniqueId)};
+              pageSetProperties.free();
+            }
+          }
         } else {
           gridElement = new GridElement(buttonUniqueId,
             'button',
@@ -227,6 +237,7 @@ export class Spb2augComponent implements OnInit {
         } else {
           gridElement.x = Number(tabResPos[0]) + 1;
         }
+        this.assignFunctionToButton(gridElement);
         gridElement.y = Number(tabResPos[1]);
         gridElement.rows = Number(tabResSpan[1]);
         gridElement.cols = Number(tabResSpan[0]);
@@ -254,6 +265,26 @@ export class Spb2augComponent implements OnInit {
       buttonTable.step();
       ElementPlacementPageLayoutId = buttonTable.getAsObject().PageLayoutId;
       ElementReferencePageId = buttonTable.getAsObject().ERPageId;
+    }
+  }
+
+  /**
+   * assign the function to the button by mathching his text
+   * @param element current grid element
+   */
+  assignFunctionToButton(element:GridElement){
+    if(element.ElementFormsList[0].DisplayedText.toLowerCase() == "retour"){
+      element.InteractionsList[0].ActionList = [];
+      element.InteractionsList[0].ActionList.push({ID:'back', Options: []});
+    }else if(element.ElementFormsList[0].DisplayedText.toLowerCase() == "monter le son"){
+      element.InteractionsList[0].ActionList = [];
+      element.InteractionsList[0].ActionList.push({ID:'turnupvolume', Options: []});
+    }else if(element.ElementFormsList[0].DisplayedText.toLowerCase() == "baisser le son"){
+      element.InteractionsList[0].ActionList = [];
+      element.InteractionsList[0].ActionList.push({ID:'turndownvolume', Options: []});
+    }else if(element.ElementFormsList[0].DisplayedText.toLowerCase() == "couper le son"){
+      element.InteractionsList[0].ActionList = [];
+      element.InteractionsList[0].ActionList.push({ID:'mute', Options: []});
     }
   }
 
