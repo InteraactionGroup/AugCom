@@ -205,7 +205,17 @@ export class Spb2augComponent implements OnInit {
                 LexicInfos: [{default: true}],
                 ImageID: (label) !== null ? label : '',
               }
-            ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}])
+            ], [{ID: 'click', ActionList: [{ID: 'display', Options: []}, {ID: 'say', Options: []}]}]);
+          if(label !== null){
+            if((label.toLowerCase() == "clavier" || label.toLowerCase() == "keyboard") && (currentPage.UniquePageId == "2" || currentPage.PageType == 3)){
+              console.log("clavier x 0");
+              const pageSetProperties = this.db.prepare('SELECT DefaultKeyboardPageUniqueId FROM PageSetProperties');
+              pageSetProperties.step();
+              let defaultKeyboardPageUniqueId = pageSetProperties.getAsObject().DefaultKeyboardPageUniqueId;
+              gridElement.Type = {GoTo: String(defaultKeyboardPageUniqueId)};
+              pageSetProperties.free();
+            }
+          }
         } else {
           gridElement = new GridElement(buttonUniqueId,
             'button',
