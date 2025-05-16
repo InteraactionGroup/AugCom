@@ -4,8 +4,8 @@ import { DbnaryService } from '../../services/dbnary.service';
 import { GeticonService } from '../../services/geticon.service';
 import { HttpClient } from '@angular/common/http';
 import mullberryJson from '../../../assets/symbol-info.json';
-import arasaacJson from '../../../assets/arasaac-symbol-info.json';
-import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
+import arasaacJsonSymbol from '../../../assets/arasaac-symbol-info.json';
+import arasaacJson from '../../../assets/arasaac.json';
 import { MulBerryObject, ArasaacObject } from '../../libTypes';
 import { Ng2ImgMaxService } from 'ng2-img-max';
 import { ElementForm } from '../../types';
@@ -289,7 +289,7 @@ export class AlternativeFormsComponent implements OnInit {
   }
 
   /**
-   * Shows the image corresponding to a combination of selected library (mulberry or arasaac) and searched word (any) 
+   * Shows the image corresponding to a combination of selected library (mulberry or arasaac) and searched word (any)
    * @param elt library to be used and word to be searched
    */
   previewLibrary(elt: { lib, word }) {
@@ -299,13 +299,14 @@ export class AlternativeFormsComponent implements OnInit {
         this.boardService.board.libraryUsed.push('Mulberry');
       }
       this.previewMullberry(elt.word);
-    } else if (elt.lib === 'arasaacNB') {
-      this.previewArasaac(elt.word, false);
+    } else if (elt.lib === 'arasaac') {
+      this.imageSelectionStarted = true;
+      this.elementFormNameImageURL = 'assets/libs/arasaac_pictos/' + elt.word + '.png';
       if (!this.boardService.board.libraryUsed.includes('Arasaac')) {
         this.boardService.board.libraryUsed.push('Arasaac');
       }
-    } else if (elt.lib === 'arasaacColor') {
-      this.previewArasaac(elt.word, true);
+    } else if (elt.lib === 'arasaacNB') {
+      this.previewArasaac(elt.word, false);
       if (!this.boardService.board.libraryUsed.includes('Arasaac')) {
         this.boardService.board.libraryUsed.push('Arasaac');
       }
@@ -313,7 +314,7 @@ export class AlternativeFormsComponent implements OnInit {
   }
 
   /**
-   * 
+   *
    * @param elt library to be used and word to be searched
    * @returns an url corresponding to the searched image's name in the selected library
    */
@@ -324,6 +325,8 @@ export class AlternativeFormsComponent implements OnInit {
       return 'url(\'assets/libs/FR_Noir_et_blanc_pictogrammes/' + elt.word + '.png\')';
     } else if (elt.lib === 'arasaacColor') {
       return 'url(\'assets/libs/FR_Pictogrammes_couleur/' + elt.word + '.png\')';
+    } else if (elt.lib === 'arasaac') {
+      return 'url(\'assets/libs/arasaac_pictos/' + elt.word + '.png\')';
     }
   }
 
@@ -360,17 +363,25 @@ export class AlternativeFormsComponent implements OnInit {
     let tempList = [];
 
     if (this.configurationService.LANGUAGE_VALUE === 'FR') {
-      (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
+      let idInArasaac: { id: number, keyword: string }[] = [];
+      // @ts-ignore
+      for (const item of arasaacJson) {
+        for (const k of item.keywords) {
+          if (text !== null && text !== '' && k.keyword === text && k.keyword.toLowerCase().includes(text.toLocaleLowerCase()) && this.getSimilarity(text.toLowerCase(), k.keyword.toLowerCase()) >= 0.5) {
+            idInArasaac.push({ id: item._id, keyword: k.keyword });
+          }
+        }
+      }
+      if(idInArasaac.length > 0){
+        idInArasaac.forEach(elementId => {
+          tempList.push({ lib: 'arasaac', word: elementId.id });
+        });
+      }
+
+      (arasaacJsonSymbol as unknown as ArasaacObject)[0].wordList.forEach(word => {
         if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && this.getSimilarity(text.toLowerCase(), word.toLowerCase()) >= 0.5) {
           const url = word;
           tempList.push({ lib: 'arasaacNB', word: this.cleanString(url) });
-        }
-      }, this);
-
-      (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
-        if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && this.getSimilarity(text.toLowerCase(), word.toLowerCase()) >= 0.5) {
-          const url = word;
-          tempList.push({ lib: 'arasaacColor', word: this.cleanString(url) });
         }
       }, this);
     }

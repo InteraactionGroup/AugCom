@@ -2,15 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { EditionService } from '../../services/edition.service';
 import { Ng2ImgMaxService } from 'ng2-img-max';
 import mullberryJson from '../../../assets/symbol-info.json';
-import arasaacJson from '../../../assets/arasaac-symbol-info.json';
-import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
+import arasaacJsonSymbol from '../../../assets/arasaac-symbol-info.json';
+import arasaacJson from '../../../assets/arasaac.json';
 import { ArasaacObject, MulBerryObject } from '../../libTypes';
 import { MultilinguismService } from '../../services/multilinguism.service';
 import { ConfigurationService } from "../../services/configuration.service";
 import { Observable } from "rxjs";
 import { FormControl } from "@angular/forms";
 import { map, startWith } from "rxjs/operators";
-import { DialogAddUserComponent } from "../dialog-add-user/dialog-add-user.component";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogModifyColorInsideComponent } from "../dialog-modify-color-inside/dialog-modify-color-inside.component";
 import { DialogModifyColorBorderComponent } from "../dialog-modify-color-border/dialog-modify-color-border.component";
@@ -98,8 +97,8 @@ export class ImageSelectionPageComponent implements OnInit {
       return 'url(\'assets/libs/mulberry-symbols/EN-symbols/' + elt.word + '.svg\')';
     } else if (elt.lib === 'arasaacNB') {
       return 'url(\'assets/libs/FR_Noir_et_blanc_pictogrammes/' + elt.word + '.png\')';
-    } else if (elt.lib === 'arasaacColor') {
-      return 'url(\'assets/libs/FR_Pictogrammes_couleur/' + elt.word + '.png\')';
+    } else if (elt.lib === 'arasaac') {
+      return 'url(\'assets/libs/arasaac_pictos/' + elt.word + '.png\')';
     }
   }
 
@@ -124,7 +123,7 @@ export class ImageSelectionPageComponent implements OnInit {
 
   previewArasaac(t: string, isColored: boolean) {
     if (isColored) {
-      this.previewWithURL('assets/libs/FR_Pictogrammes_couleur/' + t + '.png');
+      this.previewWithURL('assets/libs/arasaac_pictos/' + t + '.png');
     } else {
       console.log('assets/libs/FR_Noir_et_blanc_pictogrammes/' + t + '.png');
       this.previewWithURL('assets/libs/FR_Noir_et_blanc_pictogrammes/' + t + '.png');
@@ -142,7 +141,7 @@ export class ImageSelectionPageComponent implements OnInit {
       if (!this.boardService.board.libraryUsed.includes('Arasaac')) {
         this.boardService.board.libraryUsed.push('Arasaac');
       }
-    } else if (elt.lib === 'arasaacColor') {
+    } else if (elt.lib === 'arasaac') {
       this.previewArasaac(elt.word, true);
       if (!this.boardService.board.libraryUsed.includes('Arasaac')) {
         this.boardService.board.libraryUsed.push('Arasaac');
@@ -171,19 +170,26 @@ export class ImageSelectionPageComponent implements OnInit {
     let tempList = [];
 
     if (this.configurationService.LANGUAGE_VALUE === 'FR') {
-      (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
+      let idInArasaac: { id: number, keyword: string }[] = [];
+      // @ts-ignore
+      for (const item of arasaacJson) {
+        for (const k of item.keywords) {
+          if (text !== null && text !== '' && k.keyword === text && k.keyword.toLowerCase().includes(text.toLocaleLowerCase()) && this.getSimilarity(text.toLowerCase(), k.keyword.toLowerCase()) >= 0.5) {
+            idInArasaac.push({ id: item._id, keyword: k.keyword });
+          }
+        }
+      }
+      if(idInArasaac.length > 0){
+        idInArasaac.forEach(elementId => {
+          tempList.push({ lib: 'arasaac', word: elementId.id });
+        });
+      }
+
+      (arasaacJsonSymbol as unknown as ArasaacObject)[0].wordList.forEach(word => {
         if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && this.getSimilarity(text.toLowerCase(), word.toLowerCase()) >= 0.5) {
           console.log(word + "; " + text + "; " + this.getSimilarity(text, word));
           const url = word;
           tempList.push({ lib: 'arasaacNB', word: this.cleanString(url) });
-        }
-      }, this);
-
-      (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
-        if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && this.getSimilarity(text.toLowerCase(), word.toLowerCase()) >= 0.5) {
-          console.log(word + "; " + text + "; " + this.getSimilarity(text, word));
-          const url = word;
-          tempList.push({ lib: 'arasaacColor', word: this.cleanString(url) });
         }
       }, this);
     }
