@@ -53,7 +53,7 @@ describe('UsertoolbarComponent', () => {
     compiled.querySelector('#lockUnlockButton').click();
     fixture.detectChanges();
 
-    expect(compiled.querySelectorAll('.button').length).toEqual(12);
+    expect(compiled.querySelectorAll('.button').length).toEqual(13);
     expect(compiled.querySelector('#accountButton')).not.toBe(null);
     expect(compiled.querySelector('#lockUnlockButton')).not.toBe(null);
     expect(compiled.querySelector('#editButton')).not.toBe(null);
@@ -61,6 +61,7 @@ describe('UsertoolbarComponent', () => {
     expect(compiled.querySelector('#homeButton')).not.toBe(null);
     expect(compiled.querySelector('#backButton')).not.toBe(null);
     expect(compiled.querySelector("#dwellButton")).not.toBe(null);
+    expect(compiled.querySelector("#generator-grid")).not.toBe(null);
     // expect(compiled.querySelector('#babbleButton')).not.toBe(null);
     // expect(compiled.querySelector('#fullScreenButton')).not.toBe(null);
     expect(compiled.querySelector('.buttonLeftLeft')).not.toBe(null);

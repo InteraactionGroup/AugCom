@@ -144,6 +144,10 @@ export class UsertoolbarComponent implements OnInit {
     });
   }
 
+  generatorGrid(): void{
+    this.router.navigate(['generatorGrid']);
+  }
+
   /**
    * Cancels all ongoing timer when cursor leaves the boundaries of the element that triggered the function (note : only applies to back buttons if dwellTime is activated)
    */

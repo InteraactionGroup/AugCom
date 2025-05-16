@@ -82,6 +82,14 @@
     </div>
   </div>
 
+  <div class="button floatRight" id="generator-grid" *ngIf="this.userToolBarService.unlock" (click)="this.generatorGrid()"
+       [ngStyle]="{'margin-left': marginSize + 'px'}">
+
+    <span class="tooltiptop">{{this.multilinguism.translate('generatorGrid')}}</span>
+    <div class="image width-100" [ngStyle]="{'background-image':this.getIcon('generatorGrid')}">
+    </div>
+  </div>
+
   <div class="button floatRight" id="babbleButton" *ngIf="this.userToolBarService.unlock"
     (click)="this.userToolBarService.babble = !this.userToolBarService.babble"
     [ngStyle]="{'margin-left': marginSize + 'px'}">
