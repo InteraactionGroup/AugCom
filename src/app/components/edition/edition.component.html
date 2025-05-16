@@ -40,9 +40,12 @@
     </div>
 
     <div class="save centerText floatLeft" (click)="this.save()">
-      {{this.multilinguism.translate("save")}}
+      {{this.multilinguism.translate("validate")}}
     </div>
     <br>
+    <div *ngIf="isButtonBuilt" class="messageConfirmation floatLeft">
+      {{this.multilinguism.translate("confirmationButtonCreated")}}
+    </div>
     <div *ngIf="nameEmpty" class="messageError floatLeft">
       {{this.multilinguism.translate("nameEmpty")}}
     </div>

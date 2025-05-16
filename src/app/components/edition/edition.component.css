@@ -236,3 +236,8 @@
   color: red;
   margin-left: calc(40% - 10px);
 }
+
+.messageConfirmation {
+  color: green;
+  margin-left: calc(40% - 10px);
+}
