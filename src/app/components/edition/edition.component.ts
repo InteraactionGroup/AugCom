@@ -132,6 +132,7 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
       this.initialEditionState = Object.assign({}, this.editionService);
       this.initialdbnaryState = Object.assign({}, this.dbnaryService);
       this.isButtonBuilt = true;
+      await this.router.navigate(['keyboard']);
     } else {
       this.nameEmpty = true;
     }
