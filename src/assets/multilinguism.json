@@ -383,6 +383,6 @@
     { "id" : "mute", "FR": "Couper le volume", "EN": "Mute"},
     { "id" : "path", "FR": "Chemin", "EN": "Path"},
     { "id" : "titlePage", "FR": "Titre de la page", "EN": "Title of the page"},
-    { "id" : "visualisationPath", "FR": "Visualisation du chemin", "EN": "Path visualization"},
+    { "id" : "visualisationPath", "FR": "Visualisation du chemin", "EN": "Path visualization"}
   ]
 }
