@@ -43,6 +43,9 @@
       {{this.multilinguism.translate("save")}}
     </div>
     <br>
+    <div *ngIf="isButtonBuilt" class="messageConfirmation floatLeft">
+      {{this.multilinguism.translate("confirmationButtonCreated")}}
+    </div>
     <div *ngIf="nameEmpty" class="messageError floatLeft">
       {{this.multilinguism.translate("nameEmpty")}}
     </div>

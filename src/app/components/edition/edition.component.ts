@@ -44,6 +44,7 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
 
 
   nameEmpty = false;
+  isButtonBuilt:boolean = false;
   initialEditionState; initialdbnaryState;
   popstateFired = false;
 
@@ -130,6 +131,7 @@ export class EditionComponent implements OnInit, ComponentCanDeactivate {
       this.indexedDBacess.update();
       this.initialEditionState = Object.assign({}, this.editionService);
       this.initialdbnaryState = Object.assign({}, this.dbnaryService);
+      this.isButtonBuilt = true;
     } else {
       this.nameEmpty = true;
     }
