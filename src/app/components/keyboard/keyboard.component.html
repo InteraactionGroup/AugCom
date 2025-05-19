@@ -162,6 +162,7 @@
   <!--  </div>-->
 
   <!-- input fields for column and row size, have to be changed with a button number incrementer -->
+
   <div class="gridSettings">
     <div class="gridSettingsImage floatLeft centerText "
       [ngStyle]="{'background-image':'url(assets/icons/colomns.svg)'}">
@@ -179,7 +180,9 @@
     <input class="inputSize floatLeft centerText" value="{{this.boardService.getGapSize()}}" type="number" min="0"
       (change)="onKeyGap($event)" max="50">
   </div>
-
+  <div class="floatRight descriptionPlacement">
+    <label>{{multilinguism.translate("CurrentPageDimensions")}}:</label>
+  </div>
 </div>
 
 <!--*ngIf="!this.userToolBarService.edit"-->
