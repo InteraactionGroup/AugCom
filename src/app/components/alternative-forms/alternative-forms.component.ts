@@ -3,10 +3,6 @@ import { EditionService } from '../../services/edition.service';
 import { DbnaryService } from '../../services/dbnary.service';
 import { GeticonService } from '../../services/geticon.service';
 import { HttpClient } from '@angular/common/http';
-import mullberryJson from '../../../assets/symbol-info.json';
-import arasaacJson from '../../../assets/arasaac-symbol-info.json';
-import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
-import { MulBerryObject, ArasaacObject } from '../../libTypes';
 import { Ng2ImgMaxService } from 'ng2-img-max';
 import { ElementForm } from '../../types';
 import { BoardService } from '../../services/board.service';
@@ -15,6 +11,7 @@ import { ConfigurationService } from "../../services/configuration.service";
 import { Observable } from "rxjs";
 import { FormControl } from "@angular/forms";
 import { map, startWith } from "rxjs/operators";
+import {SearchPictoInLibraryService} from "../../services/search-picto-in-library.service";
 
 
 @Component({
@@ -28,6 +25,7 @@ export class AlternativeFormsComponent implements OnInit {
   constructor(public multilinguism: MultilinguismService,
     public ng2ImgMaxService: Ng2ImgMaxService,
     public boardService: BoardService,
+    public searchPictoInLibrary: SearchPictoInLibraryService,
     public getIconService: GeticonService,
     public dbnaryService: DbnaryService,
     public configurationService: ConfigurationService,
@@ -248,7 +246,7 @@ export class AlternativeFormsComponent implements OnInit {
     }, () => {
       reader.readAsDataURL(file[0]);
       reader.onload = () => {
-        this.previewWithURL(reader.result);
+        this.imageSelectionStarted = this.searchPictoInLibrary.previewWithURL(reader.result);
       };
     });
   }
@@ -278,42 +276,7 @@ export class AlternativeFormsComponent implements OnInit {
   }
 
   /**
-   * Set the current preview imageUrl with the image string Url 't' and close the chooseImage panel
    *
-   * @param t, the new imageUrl
-   */
-  previewWithURL(t) {
-    this.imageSelectionStarted = true;
-    this.elementFormNameImageURL = t;
-    // this.choseImage = false;
-  }
-
-  /**
-   * Shows the image corresponding to a combination of selected library (mulberry or arasaac) and searched word (any) 
-   * @param elt library to be used and word to be searched
-   */
-  previewLibrary(elt: { lib, word }) {
-    this.imageSelectionStarted = true;
-    if (elt.lib === 'mulberry') {
-      if (!this.boardService.board.libraryUsed.includes('Mulberry')) {
-        this.boardService.board.libraryUsed.push('Mulberry');
-      }
-      this.previewMullberry(elt.word);
-    } else if (elt.lib === 'arasaacNB') {
-      this.previewArasaac(elt.word, false);
-      if (!this.boardService.board.libraryUsed.includes('Arasaac')) {
-        this.boardService.board.libraryUsed.push('Arasaac');
-      }
-    } else if (elt.lib === 'arasaacColor') {
-      this.previewArasaac(elt.word, true);
-      if (!this.boardService.board.libraryUsed.includes('Arasaac')) {
-        this.boardService.board.libraryUsed.push('Arasaac');
-      }
-    }
-  }
-
-  /**
-   * 
    * @param elt library to be used and word to be searched
    * @returns an url corresponding to the searched image's name in the selected library
    */
@@ -327,131 +290,10 @@ export class AlternativeFormsComponent implements OnInit {
     }
   }
 
-  /**
-   * Set the current preview imageUrl with a mulberry library image Url according to the given string 't' and close the chooseImage panel
-   *
-   * @param t, the string short name of the image of the mulberry library image
-   */
-  previewMullberry(t: string) {
-    this.previewWithURL('assets/libs/mulberry-symbols/EN-symbols/' + t + '.svg');
-  }
-
-  /**
-   * Set the current preview imageUrl with an arasaac library image Url according to the given string 't' and close the chooseImage panel
-   * Image can be searched in color or in black and white
-   * @param t, the string short name of the image of the arasaac library image
-   * @param isColored boolean indicating if picto should be searched in color or in black and white
-   */
-  previewArasaac(t: string, isColored: boolean) {
-    if (isColored) {
-      this.previewWithURL('assets/libs/FR_Pictogrammes_couleur/' + t + '.png');
-    } else {
-      this.previewWithURL('assets/libs/FR_Noir_et_blanc_pictogrammes/' + t + '.png');
-    }
-  }
-
-  /**
-   * Return the list of 100 first mullberry and Arasaac library images, sorted by length name, matching with string 'text'
-   * @param text, the string researched text
-   * @return list of 100 mulberry library images
-   */
-  searchInLib(text: string) {
-    this.imageList = [];
-    let tempList = [];
-
-    if (this.configurationService.LANGUAGE_VALUE === 'FR') {
-      (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
-        if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && this.getSimilarity(text.toLowerCase(), word.toLowerCase()) >= 0.5) {
-          const url = word;
-          tempList.push({ lib: 'arasaacNB', word: this.cleanString(url) });
-        }
-      }, this);
-
-      (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
-        if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && this.getSimilarity(text.toLowerCase(), word.toLowerCase()) >= 0.5) {
-          const url = word;
-          tempList.push({ lib: 'arasaacColor', word: this.cleanString(url) });
-        }
-      }, this);
-    }
-    else {
-      (mullberryJson as unknown as MulBerryObject[]).forEach(value => {
-        if (text !== null && text !== '' && value.symbol.toLowerCase().includes(text.toLocaleLowerCase()) && this.getSimilarity(text.toLowerCase(), value.symbol.toLowerCase()) >= 0.5) {
-          const url = value.symbol;
-          tempList.push({ lib: 'mulberry', word: this.cleanString(url) });
-        }
-      }, this);
-    }
-
-    tempList = tempList.sort((a: { lib: any, word: string | any[] }, b: { lib: any, word: string | any[] }) => {
-      return a.word.length - b.word.length;
-    });
-
-    // this.wordList = tempList;
-    tempList.forEach(couple => {
-      this.wordList.push(couple.word);
-    });
-
-    this.imageList = tempList.slice(0, 100);
-  }
-
-  cleanString(t: string) {
-    return t.replace(/'/g, '\\\'');
-  }
-
-  /**
-   * Checks the Levenshtein's distance (the similarity) between the two strings in param using Levenshtein's algorithm.
-   * https://en.wikipedia.org/wiki/Levenshtein_distance
-   * @param word1 First word to compare
-   * @param word2 Second word to compare
-   * @returns A float between 0 and 1. 0 means the two words are completely different; 1 means they are the same.
-   */
-  getSimilarity(word1, word2): number {
-    let longer = word1;
-    let shorter = word2;
-    if (word1.length < word2.length) {
-      longer = word2;
-      shorter = word1;
-    }
-
-    return ((longer.length - this.distance(longer, shorter)) / parseFloat(longer.length));
-  }
-
-  /**
-   * The main body of Levenshtein's algorithm
-   * This should only be called by the method getSimilarity to avoid errors.
-   * @param s1 first word
-   * @param s2 second word
-   * @returns the "cost" to get from the first word to the second AKA their distance
-   */
-  distance(s1, s2) {
-    var costs = new Array();
-    for (var i = 0; i <= s1.length; i++) {
-      var lastValue = i;
-      for (var j = 0; j <= s2.length; j++) {
-        if (i == 0)
-          costs[j] = j;
-        else {
-          if (j > 0) {
-            var newValue = costs[j - 1];
-            if (s1.charAt(i - 1) != s2.charAt(j - 1))
-              newValue = Math.min(Math.min(newValue, lastValue),
-                costs[j]) + 1;
-            costs[j - 1] = lastValue;
-            lastValue = newValue;
-          }
-        }
-      }
-      if (i > 0)
-        costs[s2.length] = lastValue;
-    }
-    return costs[s2.length];
-  }
-
   private _filter(value: string): string[] {
     if (value.length > 1) {
-      this.wordList = [];
-      this.searchInLib(value);
+      this.wordList = this.searchPictoInLibrary.searchInLib(value)[0];
+      this.imageList = this.searchPictoInLibrary.searchInLib(value)[1];
       return this.wordList;
     }
   }
