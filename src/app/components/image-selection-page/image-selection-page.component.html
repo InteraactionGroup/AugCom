@@ -44,7 +44,7 @@
               {{option}}
             </mat-option>
           </mat-autocomplete>
-          <input class="searchLib" type="button" value="{{this.multilinguism.translate('search')}}">
+          <input class="searchLib" type="button" value="{{this.multilinguism.translate('search')}}" (click)="this.searchPictoInLibrary.searchInLib(search.value)">
         </div>
       </div>
 

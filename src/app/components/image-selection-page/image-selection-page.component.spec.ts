@@ -47,7 +47,7 @@ describe('ImageSelectionPageComponent', () => {
 
   it('should change the image from mulberry', () => {
     const compiled = fixture.debugElement.nativeElement;
-    component.searchInLib('chien');
+    component.searchPictoInLibrary.searchInLib('chien');
     fixture.detectChanges();
     compiled.querySelector('.pictoImg').click();
     expect(component.editionService.imageURL).toContain('chien');
