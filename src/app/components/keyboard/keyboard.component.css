@@ -70,6 +70,11 @@
   padding: 0 0 0 0;
 }
 
+.descriptionPlacement {
+  top: 25%;
+  position: relative;
+}
+
 .editionSettings .gridSettings .inputSize {
   width: 40px;
   height: 40px;
