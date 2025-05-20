@@ -375,6 +375,7 @@
     { "id" : "WordNameFile", "FR": "ClavierAugCom", "EN": "GridFileAugcom"},
     { "id" : "WordTitle", "FR": "Clavier Augcom", "EN": "AugCom main grid"},
     { "id" : "WordFolder", "FR": "Sous Dossier", "EN": "Folder"},
+    { "id" : "confirmationButtonCreated", "FR": "Bouton créé", "EN": "Button created"},
     { "id" : "OpenTheFolder", "FR": "Ouvre le dossier", "EN": "Open the folder"},
     { "id" : "functionDescription", "FR": "L'élément créé sera un bouton qui effectue des actions", "EN": "The element created will be a button that performs the following actions"},
     { "id" : "Retour", "FR": "Retour", "EN": "Back"},
