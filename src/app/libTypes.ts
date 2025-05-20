@@ -1,7 +1,13 @@
 /**
  * the description of a mulberry element from the mulberry library
  */
-import { ImageMulberry, ImageParlerPicto, ImageSclera, ImagearasaacLCC, ImageFontawesome } from "./types";
+import {
+  ImageMulberry,
+  ImageParlerPicto,
+  ImageSclera,
+  ImagearasaacLCC,
+  ImageFontawesome,
+} from "./types";
 
 export class MulBerryObject {
   id: number;
@@ -13,7 +19,29 @@ export class MulBerryObject {
 }
 
 /**
- * the description of a mulberry element from the mulberry library
+ * the description of Arasaac element from the Arasaac library
+ */
+/* pas utile
+export class ArasaacUpdatedObject{
+  schematic: boolean;
+  sex: boolean;
+  violence: boolean;
+  aac: boolean;
+  skin: boolean;
+  hair: boolean;
+  download: number;
+  categories: string[];
+  synsets: string[];
+  tags: string[];
+  _id: number;
+  created: string;
+  lastUpdated: string;
+  keywords: KeywordsArasaac[];
+}
+*/
+
+/**
+ * the description of Arasaac element from the mulberry library
  */
 export class ArasaacObject {
   wordList: string[];

@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {ConfigurationService} from '../../services/configuration.service';
 import {FolderGoTo, Grid, GridElementGenerated, Page} from '../../types';
 import {BoardService} from '../../services/board.service';
-import arasaacJson from '../../../assets/arasaac-symbol-info.json';
+import arasaacJsonSymbol from '../../../assets/arasaac-symbol-info.json';
+import arasaacJson from '../../../assets/arasaac.json';
 import {ArasaacObject, MulBerryObject} from '../../libTypes';
-import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
 import mullberryJson from '../../../assets/symbol-info.json';
 import {EditionService} from '../../services/edition.service';
 import {FunctionsService} from '../../services/functions.service';
@@ -111,20 +111,23 @@ export class GeneratorGridComponent implements OnInit {
     this.addOnlyOneImage = false;
     console.log('Search the exact word : ');
     if (this.libToUse === 'arasaacNB') {
-      (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
+      (arasaacJsonSymbol as unknown as ArasaacObject)[0].wordList.forEach(word => {
         if (text !== null && text !== '' && word.toLowerCase() === text.toLocaleLowerCase() && !this.addOnlyOneImage) {
           this.addOnlyOneImage = true;
           this.imageList.push({ lib: 'arasaacNB', word: this.cleanString(word) });
           return;
         }
       }, this);
-    } else if (this.libToUse === 'arasaacColor') {
-      (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
-        if (text !== null && text !== '' && word.toLowerCase() === text.toLocaleLowerCase() && !this.addOnlyOneImage) {
-          this.addOnlyOneImage = true;
-          this.imageList.push({ lib: 'arasaacColor', word: this.cleanString(word) });
+    } else if (this.libToUse === 'arasaac') {
+      // @ts-ignore
+      for (const item of arasaacJson) {
+        for (const k of item.keywords) {
+          if (text !== null && text !== '' && k.keyword === text && k.keyword.toLowerCase() === text.toLocaleLowerCase() && !this.addOnlyOneImage) {
+            this.addOnlyOneImage = true;
+            this.imageList.push({ lib: 'arasaac', word: item._id });
+          }
         }
-      }, this);
+      }
     }
     if (!this.addOnlyOneImage) {
       console.log('No find in arasaac lib !');
@@ -145,20 +148,23 @@ export class GeneratorGridComponent implements OnInit {
   searchTheClosestWordInLib(text: string) {
     console.log('Search the closest word :');
     if (this.libToUse === 'arasaacNB') {
-      (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
+      (arasaacJsonSymbol as unknown as ArasaacObject)[0].wordList.forEach(word => {
         if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && !this.addOnlyOneImage) {
           this.addOnlyOneImage = true;
           this.imageList.push({ lib: 'arasaacNB', word: this.cleanString(word) });
           return;
         }
       }, this);
-    } else if (this.libToUse === 'arasaacColor') {
-      (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
-        if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && !this.addOnlyOneImage) {
-          this.addOnlyOneImage = true;
-          this.imageList.push({ lib: 'arasaacColor', word: this.cleanString(word) });
+    } else if (this.libToUse === 'arasaac') {
+      // @ts-ignore
+      for (const item of arasaacJson) {
+        for (const k of item.keywords) {
+          if (text !== null && text !== '' && k.keyword === text && k.keyword.toLowerCase().includes(text.toLocaleLowerCase()) && !this.addOnlyOneImage) {
+            this.addOnlyOneImage = true;
+            this.imageList.push({ lib: 'arasaac', word: item._id });
+          }
         }
-      }, this);
+      }
     }
     if (!this.addOnlyOneImage) {
       (mullberryJson as unknown as MulBerryObject[]).forEach(value => {
@@ -181,7 +187,7 @@ export class GeneratorGridComponent implements OnInit {
       this.previewMullberry(elt.word);
     } else if (elt.lib === 'arasaacNB') {
       this.previewArasaac(elt.word, false);
-    } else if (elt.lib === 'arasaacColor') {
+    } else if (elt.lib === 'arasaac') {
       this.previewArasaac(elt.word, true);
     }
   }
@@ -193,8 +199,8 @@ export class GeneratorGridComponent implements OnInit {
 
   previewArasaac(t: string, isColored: boolean) {
     if (isColored) {
-      this.previewWithURL('assets/libs/FR_Pictogrammes_couleur/' + t + '.png');
-      console.log('assets/libs/FR_Pictogrammes_couleur/' + t + '.png');
+      this.previewWithURL('assets/libs/arasaac_pictos/' + t + '.png');
+      console.log('assets/libs/arasaac_pictos/' + t + '.png');
     } else {
       this.previewWithURL('assets/libs/FR_Noir_et_blanc_pictogrammes/' + t + '.png');
       console.log('assets/libs/FR_Noir_et_blanc_pictogrammes/' + t + '.png');

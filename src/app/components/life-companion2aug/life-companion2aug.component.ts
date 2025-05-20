@@ -4,15 +4,13 @@ import { BoardService } from '../../services/board.service';
 import { Grid, GridElement, Page } from '../../types';
 import { LayoutService } from '../../services/layout.service';
 import { Router } from '@angular/router';
-import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
 import scleraJson from '../../../assets/sclera.json';
 import parlerPictoJson from '../../../assets/parlerpictos.json';
-import arasaacJson from '../../../assets/arasaac.json';
+import arasaacJsonLCC from '../../../assets/arasaacLCC.json';
 import fontawesomeJson from '../../../assets/fontawesome.json';
 import mulberryJson from '../../../assets/mulberry-symbols-lcc.json';
 import {
   arasaacLCCObject,
-  ArasaacObject,
   fontawesomeObject,
   mulberryObject,
   ParlerPictoObject,
@@ -338,17 +336,6 @@ export class LifeCompanion2augComponent implements OnInit {
     return gridElement;
   }
 
-  private getPathImageArsaacLibrary(textContent: any): string {
-    if (textContent !== null) {
-      const index = (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.findIndex(word => {
-        return textContent.toLowerCase().trim() === word.toLowerCase();
-      });
-      if (index > -1) {
-        return 'assets/libs/FR_Pictogrammes_couleur/' + (arasaacColoredJson as unknown as ArasaacObject)[0].wordList[index] + '.png';
-      }
-    }
-  }
-
   private getPathImageFromLibraries(idImage: any): string {
     if (idImage !== undefined) {
       //sclera
@@ -367,11 +354,11 @@ export class LifeCompanion2augComponent implements OnInit {
       }
       // ca commence ici
       //arasaac-lifecompanion
-      index = (arasaacJson as unknown as arasaacLCCObject).images.findIndex(word => {
+      index = (arasaacJsonLCC as unknown as arasaacLCCObject).images.findIndex(word => {
         return idImage === word.id;
       });
       if (index > -1) {
-        return 'assets/libs/arasaac/' + (arasaacJson as unknown as arasaacLCCObject).images[index].id + '.png';
+        return 'assets/libs/arasaac/' + (arasaacJsonLCC as unknown as arasaacLCCObject).images[index].id + '.png';
       }
       //mulberry-lifecompanion
       index = (mulberryJson as unknown as mulberryObject).images.findIndex(word => {
@@ -400,24 +387,6 @@ export class LifeCompanion2augComponent implements OnInit {
 
     }
     return '';
-  }
-
-  private addImageButton(element: any) {
-    try {
-      const pathImage = this.getPathImageArsaacLibrary(element.attr.textContent);
-      this.grid.ImageList.push({
-        ID: element.attr.textContent,
-        OriginalName: element.attr.textContent,
-        Path: pathImage !== undefined ? pathImage : '',
-      });
-    } catch (e) {
-      const pathImage = this.getPathImageArsaacLibrary(element.attr.text);
-      this.grid.ImageList.push({
-        ID: element.attr.text,
-        OriginalName: element.attr.text,
-        Path: pathImage !== undefined ? pathImage : '',
-      });
-    }
   }
 
   private addImageButtonFullLibrary(element: any) {

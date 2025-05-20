@@ -266,6 +266,13 @@ export class ImageParlerPicto {
   id: string;
   kws: Kws;
 }
+/* pas utile
+export class ImagearasaacUpdated {
+  nm: string;
+  id: string;
+  kws: Kws;
+}
+ */
 
 export class ImagearasaacLCC {
   nm: string;
@@ -288,3 +295,11 @@ export class ImageFontawesome {
 export class Kws {
   fr: string[];
 }
+/*pas utile
+export class KeywordsArasaac{
+  type: number;
+  keyword: string;
+  hasLocution: boolean;
+  plural: string;
+}
+ */
