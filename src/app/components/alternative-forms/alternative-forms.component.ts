@@ -246,7 +246,7 @@ export class AlternativeFormsComponent implements OnInit {
     }, () => {
       reader.readAsDataURL(file[0]);
       reader.onload = () => {
-        this.previewWithURL(reader.result);
+        this.imageSelectionStarted = this.searchPictoInLibrary.previewWithURL(reader.result);
       };
     });
   }
@@ -276,41 +276,6 @@ export class AlternativeFormsComponent implements OnInit {
   }
 
   /**
-   * Set the current preview imageUrl with the image string Url 't' and close the chooseImage panel
-   *
-   * @param t, the new imageUrl
-   */
-  previewWithURL(t) {
-    this.imageSelectionStarted = true;
-    this.elementFormNameImageURL = t;
-    // this.choseImage = false;
-  }
-
-  /**
-   * Shows the image corresponding to a combination of selected library (mulberry or arasaac) and searched word (any)
-   * @param elt library to be used and word to be searched
-   */
-  previewLibrary(elt: { lib, word }) {
-    this.imageSelectionStarted = true;
-    if (elt.lib === 'mulberry') {
-      if (!this.boardService.board.libraryUsed.includes('Mulberry')) {
-        this.boardService.board.libraryUsed.push('Mulberry');
-      }
-      this.previewMullberry(elt.word);
-    } else if (elt.lib === 'arasaacNB') {
-      this.previewArasaac(elt.word, false);
-      if (!this.boardService.board.libraryUsed.includes('Arasaac')) {
-        this.boardService.board.libraryUsed.push('Arasaac');
-      }
-    } else if (elt.lib === 'arasaacColor') {
-      this.previewArasaac(elt.word, true);
-      if (!this.boardService.board.libraryUsed.includes('Arasaac')) {
-        this.boardService.board.libraryUsed.push('Arasaac');
-      }
-    }
-  }
-
-  /**
    *
    * @param elt library to be used and word to be searched
    * @returns an url corresponding to the searched image's name in the selected library
@@ -322,29 +287,6 @@ export class AlternativeFormsComponent implements OnInit {
       return 'url(\'assets/libs/FR_Noir_et_blanc_pictogrammes/' + elt.word + '.png\')';
     } else if (elt.lib === 'arasaacColor') {
       return 'url(\'assets/libs/FR_Pictogrammes_couleur/' + elt.word + '.png\')';
-    }
-  }
-
-  /**
-   * Set the current preview imageUrl with a mulberry library image Url according to the given string 't' and close the chooseImage panel
-   *
-   * @param t, the string short name of the image of the mulberry library image
-   */
-  previewMullberry(t: string) {
-    this.previewWithURL('assets/libs/mulberry-symbols/EN-symbols/' + t + '.svg');
-  }
-
-  /**
-   * Set the current preview imageUrl with an arasaac library image Url according to the given string 't' and close the chooseImage panel
-   * Image can be searched in color or in black and white
-   * @param t, the string short name of the image of the arasaac library image
-   * @param isColored boolean indicating if picto should be searched in color or in black and white
-   */
-  previewArasaac(t: string, isColored: boolean) {
-    if (isColored) {
-      this.previewWithURL('assets/libs/FR_Pictogrammes_couleur/' + t + '.png');
-    } else {
-      this.previewWithURL('assets/libs/FR_Noir_et_blanc_pictogrammes/' + t + '.png');
     }
   }
 

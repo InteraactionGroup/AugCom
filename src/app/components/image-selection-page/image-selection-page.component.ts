@@ -1,16 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { EditionService } from '../../services/edition.service';
 import { Ng2ImgMaxService } from 'ng2-img-max';
-import mullberryJson from '../../../assets/symbol-info.json';
-import arasaacJson from '../../../assets/arasaac-symbol-info.json';
-import arasaacColoredJson from '../../../assets/arasaac-color-symbol-info.json';
-import { ArasaacObject, MulBerryObject } from '../../libTypes';
 import { MultilinguismService } from '../../services/multilinguism.service';
 import { ConfigurationService } from "../../services/configuration.service";
 import { Observable } from "rxjs";
 import { FormControl } from "@angular/forms";
 import { map, startWith } from "rxjs/operators";
-import { DialogAddUserComponent } from "../dialog-add-user/dialog-add-user.component";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogModifyColorInsideComponent } from "../dialog-modify-color-inside/dialog-modify-color-inside.component";
 import { DialogModifyColorBorderComponent } from "../dialog-modify-color-border/dialog-modify-color-border.component";
@@ -89,8 +84,7 @@ export class ImageSelectionPageComponent implements OnInit {
     }, () => {
       reader.readAsDataURL(file[0]);
       reader.onload = () => {
-        this.previewWithURL(reader.result);
-
+        this.searchPictoInLibrary.previewWithURL(reader.result);
       };
     });
   }
@@ -102,53 +96,6 @@ export class ImageSelectionPageComponent implements OnInit {
       return 'url(\'assets/libs/FR_Noir_et_blanc_pictogrammes/' + elt.word + '.png\')';
     } else if (elt.lib === 'arasaacColor') {
       return 'url(\'assets/libs/FR_Pictogrammes_couleur/' + elt.word + '.png\')';
-    }
-  }
-
-  /**
-   * Set the current preview imageUrl with the image string Url 't' and close the chooseImage panel
-   *
-   * @param t, the new imageUrl
-   */
-  previewWithURL(t) {
-    this.editionService.imageURL = t;
-    // this.choseImage = false;
-  }
-
-  /**
-   * Set the current preview imageUrl with a mulberry library image Url according to the given string 't' and close the chooseImage panel
-   *
-   * @param t, the string short name of the image of the mulberry library image
-   */
-  previewMullberry(t: string) {
-    this.previewWithURL('assets/libs/mulberry-symbols/EN-symbols/' + t + '.svg');
-  }
-
-  previewArasaac(t: string, isColored: boolean) {
-    if (isColored) {
-      this.previewWithURL('assets/libs/FR_Pictogrammes_couleur/' + t + '.png');
-    } else {
-      console.log('assets/libs/FR_Noir_et_blanc_pictogrammes/' + t + '.png');
-      this.previewWithURL('assets/libs/FR_Noir_et_blanc_pictogrammes/' + t + '.png');
-    }
-  }
-
-  previewLibrary(elt: { lib, word }) {
-    if (elt.lib === 'mulberry') {
-      if (!this.boardService.board.libraryUsed.includes('Mulberry')) {
-        this.boardService.board.libraryUsed.push('Mulberry');
-      }
-      this.previewMullberry(elt.word);
-    } else if (elt.lib === 'arasaacNB') {
-      this.previewArasaac(elt.word, false);
-      if (!this.boardService.board.libraryUsed.includes('Arasaac')) {
-        this.boardService.board.libraryUsed.push('Arasaac');
-      }
-    } else if (elt.lib === 'arasaacColor') {
-      this.previewArasaac(elt.word, true);
-      if (!this.boardService.board.libraryUsed.includes('Arasaac')) {
-        this.boardService.board.libraryUsed.push('Arasaac');
-      }
     }
   }
 
@@ -166,7 +113,6 @@ export class ImageSelectionPageComponent implements OnInit {
       width: '60%'
     });
   }
-
 
   private _filter(value: string): string[] {
     if (value.length > 1) {

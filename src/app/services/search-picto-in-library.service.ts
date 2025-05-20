@@ -5,6 +5,7 @@ import mullberryJson from '../../assets/symbol-info.json';
 import arasaacJson from '../../assets/arasaac-symbol-info.json';
 import arasaacColoredJson from '../../assets/arasaac-color-symbol-info.json';
 import { MulBerryObject, ArasaacObject } from '../libTypes';
+import {EditionService} from "./edition.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,9 @@ import { MulBerryObject, ArasaacObject } from '../libTypes';
 export class SearchPictoInLibraryService {
 
   constructor(public boardService: BoardService,
-              public configurationService: ConfigurationService) { }
+              public configurationService: ConfigurationService,
+              public editionService: EditionService,
+              ) { }
 
   /**
    * Return the list of 100 first mullberry and Arasaac library images, sorted by length name, matching with string 'text'
@@ -24,29 +27,26 @@ export class SearchPictoInLibraryService {
     let tempList = [];
     let wordList = [];
 
-    if (this.configurationService.LANGUAGE_VALUE === 'FR') {
-      (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
-        if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && this.getSimilarity(text.toLowerCase(), word.toLowerCase()) >= 0.5) {
-          const url = word;
-          tempList.push({ lib: 'arasaacNB', word: this.cleanString(url) });
-        }
-      }, this);
+    (arasaacJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
+      if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && this.getSimilarity(text.toLowerCase(), word.toLowerCase()) >= 0.5) {
+        const url = word;
+        tempList.push({ lib: 'arasaacNB', word: this.cleanString(url) });
+      }
+    }, this);
 
-      (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
-        if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && this.getSimilarity(text.toLowerCase(), word.toLowerCase()) >= 0.5) {
-          const url = word;
-          tempList.push({ lib: 'arasaacColor', word: this.cleanString(url) });
-        }
-      }, this);
-    }
-    else {
-      (mullberryJson as unknown as MulBerryObject[]).forEach(value => {
-        if (text !== null && text !== '' && value.symbol.toLowerCase().includes(text.toLocaleLowerCase()) && this.getSimilarity(text.toLowerCase(), value.symbol.toLowerCase()) >= 0.5) {
-          const url = value.symbol;
-          tempList.push({ lib: 'mulberry', word: this.cleanString(url) });
-        }
-      }, this);
-    }
+    (arasaacColoredJson as unknown as ArasaacObject)[0].wordList.forEach(word => {
+      if (text !== null && text !== '' && word.toLowerCase().includes(text.toLocaleLowerCase()) && this.getSimilarity(text.toLowerCase(), word.toLowerCase()) >= 0.5) {
+        const url = word;
+        tempList.push({ lib: 'arasaacColor', word: this.cleanString(url) });
+      }
+    }, this);
+
+    (mullberryJson as unknown as MulBerryObject[]).forEach(value => {
+      if (text !== null && text !== '' && value.symbol.toLowerCase().includes(text.toLocaleLowerCase()) && this.getSimilarity(text.toLowerCase(), value.symbol.toLowerCase()) >= 0.5) {
+        const url = value.symbol;
+        tempList.push({ lib: 'mulberry', word: this.cleanString(url) });
+      }
+    }, this);
 
     tempList = tempList.sort((a: { lib: any, word: string | any[] }, b: { lib: any, word: string | any[] }) => {
       return a.word.length - b.word.length;
@@ -113,5 +113,52 @@ export class SearchPictoInLibraryService {
         costs[s2.length] = lastValue;
     }
     return costs[s2.length];
+  }
+
+  /**
+   * Set the current preview imageUrl with the image string Url 't' and close the chooseImage panel
+   *
+   * @param t, the new imageUrl
+   */
+  previewWithURL(t) {
+    this.editionService.imageURL = t;
+    return true;
+    // this.choseImage = false;
+  }
+
+  /**
+   * Set the current preview imageUrl with a mulberry library image Url according to the given string 't' and close the chooseImage panel
+   *
+   * @param t, the string short name of the image of the mulberry library image
+   */
+  previewMullberry(t: string) {
+    this.previewWithURL('assets/libs/mulberry-symbols/EN-symbols/' + t + '.svg');
+  }
+
+  previewArasaac(t: string, isColored: boolean) {
+    if (isColored) {
+      this.previewWithURL('assets/libs/FR_Pictogrammes_couleur/' + t + '.png');
+    } else {
+      this.previewWithURL('assets/libs/FR_Noir_et_blanc_pictogrammes/' + t + '.png');
+    }
+  }
+
+  previewLibrary(elt: { lib, word }) {
+    if (elt.lib === 'mulberry') {
+      if (!this.boardService.board.libraryUsed.includes('Mulberry')) {
+        this.boardService.board.libraryUsed.push('Mulberry');
+      }
+      this.previewMullberry(elt.word);
+    } else if (elt.lib === 'arasaacNB') {
+      this.previewArasaac(elt.word, false);
+      if (!this.boardService.board.libraryUsed.includes('Arasaac')) {
+        this.boardService.board.libraryUsed.push('Arasaac');
+      }
+    } else if (elt.lib === 'arasaacColor') {
+      this.previewArasaac(elt.word, true);
+      if (!this.boardService.board.libraryUsed.includes('Arasaac')) {
+        this.boardService.board.libraryUsed.push('Arasaac');
+      }
+    }
   }
 }

@@ -32,7 +32,7 @@
         <div class="inputURL">
           <input class="searchField" type="search" id="imagefromURL" #text
             placeholder="{{this.multilinguism.translate('enterImageURL')}}">
-          <input class="searchURL" type="button" value="Ok" (click)="previewWithURL(text.value)">
+          <input class="searchURL" type="button" value="Ok" (click)="searchPictoInLibrary.previewWithURL(text.value)">
         </div>
         <label class="label" for="imagefromLib">{{this.multilinguism.translate("fromLibrary")}}: </label>
         <div class="input">
@@ -52,7 +52,7 @@
         <ng-container *ngFor="let b of this.imageList ">
 
           <div class="pictoImg haveBackgroundImage" [ngStyle]="{'background-image': this.getThumbnailPreviewLibrary(b)}"
-            (click)="this.previewLibrary(b)"></div>
+            (click)="this.searchPictoInLibrary.previewLibrary(b)"></div>
         </ng-container>
       </div>
     </div>
